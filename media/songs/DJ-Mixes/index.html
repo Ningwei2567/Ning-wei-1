@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DJ Mixes - Ning Wei Media</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:#172033;
+
+    background:
+        radial-gradient(circle at 10% 10%,rgba(80,170,255,.18),transparent 35%),
+        radial-gradient(circle at 90% 30%,rgba(180,100,255,.14),transparent 35%),
+        linear-gradient(135deg,#f7fbff,#f7f3ff,#effcf9);
+}
+
+header{
+    background:linear-gradient(135deg,#168de2,#2457d6);
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:32px;
+}
+
+header p{
+    margin:8px 0 0;
+    font-size:17px;
+}
+
+.search{
+    max-width:700px;
+    margin:25px auto 10px;
+    padding:0 20px;
+}
+
+.search input{
+    width:100%;
+    padding:17px 22px;
+    border:0;
+    border-radius:35px;
+    font-size:18px;
+    outline:none;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:10px 20px 30px;
+}
+
+.folder{
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    padding:20px 10px;
+
+    border-bottom:1px solid #dce1e8;
+
+    text-decoration:none;
+    color:#172033;
+}
+
+.folder:hover{
+    background:rgba(255,255,255,.6);
+}
+
+.folder-icon{
+    font-size:36px;
+    width:55px;
+    text-align:center;
+}
+
+.info{
+    flex:1;
+}
+
+.info h2{
+    margin:0 0 5px;
+    font-size:22px;
+}
+
+.info p{
+    margin:0;
+    color:#718096;
+    font-size:15px;
+}
+
+.arrow{
+    color:#168dcc;
+    font-size:30px;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin:10px 0 40px;
+    color:#168dcc;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎧 DJ Mixes</h1>
+    <p>Mixtapes, mappings, effects & skins</p>
+</header>
+
+<div class="search">
+
+    <input
+        id="search"
+        type="search"
+        placeholder="🔎 Search DJ Mixes..."
+        oninput="searchFolders()"
+    >
+
+</div>
+
+<div class="container">
+
+    <a class="folder"
+       href="Mixtapes/index.html">
+
+        <div class="folder-icon">🎧</div>
+
+        <div class="info">
+            <h2>DJ Mixtapes</h2>
+            <p>Non-stop DJ mixes and mixtapes</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </a>
+
+
+    <a class="folder"
+       href="Mappings/index.html">
+
+        <div class="folder-icon">🗺️</div>
+
+        <div class="info">
+            <h2>Mappings</h2>
+            <p>DJ mappings and controller files</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </a>
+
+
+    <a class="folder"
+       href="Sound-Effects/index.html">
+
+        <div class="folder-icon">🔊</div>
+
+        <div class="info">
+            <h2>Sound Effects</h2>
+            <p>Sound effects and DJ sounds</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </a>
+
+
+    <a class="folder"
+       href="Virtual-DJ-Skins/index.html">
+
+        <div class="folder-icon">🎨</div>
+
+        <div class="info">
+            <h2>Virtual DJ Skins</h2>
+            <p>Virtual DJ skins and themes</p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </a>
+
+</div>
+
+<a class="back" href="../../../index.html">
+    ← Back to Home
+</a>
+
+<script>
+
+function searchFolders(){
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".folder").forEach(folder => {
+
+        const text =
+            folder.innerText.toLowerCase();
+
+        folder.style.display =
+            text.includes(search) ? "flex" : "none";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
