@@ -4,491 +4,423 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ning Wei Media</title>
+<title>Ning Wei Media Player</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#172033;
-    min-height:100vh;
-
-    background:
-    radial-gradient(circle at 5% 10%,rgba(0,145,255,.18),transparent 28%),
-    radial-gradient(circle at 95% 20%,rgba(140,70,255,.15),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(0,190,160,.14),transparent 35%),
-    linear-gradient(135deg,#f8fbff,#f4f1ff,#f2fffb);
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f8fa;
+  color: #111;
 }
 
-header{
-    background:linear-gradient(135deg,#087ee8,#1756d5);
-    color:white;
-    text-align:center;
-    padding:23px 15px;
+.header {
+  height: 190px;
+  display: flex;
+  align-items: flex-end;
+  padding: 15px;
+  background:
+    linear-gradient(rgba(80,190,235,.20), rgba(80,190,235,.20)),
+    url("ning-wei.png") center/cover no-repeat;
 }
 
-header h1{
-    margin:0;
-    font-size:28px;
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 26px;
+  text-shadow: 0 2px 6px #000;
 }
 
-header p{
-    margin:6px 0 0;
-    font-size:14px;
-    opacity:.92;
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
 }
 
-.container{
-    max-width:850px;
-    margin:auto;
-    padding:15px;
+.back {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #087ea4;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.search{
-    width:100%;
-    padding:14px 18px;
-    border:0;
-    outline:0;
-    border-radius:30px;
-    font-size:16px;
-    background:white;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-    margin-bottom:12px;
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.12);
 }
 
-.list{
-    background:rgba(255,255,255,.55);
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,.04);
+.title {
+  margin: 0 0 5px;
+  font-size: 21px;
+  word-break: break-word;
 }
 
-.item{
-    display:flex;
-    align-items:center;
-    min-height:64px;
-    padding:10px 12px;
-    color:#172033;
-    text-decoration:none;
-    border-bottom:1px solid rgba(0,0,0,.07);
-    transition:.2s;
+.type {
+  margin: 0;
+  color: #777;
 }
 
-.item:last-child{
-    border-bottom:0;
+.player {
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
-.item:hover{
-    background:rgba(255,255,255,.85);
+audio {
+  width: 100%;
+  display: block;
+  padding: 15px;
 }
 
-.icon{
-    width:46px;
-    text-align:center;
-    font-size:27px;
+video {
+  width: 100%;
+  max-height: 550px;
+  display: block;
 }
 
-.info{
-    flex:1;
-    min-width:0;
+.image {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  display: block;
 }
 
-.name{
-    font-size:16px;
-    font-weight:bold;
-    word-break:break-word;
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.type{
-    margin-top:3px;
-    color:#718096;
-    font-size:12px;
+button,
+.download {
+  border: 0;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.arrow{
-    color:#168de2;
-    font-size:25px;
-    padding-left:8px;
+.download {
+  background: #0795c5;
+  color: white;
 }
 
-.message{
-    text-align:center;
-    padding:30px 10px;
-    color:#777;
+.share {
+  background: black;
+  color: white;
 }
 
-.back{
-    display:block;
-    text-align:center;
-    margin:22px;
-    color:#087ee8;
-    text-decoration:none;
-    font-weight:bold;
+.message {
+  text-align: center;
+  padding: 35px 15px;
+  color: #777;
+  background: white;
+  border-radius: 10px;
+}
+
+.ad {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #bbb;
+  border-radius: 8px;
+  color: #888;
+  margin-top: 15px;
+  background: white;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-
-    <h1 id="title">📁 Ning Wei Media</h1>
-
-    <p>
-        Browse and search this folder
-    </p>
-
+<header class="header">
+  <h1>🎵 Ning Wei Media</h1>
 </header>
-
 
 <div class="container">
 
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="🔎 Search this folder..."
-        autocomplete="off"
-    >
+  <a class="back" id="back" href="index.html">
+    ← Back
+  </a>
 
+  <div class="card">
+    <h2 class="title" id="title">Loading...</h2>
+    <p class="type" id="type"></p>
+  </div>
 
-    <div id="list" class="list">
+  <div id="content">
+    <div class="message">Loading media...</div>
+  </div>
 
-        <div class="message">
-            Loading...
-        </div>
-
-    </div>
-
+  <div class="buttons" id="buttons" style="display:none;">
 
     <a
-        class="back"
-        href="index.html"
+      id="download"
+      class="download"
+      href="#"
+      download
     >
-        ← Back to Home
+      ⬇ Download
     </a>
+
+    <button
+      class="share"
+      onclick="sharePage()"
+    >
+      ↗ Share
+    </button>
+
+  </div>
+
+  <div class="ad">
+    Advertisement
+  </div>
 
 </div>
 
-
 <script>
 
-const USER = "Ningwei2567";
-
-const REPO = "Ning-wei-1";
-
-const BRANCH = "main";
-
-
 const params =
-new URLSearchParams(window.location.search);
+  new URLSearchParams(window.location.search);
 
+/*
+  This player accepts:
 
-const folder =
-params.get("path") || "media";
+  ?path=media/songs/Ugandan/song.mp3
 
+  OR
 
-const API =
-`https://api.github.com/repos/${USER}/${REPO}/contents/${folder}?ref=${BRANCH}`;
+  ?folder=Ugandan&file=song.mp3
 
+  OR
 
-const list =
-document.getElementById("list");
+  ?file=17880208913860.mp4
+*/
 
+let path = params.get("path");
+let folder = params.get("folder");
+let file = params.get("file");
 
-const search =
-document.getElementById("search");
+if (!path && file) {
 
+  if (folder) {
+    path = "media/songs/" +
+      folder.replace(/^\/+|\/+$/g, "") +
+      "/" +
+      file;
+  } else {
+    path = file;
+  }
+}
 
 const title =
-document.getElementById("title");
+  document.getElementById("title");
 
+const type =
+  document.getElementById("type");
 
-let allItems = [];
+const content =
+  document.getElementById("content");
 
+const buttons =
+  document.getElementById("buttons");
 
+const download =
+  document.getElementById("download");
 
-/* MAKE FILE/FOLDER NAME BEAUTIFUL */
+if (!path) {
 
-function niceName(name){
+  title.textContent = "No media selected";
 
-    return name
-        .replace(/\.[^/.]+$/,"")
-        .replace(/[-_]/g," ")
-        .replace(/\b\w/g,c=>c.toUpperCase());
+  type.textContent = "";
 
+  content.innerHTML =
+    `<div class="message">
+      No file was selected.
+    </div>`;
+
+} else {
+
+  const cleanPath =
+    path.replace(/^\/+/, "");
+
+  const fileName =
+    cleanPath.split("/").pop();
+
+  const extension =
+    fileName
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+  title.textContent =
+    fileName.replace(/\.[^/.]+$/, "");
+
+  const mediaURL =
+    "https://raw.githubusercontent.com/" +
+    "Ningwei2567/Ning-wei-1/main/" +
+    cleanPath
+      .split("/")
+      .map(encodeURIComponent)
+      .join("/");
+
+  download.href = mediaURL;
+  download.download = fileName;
+
+  buttons.style.display = "flex";
+
+  /*
+    AUDIO
+  */
+
+  const audioTypes = [
+    "mp3",
+    "wav",
+    "m4a",
+    "aac",
+    "ogg",
+    "oga",
+    "opus",
+    "flac"
+  ];
+
+  /*
+    VIDEO
+  */
+
+  const videoTypes = [
+    "mp4",
+    "webm",
+    "mov",
+    "m4v",
+    "avi",
+    "mkv"
+  ];
+
+  /*
+    IMAGE
+  */
+
+  const imageTypes = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "bmp"
+  ];
+
+  if (audioTypes.includes(extension)) {
+
+    type.textContent = "Audio";
+
+    content.innerHTML = `
+      <div class="player">
+        <audio
+          controls
+          preload="metadata"
+          src="${mediaURL}">
+        </audio>
+      </div>
+    `;
+
+  }
+
+  else if (videoTypes.includes(extension)) {
+
+    type.textContent = "Video";
+
+    content.innerHTML = `
+      <div class="player">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          src="${mediaURL}">
+        </video>
+      </div>
+    `;
+
+  }
+
+  else if (imageTypes.includes(extension)) {
+
+    type.textContent = "Image";
+
+    content.innerHTML = `
+      <div class="player">
+        <img
+          class="image"
+          src="${mediaURL}"
+          alt="${fileName}">
+      </div>
+    `;
+
+  }
+
+  else {
+
+    type.textContent = "File";
+
+    content.innerHTML =
+      `<div class="message">
+        This file cannot be played directly in the browser.
+        <br><br>
+        Use the Download button below.
+      </div>`;
+  }
 }
 
 
+/*
+  SHARE
+*/
 
-/* CHOOSE ICON */
+async function sharePage() {
 
-function getIcon(item){
+  const shareData = {
+    title:
+      document.getElementById("title").textContent,
 
-    if(item.type === "dir"){
+    text:
+      "Ning Wei Media",
 
-        const n =
-        item.name.toLowerCase();
+    url:
+      window.location.href
+  };
 
-        if(n.includes("dj"))
-            return "🎧";
+  try {
 
-        if(n.includes("mapping"))
-            return "🗺️";
+    if (navigator.share) {
 
-        if(n.includes("effect"))
-            return "🔊";
+      await navigator.share(shareData);
 
-        if(n.includes("skin"))
-            return "🎨";
+    } else {
 
-        if(n.includes("uganda"))
-            return "🇺🇬";
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
 
-        if(n.includes("africa"))
-            return "🌍";
-
-        if(n.includes("international"))
-            return "🌎";
-
-        return "📁";
-    }
-
-
-    const n =
-    item.name.toLowerCase();
-
-
-    if(/\.(mp3|wav|m4a|ogg|flac|aac)$/i.test(n))
-        return "🎵";
-
-
-    if(/\.(mp4|mkv|mov|avi|webm)$/i.test(n))
-        return "🎬";
-
-
-    if(/\.(jpg|jpeg|png|gif|webp)$/i.test(n))
-        return "📸";
-
-
-    if(/\.apk$/i.test(n))
-        return "📱";
-
-
-    if(/\.(zip|rar|7z)$/i.test(n))
-        return "📦";
-
-
-    return "📄";
-}
-
-
-
-/* CHECK AUDIO */
-
-function isAudio(name){
-
-    return /\.(mp3|wav|m4a|ogg|flac|aac)$/i.test(name);
-
-}
-
-
-
-/* DISPLAY ITEMS */
-
-function displayItems(data){
-
-    list.innerHTML = "";
-
-
-    if(data.length === 0){
-
-        list.innerHTML =
-        `<div class="message">
-            Nothing found in this folder.
-        </div>`;
-
-        return;
-    }
-
-
-    data.forEach(item => {
-
-        const link =
-        document.createElement("a");
-
-
-        link.className =
-        "item";
-
-
-        /*
-         * FOLDER
-         */
-
-        if(item.type === "dir"){
-
-            link.href =
-            `media.html?path=${encodeURIComponent(item.path)}`;
-
-        }
-
-
-        /*
-         * AUDIO FILE
-         *
-         * IMPORTANT:
-         * Audio no longer downloads directly.
-         * It opens song.html.
-         */
-
-        else if(isAudio(item.name)){
-
-            link.href =
-            `song.html?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(item.name)}&title=${encodeURIComponent(niceName(item.name))}`;
-
-        }
-
-
-        /*
-         * OTHER FILES
-         */
-
-        else{
-
-            link.href =
-            item.download_url;
-
-            link.target =
-            "_blank";
-
-        }
-
-
-        link.innerHTML = `
-
-            <div class="icon">
-                ${getIcon(item)}
-            </div>
-
-            <div class="info">
-
-                <div class="name">
-                    ${niceName(item.name)}
-                </div>
-
-                <div class="type">
-                    ${item.type === "dir"
-                        ? "Folder"
-                        : isAudio(item.name)
-                            ? "Song • Open player"
-                            : "File"}
-                </div>
-
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
-        `;
-
-
-        list.appendChild(link);
-
-    });
-
-}
-
-
-
-/* LOAD FOLDER */
-
-async function loadFolder(){
-
-    try{
-
-        const response =
-        await fetch(API);
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Folder could not be loaded"
-            );
-
-        }
-
-
-        allItems =
-        await response.json();
-
-
-        if(!Array.isArray(allItems)){
-
-            throw new Error(
-                "Invalid folder"
-            );
-
-        }
-
-
-        const current =
-        folder.split("/").pop();
-
-
-        title.textContent =
-        "📁 " + niceName(current);
-
-
-        displayItems(allItems);
-
-
-    }catch(error){
-
-        list.innerHTML =
-        `<div class="message">
-            Unable to load this folder.
-        </div>`;
+      alert("Link copied!");
 
     }
 
+  } catch (error) {
+    console.log(error);
+  }
 }
-
-
-
-/* SEARCH */
-
-search.addEventListener(
-    "input",
-    function(){
-
-        const query =
-        search.value
-        .toLowerCase()
-        .trim();
-
-
-        const filtered =
-        allItems.filter(item =>
-            item.name
-            .toLowerCase()
-            .includes(query)
-        );
-
-
-        displayItems(filtered);
-
-    }
-);
-
-
-loadFolder();
 
 </script>
 
