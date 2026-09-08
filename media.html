@@ -7,17 +7,20 @@
 <title>Ning Wei Media</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     color:#172033;
     min-height:100vh;
+
     background:
     radial-gradient(circle at 5% 10%,rgba(0,145,255,.18),transparent 28%),
-    radial-gradient(circle at 95% 20%,rgba(130,70,255,.15),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(0,190,150,.13),transparent 32%),
+    radial-gradient(circle at 95% 20%,rgba(140,70,255,.15),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(0,190,160,.14),transparent 35%),
     linear-gradient(135deg,#f8fbff,#f4f1ff,#f2fffb);
 }
 
@@ -25,18 +28,18 @@ header{
     background:linear-gradient(135deg,#087ee8,#1756d5);
     color:white;
     text-align:center;
-    padding:22px 15px;
+    padding:23px 15px;
 }
 
 header h1{
     margin:0;
-    font-size:27px;
+    font-size:28px;
 }
 
 header p{
     margin:6px 0 0;
-    font-size:13px;
-    opacity:.9;
+    font-size:14px;
+    opacity:.92;
 }
 
 .container{
@@ -54,23 +57,25 @@ header p{
     font-size:16px;
     background:white;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
 .list{
-    background:rgba(255,255,255,.5);
-    border-radius:15px;
+    background:rgba(255,255,255,.55);
+    border-radius:16px;
     overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
 }
 
 .item{
     display:flex;
     align-items:center;
-    min-height:60px;
+    min-height:64px;
     padding:10px 12px;
     color:#172033;
     text-decoration:none;
     border-bottom:1px solid rgba(0,0,0,.07);
+    transition:.2s;
 }
 
 .item:last-child{
@@ -78,22 +83,24 @@ header p{
 }
 
 .item:hover{
-    background:rgba(255,255,255,.8);
+    background:rgba(255,255,255,.85);
 }
 
 .icon{
-    width:42px;
+    width:46px;
     text-align:center;
-    font-size:24px;
+    font-size:27px;
 }
 
 .info{
     flex:1;
+    min-width:0;
 }
 
 .name{
     font-size:16px;
     font-weight:bold;
+    word-break:break-word;
 }
 
 .type{
@@ -104,7 +111,8 @@ header p{
 
 .arrow{
     color:#168de2;
-    font-size:24px;
+    font-size:25px;
+    padding-left:8px;
 }
 
 .message{
@@ -116,7 +124,7 @@ header p{
 .back{
     display:block;
     text-align:center;
-    margin:20px;
+    margin:22px;
     color:#087ee8;
     text-decoration:none;
     font-weight:bold;
@@ -127,201 +135,325 @@ header p{
 <body>
 
 <header>
+
     <h1 id="title">📁 Ning Wei Media</h1>
-    <p>Browse and search this folder</p>
+
+    <p>
+        Browse and search this folder
+    </p>
+
 </header>
+
 
 <div class="container">
 
-<input
-    id="search"
-    class="search"
-    type="search"
-    placeholder="🔎 Search this folder..."
->
+    <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="🔎 Search this folder..."
+        autocomplete="off"
+    >
 
-<div id="list" class="list">
-    <div class="message">Loading...</div>
+
+    <div id="list" class="list">
+
+        <div class="message">
+            Loading...
+        </div>
+
+    </div>
+
+
+    <a
+        class="back"
+        href="index.html"
+    >
+        ← Back to Home
+    </a>
+
 </div>
 
-<a class="back" href="index.html">
-    ← Back to Home
-</a>
-
-</div>
 
 <script>
 
 const USER = "Ningwei2567";
+
 const REPO = "Ning-wei-1";
+
 const BRANCH = "main";
 
-const params =
-new URLSearchParams(location.search);
 
-const path =
+const params =
+new URLSearchParams(window.location.search);
+
+
+const folder =
 params.get("path") || "media";
 
+
 const API =
-`https://api.github.com/repos/${USER}/${REPO}/contents/${path}?ref=${BRANCH}`;
+`https://api.github.com/repos/${USER}/${REPO}/contents/${folder}?ref=${BRANCH}`;
+
 
 const list =
 document.getElementById("list");
 
+
 const search =
 document.getElementById("search");
+
 
 const title =
 document.getElementById("title");
 
-let items = [];
 
+let allItems = [];
+
+
+
+/* MAKE FILE/FOLDER NAME BEAUTIFUL */
 
 function niceName(name){
 
     return name
-    .replace(/\.[^/.]+$/,"")
-    .replace(/[-_]/g," ")
-    .replace(/\b\w/g,c=>c.toUpperCase());
+        .replace(/\.[^/.]+$/,"")
+        .replace(/[-_]/g," ")
+        .replace(/\b\w/g,c=>c.toUpperCase());
 
 }
 
 
-function icon(item){
+
+/* CHOOSE ICON */
+
+function getIcon(item){
 
     if(item.type === "dir"){
 
-        const n=item.name.toLowerCase();
+        const n =
+        item.name.toLowerCase();
 
-        if(n.includes("dj")) return "🎧";
-        if(n.includes("mapping")) return "🗺️";
-        if(n.includes("effect")) return "🔊";
-        if(n.includes("skin")) return "🎨";
-        if(n.includes("uganda")) return "🇺🇬";
-        if(n.includes("afric")) return "🌍";
-        if(n.includes("international")) return "🌎";
-        if(n.includes("song")) return "🎵";
+        if(n.includes("dj"))
+            return "🎧";
+
+        if(n.includes("mapping"))
+            return "🗺️";
+
+        if(n.includes("effect"))
+            return "🔊";
+
+        if(n.includes("skin"))
+            return "🎨";
+
+        if(n.includes("uganda"))
+            return "🇺🇬";
+
+        if(n.includes("africa"))
+            return "🌍";
+
+        if(n.includes("international"))
+            return "🌎";
 
         return "📁";
     }
 
-    const n=item.name.toLowerCase();
 
-    if(/\.(mp3|wav|m4a|ogg|flac)$/i.test(n))
+    const n =
+    item.name.toLowerCase();
+
+
+    if(/\.(mp3|wav|m4a|ogg|flac|aac)$/i.test(n))
         return "🎵";
+
 
     if(/\.(mp4|mkv|mov|avi|webm)$/i.test(n))
         return "🎬";
 
+
     if(/\.(jpg|jpeg|png|gif|webp)$/i.test(n))
         return "📸";
+
 
     if(/\.apk$/i.test(n))
         return "📱";
 
+
     if(/\.(zip|rar|7z)$/i.test(n))
         return "📦";
+
 
     return "📄";
 }
 
 
-function show(data){
 
-    list.innerHTML="";
+/* CHECK AUDIO */
 
-    if(data.length===0){
+function isAudio(name){
 
-        list.innerHTML=
+    return /\.(mp3|wav|m4a|ogg|flac|aac)$/i.test(name);
+
+}
+
+
+
+/* DISPLAY ITEMS */
+
+function displayItems(data){
+
+    list.innerHTML = "";
+
+
+    if(data.length === 0){
+
+        list.innerHTML =
         `<div class="message">
-        Nothing found in this folder.
+            Nothing found in this folder.
         </div>`;
 
         return;
     }
 
 
-    data.forEach(item=>{
+    data.forEach(item => {
 
-        const a=document.createElement("a");
+        const link =
+        document.createElement("a");
 
-        a.className="item";
 
-        if(item.type==="dir"){
+        link.className =
+        "item";
 
-            a.href=
+
+        /*
+         * FOLDER
+         */
+
+        if(item.type === "dir"){
+
+            link.href =
             `media.html?path=${encodeURIComponent(item.path)}`;
 
-        }else{
-
-            /*
-             * Files are opened/downloaded directly.
-             */
-            a.href=item.download_url;
-            a.target="_blank";
         }
 
 
-        a.innerHTML=`
+        /*
+         * AUDIO FILE
+         *
+         * IMPORTANT:
+         * Audio no longer downloads directly.
+         * It opens song.html.
+         */
 
-        <div class="icon">
-            ${icon(item)}
-        </div>
+        else if(isAudio(item.name)){
 
-        <div class="info">
+            link.href =
+            `song.html?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(item.name)}&title=${encodeURIComponent(niceName(item.name))}`;
 
-            <div class="name">
-                ${niceName(item.name)}
+        }
+
+
+        /*
+         * OTHER FILES
+         */
+
+        else{
+
+            link.href =
+            item.download_url;
+
+            link.target =
+            "_blank";
+
+        }
+
+
+        link.innerHTML = `
+
+            <div class="icon">
+                ${getIcon(item)}
             </div>
 
-            <div class="type">
-                ${item.type==="dir" ? "Folder" : "File"}
+            <div class="info">
+
+                <div class="name">
+                    ${niceName(item.name)}
+                </div>
+
+                <div class="type">
+                    ${item.type === "dir"
+                        ? "Folder"
+                        : isAudio(item.name)
+                            ? "Song • Open player"
+                            : "File"}
+                </div>
+
             </div>
 
-        </div>
-
-        <div class="arrow">›</div>
+            <div class="arrow">
+                ›
+            </div>
 
         `;
 
-        list.appendChild(a);
+
+        list.appendChild(link);
 
     });
 
 }
 
 
-async function load(){
+
+/* LOAD FOLDER */
+
+async function loadFolder(){
 
     try{
 
-        const response=
+        const response =
         await fetch(API);
 
-        if(!response.ok)
-            throw new Error();
 
-        items=
+        if(!response.ok){
+
+            throw new Error(
+                "Folder could not be loaded"
+            );
+
+        }
+
+
+        allItems =
         await response.json();
 
-        if(!Array.isArray(items))
-            throw new Error();
+
+        if(!Array.isArray(allItems)){
+
+            throw new Error(
+                "Invalid folder"
+            );
+
+        }
 
 
-        const current=
-        path.split("/").pop();
-
-        title.textContent=
-        "📁 "+niceName(current);
+        const current =
+        folder.split("/").pop();
 
 
-        show(items);
+        title.textContent =
+        "📁 " + niceName(current);
 
-    }catch(e){
 
-        list.innerHTML=
+        displayItems(allItems);
+
+
+    }catch(error){
+
+        list.innerHTML =
         `<div class="message">
-        Unable to load this folder.
+            Unable to load this folder.
         </div>`;
 
     }
@@ -329,22 +461,34 @@ async function load(){
 }
 
 
-search.addEventListener("input",()=>{
 
-    const q=
-    search.value.toLowerCase().trim();
+/* SEARCH */
 
-    const filtered=
-    items.filter(item=>
-        item.name.toLowerCase().includes(q)
-    );
+search.addEventListener(
+    "input",
+    function(){
 
-    show(filtered);
-
-});
+        const query =
+        search.value
+        .toLowerCase()
+        .trim();
 
 
-load();
+        const filtered =
+        allItems.filter(item =>
+            item.name
+            .toLowerCase()
+            .includes(query)
+        );
+
+
+        displayItems(filtered);
+
+    }
+);
+
+
+loadFolder();
 
 </script>
 
