@@ -1,425 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ning Wei Media Player</title>
 
 <style>
-* {
-  box-sizing: border-box;
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f7fa;
+color:#111;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f8fa;
-  color: #111;
+.header{
+height:230px;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+overflow:hidden;
 }
 
-.header {
-  height: 190px;
-  display: flex;
-  align-items: flex-end;
-  padding: 15px;
-  background:
-    linear-gradient(rgba(80,190,235,.20), rgba(80,190,235,.20)),
-    url("ning-wei.png") center/cover no-repeat;
+.header:before{
+content:"";
+position:absolute;
+inset:0;
+background:url("ning-wei.png") center/cover no-repeat;
 }
 
-.header h1 {
-  margin: 0;
-  color: white;
-  font-size: 26px;
-  text-shadow: 0 2px 6px #000;
+.header:after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(42,157,201,.38);
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 15px;
+.header h1{
+position:relative;
+z-index:2;
+color:white;
+font-size:40px;
+text-shadow:0 3px 7px #000;
 }
 
-.back {
-  display: inline-block;
-  margin-bottom: 15px;
-  color: #087ea4;
-  text-decoration: none;
-  font-weight: bold;
+.container{
+max-width:900px;
+margin:auto;
+padding:25px;
 }
 
-.card {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 5px rgba(0,0,0,.12);
+.back{
+display:block;
+font-size:23px;
+font-weight:bold;
+color:#167f91;
+text-decoration:none;
+margin-bottom:20px;
 }
 
-.title {
-  margin: 0 0 5px;
-  font-size: 21px;
-  word-break: break-word;
+.player{
+background:#fff;
+border-radius:22px;
+padding:20px;
+box-shadow:0 4px 15px rgba(0,0,0,.1);
 }
 
-.type {
-  margin: 0;
-  color: #777;
+audio,video,img{
+width:100%;
+max-height:500px;
+border-radius:15px;
 }
 
-.player {
-  background: #000;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 12px;
+h2{
+word-break:break-word;
 }
 
-audio {
-  width: 100%;
-  display: block;
-  padding: 15px;
+.buttons{
+display:flex;
+gap:12px;
+margin-top:20px;
 }
 
-video {
-  width: 100%;
-  max-height: 550px;
-  display: block;
+button{
+flex:1;
+padding:15px;
+border:0;
+border-radius:30px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.image {
-  width: 100%;
-  max-height: 600px;
-  object-fit: contain;
-  display: block;
+.download{
+background:#168fd1;
+color:white;
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.share{
+background:#eee;
 }
 
-button,
-.download {
-  border: 0;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
+.ad{
+margin-top:25px;
+padding:30px;
+background:#eee;
+border-radius:15px;
+text-align:center;
+color:#888;
 }
 
-.download {
-  background: #0795c5;
-  color: white;
-}
-
-.share {
-  background: black;
-  color: white;
-}
-
-.message {
-  text-align: center;
-  padding: 35px 15px;
-  color: #777;
-  background: white;
-  border-radius: 10px;
-}
-
-.ad {
-  min-height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed #bbb;
-  border-radius: 8px;
-  color: #888;
-  margin-top: 15px;
-  background: white;
-}
 </style>
 </head>
 
 <body>
 
 <header class="header">
-  <h1>🎵 Ning Wei Media</h1>
+<h1>🎵 Ning Wei Media</h1>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <a class="back" id="back" href="index.html">
-    ← Back
-  </a>
+<a class="back" href="javascript:history.back()">← Back</a>
 
-  <div class="card">
-    <h2 class="title" id="title">Loading...</h2>
-    <p class="type" id="type"></p>
-  </div>
+<div class="player">
 
-  <div id="content">
-    <div class="message">Loading media...</div>
-  </div>
+<h2 id="title">Loading...</h2>
 
-  <div class="buttons" id="buttons" style="display:none;">
+<div id="media"></div>
 
-    <a
-      id="download"
-      class="download"
-      href="#"
-      download
-    >
-      ⬇ Download
-    </a>
+<div class="buttons">
 
-    <button
-      class="share"
-      onclick="sharePage()"
-    >
-      ↗ Share
-    </button>
+<button class="download" id="download">
+⬇ Download
+</button>
 
-  </div>
-
-  <div class="ad">
-    Advertisement
-  </div>
+<button class="share" id="share">
+↗ Share
+</button>
 
 </div>
 
+<div class="ad">
+Advertisement
+</div>
+
+</div>
+
+</main>
+
 <script>
 
-const params =
-  new URLSearchParams(window.location.search);
+const params=new URLSearchParams(location.search);
 
-/*
-  This player accepts:
+const path=params.get("path");
 
-  ?path=media/songs/Ugandan/song.mp3
+if(!path){
 
-  OR
+document.getElementById("title").textContent=
+"No media selected.";
 
-  ?folder=Ugandan&file=song.mp3
+}else{
 
-  OR
+const raw=
+"https://raw.githubusercontent.com/Ningwei2567/Ning-wei-1/main/"
++
+path.split("/")
+.map(encodeURIComponent)
+.join("/");
 
-  ?file=17880208913860.mp4
-*/
+const name=
+decodeURIComponent(path.split("/").pop());
 
-let path = params.get("path");
-let folder = params.get("folder");
-let file = params.get("file");
+document.getElementById("title").textContent=name;
 
-if (!path && file) {
+const ext=name.split(".").pop().toLowerCase();
 
-  if (folder) {
-    path = "media/songs/" +
-      folder.replace(/^\/+|\/+$/g, "") +
-      "/" +
-      file;
-  } else {
-    path = file;
-  }
+const media=document.getElementById("media");
+
+if(["mp3","m4a","wav","aac","ogg","opus","flac"].includes(ext)){
+
+media.innerHTML=
+`<audio controls preload="metadata" src="${raw}"></audio>`;
+
 }
 
-const title =
-  document.getElementById("title");
+else if(["mp4","webm","mov","m4v"].includes(ext)){
 
-const type =
-  document.getElementById("type");
+media.innerHTML=
+`<video controls playsinline preload="metadata" src="${raw}"></video>`;
 
-const content =
-  document.getElementById("content");
-
-const buttons =
-  document.getElementById("buttons");
-
-const download =
-  document.getElementById("download");
-
-if (!path) {
-
-  title.textContent = "No media selected";
-
-  type.textContent = "";
-
-  content.innerHTML =
-    `<div class="message">
-      No file was selected.
-    </div>`;
-
-} else {
-
-  const cleanPath =
-    path.replace(/^\/+/, "");
-
-  const fileName =
-    cleanPath.split("/").pop();
-
-  const extension =
-    fileName
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-  title.textContent =
-    fileName.replace(/\.[^/.]+$/, "");
-
-  const mediaURL =
-    "https://raw.githubusercontent.com/" +
-    "Ningwei2567/Ning-wei-1/main/" +
-    cleanPath
-      .split("/")
-      .map(encodeURIComponent)
-      .join("/");
-
-  download.href = mediaURL;
-  download.download = fileName;
-
-  buttons.style.display = "flex";
-
-  /*
-    AUDIO
-  */
-
-  const audioTypes = [
-    "mp3",
-    "wav",
-    "m4a",
-    "aac",
-    "ogg",
-    "oga",
-    "opus",
-    "flac"
-  ];
-
-  /*
-    VIDEO
-  */
-
-  const videoTypes = [
-    "mp4",
-    "webm",
-    "mov",
-    "m4v",
-    "avi",
-    "mkv"
-  ];
-
-  /*
-    IMAGE
-  */
-
-  const imageTypes = [
-    "jpg",
-    "jpeg",
-    "png",
-    "gif",
-    "webp",
-    "bmp"
-  ];
-
-  if (audioTypes.includes(extension)) {
-
-    type.textContent = "Audio";
-
-    content.innerHTML = `
-      <div class="player">
-        <audio
-          controls
-          preload="metadata"
-          src="${mediaURL}">
-        </audio>
-      </div>
-    `;
-
-  }
-
-  else if (videoTypes.includes(extension)) {
-
-    type.textContent = "Video";
-
-    content.innerHTML = `
-      <div class="player">
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          src="${mediaURL}">
-        </video>
-      </div>
-    `;
-
-  }
-
-  else if (imageTypes.includes(extension)) {
-
-    type.textContent = "Image";
-
-    content.innerHTML = `
-      <div class="player">
-        <img
-          class="image"
-          src="${mediaURL}"
-          alt="${fileName}">
-      </div>
-    `;
-
-  }
-
-  else {
-
-    type.textContent = "File";
-
-    content.innerHTML =
-      `<div class="message">
-        This file cannot be played directly in the browser.
-        <br><br>
-        Use the Download button below.
-      </div>`;
-  }
 }
 
+else if(["jpg","jpeg","png","gif","webp","bmp"].includes(ext)){
 
-/*
-  SHARE
-*/
+media.innerHTML=
+`<img src="${raw}" alt="">`;
 
-async function sharePage() {
+}
 
-  const shareData = {
-    title:
-      document.getElementById("title").textContent,
+else{
 
-    text:
-      "Ning Wei Media",
+media.innerHTML=
+`<p>This file cannot be previewed here.</p>`;
 
-    url:
-      window.location.href
-  };
+}
 
-  try {
+document.getElementById("download").onclick=()=>{
 
-    if (navigator.share) {
+const a=document.createElement("a");
 
-      await navigator.share(shareData);
+a.href=raw;
+a.download=name;
+a.target="_blank";
+a.click();
 
-    } else {
+};
 
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
+document.getElementById("share").onclick=async()=>{
 
-      alert("Link copied!");
+try{
 
-    }
+await navigator.share({
+title:name,
+url:location.href
+});
 
-  } catch (error) {
-    console.log(error);
-  }
+}catch(e){
+
+navigator.clipboard.writeText(location.href);
+
+alert("Link copied.");
+
+}
+
+};
+
 }
 
 </script>
