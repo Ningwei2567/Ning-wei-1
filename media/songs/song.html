@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Playing Song - Ning Wei Media</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3f4f8;
+    color:#222;
+}
+
+header{
+    background:#168de2;
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:28px;
+}
+
+.player-box{
+    max-width:700px;
+    margin:25px auto;
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 3px 15px #ccc;
+    text-align:center;
+}
+
+.cover{
+    width:220px;
+    height:220px;
+    border-radius:20px;
+    object-fit:cover;
+    background:#ddd;
+    margin:10px auto 20px;
+}
+
+#songTitle{
+    font-size:26px;
+    margin:10px 0 5px;
+}
+
+audio{
+    width:100%;
+    margin:20px 0;
+}
+
+.download{
+    display:inline-block;
+    background:#20c978;
+    color:white;
+    text-decoration:none;
+    padding:15px 30px;
+    border-radius:30px;
+    font-size:18px;
+    font-weight:bold;
+    margin:10px 0 25px;
+}
+
+.ad{
+    margin:20px auto;
+    min-height:120px;
+    max-width:600px;
+    background:#f1f1f1;
+    border:1px dashed #aaa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#888;
+}
+
+.back{
+    display:block;
+    text-decoration:none;
+    color:#168de2;
+    font-weight:bold;
+    margin:25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎵 Ning Wei Media</h1>
+</header>
+
+<div class="player-box">
+
+    <img
+        class="cover"
+        src="https://dummyimage.com/500x500/168de2/ffffff&text=Music"
+        alt="Song cover"
+    >
+
+    <h2 id="songTitle">Loading...</h2>
+
+    <audio id="player" controls>
+        Your browser does not support audio.
+    </audio>
+
+    <br>
+
+    <a id="download" class="download">
+        ⬇ DOWNLOAD SONG
+    </a>
+
+    <div class="ad">
+        ADVERTISEMENT
+    </div>
+
+</div>
+
+<a class="back" href="Ugandan/index.html">
+    ← Back to Ugandan Music
+</a>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const file = params.get("file");
+const title = params.get("title") || file;
+
+const username = "Ningwei2567";
+const repository = "Ning-wei-1";
+const branch = "main";
+
+if(!file){
+
+    document.getElementById("songTitle").textContent =
+    "Song not found";
+
+}else{
+
+    const encodedFile = file
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+
+    const songURL =
+    `https://raw.githubusercontent.com/${username}/${repository}/${branch}/media/songs/Ugandan/${encodedFile}`;
+
+    document.getElementById("songTitle").textContent =
+    title;
+
+    document.getElementById("player").src =
+    songURL;
+
+    const download = document.getElementById("download");
+
+    download.href = songURL;
+    download.download = title;
+
+}
+
+</script>
+
+</body>
+</html>
