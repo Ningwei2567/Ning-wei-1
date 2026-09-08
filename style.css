@@ -1,144 +1,273 @@
-*{
-  box-sizing:border-box;
+/* ================================
+   NING WEI MEDIA - SHARED STYLE
+   ================================ */
+
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#f4f8fb,#ffffff);
-  color:#222;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f5f5;
+  color: #222;
 }
 
-/* 🇺🇬 NING WEI MEDIA HEADER */
-.site-header{
-  position:relative;
-  overflow:hidden;
-  min-height:155px;
-  padding:25px 15px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
+/* ================================
+   SITE HEADER
+   Photo + Ugandan Flag Colors
+   ================================ */
+
+.site-header {
+  position: relative;
+  overflow: hidden;
+  min-height: 165px;
+  padding: 28px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
 
   background:
     linear-gradient(
-      rgba(0,0,0,.22),
-      rgba(0,0,0,.22)
+      rgba(0,0,0,.18),
+      rgba(0,0,0,.18)
     ),
     linear-gradient(
       180deg,
-      rgba(0,0,0,.48) 0%,
-      rgba(255,205,0,.34) 33%,
-      rgba(255,205,0,.34) 45%,
-      rgba(206,17,38,.34) 55%,
-      rgba(206,17,38,.34) 67%,
-      rgba(0,0,0,.48) 100%
+      rgba(0,0,0,.42) 0%,
+      rgba(0,0,0,.42) 32%,
+      rgba(255,205,0,.28) 32%,
+      rgba(255,205,0,.28) 66%,
+      rgba(210,0,0,.30) 66%,
+      rgba(210,0,0,.30) 100%
     ),
     url("ning-wei.png");
 
-  background-size:cover;
-  background-position:center 25%;
+  background-size: cover;
+  background-position: center 25%;
 
-  box-shadow:0 4px 18px rgba(0,0,0,.18);
+  box-shadow: 0 4px 18px rgba(0,0,0,.20);
 }
 
-.site-header h1{
-  margin:0;
-  font-size:32px;
-  font-weight:800;
-  text-shadow:0 2px 5px rgba(0,0,0,.45);
+.site-header h1 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0,0,0,.8);
 }
 
-.site-header p{
-  margin:8px 0 0;
-  font-size:14px;
-  text-shadow:0 2px 4px rgba(0,0,0,.45);
+.site-header p {
+  position: relative;
+  z-index: 2;
+  margin: 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0,0,0,.9);
 }
 
-/* SEARCH */
-.search-box{
-  max-width:700px;
-  margin:15px auto;
-  padding:0 15px;
+/* ================================
+   PAGE CONTAINER
+   ================================ */
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 15px;
 }
 
-.search-box input{
-  width:100%;
-  padding:13px 16px;
-  border:0;
-  border-radius:25px;
-  font-size:15px;
-  outline:none;
-  box-shadow:0 3px 12px rgba(0,0,0,.12);
+/* ================================
+   SEARCH
+   ================================ */
+
+.search-box {
+  width: 100%;
+  padding: 13px 15px;
+  margin: 0 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  background: white;
 }
 
-/* NUMBERED ROW */
-.numbered-row{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  background:white;
-  padding:14px;
-  margin:9px 0;
-  border-radius:11px;
-  text-decoration:none;
-  color:#222;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+.search-box:focus {
+  border-color: #777;
 }
 
-.number{
-  width:40px;
-  height:40px;
-  min-width:40px;
-  border-radius:50%;
+/* ================================
+   PAGE TITLE
+   ================================ */
 
-  /* 🇺🇬 Uganda flag colors */
+.page-title {
+  margin: 8px 0 15px;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+/* ================================
+   NUMBERED ROW
+   ================================ */
+
+.numbered-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background: white;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 0 2px 7px rgba(0,0,0,.10);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.numbered-row:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+/* ================================
+   UGANDAN FLAG NUMBER
+   ================================ */
+
+.number {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+
   background:
     linear-gradient(
       180deg,
       #000 0%,
-      #000 33%,
-      #fcdc00 33%,
-      #fcdc00 66%,
-      #d90000 66%,
+      #000 33.33%,
+      #fcdc00 33.33%,
+      #fcdc00 66.66%,
+      #d90000 66.66%,
       #d90000 100%
     );
 
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  font-weight:bold;
-  text-shadow:0 1px 3px #000;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  text-shadow: 0 1px 3px #000;
+
+  border: 2px solid white;
+  box-shadow: 0 1px 5px rgba(0,0,0,.25);
 }
 
-.numbered-row strong{
-  display:block;
-  font-size:16px;
+/* ================================
+   ROW TEXT
+   ================================ */
+
+.row-text {
+  min-width: 0;
+  flex: 1;
 }
 
-.numbered-row small{
-  display:block;
-  margin-top:3px;
-  color:#777;
-  font-size:12px;
+.row-text strong {
+  display: block;
+  font-size: 17px;
+  line-height: 1.25;
 }
 
-/* SECTION TITLE */
-.section-title{
-  margin:22px 0 10px;
-  color:#126dcc;
-  font-size:20px;
-  font-weight:bold;
+.row-text small {
+  display: block;
+  margin-top: 3px;
+  color: #777;
+  font-size: 13px;
 }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:20px;
-  color:#777;
-  font-size:13px;
+/* ================================
+   PLAY ICON
+   ================================ */
+
+.play {
+  font-size: 22px;
+  color: #222;
+}
+
+/* ================================
+   LOADING / EMPTY
+   ================================ */
+
+.loading {
+  text-align: center;
+  padding: 30px 10px;
+  color: #777;
+}
+
+/* ================================
+   BACK BUTTON
+   ================================ */
+
+.back {
+  display: block;
+  width: fit-content;
+  margin: 20px auto 30px;
+  padding: 10px 18px;
+  background: #111;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.site-footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: #777;
+  font-size: 13px;
+}
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media (max-width: 600px) {
+
+  .site-header {
+    min-height: 150px;
+    padding: 25px 12px;
+  }
+
+  .site-header h1 {
+    font-size: 27px;
+  }
+
+  .site-header p {
+    font-size: 13px;
+  }
+
+  .container {
+    padding: 12px;
+  }
+
+  .number {
+    width: 39px;
+    height: 39px;
+    min-width: 39px;
+    font-size: 17px;
+  }
+
+  .row-text strong {
+    font-size: 16px;
+  }
 }
