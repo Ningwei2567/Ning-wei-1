@@ -1,469 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ugandan Music - Ning Wei Media</title>
 
-<link
-rel="stylesheet"
-href="https://ningwei2567.github.io/Ning-wei-1/style.css"
->
+<style>
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f8fa;
+  color: #111;
+}
+
+.header {
+  position: relative;
+  height: 180px;
+  background:
+    linear-gradient(rgba(80,190,235,.22), rgba(80,190,235,.22)),
+    url("../../../../ning-wei.png") center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 15px;
+}
+
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 25px;
+  text-shadow: 0 2px 5px #000;
+}
+
+.container {
+  padding: 12px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.search {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.back {
+  display: inline-block;
+  text-decoration: none;
+  color: #087ea4;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border-radius: 8px;
+  padding: 9px;
+  margin-bottom: 7px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+}
+
+.number {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.item a {
+  text-decoration: none;
+  color: #111;
+  font-weight: bold;
+  flex: 1;
+}
+
+.play {
+  color: #0795c5;
+  font-size: 20px;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+</style>
 </head>
 
 <body>
 
-
-<header class="site-header">
-
-<h1>Ning Wei Media</h1>
-
-<p>
-Music • Videos • Photos • Apps • Software
-</p>
-
+<header class="header">
+  <h1>🇺🇬 Ugandan Music</h1>
 </header>
-
 
 <div class="container">
 
+  <a class="back" href="../folder.html?path=media%2Fsongs">
+    ← Back to Music
+  </a>
 
-<input
-id="search"
-class="search-box"
-type="search"
-placeholder="Search Ugandan music..."
->
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="Search Ugandan music..."
+  >
 
-
-<h2 class="page-title">
-🇺🇬 Ugandan Music
-</h2>
-
-
-<div id="items">
-
-<div class="loading">
-Loading folders...
-</div>
+  <div id="list">
+    <div class="empty">Loading music...</div>
+  </div>
 
 </div>
-
-
-<a
-class="back"
-href="../../../audio.html"
->
-← Back to Trending Songs
-</a>
-
-
-</div>
-
-
-<footer class="site-footer">
-
-© 2026 Ning Wei Media
-
-</footer>
-
 
 <script>
-
-const username = "Ningwei2567";
-
-const repository = "Ning-wei-1";
-
+const owner = "Ningwei2567";
+const repo = "Ning-wei-1";
 const branch = "main";
 
-const currentFolder =
-"media/songs/Ugandan";
+const folderPath = "media/songs/Ugandan";
 
+let allFiles = [];
 
-const apiURL =
-`https://api.github.com/repos/${username}/${repository}/contents/${currentFolder}?ref=${branch}`;
+async function loadMusic() {
+  const list = document.getElementById("list");
 
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/contents/${folderPath}?ref=${branch}`
+    );
 
-const itemsContainer =
-document.getElementById("items");
+    if (!response.ok) {
+      throw new Error("Could not load music");
+    }
 
-const searchBox =
-document.getElementById("search");
+    const items = await response.json();
 
+    allFiles = items
+      .filter(item => item.type === "file")
+      .filter(item => /\.(mp3|wav|m4a|aac|ogg)$/i.test(item.name))
+      .sort((a, b) => a.name.localeCompare(b.name));
 
-function escapeHTML(text) {
+    displayMusic(allFiles);
 
-const div =
-document.createElement("div");
-
-div.textContent = text;
-
-return div.innerHTML;
-
+  } catch (error) {
+    list.innerHTML =
+      `<div class="empty">
+        Unable to load Ugandan music.
+      </div>`;
+  }
 }
 
+function displayMusic(files) {
+  const list = document.getElementById("list");
 
-async function loadFolder() {
+  if (files.length === 0) {
+    list.innerHTML =
+      `<div class="empty">No music found.</div>`;
+    return;
+  }
 
-try {
+  list.innerHTML = "";
 
-const response =
-await fetch(apiURL);
+  files.forEach((file, index) => {
 
+    const item = document.createElement("div");
+    item.className = "item";
 
-if (!response.ok) {
+    const number = document.createElement("div");
+    number.className = "number";
+    number.textContent = index + 1;
 
-throw new Error(
-"Could not load folder"
-);
+    const link = document.createElement("a");
 
+    link.href =
+      `../song.html?folder=Ugandan&file=${encodeURIComponent(file.name)}`;
+
+    link.textContent =
+      file.name.replace(/\.[^/.]+$/, "");
+
+    const play = document.createElement("span");
+    play.className = "play";
+    play.textContent = "▶";
+
+    item.appendChild(number);
+    item.appendChild(link);
+    item.appendChild(play);
+
+    list.appendChild(item);
+  });
 }
 
+document.getElementById("search").addEventListener("input", function() {
 
-const items =
-await response.json();
+  const searchText = this.value.toLowerCase();
 
+  const filtered = allFiles.filter(file =>
+    file.name.toLowerCase().includes(searchText)
+  );
 
-/*
-Only show the things directly
-inside THIS folder.
-
-Do not go inside them yet.
-*/
-
-const visibleItems =
-items.filter(item => {
-
-return (
-item.type === "dir" ||
-item.type === "file"
-);
-
+  displayMusic(filtered);
 });
 
-
-/*
-Sort folders first,
-then files.
-*/
-
-visibleItems.sort((a,b) => {
-
-if (
-a.type === "dir" &&
-b.type !== "dir"
-) {
-
-return -1;
-
-}
-
-if (
-a.type !== "dir" &&
-b.type === "dir"
-) {
-
-return 1;
-
-}
-
-return a.name
-.toLowerCase()
-.localeCompare(
-b.name.toLowerCase()
-);
-
-});
-
-
-itemsContainer.innerHTML = "";
-
-
-if (
-visibleItems.length === 0
-) {
-
-itemsContainer.innerHTML = `
-
-<div class="loading">
-
-This folder is empty.
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-/*
-NUMBERING STARTS AT 1
-FOR THIS FOLDER ONLY.
-*/
-
-visibleItems.forEach(
-(item,index) => {
-
-
-const row =
-document.createElement("a");
-
-
-row.className =
-"numbered-row";
-
-
-/*
-FOLDER
-*/
-
-if (item.type === "dir") {
-
-
-row.href =
-`folder.html?folder=${encodeURIComponent(
-currentFolder + "/" + item.name
-)}`;
-
-
-row.innerHTML = `
-
-<span class="number">
-${index + 1}
-</span>
-
-<span style="
-font-size:23px;
-width:42px;
-min-width:42px;
-text-align:center;
-">
-📁
-</span>
-
-<span class="row-text">
-
-<strong>
-${escapeHTML(item.name)}
-</strong>
-
-<small>
-Folder
-</small>
-
-</span>
-
-<span class="arrow">
-›
-</span>
-
-`;
-
-}
-
-
-/*
-FILE
-*/
-
-else {
-
-
-const extension =
-item.name
-.split(".")
-.pop()
-.toLowerCase();
-
-
-let icon = "📄";
-
-let description =
-"File";
-
-
-if (
-["mp3","wav","m4a","ogg","aac","flac","opus"]
-.includes(extension)
-) {
-
-icon = "▶";
-
-description =
-"Audio";
-
-}
-
-
-else if (
-["jpg","jpeg","png","gif","webp"]
-.includes(extension)
-) {
-
-icon = "🖼️";
-
-description =
-"Photo";
-
-}
-
-
-else if (
-["mp4","webm","mov","mkv"]
-.includes(extension)
-) {
-
-icon = "▶";
-
-description =
-"Video";
-
-}
-
-
-else if (
-["apk"]
-.includes(extension)
-) {
-
-icon = "📱";
-
-description =
-"Application";
-
-}
-
-
-row.href =
-`../../../download.html?path=${encodeURIComponent(
-currentFolder + "/" + item.name
-)}`;
-
-
-row.innerHTML = `
-
-<span class="number">
-${index + 1}
-</span>
-
-<span style="
-font-size:22px;
-width:42px;
-min-width:42px;
-text-align:center;
-">
-${icon}
-</span>
-
-<span class="row-text">
-
-<strong>
-${escapeHTML(
-item.name
-)}</strong>
-
-<small>
-${description}
-</small>
-
-</span>
-
-<span class="arrow">
-›
-</span>
-
-`;
-
-}
-
-
-itemsContainer.appendChild(row);
-
-});
-
-
-window.allRows =
-Array.from(
-document.querySelectorAll(
-".numbered-row"
-)
-);
-
-}
-
-
-catch(error) {
-
-console.error(error);
-
-
-itemsContainer.innerHTML = `
-
-<div class="loading">
-
-Unable to load this folder.
-
-<br><br>
-
-Please refresh the page.
-
-</div>
-
-`;
-
-}
-
-}
-
-
-/*
-SEARCH
-*/
-
-searchBox.addEventListener(
-"input",
-function() {
-
-const searchText =
-this.value
-.toLowerCase()
-.trim();
-
-
-const rows =
-window.allRows || [];
-
-
-rows.forEach(row => {
-
-const text =
-row.innerText
-.toLowerCase();
-
-
-row.style.display =
-text.includes(searchText)
-? "flex"
-: "none";
-
-});
-
-});
-
-
-loadFolder();
-
+loadMusic();
 </script>
 
-
 </body>
-
 </html>
