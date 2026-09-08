@@ -1,103 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ning Wei Media</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f7ff;
-      color: #222;
+<title>Ning Wei Media</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5fb;
+    color:#222;
+}
+
+/* HEADER */
+header{
+    background:#168de2;
+    color:white;
+    text-align:center;
+    padding:22px 10px;
+}
+
+header h1{
+    margin:0;
+    font-size:30px;
+}
+
+header p{
+    margin:6px 0 0;
+    font-size:16px;
+}
+
+/* MAIN */
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:14px;
+}
+
+/* COMPACT FOLDER GRID */
+.folder-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+/* FOLDER */
+.folder{
+    display:block;
+    text-decoration:none;
+    color:#222;
+    background:white;
+    border-radius:14px;
+    padding:16px 12px;
+    min-height:125px;
+    box-shadow:0 3px 10px #d5d5d5;
+    transition:0.2s;
+}
+
+.folder:active{
+    transform:scale(0.98);
+}
+
+.icon{
+    font-size:32px;
+    margin-bottom:7px;
+}
+
+.folder h2{
+    margin:0;
+    font-size:19px;
+    line-height:1.2;
+}
+
+.folder p{
+    margin:7px 0 0;
+    color:#777;
+    font-size:13px;
+    line-height:1.3;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px 10px;
+    color:#777;
+    font-size:13px;
+}
+
+/* SMALL PHONES */
+@media(max-width:430px){
+    .folder-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
     }
 
-    header {
-      background: #1689e8;
-      color: white;
-      padding: 35px 15px;
-      text-align: center;
+    .folder{
+        padding:14px 10px;
+        min-height:115px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 38px;
+    .icon{
+        font-size:28px;
     }
 
-    header p {
-      font-size: 20px;
-      margin: 12px 0 0;
+    .folder h2{
+        font-size:17px;
     }
 
-    .card {
-      background: white;
-      margin: 25px 5%;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 5px 20px #ccc;
-      text-align: center;
+    .folder p{
+        font-size:12px;
     }
-
-    .card h2 {
-      font-size: 27px;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 18px;
-    }
-
-    .button {
-      display: inline-block;
-      background: #1689e8;
-      color: white;
-      padding: 14px 25px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 18px;
-      margin-top: 10px;
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>🎬 Ning Wei Media</h1>
-  <p>Your home for apps, software, songs, videos and photos</p>
+    <h1>📱 Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
 </header>
 
-<div class="card">
-  <h2>📱 Premium & paid Apps</h2>
-  <p>Download premium and paid applications.</p>
-  <a href="apks.html" class="button">View Apps</a>
+<div class="container">
+
+    <div class="folder-grid">
+
+        <!-- PREMIUM APPS -->
+        <a class="folder" href="apks.html">
+            <div class="icon">📱</div>
+            <h2>Premium & Paid Apps</h2>
+            <p>Premium applications</p>
+        </a>
+
+        <!-- SOFTWARE -->
+        <a class="folder" href="software.html">
+            <div class="icon">💻</div>
+            <h2>All Softwares</h2>
+            <p>Useful software</p>
+        </a>
+
+        <!-- SONGS -->
+        <a class="folder" href="audio.html">
+            <div class="icon">🎵</div>
+            <h2>Trending Songs</h2>
+            <p>Trending music</p>
+        </a>
+
+        <!-- VIDEOS -->
+        <a class="folder" href="videos.html">
+            <div class="icon">🎬</div>
+            <h2>Trending Videos</h2>
+            <p>Watch videos</p>
+        </a>
+
+        <!-- PHOTOS -->
+        <a class="folder" href="photos.html">
+            <div class="icon">🔥</div>
+            <h2>Trending Hot Photos</h2>
+            <p>Trending photos</p>
+        </a>
+
+        <!-- DJ MIXES -->
+        <a class="folder" href="media/songs/DJ-Mixes/index.html">
+            <div class="icon">🎧</div>
+            <h2>DJ Mixes</h2>
+            <p>DJ mixes & mixtapes</p>
+        </a>
+
+    </div>
+
 </div>
 
-<div class="card">
-  <h2>💻 All Softwares</h2>
-  <p>Find useful software and programs.</p>
-  <a href="software.html" class="button">View Software</a>
-</div>
-
-<div class="card">
-  <h2>🎵 Trending Songs</h2>
-  <p>Listen to and download trending songs.</p>
-  <a href="audio.html" class="button">View Songs</a>
-</div>
-
-<div class="card">
-  <h2>🎬 Trending Porn/Nudes Videos</h2>
-  <p>Watch and download trending porn/nudes videos.</p>
-  <a href="videos.html" class="button">View Videos</a>
-</div>
-
-<div class="card">
-  <h2>🔥 Trending Porn/Nude Photos</h2>
-  <p>View and download trending porn/nude photos.</p>
-  <a href="photos.html" class="button">View Photos</a>
-</div>
+<footer>
+    © 2026 Ning Wei Media
+</footer>
 
 </body>
 </html>
