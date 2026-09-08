@@ -7,99 +7,106 @@
 <title>Trending Songs - Ning Wei Media</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
     font-family:Arial,sans-serif;
     color:#172033;
-    min-height:100vh;
     background:
-    radial-gradient(circle at 10% 10%,rgba(0,145,255,.18),transparent 30%),
-    radial-gradient(circle at 90% 20%,rgba(140,70,255,.15),transparent 30%),
-    #f5f8fc;
+        radial-gradient(circle at 10% 10%,rgba(80,170,255,.18),transparent 35%),
+        radial-gradient(circle at 90% 30%,rgba(180,100,255,.14),transparent 35%),
+        linear-gradient(135deg,#f7fbff,#f7f3ff,#effcf9);
 }
 
 header{
-    background:linear-gradient(135deg,#087ee8,#1756d5);
+    background:linear-gradient(135deg,#168de2,#2457d6);
     color:white;
     text-align:center;
-    padding:24px 15px;
+    padding:30px 15px;
 }
 
 header h1{
     margin:0;
-    font-size:28px;
+    font-size:32px;
 }
 
 header p{
-    margin:6px 0;
-    font-size:13px;
-}
-
-.container{
-    max-width:850px;
-    margin:auto;
-    padding:15px;
+    margin:8px 0 0;
+    font-size:17px;
 }
 
 .search{
-    width:100%;
-    padding:14px 18px;
-    border:0;
-    outline:0;
-    border-radius:30px;
-    font-size:16px;
-    margin-bottom:10px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    margin:25px auto 15px;
+    max-width:700px;
+    padding:0 20px;
 }
 
-.item{
+.search input{
+    width:100%;
+    padding:17px 22px;
+    border:0;
+    border-radius:35px;
+    font-size:18px;
+    outline:none;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:5px 20px 30px;
+}
+
+.category{
     display:flex;
     align-items:center;
-    min-height:62px;
-    padding:10px;
+    gap:16px;
+    padding:20px 10px;
+    border-bottom:1px solid #dce1e8;
     text-decoration:none;
     color:#172033;
-    border-bottom:1px solid rgba(0,0,0,.08);
 }
 
-.item:hover{
-    background:rgba(255,255,255,.8);
+.category:hover{
+    background:rgba(255,255,255,.6);
 }
 
 .icon{
-    width:45px;
+    font-size:35px;
+    width:55px;
     text-align:center;
-    font-size:25px;
 }
 
 .info{
     flex:1;
 }
 
-.name{
-    font-weight:bold;
-    font-size:17px;
+.info h2{
+    margin:0 0 5px;
+    font-size:23px;
 }
 
-.desc{
-    font-size:12px;
+.info p{
+    margin:0;
     color:#718096;
-    margin-top:3px;
+    font-size:16px;
 }
 
 .arrow{
-    font-size:23px;
-    color:#168de2;
+    color:#168dcc;
+    font-size:30px;
 }
 
 .back{
     display:block;
     text-align:center;
-    margin:20px;
-    color:#168de2;
+    margin:15px 0 40px;
+    color:#168dcc;
     text-decoration:none;
+    font-size:18px;
     font-weight:bold;
 }
 </style>
@@ -108,111 +115,70 @@ header p{
 <body>
 
 <header>
-
-<h1>🎵 Trending Songs</h1>
-
-<p>Music and DJ mixes</p>
-
+    <h1>🎵 Trending Songs</h1>
+    <p>Music and songs</p>
 </header>
+
+<div class="search">
+    <input
+        id="search"
+        type="search"
+        placeholder="🔎 Search music..."
+        oninput="searchMusic()"
+    >
+</div>
 
 <div class="container">
 
-<input
-    id="search"
-    class="search"
-    type="search"
-    placeholder="🔎 Search music..."
->
+    <a class="category" href="media/songs/Ugandan/index.html">
+        <div class="icon">🇺🇬</div>
+        <div class="info">
+            <h2>Ugandan Music</h2>
+            <p>Ugandan songs</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
-<div id="items">
+    <a class="category" href="media/songs/African/index.html">
+        <div class="icon">🌍</div>
+        <div class="info">
+            <h2>African Music</h2>
+            <p>African songs</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
-<a class="item" href="media.html?path=media/songs/Ugandan">
-
-<div class="icon">🇺🇬</div>
-
-<div class="info">
-<div class="name">Ugandan Music</div>
-<div class="desc">Ugandan songs</div>
-</div>
-
-<div class="arrow">›</div>
-
-</a>
-
-
-<a class="item" href="media.html?path=media/songs/African">
-
-<div class="icon">🌍</div>
-
-<div class="info">
-<div class="name">African Music</div>
-<div class="desc">African songs</div>
-</div>
-
-<div class="arrow">›</div>
-
-</a>
-
-
-<a class="item" href="media.html?path=media/songs/International">
-
-<div class="icon">🌎</div>
-
-<div class="info">
-<div class="name">International Music</div>
-<div class="desc">International songs</div>
-</div>
-
-<div class="arrow">›</div>
-
-</a>
-
-
-<a class="item" href="media.html?path=media/songs/DJ-Mixes">
-
-<div class="icon">🎧</div>
-
-<div class="info">
-<div class="name">DJ Mixes</div>
-<div class="desc">Mixtapes, mappings, effects & skins</div>
-</div>
-
-<div class="arrow">›</div>
-
-</a>
+    <a class="category" href="media/songs/International/index.html">
+        <div class="icon">🌎</div>
+        <div class="info">
+            <h2>International Music</h2>
+            <p>International songs</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
 </div>
 
 <a class="back" href="index.html">
-← Back to Home
+    ← Back to Home
 </a>
 
-</div>
-
 <script>
+function searchMusic(){
 
-const search=
-document.getElementById("search");
+    const search =
+        document.getElementById("search").value.toLowerCase();
 
-const items=
-document.querySelectorAll(".item");
+    document.querySelectorAll(".category").forEach(item => {
 
-search.addEventListener("input",()=>{
+        const text =
+            item.innerText.toLowerCase();
 
-    const q=
-    search.value.toLowerCase();
-
-    items.forEach(item=>{
-
-        item.style.display=
-        item.innerText.toLowerCase().includes(q)
-        ? "flex"
-        : "none";
+        item.style.display =
+            text.includes(search) ? "flex" : "none";
 
     });
-
-});
-
+}
 </script>
 
 </body>
