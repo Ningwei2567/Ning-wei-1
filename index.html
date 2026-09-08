@@ -14,86 +14,126 @@
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f1f5fb;
     color:#222;
+
+    /* BEAUTIFUL BACKGROUND */
+    background:
+        radial-gradient(circle at 10% 10%, #dff3ff 0, transparent 28%),
+        radial-gradient(circle at 90% 20%, #e8ddff 0, transparent 30%),
+        radial-gradient(circle at 30% 90%, #dfffe9 0, transparent 30%),
+        linear-gradient(135deg,#ffffff,#f4f8ff);
 }
 
-/* SMALL HEADER */
+/* HEADER */
 header{
-    background:#168de2;
-    color:white;
     text-align:center;
-    padding:12px 8px;
+    padding:22px 10px 18px;
+    background:linear-gradient(135deg,#168de2,#2367d8);
+    color:white;
 }
 
 header h1{
     margin:0;
-    font-size:24px;
+    font-size:27px;
 }
 
 header p{
-    margin:3px 0 0;
+    margin:5px 0 0;
     font-size:13px;
 }
 
-/* FOLDER AREA */
-.container{
-    padding:10px;
+/* MENU */
+.menu{
+    max-width:700px;
+    margin:auto;
+    padding:10px 18px 20px;
 }
 
-/* 2 COLUMNS */
-.folder-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:8px;
-}
-
-/* VERY SMALL CARDS */
-.folder{
+/* ONE-LINE MENU ITEMS */
+.item{
     display:flex;
-    flex-direction:column;
-    justify-content:center;
     align-items:center;
-    text-align:center;
+    min-height:58px;
 
-    background:white;
-    color:#222;
     text-decoration:none;
+    color:#222;
 
-    height:105px;
-    padding:8px;
-
-    border-radius:12px;
-    box-shadow:0 2px 7px #d2d2d2;
+    padding:8px 4px;
+    border-bottom:1px solid #e1e5eb;
 }
 
-.folder:active{
-    transform:scale(.97);
+.item:last-child{
+    border-bottom:none;
 }
 
 .icon{
-    font-size:28px;
-    margin-bottom:5px;
+    width:48px;
+    font-size:29px;
+    text-align:center;
+    margin-right:10px;
 }
 
-.folder h2{
+.text{
+    flex:1;
+}
+
+.text h2{
     margin:0;
-    font-size:16px;
-    line-height:1.15;
+    font-size:18px;
+    font-weight:700;
 }
 
-.folder p{
-    margin:4px 0 0;
-    color:#777;
+.text p{
+    margin:2px 0 0;
     font-size:11px;
+    color:#777;
+}
+
+.arrow{
+    font-size:22px;
+    color:#168de2;
+    padding-left:8px;
 }
 
 /* FOOTER */
 footer{
     text-align:center;
-    padding:8px;
+    padding:15px;
     font-size:11px;
     color:#888;
+}
+
+/* PHONE */
+@media(max-width:430px){
+
+    header{
+        padding:18px 8px 14px;
+    }
+
+    header h1{
+        font-size:24px;
+    }
+
+    .menu{
+        padding:6px 14px 15px;
+    }
+
+    .item{
+        min-height:54px;
+    }
+
+    .icon{
+        width:45px;
+        font-size:27px;
+    }
+
+    .text h2{
+        font-size:17px;
+    }
+
+    .text p{
+        font-size:10px;
+    }
 }
 </style>
 </head>
@@ -105,47 +145,61 @@ footer{
     <p>Music • Videos • Photos • Apps • Software</p>
 </header>
 
-<div class="container">
+<div class="menu">
 
-    <div class="folder-grid">
-
-        <a class="folder" href="apks.html">
-            <div class="icon">📱</div>
-            <h2>Premium & Paid Apps</h2>
-            <p>Apps</p>
-        </a>
-
-        <a class="folder" href="software.html">
-            <div class="icon">💻</div>
-            <h2>All Softwares</h2>
-            <p>Software</p>
-        </a>
-
-        <a class="folder" href="audio.html">
-            <div class="icon">🎵</div>
+    <a class="item" href="audio.html">
+        <div class="icon">🎵</div>
+        <div class="text">
             <h2>Trending Songs</h2>
-            <p>Music</p>
-        </a>
+            <p>Music and audio</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
-        <a class="folder" href="videos.html">
-            <div class="icon">🎬</div>
+    <a class="item" href="videos.html">
+        <div class="icon">🎬</div>
+        <div class="text">
             <h2>Trending Videos</h2>
-            <p>Videos</p>
-        </a>
+            <p>Watch videos</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
-        <a class="folder" href="photos.html">
-            <div class="icon">🔥</div>
-            <h2>Trending Hot Photos</h2>
-            <p>Photos</p>
-        </a>
+    <a class="item" href="photos.html">
+        <div class="icon">📸</div>
+        <div class="text">
+            <h2>Trending Photos</h2>
+            <p>View photos</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
-        <a class="folder" href="media/songs/DJ-Mixes/index.html">
-            <div class="icon">🎧</div>
+    <a class="item" href="apks.html">
+        <div class="icon">📱</div>
+        <div class="text">
+            <h2>Premium & Paid Apps</h2>
+            <p>Applications</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
+
+    <a class="item" href="software.html">
+        <div class="icon">💻</div>
+        <div class="text">
+            <h2>All Softwares</h2>
+            <p>Software and programs</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
+
+    <a class="item" href="media/songs/DJ-Mixes/index.html">
+        <div class="icon">🎧</div>
+        <div class="text">
             <h2>DJ Mixes</h2>
-            <p>DJ Mixes</p>
-        </a>
-
-    </div>
+            <p>DJ mixes and mixtapes</p>
+        </div>
+        <div class="arrow">›</div>
+    </a>
 
 </div>
 
