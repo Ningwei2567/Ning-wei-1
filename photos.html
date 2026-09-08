@@ -5,24 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ning Wei Media - Trending Hot Photos</title>
 <style>
-body{margin:0;font-family:Arial;background:#f1f5fb}
+body{margin:0;font-family:Arial;background:#f1f5fb;color:#222}
 header{background:#168de2;color:white;text-align:center;padding:35px 15px}
-.list{margin:20px}.item{display:block;background:white;margin:15px 0;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc;text-decoration:none;color:#222;font-size:20px;font-weight:bold}
+.category{background:white;margin:18px;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc}
+.photo{background:#f1f5fb;padding:10px;margin-top:12px;border-radius:10px;text-align:center}
+.photo img{width:100%;border-radius:10px}
+.download{display:block;background:#168de2;color:white;text-align:center;padding:12px;margin-top:10px;border-radius:8px;text-decoration:none;font-weight:bold}
 .back{display:block;margin:25px;color:#168de2;font-weight:bold;text-decoration:none}
 </style>
 </head>
 <body>
-<header><h1>🔥 Trending Hot Photos</h1><p>Choose a category</p></header>
-<div class="list">
-<a class="item" href="#latest">🔥 Latest Photos</a>
-<a class="item" href="#entertainment">📸 Entertainment</a>
-<a class="item" href="#people">👥 People</a>
-<a class="item" href="#trending">🌍 Trending Photos</a>
-<div id="latest" class="item">🔥 Latest Photos</div>
-<div id="entertainment" class="item">📸 Entertainment</div>
-<div id="people" class="item">👥 People</div>
-<div id="trending" class="item">🌍 Trending Photos</div>
+
+<header>
+<h1>🔥 Trending Hot Photos</h1>
+<p>Choose your photo category</p>
+</header>
+
+<div class="category">
+<h2>🔥 Latest Photos</h2>
+<div class="photo">
+<img src="photo1.jpg" alt="Photo">
+<a class="download" href="photo1.jpg" download>⬇ Download Photo</a>
 </div>
+</div>
+
+<div class="category">
+<h2>📸 Entertainment</h2>
+<p>Your entertainment photos will appear here.</p>
+</div>
+
+<div class="category">
+<h2>👥 People</h2>
+<p>Your people photos will appear here.</p>
+</div>
+
+<div class="category">
+<h2>🌍 Trending Photos</h2>
+<p>Your trending photos will appear here.</p>
+</div>
+
 <a class="back" href="index.html">← Back to Home</a>
 </body>
 </html>
