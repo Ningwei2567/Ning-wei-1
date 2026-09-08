@@ -1,169 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Ugandan Music - Ning Wei Media</title>
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    color:#222;
-}
+<link
+rel="stylesheet"
+href="https://ningwei2567.github.io/Ning-wei-1/style.css"
+>
 
-header{
-    background:#168de2;
-    color:white;
-    padding:30px 20px;
-    text-align:center;
-}
-
-header h1{
-    margin:0;
-    font-size:30px;
-}
-
-header p{
-    margin:8px 0 0;
-}
-
-.container{
-    max-width:800px;
-    margin:auto;
-    padding:15px;
-}
-
-.song{
-    display:flex;
-    align-items:center;
-    background:white;
-    padding:18px 15px;
-    margin:10px 0;
-    border-radius:12px;
-    text-decoration:none;
-    color:#222;
-    box-shadow:0 2px 8px #ddd;
-}
-
-.play-icon{
-    font-size:25px;
-    color:#168de2;
-    margin-right:15px;
-}
-
-.song-name{
-    font-size:19px;
-    font-weight:bold;
-}
-
-.loading{
-    text-align:center;
-    padding:30px;
-    color:#777;
-}
-
-.back{
-    display:block;
-    text-align:center;
-    margin:25px;
-    color:#168de2;
-    text-decoration:none;
-    font-weight:bold;
-}
-</style>
 </head>
 
 <body>
 
-<header>
-    <h1>🇺🇬 Ugandan Music</h1>
-    <p>Popular Ugandan Songs</p>
+
+<header class="site-header">
+
+<h1>Ning Wei Media</h1>
+
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
+
 </header>
+
 
 <div class="container">
 
-    <div id="songs" class="loading">
-        Loading songs...
-    </div>
+
+<input
+id="search"
+class="search-box"
+type="search"
+placeholder="Search Ugandan music..."
+>
+
+
+<h2 class="page-title">
+🇺🇬 Ugandan Music
+</h2>
+
+
+<div id="items">
+
+<div class="loading">
+Loading folders...
+</div>
 
 </div>
 
-<a class="back" href="../../../audio.html">
-    ← Back to Trending Songs
+
+<a
+class="back"
+href="../../../audio.html"
+>
+← Back to Trending Songs
 </a>
+
+
+</div>
+
+
+<footer class="site-footer">
+
+© 2026 Ning Wei Media
+
+</footer>
+
 
 <script>
 
 const username = "Ningwei2567";
+
 const repository = "Ning-wei-1";
-const folder = "media/songs/Ugandan";
+
+const branch = "main";
+
+const currentFolder =
+"media/songs/Ugandan";
+
 
 const apiURL =
-`https://api.github.com/repos/${username}/${repository}/contents/${folder}`;
+`https://api.github.com/repos/${username}/${repository}/contents/${currentFolder}?ref=${branch}`;
 
-async function loadSongs(){
 
-    const songsContainer = document.getElementById("songs");
+const itemsContainer =
+document.getElementById("items");
 
-    try{
+const searchBox =
+document.getElementById("search");
 
-        const response = await fetch(apiURL);
 
-        if(!response.ok){
-            throw new Error("Could not load songs");
-        }
+function escapeHTML(text) {
 
-        const files = await response.json();
+const div =
+document.createElement("div");
 
-        const songs = files.filter(file =>
-            file.type === "file" &&
-            /\.(mp3|wav|m4a|ogg)$/i.test(file.name)
-        );
+div.textContent = text;
 
-        songsContainer.innerHTML = "";
+return div.innerHTML;
 
-        if(songs.length === 0){
-
-            songsContainer.innerHTML =
-            "<div class='loading'>No songs uploaded yet.</div>";
-
-            return;
-        }
-
-        songs.forEach(song => {
-
-            const link = document.createElement("a");
-
-            link.className = "song";
-
-            link.href =
-            `../song.html?file=${encodeURIComponent(song.name)}&title=${encodeURIComponent(song.name.replace(/\.[^/.]+$/, ""))}`;
-
-            link.innerHTML = `
-                <span class="play-icon">▶</span>
-                <span class="song-name">
-                    ${song.name.replace(/\.[^/.]+$/, "")}
-                </span>
-            `;
-
-            songsContainer.appendChild(link);
-
-        });
-
-    }catch(error){
-
-        songsContainer.innerHTML =
-        "<div class='loading'>Unable to load songs. Please try again.</div>";
-
-    }
 }
 
-loadSongs();
+
+async function loadFolder() {
+
+try {
+
+const response =
+await fetch(apiURL);
+
+
+if (!response.ok) {
+
+throw new Error(
+"Could not load folder"
+);
+
+}
+
+
+const items =
+await response.json();
+
+
+/*
+Only show the things directly
+inside THIS folder.
+
+Do not go inside them yet.
+*/
+
+const visibleItems =
+items.filter(item => {
+
+return (
+item.type === "dir" ||
+item.type === "file"
+);
+
+});
+
+
+/*
+Sort folders first,
+then files.
+*/
+
+visibleItems.sort((a,b) => {
+
+if (
+a.type === "dir" &&
+b.type !== "dir"
+) {
+
+return -1;
+
+}
+
+if (
+a.type !== "dir" &&
+b.type === "dir"
+) {
+
+return 1;
+
+}
+
+return a.name
+.toLowerCase()
+.localeCompare(
+b.name.toLowerCase()
+);
+
+});
+
+
+itemsContainer.innerHTML = "";
+
+
+if (
+visibleItems.length === 0
+) {
+
+itemsContainer.innerHTML = `
+
+<div class="loading">
+
+This folder is empty.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+/*
+NUMBERING STARTS AT 1
+FOR THIS FOLDER ONLY.
+*/
+
+visibleItems.forEach(
+(item,index) => {
+
+
+const row =
+document.createElement("a");
+
+
+row.className =
+"numbered-row";
+
+
+/*
+FOLDER
+*/
+
+if (item.type === "dir") {
+
+
+row.href =
+`folder.html?folder=${encodeURIComponent(
+currentFolder + "/" + item.name
+)}`;
+
+
+row.innerHTML = `
+
+<span class="number">
+${index + 1}
+</span>
+
+<span style="
+font-size:23px;
+width:42px;
+min-width:42px;
+text-align:center;
+">
+📁
+</span>
+
+<span class="row-text">
+
+<strong>
+${escapeHTML(item.name)}
+</strong>
+
+<small>
+Folder
+</small>
+
+</span>
+
+<span class="arrow">
+›
+</span>
+
+`;
+
+}
+
+
+/*
+FILE
+*/
+
+else {
+
+
+const extension =
+item.name
+.split(".")
+.pop()
+.toLowerCase();
+
+
+let icon = "📄";
+
+let description =
+"File";
+
+
+if (
+["mp3","wav","m4a","ogg","aac","flac","opus"]
+.includes(extension)
+) {
+
+icon = "▶";
+
+description =
+"Audio";
+
+}
+
+
+else if (
+["jpg","jpeg","png","gif","webp"]
+.includes(extension)
+) {
+
+icon = "🖼️";
+
+description =
+"Photo";
+
+}
+
+
+else if (
+["mp4","webm","mov","mkv"]
+.includes(extension)
+) {
+
+icon = "▶";
+
+description =
+"Video";
+
+}
+
+
+else if (
+["apk"]
+.includes(extension)
+) {
+
+icon = "📱";
+
+description =
+"Application";
+
+}
+
+
+row.href =
+`../../../download.html?path=${encodeURIComponent(
+currentFolder + "/" + item.name
+)}`;
+
+
+row.innerHTML = `
+
+<span class="number">
+${index + 1}
+</span>
+
+<span style="
+font-size:22px;
+width:42px;
+min-width:42px;
+text-align:center;
+">
+${icon}
+</span>
+
+<span class="row-text">
+
+<strong>
+${escapeHTML(
+item.name
+)}</strong>
+
+<small>
+${description}
+</small>
+
+</span>
+
+<span class="arrow">
+›
+</span>
+
+`;
+
+}
+
+
+itemsContainer.appendChild(row);
+
+});
+
+
+window.allRows =
+Array.from(
+document.querySelectorAll(
+".numbered-row"
+)
+);
+
+}
+
+
+catch(error) {
+
+console.error(error);
+
+
+itemsContainer.innerHTML = `
+
+<div class="loading">
+
+Unable to load this folder.
+
+<br><br>
+
+Please refresh the page.
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/*
+SEARCH
+*/
+
+searchBox.addEventListener(
+"input",
+function() {
+
+const searchText =
+this.value
+.toLowerCase()
+.trim();
+
+
+const rows =
+window.allRows || [];
+
+
+rows.forEach(row => {
+
+const text =
+row.innerText
+.toLowerCase();
+
+
+row.style.display =
+text.includes(searchText)
+? "flex"
+: "none";
+
+});
+
+});
+
+
+loadFolder();
 
 </script>
 
+
 </body>
+
 </html>
