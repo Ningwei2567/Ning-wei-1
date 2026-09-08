@@ -11,129 +11,205 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     margin:0;
-    font-family:Arial,sans-serif;
-    color:#222;
-
-    /* BEAUTIFUL BACKGROUND */
+    font-family:Arial,Helvetica,sans-serif;
+    color:#172033;
+    min-height:100vh;
     background:
-        radial-gradient(circle at 10% 10%, #dff3ff 0, transparent 28%),
-        radial-gradient(circle at 90% 20%, #e8ddff 0, transparent 30%),
-        radial-gradient(circle at 30% 90%, #dfffe9 0, transparent 30%),
-        linear-gradient(135deg,#ffffff,#f4f8ff);
+        radial-gradient(circle at 5% 10%,rgba(0,145,255,.18),transparent 28%),
+        radial-gradient(circle at 95% 20%,rgba(130,70,255,.15),transparent 30%),
+        radial-gradient(circle at 50% 100%,rgba(0,190,150,.13),transparent 32%),
+        linear-gradient(135deg,#f8fbff,#f4f1ff,#f2fffb);
 }
 
 /* HEADER */
+
 header{
-    text-align:center;
-    padding:22px 10px 18px;
-    background:linear-gradient(135deg,#168de2,#2367d8);
+    background:linear-gradient(135deg,#087ee8,#1756d5);
     color:white;
+    text-align:center;
+    padding:22px 15px 20px;
+    box-shadow:0 5px 25px rgba(0,80,180,.18);
 }
 
-header h1{
+.logo{
+    font-size:28px;
+    font-weight:800;
     margin:0;
-    font-size:27px;
 }
 
-header p{
-    margin:5px 0 0;
-    font-size:13px;
+.subtitle{
+    margin:6px 0 0;
+    font-size:14px;
+    opacity:.92;
+}
+
+/* MAIN */
+
+.container{
+    width:100%;
+    max-width:850px;
+    margin:auto;
+    padding:15px;
+}
+
+/* SEARCH */
+
+.search-box{
+    position:relative;
+    margin-bottom:10px;
+}
+
+.search{
+    width:100%;
+    border:0;
+    outline:0;
+    padding:14px 18px;
+    border-radius:30px;
+    font-size:16px;
+    background:rgba(255,255,255,.92);
+    box-shadow:0 5px 22px rgba(0,0,0,.08);
+}
+
+.search:focus{
+    box-shadow:0 5px 25px rgba(0,110,230,.2);
 }
 
 /* MENU */
+
 .menu{
-    max-width:700px;
-    margin:auto;
-    padding:10px 18px 20px;
+    background:rgba(255,255,255,.42);
+    backdrop-filter:blur(10px);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 5px 25px rgba(0,0,0,.05);
 }
 
-/* ONE-LINE MENU ITEMS */
-.item{
+.menu-item{
     display:flex;
     align-items:center;
-    min-height:58px;
-
+    min-height:60px;
+    padding:10px 12px;
     text-decoration:none;
-    color:#222;
-
-    padding:8px 4px;
-    border-bottom:1px solid #e1e5eb;
+    color:#172033;
+    border-bottom:1px solid rgba(0,0,0,.07);
+    transition:.2s;
 }
 
-.item:last-child{
-    border-bottom:none;
+.menu-item:last-child{
+    border-bottom:0;
+}
+
+.menu-item:hover{
+    background:rgba(255,255,255,.75);
+    transform:translateX(3px);
 }
 
 .icon{
-    width:48px;
-    font-size:29px;
+    width:43px;
     text-align:center;
-    margin-right:10px;
+    font-size:24px;
 }
 
-.text{
+.info{
     flex:1;
 }
 
-.text h2{
-    margin:0;
-    font-size:18px;
+.title{
+    font-size:16px;
     font-weight:700;
 }
 
-.text p{
-    margin:2px 0 0;
-    font-size:11px;
-    color:#777;
+.description{
+    margin-top:3px;
+    font-size:12px;
+    color:#718096;
 }
 
 .arrow{
-    font-size:22px;
+    font-size:23px;
     color:#168de2;
     padding-left:8px;
 }
 
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:15px;
-    font-size:11px;
-    color:#888;
+/* SECTIONS */
+
+.section-title{
+    margin:22px 3px 8px;
+    font-size:17px;
+    font-weight:800;
 }
 
-/* PHONE */
-@media(max-width:430px){
+/* TRENDING APPS */
 
-    header{
-        padding:18px 8px 14px;
-    }
+.apps{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    background:rgba(255,255,255,.4);
+    padding:12px;
+    border-radius:14px;
+}
 
-    header h1{
-        font-size:24px;
-    }
+.app{
+    flex:1;
+    min-width:90px;
+    text-align:center;
+    text-decoration:none;
+    color:#172033;
+    padding:10px 5px;
+    border-radius:10px;
+    background:rgba(255,255,255,.65);
+    font-size:13px;
+    font-weight:bold;
+}
 
-    .menu{
-        padding:6px 14px 15px;
-    }
+.app:hover{
+    background:white;
+}
 
-    .item{
-        min-height:54px;
-    }
+/* SOCIAL */
 
-    .icon{
-        width:45px;
-        font-size:27px;
-    }
+.social{
+    text-align:center;
+    padding:12px 5px 5px;
+}
 
-    .text h2{
-        font-size:17px;
-    }
+.social a{
+    display:inline-block;
+    margin:4px 7px;
+    text-decoration:none;
+    color:#1769c2;
+    font-size:14px;
+    font-weight:bold;
+}
 
-    .text p{
-        font-size:10px;
-    }
+.social a:hover{
+    text-decoration:underline;
+}
+
+/* SEARCH MESSAGE */
+
+#searchMessage{
+    display:none;
+    text-align:center;
+    padding:18px;
+    color:#777;
+    font-size:14px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:20px 10px 25px;
+    color:#718096;
+    font-size:12px;
 }
 </style>
 </head>
@@ -141,71 +217,285 @@ footer{
 <body>
 
 <header>
-    <h1>📱 Ning Wei Media</h1>
-    <p>Music • Videos • Photos • Apps • Software</p>
+
+    <h1 class="logo">📱 Ning Wei Media</h1>
+
+    <p class="subtitle">
+        Music • Videos • Photos • Apps • Software
+    </p>
+
 </header>
 
-<div class="menu">
+<main class="container">
 
-    <a class="item" href="audio.html">
-        <div class="icon">🎵</div>
-        <div class="text">
-            <h2>Trending Songs</h2>
-            <p>Music and audio</p>
-        </div>
-        <div class="arrow">›</div>
-    </a>
+    <!-- SEARCH -->
 
-    <a class="item" href="videos.html">
-        <div class="icon">🎬</div>
-        <div class="text">
-            <h2>Trending Videos</h2>
-            <p>Watch videos</p>
-        </div>
-        <div class="arrow">›</div>
-    </a>
+    <div class="search-box">
 
-    <a class="item" href="photos.html">
-        <div class="icon">📸</div>
-        <div class="text">
-            <h2>Trending Photos</h2>
-            <p>View photos</p>
-        </div>
-        <div class="arrow">›</div>
-    </a>
+        <input
+            id="search"
+            class="search"
+            type="search"
+            placeholder="🔎 Search Ning Wei Media..."
+            autocomplete="off"
+        >
 
-    <a class="item" href="apks.html">
-        <div class="icon">📱</div>
-        <div class="text">
-            <h2>Premium & Paid Apps</h2>
-            <p>Applications</p>
-        </div>
-        <div class="arrow">›</div>
-    </a>
+    </div>
 
-    <a class="item" href="software.html">
-        <div class="icon">💻</div>
-        <div class="text">
-            <h2>All Softwares</h2>
-            <p>Software and programs</p>
-        </div>
-        <div class="arrow">›</div>
-    </a>
 
-    <a class="item" href="media/songs/DJ-Mixes/index.html">
-        <div class="icon">🎧</div>
-        <div class="text">
-            <h2>DJ Mixes</h2>
-            <p>DJ mixes and mixtapes</p>
-        </div>
-        <div class="arrow">›</div>
-    </a>
+    <!-- MAIN MENU -->
 
-</div>
+    <div id="menu" class="menu">
+
+        <a class="menu-item"
+           href="audio.html"
+           data-search="songs music trending songs audio">
+           
+            <div class="icon">🎵</div>
+
+            <div class="info">
+                <div class="title">Trending Songs</div>
+                <div class="description">Music and audio</div>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <a class="menu-item"
+           href="videos.html"
+           data-search="videos trending videos watch">
+           
+            <div class="icon">🎬</div>
+
+            <div class="info">
+                <div class="title">Trending Videos</div>
+                <div class="description">Watch videos</div>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <a class="menu-item"
+           href="photos.html"
+           data-search="photos trending photos pictures images">
+           
+            <div class="icon">📸</div>
+
+            <div class="info">
+                <div class="title">Trending Photos</div>
+                <div class="description">View photos</div>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <a class="menu-item"
+           href="apks.html"
+           data-search="apps premium paid applications apk">
+           
+            <div class="icon">📱</div>
+
+            <div class="info">
+                <div class="title">Premium & Paid Apps</div>
+                <div class="description">Applications</div>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <a class="menu-item"
+           href="software.html"
+           data-search="software programs computer software">
+           
+            <div class="icon">💻</div>
+
+            <div class="info">
+                <div class="title">All Softwares</div>
+                <div class="description">Software and programs</div>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+
+        <a class="menu-item"
+           href="audio.html?folder=DJ-Mixes"
+           data-search="dj mixes mixtapes nonstop dj">
+           
+            <div class="icon">🎧</div>
+
+            <div class="info">
+                <div class="title">DJ Mixes</div>
+                <div class="description">DJ mixes and mixtapes</div>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </a>
+
+    </div>
+
+
+    <div id="searchMessage">
+        No matching category found.
+    </div>
+
+
+    <!-- TRENDING APPS -->
+
+    <h2 class="section-title">
+        🔥 Trending Apps
+    </h2>
+
+    <div class="apps">
+
+        <a class="app"
+           href="https://www.tiktok.com/"
+           target="_blank"
+           rel="noopener">
+            🎵 TikTok
+        </a>
+
+        <a class="app"
+           href="https://www.instagram.com/"
+           target="_blank"
+           rel="noopener">
+            📸 Instagram
+        </a>
+
+        <a class="app"
+           href="https://www.youtube.com/"
+           target="_blank"
+           rel="noopener">
+            ▶️ YouTube
+        </a>
+
+        <a class="app"
+           href="https://www.whatsapp.com/"
+           target="_blank"
+           rel="noopener">
+            💬 WhatsApp
+        </a>
+
+    </div>
+
+
+    <!-- FOLLOW -->
+
+    <h2 class="section-title">
+        👥 Follow Ning Wei Media
+    </h2>
+
+    <div class="social">
+
+        <a href="https://www.youtube.com/"
+           target="_blank"
+           rel="noopener">
+            ▶️ YouTube
+        </a>
+
+        <a href="https://www.instagram.com/"
+           target="_blank"
+           rel="noopener">
+            📸 Instagram
+        </a>
+
+        <a href="https://www.tiktok.com/"
+           target="_blank"
+           rel="noopener">
+            🎵 TikTok
+        </a>
+
+        <a href="https://www.facebook.com/"
+           target="_blank"
+           rel="noopener">
+            👍 Facebook
+        </a>
+
+        <a href="https://www.whatsapp.com/"
+           target="_blank"
+           rel="noopener">
+            💬 WhatsApp
+        </a>
+
+    </div>
+
+</main>
+
 
 <footer>
-    © 2026 Ning Wei Media
+    © <span id="year"></span> Ning Wei Media
 </footer>
+
+
+<script>
+
+/* CURRENT YEAR */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+/* HOMEPAGE SEARCH */
+
+const search =
+    document.getElementById("search");
+
+const items =
+    document.querySelectorAll(".menu-item");
+
+const message =
+    document.getElementById("searchMessage");
+
+
+search.addEventListener("input", function(){
+
+    const query =
+        search.value.toLowerCase().trim();
+
+    let found = false;
+
+    items.forEach(function(item){
+
+        const text =
+            item.dataset.search.toLowerCase();
+
+        if(text.includes(query)){
+
+            item.style.display = "flex";
+            found = true;
+
+        }else{
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+
+    if(query && !found){
+
+        message.style.display = "block";
+
+    }else{
+
+        message.style.display = "none";
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>
