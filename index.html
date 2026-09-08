@@ -1,1117 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ning Wei Media</title>
 
 <style>
-
 *{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
+  box-sizing:border-box;
 }
 
 body{
-
-    margin:0;
-
-    font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-    color:#172033;
-
-    min-height:100vh;
-
-    background:
-
-    radial-gradient(
-        circle at 5% 10%,
-        rgba(0,145,255,.18),
-        transparent 28%
-    ),
-
-    radial-gradient(
-        circle at 95% 20%,
-        rgba(130,70,255,.15),
-        transparent 30%
-    ),
-
-    radial-gradient(
-        circle at 50% 100%,
-        rgba(0,190,150,.14),
-        transparent 35%
-    ),
-
-    linear-gradient(
-        135deg,
-        #f8fbff,
-        #f4f1ff,
-        #f2fffb
-    );
-
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#eef6ff,#f8fbff);
+  color:#222;
 }
-
 
 /* HEADER */
-
 header{
-
-    background:
-    linear-gradient(
-        135deg,
-        #087ee8,
-        #1756d5
-    );
-
-    color:white;
-
-    text-align:center;
-
-    padding:22px 15px;
-
-    box-shadow:
-    0 5px 25px
-    rgba(0,80,180,.18);
-
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(0,105,220,.84),rgba(20,80,210,.84)),
+    url("ning-wei.jpg");
+  background-size:cover;
+  background-position:center 25%;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  min-height:150px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 5px 25px rgba(0,80,180,.18);
 }
 
-.logo{
-
-    margin:0;
-
-    font-size:28px;
-
-    font-weight:800;
-
+header h1{
+  margin:0;
+  font-size:32px;
+  font-weight:800;
 }
 
-.subtitle{
-
-    margin:6px 0 0;
-
-    font-size:14px;
-
-    opacity:.92;
-
+header p{
+  margin:8px 0 0;
+  font-size:14px;
 }
-
-
-/* MAIN */
-
-.container{
-
-    width:100%;
-
-    max-width:850px;
-
-    margin:auto;
-
-    padding:15px;
-
-}
-
 
 /* SEARCH */
-
-.search{
-
-    width:100%;
-
-    border:0;
-
-    outline:0;
-
-    padding:14px 18px;
-
-    border-radius:30px;
-
-    font-size:16px;
-
-    background:
-    rgba(255,255,255,.94);
-
-    box-shadow:
-    0 5px 22px
-    rgba(0,0,0,.08);
-
-    margin-bottom:10px;
-
+.search-box{
+  max-width:700px;
+  margin:15px auto;
+  padding:0 15px;
 }
 
-
-/* MAIN MENU */
-
-.menu{
-
-    background:
-    rgba(255,255,255,.50);
-
-    backdrop-filter:
-    blur(10px);
-
-    border-radius:16px;
-
-    overflow:hidden;
-
-    box-shadow:
-    0 5px 25px
-    rgba(0,0,0,.05);
-
+.search-box input{
+  width:100%;
+  padding:13px 16px;
+  border:none;
+  border-radius:25px;
+  font-size:15px;
+  outline:none;
+  box-shadow:0 2px 10px rgba(0,0,0,.12);
 }
 
-
-.menu-item{
-
-    display:flex;
-
-    align-items:center;
-
-    min-height:60px;
-
-    padding:10px 12px;
-
-    text-decoration:none;
-
-    color:#172033;
-
-    border-bottom:
-    1px solid
-    rgba(0,0,0,.07);
-
-    transition:.2s;
-
+/* MAIN */
+.container{
+  max-width:800px;
+  margin:auto;
+  padding:5px 15px 30px;
 }
-
-
-.menu-item:last-child{
-
-    border-bottom:0;
-
-}
-
-
-.menu-item:hover{
-
-    background:
-    rgba(255,255,255,.8);
-
-    transform:
-    translateX(3px);
-
-}
-
-
-.menu-icon{
-
-    width:48px;
-
-    text-align:center;
-
-    font-size:25px;
-
-}
-
-
-.info{
-
-    flex:1;
-
-}
-
-
-.title{
-
-    font-size:16px;
-
-    font-weight:700;
-
-}
-
-
-.description{
-
-    margin-top:3px;
-
-    font-size:12px;
-
-    color:#718096;
-
-}
-
-
-.arrow{
-
-    font-size:23px;
-
-    color:#168de2;
-
-}
-
 
 /* SECTION TITLE */
-
 .section-title{
-
-    margin:
-    22px 3px 9px;
-
-    font-size:18px;
-
-    font-weight:800;
-
+  font-size:20px;
+  font-weight:bold;
+  margin:20px 0 10px;
+  color:#126dcc;
 }
 
+/* CATEGORY ROWS */
+.category{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  background:white;
+  padding:14px;
+  margin:8px 0;
+  border-radius:10px;
+  text-decoration:none;
+  color:#222;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-2px);
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+}
+
+.category .icon{
+  font-size:27px;
+  width:40px;
+  text-align:center;
+}
+
+.category strong{
+  display:block;
+  font-size:16px;
+}
+
+.category small{
+  display:block;
+  margin-top:3px;
+  color:#777;
+  font-size:12px;
+}
 
 /* TRENDING APPS */
-
 .apps{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:8px;
-
-    padding:4px;
-
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
 }
-
-
-/* APP */
 
 .app{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:7px;
-
-    min-height:54px;
-
-    padding:8px 5px;
-
-    background:
-    rgba(255,255,255,.72);
-
-    border-radius:12px;
-
-    text-decoration:none;
-
-    color:#172033;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    box-shadow:
-    0 3px 12px
-    rgba(0,0,0,.04);
-
-    transition:.2s;
-
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:white;
+  padding:11px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#222;
+  box-shadow:0 2px 7px rgba(0,0,0,.07);
 }
-
-
-.app:hover{
-
-    background:white;
-
-    transform:
-    translateY(-2px);
-
-}
-
-
-/* REAL BRAND LOGOS */
 
 .app img{
-
-    width:28px;
-
-    height:28px;
-
-    object-fit:contain;
-
-    flex-shrink:0;
-
+  width:32px;
+  height:32px;
 }
 
+.app span{
+  font-size:14px;
+  font-weight:bold;
+}
 
 /* FOLLOW */
+.follow{
+  background:white;
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.follow h2{
+  margin:0 0 12px;
+  font-size:19px;
+  color:#126dcc;
+}
 
 .social{
-
-    text-align:center;
-
-    padding:
-    5px 2px 0;
-
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
 }
-
 
 .social a{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    margin:
-    5px 7px;
-
-    text-decoration:none;
-
-    color:#1769c2;
-
-    font-size:14px;
-
-    font-weight:bold;
-
+  padding:9px 13px;
+  background:#168de2;
+  color:white;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:13px;
 }
-
-
-.social img{
-
-    width:22px;
-
-    height:22px;
-
-    object-fit:contain;
-
-}
-
-
-/* SEARCH MESSAGE */
-
-#searchMessage{
-
-    display:none;
-
-    text-align:center;
-
-    padding:18px;
-
-    color:#777;
-
-    font-size:14px;
-
-}
-
 
 /* FOOTER */
-
 footer{
-
-    text-align:center;
-
-    padding:
-    20px 10px 25px;
-
-    color:#718096;
-
-    font-size:12px;
-
+  text-align:center;
+  padding:20px;
+  color:#777;
+  font-size:13px;
 }
-
-
-/* PHONE */
-
-@media(max-width:430px){
-
-    .apps{
-
-        grid-template-columns:
-        repeat(3,1fr);
-
-    }
-
-    .app{
-
-        font-size:12px;
-
-    }
-
-    .app img{
-
-        width:25px;
-
-        height:25px;
-
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
+<!-- HEADER -->
 <header>
-
-    <h1 class="logo">
-        📱 Ning Wei Media
-    </h1>
-
-    <p class="subtitle">
-        Music • Videos • Photos • Apps • Software
-    </p>
-
+  <h1>Ning Wei Media</h1>
+  <p>Music • Videos • Photos • Apps • Software</p>
 </header>
 
-
-<main class="container">
-
-
 <!-- SEARCH -->
-
-<input
+<div class="search-box">
+  <input
+    type="text"
     id="search"
-    class="search"
-    type="search"
-    placeholder="🔎 Search Ning Wei Media..."
-    autocomplete="off"
->
-
-
-<!-- MAIN MENU -->
-
-<div id="menu" class="menu">
-
-
-<a
-    class="menu-item"
-    href="audio.html"
-    data-search="songs music trending songs audio"
->
-
-    <div class="menu-icon">
-        🎵
-    </div>
-
-    <div class="info">
-
-        <div class="title">
-            Trending Songs
-        </div>
-
-        <div class="description">
-            Music and audio
-        </div>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
-<a
-    class="menu-item"
-    href="videos.html"
-    data-search="videos trending videos watch"
->
-
-    <div class="menu-icon">
-        🎬
-    </div>
-
-    <div class="info">
-
-        <div class="title">
-            Trending Videos
-        </div>
-
-        <div class="description">
-            Watch videos
-        </div>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
-<a
-    class="menu-item"
-    href="photos.html"
-    data-search="photos trending photos pictures images"
->
-
-    <div class="menu-icon">
-        📸
-    </div>
-
-    <div class="info">
-
-        <div class="title">
-            Trending Photos
-        </div>
-
-        <div class="description">
-            View photos
-        </div>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
-<a
-    class="menu-item"
-    href="apks.html"
-    data-search="apps premium paid applications apk"
->
-
-    <div class="menu-icon">
-        📱
-    </div>
-
-    <div class="info">
-
-        <div class="title">
-            Premium & Paid Apps
-        </div>
-
-        <div class="description">
-            Applications
-        </div>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
-<a
-    class="menu-item"
-    href="software.html"
-    data-search="software programs computer software"
->
-
-    <div class="menu-icon">
-        💻
-    </div>
-
-    <div class="info">
-
-        <div class="title">
-            All Softwares
-        </div>
-
-        <div class="description">
-            Software and programs
-        </div>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
-<a
-    class="menu-item"
-    href="audio.html?folder=DJ-Mixes"
-    data-search="dj mixes mixtapes nonstop dj"
->
-
-    <div class="menu-icon">
-        🎧
-    </div>
-
-    <div class="info">
-
-        <div class="title">
-            DJ Mixes
-        </div>
-
-        <div class="description">
-            DJ mixes and mixtapes
-        </div>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
+    placeholder="Search Ning Wei Media..."
+    onkeyup="searchSite()"
+  >
 </div>
 
+<div class="container">
 
-<div id="searchMessage">
-    No matching category found.
-</div>
+  <!-- MAIN CATEGORIES -->
+  <div id="categories">
 
+    <a class="category" href="audio.html">
+      <span class="icon">🎵</span>
+      <div>
+        <strong>Trending Songs</strong>
+        <small>Music and audio</small>
+      </div>
+    </a>
 
-<!-- TRENDING APPS -->
+    <a class="category" href="videos.html">
+      <span class="icon">🎬</span>
+      <div>
+        <strong>Trending Videos</strong>
+        <small>Watch videos</small>
+      </div>
+    </a>
 
-<h2 class="section-title">
+    <a class="category" href="photos.html">
+      <span class="icon">📸</span>
+      <div>
+        <strong>Trending Photos</strong>
+        <small>View photos</small>
+      </div>
+    </a>
+
+    <a class="category" href="apks.html">
+      <span class="icon">📱</span>
+      <div>
+        <strong>Premium &amp; Paid Apps</strong>
+        <small>Applications</small>
+      </div>
+    </a>
+
+    <a class="category" href="software.html">
+      <span class="icon">💻</span>
+      <div>
+        <strong>All Softwares</strong>
+        <small>Software and programs</small>
+      </div>
+    </a>
+
+    <!-- DJ MIXES - CORRECT LINK -->
+    <a class="category" href="media/songs/DJ-Mixes/index.html">
+      <span class="icon">🎧</span>
+      <div>
+        <strong>DJ Mixes / Nonstop</strong>
+        <small>DJ mixes and mixtapes</small>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- TRENDING APPS -->
+  <div class="section-title">
     🔥 Trending Apps
-</h2>
+  </div>
 
+  <div class="apps">
 
-<div class="apps">
+    <a class="app" href="apks.html">
+      <span>🎵</span>
+      <span>Spotify</span>
+    </a>
 
+    <a class="app" href="apks.html">
+      <span>▶️</span>
+      <span>YouTube</span>
+    </a>
 
-<!-- TIKTOK -->
+    <a class="app" href="apks.html">
+      <span>♪</span>
+      <span>TikTok</span>
+    </a>
 
-<a
-    class="app"
-    href="https://www.tiktok.com/"
-    target="_blank"
-    rel="noopener"
->
+    <a class="app" href="apks.html">
+      <span>◎</span>
+      <span>Instagram</span>
+    </a>
 
-    <img
-        src="https://cdn.simpleicons.org/tiktok"
-        alt="TikTok logo"
-    >
+    <a class="app" href="apks.html">
+      <span>f</span>
+      <span>Facebook</span>
+    </a>
 
-    TikTok
+    <a class="app" href="apks.html">
+      <span>📌</span>
+      <span>Pinterest</span>
+    </a>
 
-</a>
+  </div>
 
+  <!-- FOLLOW -->
+  <div class="follow">
 
-<!-- INSTAGRAM -->
+    <h2>Follow Ning Wei Media</h2>
 
-<a
-    class="app"
-    href="https://www.instagram.com/"
-    target="_blank"
-    rel="noopener"
->
+    <div class="social">
 
-    <img
-        src="https://cdn.simpleicons.org/instagram"
-        alt="Instagram logo"
-    >
+      <a href="https://www.youtube.com/">
+        YouTube
+      </a>
 
-    Instagram
+      <a href="https://www.instagram.com/">
+        Instagram
+      </a>
 
-</a>
+      <a href="https://www.tiktok.com/">
+        TikTok
+      </a>
 
+      <a href="https://www.facebook.com/">
+        Facebook
+      </a>
 
-<!-- YOUTUBE -->
+      <a href="https://www.whatsapp.com/">
+        WhatsApp
+      </a>
 
-<a
-    class="app"
-    href="https://www.youtube.com/"
-    target="_blank"
-    rel="noopener"
->
+    </div>
 
-    <img
-        src="https://cdn.simpleicons.org/youtube"
-        alt="YouTube logo"
-    >
-
-    YouTube
-
-</a>
-
-
-<!-- WHATSAPP -->
-
-<a
-    class="app"
-    href="https://www.whatsapp.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/whatsapp"
-        alt="WhatsApp logo"
-    >
-
-    WhatsApp
-
-</a>
-
-
-<!-- SPOTIFY -->
-
-<a
-    class="app"
-    href="https://www.spotify.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/spotify"
-        alt="Spotify logo"
-    >
-
-    Spotify
-
-</a>
-
-
-<!-- FACEBOOK -->
-
-<a
-    class="app"
-    href="https://www.facebook.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/facebook"
-        alt="Facebook logo"
-    >
-
-    Facebook
-
-</a>
-
-
-<!-- PINTEREST -->
-
-<a
-    class="app"
-    href="https://www.pinterest.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/pinterest"
-        alt="Pinterest logo"
-    >
-
-    Pinterest
-
-</a>
-
-
-<!-- TELEGRAM -->
-
-<a
-    class="app"
-    href="https://telegram.org/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/telegram"
-        alt="Telegram logo"
-    >
-
-    Telegram
-
-</a>
-
-
-<!-- SNAPCHAT -->
-
-<a
-    class="app"
-    href="https://www.snapchat.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/snapchat"
-        alt="Snapchat logo"
-    >
-
-    Snapchat
-
-</a>
-
-
-<!-- NETFLIX -->
-
-<a
-    class="app"
-    href="https://www.netflix.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/netflix"
-        alt="Netflix logo"
-    >
-
-    Netflix
-
-</a>
-
-
-<!-- X -->
-
-<a
-    class="app"
-    href="https://x.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/x"
-        alt="X logo"
-    >
-
-    X
-
-</a>
-
+  </div>
 
 </div>
-
-
-<!-- FOLLOW -->
-
-<h2 class="section-title">
-    👥 Follow Ning Wei Media
-</h2>
-
-
-<div class="social">
-
-
-<a
-    href="https://www.youtube.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/youtube"
-        alt="YouTube"
-    >
-
-    YouTube
-
-</a>
-
-
-<a
-    href="https://www.instagram.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/instagram"
-        alt="Instagram"
-    >
-
-    Instagram
-
-</a>
-
-
-<a
-    href="https://www.tiktok.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/tiktok"
-        alt="TikTok"
-    >
-
-    TikTok
-
-</a>
-
-
-<a
-    href="https://www.facebook.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/facebook"
-        alt="Facebook"
-    >
-
-    Facebook
-
-</a>
-
-
-<a
-    href="https://www.pinterest.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/pinterest"
-        alt="Pinterest"
-    >
-
-    Pinterest
-
-</a>
-
-
-<a
-    href="https://www.whatsapp.com/"
-    target="_blank"
-    rel="noopener"
->
-
-    <img
-        src="https://cdn.simpleicons.org/whatsapp"
-        alt="WhatsApp"
-    >
-
-    WhatsApp
-
-</a>
-
-
-</div>
-
-
-</main>
-
 
 <footer>
-
-© <span id="year"></span>
-Ning Wei Media
-
+  © 2026 Ning Wei Media
 </footer>
 
-
 <script>
+function searchSite(){
 
+  const search =
+    document.getElementById("search")
+    .value
+    .toLowerCase();
 
-/* YEAR */
+  const items =
+    document.querySelectorAll(".category");
 
-document.getElementById(
-    "year"
-).textContent =
-new Date().getFullYear();
+  items.forEach(item => {
 
+    const text =
+      item.innerText.toLowerCase();
 
-/* SEARCH */
-
-const search =
-document.getElementById(
-    "search"
-);
-
-
-const items =
-document.querySelectorAll(
-    ".menu-item"
-);
-
-
-const message =
-document.getElementById(
-    "searchMessage"
-);
-
-
-search.addEventListener(
-    "input",
-    function(){
-
-        const query =
-        search.value
-        .toLowerCase()
-        .trim();
-
-
-        let found=false;
-
-
-        items.forEach(
-            function(item){
-
-                const text =
-                item.dataset.search
-                .toLowerCase();
-
-
-                if(
-                    text.includes(query)
-                ){
-
-                    item.style.display =
-                    "flex";
-
-                    found=true;
-
-                }else{
-
-                    item.style.display =
-                    "none";
-
-                }
-
-            }
-        );
-
-
-        if(
-            query &&
-            !found
-        ){
-
-            message.style.display =
-            "block";
-
-        }else{
-
-            message.style.display =
-            "none";
-
-        }
-
+    if(text.includes(search)){
+      item.style.display="flex";
+    }else{
+      item.style.display="none";
     }
-);
 
+  });
+}
 </script>
-
 
 </body>
 </html>
