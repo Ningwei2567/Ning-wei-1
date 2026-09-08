@@ -3,113 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DJ Mixes / Nonstop - Ning Wei Media</title>
+<title>DJ Mixes - Ning Wei Media</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    color:#182033;
-    background:
-      radial-gradient(circle at 10% 10%,#d9f3ff 0,transparent 35%),
-      radial-gradient(circle at 90% 20%,#eee0ff 0,transparent 35%),
-      linear-gradient(135deg,#f7fbff,#f4f0ff,#effcf8);
-    min-height:100vh;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7f9;
+  color:#111;
 }
-
 header{
-    background:linear-gradient(135deg,#087fe8,#3159d9);
-    color:white;
-    text-align:center;
-    padding:32px 15px;
+  position:relative;
+  height:150px;
+  background:
+    linear-gradient(rgba(135,206,235,.38),rgba(135,206,235,.38)),
+    url("../../../ning-wei.png") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
-
 header h1{
-    margin:0;
-    font-size:30px;
+  background:rgba(255,255,255,.78);
+  padding:10px 20px;
+  border-radius:12px;
+  margin:0;
+  font-size:25px;
 }
-
-header p{
-    margin:8px 0 0;
-    font-size:17px;
-}
-
-.search-box{
-    padding:22px 4%;
-}
-
-.search{
-    width:100%;
-    padding:17px 20px;
-    border:0;
-    border-radius:35px;
-    font-size:18px;
-    outline:none;
-    box-shadow:0 4px 18px #cfd7e5;
-}
-
 .container{
-    max-width:800px;
-    margin:auto;
-    padding:0 4% 30px;
+  max-width:700px;
+  margin:auto;
+  padding:15px;
 }
-
-.item{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:20px 12px;
-    border-bottom:1px solid #d9dce4;
-    text-decoration:none;
-    color:#182033;
-    background:rgba(255,255,255,.55);
+.search{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  margin-bottom:12px;
+  font-size:16px;
 }
-
-.item:first-child{
-    border-radius:20px 20px 0 0;
-}
-
-.item:last-child{
-    border-radius:0 0 20px 20px;
-    border-bottom:0;
-}
-
-.icon{
-    font-size:35px;
-    width:55px;
-    text-align:center;
-}
-
-.info{
-    flex:1;
-}
-
-.info h2{
-    margin:0;
-    font-size:21px;
-}
-
-.info p{
-    margin:5px 0 0;
-    color:#718096;
-}
-
-.arrow{
-    font-size:30px;
-    color:#168bd0;
-}
-
 .back{
-    display:block;
-    text-align:center;
-    margin:10px 0 35px;
-    color:#168bd0;
-    text-decoration:none;
-    font-size:18px;
-    font-weight:bold;
+  display:inline-block;
+  margin-bottom:12px;
+  text-decoration:none;
+  color:#0077aa;
+  font-weight:bold;
+}
+.item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:white;
+  padding:10px;
+  margin:7px 0;
+  border-radius:10px;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
+  text-decoration:none;
+  color:#111;
+}
+.num{
+  width:35px;
+  height:35px;
+  min-width:35px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+.name{
+  font-size:16px;
+  font-weight:600;
 }
 </style>
 </head>
@@ -117,83 +85,81 @@ header p{
 <body>
 
 <header>
-    <h1>🎧 DJ Mixes / Nonstop</h1>
-    <p>Mixtapes, mappings, effects & skins</p>
+  <h1>🎧 DJ MIXES</h1>
 </header>
-
-<div class="search-box">
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="🔎 Search DJ mixes..."
-    >
-</div>
 
 <div class="container">
 
-    <div id="items">
+<a class="back" href="../../../audio.html">← Back to Songs</a>
 
-        <a class="item" href="browser.html?folder=Mixtapes-Nonstop">
-            <div class="icon">🎧</div>
-            <div class="info">
-                <h2>Mixtapes / Nonstop</h2>
-                <p>DJ mixtapes and nonstop mixes</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
+<input
+  id="search"
+  class="search"
+  type="text"
+  placeholder="Search DJ Mixes..."
+>
 
-        <a class="item" href="browser.html?folder=Mappings">
-            <div class="icon">🗺️</div>
-            <div class="info">
-                <h2>Mappings</h2>
-                <p>DJ mappings and files</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
-
-        <a class="item" href="browser.html?folder=Sound-Effects">
-            <div class="icon">🔊</div>
-            <div class="info">
-                <h2>Sound Effects</h2>
-                <p>DJ sound effects</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
-
-        <a class="item" href="browser.html?folder=Virtual-DJ-Skins">
-            <div class="icon">🎛️</div>
-            <div class="info">
-                <h2>Virtual DJ Skins</h2>
-                <p>Virtual DJ skins</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
-
-    </div>
+<div id="list">Loading...</div>
 
 </div>
 
-<a class="back" href="../../../index.html">
-    ← Back to Home
-</a>
-
 <script>
-const search = document.getElementById("search");
-const items = document.querySelectorAll(".item");
+const API =
+"https://api.github.com/repos/Ningwei2567/Ning-wei-1/contents/media/songs/DJ-Mixes";
 
-search.addEventListener("input", function(){
+const list=document.getElementById("list");
+const search=document.getElementById("search");
 
-    const text = this.value.toLowerCase();
+let items=[];
 
-    items.forEach(item => {
-        item.style.display =
-            item.innerText.toLowerCase().includes(text)
-            ? "flex"
-            : "none";
-    });
+async function load(){
+  try{
+    const response=await fetch(API);
+    if(!response.ok) throw new Error("Unable to load folder");
 
-});
+    items=await response.json();
+    render(items);
+  }catch(error){
+    list.innerHTML="<p>Unable to load DJ Mixes.</p>";
+  }
+}
+
+function render(data){
+  const query=search.value.toLowerCase();
+
+  const filtered=data.filter(item =>
+    item.name.toLowerCase().includes(query)
+  );
+
+  list.innerHTML="";
+
+  if(!filtered.length){
+    list.innerHTML="<p>No items found.</p>";
+    return;
+  }
+
+  filtered.forEach((item,index)=>{
+    const a=document.createElement("a");
+    a.className="item";
+
+    if(item.type==="dir"){
+      a.href="browser.html?path="+encodeURIComponent(item.path);
+    }else{
+      a.href="../../../media.html?path="+encodeURIComponent(item.path);
+    }
+
+    a.innerHTML=`
+      <span class="num">${index+1}</span>
+      <span class="name">${item.name}</span>
+    `;
+
+    list.appendChild(a);
+  });
+}
+
+search.addEventListener("input",()=>render(items));
+
+load();
 </script>
 
 </body>
