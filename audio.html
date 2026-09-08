@@ -7,7 +7,6 @@
 <title>Ning Wei Media - Trending Songs</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -15,138 +14,252 @@
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f3f5f8;
-    color:#222;
+    background:#f5f5f7;
+    color:#29204f;
 }
 
 header{
-    background:#168de2;
+    background:#302064;
     color:white;
-    text-align:center;
-    padding:30px 15px;
+    padding:18px 15px;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
-header h1{
-    margin:0;
-    font-size:30px;
+.header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-header p{
-    margin:8px 0 0;
-    font-size:17px;
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.search{
+    margin-top:14px;
+    width:100%;
+    padding:13px 18px;
+    border:0;
+    border-radius:8px;
+    font-size:16px;
 }
 
 .container{
-    max-width:800px;
+    max-width:850px;
     margin:auto;
-    padding:20px 15px 40px;
+    padding:20px 14px 50px;
 }
 
-.card{
+.category{
     display:block;
     background:white;
-    color:#222;
+    margin:14px 0;
+    padding:22px 18px;
+    border-radius:14px;
     text-decoration:none;
-    padding:24px 20px;
-    margin:15px 0;
-    border-radius:18px;
-    box-shadow:0 3px 12px #ddd;
+    color:#29204f;
+    box-shadow:0 2px 8px #ddd;
 }
 
-.card h2{
-    margin:0 0 8px;
-    font-size:23px;
+.category h2{
+    margin:0 0 6px;
 }
 
-.card p{
+.category p{
     margin:0;
     color:#777;
+}
+
+.section-title{
+    font-size:27px;
+    font-weight:normal;
+    margin:35px 5px 12px;
+    border-bottom:1px solid #ddd;
+    padding-bottom:10px;
 }
 
 .song{
     display:flex;
     align-items:center;
     background:white;
-    color:#222;
+    min-height:78px;
+    padding:9px 8px;
+    border-bottom:1px dashed #ddd;
     text-decoration:none;
-    padding:17px 15px;
-    margin:10px 0;
-    border-radius:13px;
-    box-shadow:0 2px 8px #ddd;
+    color:#222;
 }
 
-.play{
-    font-size:24px;
-    color:#168de2;
-    margin-right:15px;
+.song:hover{
+    background:#fafafa;
 }
 
-.song-name{
+.play-icon{
+    width:32px;
+    font-size:18px;
+    color:#d83da3;
+    text-align:center;
+    flex-shrink:0;
+}
+
+.cover-small{
+    width:62px;
+    height:62px;
+    object-fit:cover;
+    border-radius:7px;
+    margin:0 13px 0 5px;
+    background:#168de2;
+}
+
+.song-info{
+    min-width:0;
+}
+
+.song-title{
     font-size:18px;
     font-weight:bold;
+    color:#5b5570;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.artist{
+    margin-top:5px;
+    font-size:14px;
+    color:#aaa;
 }
 
 .player-box{
     background:white;
-    margin:20px auto;
-    padding:25px 18px;
-    border-radius:20px;
-    box-shadow:0 3px 15px #ccc;
+    margin:15px auto;
+    padding:22px 15px;
+    border-radius:18px;
+    box-shadow:0 3px 15px #ddd;
     text-align:center;
 }
 
-.cover{
-    width:230px;
-    height:230px;
+.big-cover{
+    width:250px;
+    height:250px;
     max-width:80%;
     object-fit:cover;
-    border-radius:20px;
-    margin:5px auto 20px;
+    border-radius:15px;
     background:#168de2;
 }
 
-#songTitle{
+.song-page-title{
     font-size:25px;
-    margin:10px 0 20px;
     word-break:break-word;
 }
 
 audio{
     width:100%;
-    margin:10px 0 20px;
+    margin:15px 0;
 }
 
 .download{
     display:inline-block;
     background:#20c978;
     color:white;
-    text-decoration:none;
-    padding:15px 28px;
+    padding:14px 28px;
     border-radius:30px;
-    font-size:18px;
+    text-decoration:none;
+    font-size:17px;
     font-weight:bold;
-    margin:10px 0 25px;
+    margin:8px 0 25px;
 }
 
 .ad{
-    min-height:120px;
-    border:1px dashed #aaa;
+    min-height:150px;
     background:#f1f1f1;
+    border:1px dashed #aaa;
     display:flex;
     align-items:center;
     justify-content:center;
     color:#888;
-    margin:10px auto;
-    max-width:600px;
+    margin:20px auto;
+}
+
+.share{
+    text-align:center;
+    padding:20px 5px;
+}
+
+.share h3{
+    font-size:22px;
+}
+
+.share-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.share-buttons a{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eee;
+    color:#302064;
+    text-decoration:none;
+    font-size:22px;
+}
+
+.comments{
+    margin-top:20px;
+    background:white;
+    padding:20px 15px;
+    border-radius:15px;
+}
+
+.comments h2{
+    margin-top:0;
+}
+
+.comment-input{
+    width:100%;
+    min-height:90px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    resize:vertical;
+    font-family:Arial;
+}
+
+.comment-button{
+    margin-top:10px;
+    background:#302064;
+    color:white;
+    border:0;
+    padding:12px 20px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+.comment{
+    border-bottom:1px solid #eee;
+    padding:14px 0;
+}
+
+.comment strong{
+    display:block;
+    margin-bottom:5px;
 }
 
 .back{
     display:block;
     text-align:center;
+    margin:25px;
     color:#168de2;
     text-decoration:none;
     font-weight:bold;
-    margin:25px 0;
 }
 
 .loading{
@@ -155,23 +268,35 @@ audio{
     color:#777;
 }
 
-.error{
+.empty{
+    background:white;
+    padding:25px;
     text-align:center;
-    padding:30px;
-    color:#d33;
+    color:#777;
+    border-radius:12px;
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1 id="pageTitle">🎵 Trending Songs</h1>
-    <p id="pageSubtitle">Choose a music category</p>
+
+    <div class="header-top">
+        <div class="logo">🎵 Ning Wei Media</div>
+    </div>
+
+    <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="Search songs..."
+        oninput="searchSongs()"
+    >
+
 </header>
 
-<div class="container" id="app"></div>
+<div id="app" class="container"></div>
 
 <script>
 
@@ -184,44 +309,53 @@ const params = new URLSearchParams(window.location.search);
 const folder = params.get("folder");
 const file = params.get("file");
 
-const app = document.getElementById("app");
-const pageTitle = document.getElementById("pageTitle");
-const pageSubtitle = document.getElementById("pageSubtitle");
+let allSongs = [];
 
 
-/* =========================
-   HOME / MUSIC CATEGORIES
-========================= */
+/* ================================
+   MUSIC CATEGORIES
+================================ */
 
 function showCategories(){
 
-    pageTitle.textContent = "🎵 Trending Songs";
-    pageSubtitle.textContent = "Choose a music category";
+    document.title = "Ning Wei Media - Trending Songs";
 
     app.innerHTML = `
 
-        <a class="card"
+        <h1 class="section-title">
+            🎵 Trending Songs
+        </h1>
+
+        <a class="category"
            href="audio.html?folder=Ugandan">
+
             <h2>🇺🇬 Ugandan Music</h2>
-            <p>Popular Ugandan songs</p>
+            <p>Top New Songs • New Songs • Popular Songs • Hot 100</p>
+
         </a>
 
-        <a class="card"
+        <a class="category"
            href="audio.html?folder=African">
+
             <h2>🌍 African Music</h2>
-            <p>African music collection</p>
+            <p>Top New Songs • New Songs • Popular Songs • Hot 100</p>
+
         </a>
 
-        <a class="card"
+        <a class="category"
            href="audio.html?folder=DJ-Mixes">
+
             <h2>🎧 DJ Mixes</h2>
             <p>DJ mixes and long music sessions</p>
+
         </a>
 
-        <a class="card"
+        <a class="category"
            href="audio.html?folder=International">
+
             <h2>🌎 International Music</h2>
-            <p>International music collection</p>
+            <p>Top New Songs • New Songs • Popular Songs • Hot 100</p>
+
         </a>
 
         <a class="back" href="index.html">
@@ -231,18 +365,15 @@ function showCategories(){
 }
 
 
-/* =========================
-   LOAD SONG LIST
-========================= */
+/* ================================
+   LOAD MUSIC
+================================ */
 
-async function showSongs(){
-
-    pageTitle.textContent = "🎵 " + folder;
-    pageSubtitle.textContent = "Choose a song";
+async function loadMusic(){
 
     app.innerHTML = `
         <div class="loading">
-            Loading songs...
+            Loading music...
         </div>
     `;
 
@@ -259,121 +390,221 @@ async function showSongs(){
 
         const files = await response.json();
 
-        const songs = files.filter(item =>
+        allSongs = files.filter(item =>
             item.type === "file" &&
             /\.(mp3|wav|m4a|ogg)$/i.test(item.name)
         );
 
-        if(songs.length === 0){
+        if(allSongs.length === 0){
 
             app.innerHTML = `
-                <div class="loading">
-                    No songs uploaded yet.
+                <div class="empty">
+                    No music uploaded yet.
                 </div>
 
-                <a class="back"
-                   href="audio.html">
-                   ← Back to Music Categories
+                <a class="back" href="audio.html">
+                    ← Back to Music
                 </a>
             `;
 
             return;
         }
 
-        app.innerHTML = "";
-
-        songs.forEach(song => {
-
-            const title =
-            song.name.replace(/\.[^/.]+$/, "");
-
-            const link = document.createElement("a");
-
-            link.className = "song";
-
-            link.href =
-            `audio.html?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(song.name)}`;
-
-            link.innerHTML = `
-                <span class="play">▶</span>
-                <span class="song-name">${title}</span>
-            `;
-
-            app.appendChild(link);
-
-        });
-
-        const back = document.createElement("a");
-
-        back.className = "back";
-        back.href = "audio.html";
-        back.textContent = "← Back to Music Categories";
-
-        app.appendChild(back);
+        showMusicSections();
 
     }
-
     catch(error){
 
         app.innerHTML = `
-            <div class="error">
+            <div class="empty">
                 Unable to load this music folder.
             </div>
 
-            <a class="back"
-               href="audio.html">
-               ← Back to Music Categories
+            <a class="back" href="audio.html">
+                ← Back to Music
             </a>
         `;
     }
 }
 
 
-/* =========================
-   INDIVIDUAL SONG PAGE
-========================= */
+/* ================================
+   SONG ROW
+================================ */
+
+function songRow(song){
+
+    const title =
+    song.name.replace(/\.[^/.]+$/, "");
+
+    return `
+
+        <a class="song"
+           href="audio.html?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(song.name)}">
+
+            <span class="play-icon">▶</span>
+
+            <img
+                class="cover-small"
+                src="https://dummyimage.com/200x200/168de2/ffffff&text=Music"
+                alt="Music"
+            >
+
+            <div class="song-info">
+
+                <div class="song-title">
+                    ${escapeHTML(title)}
+                </div>
+
+                <div class="artist">
+                    ${folder} Music
+                </div>
+
+            </div>
+
+        </a>
+    `;
+}
+
+
+/* ================================
+   MUSIC SECTIONS
+================================ */
+
+function showMusicSections(){
+
+    document.title =
+    "Ning Wei Media - " + folder;
+
+    /* DJ MIXES STAYS SIMPLE */
+
+    if(folder === "DJ-Mixes"){
+
+        app.innerHTML = `
+
+            <h1 class="section-title">
+                🎧 DJ Mixes
+            </h1>
+
+            ${allSongs.map(songRow).join("")}
+
+            <a class="back" href="audio.html">
+                ← Back to Music Categories
+            </a>
+        `;
+
+        return;
+    }
+
+
+    /* OTHER MUSIC FOLDERS */
+
+    const topNew =
+    allSongs.slice(0,10);
+
+    const newSongs =
+    allSongs.slice(0,20);
+
+    const popular =
+    allSongs.slice(0,50);
+
+    const hot100 =
+    allSongs.slice(0,100);
+
+    app.innerHTML = `
+
+        <h1 class="section-title">
+            ${getFlag(folder)} ${folder} Music
+        </h1>
+
+
+        <h2 class="section-title">
+            ⚡ Top New Songs
+        </h2>
+
+        ${topNew.map(songRow).join("")}
+
+
+        <h2 class="section-title">
+            🆕 New Songs
+        </h2>
+
+        ${newSongs.map(songRow).join("")}
+
+
+        <h2 class="section-title">
+            🔥 Popular Songs
+        </h2>
+
+        ${popular.map(songRow).join("")}
+
+
+        <h2 class="section-title">
+            💯 Hot 100
+        </h2>
+
+        ${hot100.map(songRow).join("")}
+
+
+        <a class="back" href="audio.html">
+            ← Back to Music Categories
+        </a>
+    `;
+}
+
+
+/* ================================
+   INDIVIDUAL SONG
+================================ */
 
 function showSong(){
 
     const title =
     file.replace(/\.[^/.]+$/, "");
 
-    pageTitle.textContent = "🎵 Ning Wei Media";
-    pageSubtitle.textContent = folder + " Music";
-
-    const encodedPath =
+    const encodedFile =
     file.split("/")
         .map(part => encodeURIComponent(part))
         .join("/");
 
     const songURL =
-    `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/media/songs/${encodeURIComponent(folder)}/${encodedPath}`;
+    `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/media/songs/${encodeURIComponent(folder)}/${encodedFile}`;
+
+    document.title =
+    title + " - Ning Wei Media";
 
     app.innerHTML = `
 
         <div class="player-box">
 
             <img
-                class="cover"
+                class="big-cover"
                 src="https://dummyimage.com/500x500/168de2/ffffff&text=Music"
-                alt="Music cover"
+                alt="Song cover"
             >
 
-            <h2 id="songTitle">${title}</h2>
+            <h1 class="song-page-title">
+                ${escapeHTML(title)}
+            </h1>
+
+            <p>
+                ${escapeHTML(folder)} Music
+            </p>
+
 
             <audio controls autoplay>
                 <source src="${songURL}">
                 Your browser does not support audio.
             </audio>
 
-            <br>
 
             <a
                 class="download"
                 href="${songURL}"
-                download="${title}">
+                download="${escapeHTML(title)}">
                 ⬇ DOWNLOAD SONG
             </a>
+
 
             <div class="ad">
                 ADVERTISEMENT
@@ -381,18 +612,268 @@ function showSong(){
 
         </div>
 
+
+        <div class="share">
+
+            <h3>Share this Song</h3>
+
+            <div class="share-buttons">
+
+                <a href="#"
+                   onclick="shareFacebook();return false;">
+                    f
+                </a>
+
+                <a href="#"
+                   onclick="shareTwitter();return false;">
+                    𝕏
+                </a>
+
+                <a href="#"
+                   onclick="shareWhatsApp();return false;">
+                    ☎
+                </a>
+
+                <a href="#"
+                   onclick="shareSong();return false;">
+                    ↗
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="comments">
+
+            <h2>💬 Comments</h2>
+
+            <textarea
+                id="commentText"
+                class="comment-input"
+                placeholder="Write a comment...">
+            </textarea>
+
+            <button
+                class="comment-button"
+                onclick="addComment()">
+                Post Comment
+            </button>
+
+            <div id="commentList"></div>
+
+        </div>
+
+
         <a
             class="back"
             href="audio.html?folder=${encodeURIComponent(folder)}">
-            ← Back to ${folder} Music
+            ← Back to ${escapeHTML(folder)} Music
         </a>
     `;
+
+    loadComments();
 }
 
 
-/* =========================
-   DECIDE WHAT TO SHOW
-========================= */
+/* ================================
+   COMMENTS
+================================ */
+
+function commentKey(){
+
+    return "comments_" +
+    folder + "_" +
+    file;
+}
+
+function addComment(){
+
+    const box =
+    document.getElementById("commentText");
+
+    const text =
+    box.value.trim();
+
+    if(!text){
+        return;
+    }
+
+    const comments =
+    JSON.parse(localStorage.getItem(commentKey()) || "[]");
+
+    comments.push({
+        text:text,
+        date:new Date().toLocaleString()
+    });
+
+    localStorage.setItem(
+        commentKey(),
+        JSON.stringify(comments)
+    );
+
+    box.value="";
+
+    loadComments();
+}
+
+function loadComments(){
+
+    const list =
+    document.getElementById("commentList");
+
+    if(!list){
+        return;
+    }
+
+    const comments =
+    JSON.parse(localStorage.getItem(commentKey()) || "[]");
+
+    if(comments.length === 0){
+
+        list.innerHTML =
+        "<p>No comments yet. Be the first!</p>";
+
+        return;
+    }
+
+    list.innerHTML =
+    comments.map(comment => `
+
+        <div class="comment">
+
+            <strong>Listener</strong>
+
+            ${escapeHTML(comment.text)}
+
+            <small>
+                <br>${escapeHTML(comment.date)}
+            </small>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* ================================
+   SOCIAL SHARING
+================================ */
+
+function shareSong(){
+
+    if(navigator.share){
+
+        navigator.share({
+            title:document.title,
+            url:window.location.href
+        });
+
+    }else{
+
+        navigator.clipboard.writeText(
+            window.location.href
+        );
+
+        alert("Song link copied!");
+    }
+}
+
+function shareWhatsApp(){
+
+    const url =
+    encodeURIComponent(window.location.href);
+
+    window.open(
+        "https://wa.me/?text=" + url,
+        "_blank"
+    );
+}
+
+function shareFacebook(){
+
+    const url =
+    encodeURIComponent(window.location.href);
+
+    window.open(
+        "https://www.facebook.com/sharer/sharer.php?u=" + url,
+        "_blank"
+    );
+}
+
+function shareTwitter(){
+
+    const url =
+    encodeURIComponent(window.location.href);
+
+    window.open(
+        "https://twitter.com/intent/tweet?url=" + url,
+        "_blank"
+    );
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+function searchSongs(){
+
+    const search =
+    document.getElementById("search")
+        .value.toLowerCase();
+
+    const rows =
+    document.querySelectorAll(".song");
+
+    rows.forEach(row => {
+
+        const text =
+        row.innerText.toLowerCase();
+
+        row.style.display =
+        text.includes(search)
+        ? "flex"
+        : "none";
+    });
+}
+
+
+/* ================================
+   HELPERS
+================================ */
+
+function getFlag(name){
+
+    if(name === "Ugandan"){
+        return "🇺🇬";
+    }
+
+    if(name === "African"){
+        return "🌍";
+    }
+
+    if(name === "International"){
+        return "🌎";
+    }
+
+    return "🎵";
+}
+
+function escapeHTML(text){
+
+    const div =
+    document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
+/* ================================
+   START
+================================ */
 
 if(file && folder){
 
@@ -401,7 +882,7 @@ if(file && folder){
 }
 else if(folder){
 
-    showSongs();
+    loadMusic();
 
 }
 else{
