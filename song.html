@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ning Wei Media - Song</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:#172033;
+    background:
+    radial-gradient(circle at 10% 10%,rgba(0,145,255,.18),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(140,70,255,.15),transparent 30%),
+    #f5f8fc;
+}
+
+header{
+    background:linear-gradient(135deg,#087ee8,#1756d5);
+    color:white;
+    text-align:center;
+    padding:22px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:25px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 15px;
+}
+
+.card{
+    background:rgba(255,255,255,.9);
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 7px 25px rgba(0,0,0,.08);
+}
+
+.cover{
+    width:210px;
+    height:210px;
+    object-fit:cover;
+    border-radius:18px;
+    background:#168de2;
+    margin-bottom:15px;
+}
+
+h2{
+    margin:5px 0 15px;
+    font-size:23px;
+}
+
+audio{
+    width:100%;
+    margin:10px 0 18px;
+}
+
+.download{
+    display:block;
+    background:#168de2;
+    color:white;
+    padding:14px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.ad{
+    min-height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px dashed #aaa;
+    background:#f3f3f3;
+    color:#888;
+    border-radius:10px;
+}
+
+.share{
+    margin-top:20px;
+}
+
+.share button{
+    border:0;
+    background:#eef4fb;
+    padding:10px 14px;
+    border-radius:20px;
+    margin:4px;
+}
+
+.back{
+    display:block;
+    margin:20px 0;
+    text-align:center;
+    color:#087ee8;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.comments{
+    margin-top:20px;
+    padding-top:15px;
+    border-top:1px solid #ddd;
+    text-align:left;
+}
+
+.comments textarea{
+    width:100%;
+    min-height:80px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    resize:vertical;
+}
+
+.comments button{
+    margin-top:8px;
+    padding:10px 18px;
+    border:0;
+    border-radius:20px;
+    background:#168de2;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎵 Ning Wei Media</h1>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<img
+    id="cover"
+    class="cover"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Crect width='100%25' height='100%25' fill='%23168de2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='45'%3EMUSIC%3C/text%3E%3C/svg%3E"
+    alt="Music cover"
+>
+
+<h2 id="title">Loading...</h2>
+
+<audio id="player" controls></audio>
+
+<a id="download" class="download">
+    ⬇ DOWNLOAD SONG
+</a>
+
+<div class="ad">
+    ADVERTISEMENT
+</div>
+
+<div class="share">
+
+    <strong>Share:</strong>
+
+    <button onclick="sharePage()">📤 Share</button>
+
+</div>
+
+<div class="comments">
+
+    <strong>💬 Comments</strong>
+
+    <textarea
+        id="comment"
+        placeholder="Write a comment..."
+    ></textarea>
+
+    <button onclick="saveComment()">
+        Post Comment
+    </button>
+
+    <div id="commentsList"></div>
+
+</div>
+
+</div>
+
+<a class="back" id="back">
+    ← Back
+</a>
+
+</div>
+
+<script>
+
+const params=
+new URLSearchParams(location.search);
+
+const file=
+params.get("file");
+
+const title=
+params.get("title") || file || "Song";
+
+const folder=
+params.get("folder") || "media/songs/Ugandan";
+
+const cleanTitle=
+title.replace(/\.[^/.]+$/,"");
+
+document.getElementById("title").textContent=
+cleanTitle;
+
+document.title=
+cleanTitle+" - Ning Wei Media";
+
+
+if(file){
+
+    const encoded=
+    file.split("/")
+    .map(x=>encodeURIComponent(x))
+    .join("/");
+
+    const url=
+    `https://raw.githubusercontent.com/Ningwei2567/Ning-wei-1/main/${folder}/${encoded}`;
+
+    document.getElementById("player").src=url;
+
+    const download=
+    document.getElementById("download");
+
+    download.href=url;
+    download.download=cleanTitle;
+
+}
+
+
+/* BACK */
+
+document.getElementById("back").href=
+`media.html?path=${encodeURIComponent(folder)}`;
+
+
+/* SHARE */
+
+async function sharePage(){
+
+    if(navigator.share){
+
+        await navigator.share({
+            title:cleanTitle,
+            url:location.href
+        });
+
+    }else{
+
+        await navigator.clipboard.writeText(location.href);
+
+        alert("Link copied!");
+
+    }
+
+}
+
+
+/* LOCAL COMMENTS */
+
+function saveComment(){
+
+    const box=
+    document.getElementById("comment");
+
+    const text=
+    box.value.trim();
+
+    if(!text)return;
+
+    const key=
+    "comments_"+location.href;
+
+    const comments=
+    JSON.parse(localStorage.getItem(key)||"[]");
+
+    comments.push(text);
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(comments)
+    );
+
+    box.value="";
+
+    showComments();
+
+}
+
+
+function showComments(){
+
+    const key=
+    "comments_"+location.href;
+
+    const comments=
+    JSON.parse(localStorage.getItem(key)||"[]");
+
+    const list=
+    document.getElementById("commentsList");
+
+    list.innerHTML=
+    comments.map(c=>
+        `<p>💬 ${escapeHtml(c)}</p>`
+    ).join("");
+
+}
+
+
+function escapeHtml(text){
+
+    const div=
+    document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+showComments();
+
+</script>
+
+</body>
+</html>
