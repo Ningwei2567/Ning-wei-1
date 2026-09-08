@@ -4,34 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DJ Mixes - Ning Wei Media</title>
+<title>DJ Mixes / Nonstop - Ning Wei Media</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    color:#172033;
-
+    color:#182033;
     background:
-        radial-gradient(circle at 10% 10%,rgba(80,170,255,.18),transparent 35%),
-        radial-gradient(circle at 90% 30%,rgba(180,100,255,.14),transparent 35%),
-        linear-gradient(135deg,#f7fbff,#f7f3ff,#effcf9);
+      radial-gradient(circle at 10% 10%,#d9f3ff 0,transparent 35%),
+      radial-gradient(circle at 90% 20%,#eee0ff 0,transparent 35%),
+      linear-gradient(135deg,#f7fbff,#f4f0ff,#effcf8);
+    min-height:100vh;
 }
 
 header{
-    background:linear-gradient(135deg,#168de2,#2457d6);
+    background:linear-gradient(135deg,#087fe8,#3159d9);
     color:white;
     text-align:center;
-    padding:30px 15px;
+    padding:32px 15px;
 }
 
 header h1{
     margin:0;
-    font-size:32px;
+    font-size:30px;
 }
 
 header p{
@@ -39,47 +37,48 @@ header p{
     font-size:17px;
 }
 
-.search{
-    max-width:700px;
-    margin:25px auto 10px;
-    padding:0 20px;
+.search-box{
+    padding:22px 4%;
 }
 
-.search input{
+.search{
     width:100%;
-    padding:17px 22px;
+    padding:17px 20px;
     border:0;
     border-radius:35px;
     font-size:18px;
     outline:none;
-    box-shadow:0 4px 20px rgba(0,0,0,.08);
+    box-shadow:0 4px 18px #cfd7e5;
 }
 
 .container{
-    max-width:750px;
+    max-width:800px;
     margin:auto;
-    padding:10px 20px 30px;
+    padding:0 4% 30px;
 }
 
-.folder{
+.item{
     display:flex;
     align-items:center;
-    gap:16px;
-
-    padding:20px 10px;
-
-    border-bottom:1px solid #dce1e8;
-
+    gap:15px;
+    padding:20px 12px;
+    border-bottom:1px solid #d9dce4;
     text-decoration:none;
-    color:#172033;
+    color:#182033;
+    background:rgba(255,255,255,.55);
 }
 
-.folder:hover{
-    background:rgba(255,255,255,.6);
+.item:first-child{
+    border-radius:20px 20px 0 0;
 }
 
-.folder-icon{
-    font-size:36px;
+.item:last-child{
+    border-radius:0 0 20px 20px;
+    border-bottom:0;
+}
+
+.icon{
+    font-size:35px;
     width:55px;
     text-align:center;
 }
@@ -89,26 +88,25 @@ header p{
 }
 
 .info h2{
-    margin:0 0 5px;
-    font-size:22px;
+    margin:0;
+    font-size:21px;
 }
 
 .info p{
-    margin:0;
+    margin:5px 0 0;
     color:#718096;
-    font-size:15px;
 }
 
 .arrow{
-    color:#168dcc;
     font-size:30px;
+    color:#168bd0;
 }
 
 .back{
     display:block;
     text-align:center;
-    margin:10px 0 40px;
-    color:#168dcc;
+    margin:10px 0 35px;
+    color:#168bd0;
     text-decoration:none;
     font-size:18px;
     font-weight:bold;
@@ -119,81 +117,60 @@ header p{
 <body>
 
 <header>
-    <h1>🎧 DJ Mixes</h1>
+    <h1>🎧 DJ Mixes / Nonstop</h1>
     <p>Mixtapes, mappings, effects & skins</p>
 </header>
 
-<div class="search">
-
+<div class="search-box">
     <input
         id="search"
+        class="search"
         type="search"
-        placeholder="🔎 Search DJ Mixes..."
-        oninput="searchFolders()"
+        placeholder="🔎 Search DJ mixes..."
     >
-
 </div>
 
 <div class="container">
 
-    <a class="folder"
-       href="Mixtapes/index.html">
+    <div id="items">
 
-        <div class="folder-icon">🎧</div>
+        <a class="item" href="browser.html?folder=Mixtapes-Nonstop">
+            <div class="icon">🎧</div>
+            <div class="info">
+                <h2>Mixtapes / Nonstop</h2>
+                <p>DJ mixtapes and nonstop mixes</p>
+            </div>
+            <div class="arrow">›</div>
+        </a>
 
-        <div class="info">
-            <h2>DJ Mixtapes</h2>
-            <p>Non-stop DJ mixes and mixtapes</p>
-        </div>
+        <a class="item" href="browser.html?folder=Mappings">
+            <div class="icon">🗺️</div>
+            <div class="info">
+                <h2>Mappings</h2>
+                <p>DJ mappings and files</p>
+            </div>
+            <div class="arrow">›</div>
+        </a>
 
-        <div class="arrow">›</div>
+        <a class="item" href="browser.html?folder=Sound-Effects">
+            <div class="icon">🔊</div>
+            <div class="info">
+                <h2>Sound Effects</h2>
+                <p>DJ sound effects</p>
+            </div>
+            <div class="arrow">›</div>
+        </a>
 
-    </a>
+        <a class="item" href="browser.html?folder=Virtual-DJ-Skins">
+            <div class="icon">🎛️</div>
+            <div class="info">
+                <h2>Virtual DJ Skins</h2>
+                <p>Virtual DJ skins</p>
+            </div>
+            <div class="arrow">›</div>
+        </a>
 
-
-    <a class="folder"
-       href="Mappings/index.html">
-
-        <div class="folder-icon">🗺️</div>
-
-        <div class="info">
-            <h2>Mappings</h2>
-            <p>DJ mappings and controller files</p>
-        </div>
-
-        <div class="arrow">›</div>
-
-    </a>
-
-
-    <a class="folder"
-       href="Sound-Effects/index.html">
-
-        <div class="folder-icon">🔊</div>
-
-        <div class="info">
-            <h2>Sound Effects</h2>
-            <p>Sound effects and DJ sounds</p>
-        </div>
-
-        <div class="arrow">›</div>
-
-    </a>
-
-
-    <a class="folder"
-       href="Virtual-DJ-Skins/index.html">
-
-        <div class="folder-icon">🎨</div>
-
-        <div class="info">
-            <h2>Virtual DJ Skins</h2>
-            <p>Virtual DJ skins and themes</p>
-        </div>
-
-        <div class="arrow">›</div>
-
-    </a>
+    </div>
 
 </div>
 
@@ -202,26 +179,21 @@ header p{
 </a>
 
 <script>
+const search = document.getElementById("search");
+const items = document.querySelectorAll(".item");
 
-function searchFolders(){
+search.addEventListener("input", function(){
 
-    const search =
-        document.getElementById("search")
-        .value
-        .toLowerCase();
+    const text = this.value.toLowerCase();
 
-    document.querySelectorAll(".folder").forEach(folder => {
-
-        const text =
-            folder.innerText.toLowerCase();
-
-        folder.style.display =
-            text.includes(search) ? "flex" : "none";
-
+    items.forEach(item => {
+        item.style.display =
+            item.innerText.toLowerCase().includes(text)
+            ? "flex"
+            : "none";
     });
 
-}
-
+});
 </script>
 
 </body>
