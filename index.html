@@ -14,762 +14,423 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#f4f8fb,#ffffff);
-  color:#222;
+  background:#f4f8fa;
+  color:#111;
 }
 
-/* =========================
-   NING WEI MEDIA HEADER
-   ========================= */
-
-header{
+.header{
+  height:190px;
   position:relative;
-  overflow:hidden;
-
-  min-height:155px;
-  padding:25px 15px;
-
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-
-  text-align:center;
-  color:white;
-
+  align-items:flex-end;
+  padding:15px;
   background:
-    linear-gradient(
-      rgba(0,0,0,.20),
-      rgba(0,0,0,.20)
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.45) 0%,
-      rgba(255,205,0,.30) 33%,
-      rgba(255,205,0,.30) 45%,
-      rgba(206,17,38,.30) 55%,
-      rgba(206,17,38,.30) 67%,
-      rgba(0,0,0,.45) 100%
-    ),
-    url("ning-wei.png");
-
-  background-size:cover;
-  background-position:center 25%;
-
-  box-shadow:0 4px 18px rgba(0,0,0,.18);
+    linear-gradient(rgba(80,190,235,.20),rgba(80,190,235,.20)),
+    url("ning-wei.png") center/cover no-repeat;
 }
 
-header h1{
+.header h1{
   margin:0;
-  font-size:32px;
-  font-weight:800;
-  text-shadow:0 2px 5px rgba(0,0,0,.55);
+  color:white;
+  font-size:27px;
+  text-shadow:0 2px 6px #000;
 }
-
-header p{
-  margin:8px 0 0;
-  font-size:14px;
-  text-shadow:0 2px 4px rgba(0,0,0,.55);
-}
-
-
-/* =========================
-   SEARCH
-   ========================= */
-
-.search-box{
-  max-width:700px;
-  margin:15px auto;
-  padding:0 15px;
-}
-
-.search-box input{
-  width:100%;
-  padding:13px 16px;
-
-  border:none;
-  border-radius:25px;
-
-  font-size:15px;
-  outline:none;
-
-  box-shadow:0 3px 12px rgba(0,0,0,.12);
-}
-
-
-/* =========================
-   MAIN CONTENT
-   ========================= */
 
 .container{
-  max-width:800px;
+  width:100%;
+  max-width:900px;
   margin:auto;
-  padding:5px 15px 30px;
+  padding:12px;
 }
 
+.search{
+  width:100%;
+  padding:13px 17px;
+  border:1px solid #ccc;
+  border-radius:25px;
+  font-size:16px;
+  outline:none;
+  margin-bottom:12px;
+}
 
-/* =========================
-   NUMBERED MAIN SECTIONS
-   ========================= */
-
-.category{
+.item{
   display:flex;
   align-items:center;
-  gap:13px;
-
+  gap:10px;
   background:white;
-
-  padding:14px;
-  margin:9px 0;
-
-  border-radius:11px;
-
-  text-decoration:none;
-  color:#222;
-
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-
-  transition:.2s;
+  padding:9px;
+  margin-bottom:7px;
+  border-radius:8px;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
-
-.category:hover{
-  transform:translateY(-2px);
-  box-shadow:0 4px 14px rgba(0,0,0,.12);
-}
-
-
-/* =========================
-   UGANDA FLAG NUMBER
-   ========================= */
 
 .number{
-  width:42px;
-  height:42px;
-  min-width:42px;
-
+  width:32px;
+  height:32px;
+  min-width:32px;
   border-radius:50%;
-
-  background:
-    linear-gradient(
-      180deg,
-
-      #000 0%,
-      #000 33.33%,
-
-      #fcdc00 33.33%,
-      #fcdc00 66.66%,
-
-      #d90000 66.66%,
-      #d90000 100%
-    );
-
-  color:white;
-
+  background:#000;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  font-size:18px;
   font-weight:bold;
-
-  text-shadow:0 1px 3px #000;
-
-  border:2px solid white;
-
-  box-shadow:0 1px 5px rgba(0,0,0,.2);
 }
 
-
-.category strong{
-  display:block;
-  font-size:16px;
+.icon{
+  font-size:21px;
 }
 
-.category small{
-  display:block;
-  margin-top:3px;
-  color:#777;
-  font-size:12px;
+.item a{
+  flex:1;
+  color:#111;
+  text-decoration:none;
+  font-weight:bold;
 }
 
-
-/* =========================
-   TRENDING APPS
-   ========================= */
-
-.section-title{
-  margin:22px 0 10px;
-
-  color:#126dcc;
-
+.arrow{
+  color:#0795c5;
   font-size:20px;
-  font-weight:bold;
 }
 
-.apps{
-  display:grid;
-
-  grid-template-columns:repeat(2,1fr);
-
-  gap:8px;
-}
-
-.app{
-  display:flex;
-  align-items:center;
-
-  gap:12px;
-
-  background:white;
-
-  padding:11px;
-
-  border-radius:10px;
-
-  text-decoration:none;
-  color:#222;
-
-  box-shadow:0 2px 7px rgba(0,0,0,.07);
-}
-
-.app img{
-  width:34px;
-  height:34px;
-
-  object-fit:contain;
-}
-
-.app span{
-  font-size:14px;
-  font-weight:bold;
-}
-
-
-/* =========================
-   FOLLOW NING WEI MEDIA
-   ========================= */
-
-.follow{
-  background:white;
-
-  margin-top:20px;
-
-  padding:18px;
-
-  border-radius:12px;
-
+.loading,
+.error{
   text-align:center;
-
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.follow h2{
-  margin:0 0 15px;
-
-  font-size:19px;
-
-  color:#126dcc;
-}
-
-
-/* SOCIAL MEDIA */
-
-.social{
-  display:flex;
-
-  flex-wrap:wrap;
-
-  justify-content:center;
-
-  gap:10px;
-}
-
-.social a{
-  display:flex;
-  align-items:center;
-
-  gap:8px;
-
-  padding:9px 14px;
-
-  background:white;
-
-  color:#222;
-
-  border:1px solid #e5e5e5;
-
-  border-radius:22px;
-
-  text-decoration:none;
-
-  font-size:13px;
-
-  font-weight:bold;
-
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
-}
-
-.social img{
-  width:21px;
-  height:21px;
-
-  object-fit:contain;
-}
-
-
-/* =========================
-   FOOTER
-   ========================= */
-
-footer{
-  text-align:center;
-
-  padding:20px;
-
+  padding:30px;
   color:#777;
-
-  font-size:13px;
 }
 
-
-/* =========================
-   MOBILE
-   ========================= */
-
-@media(max-width:500px){
-
-  .apps{
-    grid-template-columns:1fr 1fr;
-  }
-
-  header h1{
-    font-size:29px;
-  }
-
+.back{
+  display:block;
+  margin-bottom:12px;
+  color:#087ea4;
+  text-decoration:none;
+  font-weight:bold;
 }
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     HEADER
-     ========================= -->
-
-<header>
-
-  <h1>Ning Wei Media</h1>
-
-  <p>
-    Music • Videos • Photos • Apps • Software
-  </p>
-
+<header class="header">
+  <h1>🎵 Ning Wei Media</h1>
 </header>
-
-
-<!-- =========================
-     SEARCH
-     ========================= -->
-
-<div class="search-box">
-
-  <input
-    type="text"
-    id="search"
-    placeholder="Search Ning Wei Media..."
-    onkeyup="searchSite()"
-  >
-
-</div>
-
 
 <div class="container">
 
-
-<!-- =========================
-     MAIN SECTIONS
-     ========================= -->
-
-
-<!-- 1 -->
-<a class="category" href="audio.html">
-
-  <span class="number">1</span>
-
-  <div>
-
-    <strong>
-      Trending Songs
-    </strong>
-
-    <small>
-      Music and audio
-    </small>
-
-  </div>
-
-</a>
-
-
-<!-- 2 -->
-<a class="category" href="videos.html">
-
-  <span class="number">2</span>
-
-  <div>
-
-    <strong>
-      Trending Videos
-    </strong>
-
-    <small>
-      Watch videos
-    </small>
-
-  </div>
-
-</a>
-
-
-<!-- 3 -->
-<a class="category" href="photos.html">
-
-  <span class="number">3</span>
-
-  <div>
-
-    <strong>
-      Trending Photos
-    </strong>
-
-    <small>
-      View photos
-    </small>
-
-  </div>
-
-</a>
-
-
-<!-- 4 -->
-<a class="category" href="apks.html">
-
-  <span class="number">4</span>
-
-  <div>
-
-    <strong>
-      Premium &amp; Paid Apps
-    </strong>
-
-    <small>
-      Applications
-    </small>
-
-  </div>
-
-</a>
-
-
-<!-- 5 -->
-<a class="category" href="software.html">
-
-  <span class="number">5</span>
-
-  <div>
-
-    <strong>
-      All Softwares
-    </strong>
-
-    <small>
-      Software and programs
-    </small>
-
-  </div>
-
-</a>
-
-
-<!-- 6 -->
-<a
-  class="category"
-  href="media/songs/DJ-Mixes/index.html"
+<input
+  id="search"
+  class="search"
+  type="search"
+  placeholder="Search..."
 >
 
-  <span class="number">6</span>
+<div id="back"></div>
 
-  <div>
-
-    <strong>
-      DJ Mixes / Nonstop
-    </strong>
-
-    <small>
-      DJ mixes and mixtapes
-    </small>
-
-  </div>
-
-</a>
-
-
-<!-- =========================
-     TRENDING APPS
-     ========================= -->
-
-<div class="section-title">
-  🔥 Trending Apps
+<div id="list">
+  <div class="loading">Loading...</div>
 </div>
 
-
-<div class="apps">
-
-
-<!-- SPOTIFY -->
-
-<a class="app" href="apks.html">
-
-  <img
-    src="https://cdn.simpleicons.org/spotify/1DB954"
-    alt="Spotify logo"
-  >
-
-  <span>
-    Spotify
-  </span>
-
-</a>
-
-
-<!-- YOUTUBE -->
-
-<a class="app" href="apks.html">
-
-  <img
-    src="https://cdn.simpleicons.org/youtube/FF0000"
-    alt="YouTube logo"
-  >
-
-  <span>
-    YouTube
-  </span>
-
-</a>
-
-
-<!-- TIKTOK -->
-
-<a class="app" href="apks.html">
-
-  <img
-    src="https://cdn.simpleicons.org/tiktok/000000"
-    alt="TikTok logo"
-  >
-
-  <span>
-    TikTok
-  </span>
-
-</a>
-
-
-<!-- INSTAGRAM -->
-
-<a class="app" href="apks.html">
-
-  <img
-    src="https://cdn.simpleicons.org/instagram/E4405F"
-    alt="Instagram logo"
-  >
-
-  <span>
-    Instagram
-  </span>
-
-</a>
-
-
-<!-- FACEBOOK -->
-
-<a class="app" href="apks.html">
-
-  <img
-    src="https://cdn.simpleicons.org/facebook/1877F2"
-    alt="Facebook logo"
-  >
-
-  <span>
-    Facebook
-  </span>
-
-</a>
-
-
-<!-- PINTEREST -->
-
-<a class="app" href="apks.html">
-
-  <img
-    src="https://cdn.simpleicons.org/pinterest/BD081C"
-    alt="Pinterest logo"
-  >
-
-  <span>
-    Pinterest
-  </span>
-
-</a>
-
-
 </div>
-
-
-<!-- =========================
-     FOLLOW
-     ========================= -->
-
-<div class="follow">
-
-  <h2>
-    Follow Ning Wei Media
-  </h2>
-
-
-  <div class="social">
-
-
-    <!-- YOUTUBE -->
-
-    <a href="https://www.youtube.com/">
-
-      <img
-        src="https://cdn.simpleicons.org/youtube/FF0000"
-        alt="YouTube"
-      >
-
-      YouTube
-
-    </a>
-
-
-    <!-- INSTAGRAM -->
-
-    <a href="https://www.instagram.com/">
-
-      <img
-        src="https://cdn.simpleicons.org/instagram/E4405F"
-        alt="Instagram"
-      >
-
-      Instagram
-
-    </a>
-
-
-    <!-- TIKTOK -->
-
-    <a href="https://www.tiktok.com/">
-
-      <img
-        src="https://cdn.simpleicons.org/tiktok/000000"
-        alt="TikTok"
-      >
-
-      TikTok
-
-    </a>
-
-
-    <!-- FACEBOOK -->
-
-    <a href="https://www.facebook.com/">
-
-      <img
-        src="https://cdn.simpleicons.org/facebook/1877F2"
-        alt="Facebook"
-      >
-
-      Facebook
-
-    </a>
-
-
-    <!-- WHATSAPP -->
-
-    <a href="https://www.whatsapp.com/">
-
-      <img
-        src="https://cdn.simpleicons.org/whatsapp/25D366"
-        alt="WhatsApp"
-      >
-
-      WhatsApp
-
-    </a>
-
-
-  </div>
-
-</div>
-
-
-</div>
-
-
-<!-- =========================
-     FOOTER
-     ========================= -->
-
-<footer>
-
-  © 2026 Ning Wei Media
-
-</footer>
-
-
-<!-- =========================
-     SEARCH SCRIPT
-     ========================= -->
 
 <script>
 
-function searchSite(){
+const OWNER = "Ningwei2567";
+const REPO = "Ning-wei-1";
+const BRANCH = "main";
 
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .toLowerCase();
+const API =
+`https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 
-  const items =
-    document
-      .querySelectorAll(".category");
+let currentPath = "";
+let allItems = [];
 
+function iconFor(name,type){
 
-  items.forEach(item => {
+  if(type === "dir"){
 
-    const text =
-      item.innerText.toLowerCase();
+    const n = name.toLowerCase();
 
-    if(text.includes(search)){
+    if(n.includes("song") || n.includes("music"))
+      return "🎵";
 
-      item.style.display="flex";
+    if(n.includes("video"))
+      return "🎬";
 
-    }else{
+    if(n.includes("photo"))
+      return "📷";
 
-      item.style.display="none";
+    if(n.includes("app"))
+      return "📱";
 
-    }
+    if(n.includes("software"))
+      return "💻";
 
-  });
+    if(n.includes("mix"))
+      return "🎧";
 
+    if(n.includes("mapping"))
+      return "🗺️";
+
+    if(n.includes("effect"))
+      return "🔊";
+
+    if(n.includes("skin"))
+      return "🎨";
+
+    return "📁";
+  }
+
+  if(/\.(mp3|wav|m4a|aac|ogg)$/i.test(name))
+    return "🎵";
+
+  if(/\.(mp4|webm|mov|mkv|avi)$/i.test(name))
+    return "🎬";
+
+  if(/\.(jpg|jpeg|png|gif|webp)$/i.test(name))
+    return "🖼️";
+
+  if(/\.(apk)$/i.test(name))
+    return "📱";
+
+  return "📄";
 }
 
-</script>
+function cleanName(name){
 
+  return name
+    .replace(/\.[^/.]+$/,"")
+    .replace(/[-_]/g," ");
+}
+
+function makeURL(item){
+
+  if(item.type === "dir"){
+
+    return "?path=" +
+      encodeURIComponent(item.path);
+  }
+
+  const ext =
+    item.name.split(".").pop().toLowerCase();
+
+  const folder =
+    item.path.substring(
+      0,
+      item.path.lastIndexOf("/")
+    );
+
+  if(["mp3","wav","m4a","aac","ogg"].includes(ext)){
+
+    return "media/songs/song.html?folder=" +
+      encodeURIComponent(
+        folder.replace("media/songs/","")
+      ) +
+      "&file=" +
+      encodeURIComponent(item.name);
+  }
+
+  if(["mp4","webm","mov","mkv","avi"].includes(ext)){
+
+    return item.download_url;
+  }
+
+  return item.download_url;
+}
+
+async function loadFolder(path){
+
+  currentPath = path;
+
+  const list =
+    document.getElementById("list");
+
+  list.innerHTML =
+    `<div class="loading">Loading...</div>`;
+
+  try{
+
+    const response =
+      await fetch(
+        API +
+        path +
+        "?ref=" +
+        BRANCH
+      );
+
+    if(!response.ok)
+      throw new Error();
+
+    let items =
+      await response.json();
+
+    items =
+      items.sort((a,b)=>{
+
+        if(a.type !== b.type)
+          return a.type === "dir" ? -1 : 1;
+
+        return a.name.localeCompare(b.name);
+      });
+
+    allItems = items;
+
+    showItems(items);
+
+    showBack(path);
+
+  }catch(e){
+
+    list.innerHTML =
+      `<div class="error">
+        Unable to load this folder.
+      </div>`;
+  }
+}
+
+function showItems(items){
+
+  const list =
+    document.getElementById("list");
+
+  list.innerHTML = "";
+
+  if(items.length === 0){
+
+    list.innerHTML =
+      `<div class="loading">
+        This folder is empty.
+      </div>`;
+
+    return;
+  }
+
+  items.forEach((item,index)=>{
+
+    const row =
+      document.createElement("div");
+
+    row.className = "item";
+
+    const number =
+      document.createElement("div");
+
+    number.className = "number";
+
+    /*
+      IMPORTANT:
+      Numbering starts from 1
+      inside EVERY folder.
+    */
+
+    number.textContent = index + 1;
+
+    const icon =
+      document.createElement("span");
+
+    icon.className = "icon";
+
+    icon.textContent =
+      iconFor(item.name,item.type);
+
+    const link =
+      document.createElement("a");
+
+    link.textContent =
+      cleanName(item.name);
+
+    link.href =
+      makeURL(item);
+
+    if(item.type === "file"){
+
+      if(/\.(mp4|webm|mov|mkv|avi)$/i
+        .test(item.name)){
+
+        link.target = "_blank";
+      }
+
+      if(!/\.(mp3|wav|m4a|aac|ogg|mp4|webm|mov|mkv|avi)$/i
+        .test(item.name)){
+
+        link.download = "";
+      }
+    }
+
+    const arrow =
+      document.createElement("span");
+
+    arrow.className = "arrow";
+
+    arrow.textContent =
+      item.type === "dir" ? "›" : "↓";
+
+    row.appendChild(number);
+    row.appendChild(icon);
+    row.appendChild(link);
+    row.appendChild(arrow);
+
+    list.appendChild(row);
+  });
+}
+
+function showBack(path){
+
+  const back =
+    document.getElementById("back");
+
+  if(!path){
+
+    back.innerHTML = "";
+    return;
+  }
+
+  const parent =
+    path.substring(
+      0,
+      path.lastIndexOf("/")
+    );
+
+  back.innerHTML =
+    `<a class="back"
+       href="?path=${encodeURIComponent(parent)}">
+       ← Back
+     </a>`;
+}
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+  const text =
+    this.value.toLowerCase().trim();
+
+  if(!text){
+
+    showItems(allItems);
+    return;
+  }
+
+  const filtered =
+    allItems.filter(item =>
+      item.name
+      .toLowerCase()
+      .includes(text)
+    );
+
+  showItems(filtered);
+});
+
+
+const params =
+  new URLSearchParams(location.search);
+
+const path =
+  params.get("path") || "";
+
+loadFolder(path);
+
+</script>
 
 </body>
 </html>
