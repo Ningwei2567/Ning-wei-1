@@ -2,420 +2,181 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ning Wei Media</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f8fa;
-  color:#111;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f4f7f9;
+ color:#111;
 }
 
-.header{
-  height:190px;
-  display:flex;
-  align-items:flex-end;
-  padding:15px;
-  background:
-    linear-gradient(rgba(80,190,235,.20),rgba(80,190,235,.20)),
-    url("ning-wei.png") center/cover no-repeat;
+header{
+ height:350px;
+ position:relative;
+ background:
+ linear-gradient(rgba(135,206,235,.28),rgba(135,206,235,.28)),
+ url("ning-wei.png") center/cover no-repeat;
+ display:flex;
+ align-items:flex-end;
+ padding:25px;
 }
 
-.header h1{
-  margin:0;
-  color:#fff;
-  font-size:27px;
-  text-shadow:0 2px 6px #000;
+header h1{
+ margin:0;
+ color:white;
+ font-size:34px;
+ text-shadow:0 2px 5px #000;
 }
 
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:12px;
+main{
+ max-width:750px;
+ margin:auto;
+ padding:18px;
 }
 
 .search{
-  width:100%;
-  padding:13px 17px;
-  border:1px solid #ccc;
-  border-radius:25px;
-  font-size:16px;
-  margin-bottom:12px;
-  outline:none;
+ width:100%;
+ padding:15px 20px;
+ border:1px solid #ccc;
+ border-radius:30px;
+ font-size:18px;
+ margin-bottom:15px;
 }
 
 .item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#fff;
-  padding:9px;
-  margin-bottom:7px;
-  border-radius:8px;
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
+ display:flex;
+ align-items:center;
+ gap:14px;
+ background:white;
+ padding:12px;
+ margin:8px 0;
+ border-radius:14px;
+ text-decoration:none;
+ color:#111;
+ box-shadow:0 2px 7px #0002;
 }
 
-.number{
-  width:32px;
-  height:32px;
-  min-width:32px;
-  border-radius:50%;
-  background:#000;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
+.num{
+ width:44px;
+ height:44px;
+ min-width:44px;
+ border-radius:50%;
+ background:#000;
+ color:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:bold;
+ font-size:20px;
 }
 
 .icon{
-  font-size:21px;
+ width:38px;
+ text-align:center;
+ font-size:27px;
 }
 
-.item a{
-  flex:1;
-  color:#111;
-  text-decoration:none;
-  font-weight:bold;
-  word-break:break-word;
+.name{
+ font-size:18px;
+ font-weight:bold;
 }
 
 .arrow{
-  color:#0795c5;
-  font-size:22px;
-}
-
-.message{
-  text-align:center;
-  padding:30px;
-  color:#777;
+ margin-left:auto;
+ font-size:28px;
+ color:#168baa;
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <h1>🎵 Ning Wei Media</h1>
+<header>
+<h1>🎵 Ning Wei Media</h1>
 </header>
 
-<div class="container">
+<main>
 
-  <input
-    id="search"
-    class="search"
-    type="search"
-    placeholder="Search..."
-  >
+<input
+ id="search"
+ class="search"
+ type="search"
+ placeholder="Search..."
+>
 
-  <div id="list">
-    <div class="message">Loading...</div>
-  </div>
+<div id="list">
+
+<a class="item" href="audio.html">
+<span class="num">1</span>
+<span class="icon">🎵</span>
+<span class="name">Trending Songs</span>
+<span class="arrow">›</span>
+</a>
+
+<a class="item" href="media/songs/Old-is-Gold/index.html">
+<span class="num">2</span>
+<span class="icon">🏆</span>
+<span class="name">Old is Gold</span>
+<span class="arrow">›</span>
+</a>
+
+<a class="item" href="media/songs/DJ-Mixes/index.html">
+<span class="num">3</span>
+<span class="icon">🎧</span>
+<span class="name">DJ Mixes</span>
+<span class="arrow">›</span>
+</a>
+
+<a class="item" href="videos.html">
+<span class="num">4</span>
+<span class="icon">🎬</span>
+<span class="name">Videos</span>
+<span class="arrow">›</span>
+</a>
+
+<a class="item" href="photos.html">
+<span class="num">5</span>
+<span class="icon">🖼️</span>
+<span class="name">Photos</span>
+<span class="arrow">›</span>
+</a>
+
+<a class="item" href="apks.html">
+<span class="num">6</span>
+<span class="icon">📱</span>
+<span class="name">Apps</span>
+<span class="arrow">›</span>
+</a>
+
+<a class="item" href="software.html">
+<span class="num">7</span>
+<span class="icon">💻</span>
+<span class="name">Software</span>
+<span class="arrow">›</span>
+</a>
 
 </div>
+</main>
 
 <script>
-
-const OWNER = "Ningwei2567";
-const REPO = "Ning-wei-1";
-const BRANCH = "main";
-
-const API =
-  `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
-
-let items = [];
-
-
-/* ICON */
-
-function getIcon(item){
-
-  if(item.type === "dir"){
-
-    const name =
-      item.name.toLowerCase();
-
-    if(name.includes("song") ||
-       name.includes("music"))
-      return "🎵";
-
-    if(name.includes("video"))
-      return "🎬";
-
-    if(name.includes("photo"))
-      return "📷";
-
-    if(name.includes("app"))
-      return "📱";
-
-    if(name.includes("software"))
-      return "💻";
-
-    if(name.includes("mix"))
-      return "🎧";
-
-    return "📁";
-  }
-
-  const name =
-    item.name.toLowerCase();
-
-  if(/\.(mp3|wav|m4a|aac|ogg|opus|flac)$/i.test(name))
-    return "🎵";
-
-  if(/\.(mp4|webm|mov|m4v|avi|mkv)$/i.test(name))
-    return "🎬";
-
-  if(/\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(name))
-    return "🖼️";
-
-  if(/\.apk$/i.test(name))
-    return "📱";
-
-  return "📄";
-}
-
-
-/* CLEAN FILE NAME */
-
-function cleanName(name){
-
-  return name
-    .replace(/\.[^/.]+$/,"")
-    .replace(/[-_]/g," ");
-}
-
-
-/* PLAYER LINK */
-
-function mediaLink(item){
-
-  return "media.html?path=" +
-    encodeURIComponent(item.path);
-}
-
-
-/* DISPLAY */
-
-function display(list){
-
-  const box =
-    document.getElementById("list");
-
-  box.innerHTML = "";
-
-  if(list.length === 0){
-
-    box.innerHTML =
-      `<div class="message">
-        Nothing found.
-      </div>`;
-
-    return;
-  }
-
-  list.forEach((item,index)=>{
-
-    const row =
-      document.createElement("div");
-
-    row.className = "item";
-
-
-    /* NUMBER */
-
-    const number =
-      document.createElement("div");
-
-    number.className = "number";
-
-    number.textContent =
-      index + 1;
-
-
-    /* ICON */
-
-    const icon =
-      document.createElement("span");
-
-    icon.className = "icon";
-
-    icon.textContent =
-      getIcon(item);
-
-
-    /* LINK */
-
-    const link =
-      document.createElement("a");
-
-    link.textContent =
-      cleanName(item.name);
-
-
-    if(item.type === "dir"){
-
-      /*
-        Folders open through the
-        universal browser.
-      */
-
-      link.href =
-        "?folder=" +
-        encodeURIComponent(item.path);
-
-    }else{
-
-      /*
-        EVERY FILE goes through
-        the universal media.html player.
-      */
-
-      link.href =
-        mediaLink(item);
-
-    }
-
-
-    /* ARROW */
-
-    const arrow =
-      document.createElement("span");
-
-    arrow.className = "arrow";
-
-    arrow.textContent =
-      item.type === "dir"
-        ? "›"
-        : "↓";
-
-
-    row.appendChild(number);
-    row.appendChild(icon);
-    row.appendChild(link);
-    row.appendChild(arrow);
-
-    box.appendChild(row);
-
-  });
-}
-
-
-/* LOAD ROOT */
-
-async function loadRoot(){
-
-  try{
-
-    const response =
-      await fetch(
-        API +
-        "?ref=" +
-        BRANCH
-      );
-
-    if(!response.ok)
-      throw new Error();
-
-    items =
-      await response.json();
-
-
-    /*
-      Hide website-control files
-      from the main media list.
-    */
-
-    items =
-      items.filter(item => {
-
-        const name =
-          item.name.toLowerCase();
-
-        return ![
-          "index.html",
-          "audio.html",
-          "photos.html",
-          "videos.html",
-          "software.html",
-          "apks.html",
-          "song.html",
-          "media.html",
-          "style.css"
-        ].includes(name);
-
-      });
-
-
-    /*
-      Folders first,
-      then files.
-    */
-
-    items.sort((a,b)=>{
-
-      if(a.type !== b.type){
-
-        return a.type === "dir"
-          ? -1
-          : 1;
-      }
-
-      return a.name.localeCompare(b.name);
-
-    });
-
-
-    display(items);
-
-  }catch(error){
-
-    document.getElementById("list").innerHTML =
-      `<div class="message">
-        Unable to load Ning Wei Media.
-      </div>`;
-  }
-}
-
-
-/* SEARCH */
-
-document
-  .getElementById("search")
-  .addEventListener("input",function(){
-
-    const text =
-      this.value
-        .toLowerCase()
-        .trim();
-
-    if(!text){
-
-      display(items);
-      return;
-    }
-
-    const filtered =
-      items.filter(item =>
-        item.name
-          .toLowerCase()
-          .includes(text)
-      );
-
-    display(filtered);
-
-  });
-
-
-loadRoot();
-
+const search=document.getElementById("search");
+const items=[...document.querySelectorAll(".item")];
+
+search.addEventListener("input",()=>{
+ const q=search.value.toLowerCase();
+
+ items.forEach(item=>{
+   item.style.display=
+     item.innerText.toLowerCase().includes(q)
+     ? "flex"
+     : "none";
+ });
+});
 </script>
 
 </body>
