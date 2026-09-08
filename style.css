@@ -1,337 +1,288 @@
 *{
   box-sizing:border-box;
-}
-
-html,body{
   margin:0;
   padding:0;
 }
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:#f5f6f7;
-  color:#222;
+  background:#f3f7fa;
+  color:#111;
 }
 
-/* =================================
-   SAME HEADER ON EVERY PAGE
-   PHOTO + VERY LIGHT SKY BLUE
-   ================================= */
-
-.site-header{
+.header{
+  height:280px;
   position:relative;
   overflow:hidden;
-
-  min-height:155px;
-  padding:24px 15px;
-
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
-
+  justify-content:center;
   text-align:center;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      rgba(135,206,235,.15),
-      rgba(135,206,235,.15)
-    ),
-    url("ning-wei.png");
-
-  background-size:cover;
-  background-position:center 25%;
-
-  box-shadow:0 3px 14px rgba(0,0,0,.15);
 }
 
-.site-header h1{
-  margin:0;
+.header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("ning-wei.png") center center/cover no-repeat;
+}
 
-  font-size:32px;
+.header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(42,157,201,.38);
+}
+
+.header-content{
+  position:relative;
+  z-index:2;
+  color:#fff;
+  text-shadow:0 3px 7px rgba(0,0,0,.65);
+}
+
+.header h1{
+  font-size:48px;
   font-weight:800;
-
-  color:white;
-
-  text-shadow:
-    0 2px 5px rgba(0,0,0,.9),
-    0 1px 2px rgba(0,0,0,.9);
+  margin-bottom:12px;
 }
 
-.site-header p{
-  margin:7px 0 0;
-
-  font-size:15px;
-  font-weight:600;
-
-  color:white;
-
-  text-shadow:
-    0 1px 4px rgba(0,0,0,.9);
+.header p{
+  font-size:25px;
 }
-
-/* =================================
-   MAIN CONTENT
-   ================================= */
 
 .container{
-  width:100%;
-  max-width:850px;
-
+  max-width:1000px;
   margin:auto;
-
-  padding:14px;
+  padding:26px;
 }
 
-/* =================================
-   SEARCH
-   ================================= */
-
-.search-box{
+.search{
   width:100%;
-  height:52px;
-
-  margin:0 0 15px;
-
-  padding:0 18px;
-
-  border:0;
-  border-radius:28px;
-
-  background:white;
-
-  color:#222;
-
-  font-size:16px;
-
+  height:68px;
+  border:1px solid #ccc;
   outline:none;
-
-  box-shadow:
-    0 3px 12px rgba(0,0,0,.10);
+  border-radius:40px;
+  padding:0 30px;
+  font-size:24px;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(0,0,0,.10);
+  margin-bottom:25px;
 }
 
-.search-box::placeholder{
-  color:#777;
-}
-
-/* =================================
-   PAGE TITLE
-   ================================= */
-
-.page-title{
-  margin:8px 0 14px;
-
+.back{
+  display:block;
+  color:#167f91;
   font-size:25px;
   font-weight:800;
+  text-decoration:none;
+  margin:0 0 25px 5px;
 }
 
-/* =================================
-   ALL NUMBERED ITEMS
-   ================================= */
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
 
-.numbered-row{
-  width:100%;
-
-  min-height:68px;
-
+.item{
+  min-height:92px;
   display:flex;
   align-items:center;
-
-  gap:10px;
-
-  margin:8px 0;
-
-  padding:9px 12px;
-
-  background:white;
-
-  border-radius:12px;
-
-  color:#222;
-
+  gap:18px;
+  padding:15px 20px;
+  border-radius:22px;
+  background:#fff;
   text-decoration:none;
-
-  box-shadow:
-    0 2px 8px rgba(0,0,0,.09);
+  color:#111;
+  box-shadow:0 4px 14px rgba(0,0,0,.09);
 }
 
-.numbered-row:active{
-  transform:scale(.99);
-}
-
-/* =================================
-   BLACK NUMBER
-   ================================= */
-
-.number{
-  width:42px;
-  height:42px;
-
-  min-width:42px;
-
+.num{
+  width:64px;
+  height:64px;
+  flex:0 0 64px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  border-radius:50%;
-
-  background:#000;
-
-  color:#fff;
-
-  font-size:18px;
+  font-size:27px;
   font-weight:800;
-
-  border:2px solid white;
-
-  box-shadow:
-    0 2px 6px rgba(0,0,0,.30);
 }
 
-/* =================================
-   ICON
-   ================================= */
-
-.item-icon{
-  width:40px;
-  min-width:40px;
-
+.icon{
+  width:58px;
+  flex:0 0 58px;
   text-align:center;
-
-  font-size:23px;
+  font-size:40px;
 }
 
-/* =================================
-   TEXT
-   ================================= */
-
-.row-text{
+.text{
   flex:1;
   min-width:0;
 }
 
-.row-text strong{
-  display:block;
-
-  font-size:17px;
-  font-weight:700;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.title{
+  font-size:24px;
+  font-weight:800;
+  word-break:break-word;
 }
 
-.row-text small{
-  display:block;
-
-  margin-top:3px;
-
+.sub{
   color:#777;
-
-  font-size:13px;
+  font-size:18px;
+  margin-top:5px;
 }
-
-/* =================================
-   ARROW
-   ================================= */
 
 .arrow{
-  font-size:27px;
-  font-weight:bold;
-
-  color:#222;
+  font-size:38px;
+  color:#168ca5;
 }
 
-/* =================================
-   LOADING
-   ================================= */
-
-.loading{
-  padding:30px 10px;
-
-  text-align:center;
-
-  color:#777;
+.section-title{
+  color:#176fb2;
+  font-size:31px;
+  margin:32px 8px 16px;
 }
 
-/* =================================
-   BACK BUTTON
-   ================================= */
+.apps{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
 
-.back{
-  display:block;
-
-  width:max-content;
-
-  margin:22px auto 30px;
-
-  padding:10px 18px;
-
-  background:#000;
-
-  color:white;
-
-  border-radius:8px;
-
+.app{
+  min-height:90px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px;
+  background:#fff;
+  border-radius:18px;
   text-decoration:none;
-
-  font-weight:bold;
+  color:#111;
+  box-shadow:0 4px 14px rgba(0,0,0,.08);
 }
 
-/* =================================
-   FOOTER
-   ================================= */
+.app .num{
+  width:48px;
+  height:48px;
+  flex-basis:48px;
+  font-size:21px;
+}
 
-.site-footer{
-  padding:25px 15px;
+.app-logo{
+  font-size:35px;
+}
 
+.app-name{
+  font-size:19px;
+  font-weight:800;
+}
+
+.follow{
+  margin-top:32px;
+  padding:25px;
+  background:#fff;
+  border-radius:22px;
   text-align:center;
-
-  color:#777;
-
-  font-size:13px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-/* =================================
-   MOBILE
-   ================================= */
+.follow h2{
+  color:#176fb2;
+  font-size:30px;
+  margin-bottom:20px;
+}
 
-@media(max-width:600px){
+.social{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
 
-  .site-header{
-    min-height:150px;
-    padding:22px 12px;
+.social a{
+  background:#168fd1;
+  color:#fff;
+  padding:12px 20px;
+  border-radius:30px;
+  text-decoration:none;
+  font-size:18px;
+}
+
+footer{
+  text-align:center;
+  color:#777;
+  font-size:18px;
+  padding:45px 10px 25px;
+}
+
+.error{
+  background:#fff;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  color:#777;
+}
+
+@media(max-width:700px){
+
+  .header{
+    height:280px;
   }
 
-  .site-header h1{
-    font-size:28px;
+  .header h1{
+    font-size:40px;
   }
 
-  .site-header p{
-    font-size:14px;
+  .header p{
+    font-size:20px;
   }
 
   .container{
-    padding:12px;
+    padding:18px;
   }
 
-  .numbered-row{
-    min-height:65px;
-    padding:9px 10px;
+  .search{
+    height:64px;
+    font-size:21px;
   }
 
-  .number{
-    width:40px;
-    height:40px;
-    min-width:40px;
-
-    font-size:17px;
+  .item{
+    min-height:90px;
+    padding:14px;
+    gap:12px;
   }
 
-  .row-text strong{
+  .num{
+    width:60px;
+    height:60px;
+    flex-basis:60px;
+    font-size:25px;
+  }
+
+  .icon{
+    width:48px;
+    flex-basis:48px;
+    font-size:35px;
+  }
+
+  .title{
+    font-size:22px;
+  }
+
+  .sub{
     font-size:16px;
   }
 
+  .arrow{
+    font-size:32px;
+  }
+
+  .apps{
+    grid-template-columns:1fr 1fr;
+  }
 }
