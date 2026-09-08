@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Ning Wei Media</title>
 
 <style>
@@ -73,7 +72,7 @@ header p{
   padding:5px 15px 30px;
 }
 
-/* MAIN ROWS */
+/* MAIN NUMBER */
 .category{
   display:flex;
   align-items:center;
@@ -85,16 +84,25 @@ header p{
   text-decoration:none;
   color:#222;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
+  transition:.2s;
 }
 
 .category:hover{
   transform:translateY(-2px);
 }
 
-.category .icon{
-  font-size:27px;
+.number{
   width:40px;
-  text-align:center;
+  height:40px;
+  border-radius:50%;
+  background:#168de2;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  font-weight:bold;
+  flex-shrink:0;
 }
 
 .category strong{
@@ -107,21 +115,6 @@ header p{
   margin-top:3px;
   color:#777;
   font-size:12px;
-}
-
-/* NUMBERED FOLDER ROWS */
-.folder-number{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#168de2;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  font-weight:bold;
-  flex-shrink:0;
 }
 
 /* TRENDING APPS */
@@ -177,7 +170,6 @@ header p{
   color:#126dcc;
 }
 
-/* SOCIAL BUTTONS */
 .social{
   display:flex;
   flex-wrap:wrap;
@@ -216,7 +208,6 @@ footer{
 
 /* MOBILE */
 @media(max-width:500px){
-
   .apps{
     grid-template-columns:1fr 1fr;
   }
@@ -224,21 +215,17 @@ footer{
   header h1{
     font-size:29px;
   }
-
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
   <h1>Ning Wei Media</h1>
   <p>Music • Videos • Photos • Apps • Software</p>
 </header>
 
-
-<!-- SEARCH -->
 <div class="search-box">
   <input
     type="text"
@@ -248,62 +235,56 @@ footer{
   >
 </div>
 
-
 <div class="container">
 
-  <!-- TRENDING SONGS -->
+  <!-- 1 -->
   <a class="category" href="audio.html">
-    <span class="icon">🎵</span>
+    <span class="number">1</span>
     <div>
       <strong>Trending Songs</strong>
       <small>Music and audio</small>
     </div>
   </a>
 
-
-  <!-- TRENDING VIDEOS -->
+  <!-- 2 -->
   <a class="category" href="videos.html">
-    <span class="icon">🎬</span>
+    <span class="number">2</span>
     <div>
       <strong>Trending Videos</strong>
       <small>Watch videos</small>
     </div>
   </a>
 
-
-  <!-- TRENDING PHOTOS -->
+  <!-- 3 -->
   <a class="category" href="photos.html">
-    <span class="icon">📸</span>
+    <span class="number">3</span>
     <div>
       <strong>Trending Photos</strong>
       <small>View photos</small>
     </div>
   </a>
 
-
-  <!-- 1 PREMIUM APPS -->
+  <!-- 4 -->
   <a class="category" href="apks.html">
-    <span class="folder-number">1</span>
+    <span class="number">4</span>
     <div>
       <strong>Premium &amp; Paid Apps</strong>
       <small>Applications</small>
     </div>
   </a>
 
-
-  <!-- 2 SOFTWARE -->
+  <!-- 5 -->
   <a class="category" href="software.html">
-    <span class="folder-number">2</span>
+    <span class="number">5</span>
     <div>
       <strong>All Softwares</strong>
       <small>Software and programs</small>
     </div>
   </a>
 
-
-  <!-- 3 DJ MIXES -->
+  <!-- 6 -->
   <a class="category" href="media/songs/DJ-Mixes/index.html">
-    <span class="folder-number">3</span>
+    <span class="number">6</span>
     <div>
       <strong>DJ Mixes / Nonstop</strong>
       <small>DJ mixes and mixtapes</small>
@@ -316,59 +297,41 @@ footer{
     🔥 Trending Apps
   </div>
 
-
   <div class="apps">
 
-    <!-- SPOTIFY -->
     <a class="app" href="apks.html">
-      <img
-        src="https://cdn.simpleicons.org/spotify/1DB954"
-        alt="Spotify logo">
+      <img src="https://cdn.simpleicons.org/spotify/1DB954"
+           alt="Spotify logo">
       <span>Spotify</span>
     </a>
 
-
-    <!-- YOUTUBE -->
     <a class="app" href="apks.html">
-      <img
-        src="https://cdn.simpleicons.org/youtube/FF0000"
-        alt="YouTube logo">
+      <img src="https://cdn.simpleicons.org/youtube/FF0000"
+           alt="YouTube logo">
       <span>YouTube</span>
     </a>
 
-
-    <!-- TIKTOK -->
     <a class="app" href="apks.html">
-      <img
-        src="https://cdn.simpleicons.org/tiktok/000000"
-        alt="TikTok logo">
+      <img src="https://cdn.simpleicons.org/tiktok/000000"
+           alt="TikTok logo">
       <span>TikTok</span>
     </a>
 
-
-    <!-- INSTAGRAM -->
     <a class="app" href="apks.html">
-      <img
-        src="https://cdn.simpleicons.org/instagram/E4405F"
-        alt="Instagram logo">
+      <img src="https://cdn.simpleicons.org/instagram/E4405F"
+           alt="Instagram logo">
       <span>Instagram</span>
     </a>
 
-
-    <!-- FACEBOOK -->
     <a class="app" href="apks.html">
-      <img
-        src="https://cdn.simpleicons.org/facebook/1877F2"
-        alt="Facebook logo">
+      <img src="https://cdn.simpleicons.org/facebook/1877F2"
+           alt="Facebook logo">
       <span>Facebook</span>
     </a>
 
-
-    <!-- PINTEREST -->
     <a class="app" href="apks.html">
-      <img
-        src="https://cdn.simpleicons.org/pinterest/BD081C"
-        alt="Pinterest logo">
+      <img src="https://cdn.simpleicons.org/pinterest/BD081C"
+           alt="Pinterest logo">
       <span>Pinterest</span>
     </a>
 
@@ -382,47 +345,33 @@ footer{
 
     <div class="social">
 
-      <!-- YOUTUBE -->
       <a href="https://www.youtube.com/">
-        <img
-          src="https://cdn.simpleicons.org/youtube/FF0000"
-          alt="YouTube">
+        <img src="https://cdn.simpleicons.org/youtube/FF0000"
+             alt="YouTube">
         YouTube
       </a>
 
-
-      <!-- INSTAGRAM -->
       <a href="https://www.instagram.com/">
-        <img
-          src="https://cdn.simpleicons.org/instagram/E4405F"
-          alt="Instagram">
+        <img src="https://cdn.simpleicons.org/instagram/E4405F"
+             alt="Instagram">
         Instagram
       </a>
 
-
-      <!-- TIKTOK -->
       <a href="https://www.tiktok.com/">
-        <img
-          src="https://cdn.simpleicons.org/tiktok/000000"
-          alt="TikTok">
+        <img src="https://cdn.simpleicons.org/tiktok/000000"
+             alt="TikTok">
         TikTok
       </a>
 
-
-      <!-- FACEBOOK -->
       <a href="https://www.facebook.com/">
-        <img
-          src="https://cdn.simpleicons.org/facebook/1877F2"
-          alt="Facebook">
+        <img src="https://cdn.simpleicons.org/facebook/1877F2"
+             alt="Facebook">
         Facebook
       </a>
 
-
-      <!-- WHATSAPP -->
       <a href="https://www.whatsapp.com/">
-        <img
-          src="https://cdn.simpleicons.org/whatsapp/25D366"
-          alt="WhatsApp">
+        <img src="https://cdn.simpleicons.org/whatsapp/25D366"
+             alt="WhatsApp">
         WhatsApp
       </a>
 
@@ -432,41 +381,29 @@ footer{
 
 </div>
 
-
 <footer>
   © 2026 Ning Wei Media
 </footer>
 
-
 <script>
-
 function searchSite(){
 
   const search =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase();
+    document.getElementById("search").value.toLowerCase();
 
   const items =
-    document
-    .querySelectorAll(".category");
+    document.querySelectorAll(".category");
 
   items.forEach(item => {
 
     const text =
       item.innerText.toLowerCase();
 
-    if(text.includes(search)){
-      item.style.display="flex";
-    }else{
-      item.style.display="none";
-    }
+    item.style.display =
+      text.includes(search) ? "flex" : "none";
 
   });
-
 }
-
 </script>
 
 </body>
