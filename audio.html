@@ -13,17 +13,18 @@
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#eef9ff,#f5f1ff,#effffc);
-  color:#182033;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f8fb;
+  color:#172033;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 header{
   position:relative;
   overflow:hidden;
   min-height:155px;
-  padding:25px 15px;
+  padding:22px 15px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -32,45 +33,50 @@ header{
   color:white;
 
   background:
-    linear-gradient(rgba(80,180,240,.18),rgba(80,180,240,.18)),
+    linear-gradient(
+      rgba(80,190,235,.28),
+      rgba(80,190,235,.28)
+    ),
     url("ning-wei.png");
 
   background-size:cover;
   background-position:center 25%;
 
-  box-shadow:0 4px 18px rgba(0,0,0,.15);
+  box-shadow:0 4px 18px rgba(0,0,0,.18);
 }
 
 header h1{
   margin:0;
-  font-size:38px;
+  font-size:42px;
   font-weight:800;
-  text-shadow:0 2px 5px rgba(0,0,0,.7);
+  text-shadow:0 3px 8px rgba(0,0,0,.65);
 }
 
 header p{
-  margin:8px 0 0;
-  font-size:20px;
-  text-shadow:0 2px 4px rgba(0,0,0,.7);
+  margin:10px 0 0;
+  font-size:22px;
+  text-shadow:0 2px 6px rgba(0,0,0,.65);
 }
 
-/* CONTENT */
+/* ================= PAGE ================= */
+
 .container{
-  max-width:800px;
+  width:100%;
+  max-width:850px;
   margin:auto;
-  padding:25px 20px 40px;
+  padding:22px 18px 45px;
 }
 
-/* SEARCH */
+/* ================= SEARCH ================= */
+
 .search{
   width:100%;
-  padding:20px 25px;
   border:0;
   outline:none;
+  padding:20px 24px;
   border-radius:40px;
   background:white;
-  font-size:21px;
-  color:#333;
+  font-size:20px;
   box-shadow:0 5px 18px rgba(0,0,0,.10);
   margin-bottom:25px;
 }
@@ -79,32 +85,43 @@ header p{
   color:#777;
 }
 
-/* TITLE */
+/* ================= TITLE ================= */
+
 .page-title{
   display:flex;
   align-items:center;
   gap:12px;
+  margin:10px 5px 20px;
+}
+
+.page-title span{
+  font-size:34px;
+}
+
+.page-title h2{
+  margin:0;
   font-size:30px;
-  font-weight:800;
-  margin:15px 0 18px;
 }
 
-/* FOLDER LIST */
+/* ================= FOLDER LIST ================= */
+
 .folder-list{
-  background:rgba(255,255,255,.75);
-  border-radius:25px;
+  background:white;
+  border-radius:24px;
   overflow:hidden;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+  box-shadow:0 5px 20px rgba(0,0,0,.09);
 }
 
-/* EACH FOLDER */
+/* Every folder gets its own number */
+
 .folder{
   display:flex;
   align-items:center;
+  gap:16px;
   min-height:105px;
-  padding:16px 18px;
+  padding:16px 20px;
   text-decoration:none;
-  color:#182033;
+  color:#172033;
   border-bottom:1px solid #ddd;
   transition:.2s;
 }
@@ -113,79 +130,89 @@ header p{
   border-bottom:0;
 }
 
-.folder:active{
-  transform:scale(.98);
+.folder:hover{
+  background:#f1f9fd;
 }
 
 /* BLACK NUMBER */
+
 .number{
-  width:58px;
-  height:58px;
-  min-width:58px;
-  border-radius:50%;
+  width:52px;
+  height:52px;
+  min-width:52px;
 
-  background:#000;
-
-  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
 
-  font-size:24px;
+  border-radius:50%;
+
+  background:#000;
+  color:white;
+
+  font-size:22px;
   font-weight:bold;
 
   border:3px solid white;
   box-shadow:
-    0 2px 8px rgba(0,0,0,.30),
-    inset 0 0 0 2px #222;
-
-  margin-right:18px;
+    0 2px 7px rgba(0,0,0,.35),
+    0 0 0 2px #ddd;
 }
 
 /* ICON */
+
 .icon{
-  font-size:38px;
   width:55px;
   min-width:55px;
-  margin-right:10px;
+  text-align:center;
+  font-size:38px;
 }
 
 /* TEXT */
+
 .folder-info{
   flex:1;
 }
 
-.folder-info strong{
-  display:block;
-  font-size:22px;
+.folder-name{
+  font-size:24px;
+  font-weight:800;
   margin-bottom:5px;
 }
 
-.folder-info small{
-  display:block;
-  font-size:16px;
+.folder-description{
+  font-size:17px;
   color:#777;
 }
 
-/* ARROW */
 .arrow{
   font-size:34px;
-  color:#168dcc;
-  margin-left:10px;
+  color:#168fc5;
 }
 
-/* BACK */
+/* ================= LOADING ================= */
+
+.loading{
+  text-align:center;
+  padding:35px 10px;
+  color:#777;
+  font-size:18px;
+}
+
+/* ================= BACK ================= */
+
 .back{
   display:block;
   text-align:center;
   margin:30px 0 10px;
-  color:#168dcc;
+  color:#168fc5;
   text-decoration:none;
   font-size:20px;
   font-weight:bold;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
+
 footer{
   text-align:center;
   padding:25px;
@@ -205,64 +232,19 @@ footer{
 <div class="container">
 
   <input
-    type="search"
+    type="text"
     id="search"
     class="search"
-    placeholder="🔎 Search music..."
+    placeholder="Search music..."
   >
 
   <div class="page-title">
-    🎵 Trending Songs
+    <span>🎵</span>
+    <h2>Trending Songs</h2>
   </div>
 
-  <div class="folder-list" id="folders">
-
-    <!-- NUMBERING STARTS FROM 1 IN THIS FOLDER -->
-
-    <a class="folder"
-       href="media/songs/Ugandan/index.html">
-      <span class="number">1</span>
-
-      <span class="icon">🇺🇬</span>
-
-      <span class="folder-info">
-        <strong>Ugandan Music</strong>
-        <small>Ugandan songs</small>
-      </span>
-
-      <span class="arrow">›</span>
-    </a>
-
-
-    <a class="folder"
-       href="media/songs/African/index.html">
-      <span class="number">2</span>
-
-      <span class="icon">🌍</span>
-
-      <span class="folder-info">
-        <strong>African Music</strong>
-        <small>African songs</small>
-      </span>
-
-      <span class="arrow">›</span>
-    </a>
-
-
-    <a class="folder"
-       href="media/songs/International/index.html">
-      <span class="number">3</span>
-
-      <span class="icon">🌎</span>
-
-      <span class="folder-info">
-        <strong>International Music</strong>
-        <small>International songs</small>
-      </span>
-
-      <span class="arrow">›</span>
-    </a>
-
+  <div id="folders" class="folder-list">
+    <div class="loading">Loading music folders...</div>
   </div>
 
   <a class="back" href="index.html">
@@ -277,27 +259,242 @@ footer{
 
 <script>
 
-/* SEARCH */
-const search = document.getElementById("search");
-const folders = document.querySelectorAll(".folder");
+const username = "Ningwei2567";
+const repository = "Ning-wei-1";
+const musicFolder = "media/songs";
 
-search.addEventListener("input", function(){
+const apiURL =
+`https://api.github.com/repos/${username}/${repository}/contents/${musicFolder}`;
 
-  const text = this.value.toLowerCase().trim();
+const foldersContainer =
+document.getElementById("folders");
 
-  folders.forEach(function(folder){
+const searchBox =
+document.getElementById("search");
 
-    const name = folder.innerText.toLowerCase();
 
-    if(name.includes(text)){
-      folder.style.display = "flex";
-    }else{
-      folder.style.display = "none";
+/* =================================================
+   MUSIC FOLDERS
+   ================================================= */
+
+let musicFolders = [];
+
+
+/* =================================================
+   LOAD ALL MUSIC FOLDERS
+   ================================================= */
+
+async function loadFolders(){
+
+  try{
+
+    const response = await fetch(apiURL);
+
+    if(!response.ok){
+      throw new Error("Unable to load music folders");
     }
+
+    const items = await response.json();
+
+    /*
+      Only real folders are shown.
+
+      Files such as:
+      folder.html
+      song.html
+      README.txt
+
+      are NOT shown here.
+    */
+
+    musicFolders = items.filter(
+      item => item.type === "dir"
+    );
+
+    /*
+      Put the folders in a predictable order.
+    */
+
+    musicFolders.sort((a,b)=>
+      a.name.localeCompare(
+        b.name,
+        undefined,
+        {numeric:true,sensitivity:"base"}
+      )
+    );
+
+    renderFolders();
+
+  }catch(error){
+
+    foldersContainer.innerHTML = `
+      <div class="loading">
+        Music folders could not be loaded.
+        <br><br>
+        Please check that the folders exist in:
+        <br>
+        <b>media/songs</b>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =================================================
+   DISPLAY FOLDERS
+   ================================================= */
+
+function renderFolders(){
+
+  const search =
+    searchBox.value.toLowerCase().trim();
+
+  const visibleFolders =
+    musicFolders.filter(folder =>
+      folder.name.toLowerCase().includes(search)
+    );
+
+  foldersContainer.innerHTML = "";
+
+  if(visibleFolders.length === 0){
+
+    foldersContainer.innerHTML = `
+      <div class="loading">
+        No music folder found.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /*
+    IMPORTANT:
+
+    Numbering starts again on THIS page.
+
+    If this page has:
+
+    1 Ugandan Music
+    2 African Music
+    3 International Music
+    4 Old is Gold
+
+    then the numbers belong ONLY to these folders.
+
+    When we enter Ugandan Music,
+    numbering starts again from 1.
+  */
+
+  visibleFolders.forEach((folder,index)=>{
+
+    const number = index + 1;
+
+    let icon = "📁";
+    let description = "Open music folder";
+
+    const name =
+      folder.name.toLowerCase();
+
+
+    if(name.includes("ugandan")){
+      icon = "🇺🇬";
+      description = "Ugandan songs";
+    }
+
+    else if(name.includes("african")){
+      icon = "🌍";
+      description = "African songs";
+    }
+
+    else if(name.includes("international")){
+      icon = "🌎";
+      description = "International songs";
+    }
+
+    else if(name.includes("old")){
+      icon = "🎶";
+      description = "Old is Gold music";
+    }
+
+    else if(name.includes("amapiano")){
+      icon = "🎧";
+      description = "Amapiano music";
+    }
+
+    else if(name.includes("south")){
+      icon = "🇿🇦";
+      description = "South African music";
+    }
+
+
+    const link =
+      document.createElement("a");
+
+    link.className = "folder";
+
+    /*
+      We use ONE universal folder viewer.
+
+      This prevents the African/International
+      index.html error.
+    */
+
+    link.href =
+      `media/songs/folder.html?path=${encodeURIComponent(folder.path)}`;
+
+    link.innerHTML = `
+
+      <span class="number">
+        ${number}
+      </span>
+
+      <span class="icon">
+        ${icon}
+      </span>
+
+      <div class="folder-info">
+
+        <div class="folder-name">
+          ${folder.name}
+        </div>
+
+        <div class="folder-description">
+          ${description}
+        </div>
+
+      </div>
+
+      <span class="arrow">
+        ›
+      </span>
+
+    `;
+
+    foldersContainer.appendChild(link);
 
   });
 
-});
+}
+
+
+/* =================================================
+   SEARCH
+   ================================================= */
+
+searchBox.addEventListener(
+  "input",
+  renderFolders
+);
+
+
+/* =================================================
+   START
+   ================================================= */
+
+loadFolders();
 
 </script>
 
