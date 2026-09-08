@@ -3,182 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Ning Wei Media - Trending Songs</title>
 
 <style>
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f1f5fb;
-  color:#222;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f1f5fb;
+color:#222;
 }
 
 header{
-  background:#168de2;
-  color:white;
-  text-align:center;
-  padding:35px 15px;
+background:#168de2;
+color:white;
+text-align:center;
+padding:35px 15px;
 }
 
 header h1{
-  margin:0;
-  font-size:32px;
+margin:0;
+font-size:32px;
+}
+
+header p{
+font-size:18px;
 }
 
 .playlist{
-  background:white;
-  margin:20px;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 4px 15px #ccc;
+background:white;
+margin:20px;
+padding:20px;
+border-radius:18px;
+box-shadow:0 4px 15px #ccc;
 }
 
 .playlist h2{
-  margin-top:0;
+margin-top:0;
+font-size:27px;
 }
 
-.song{
-  background:#f1f5fb;
-  margin-top:15px;
-  padding:15px;
-  border-radius:12px;
+.song-list{
+margin-top:15px;
 }
 
-.song-name{
-  font-weight:bold;
-  font-size:18px;
-  margin-bottom:10px;
-  word-break:break-word;
+.song-button{
+display:block;
+width:100%;
+box-sizing:border-box;
+background:#f1f5fb;
+border:none;
+border-radius:10px;
+padding:16px;
+margin:10px 0;
+text-align:left;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.song-button:active{
+background:#dceeff;
+}
+
+.player-box{
+display:none;
+background:#eaf4ff;
+padding:18px;
+margin-top:20px;
+border-radius:12px;
+}
+
+.selected-name{
+font-size:20px;
+font-weight:bold;
+margin-bottom:15px;
+word-break:break-word;
 }
 
 audio{
-  width:100%;
+width:100%;
 }
 
 .download{
-  display:block;
-  background:#168de2;
-  color:white;
-  text-align:center;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:bold;
+display:block;
+background:#168de2;
+color:white;
+text-align:center;
+padding:14px;
+margin-top:12px;
+border-radius:9px;
+text-decoration:none;
+font-weight:bold;
+font-size:17px;
+}
+
+.loading{
+color:#777;
 }
 
 .back{
-  display:block;
-  margin:25px;
-  color:#168de2;
-  font-weight:bold;
-  text-decoration:none;
+display:block;
+margin:25px;
+color:#168de2;
+font-weight:bold;
+text-decoration:none;
+font-size:18px;
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
 <h1>🎵 Trending Songs</h1>
-<p>Listen and download music</p>
+
+<p>Choose a song to listen and download</p>
+
 </header>
 
+
+<!-- LATEST SONGS -->
+
 <div class="playlist">
+
 <h2>🔥 Latest Songs</h2>
-<div id="latest">Loading...</div>
+
+<div id="latest" class="song-list">
+<p class="loading">Loading songs...</p>
 </div>
 
+<div id="latestPlayer" class="player-box">
+
+<div id="latestName" class="selected-name"></div>
+
+<audio id="latestAudio" controls></audio>
+
+<a id="latestDownload"
+class="download"
+download>
+⬇ Download Selected Song
+</a>
+
+</div>
+
+</div>
+
+
+<!-- UGANDAN MUSIC -->
+
 <div class="playlist">
+
 <h2>🇺🇬 Ugandan Music</h2>
-<div id="ugandan">Loading...</div>
+
+<div id="ugandan" class="song-list">
+<p class="loading">Loading songs...</p>
 </div>
 
+<div id="ugandanPlayer" class="player-box">
+
+<div id="ugandanName" class="selected-name"></div>
+
+<audio id="ugandanAudio" controls></audio>
+
+<a id="ugandanDownload"
+class="download"
+download>
+⬇ Download Selected Song
+</a>
+
+</div>
+
+</div>
+
+
+<!-- AFRICAN MUSIC -->
+
 <div class="playlist">
+
 <h2>🌍 African Music</h2>
-<div id="african">Loading...</div>
+
+<div id="african" class="song-list">
+<p class="loading">Loading songs...</p>
 </div>
 
-<div class="playlist">
-<h2>🎧 DJ Mixes</h2>
-<div id="mixes">Loading...</div>
+<div id="africanPlayer" class="player-box">
+
+<div id="africanName" class="selected-name"></div>
+
+<audio id="africanAudio" controls></audio>
+
+<a id="africanDownload"
+class="download"
+download>
+⬇ Download Selected Song
+</a>
+
 </div>
+
+</div>
+
+
+<!-- DJ MIXES -->
+
+<div class="playlist">
+
+<h2>🎧 DJ Mixes</h2>
+
+<div id="mixes" class="song-list">
+<p class="loading">Loading mixes...</p>
+</div>
+
+<div id="mixesPlayer" class="player-box">
+
+<div id="mixesName" class="selected-name"></div>
+
+<audio id="mixesAudio" controls></audio>
+
+<a id="mixesDownload"
+class="download"
+download>
+⬇ Download Selected Mix
+</a>
+
+</div>
+
+</div>
+
 
 <a class="back" href="index.html">← Back to Home</a>
+
 
 <script>
 
 const username = "Ningwei2567";
 const repo = "Ning-wei-1";
 
-function loadSongs(folder, elementId){
 
-  const url =
-  `https://api.github.com/repos/${username}/${repo}/contents/${folder}`;
+function loadPlaylist(folder, listId, playerId, nameId, audioId, downloadId){
 
-  fetch(url)
-  .then(response => response.json())
-  .then(files => {
+const api =
+`https://api.github.com/repos/${username}/${repo}/contents/${folder}`;
 
-    const box = document.getElementById(elementId);
 
-    if(!Array.isArray(files)){
-      box.innerHTML = "<p>No songs uploaded yet.</p>";
-      return;
-    }
+fetch(api)
 
-    const songs = files.filter(file =>
-      file.type === "file" &&
-      /\.(mp3|wav|m4a|ogg)$/i.test(file.name)
-    );
+.then(response => response.json())
 
-    box.innerHTML = "";
+.then(files => {
 
-    if(songs.length === 0){
-      box.innerHTML = "<p>No songs uploaded yet.</p>";
-      return;
-    }
+const list = document.getElementById(listId);
 
-    songs.forEach(file => {
+if(!Array.isArray(files)){
 
-      const item = document.createElement("div");
-      item.className = "song";
+list.innerHTML = "<p>No songs uploaded yet.</p>";
 
-      item.innerHTML = `
-        <div class="song-name">🎵 ${file.name}</div>
+return;
 
-        <audio controls>
-          <source src="${file.download_url}">
-        </audio>
+}
 
-        <a class="download"
-           href="${file.download_url}"
-           download>
-           ⬇ Download Song
-        </a>
-      `;
 
-      box.appendChild(item);
+const songs = files.filter(file =>
 
-    });
+file.type === "file" &&
+/\.(mp3|wav|m4a|ogg)$/i.test(file.name)
 
-  })
-  .catch(() => {
-    document.getElementById(elementId).innerHTML =
-    "<p>Unable to load songs.</p>";
-  });
+);
+
+
+list.innerHTML = "";
+
+
+if(songs.length === 0){
+
+list.innerHTML = "<p>No songs uploaded yet.</p>";
+
+return;
+
+}
+
+
+songs.forEach(file => {
+
+const button = document.createElement("button");
+
+button.className = "song-button";
+
+button.innerHTML = "🎵 " + file.name;
+
+
+button.onclick = function(){
+
+const player =
+document.getElementById(playerId);
+
+const name =
+document.getElementById(nameId);
+
+const audio =
+document.getElementById(audioId);
+
+const download =
+document.getElementById(downloadId);
+
+
+name.innerHTML = "🎵 " + file.name;
+
+audio.src = file.download_url;
+
+download.href = file.download_url;
+
+download.download = file.name;
+
+player.style.display = "block";
+
+
+audio.play();
+
+player.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+};
+
+
+list.appendChild(button);
+
+});
+
+})
+
+.catch(error => {
+
+document.getElementById(listId).innerHTML =
+"<p>Unable to load songs.</p>";
+
+});
+
 }
 
 
 /* PLAYLISTS */
 
-loadSongs("media/songs", "latest");
+loadPlaylist(
+"media/songs",
+"latest",
+"latestPlayer",
+"latestName",
+"latestAudio",
+"latestDownload"
+);
 
-loadSongs("media/songs/Ugandan", "ugandan");
 
-loadSongs("media/songs/African", "african");
+loadPlaylist(
+"media/songs/Ugandan",
+"ugandan",
+"ugandanPlayer",
+"ugandanName",
+"ugandanAudio",
+"ugandanDownload"
+);
 
-loadSongs("media/songs/DJ-Mixes", "mixes");
+
+loadPlaylist(
+"media/songs/African",
+"african",
+"africanPlayer",
+"africanName",
+"africanAudio",
+"africanDownload"
+);
+
+
+loadPlaylist(
+"media/songs/DJ-Mixes",
+"mixes",
+"mixesPlayer",
+"mixesName",
+"mixesAudio",
+"mixesDownload"
+);
 
 </script>
 
