@@ -1,135 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ning Wei Media - Photos</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f4f8fa;color:#111}
-.header{
-height:190px;padding:15px;display:flex;align-items:flex-end;
-background:linear-gradient(rgba(80,190,235,.20),rgba(80,190,235,.20)),
-url("ning-wei.png") center/cover no-repeat
-}
-.header h1{margin:0;color:white;text-shadow:0 2px 6px #000;font-size:26px}
-.container{max-width:900px;margin:auto;padding:12px}
-.search{width:100%;padding:13px 17px;border:1px solid #ccc;border-radius:25px;font-size:16px;margin-bottom:12px}
-.back{display:inline-block;margin-bottom:12px;color:#087ea4;text-decoration:none;font-weight:bold}
-.item{display:flex;align-items:center;gap:10px;background:white;padding:9px;margin-bottom:7px;border-radius:8px;box-shadow:0 1px 4px #0002}
-.number{width:32px;height:32px;min-width:32px;border-radius:50%;background:#000;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.icon{font-size:21px}
-.item a{flex:1;color:#111;text-decoration:none;font-weight:bold;word-break:break-word}
-.arrow{color:#0795c5;font-size:22px}
-.message{text-align:center;padding:30px;color:#777}
-</style>
+<title>Photos</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header class="header">
-<h1>📷 Ning Wei Photos</h1>
+<div class="header-content">
+<h1>📸 Trending Photos</h1>
+<p>View photos</p>
+</div>
 </header>
 
-<div class="container">
+<main class="container">
 
-<a class="back" href="index.html">← Home</a>
+<a class="back" href="index.html">← Back to Home</a>
 
-<input id="search" class="search" type="search" placeholder="Search photos...">
+<input class="search" placeholder="Search photos..."
+oninput="filter(this.value)">
 
-<div id="list">
-<div class="message">Loading photos...</div>
-</div>
+<div id="list" class="list"></div>
 
-</div>
+</main>
 
 <script>
-const OWNER="Ningwei2567";
-const REPO="Ning-wei-1";
-const BRANCH="main";
 
-let currentPath=new URLSearchParams(location.search).get("path")||"media/photos";
-let allItems=[];
+const repo="Ningwei2567/Ning-wei-1";
+const base="media/photos";
 
-async function load(){
-
-try{
-
-const r=await fetch(
-`https://api.github.com/repos/${OWNER}/${REPO}/contents/${currentPath}?ref=${BRANCH}`
-);
-
-if(!r.ok)throw new Error();
-
-const data=await r.json();
-
-allItems=data.sort((a,b)=>{
-if(a.type!==b.type)return a.type==="dir"?-1:1;
-return a.name.localeCompare(b.name);
-});
-
-show(allItems);
-
-document.getElementById("back").href=
-currentPath==="media/photos"
-?"index.html"
-:"photos.html?path="+encodeURIComponent(
-currentPath.substring(0,currentPath.lastIndexOf("/"))
-);
-
-}catch(e){
-
-document.getElementById("list").innerHTML=
-'<div class="message">Unable to load photos.</div>';
-
-}
-}
-
-function show(items){
+fetch(`https://api.github.com/repos/${repo}/contents/${base}`)
+.then(r=>r.json())
+.then(data=>{
 
 const list=document.getElementById("list");
-list.innerHTML="";
 
-items.forEach((item,i)=>{
+data
+.filter(x=>x.name!=="index.html")
+.forEach((x,i)=>{
 
-const row=document.createElement("div");
-row.className="item";
+const a=document.createElement("a");
 
-const num=document.createElement("div");
-num.className="number";
-num.textContent=i+1;
+a.className="item";
 
-const icon=document.createElement("span");
-icon.className="icon";
-icon.textContent=item.type==="dir"?"📁":"🖼️";
+a.href=x.type==="dir"
+?`browser.html?base=${encodeURIComponent(x.path)}`
+:`media.html?path=${encodeURIComponent(x.path)}`;
 
-const link=document.createElement("a");
-link.textContent=item.name.replace(/\.[^/.]+$/,"").replace(/[-_]/g," ");
+a.innerHTML=`
+<div class="num">${i+1}</div>
+<div class="icon">${x.type==="dir"?"📁":"🖼️"}</div>
+<div class="text">
+<div class="title">${x.name}</div>
+<div class="sub">${x.type==="dir"?"Folder":"Photo"}</div>
+</div>
+<div class="arrow">›</div>
+`;
 
-link.href=item.type==="dir"
-?"photos.html?path="+encodeURIComponent(item.path)
-:"media.html?path="+encodeURIComponent(item.path);
-
-const arrow=document.createElement("span");
-arrow.className="arrow";
-arrow.textContent=item.type==="dir"?"›":"👁";
-
-row.append(num,icon,link,arrow);
-list.appendChild(row);
+list.appendChild(a);
 
 });
+
+});
+
+function filter(q){
+
+q=q.toLowerCase();
+
+document.querySelectorAll(".item").forEach(x=>{
+x.style.display=
+x.innerText.toLowerCase().includes(q)?"":"none";
+});
+
 }
 
-document.getElementById("search").addEventListener("input",function(){
-
-const q=this.value.toLowerCase().trim();
-
-show(q
-?allItems.filter(x=>x.name.toLowerCase().includes(q))
-:allItems);
-
-});
-
-load();
 </script>
 
 </body>
