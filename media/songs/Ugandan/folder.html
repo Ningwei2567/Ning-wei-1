@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Ugandan Music - Ning Wei Media</title>
+
+<link
+rel="stylesheet"
+href="https://ningwei2567.github.io/Ning-wei-1/style.css"
+>
+
+</head>
+
+<body>
+
+
+<header class="site-header">
+
+<h1>Ning Wei Media</h1>
+
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<input
+id="search"
+class="search-box"
+type="search"
+placeholder="Search this folder..."
+>
+
+
+<h2
+id="folderTitle"
+class="page-title"
+>
+Loading...
+</h2>
+
+
+<div id="items">
+
+<div class="loading">
+Loading...
+</div>
+
+</div>
+
+
+<a
+id="backButton"
+class="back"
+href="index.html"
+>
+← Back
+</a>
+
+
+</div>
+
+
+<footer class="site-footer">
+
+© 2026 Ning Wei Media
+
+</footer>
+
+
+<script>
+
+
+const username =
+"Ningwei2567";
+
+const repository =
+"Ning-wei-1";
+
+const branch =
+"main";
+
+
+/*
+GET THE FOLDER FROM THE URL
+*/
+
+const parameters =
+new URLSearchParams(
+window.location.search
+);
+
+
+const currentFolder =
+parameters.get("folder");
+
+
+const itemsContainer =
+document.getElementById("items");
+
+const searchBox =
+document.getElementById("search");
+
+const folderTitle =
+document.getElementById("folderTitle");
+
+const backButton =
+document.getElementById("backButton");
+
+
+/*
+CHECK FOLDER
+*/
+
+if (!currentFolder) {
+
+folderTitle.textContent =
+"Folder not found";
+
+itemsContainer.innerHTML = `
+
+<div class="loading">
+
+No folder was selected.
+
+</div>
+
+`;
+
+}
+
+
+/*
+API URL
+*/
+
+const apiURL =
+currentFolder
+? `https://api.github.com/repos/${username}/${repository}/contents/${currentFolder}?ref=${branch}`
+: "";
+
+
+/*
+ESCAPE TEXT
+*/
+
+function escapeHTML(text) {
+
+const div =
+document.createElement("div");
+
+div.textContent =
+text;
+
+return div.innerHTML;
+
+}
+
+
+/*
+LOAD CURRENT FOLDER
+*/
+
+async function loadFolder() {
+
+
+if (!currentFolder) {
+return;
+}
+
+
+try {
+
+
+const response =
+await fetch(apiURL);
+
+
+if (!response.ok) {
+
+throw new Error(
+"Could not load folder"
+);
+
+}
+
+
+const items =
+await response.json();
+
+
+/*
+GET FOLDER NAME
+*/
+
+const folderParts =
+currentFolder.split("/");
+
+
+const folderName =
+folderParts[
+folderParts.length - 1
+];
+
+
+folderTitle.textContent =
+folderName;
+
+
+/*
+BACK TO PARENT
+*/
+
+if (
+folderParts.length > 3
+) {
+
+folderParts.pop();
+
+
+const parentFolder =
+folderParts.join("/");
+
+
+backButton.href =
+`folder.html?folder=${encodeURIComponent(
+parentFolder
+)}`;
+
+}
+
+else {
+
+backButton.href =
+"index.html";
+
+}
+
+
+/*
+DIRECT CHILDREN ONLY
+*/
+
+const visibleItems =
+items.filter(item => {
+
+return (
+item.type === "dir" ||
+item.type === "file"
+);
+
+});
+
+
+/*
+SORT
+
+FOLDERS FIRST
+FILES SECOND
+*/
+
+visibleItems.sort(
+(a,b) => {
+
+if (
+a.type === "dir" &&
+b.type !== "dir"
+) {
+
+return -1;
+
+}
+
+if (
+a.type !== "dir" &&
+b.type === "dir"
+) {
+
+return 1;
+
+}
+
+return a.name
+.toLowerCase()
+.localeCompare(
+b.name.toLowerCase()
+);
+
+});
+
+
+itemsContainer.innerHTML =
+"";
+
+
+if (
+visibleItems.length === 0
+) {
+
+itemsContainer.innerHTML = `
+
+<div class="loading">
+
+This folder is empty.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+/*
+IMPORTANT:
+
+NUMBERING RESTARTS HERE.
+
+EVERY FOLDER STARTS AT 1.
+*/
+
+visibleItems.forEach(
+(item,index) => {
+
+
+const row =
+document.createElement("a");
+
+
+row.className =
+"numbered-row";
+
+
+/*
+FOLDER
+*/
+
+if (
+item.type === "dir"
+) {
+
+
+row.href =
+`folder.html?folder=${encodeURIComponent(
+currentFolder + "/" + item.name
+)}`;
+
+
+row.innerHTML = `
+
+<span class="number">
+${index + 1}
+</span>
+
+<span style="
+font-size:23px;
+width:42px;
+min-width:42px;
+text-align:center;
+">
+📁
+</span>
+
+<span class="row-text">
+
+<strong>
+${escapeHTML(item.name)}
+</strong>
+
+<small>
+Folder
+</small>
+
+</span>
+
+<span class="arrow">
+›
+</span>
+
+`;
+
+}
+
+
+/*
+FILE
+*/
+
+else {
+
+
+const extension =
+item.name
+.split(".")
+.pop()
+.toLowerCase();
+
+
+let icon =
+"📄";
+
+
+let description =
+"File";
+
+
+if (
+[
+"mp3",
+"wav",
+"m4a",
+"ogg",
+"aac",
+"flac",
+"opus"
+]
+.includes(extension)
+) {
+
+icon = "▶";
+
+description =
+"Audio";
+
+}
+
+
+else if (
+[
+"jpg",
+"jpeg",
+"png",
+"gif",
+"webp"
+]
+.includes(extension)
+) {
+
+icon = "🖼️";
+
+description =
+"Photo";
+
+}
+
+
+else if (
+[
+"mp4",
+"webm",
+"mov",
+"mkv"
+]
+.includes(extension)
+) {
+
+icon = "▶";
+
+description =
+"Video";
+
+}
+
+
+else if (
+extension === "apk"
+) {
+
+icon = "📱";
+
+description =
+"Application";
+
+}
+
+
+row.href =
+`../../../download.html?path=${encodeURIComponent(
+currentFolder + "/" + item.name
+)}`;
+
+
+row.innerHTML = `
+
+<span class="number">
+${index + 1}
+</span>
+
+<span style="
+font-size:22px;
+width:42px;
+min-width:42px;
+text-align:center;
+">
+${icon}
+</span>
+
+<span class="row-text">
+
+<strong>
+${escapeHTML(
+item.name
+)}</strong>
+
+<small>
+${description}
+</small>
+
+</span>
+
+<span class="arrow">
+›
+</span>
+
+`;
+
+}
+
+
+itemsContainer.appendChild(row);
+
+});
+
+
+window.allRows =
+Array.from(
+document.querySelectorAll(
+".numbered-row"
+)
+);
+
+
+}
+
+
+catch(error) {
+
+
+console.error(error);
+
+
+itemsContainer.innerHTML = `
+
+<div class="loading">
+
+Unable to load this folder.
+
+<br><br>
+
+Please refresh the page.
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/*
+SEARCH
+*/
+
+searchBox.addEventListener(
+"input",
+function() {
+
+
+const searchText =
+this.value
+.toLowerCase()
+.trim();
+
+
+const rows =
+window.allRows || [];
+
+
+rows.forEach(row => {
+
+
+const text =
+row.innerText
+.toLowerCase();
+
+
+row.style.display =
+text.includes(searchText)
+? "flex"
+: "none";
+
+
+});
+
+});
+
+
+loadFolder();
+
+</script>
+
+
+</body>
+
+</html>
