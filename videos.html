@@ -5,24 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ning Wei Media - Trending Videos</title>
 <style>
-body{margin:0;font-family:Arial;background:#f1f5fb}
+body{margin:0;font-family:Arial;background:#f1f5fb;color:#222}
 header{background:#168de2;color:white;text-align:center;padding:35px 15px}
-.list{margin:20px}.item{display:block;background:white;margin:15px 0;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc;text-decoration:none;color:#222;font-size:20px;font-weight:bold}
+.category{background:white;margin:18px;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc}
+.video{background:#f1f5fb;padding:15px;margin-top:12px;border-radius:10px}
+video{width:100%;border-radius:10px}
+.download{display:block;background:#168de2;color:white;text-align:center;padding:12px;margin-top:10px;border-radius:8px;text-decoration:none;font-weight:bold}
 .back{display:block;margin:25px;color:#168de2;font-weight:bold;text-decoration:none}
 </style>
 </head>
 <body>
-<header><h1>🎬 Trending Videos</h1><p>Choose a category</p></header>
-<div class="list">
-<a class="item" href="#latest">🔥 Latest Videos</a>
-<a class="item" href="#music">🎵 Music Videos</a>
-<a class="item" href="#entertainment">😂 Entertainment</a>
-<a class="item" href="#other">🎥 Other Videos</a>
-<div id="latest" class="item">🔥 Latest Videos</div>
-<div id="music" class="item">🎵 Music Videos</div>
-<div id="entertainment" class="item">😂 Entertainment</div>
-<div id="other" class="item">🎥 Other Videos</div>
+
+<header>
+<h1>🎬 Trending Videos</h1>
+<p>Choose your video category</p>
+</header>
+
+<div class="category">
+<h2>🔥 Latest Videos</h2>
+<div class="video">
+<b>Video 1</b>
+<video controls>
+<source src="video1.mp4" type="video/mp4">
+</video>
+<a class="download" href="video1.mp4" download>⬇ Download Video</a>
 </div>
+</div>
+
+<div class="category">
+<h2>🎵 Music Videos</h2>
+<p>Your music videos will appear here.</p>
+</div>
+
+<div class="category">
+<h2>😂 Entertainment</h2>
+<p>Your entertainment videos will appear here.</p>
+</div>
+
+<div class="category">
+<h2>🎥 Other Videos</h2>
+<p>Your other videos will appear here.</p>
+</div>
+
 <a class="back" href="index.html">← Back to Home</a>
 </body>
 </html>
