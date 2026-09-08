@@ -1,199 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ning Wei Media - Trending Songs</title>
+<title>Trending Songs - Ning Wei Media</title>
 
 <style>
-*{box-sizing:border-box}
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:
-      radial-gradient(circle at 10% 10%,#dff6ff,transparent 35%),
-      radial-gradient(circle at 90% 20%,#eee5ff,transparent 35%),
-      linear-gradient(135deg,#f8fbff,#f5f1ff,#effcf8);
-    color:#182033;
+*{
+  box-sizing:border-box;
 }
 
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f6f7;
+  color:#222;
+}
+
+/* =========================
+   HEADER
+   YOUR PHOTO + LIGHT SKY BLUE
+   ========================= */
+
 header{
-    background:linear-gradient(135deg,#087fe8,#3159d9);
-    color:white;
-    text-align:center;
-    padding:32px 15px;
+  position:relative;
+  overflow:hidden;
+
+  min-height:155px;
+  padding:25px 15px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+  color:white;
+
+  background:
+    linear-gradient(
+      rgba(135,206,235,.16),
+      rgba(135,206,235,.16)
+    ),
+    url("ning-wei.png");
+
+  background-size:cover;
+  background-position:center 25%;
+
+  box-shadow:0 3px 14px rgba(0,0,0,.15);
 }
 
 header h1{
-    margin:0;
-    font-size:32px;
+  margin:0;
+
+  font-size:32px;
+  font-weight:800;
+
+  text-shadow:
+    0 2px 5px rgba(0,0,0,.9),
+    0 1px 2px rgba(0,0,0,.9);
 }
 
 header p{
-    margin:8px 0 0;
-    font-size:17px;
+  margin:7px 0 0;
+
+  font-size:15px;
+  font-weight:600;
+
+  text-shadow:
+    0 1px 4px rgba(0,0,0,.9);
 }
 
-.search-box{
-    padding:22px 4%;
-}
-
-.search{
-    width:100%;
-    padding:17px 20px;
-    border:0;
-    border-radius:35px;
-    font-size:18px;
-    outline:none;
-    box-shadow:0 4px 18px #cfd7e5;
-}
+/* =========================
+   CONTENT
+   ========================= */
 
 .container{
-    max-width:800px;
-    margin:auto;
-    padding:0 4% 30px;
+  width:100%;
+  max-width:850px;
+  margin:auto;
+  padding:14px;
 }
+
+/* =========================
+   SEARCH
+   ========================= */
+
+.search-box{
+  width:100%;
+  height:52px;
+
+  margin-bottom:15px;
+  padding:0 18px;
+
+  border:0;
+  border-radius:28px;
+
+  background:white;
+
+  font-size:16px;
+
+  outline:none;
+
+  box-shadow:0 3px 12px rgba(0,0,0,.10);
+}
+
+/* =========================
+   TITLE
+   ========================= */
+
+.page-title{
+  margin:8px 0 14px;
+
+  font-size:25px;
+  font-weight:800;
+}
+
+/* =========================
+   NUMBERED ROWS
+   ========================= */
 
 .category{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:20px 12px;
-    border-bottom:1px solid #d9dce4;
-    text-decoration:none;
-    color:#182033;
-    background:rgba(255,255,255,.55);
+  display:flex;
+  align-items:center;
+
+  width:100%;
+  min-height:70px;
+
+  margin:8px 0;
+
+  padding:10px 13px;
+
+  background:white;
+
+  border-radius:12px;
+
+  text-decoration:none;
+  color:#222;
+
+  box-shadow:0 2px 8px rgba(0,0,0,.09);
 }
 
-.category:first-child{
-    border-radius:20px 20px 0 0;
+/* BLACK NUMBER */
+
+.number{
+  width:42px;
+  height:42px;
+
+  min-width:42px;
+
+  margin-right:13px;
+
+  border-radius:50%;
+
+  background:#000;
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+  font-weight:bold;
+
+  border:2px solid white;
+
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
 }
 
-.category:last-child{
-    border-radius:0 0 20px 20px;
-}
+/* ICON */
 
 .icon{
-    font-size:35px;
-    width:55px;
-    text-align:center;
+  width:42px;
+  min-width:42px;
+
+  margin-right:10px;
+
+  font-size:25px;
+
+  text-align:center;
 }
 
-.info{
-    flex:1;
+/* TEXT */
+
+.category-text{
+  flex:1;
 }
 
-.info h2{
-    margin:0;
-    font-size:21px;
+.category-text strong{
+  display:block;
+
+  font-size:18px;
 }
 
-.info p{
-    margin:5px 0 0;
-    color:#718096;
+.category-text small{
+  display:block;
+
+  margin-top:4px;
+
+  color:#777;
+
+  font-size:14px;
 }
+
+/* ARROW */
 
 .arrow{
-    font-size:30px;
-    color:#168bd0;
+  font-size:28px;
+  font-weight:bold;
+
+  color:#222;
 }
 
+/* BACK */
+
 .back{
-    display:block;
-    text-align:center;
-    margin:10px 0 35px;
-    color:#168bd0;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:18px;
+  display:block;
+
+  width:max-content;
+
+  margin:22px auto 30px;
+
+  padding:10px 18px;
+
+  background:#000;
+
+  color:white;
+
+  border-radius:8px;
+
+  text-decoration:none;
+
+  font-weight:bold;
 }
+
+/* FOOTER */
+
+footer{
+  padding:25px;
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:13px;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     HEADER
+     ========================= -->
+
 <header>
-    <h1>🎵 Trending Songs</h1>
-    <p>Music and audio</p>
+
+<h1>Ning Wei Media</h1>
+
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
+
 </header>
 
-<div class="search-box">
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="🔎 Search music..."
-    >
-</div>
 
 <div class="container">
 
-    <div id="categories">
 
-        <a class="category"
-           href="media/songs/Ugandan/index.html">
-            <div class="icon">🇺🇬</div>
-            <div class="info">
-                <h2>Ugandan Music</h2>
-                <p>Ugandan songs</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
+<!-- SEARCH -->
 
-        <a class="category"
-           href="media/songs/African/index.html">
-            <div class="icon">🌍</div>
-            <div class="info">
-                <h2>African Music</h2>
-                <p>African songs</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
+<input
+id="search"
+class="search-box"
+type="search"
+placeholder="Search music..."
+>
 
-        <a class="category"
-           href="media/songs/International/index.html">
-            <div class="icon">🌎</div>
-            <div class="info">
-                <h2>International Music</h2>
-                <p>International songs</p>
-            </div>
-            <div class="arrow">›</div>
-        </a>
 
-    </div>
+<!-- TITLE -->
+
+<h2 class="page-title">
+🎵 Trending Songs
+</h2>
+
+
+<!-- =========================
+     MUSIC CATEGORIES
+     ========================= -->
+
+<div id="musicList">
+
+
+<a
+class="category"
+href="media/songs/Ugandan/index.html"
+>
+
+<span class="number">1</span>
+
+<span class="icon">🇺🇬</span>
+
+<span class="category-text">
+
+<strong>Ugandan Music</strong>
+
+<small>Ugandan songs</small>
+
+</span>
+
+<span class="arrow">›</span>
+
+</a>
+
+
+<a
+class="category"
+href="media/songs/African/index.html"
+>
+
+<span class="number">2</span>
+
+<span class="icon">🌍</span>
+
+<span class="category-text">
+
+<strong>African Music</strong>
+
+<small>African songs</small>
+
+</span>
+
+<span class="arrow">›</span>
+
+</a>
+
+
+<a
+class="category"
+href="media/songs/International/index.html"
+>
+
+<span class="number">3</span>
+
+<span class="icon">🌍</span>
+
+<span class="category-text">
+
+<strong>International Music</strong>
+
+<small>International songs</small>
+
+</span>
+
+<span class="arrow">›</span>
+
+</a>
+
 
 </div>
 
-<a class="back" href="index.html">
-    ← Back to Home
+
+<a
+class="back"
+href="index.html"
+>
+← Back to Home
 </a>
 
+
+</div>
+
+
+<footer>
+
+© 2026 Ning Wei Media
+
+</footer>
+
+
 <script>
+
+/* =========================
+   SEARCH
+   ========================= */
 
 const search =
 document.getElementById("search");
 
-search.addEventListener("input",function(){
+const categories =
+document.querySelectorAll(".category");
 
-    const text =
-        this.value.toLowerCase();
 
-    document.querySelectorAll(".category")
-    .forEach(item => {
+search.addEventListener(
+"input",
+function(){
 
-        item.style.display =
-            item.innerText.toLowerCase()
-            .includes(text)
-            ? "flex"
-            : "none";
+const text =
+this.value.toLowerCase().trim();
 
-    });
+
+categories.forEach(
+item => {
+
+const name =
+item.innerText.toLowerCase();
+
+
+item.style.display =
+name.includes(text)
+? "flex"
+: "none";
+
+});
 
 });
 
 </script>
 
+
 </body>
+
 </html>
