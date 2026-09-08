@@ -1,170 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Playing Song - Ning Wei Media</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Ning Wei Media - Song</title>
+
+<link
+rel="stylesheet"
+href="https://ningwei2567.github.io/Ning-wei-1/style.css"
+>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f3f4f8;
-    color:#222;
+
+.song-page {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.10);
 }
 
-header{
-    background:#168de2;
-    color:white;
-    text-align:center;
-    padding:25px 15px;
+.song-title {
+  font-size: 23px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  word-break: break-word;
 }
 
-header h1{
-    margin:0;
-    font-size:28px;
+audio {
+  width: 100%;
+  margin: 10px 0 20px;
 }
 
-.player-box{
-    max-width:700px;
-    margin:25px auto;
-    background:white;
-    border-radius:18px;
-    padding:25px;
-    box-shadow:0 3px 15px #ccc;
-    text-align:center;
+.download-button {
+  display: block;
+  width: 100%;
+
+  padding: 14px;
+
+  background: #000;
+  color: white;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  border-radius: 9px;
+
+  font-size: 17px;
+  font-weight: bold;
 }
 
-.cover{
-    width:220px;
-    height:220px;
-    border-radius:20px;
-    object-fit:cover;
-    background:#ddd;
-    margin:10px auto 20px;
+.download-button:hover {
+  background: #222;
 }
 
-#songTitle{
-    font-size:26px;
-    margin:10px 0 5px;
+.message {
+  text-align: center;
+  padding: 30px;
+  color: #777;
 }
 
-audio{
-    width:100%;
-    margin:20px 0;
-}
-
-.download{
-    display:inline-block;
-    background:#20c978;
-    color:white;
-    text-decoration:none;
-    padding:15px 30px;
-    border-radius:30px;
-    font-size:18px;
-    font-weight:bold;
-    margin:10px 0 25px;
-}
-
-.ad{
-    margin:20px auto;
-    min-height:120px;
-    max-width:600px;
-    background:#f1f1f1;
-    border:1px dashed #aaa;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#888;
-}
-
-.back{
-    display:block;
-    text-decoration:none;
-    color:#168de2;
-    font-weight:bold;
-    margin:25px;
-}
 </style>
+
 </head>
+
 
 <body>
 
-<header>
-    <h1>🎵 Ning Wei Media</h1>
+
+<header class="site-header">
+
+<h1>Ning Wei Media</h1>
+
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
+
 </header>
 
-<div class="player-box">
 
-    <img
-        class="cover"
-        src="https://dummyimage.com/500x500/168de2/ffffff&text=Music"
-        alt="Song cover"
-    >
+<div class="container">
 
-    <h2 id="songTitle">Loading...</h2>
 
-    <audio id="player" controls>
-        Your browser does not support audio.
-    </audio>
+<div id="content">
 
-    <br>
-
-    <a id="download" class="download">
-        ⬇ DOWNLOAD SONG
-    </a>
-
-    <div class="ad">
-        ADVERTISEMENT
-    </div>
+<div class="message">
+Loading song...
+</div>
 
 </div>
 
-<a class="back" href="Ugandan/index.html">
-    ← Back to Ugandan Music
+
+<a
+id="back"
+class="back"
+href="javascript:history.back()"
+>
+← Back
 </a>
+
+
+</div>
+
+
+<footer class="site-footer">
+
+© 2026 Ning Wei Media
+
+</footer>
+
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
+/* =================================
+   GET SONG INFORMATION
+   ================================= */
 
-const file = params.get("file");
-const title = params.get("title") || file;
+const params =
+new URLSearchParams(
+window.location.search
+);
 
-const username = "Ningwei2567";
-const repository = "Ning-wei-1";
-const branch = "main";
 
-if(!file){
+const folder =
+params.get("folder");
 
-    document.getElementById("songTitle").textContent =
-    "Song not found";
 
-}else{
+const file =
+params.get("file");
 
-    const encodedFile = file
-        .split("/")
-        .map(part => encodeURIComponent(part))
-        .join("/");
 
-    const songURL =
-    `https://raw.githubusercontent.com/${username}/${repository}/${branch}/media/songs/Ugandan/${encodedFile}`;
+const title =
+params.get("title")
+|| (
+file
+? file.replace(/\.[^/.]+$/, "")
+: "Song"
+);
 
-    document.getElementById("songTitle").textContent =
-    title;
 
-    document.getElementById("player").src =
-    songURL;
+/* =================================
+   PAGE ELEMENT
+   ================================= */
 
-    const download = document.getElementById("download");
+const content =
+document.getElementById("content");
 
-    download.href = songURL;
-    download.download = title;
+
+/* =================================
+   CHECK INFORMATION
+   ================================= */
+
+if (!folder || !file) {
+
+content.innerHTML = `
+
+<div class="message">
+
+Song not found.
+
+</div>
+
+`;
+
+}
+
+
+/* =================================
+   CREATE URL
+   ================================= */
+
+else {
+
+
+const encodedFolder =
+folder
+.split("/")
+.map(
+part => encodeURIComponent(part)
+)
+.join("/");
+
+
+const encodedFile =
+encodeURIComponent(file);
+
+
+/* =================================
+   RAW GITHUB AUDIO URL
+   ================================= */
+
+const audioURL =
+`https://raw.githubusercontent.com/Ningwei2567/Ning-wei-1/main/${encodedFolder}/${encodedFile}`;
+
+
+/* =================================
+   SHOW PLAYER
+   ================================= */
+
+content.innerHTML = `
+
+<div class="song-page">
+
+<div class="song-title">
+
+${escapeHTML(title)}
+
+</div>
+
+
+<audio
+controls
+preload="metadata"
+src="${audioURL}"
+>
+
+Your browser does not support
+audio playback.
+
+</audio>
+
+
+<a
+class="download-button"
+href="${audioURL}"
+download
+>
+
+⬇ Download
+
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* =================================
+   ESCAPE HTML
+   ================================= */
+
+function escapeHTML(text) {
+
+const div =
+document.createElement("div");
+
+div.textContent =
+text;
+
+return div.innerHTML;
 
 }
 
 </script>
 
+
 </body>
+
 </html>
