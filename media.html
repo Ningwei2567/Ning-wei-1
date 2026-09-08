@@ -7,9 +7,7 @@
 <title>Ning Wei Media</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
@@ -17,67 +15,76 @@ body{
     color:#172033;
     min-height:100vh;
     background:
-        radial-gradient(circle at 10% 10%,rgba(0,140,255,.18),transparent 30%),
-        radial-gradient(circle at 90% 20%,rgba(140,70,255,.16),transparent 30%),
-        radial-gradient(circle at 50% 100%,rgba(0,200,160,.13),transparent 35%),
-        #f5f8fc;
+    radial-gradient(circle at 5% 10%,rgba(0,145,255,.18),transparent 28%),
+    radial-gradient(circle at 95% 20%,rgba(130,70,255,.15),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(0,190,150,.13),transparent 32%),
+    linear-gradient(135deg,#f8fbff,#f4f1ff,#f2fffb);
 }
 
 header{
-    background:linear-gradient(135deg,#087ee8,#1557d6);
+    background:linear-gradient(135deg,#087ee8,#1756d5);
     color:white;
-    padding:25px 18px;
     text-align:center;
+    padding:22px 15px;
 }
 
 header h1{
     margin:0;
-    font-size:28px;
+    font-size:27px;
 }
 
 header p{
-    margin:7px 0 0;
+    margin:6px 0 0;
+    font-size:13px;
     opacity:.9;
 }
 
 .container{
     max-width:850px;
     margin:auto;
-    padding:18px 14px 35px;
+    padding:15px;
 }
 
 .search{
     width:100%;
     padding:14px 18px;
-    border:none;
-    outline:none;
+    border:0;
+    outline:0;
     border-radius:30px;
     font-size:16px;
-    background:rgba(255,255,255,.9);
+    background:white;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
-    margin-bottom:15px;
+    margin-bottom:10px;
+}
+
+.list{
+    background:rgba(255,255,255,.5);
+    border-radius:15px;
+    overflow:hidden;
 }
 
 .item{
     display:flex;
     align-items:center;
-    gap:13px;
-    padding:15px 10px;
-    text-decoration:none;
+    min-height:60px;
+    padding:10px 12px;
     color:#172033;
-    border-bottom:1px solid rgba(0,0,0,.08);
-    transition:.2s;
+    text-decoration:none;
+    border-bottom:1px solid rgba(0,0,0,.07);
+}
+
+.item:last-child{
+    border-bottom:0;
 }
 
 .item:hover{
-    background:rgba(255,255,255,.7);
-    padding-left:15px;
+    background:rgba(255,255,255,.8);
 }
 
 .icon{
-    width:40px;
+    width:42px;
     text-align:center;
-    font-size:25px;
+    font-size:24px;
 }
 
 .info{
@@ -85,19 +92,19 @@ header p{
 }
 
 .name{
-    font-size:17px;
+    font-size:16px;
     font-weight:bold;
 }
 
 .type{
-    font-size:13px;
-    color:#718096;
     margin-top:3px;
+    color:#718096;
+    font-size:12px;
 }
 
 .arrow{
-    font-size:22px;
     color:#168de2;
+    font-size:24px;
 }
 
 .message{
@@ -108,8 +115,8 @@ header p{
 
 .back{
     display:block;
-    margin-top:20px;
     text-align:center;
+    margin:20px;
     color:#087ee8;
     text-decoration:none;
     font-weight:bold;
@@ -120,199 +127,224 @@ header p{
 <body>
 
 <header>
-    <h1 id="pageTitle">📁 Ning Wei Media</h1>
-    <p>Browse and search your media</p>
+    <h1 id="title">📁 Ning Wei Media</h1>
+    <p>Browse and search this folder</p>
 </header>
 
 <div class="container">
 
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="🔎 Search this folder..."
-    >
+<input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="🔎 Search this folder..."
+>
 
-    <div id="items">
-        <div class="message">Loading...</div>
-    </div>
+<div id="list" class="list">
+    <div class="message">Loading...</div>
+</div>
 
-    <a class="back" href="index.html">
-        ← Back to Home
-    </a>
+<a class="back" href="index.html">
+    ← Back to Home
+</a>
 
 </div>
 
 <script>
 
-const username = "Ningwei2567";
-const repository = "Ning-wei-1";
-const branch = "main";
+const USER = "Ningwei2567";
+const REPO = "Ning-wei-1";
+const BRANCH = "main";
 
-const params = new URLSearchParams(window.location.search);
+const params =
+new URLSearchParams(location.search);
 
-const folder =
-    params.get("path") || "media";
+const path =
+params.get("path") || "media";
 
-const apiURL =
-    `https://api.github.com/repos/${username}/${repository}/contents/${folder}`;
+const API =
+`https://api.github.com/repos/${USER}/${REPO}/contents/${path}?ref=${BRANCH}`;
 
-const itemsContainer =
-    document.getElementById("items");
+const list =
+document.getElementById("list");
 
 const search =
-    document.getElementById("search");
+document.getElementById("search");
 
-const pageTitle =
-    document.getElementById("pageTitle");
+const title =
+document.getElementById("title");
 
-let allItems = [];
+let items = [];
 
-function getIcon(item){
+
+function niceName(name){
+
+    return name
+    .replace(/\.[^/.]+$/,"")
+    .replace(/[-_]/g," ")
+    .replace(/\b\w/g,c=>c.toUpperCase());
+
+}
+
+
+function icon(item){
 
     if(item.type === "dir"){
 
-        const name = item.name.toLowerCase();
+        const n=item.name.toLowerCase();
 
-        if(name.includes("dj")) return "🎧";
-        if(name.includes("mapping")) return "🗺️";
-        if(name.includes("effect")) return "🔊";
-        if(name.includes("skin")) return "🎨";
-        if(name.includes("uganda")) return "🇺🇬";
-        if(name.includes("africa")) return "🌍";
-        if(name.includes("international")) return "🌎";
-        if(name.includes("song")) return "🎵";
-        if(name.includes("video")) return "🎬";
-        if(name.includes("photo")) return "📸";
-        if(name.includes("app")) return "📱";
-        if(name.includes("software")) return "💻";
+        if(n.includes("dj")) return "🎧";
+        if(n.includes("mapping")) return "🗺️";
+        if(n.includes("effect")) return "🔊";
+        if(n.includes("skin")) return "🎨";
+        if(n.includes("uganda")) return "🇺🇬";
+        if(n.includes("afric")) return "🌍";
+        if(n.includes("international")) return "🌎";
+        if(n.includes("song")) return "🎵";
 
         return "📁";
     }
 
-    const name = item.name.toLowerCase();
+    const n=item.name.toLowerCase();
 
-    if(/\.(mp3|wav|m4a|ogg)$/i.test(name))
+    if(/\.(mp3|wav|m4a|ogg|flac)$/i.test(n))
         return "🎵";
 
-    if(/\.(mp4|mkv|mov|avi|webm)$/i.test(name))
+    if(/\.(mp4|mkv|mov|avi|webm)$/i.test(n))
         return "🎬";
 
-    if(/\.(jpg|jpeg|png|gif|webp)$/i.test(name))
+    if(/\.(jpg|jpeg|png|gif|webp)$/i.test(n))
         return "📸";
 
-    if(/\.(apk)$/i.test(name))
+    if(/\.apk$/i.test(n))
         return "📱";
+
+    if(/\.(zip|rar|7z)$/i.test(n))
+        return "📦";
 
     return "📄";
 }
 
-function cleanName(name){
 
-    return name
-        .replace(/\.[^/.]+$/, "")
-        .replace(/[-_]/g," ");
-}
+function show(data){
 
-function displayItems(items){
+    list.innerHTML="";
 
-    itemsContainer.innerHTML = "";
+    if(data.length===0){
 
-    if(items.length === 0){
-
-        itemsContainer.innerHTML =
-        `<div class="message">No matching files or folders.</div>`;
+        list.innerHTML=
+        `<div class="message">
+        Nothing found in this folder.
+        </div>`;
 
         return;
     }
 
-    items.forEach(item => {
 
-        const link = document.createElement("a");
+    data.forEach(item=>{
 
-        link.className = "item";
+        const a=document.createElement("a");
 
-        if(item.type === "dir"){
+        a.className="item";
 
-            link.href =
-                `media.html?path=${encodeURIComponent(item.path)}`;
+        if(item.type==="dir"){
+
+            a.href=
+            `media.html?path=${encodeURIComponent(item.path)}`;
 
         }else{
 
-            link.href = item.html_url;
-            link.target = "_blank";
+            /*
+             * Files are opened/downloaded directly.
+             */
+            a.href=item.download_url;
+            a.target="_blank";
         }
 
-        link.innerHTML = `
-            <div class="icon">${getIcon(item)}</div>
 
-            <div class="info">
-                <div class="name">
-                    ${cleanName(item.name)}
-                </div>
+        a.innerHTML=`
 
-                <div class="type">
-                    ${item.type === "dir" ? "Folder" : "File"}
-                </div>
+        <div class="icon">
+            ${icon(item)}
+        </div>
+
+        <div class="info">
+
+            <div class="name">
+                ${niceName(item.name)}
             </div>
 
-            <div class="arrow">›</div>
+            <div class="type">
+                ${item.type==="dir" ? "Folder" : "File"}
+            </div>
+
+        </div>
+
+        <div class="arrow">›</div>
+
         `;
 
-        itemsContainer.appendChild(link);
+        list.appendChild(a);
 
     });
+
 }
 
-async function loadFolder(){
+
+async function load(){
 
     try{
 
-        const response =
-            await fetch(apiURL);
+        const response=
+        await fetch(API);
 
         if(!response.ok)
-            throw new Error("Unable to load folder");
+            throw new Error();
 
-        allItems =
-            await response.json();
+        items=
+        await response.json();
 
-        const parts =
-            folder.split("/");
+        if(!Array.isArray(items))
+            throw new Error();
 
-        const current =
-            parts[parts.length - 1];
 
-        pageTitle.textContent =
-            "📁 " + cleanName(current);
+        const current=
+        path.split("/").pop();
 
-        displayItems(allItems);
+        title.textContent=
+        "📁 "+niceName(current);
 
-    }catch(error){
 
-        itemsContainer.innerHTML =
+        show(items);
+
+    }catch(e){
+
+        list.innerHTML=
         `<div class="message">
-            Unable to load this folder.
+        Unable to load this folder.
         </div>`;
 
     }
+
 }
 
-search.addEventListener("input",function(){
 
-    const query =
-        search.value.toLowerCase().trim();
+search.addEventListener("input",()=>{
 
-    const filtered =
-        allItems.filter(item =>
-            item.name.toLowerCase().includes(query)
-        );
+    const q=
+    search.value.toLowerCase().trim();
 
-    displayItems(filtered);
+    const filtered=
+    items.filter(item=>
+        item.name.toLowerCase().includes(q)
+    );
+
+    show(filtered);
 
 });
 
-loadFolder();
+
+load();
 
 </script>
 
