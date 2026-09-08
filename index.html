@@ -20,7 +20,6 @@ body{
 
 .header{
   height:190px;
-  position:relative;
   display:flex;
   align-items:flex-end;
   padding:15px;
@@ -31,13 +30,12 @@ body{
 
 .header h1{
   margin:0;
-  color:white;
+  color:#fff;
   font-size:27px;
   text-shadow:0 2px 6px #000;
 }
 
 .container{
-  width:100%;
   max-width:900px;
   margin:auto;
   padding:12px;
@@ -49,15 +47,15 @@ body{
   border:1px solid #ccc;
   border-radius:25px;
   font-size:16px;
-  outline:none;
   margin-bottom:12px;
+  outline:none;
 }
 
 .item{
   display:flex;
   align-items:center;
   gap:10px;
-  background:white;
+  background:#fff;
   padding:9px;
   margin-bottom:7px;
   border-radius:8px;
@@ -86,26 +84,18 @@ body{
   color:#111;
   text-decoration:none;
   font-weight:bold;
+  word-break:break-word;
 }
 
 .arrow{
   color:#0795c5;
-  font-size:20px;
+  font-size:22px;
 }
 
-.loading,
-.error{
+.message{
   text-align:center;
   padding:30px;
   color:#777;
-}
-
-.back{
-  display:block;
-  margin-bottom:12px;
-  color:#087ea4;
-  text-decoration:none;
-  font-weight:bold;
 }
 </style>
 </head>
@@ -118,18 +108,16 @@ body{
 
 <div class="container">
 
-<input
-  id="search"
-  class="search"
-  type="search"
-  placeholder="Search..."
->
+  <input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="Search..."
+  >
 
-<div id="back"></div>
-
-<div id="list">
-  <div class="loading">Loading...</div>
-</div>
+  <div id="list">
+    <div class="message">Loading...</div>
+  </div>
 
 </div>
 
@@ -140,61 +128,62 @@ const REPO = "Ning-wei-1";
 const BRANCH = "main";
 
 const API =
-`https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
+  `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 
-let currentPath = "";
-let allItems = [];
+let items = [];
 
-function iconFor(name,type){
 
-  if(type === "dir"){
+/* ICON */
 
-    const n = name.toLowerCase();
+function getIcon(item){
 
-    if(n.includes("song") || n.includes("music"))
+  if(item.type === "dir"){
+
+    const name =
+      item.name.toLowerCase();
+
+    if(name.includes("song") ||
+       name.includes("music"))
       return "🎵";
 
-    if(n.includes("video"))
+    if(name.includes("video"))
       return "🎬";
 
-    if(n.includes("photo"))
+    if(name.includes("photo"))
       return "📷";
 
-    if(n.includes("app"))
+    if(name.includes("app"))
       return "📱";
 
-    if(n.includes("software"))
+    if(name.includes("software"))
       return "💻";
 
-    if(n.includes("mix"))
+    if(name.includes("mix"))
       return "🎧";
-
-    if(n.includes("mapping"))
-      return "🗺️";
-
-    if(n.includes("effect"))
-      return "🔊";
-
-    if(n.includes("skin"))
-      return "🎨";
 
     return "📁";
   }
 
-  if(/\.(mp3|wav|m4a|aac|ogg)$/i.test(name))
+  const name =
+    item.name.toLowerCase();
+
+  if(/\.(mp3|wav|m4a|aac|ogg|opus|flac)$/i.test(name))
     return "🎵";
 
-  if(/\.(mp4|webm|mov|mkv|avi)$/i.test(name))
+  if(/\.(mp4|webm|mov|m4v|avi|mkv)$/i.test(name))
     return "🎬";
 
-  if(/\.(jpg|jpeg|png|gif|webp)$/i.test(name))
+  if(/\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(name))
     return "🖼️";
 
-  if(/\.(apk)$/i.test(name))
+  if(/\.apk$/i.test(name))
     return "📱";
 
   return "📄";
 }
+
+
+/* CLEAN FILE NAME */
 
 function cleanName(name){
 
@@ -203,127 +192,55 @@ function cleanName(name){
     .replace(/[-_]/g," ");
 }
 
-function makeURL(item){
 
-  if(item.type === "dir"){
+/* PLAYER LINK */
 
-    return "?path=" +
-      encodeURIComponent(item.path);
-  }
+function mediaLink(item){
 
-  const ext =
-    item.name.split(".").pop().toLowerCase();
-
-  const folder =
-    item.path.substring(
-      0,
-      item.path.lastIndexOf("/")
-    );
-
-  if(["mp3","wav","m4a","aac","ogg"].includes(ext)){
-
-    return "media/songs/song.html?folder=" +
-      encodeURIComponent(
-        folder.replace("media/songs/","")
-      ) +
-      "&file=" +
-      encodeURIComponent(item.name);
-  }
-
-  if(["mp4","webm","mov","mkv","avi"].includes(ext)){
-
-    return item.download_url;
-  }
-
-  return item.download_url;
+  return "media.html?path=" +
+    encodeURIComponent(item.path);
 }
 
-async function loadFolder(path){
 
-  currentPath = path;
+/* DISPLAY */
 
-  const list =
+function display(list){
+
+  const box =
     document.getElementById("list");
 
-  list.innerHTML =
-    `<div class="loading">Loading...</div>`;
+  box.innerHTML = "";
 
-  try{
+  if(list.length === 0){
 
-    const response =
-      await fetch(
-        API +
-        path +
-        "?ref=" +
-        BRANCH
-      );
-
-    if(!response.ok)
-      throw new Error();
-
-    let items =
-      await response.json();
-
-    items =
-      items.sort((a,b)=>{
-
-        if(a.type !== b.type)
-          return a.type === "dir" ? -1 : 1;
-
-        return a.name.localeCompare(b.name);
-      });
-
-    allItems = items;
-
-    showItems(items);
-
-    showBack(path);
-
-  }catch(e){
-
-    list.innerHTML =
-      `<div class="error">
-        Unable to load this folder.
-      </div>`;
-  }
-}
-
-function showItems(items){
-
-  const list =
-    document.getElementById("list");
-
-  list.innerHTML = "";
-
-  if(items.length === 0){
-
-    list.innerHTML =
-      `<div class="loading">
-        This folder is empty.
+    box.innerHTML =
+      `<div class="message">
+        Nothing found.
       </div>`;
 
     return;
   }
 
-  items.forEach((item,index)=>{
+  list.forEach((item,index)=>{
 
     const row =
       document.createElement("div");
 
     row.className = "item";
 
+
+    /* NUMBER */
+
     const number =
       document.createElement("div");
 
     number.className = "number";
 
-    /*
-      IMPORTANT:
-      Numbering starts from 1
-      inside EVERY folder.
-    */
+    number.textContent =
+      index + 1;
 
-    number.textContent = index + 1;
+
+    /* ICON */
 
     const icon =
       document.createElement("span");
@@ -331,7 +248,10 @@ function showItems(items){
     icon.className = "icon";
 
     icon.textContent =
-      iconFor(item.name,item.type);
+      getIcon(item);
+
+
+    /* LINK */
 
     const link =
       document.createElement("a");
@@ -339,23 +259,32 @@ function showItems(items){
     link.textContent =
       cleanName(item.name);
 
-    link.href =
-      makeURL(item);
 
-    if(item.type === "file"){
+    if(item.type === "dir"){
 
-      if(/\.(mp4|webm|mov|mkv|avi)$/i
-        .test(item.name)){
+      /*
+        Folders open through the
+        universal browser.
+      */
 
-        link.target = "_blank";
-      }
+      link.href =
+        "?folder=" +
+        encodeURIComponent(item.path);
 
-      if(!/\.(mp3|wav|m4a|aac|ogg|mp4|webm|mov|mkv|avi)$/i
-        .test(item.name)){
+    }else{
 
-        link.download = "";
-      }
+      /*
+        EVERY FILE goes through
+        the universal media.html player.
+      */
+
+      link.href =
+        mediaLink(item);
+
     }
+
+
+    /* ARROW */
 
     const arrow =
       document.createElement("span");
@@ -363,72 +292,129 @@ function showItems(items){
     arrow.className = "arrow";
 
     arrow.textContent =
-      item.type === "dir" ? "›" : "↓";
+      item.type === "dir"
+        ? "›"
+        : "↓";
+
 
     row.appendChild(number);
     row.appendChild(icon);
     row.appendChild(link);
     row.appendChild(arrow);
 
-    list.appendChild(row);
+    box.appendChild(row);
+
   });
 }
 
-function showBack(path){
 
-  const back =
-    document.getElementById("back");
+/* LOAD ROOT */
 
-  if(!path){
+async function loadRoot(){
 
-    back.innerHTML = "";
-    return;
+  try{
+
+    const response =
+      await fetch(
+        API +
+        "?ref=" +
+        BRANCH
+      );
+
+    if(!response.ok)
+      throw new Error();
+
+    items =
+      await response.json();
+
+
+    /*
+      Hide website-control files
+      from the main media list.
+    */
+
+    items =
+      items.filter(item => {
+
+        const name =
+          item.name.toLowerCase();
+
+        return ![
+          "index.html",
+          "audio.html",
+          "photos.html",
+          "videos.html",
+          "software.html",
+          "apks.html",
+          "song.html",
+          "media.html",
+          "style.css"
+        ].includes(name);
+
+      });
+
+
+    /*
+      Folders first,
+      then files.
+    */
+
+    items.sort((a,b)=>{
+
+      if(a.type !== b.type){
+
+        return a.type === "dir"
+          ? -1
+          : 1;
+      }
+
+      return a.name.localeCompare(b.name);
+
+    });
+
+
+    display(items);
+
+  }catch(error){
+
+    document.getElementById("list").innerHTML =
+      `<div class="message">
+        Unable to load Ning Wei Media.
+      </div>`;
   }
-
-  const parent =
-    path.substring(
-      0,
-      path.lastIndexOf("/")
-    );
-
-  back.innerHTML =
-    `<a class="back"
-       href="?path=${encodeURIComponent(parent)}">
-       ← Back
-     </a>`;
 }
 
+
+/* SEARCH */
+
 document
-.getElementById("search")
-.addEventListener("input",function(){
+  .getElementById("search")
+  .addEventListener("input",function(){
 
-  const text =
-    this.value.toLowerCase().trim();
+    const text =
+      this.value
+        .toLowerCase()
+        .trim();
 
-  if(!text){
+    if(!text){
 
-    showItems(allItems);
-    return;
-  }
+      display(items);
+      return;
+    }
 
-  const filtered =
-    allItems.filter(item =>
-      item.name
-      .toLowerCase()
-      .includes(text)
-    );
+    const filtered =
+      items.filter(item =>
+        item.name
+          .toLowerCase()
+          .includes(text)
+      );
 
-  showItems(filtered);
-});
+    display(filtered);
+
+  });
 
 
-const params =
-  new URLSearchParams(location.search);
-
-const path =
-  params.get("path") || "";
-
-loadFolder(path);
+loadRoot();
 
 </script>
 
