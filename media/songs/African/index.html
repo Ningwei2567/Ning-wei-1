@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>African Music - Ning Wei Media</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f7f9;color:#111}
+
+header{
+height:180px;
+background:
+linear-gradient(rgba(135,206,235,.28),rgba(135,206,235,.28)),
+url("../../../ning-wei.png") center/cover no-repeat;
+display:flex;
+align-items:flex-end;
+padding:20px;
+}
+
+h1{margin:0;color:#fff;text-shadow:0 2px 5px #000;font-size:27px}
+
+main{max-width:700px;margin:auto;padding:15px}
+
+.back{
+display:inline-block;
+margin-bottom:12px;
+color:#078;
+text-decoration:none;
+font-weight:bold;
+}
+
+.search{
+width:100%;
+padding:14px;
+border:1px solid #ccc;
+border-radius:30px;
+font-size:17px;
+margin-bottom:12px;
+}
+
+.item{
+display:flex;
+align-items:center;
+gap:12px;
+background:#fff;
+padding:10px;
+margin:7px 0;
+border-radius:12px;
+box-shadow:0 2px 6px #0002;
+text-decoration:none;
+color:#111;
+}
+
+.num{
+width:40px;
+height:40px;
+min-width:40px;
+border-radius:50%;
+background:#000;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
+
+.name{font-weight:bold;font-size:16px}
+
+.arrow{
+margin-left:auto;
+color:#168baa;
+font-size:27px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🌍 African Music</h1>
+</header>
+
+<main>
+
+<a class="back" href="../../../audio.html">← Back to Trending Songs</a>
+
+<input id="search" class="search" placeholder="Search African Music...">
+
+<div id="list">Loading...</div>
+
+</main>
+
+<script>
+
+const API=
+"https://api.github.com/repos/Ningwei2567/Ning-wei-1/contents/media/songs/African";
+
+const list=document.getElementById("list");
+const search=document.getElementById("search");
+
+let items=[];
+
+async function load(){
+
+ try{
+
+  const r=await fetch(API);
+
+  if(!r.ok)throw new Error();
+
+  items=await r.json();
+
+  render();
+
+ }catch(e){
+
+  list.innerHTML="<p>Unable to load songs.</p>";
+
+ }
+
+}
+
+function render(){
+
+ const q=search.value.toLowerCase();
+
+ const data=items.filter(x=>
+  x.name.toLowerCase().includes(q)
+ );
+
+ list.innerHTML="";
+
+ data.forEach((item,index)=>{
+
+  const a=document.createElement("a");
+
+  a.className="item";
+
+  a.href=
+  "../../../media.html?path="+
+  encodeURIComponent(item.path);
+
+  a.innerHTML=`
+   <span class="num">${index+1}</span>
+   <span class="name">${item.name}</span>
+   <span class="arrow">↓</span>
+  `;
+
+  list.appendChild(a);
+
+ });
+
+}
+
+search.addEventListener("input",render);
+
+load();
+
+</script>
+
+</body>
+</html>
