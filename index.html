@@ -73,14 +73,6 @@ header p{
   padding:5px 15px 30px;
 }
 
-/* SECTION TITLE */
-.section-title{
-  font-size:20px;
-  font-weight:bold;
-  margin:20px 0 10px;
-  color:#126dcc;
-}
-
 /* CATEGORY ROWS */
 .category{
   display:flex;
@@ -120,6 +112,13 @@ header p{
 }
 
 /* TRENDING APPS */
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin:20px 0 10px;
+  color:#126dcc;
+}
+
 .apps{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -129,7 +128,7 @@ header p{
 .app{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   background:white;
   padding:11px;
   border-radius:10px;
@@ -139,8 +138,9 @@ header p{
 }
 
 .app img{
-  width:32px;
-  height:32px;
+  width:34px;
+  height:34px;
+  object-fit:contain;
 }
 
 .app span{
@@ -172,6 +172,9 @@ header p{
 }
 
 .social a{
+  display:flex;
+  align-items:center;
+  gap:7px;
   padding:9px 13px;
   background:#168de2;
   color:white;
@@ -180,12 +183,29 @@ header p{
   font-size:13px;
 }
 
+.social img{
+  width:18px;
+  height:18px;
+  filter:brightness(0) invert(1);
+}
+
 /* FOOTER */
 footer{
   text-align:center;
   padding:20px;
   color:#777;
   font-size:13px;
+}
+
+/* MOBILE */
+@media(max-width:500px){
+  .apps{
+    grid-template-columns:1fr 1fr;
+  }
+
+  header h1{
+    font-size:29px;
+  }
 }
 </style>
 </head>
@@ -211,6 +231,7 @@ footer{
 <div class="container">
 
   <!-- MAIN CATEGORIES -->
+
   <div id="categories">
 
     <a class="category" href="audio.html">
@@ -253,7 +274,7 @@ footer{
       </div>
     </a>
 
-    <!-- DJ MIXES - CORRECT LINK -->
+    <!-- DJ MIXES -->
     <a class="category" href="media/songs/DJ-Mixes/index.html">
       <span class="icon">🎧</span>
       <div>
@@ -264,46 +285,62 @@ footer{
 
   </div>
 
+
   <!-- TRENDING APPS -->
+
   <div class="section-title">
     🔥 Trending Apps
   </div>
 
   <div class="apps">
 
+    <!-- SPOTIFY -->
     <a class="app" href="apks.html">
-      <span>🎵</span>
+      <img src="https://cdn.simpleicons.org/spotify/1DB954"
+           alt="Spotify logo">
       <span>Spotify</span>
     </a>
 
+    <!-- YOUTUBE -->
     <a class="app" href="apks.html">
-      <span>▶️</span>
+      <img src="https://cdn.simpleicons.org/youtube/FF0000"
+           alt="YouTube logo">
       <span>YouTube</span>
     </a>
 
+    <!-- TIKTOK -->
     <a class="app" href="apks.html">
-      <span>♪</span>
+      <img src="https://cdn.simpleicons.org/tiktok/000000"
+           alt="TikTok logo">
       <span>TikTok</span>
     </a>
 
+    <!-- INSTAGRAM -->
     <a class="app" href="apks.html">
-      <span>◎</span>
+      <img src="https://cdn.simpleicons.org/instagram/E4405F"
+           alt="Instagram logo">
       <span>Instagram</span>
     </a>
 
+    <!-- FACEBOOK -->
     <a class="app" href="apks.html">
-      <span>f</span>
+      <img src="https://cdn.simpleicons.org/facebook/1877F2"
+           alt="Facebook logo">
       <span>Facebook</span>
     </a>
 
+    <!-- PINTEREST -->
     <a class="app" href="apks.html">
-      <span>📌</span>
+      <img src="https://cdn.simpleicons.org/pinterest/BD081C"
+           alt="Pinterest logo">
       <span>Pinterest</span>
     </a>
 
   </div>
 
+
   <!-- FOLLOW -->
+
   <div class="follow">
 
     <h2>Follow Ning Wei Media</h2>
@@ -311,22 +348,32 @@ footer{
     <div class="social">
 
       <a href="https://www.youtube.com/">
+        <img src="https://cdn.simpleicons.org/youtube"
+             alt="YouTube">
         YouTube
       </a>
 
       <a href="https://www.instagram.com/">
+        <img src="https://cdn.simpleicons.org/instagram"
+             alt="Instagram">
         Instagram
       </a>
 
       <a href="https://www.tiktok.com/">
+        <img src="https://cdn.simpleicons.org/tiktok"
+             alt="TikTok">
         TikTok
       </a>
 
       <a href="https://www.facebook.com/">
+        <img src="https://cdn.simpleicons.org/facebook"
+             alt="Facebook">
         Facebook
       </a>
 
       <a href="https://www.whatsapp.com/">
+        <img src="https://cdn.simpleicons.org/whatsapp"
+             alt="WhatsApp">
         WhatsApp
       </a>
 
@@ -336,20 +383,25 @@ footer{
 
 </div>
 
+
 <footer>
   © 2026 Ning Wei Media
 </footer>
 
+
 <script>
+
 function searchSite(){
 
   const search =
-    document.getElementById("search")
+    document
+    .getElementById("search")
     .value
     .toLowerCase();
 
   const items =
-    document.querySelectorAll(".category");
+    document
+    .querySelectorAll(".category");
 
   items.forEach(item => {
 
@@ -363,7 +415,9 @@ function searchSite(){
     }
 
   });
+
 }
+
 </script>
 
 </body>
