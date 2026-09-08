@@ -1,267 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Ning Wei Media - Song</title>
-
-<link
-rel="stylesheet"
-href="https://ningwei2567.github.io/Ning-wei-1/style.css"
->
+<title>Playing Song - Ning Wei Media</title>
 
 <style>
-
-.song-page {
-  background: white;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.10);
+*{
+  box-sizing:border-box;
 }
 
-.song-title {
-  font-size: 23px;
-  font-weight: 800;
-  margin-bottom: 15px;
-  word-break: break-word;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#eef9ff,#f5f1ff);
+  color:#172033;
 }
 
-audio {
-  width: 100%;
-  margin: 10px 0 20px;
+/* HEADER */
+header{
+  position:relative;
+  overflow:hidden;
+  min-height:170px;
+  padding:28px 15px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+  color:white;
+
+  background:
+    linear-gradient(
+      rgba(70,180,235,.28),
+      rgba(70,180,235,.28)
+    ),
+    url("../../ning-wei.png");
+
+  background-size:cover;
+  background-position:center 25%;
+
+  box-shadow:0 4px 18px rgba(0,0,0,.18);
 }
 
-.download-button {
-  display: block;
-  width: 100%;
-
-  padding: 14px;
-
-  background: #000;
-  color: white;
-
-  text-align: center;
-
-  text-decoration: none;
-
-  border-radius: 9px;
-
-  font-size: 17px;
-  font-weight: bold;
+header h1{
+  margin:0;
+  font-size:34px;
+  font-weight:800;
+  text-shadow:0 2px 5px rgba(0,0,0,.75);
 }
 
-.download-button:hover {
-  background: #222;
+header p{
+  margin:8px 0 0;
+  font-size:18px;
+  text-shadow:0 2px 4px rgba(0,0,0,.7);
 }
 
-.message {
-  text-align: center;
-  padding: 30px;
-  color: #777;
+/* CONTENT */
+.container{
+  max-width:760px;
+  margin:auto;
+  padding:22px 16px 45px;
 }
 
+.card{
+  background:white;
+  border-radius:22px;
+  padding:24px 18px;
+  margin-top:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.10);
+  text-align:center;
+}
+
+/* COVER */
+.cover{
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:50%;
+  border:5px solid white;
+  box-shadow:0 4px 18px rgba(0,0,0,.20);
+}
+
+/* TITLE */
+#title{
+  margin:18px 0 8px;
+  font-size:25px;
+  word-break:break-word;
+}
+
+#location{
+  margin:0 0 20px;
+  color:#777;
+  font-size:15px;
+}
+
+/* AUDIO PLAYER */
+audio{
+  width:100%;
+  margin:10px 0 18px;
+}
+
+/* DOWNLOAD */
+.download{
+  display:block;
+  width:100%;
+
+  padding:15px;
+
+  border-radius:12px;
+
+  background:#111;
+  color:white;
+
+  text-decoration:none;
+
+  font-size:18px;
+  font-weight:bold;
+
+  margin-top:8px;
+}
+
+.download:active{
+  transform:scale(.98);
+}
+
+/* SHARE */
+.share{
+  display:block;
+  width:100%;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  background:#eaf7ff;
+  color:#168dcc;
+
+  text-decoration:none;
+
+  font-size:17px;
+  font-weight:bold;
+
+  margin-top:12px;
+}
+
+/* BACK */
+.back{
+  display:block;
+  text-align:center;
+
+  margin:22px 0 0;
+
+  color:#168dcc;
+
+  text-decoration:none;
+
+  font-weight:bold;
+
+  font-size:17px;
+}
+
+/* ERROR */
+.error{
+  color:#c62828;
+  line-height:1.6;
+  font-weight:bold;
+}
+
+.hidden{
+  display:none;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:25px 15px;
+  color:#777;
+  font-size:14px;
+}
 </style>
-
 </head>
-
 
 <body>
 
+<header>
 
-<header class="site-header">
+  <h1>Ning Wei Media</h1>
 
-<h1>Ning Wei Media</h1>
-
-<p>
-Music • Videos • Photos • Apps • Software
-</p>
+  <p>
+    Music • Videos • Photos • Apps • Software
+  </p>
 
 </header>
 
 
 <div class="container">
 
+  <div class="card" id="playerCard">
 
-<div id="content">
+    <img
+      class="cover"
+      src="../../ning-wei.png"
+      alt="Ning Wei Media"
+    >
 
-<div class="message">
-Loading song...
+    <h2 id="title">
+      Loading song...
+    </h2>
+
+    <p id="location"></p>
+
+
+    <audio
+      id="audioPlayer"
+      controls
+      preload="metadata"
+    >
+      Your browser does not support audio playback.
+    </audio>
+
+
+    <a
+      id="downloadButton"
+      class="download"
+      href="#"
+      download
+    >
+      ⬇ Download Song
+    </a>
+
+
+    <a
+      id="shareButton"
+      class="share"
+      href="#"
+    >
+      🔗 Share Song
+    </a>
+
+
+    <a
+      class="back"
+      href="javascript:history.back()"
+    >
+      ← Back
+    </a>
+
+  </div>
+
+
+  <div
+    class="card hidden"
+    id="errorCard"
+  >
+
+    <div
+      class="error"
+      id="errorText"
+    ></div>
+
+    <a
+      class="back"
+      href="javascript:history.back()"
+    >
+      ← Go Back
+    </a>
+
+  </div>
+
 </div>
 
-</div>
 
+<footer>
 
-<a
-id="back"
-class="back"
-href="javascript:history.back()"
->
-← Back
-</a>
-
-
-</div>
-
-
-<footer class="site-footer">
-
-© 2026 Ning Wei Media
+  © 2026 Ning Wei Media
 
 </footer>
 
 
 <script>
 
-/* =================================
-   GET SONG INFORMATION
-   ================================= */
+/* =====================================
+   WEBSITE INFORMATION
+   ===================================== */
+
+const username = "Ningwei2567";
+
+const repository = "Ning-wei-1";
+
+const branch = "main";
+
+
+/*
+  The song link must contain:
+
+  folder = the folder containing the song
+  file   = the exact song filename
+
+  Example:
+
+  ?folder=Ugandan&file=song.mp3
+
+  Or:
+
+  ?folder=African&file=song.mp3
+
+  Or:
+
+  ?folder=International&file=song.mp3
+
+  Or:
+
+  ?folder=DJ-Mixes/Mixtapes-Nonstop&file=mix.mp3
+*/
+
 
 const params =
-new URLSearchParams(
-window.location.search
-);
+  new URLSearchParams(
+    window.location.search
+  );
 
 
 const folder =
-params.get("folder");
+  params.get("folder");
 
 
 const file =
-params.get("file");
+  params.get("file");
 
 
-const title =
-params.get("title")
-|| (
-file
-? file.replace(/\.[^/.]+$/, "")
-: "Song"
-);
+const titleParam =
+  params.get("title");
 
 
-/* =================================
-   PAGE ELEMENT
-   ================================= */
-
-const content =
-document.getElementById("content");
+const titleElement =
+  document.getElementById("title");
 
 
-/* =================================
-   CHECK INFORMATION
-   ================================= */
-
-if (!folder || !file) {
-
-content.innerHTML = `
-
-<div class="message">
-
-Song not found.
-
-</div>
-
-`;
-
-}
+const locationElement =
+  document.getElementById("location");
 
 
-/* =================================
-   CREATE URL
-   ================================= */
-
-else {
+const audioPlayer =
+  document.getElementById("audioPlayer");
 
 
-const encodedFolder =
-folder
-.split("/")
-.map(
-part => encodeURIComponent(part)
-)
-.join("/");
+const downloadButton =
+  document.getElementById("downloadButton");
 
 
-const encodedFile =
-encodeURIComponent(file);
+const shareButton =
+  document.getElementById("shareButton");
 
 
-/* =================================
-   RAW GITHUB AUDIO URL
-   ================================= */
-
-const audioURL =
-`https://raw.githubusercontent.com/Ningwei2567/Ning-wei-1/main/${encodedFolder}/${encodedFile}`;
+const playerCard =
+  document.getElementById("playerCard");
 
 
-/* =================================
-   SHOW PLAYER
-   ================================= */
-
-content.innerHTML = `
-
-<div class="song-page">
-
-<div class="song-title">
-
-${escapeHTML(title)}
-
-</div>
+const errorCard =
+  document.getElementById("errorCard");
 
 
-<audio
-controls
-preload="metadata"
-src="${audioURL}"
->
-
-Your browser does not support
-audio playback.
-
-</audio>
+const errorText =
+  document.getElementById("errorText");
 
 
-<a
-class="download-button"
-href="${audioURL}"
-download
->
+/* =====================================
+   ERROR FUNCTION
+   ===================================== */
 
-⬇ Download
+function showError(message){
 
-</a>
+  playerCard.classList.add("hidden");
 
-</div>
+  errorCard.classList.remove("hidden");
 
-`;
+  errorText.textContent = message;
 
 }
 
 
-/* =================================
-   ESCAPE HTML
-   ================================= */
+/* =====================================
+   CLEAN SONG TITLE
+   ===================================== */
 
-function escapeHTML(text) {
+function cleanTitle(filename){
 
-const div =
-document.createElement("div");
+  return filename.replace(
+    /\.[^/.]+$/,
+    ""
+  );
 
-div.textContent =
-text;
+}
 
-return div.innerHTML;
+
+/* =====================================
+   CHECK SONG INFORMATION
+   ===================================== */
+
+if(!folder || !file){
+
+  showError(
+    "Song information is missing. Please open the song from the music list."
+  );
+
+}
+
+
+/* =====================================
+   CREATE AUDIO URL
+   ===================================== */
+
+else{
+
+  /*
+    Split folders so that nested folders work.
+  */
+
+  const folderParts =
+    folder
+      .split("/")
+      .filter(
+        part => part.length > 0
+      );
+
+
+  /*
+    Encode every folder separately.
+  */
+
+  const encodedFolder =
+    folderParts
+      .map(
+        part =>
+          encodeURIComponent(part)
+      )
+      .join("/");
+
+
+  /*
+    Encode the exact filename.
+  */
+
+  const encodedFile =
+    encodeURIComponent(file);
+
+
+  /*
+    THIS IS THE REAL AUDIO FILE URL.
+  */
+
+  const songURL =
+    `https://raw.githubusercontent.com/${username}/${repository}/${branch}/media/songs/${encodedFolder}/${encodedFile}`;
+
+
+  /*
+    Song title
+  */
+
+  const songTitle =
+    titleParam ||
+    cleanTitle(file);
+
+
+  titleElement.textContent =
+    songTitle;
+
+
+  locationElement.textContent =
+    `Ning Wei Media • ${folder}`;
+
+
+  /*
+    Put the actual audio file into
+    the HTML5 player.
+  */
+
+  audioPlayer.src =
+    songURL;
+
+
+  audioPlayer.load();
+
+
+  /*
+    Download button
+  */
+
+  downloadButton.href =
+    songURL;
+
+
+  downloadButton.setAttribute(
+    "download",
+    file
+  );
+
+
+  /*
+    Share button
+  */
+
+  shareButton.addEventListener(
+    "click",
+    async function(event){
+
+      event.preventDefault();
+
+      const shareData = {
+
+        title:songTitle,
+
+        text:
+          `Listen to ${songTitle} on Ning Wei Media`,
+
+        url:
+          window.location.href
+
+      };
+
+
+      try{
+
+        if(navigator.share){
+
+          await navigator.share(
+            shareData
+          );
+
+        }
+
+        else{
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          alert(
+            "Song link copied."
+          );
+
+        }
+
+      }
+
+      catch(error){
+
+        /* Sharing cancelled */
+
+      }
+
+    }
+  );
+
+
+  /*
+    If the audio cannot be loaded,
+    show an error instead of a blank page.
+  */
+
+  audioPlayer.addEventListener(
+    "error",
+    function(){
+
+      showError(
+        "This audio file could not be played. Please check that the exact song file exists in the selected GitHub folder."
+      );
+
+    }
+  );
 
 }
 
 </script>
 
-
 </body>
-
 </html>
