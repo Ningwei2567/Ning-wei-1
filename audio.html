@@ -4,391 +4,101 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ning Wei Media - Trending Songs</title>
+<title>Ning Wei - Trending Songs</title>
 
 <style>
-
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f1f5fb;
-color:#222;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5fb;
+  color:#222;
 }
 
 header{
-background:#168de2;
-color:white;
-text-align:center;
-padding:35px 15px;
+  background:#168de2;
+  color:white;
+  text-align:center;
+  padding:45px 20px;
 }
 
 header h1{
-margin:0;
-font-size:32px;
+  font-size:40px;
+  margin:0 0 15px;
 }
 
 header p{
-font-size:18px;
+  font-size:22px;
+  margin:0;
 }
 
-.playlist{
-background:white;
-margin:20px;
-padding:20px;
-border-radius:18px;
-box-shadow:0 4px 15px #ccc;
+.container{
+  padding:30px 5%;
 }
 
-.playlist h2{
-margin-top:0;
-font-size:27px;
+.category{
+  display:block;
+  background:white;
+  margin:25px 0;
+  padding:30px 25px;
+  border-radius:20px;
+  box-shadow:0 5px 20px #ccc;
+  text-decoration:none;
+  color:#222;
 }
 
-.song-list{
-margin-top:15px;
+.category h2{
+  margin:0;
+  font-size:28px;
 }
 
-.song-button{
-display:block;
-width:100%;
-box-sizing:border-box;
-background:#f1f5fb;
-border:none;
-border-radius:10px;
-padding:16px;
-margin:10px 0;
-text-align:left;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
+.category p{
+  font-size:18px;
+  margin-bottom:0;
+  color:#555;
 }
 
-.song-button:active{
-background:#dceeff;
-}
-
-.player-box{
-display:none;
-background:#eaf4ff;
-padding:18px;
-margin-top:20px;
-border-radius:12px;
-}
-
-.selected-name{
-font-size:20px;
-font-weight:bold;
-margin-bottom:15px;
-word-break:break-word;
-}
-
-audio{
-width:100%;
-}
-
-.download{
-display:block;
-background:#168de2;
-color:white;
-text-align:center;
-padding:14px;
-margin-top:12px;
-border-radius:9px;
-text-decoration:none;
-font-weight:bold;
-font-size:17px;
-}
-
-.loading{
-color:#777;
+.category:active{
+  transform:scale(.98);
 }
 
 .back{
-display:block;
-margin:25px;
-color:#168de2;
-font-weight:bold;
-text-decoration:none;
-font-size:18px;
+  display:block;
+  margin:20px 5% 40px;
+  color:#168de2;
+  font-size:21px;
+  font-weight:bold;
+  text-decoration:none;
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-
-<h1>🎵 Trending Songs</h1>
-
-<p>Choose a song to listen and download</p>
-
+  <h1>🎵 Trending Songs</h1>
+  <p>Listen and download music</p>
 </header>
 
+<div class="container">
 
-<!-- LATEST SONGS -->
+  <a class="category" href="songs/ugandan/index.html">
+    <h2>🇺🇬 Ugandan Music</h2>
+    <p>Browse Ugandan songs</p>
+  </a>
 
-<div class="playlist">
+  <a class="category" href="songs/african/index.html">
+    <h2>🌍 African Music</h2>
+    <p>Browse African songs</p>
+  </a>
 
-<h2>🔥 Latest Songs</h2>
-
-<div id="latest" class="song-list">
-<p class="loading">Loading songs...</p>
-</div>
-
-<div id="latestPlayer" class="player-box">
-
-<div id="latestName" class="selected-name"></div>
-
-<audio id="latestAudio" controls></audio>
-
-<a id="latestDownload"
-class="download"
-download>
-⬇ Download Selected Song
-</a>
+  <a class="category" href="songs/international/index.html">
+    <h2>🌎 International Music</h2>
+    <p>Browse international songs</p>
+  </a>
 
 </div>
 
-</div>
-
-
-<!-- UGANDAN MUSIC -->
-
-<div class="playlist">
-
-<h2>🇺🇬 Ugandan Music</h2>
-
-<div id="ugandan" class="song-list">
-<p class="loading">Loading songs...</p>
-</div>
-
-<div id="ugandanPlayer" class="player-box">
-
-<div id="ugandanName" class="selected-name"></div>
-
-<audio id="ugandanAudio" controls></audio>
-
-<a id="ugandanDownload"
-class="download"
-download>
-⬇ Download Selected Song
-</a>
-
-</div>
-
-</div>
-
-
-<!-- AFRICAN MUSIC -->
-
-<div class="playlist">
-
-<h2>🌍 African Music</h2>
-
-<div id="african" class="song-list">
-<p class="loading">Loading songs...</p>
-</div>
-
-<div id="africanPlayer" class="player-box">
-
-<div id="africanName" class="selected-name"></div>
-
-<audio id="africanAudio" controls></audio>
-
-<a id="africanDownload"
-class="download"
-download>
-⬇ Download Selected Song
-</a>
-
-</div>
-
-</div>
-
-
-<!-- DJ MIXES -->
-
-<div class="playlist">
-
-<h2>🎧 DJ Mixes</h2>
-
-<div id="mixes" class="song-list">
-<p class="loading">Loading mixes...</p>
-</div>
-
-<div id="mixesPlayer" class="player-box">
-
-<div id="mixesName" class="selected-name"></div>
-
-<audio id="mixesAudio" controls></audio>
-
-<a id="mixesDownload"
-class="download"
-download>
-⬇ Download Selected Mix
-</a>
-
-</div>
-
-</div>
-
-
-<a class="back" href="index.html">← Back to Home</a>
-
-
-<script>
-
-const username = "Ningwei2567";
-const repo = "Ning-wei-1";
-
-
-function loadPlaylist(folder, listId, playerId, nameId, audioId, downloadId){
-
-const api =
-`https://api.github.com/repos/${username}/${repo}/contents/${folder}`;
-
-
-fetch(api)
-
-.then(response => response.json())
-
-.then(files => {
-
-const list = document.getElementById(listId);
-
-if(!Array.isArray(files)){
-
-list.innerHTML = "<p>No songs uploaded yet.</p>";
-
-return;
-
-}
-
-
-const songs = files.filter(file =>
-
-file.type === "file" &&
-/\.(mp3|wav|m4a|ogg)$/i.test(file.name)
-
-);
-
-
-list.innerHTML = "";
-
-
-if(songs.length === 0){
-
-list.innerHTML = "<p>No songs uploaded yet.</p>";
-
-return;
-
-}
-
-
-songs.forEach(file => {
-
-const button = document.createElement("button");
-
-button.className = "song-button";
-
-button.innerHTML = "🎵 " + file.name;
-
-
-button.onclick = function(){
-
-const player =
-document.getElementById(playerId);
-
-const name =
-document.getElementById(nameId);
-
-const audio =
-document.getElementById(audioId);
-
-const download =
-document.getElementById(downloadId);
-
-
-name.innerHTML = "🎵 " + file.name;
-
-audio.src = file.download_url;
-
-download.href = file.download_url;
-
-download.download = file.name;
-
-player.style.display = "block";
-
-
-audio.play();
-
-player.scrollIntoView({
-behavior:"smooth",
-block:"center"
-});
-
-};
-
-
-list.appendChild(button);
-
-});
-
-})
-
-.catch(error => {
-
-document.getElementById(listId).innerHTML =
-"<p>Unable to load songs.</p>";
-
-});
-
-}
-
-
-/* PLAYLISTS */
-
-loadPlaylist(
-"media/songs",
-"latest",
-"latestPlayer",
-"latestName",
-"latestAudio",
-"latestDownload"
-);
-
-
-loadPlaylist(
-"media/songs/Ugandan",
-"ugandan",
-"ugandanPlayer",
-"ugandanName",
-"ugandanAudio",
-"ugandanDownload"
-);
-
-
-loadPlaylist(
-"media/songs/African",
-"african",
-"africanPlayer",
-"africanName",
-"africanAudio",
-"africanDownload"
-);
-
-
-loadPlaylist(
-"media/songs/DJ-Mixes",
-"mixes",
-"mixesPlayer",
-"mixesName",
-"mixesAudio",
-"mixesDownload"
-);
-
-</script>
+<a class="back" href="../Ning-wei-1/index.html">← Back to Home</a>
 
 </body>
 </html>
