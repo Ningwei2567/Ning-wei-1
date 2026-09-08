@@ -1,208 +1,253 @@
-/* ================================
-   NING WEI MEDIA - SHARED STYLE
-   ================================ */
+/* =========================================
+   NING WEI MEDIA - MASTER STYLE
+   ========================================= */
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #f5f5f5;
+  background: #f5f6f7;
   color: #222;
 }
 
-/* ================================
-   SITE HEADER
-   Photo + Ugandan Flag Colors
-   ================================ */
+/* =========================================
+   HEADER
+   SAME PHOTO + FLAG COLORS EVERYWHERE
+   ========================================= */
 
 .site-header {
   position: relative;
   overflow: hidden;
   min-height: 165px;
-  padding: 28px 15px;
+  padding: 25px 15px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   text-align: center;
   color: white;
 
   background:
     linear-gradient(
-      rgba(0,0,0,.18),
-      rgba(0,0,0,.18)
+      rgba(0, 0, 0, 0.10),
+      rgba(0, 0, 0, 0.10)
     ),
     linear-gradient(
       180deg,
-      rgba(0,0,0,.42) 0%,
-      rgba(0,0,0,.42) 32%,
-      rgba(255,205,0,.28) 32%,
-      rgba(255,205,0,.28) 66%,
-      rgba(210,0,0,.30) 66%,
-      rgba(210,0,0,.30) 100%
+      rgba(0, 0, 0, 0.32) 0%,
+      rgba(0, 0, 0, 0.32) 32%,
+
+      rgba(255, 205, 0, 0.18) 32%,
+      rgba(255, 205, 0, 0.18) 66%,
+
+      rgba(206, 17, 38, 0.20) 66%,
+      rgba(206, 17, 38, 0.20) 100%
     ),
-    url("ning-wei.png");
+    url("https://ningwei2567.github.io/Ning-wei-1/ning-wei.png");
 
   background-size: cover;
   background-position: center 25%;
 
-  box-shadow: 0 4px 18px rgba(0,0,0,.20);
+  box-shadow: 0 3px 14px rgba(0,0,0,.18);
 }
 
 .site-header h1 {
-  position: relative;
-  z-index: 2;
   margin: 0;
   font-size: 32px;
   font-weight: 800;
-  text-shadow: 0 2px 6px rgba(0,0,0,.8);
+  color: white;
+  text-shadow:
+    0 2px 5px rgba(0,0,0,.85),
+    0 1px 2px rgba(0,0,0,.9);
 }
 
 .site-header p {
-  position: relative;
-  z-index: 2;
-  margin: 8px 0 0;
+  margin: 7px 0 0;
   font-size: 15px;
   font-weight: 600;
-  text-shadow: 0 1px 4px rgba(0,0,0,.9);
+  color: white;
+  text-shadow:
+    0 1px 4px rgba(0,0,0,.9);
 }
 
-/* ================================
-   PAGE CONTAINER
-   ================================ */
+/* =========================================
+   MAIN AREA
+   ========================================= */
 
 .container {
   width: 100%;
   max-width: 850px;
   margin: auto;
-  padding: 15px;
+  padding: 14px;
 }
 
-/* ================================
+/* =========================================
    SEARCH
-   ================================ */
+   ========================================= */
 
 .search-box {
   width: 100%;
-  padding: 13px 15px;
-  margin: 0 0 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-  outline: none;
+  height: 52px;
+  padding: 0 17px;
+
+  margin: 0 0 14px;
+
+  border: 0;
+  border-radius: 28px;
+
   background: white;
+
+  font-size: 16px;
+  color: #333;
+
+  outline: none;
+
+  box-shadow: 0 3px 12px rgba(0,0,0,.10);
 }
 
-.search-box:focus {
-  border-color: #777;
+.search-box::placeholder {
+  color: #777;
 }
 
-/* ================================
+/* =========================================
    PAGE TITLE
-   ================================ */
+   ========================================= */
 
 .page-title {
-  margin: 8px 0 15px;
-  font-size: 23px;
+  margin: 8px 0 14px;
+
+  font-size: 24px;
   font-weight: 800;
 }
 
-/* ================================
-   NUMBERED ROW
-   ================================ */
+/* =========================================
+   COMPACT NUMBERED ROWS
+   ========================================= */
 
 .numbered-row {
+  width: 100%;
+
   display: flex;
   align-items: center;
+
   gap: 12px;
-  width: 100%;
-  padding: 12px;
+
+  min-height: 70px;
+
+  padding: 10px 13px;
   margin: 8px 0;
+
   background: white;
-  border-radius: 10px;
-  text-decoration: none;
+
+  border-radius: 12px;
+
   color: #222;
-  box-shadow: 0 2px 7px rgba(0,0,0,.10);
-  transition: transform .15s ease, box-shadow .15s ease;
+  text-decoration: none;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,.09);
+
+  transition: .15s ease;
+}
+
+.numbered-row:active {
+  transform: scale(.99);
 }
 
 .numbered-row:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,.14);
 }
 
-/* ================================
-   UGANDAN FLAG NUMBER
-   ================================ */
+/* =========================================
+   BLACK NUMBER CIRCLE
+   ========================================= */
 
 .number {
   width: 42px;
   height: 42px;
+
   min-width: 42px;
+
   border-radius: 50%;
 
-  background:
-    linear-gradient(
-      180deg,
-      #000 0%,
-      #000 33.33%,
-      #fcdc00 33.33%,
-      #fcdc00 66.66%,
-      #d90000 66.66%,
-      #d90000 100%
-    );
+  background: #000;
 
-  color: white;
+  color: #fff;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-size: 18px;
-  font-weight: bold;
-
-  text-shadow: 0 1px 3px #000;
+  font-weight: 800;
 
   border: 2px solid white;
-  box-shadow: 0 1px 5px rgba(0,0,0,.25);
+
+  box-shadow:
+    0 1px 5px rgba(0,0,0,.35);
 }
 
-/* ================================
+/* =========================================
    ROW TEXT
-   ================================ */
+   ========================================= */
 
 .row-text {
-  min-width: 0;
   flex: 1;
+  min-width: 0;
 }
 
 .row-text strong {
   display: block;
+
   font-size: 17px;
-  line-height: 1.25;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .row-text small {
   display: block;
-  margin-top: 3px;
+
+  margin-top: 4px;
+
   color: #777;
+
   font-size: 13px;
 }
 
-/* ================================
+/* =========================================
+   RIGHT ARROW
+   ========================================= */
+
+.arrow {
+  font-size: 25px;
+  color: #222;
+  font-weight: bold;
+}
+
+/* =========================================
    PLAY ICON
-   ================================ */
+   ========================================= */
 
 .play {
-  font-size: 22px;
+  font-size: 21px;
   color: #222;
 }
 
-/* ================================
-   LOADING / EMPTY
-   ================================ */
+/* =========================================
+   LOADING
+   ========================================= */
 
 .loading {
   text-align: center;
@@ -210,64 +255,83 @@ body {
   color: #777;
 }
 
-/* ================================
+/* =========================================
    BACK BUTTON
-   ================================ */
+   ========================================= */
 
 .back {
   display: block;
+
   width: fit-content;
+
   margin: 20px auto 30px;
+
   padding: 10px 18px;
-  background: #111;
+
+  background: #000;
   color: white;
+
   text-decoration: none;
+
   border-radius: 8px;
+
   font-weight: bold;
 }
 
-/* ================================
+/* =========================================
    FOOTER
-   ================================ */
+   ========================================= */
 
 .site-footer {
   text-align: center;
+
   padding: 25px 15px;
+
   color: #777;
+
   font-size: 13px;
 }
 
-/* ================================
+/* =========================================
    MOBILE
-   ================================ */
+   ========================================= */
 
 @media (max-width: 600px) {
 
   .site-header {
-    min-height: 150px;
-    padding: 25px 12px;
+    min-height: 155px;
+    padding: 24px 12px;
   }
 
   .site-header h1 {
-    font-size: 27px;
+    font-size: 28px;
   }
 
   .site-header p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .container {
     padding: 12px;
   }
 
+  .numbered-row {
+    min-height: 66px;
+    padding: 9px 11px;
+  }
+
   .number {
-    width: 39px;
-    height: 39px;
-    min-width: 39px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
     font-size: 17px;
   }
 
   .row-text strong {
     font-size: 16px;
+  }
+
+  .row-text small {
+    font-size: 12px;
   }
 }
