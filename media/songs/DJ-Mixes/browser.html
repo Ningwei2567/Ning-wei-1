@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DJ Folder - Ning Wei Media</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:
+      radial-gradient(circle at 10% 10%,#dff6ff,transparent 35%),
+      radial-gradient(circle at 90% 20%,#eee5ff,transparent 35%),
+      linear-gradient(135deg,#f8fbff,#f5f1ff,#effcf8);
+    color:#182033;
+}
+
+header{
+    background:linear-gradient(135deg,#087fe8,#3159d9);
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+}
+
+header h1{
+    margin:0;
+    font-size:28px;
+}
+
+header p{
+    margin:8px 0 0;
+}
+
+.search-box{
+    padding:22px 4%;
+}
+
+.search{
+    width:100%;
+    padding:17px 20px;
+    border:0;
+    border-radius:35px;
+    font-size:18px;
+    outline:none;
+    box-shadow:0 4px 18px #cfd7e5;
+}
+
+.container{
+    max-width:850px;
+    margin:auto;
+    padding:0 4% 30px;
+}
+
+.file{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:17px 12px;
+    background:rgba(255,255,255,.65);
+    border-bottom:1px solid #ddd;
+    text-decoration:none;
+    color:#182033;
+}
+
+.file:first-child{
+    border-radius:18px 18px 0 0;
+}
+
+.file:last-child{
+    border-radius:0 0 18px 18px;
+}
+
+.icon{
+    font-size:30px;
+    width:50px;
+    text-align:center;
+}
+
+.name{
+    flex:1;
+}
+
+.name strong{
+    display:block;
+    font-size:18px;
+}
+
+.name small{
+    color:#718096;
+}
+
+.arrow{
+    font-size:28px;
+    color:#168bd0;
+}
+
+.loading{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin:15px 0 35px;
+    color:#168bd0;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1 id="title">📁 DJ Folder</h1>
+    <p>Browse and search this folder</p>
+</header>
+
+<div class="search-box">
+    <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="🔎 Search this folder..."
+    >
+</div>
+
+<div class="container">
+
+    <div id="files" class="loading">
+        Loading...
+    </div>
+
+</div>
+
+<a class="back" href="index.html">
+    ← Back to DJ Mixes / Nonstop
+</a>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const folder = params.get("folder");
+
+const username = "Ningwei2567";
+const repository = "Ning-wei-1";
+
+const folderPath =
+`media/songs/DJ-Mixes/${folder}`;
+
+const apiURL =
+`https://api.github.com/repos/${username}/${repository}/contents/${folderPath}`;
+
+const titleMap = {
+    "Mixtapes-Nonstop":"🎧 Mixtapes / Nonstop",
+    "Mappings":"🗺️ Mappings",
+    "Sound-Effects":"🔊 Sound Effects",
+    "Virtual-DJ-Skins":"🎛️ Virtual DJ Skins"
+};
+
+document.getElementById("title").textContent =
+titleMap[folder] || "📁 DJ Folder";
+
+async function loadFiles(){
+
+    const box = document.getElementById("files");
+
+    try{
+
+        const response = await fetch(apiURL);
+
+        if(!response.ok){
+            throw new Error("Folder not found");
+        }
+
+        const data = await response.json();
+
+        box.innerHTML = "";
+
+        const files = data.filter(item =>
+            item.type === "file"
+        );
+
+        if(files.length === 0){
+
+            box.innerHTML =
+            "<div class='loading'>This folder is empty.</div>";
+
+            return;
+        }
+
+        files.forEach(file => {
+
+            const link = document.createElement("a");
+
+            link.className = "file";
+
+            const extension =
+                file.name.split(".").pop().toLowerCase();
+
+            let icon = "📄";
+
+            if(["mp3","wav","m4a","ogg"].includes(extension)){
+                icon = "🎵";
+            }
+
+            if(["zip","rar","7z"].includes(extension)){
+                icon = "📦";
+            }
+
+            link.href =
+                `../../../download.html?path=${encodeURIComponent(folderPath + "/" + file.name)}`;
+
+            link.innerHTML = `
+                <div class="icon">${icon}</div>
+                <div class="name">
+                    <strong>${file.name}</strong>
+                    <small>File</small>
+                </div>
+                <div class="arrow">›</div>
+            `;
+
+            box.appendChild(link);
+
+        });
+
+        setupSearch();
+
+    }catch(error){
+
+        box.innerHTML =
+        "<div class='loading'>Unable to load this folder.</div>";
+
+    }
+}
+
+function setupSearch(){
+
+    const search =
+        document.getElementById("search");
+
+    search.addEventListener("input",function(){
+
+        const text =
+            this.value.toLowerCase();
+
+        document.querySelectorAll(".file")
+        .forEach(file => {
+
+            file.style.display =
+                file.innerText
+                .toLowerCase()
+                .includes(text)
+                ? "flex"
+                : "none";
+
+        });
+
+    });
+
+}
+
+loadFiles();
+
+</script>
+
+</body>
+</html>
