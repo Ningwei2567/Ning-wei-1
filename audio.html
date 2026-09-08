@@ -25,24 +25,28 @@ header h1{
   font-size:32px;
 }
 
-.category{
+.playlist{
   background:white;
   margin:20px;
   padding:20px;
-  border-radius:15px;
-  box-shadow:0 3px 12px #ccc;
+  border-radius:18px;
+  box-shadow:0 4px 15px #ccc;
+}
+
+.playlist h2{
+  margin-top:0;
 }
 
 .song{
   background:#f1f5fb;
-  padding:15px;
   margin-top:15px;
-  border-radius:10px;
+  padding:15px;
+  border-radius:12px;
 }
 
 .song-name{
-  font-size:18px;
   font-weight:bold;
+  font-size:18px;
   margin-bottom:10px;
   word-break:break-word;
 }
@@ -80,13 +84,24 @@ audio{
 <p>Listen and download music</p>
 </header>
 
-<div class="category">
+<div class="playlist">
 <h2>🔥 Latest Songs</h2>
-
-<div id="songs">
-<p>Loading songs...</p>
+<div id="latest">Loading...</div>
 </div>
 
+<div class="playlist">
+<h2>🇺🇬 Ugandan Music</h2>
+<div id="ugandan">Loading...</div>
+</div>
+
+<div class="playlist">
+<h2>🌍 African Music</h2>
+<div id="african">Loading...</div>
+</div>
+
+<div class="playlist">
+<h2>🎧 DJ Mixes</h2>
+<div id="mixes">Loading...</div>
 </div>
 
 <a class="back" href="index.html">← Back to Home</a>
@@ -94,31 +109,42 @@ audio{
 <script>
 
 const username = "Ningwei2567";
-const repository = "Ning-wei-1";
-const folder = "media/songs";
+const repo = "Ning-wei-1";
 
-const api =
-`https://api.github.com/repos/${username}/${repository}/contents/${folder}`;
+function loadSongs(folder, elementId){
 
-fetch(api)
-.then(response => response.json())
-.then(files => {
+  const url =
+  `https://api.github.com/repos/${username}/${repo}/contents/${folder}`;
 
-  const songs = document.getElementById("songs");
+  fetch(url)
+  .then(response => response.json())
+  .then(files => {
 
-  songs.innerHTML = "";
+    const box = document.getElementById(elementId);
 
-  files
-    .filter(file =>
+    if(!Array.isArray(files)){
+      box.innerHTML = "<p>No songs uploaded yet.</p>";
+      return;
+    }
+
+    const songs = files.filter(file =>
       file.type === "file" &&
       /\.(mp3|wav|m4a|ogg)$/i.test(file.name)
-    )
-    .forEach(file => {
+    );
 
-      const song = document.createElement("div");
-      song.className = "song";
+    box.innerHTML = "";
 
-      song.innerHTML = `
+    if(songs.length === 0){
+      box.innerHTML = "<p>No songs uploaded yet.</p>";
+      return;
+    }
+
+    songs.forEach(file => {
+
+      const item = document.createElement("div");
+      item.className = "song";
+
+      item.innerHTML = `
         <div class="song-name">🎵 ${file.name}</div>
 
         <audio controls>
@@ -132,20 +158,27 @@ fetch(api)
         </a>
       `;
 
-      songs.appendChild(song);
+      box.appendChild(item);
+
     });
 
-  if(songs.innerHTML === ""){
-    songs.innerHTML = "<p>No songs uploaded yet.</p>";
-  }
+  })
+  .catch(() => {
+    document.getElementById(elementId).innerHTML =
+    "<p>Unable to load songs.</p>";
+  });
+}
 
-})
-.catch(error => {
 
-  document.getElementById("songs").innerHTML =
-  "<p>Unable to load songs. Please refresh the page.</p>";
+/* PLAYLISTS */
 
-});
+loadSongs("media/songs", "latest");
+
+loadSongs("media/songs/Ugandan", "ugandan");
+
+loadSongs("media/songs/African", "african");
+
+loadSongs("media/songs/DJ-Mixes", "mixes");
 
 </script>
 
