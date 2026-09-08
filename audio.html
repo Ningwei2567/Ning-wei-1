@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trending Songs - Ning Wei Media</title>
+<title>Ning Wei Media - Music</title>
 
 <style>
 *{
@@ -13,488 +13,437 @@
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4f8fb;
-  color:#172033;
+  font-family:Arial,sans-serif;
+  background:#f4f8fa;
+  color:#111;
 }
 
-/* ================= HEADER ================= */
-
-header{
-  position:relative;
-  overflow:hidden;
-  min-height:155px;
-  padding:22px 15px;
+.header{
+  height:190px;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
-
+  align-items:flex-end;
+  padding:15px;
   background:
-    linear-gradient(
-      rgba(80,190,235,.28),
-      rgba(80,190,235,.28)
-    ),
-    url("ning-wei.png");
-
-  background-size:cover;
-  background-position:center 25%;
-
-  box-shadow:0 4px 18px rgba(0,0,0,.18);
+    linear-gradient(rgba(80,190,235,.20),rgba(80,190,235,.20)),
+    url("ning-wei.png") center/cover no-repeat;
 }
 
-header h1{
+.header h1{
   margin:0;
-  font-size:42px;
-  font-weight:800;
-  text-shadow:0 3px 8px rgba(0,0,0,.65);
+  color:#fff;
+  font-size:26px;
+  text-shadow:0 2px 6px #000;
 }
-
-header p{
-  margin:10px 0 0;
-  font-size:22px;
-  text-shadow:0 2px 6px rgba(0,0,0,.65);
-}
-
-/* ================= PAGE ================= */
 
 .container{
-  width:100%;
-  max-width:850px;
+  max-width:900px;
   margin:auto;
-  padding:22px 18px 45px;
+  padding:12px;
 }
-
-/* ================= SEARCH ================= */
 
 .search{
   width:100%;
-  border:0;
+  padding:13px 17px;
+  border:1px solid #ccc;
+  border-radius:25px;
+  font-size:16px;
   outline:none;
-  padding:20px 24px;
-  border-radius:40px;
-  background:white;
-  font-size:20px;
-  box-shadow:0 5px 18px rgba(0,0,0,.10);
-  margin-bottom:25px;
+  margin-bottom:12px;
 }
 
-.search::placeholder{
-  color:#777;
-}
-
-/* ================= TITLE ================= */
-
-.page-title{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin:10px 5px 20px;
-}
-
-.page-title span{
-  font-size:34px;
-}
-
-.page-title h2{
-  margin:0;
-  font-size:30px;
-}
-
-/* ================= FOLDER LIST ================= */
-
-.folder-list{
-  background:white;
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 5px 20px rgba(0,0,0,.09);
-}
-
-/* Every folder gets its own number */
-
-.folder{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  min-height:105px;
-  padding:16px 20px;
+.back{
+  display:inline-block;
+  margin-bottom:12px;
+  color:#087ea4;
   text-decoration:none;
-  color:#172033;
-  border-bottom:1px solid #ddd;
-  transition:.2s;
+  font-weight:bold;
 }
 
-.folder:last-child{
-  border-bottom:0;
+.item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fff;
+  padding:9px;
+  margin-bottom:7px;
+  border-radius:8px;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
-
-.folder:hover{
-  background:#f1f9fd;
-}
-
-/* BLACK NUMBER */
 
 .number{
-  width:52px;
-  height:52px;
-  min-width:52px;
-
+  width:32px;
+  height:32px;
+  min-width:32px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  border-radius:50%;
-
-  background:#000;
-  color:white;
-
-  font-size:22px;
   font-weight:bold;
-
-  border:3px solid white;
-  box-shadow:
-    0 2px 7px rgba(0,0,0,.35),
-    0 0 0 2px #ddd;
 }
-
-/* ICON */
 
 .icon{
-  width:55px;
-  min-width:55px;
-  text-align:center;
-  font-size:38px;
+  font-size:21px;
 }
 
-/* TEXT */
-
-.folder-info{
+.item a{
   flex:1;
-}
-
-.folder-name{
-  font-size:24px;
-  font-weight:800;
-  margin-bottom:5px;
-}
-
-.folder-description{
-  font-size:17px;
-  color:#777;
+  color:#111;
+  text-decoration:none;
+  font-weight:bold;
+  word-break:break-word;
 }
 
 .arrow{
-  font-size:34px;
-  color:#168fc5;
+  color:#0795c5;
+  font-size:22px;
 }
 
-/* ================= LOADING ================= */
-
-.loading{
+.message{
   text-align:center;
-  padding:35px 10px;
+  padding:30px;
   color:#777;
-  font-size:18px;
-}
-
-/* ================= BACK ================= */
-
-.back{
-  display:block;
-  text-align:center;
-  margin:30px 0 10px;
-  color:#168fc5;
-  text-decoration:none;
-  font-size:20px;
-  font-weight:bold;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#777;
-  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Ning Wei Media</h1>
-  <p>Music • Videos • Photos • Apps • Software</p>
+<header class="header">
+  <h1>🎵 Ning Wei Music</h1>
 </header>
 
 <div class="container">
 
+  <a class="back" id="back" href="index.html">
+    ← Back
+  </a>
+
   <input
-    type="text"
     id="search"
     class="search"
+    type="search"
     placeholder="Search music..."
   >
 
-  <div class="page-title">
-    <span>🎵</span>
-    <h2>Trending Songs</h2>
+  <div id="list">
+    <div class="message">Loading...</div>
   </div>
-
-  <div id="folders" class="folder-list">
-    <div class="loading">Loading music folders...</div>
-  </div>
-
-  <a class="back" href="index.html">
-    ← Back to Home
-  </a>
 
 </div>
 
-<footer>
-  © 2026 Ning Wei Media
-</footer>
-
 <script>
 
-const username = "Ningwei2567";
-const repository = "Ning-wei-1";
-const musicFolder = "media/songs";
+const OWNER = "Ningwei2567";
+const REPO = "Ning-wei-1";
+const BRANCH = "main";
 
-const apiURL =
-`https://api.github.com/repos/${username}/${repository}/contents/${musicFolder}`;
+const ROOT = "media/songs";
 
-const foldersContainer =
-document.getElementById("folders");
+const params =
+  new URLSearchParams(location.search);
 
-const searchBox =
-document.getElementById("search");
+let currentPath =
+  params.get("path") || ROOT;
 
+let allItems = [];
 
-/* =================================================
-   MUSIC FOLDERS
-   ================================================= */
-
-let musicFolders = [];
+const API =
+  `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 
 
-/* =================================================
-   LOAD ALL MUSIC FOLDERS
-   ================================================= */
+/* NAME */
 
-async function loadFolders(){
+function cleanName(name){
 
-  try{
-
-    const response = await fetch(apiURL);
-
-    if(!response.ok){
-      throw new Error("Unable to load music folders");
-    }
-
-    const items = await response.json();
-
-    /*
-      Only real folders are shown.
-
-      Files such as:
-      folder.html
-      song.html
-      README.txt
-
-      are NOT shown here.
-    */
-
-    musicFolders = items.filter(
-      item => item.type === "dir"
-    );
-
-    /*
-      Put the folders in a predictable order.
-    */
-
-    musicFolders.sort((a,b)=>
-      a.name.localeCompare(
-        b.name,
-        undefined,
-        {numeric:true,sensitivity:"base"}
-      )
-    );
-
-    renderFolders();
-
-  }catch(error){
-
-    foldersContainer.innerHTML = `
-      <div class="loading">
-        Music folders could not be loaded.
-        <br><br>
-        Please check that the folders exist in:
-        <br>
-        <b>media/songs</b>
-      </div>
-    `;
-
-  }
-
+  return name
+    .replace(/\.[^/.]+$/,"")
+    .replace(/[-_]/g," ");
 }
 
 
-/* =================================================
-   DISPLAY FOLDERS
-   ================================================= */
+/* ICON */
 
-function renderFolders(){
+function getIcon(item){
 
-  const search =
-    searchBox.value.toLowerCase().trim();
+  if(item.type === "dir"){
 
-  const visibleFolders =
-    musicFolders.filter(folder =>
-      folder.name.toLowerCase().includes(search)
-    );
+    const n =
+      item.name.toLowerCase();
 
-  foldersContainer.innerHTML = "";
+    if(n.includes("dj") ||
+       n.includes("mix"))
+      return "🎧";
 
-  if(visibleFolders.length === 0){
+    if(n.includes("ugandan") ||
+       n.includes("african") ||
+       n.includes("international"))
+      return "🎵";
 
-    foldersContainer.innerHTML = `
-      <div class="loading">
-        No music folder found.
-      </div>
-    `;
+    if(n.includes("mapping"))
+      return "🗺️";
+
+    if(n.includes("effect"))
+      return "🔊";
+
+    if(n.includes("skin"))
+      return "🎨";
+
+    return "📁";
+  }
+
+  if(/\.(mp3|wav|m4a|aac|ogg|oga|opus|flac)$/i
+    .test(item.name))
+    return "🎵";
+
+  return "📄";
+}
+
+
+/* OPEN LINK */
+
+function getLink(item){
+
+  if(item.type === "dir"){
+
+    return "audio.html?path=" +
+      encodeURIComponent(item.path);
+
+  }
+
+  return "media.html?path=" +
+    encodeURIComponent(item.path);
+}
+
+
+/* DISPLAY */
+
+function display(items){
+
+  const list =
+    document.getElementById("list");
+
+  list.innerHTML = "";
+
+  if(items.length === 0){
+
+    list.innerHTML =
+      `<div class="message">
+        Nothing found.
+      </div>`;
 
     return;
   }
 
+  items.forEach((item,index)=>{
 
-  /*
-    IMPORTANT:
+    const row =
+      document.createElement("div");
 
-    Numbering starts again on THIS page.
-
-    If this page has:
-
-    1 Ugandan Music
-    2 African Music
-    3 International Music
-    4 Old is Gold
-
-    then the numbers belong ONLY to these folders.
-
-    When we enter Ugandan Music,
-    numbering starts again from 1.
-  */
-
-  visibleFolders.forEach((folder,index)=>{
-
-    const number = index + 1;
-
-    let icon = "📁";
-    let description = "Open music folder";
-
-    const name =
-      folder.name.toLowerCase();
+    row.className = "item";
 
 
-    if(name.includes("ugandan")){
-      icon = "🇺🇬";
-      description = "Ugandan songs";
-    }
+    const number =
+      document.createElement("div");
 
-    else if(name.includes("african")){
-      icon = "🌍";
-      description = "African songs";
-    }
+    number.className = "number";
 
-    else if(name.includes("international")){
-      icon = "🌎";
-      description = "International songs";
-    }
+    /*
+      Numbering ALWAYS starts at 1
+      inside the current folder.
+    */
 
-    else if(name.includes("old")){
-      icon = "🎶";
-      description = "Old is Gold music";
-    }
+    number.textContent =
+      index + 1;
 
-    else if(name.includes("amapiano")){
-      icon = "🎧";
-      description = "Amapiano music";
-    }
 
-    else if(name.includes("south")){
-      icon = "🇿🇦";
-      description = "South African music";
-    }
+    const icon =
+      document.createElement("span");
+
+    icon.className = "icon";
+
+    icon.textContent =
+      getIcon(item);
 
 
     const link =
       document.createElement("a");
 
-    link.className = "folder";
-
-    /*
-      We use ONE universal folder viewer.
-
-      This prevents the African/International
-      index.html error.
-    */
-
     link.href =
-      `media/songs/folder.html?path=${encodeURIComponent(folder.path)}`;
+      getLink(item);
 
-    link.innerHTML = `
+    link.textContent =
+      cleanName(item.name);
 
-      <span class="number">
-        ${number}
-      </span>
 
-      <span class="icon">
-        ${icon}
-      </span>
+    const arrow =
+      document.createElement("span");
 
-      <div class="folder-info">
+    arrow.className = "arrow";
 
-        <div class="folder-name">
-          ${folder.name}
-        </div>
+    arrow.textContent =
+      item.type === "dir"
+        ? "›"
+        : "▶";
 
-        <div class="folder-description">
-          ${description}
-        </div>
 
-      </div>
+    row.appendChild(number);
+    row.appendChild(icon);
+    row.appendChild(link);
+    row.appendChild(arrow);
 
-      <span class="arrow">
-        ›
-      </span>
-
-    `;
-
-    foldersContainer.appendChild(link);
+    list.appendChild(row);
 
   });
-
 }
 
 
-/* =================================================
-   SEARCH
-   ================================================= */
+/* BACK */
 
-searchBox.addEventListener(
-  "input",
-  renderFolders
-);
+function setupBack(){
+
+  const back =
+    document.getElementById("back");
+
+  if(currentPath === ROOT){
+
+    back.href = "index.html";
+
+    back.textContent =
+      "← Home";
+
+    return;
+  }
+
+  const parent =
+    currentPath
+      .substring(
+        0,
+        currentPath.lastIndexOf("/")
+      );
+
+  if(parent === "media"){
+
+    back.href =
+      "audio.html";
+
+  }else{
+
+    back.href =
+      "audio.html?path=" +
+      encodeURIComponent(parent);
+
+  }
+
+  back.textContent =
+    "← Back";
+}
 
 
-/* =================================================
-   START
-   ================================================= */
+/* LOAD */
 
-loadFolders();
+async function loadFolder(){
+
+  const list =
+    document.getElementById("list");
+
+  try{
+
+    const response =
+      await fetch(
+        API +
+        currentPath +
+        "?ref=" +
+        BRANCH
+      );
+
+    if(!response.ok)
+      throw new Error();
+
+    let items =
+      await response.json();
+
+
+    /*
+      Folders first.
+    */
+
+    items.sort((a,b)=>{
+
+      if(a.type !== b.type){
+
+        return a.type === "dir"
+          ? -1
+          : 1;
+      }
+
+      return a.name.localeCompare(b.name);
+
+    });
+
+
+    /*
+      Keep folders and media files.
+      Ignore GitHub helper files.
+    */
+
+    allItems =
+      items.filter(item=>{
+
+        if(item.type === "dir")
+          return true;
+
+        return /\.(mp3|wav|m4a|aac|ogg|oga|opus|flac)$/i
+          .test(item.name);
+
+      });
+
+
+    display(allItems);
+    setupBack();
+
+  }catch(error){
+
+    list.innerHTML =
+      `<div class="message">
+        Unable to load this music folder.
+      </div>`;
+
+  }
+}
+
+
+/* SEARCH */
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+  const text =
+    this.value
+      .toLowerCase()
+      .trim();
+
+  if(!text){
+
+    display(allItems);
+    return;
+  }
+
+  const filtered =
+    allItems.filter(item=>
+      item.name
+        .toLowerCase()
+        .includes(text)
+    );
+
+  display(filtered);
+
+});
+
+
+loadFolder();
 
 </script>
 
