@@ -3,115 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DJ Folder - Ning Wei Media</title>
+<title>Ning Wei Media</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:
-      radial-gradient(circle at 10% 10%,#dff6ff,transparent 35%),
-      radial-gradient(circle at 90% 20%,#eee5ff,transparent 35%),
-      linear-gradient(135deg,#f8fbff,#f5f1ff,#effcf8);
-    color:#182033;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7f9;
+  color:#111;
 }
-
 header{
-    background:linear-gradient(135deg,#087fe8,#3159d9);
-    color:white;
-    text-align:center;
-    padding:30px 15px;
+  height:150px;
+  background:
+    linear-gradient(rgba(135,206,235,.38),rgba(135,206,235,.38)),
+    url("../../../ning-wei.png") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-
 header h1{
-    margin:0;
-    font-size:28px;
+  background:rgba(255,255,255,.8);
+  padding:10px 18px;
+  border-radius:12px;
+  font-size:23px;
 }
-
-header p{
-    margin:8px 0 0;
-}
-
-.search-box{
-    padding:22px 4%;
-}
-
-.search{
-    width:100%;
-    padding:17px 20px;
-    border:0;
-    border-radius:35px;
-    font-size:18px;
-    outline:none;
-    box-shadow:0 4px 18px #cfd7e5;
-}
-
 .container{
-    max-width:850px;
-    margin:auto;
-    padding:0 4% 30px;
+  max-width:700px;
+  margin:auto;
+  padding:15px;
 }
-
-.file{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:17px 12px;
-    background:rgba(255,255,255,.65);
-    border-bottom:1px solid #ddd;
-    text-decoration:none;
-    color:#182033;
+.search{
+  width:100%;
+  padding:13px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+  margin-bottom:12px;
 }
-
-.file:first-child{
-    border-radius:18px 18px 0 0;
-}
-
-.file:last-child{
-    border-radius:0 0 18px 18px;
-}
-
-.icon{
-    font-size:30px;
-    width:50px;
-    text-align:center;
-}
-
-.name{
-    flex:1;
-}
-
-.name strong{
-    display:block;
-    font-size:18px;
-}
-
-.name small{
-    color:#718096;
-}
-
-.arrow{
-    font-size:28px;
-    color:#168bd0;
-}
-
-.loading{
-    text-align:center;
-    padding:30px;
-    color:#777;
-}
-
 .back{
-    display:block;
-    text-align:center;
-    margin:15px 0 35px;
-    color:#168bd0;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:18px;
+  display:inline-block;
+  margin-bottom:12px;
+  color:#0077aa;
+  text-decoration:none;
+  font-weight:bold;
+}
+.item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  padding:10px;
+  margin:7px 0;
+  border-radius:10px;
+  text-decoration:none;
+  color:#111;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+.num{
+  width:35px;
+  height:35px;
+  min-width:35px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+.name{
+  font-weight:600;
 }
 </style>
 </head>
@@ -119,155 +81,105 @@ header p{
 <body>
 
 <header>
-    <h1 id="title">📁 DJ Folder</h1>
-    <p>Browse and search this folder</p>
+<h1 id="title">DJ MIXES</h1>
 </header>
-
-<div class="search-box">
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="🔎 Search this folder..."
-    >
-</div>
 
 <div class="container">
 
-    <div id="files" class="loading">
-        Loading...
-    </div>
+<a class="back" id="back" href="index.html">← Back</a>
+
+<input
+  class="search"
+  id="search"
+  placeholder="Search this folder..."
+>
+
+<div id="list">Loading...</div>
 
 </div>
 
-<a class="back" href="index.html">
-    ← Back to DJ Mixes / Nonstop
-</a>
-
 <script>
 
-const params = new URLSearchParams(window.location.search);
-const folder = params.get("folder");
+const BASE="https://api.github.com/repos/Ningwei2567/Ning-wei-1/contents/";
 
-const username = "Ningwei2567";
-const repository = "Ning-wei-1";
+const params=new URLSearchParams(location.search);
+const currentPath=params.get("path") || "media/songs/DJ-Mixes";
 
-const folderPath =
-`media/songs/DJ-Mixes/${folder}`;
+const list=document.getElementById("list");
+const search=document.getElementById("search");
+const title=document.getElementById("title");
 
-const apiURL =
-`https://api.github.com/repos/${username}/${repository}/contents/${folderPath}`;
+let items=[];
 
-const titleMap = {
-    "Mixtapes-Nonstop":"🎧 Mixtapes / Nonstop",
-    "Mappings":"🗺️ Mappings",
-    "Sound-Effects":"🔊 Sound Effects",
-    "Virtual-DJ-Skins":"🎛️ Virtual DJ Skins"
-};
+title.textContent=currentPath.split("/").pop();
 
-document.getElementById("title").textContent =
-titleMap[folder] || "📁 DJ Folder";
+async function load(){
 
-async function loadFiles(){
+  try{
 
-    const box = document.getElementById("files");
+    const response=await fetch(BASE+currentPath);
 
-    try{
+    if(!response.ok) throw new Error();
 
-        const response = await fetch(apiURL);
+    items=await response.json();
 
-        if(!response.ok){
-            throw new Error("Folder not found");
-        }
+    render(items);
 
-        const data = await response.json();
+  }catch(e){
 
-        box.innerHTML = "";
+    list.innerHTML="<p>Unable to load this folder.</p>";
 
-        const files = data.filter(item =>
-            item.type === "file"
-        );
+  }
 
-        if(files.length === 0){
+}
 
-            box.innerHTML =
-            "<div class='loading'>This folder is empty.</div>";
+function render(data){
 
-            return;
-        }
+  const q=search.value.toLowerCase();
 
-        files.forEach(file => {
+  const filtered=data.filter(item=>
+    item.name.toLowerCase().includes(q)
+  );
 
-            const link = document.createElement("a");
+  list.innerHTML="";
 
-            link.className = "file";
+  if(filtered.length===0){
 
-            const extension =
-                file.name.split(".").pop().toLowerCase();
+    list.innerHTML="<p>No items found.</p>";
 
-            let icon = "📄";
+    return;
+  }
 
-            if(["mp3","wav","m4a","ogg"].includes(extension)){
-                icon = "🎵";
-            }
+  filtered.forEach((item,index)=>{
 
-            if(["zip","rar","7z"].includes(extension)){
-                icon = "📦";
-            }
+    const a=document.createElement("a");
 
-            link.href =
-                `../../../download.html?path=${encodeURIComponent(folderPath + "/" + file.name)}`;
+    a.className="item";
 
-            link.innerHTML = `
-                <div class="icon">${icon}</div>
-                <div class="name">
-                    <strong>${file.name}</strong>
-                    <small>File</small>
-                </div>
-                <div class="arrow">›</div>
-            `;
+    if(item.type==="dir"){
 
-            box.appendChild(link);
+      a.href="browser.html?path="+encodeURIComponent(item.path);
 
-        });
+    }else{
 
-        setupSearch();
-
-    }catch(error){
-
-        box.innerHTML =
-        "<div class='loading'>Unable to load this folder.</div>";
+      a.href="../../../media.html?path="+encodeURIComponent(item.path);
 
     }
-}
 
-function setupSearch(){
+    a.innerHTML=`
+      <span class="num">${index+1}</span>
+      <span class="name">${item.name}</span>
+    `;
 
-    const search =
-        document.getElementById("search");
+    list.appendChild(a);
 
-    search.addEventListener("input",function(){
-
-        const text =
-            this.value.toLowerCase();
-
-        document.querySelectorAll(".file")
-        .forEach(file => {
-
-            file.style.display =
-                file.innerText
-                .toLowerCase()
-                .includes(text)
-                ? "flex"
-                : "none";
-
-        });
-
-    });
+  });
 
 }
 
-loadFiles();
+search.addEventListener("input",()=>render(items));
+
+load();
 
 </script>
 
