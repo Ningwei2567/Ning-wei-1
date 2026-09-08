@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +7,15 @@
 <title>Ning Wei Media - Trending Songs</title>
 
 <style>
+
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f1f5fb;
+    background:#f3f5f8;
     color:#222;
 }
 
@@ -18,82 +23,394 @@ header{
     background:#168de2;
     color:white;
     text-align:center;
-    padding:40px 20px;
+    padding:30px 15px;
 }
 
 header h1{
     margin:0;
-    font-size:36px;
+    font-size:30px;
 }
 
 header p{
-    font-size:19px;
+    margin:8px 0 0;
+    font-size:17px;
 }
 
 .container{
-    padding:25px 5%;
+    max-width:800px;
+    margin:auto;
+    padding:20px 15px 40px;
 }
 
-.category{
+.card{
     display:block;
     background:white;
     color:#222;
     text-decoration:none;
-    margin:18px 0;
-    padding:25px 20px;
+    padding:24px 20px;
+    margin:15px 0;
     border-radius:18px;
-    box-shadow:0 4px 15px #ccc;
+    box-shadow:0 3px 12px #ddd;
 }
 
-.category h2{
+.card h2{
     margin:0 0 8px;
-    font-size:25px;
+    font-size:23px;
 }
 
-.category p{
+.card p{
     margin:0;
-    color:#666;
-    font-size:17px;
+    color:#777;
+}
+
+.song{
+    display:flex;
+    align-items:center;
+    background:white;
+    color:#222;
+    text-decoration:none;
+    padding:17px 15px;
+    margin:10px 0;
+    border-radius:13px;
+    box-shadow:0 2px 8px #ddd;
+}
+
+.play{
+    font-size:24px;
+    color:#168de2;
+    margin-right:15px;
+}
+
+.song-name{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.player-box{
+    background:white;
+    margin:20px auto;
+    padding:25px 18px;
+    border-radius:20px;
+    box-shadow:0 3px 15px #ccc;
+    text-align:center;
+}
+
+.cover{
+    width:230px;
+    height:230px;
+    max-width:80%;
+    object-fit:cover;
+    border-radius:20px;
+    margin:5px auto 20px;
+    background:#168de2;
+}
+
+#songTitle{
+    font-size:25px;
+    margin:10px 0 20px;
+    word-break:break-word;
+}
+
+audio{
+    width:100%;
+    margin:10px 0 20px;
+}
+
+.download{
+    display:inline-block;
+    background:#20c978;
+    color:white;
+    text-decoration:none;
+    padding:15px 28px;
+    border-radius:30px;
+    font-size:18px;
+    font-weight:bold;
+    margin:10px 0 25px;
+}
+
+.ad{
+    min-height:120px;
+    border:1px dashed #aaa;
+    background:#f1f1f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#888;
+    margin:10px auto;
+    max-width:600px;
 }
 
 .back{
     display:block;
-    margin:25px 5% 40px;
+    text-align:center;
     color:#168de2;
     text-decoration:none;
     font-weight:bold;
-    font-size:18px;
+    margin:25px 0;
 }
+
+.loading{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+
+.error{
+    text-align:center;
+    padding:30px;
+    color:#d33;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>🎵 Trending Songs</h1>
-    <p>Choose a music category</p>
+    <h1 id="pageTitle">🎵 Trending Songs</h1>
+    <p id="pageSubtitle">Choose a music category</p>
 </header>
 
-<div class="container">
+<div class="container" id="app"></div>
 
-    <a class="category" href="media/songs/Ugandan/index.html">
-        <h2>🇺🇬 Ugandan Music</h2>
-        <p>Enter Ugandan Music</p>
-    </a>
+<script>
 
-    <a class="category" href="media/songs/African/index.html">
-        <h2>🌍 African Music</h2>
-        <p>Enter African Music</p>
-    </a>
+const USERNAME = "Ningwei2567";
+const REPOSITORY = "Ning-wei-1";
+const BRANCH = "main";
 
-    <a class="category" href="media/songs/International/index.html">
-        <h2>🌎 International Music</h2>
-        <p>Enter International Music</p>
-    </a>
+const params = new URLSearchParams(window.location.search);
 
-</div>
+const folder = params.get("folder");
+const file = params.get("file");
 
-<a class="back" href="index.html">← Back to Home</a>
+const app = document.getElementById("app");
+const pageTitle = document.getElementById("pageTitle");
+const pageSubtitle = document.getElementById("pageSubtitle");
+
+
+/* =========================
+   HOME / MUSIC CATEGORIES
+========================= */
+
+function showCategories(){
+
+    pageTitle.textContent = "🎵 Trending Songs";
+    pageSubtitle.textContent = "Choose a music category";
+
+    app.innerHTML = `
+
+        <a class="card"
+           href="audio.html?folder=Ugandan">
+            <h2>🇺🇬 Ugandan Music</h2>
+            <p>Popular Ugandan songs</p>
+        </a>
+
+        <a class="card"
+           href="audio.html?folder=African">
+            <h2>🌍 African Music</h2>
+            <p>African music collection</p>
+        </a>
+
+        <a class="card"
+           href="audio.html?folder=DJ-Mixes">
+            <h2>🎧 DJ Mixes</h2>
+            <p>DJ mixes and long music sessions</p>
+        </a>
+
+        <a class="card"
+           href="audio.html?folder=International">
+            <h2>🌎 International Music</h2>
+            <p>International music collection</p>
+        </a>
+
+        <a class="back" href="index.html">
+            ← Back to Home
+        </a>
+    `;
+}
+
+
+/* =========================
+   LOAD SONG LIST
+========================= */
+
+async function showSongs(){
+
+    pageTitle.textContent = "🎵 " + folder;
+    pageSubtitle.textContent = "Choose a song";
+
+    app.innerHTML = `
+        <div class="loading">
+            Loading songs...
+        </div>
+    `;
+
+    const apiURL =
+    `https://api.github.com/repos/${USERNAME}/${REPOSITORY}/contents/media/songs/${encodeURIComponent(folder)}`;
+
+    try{
+
+        const response = await fetch(apiURL);
+
+        if(!response.ok){
+            throw new Error("Folder not found");
+        }
+
+        const files = await response.json();
+
+        const songs = files.filter(item =>
+            item.type === "file" &&
+            /\.(mp3|wav|m4a|ogg)$/i.test(item.name)
+        );
+
+        if(songs.length === 0){
+
+            app.innerHTML = `
+                <div class="loading">
+                    No songs uploaded yet.
+                </div>
+
+                <a class="back"
+                   href="audio.html">
+                   ← Back to Music Categories
+                </a>
+            `;
+
+            return;
+        }
+
+        app.innerHTML = "";
+
+        songs.forEach(song => {
+
+            const title =
+            song.name.replace(/\.[^/.]+$/, "");
+
+            const link = document.createElement("a");
+
+            link.className = "song";
+
+            link.href =
+            `audio.html?folder=${encodeURIComponent(folder)}&file=${encodeURIComponent(song.name)}`;
+
+            link.innerHTML = `
+                <span class="play">▶</span>
+                <span class="song-name">${title}</span>
+            `;
+
+            app.appendChild(link);
+
+        });
+
+        const back = document.createElement("a");
+
+        back.className = "back";
+        back.href = "audio.html";
+        back.textContent = "← Back to Music Categories";
+
+        app.appendChild(back);
+
+    }
+
+    catch(error){
+
+        app.innerHTML = `
+            <div class="error">
+                Unable to load this music folder.
+            </div>
+
+            <a class="back"
+               href="audio.html">
+               ← Back to Music Categories
+            </a>
+        `;
+    }
+}
+
+
+/* =========================
+   INDIVIDUAL SONG PAGE
+========================= */
+
+function showSong(){
+
+    const title =
+    file.replace(/\.[^/.]+$/, "");
+
+    pageTitle.textContent = "🎵 Ning Wei Media";
+    pageSubtitle.textContent = folder + " Music";
+
+    const encodedPath =
+    file.split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/");
+
+    const songURL =
+    `https://raw.githubusercontent.com/${USERNAME}/${REPOSITORY}/${BRANCH}/media/songs/${encodeURIComponent(folder)}/${encodedPath}`;
+
+    app.innerHTML = `
+
+        <div class="player-box">
+
+            <img
+                class="cover"
+                src="https://dummyimage.com/500x500/168de2/ffffff&text=Music"
+                alt="Music cover"
+            >
+
+            <h2 id="songTitle">${title}</h2>
+
+            <audio controls autoplay>
+                <source src="${songURL}">
+                Your browser does not support audio.
+            </audio>
+
+            <br>
+
+            <a
+                class="download"
+                href="${songURL}"
+                download="${title}">
+                ⬇ DOWNLOAD SONG
+            </a>
+
+            <div class="ad">
+                ADVERTISEMENT
+            </div>
+
+        </div>
+
+        <a
+            class="back"
+            href="audio.html?folder=${encodeURIComponent(folder)}">
+            ← Back to ${folder} Music
+        </a>
+    `;
+}
+
+
+/* =========================
+   DECIDE WHAT TO SHOW
+========================= */
+
+if(file && folder){
+
+    showSong();
+
+}
+else if(folder){
+
+    showSongs();
+
+}
+else{
+
+    showCategories();
+
+}
+
+</script>
 
 </body>
 </html>
