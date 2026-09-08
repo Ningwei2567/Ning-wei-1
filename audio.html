@@ -2,161 +2,677 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trending Songs - Ning Wei Media</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ning Wei Media - Trending Songs</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f4f7f9;
- color:#111;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f1f6fa;
+  color:#111;
 }
 
-header{
- height:180px;
- background:
- linear-gradient(rgba(135,206,235,.28),rgba(135,206,235,.28)),
- url("ning-wei.png") center/cover no-repeat;
- display:flex;
- align-items:flex-end;
- padding:20px;
+/* ================= HEADER ================= */
+
+.hero{
+  position:relative;
+  height:280px;
+  overflow:hidden;
 }
 
-h1{
- margin:0;
- color:white;
- text-shadow:0 2px 5px #000;
- font-size:28px;
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("../ning-wei.png");
+  background-size:cover;
+  background-position:center 30%;
+  z-index:0;
 }
 
-main{
- max-width:700px;
- margin:auto;
- padding:15px;
+/* EXACTLY 38% BLUE */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,115,220,0.38);
+  z-index:1;
+}
+
+.hero-content{
+  position:absolute;
+  z-index:2;
+  width:100%;
+  top:50%;
+  transform:translateY(-50%);
+  text-align:center;
+  color:#fff;
+  text-shadow:0 3px 7px rgba(0,0,0,.8);
+}
+
+.hero-title{
+  font-size:46px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+.hero-subtitle{
+  font-size:23px;
+  font-weight:500;
+}
+
+/* ================= PAGE ================= */
+
+.container{
+  width:94%;
+  max-width:1000px;
+  margin:auto;
+  padding:28px 0 60px;
 }
 
 .back{
- display:inline-block;
- margin-bottom:12px;
- text-decoration:none;
- color:#078;
- font-weight:bold;
+  display:block;
+  color:#13859a;
+  font-size:25px;
+  font-weight:800;
+  text-decoration:none;
+  margin:0 0 25px 5px;
 }
 
 .search{
- width:100%;
- padding:14px;
- border:1px solid #ccc;
- border-radius:30px;
- font-size:17px;
- margin-bottom:12px;
+  width:100%;
+  height:70px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  background:white;
+  padding:0 28px;
+  font-size:23px;
+  outline:none;
+  margin-bottom:28px;
+  box-shadow:0 5px 18px rgba(0,0,0,.07);
 }
 
-.item{
- display:flex;
- align-items:center;
- gap:12px;
- background:#fff;
- padding:11px;
- margin:7px 0;
- border-radius:12px;
- box-shadow:0 2px 6px #0002;
- text-decoration:none;
- color:#111;
+/* ================= ROWS ================= */
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
-.num{
- width:40px;
- height:40px;
- min-width:40px;
- border-radius:50%;
- background:#000;
- color:white;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:bold;
+.row{
+  min-height:105px;
+  width:100%;
+  background:#fff;
+  border-radius:24px;
+  display:flex;
+  align-items:center;
+  padding:14px 18px;
+  text-decoration:none;
+  color:#111;
+  box-shadow:0 5px 16px rgba(0,0,0,.08);
+}
+
+.row:hover{
+  background:#f8fdff;
+}
+
+/* BLACK NUMBER */
+
+.number{
+  width:72px;
+  height:72px;
+  min-width:72px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:29px;
+  font-weight:800;
+  margin-right:24px;
 }
 
 .icon{
- font-size:25px;
- width:35px;
- text-align:center;
+  width:58px;
+  min-width:58px;
+  font-size:42px;
+  text-align:center;
+  margin-right:18px;
 }
 
-.name{
- font-weight:bold;
- font-size:17px;
+.text{
+  flex:1;
+  min-width:0;
+}
+
+.title{
+  font-size:27px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.type{
+  font-size:18px;
+  color:#777;
+  margin-top:5px;
 }
 
 .arrow{
- margin-left:auto;
- color:#168baa;
- font-size:27px;
+  font-size:38px;
+  color:#168ca3;
+  margin-left:10px;
+}
+
+/* ================= ERROR ================= */
+
+.error{
+  text-align:center;
+  padding:35px 15px;
+  font-size:20px;
+  color:#777;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+  .hero{
+    height:280px;
+  }
+
+  .hero-title{
+    font-size:39px;
+  }
+
+  .hero-subtitle{
+    font-size:19px;
+  }
+
+  .container{
+    width:94%;
+    padding-top:28px;
+  }
+
+  .back{
+    font-size:23px;
+  }
+
+  .search{
+    height:70px;
+    font-size:21px;
+  }
+
+  .row{
+    min-height:105px;
+    border-radius:22px;
+    padding:13px 15px;
+  }
+
+  .number{
+    width:66px;
+    height:66px;
+    min-width:66px;
+    font-size:27px;
+    margin-right:15px;
+  }
+
+  .icon{
+    width:48px;
+    min-width:48px;
+    font-size:35px;
+    margin-right:10px;
+  }
+
+  .title{
+    font-size:22px;
+  }
+
+  .type{
+    font-size:16px;
+  }
+
+  .arrow{
+    font-size:34px;
+  }
+}
+
+@media(max-width:400px){
+
+  .hero-title{
+    font-size:34px;
+  }
+
+  .hero-subtitle{
+    font-size:17px;
+  }
+
+  .number{
+    width:62px;
+    height:62px;
+    min-width:62px;
+  }
+
+  .icon{
+    display:none;
+  }
+
+  .title{
+    font-size:21px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>🎵 Trending Songs</h1>
+<!-- HEADER -->
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-title" id="headerTitle">
+      🎵 Trending Songs
+    </div>
+
+    <div class="hero-subtitle">
+      Music • Videos • Photos • Apps • Software
+    </div>
+  </div>
 </header>
 
-<main>
+<div class="container">
 
-<a class="back" href="index.html">← Back to Home</a>
+  <a href="../index.html" class="back" id="backButton">
+    ← Back to Home
+  </a>
 
-<input
- id="search"
- class="search"
- placeholder="Search music..."
->
+  <input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="Search music..."
+  >
 
-<div id="list">
+  <div class="list" id="list"></div>
 
-<a class="item" href="media/songs/Ugandan/index.html">
-<span class="num">1</span>
-<span class="icon">🎵</span>
-<span class="name">Ugandan Music</span>
-<span class="arrow">›</span>
-</a>
-
-<a class="item" href="media/songs/African/index.html">
-<span class="num">2</span>
-<span class="icon">🌍</span>
-<span class="name">African Music</span>
-<span class="arrow">›</span>
-</a>
-
-<a class="item" href="media/songs/International/index.html">
-<span class="num">3</span>
-<span class="icon">🌎</span>
-<span class="name">International Music</span>
-<span class="arrow">›</span>
-</a>
+  <div class="error" id="error"></div>
 
 </div>
 
-</main>
-
 <script>
-const search=document.getElementById("search");
-const items=[...document.querySelectorAll(".item")];
 
-search.addEventListener("input",()=>{
- const q=search.value.toLowerCase();
+/* =========================================================
+   GITHUB SETTINGS
+========================================================= */
 
- items.forEach(item=>{
-   item.style.display=
-   item.innerText.toLowerCase().includes(q)
-   ? "flex"
-   : "none";
- });
+const OWNER = "Ningwei2567";
+const REPO = "Ning-wei-1";
+const BRANCH = "main";
+
+/* Starting music folder */
+const ROOT = "media/songs";
+
+/* =========================================================
+   GET CURRENT FOLDER
+========================================================= */
+
+const params = new URLSearchParams(location.search);
+const currentPath = params.get("path") || ROOT;
+
+const list = document.getElementById("list");
+const errorBox = document.getElementById("error");
+const searchBox = document.getElementById("search");
+const headerTitle = document.getElementById("headerTitle");
+const backButton = document.getElementById("backButton");
+
+/* =========================================================
+   AUDIO FILES
+========================================================= */
+
+const audioExtensions = [
+  "mp3",
+  "m4a",
+  "wav",
+  "aac",
+  "ogg",
+  "oga",
+  "opus",
+  "flac"
+];
+
+/* Files that must NEVER appear as music */
+const hiddenFiles = [
+  "index.html",
+  "folder.html",
+  "browser.html",
+  "song.html",
+  "README.txt",
+  "README.md",
+  "style.css"
+];
+
+/* =========================================================
+   NAME CLEANER
+========================================================= */
+
+function cleanName(name){
+
+  return name
+    .replace(/\.[^/.]+$/,"")
+    .replace(/[-_]+/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+/* =========================================================
+   LOAD FOLDER
+========================================================= */
+
+async function loadFolder(){
+
+  list.innerHTML = "";
+  errorBox.textContent = "";
+
+  try{
+
+    const api =
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURI(currentPath)}?ref=${BRANCH}`;
+
+    const response = await fetch(api);
+
+    if(!response.ok){
+      throw new Error("Folder not found");
+    }
+
+    const data = await response.json();
+
+    if(!Array.isArray(data)){
+      throw new Error("Invalid folder");
+    }
+
+    /* -----------------------------------------------------
+       SPECIAL FIRST PAGE
+       ONLY 3 TRENDING SONG CATEGORIES
+    ----------------------------------------------------- */
+
+    if(currentPath === ROOT){
+
+      headerTitle.textContent = "🎵 Trending Songs";
+      searchBox.placeholder = "Search music...";
+      backButton.textContent = "← Back to Home";
+
+      const categories = [
+        {
+          folder:"Ugandan",
+          name:"Ugandan Music",
+          icon:"🇺🇬"
+        },
+        {
+          folder:"African",
+          name:"African Music",
+          icon:"🌍"
+        },
+        {
+          folder:"International",
+          name:"International Music",
+          icon:"🌍"
+        }
+      ];
+
+      categories.forEach((category,index)=>{
+
+        const link = document.createElement("a");
+
+        link.className = "row";
+
+        link.href =
+          `audio.html?path=${encodeURIComponent(
+            ROOT + "/" + category.folder
+          )}`;
+
+        link.dataset.search =
+          category.name.toLowerCase();
+
+        link.innerHTML = `
+          <div class="number">${index + 1}</div>
+
+          <div class="icon">
+            ${category.icon}
+          </div>
+
+          <div class="text">
+            <div class="title">
+              ${category.name}
+            </div>
+
+            <div class="type">
+              Music and audio
+            </div>
+          </div>
+
+          <div class="arrow">›</div>
+        `;
+
+        list.appendChild(link);
+
+      });
+
+      return;
+    }
+
+    /* -----------------------------------------------------
+       INSIDE A MUSIC FOLDER
+    ----------------------------------------------------- */
+
+    let folders = data
+      .filter(item =>
+        item.type === "dir"
+      )
+      .sort((a,b)=>
+        a.name.localeCompare(b.name)
+      );
+
+    let files = data
+      .filter(item =>
+        item.type === "file" &&
+        audioExtensions.includes(
+          item.name.split(".").pop().toLowerCase()
+        ) &&
+        !hiddenFiles.includes(item.name)
+      )
+      .sort((a,b)=>
+        a.name.localeCompare(b.name)
+      );
+
+    /* FOLDERS FIRST */
+    let allItems = [...folders,...files];
+
+    if(allItems.length === 0){
+
+      errorBox.textContent =
+        "No music or folders found here.";
+
+      return;
+    }
+
+    /* TITLE */
+
+    let folderName =
+      currentPath.split("/").pop();
+
+    headerTitle.textContent =
+      "🎵 " + cleanName(folderName);
+
+    searchBox.placeholder =
+      "Search " + cleanName(folderName) + "...";
+
+    /* BACK */
+
+    if(currentPath === ROOT){
+
+      backButton.href = "../index.html";
+      backButton.textContent = "← Back to Home";
+
+    }else{
+
+      const parent =
+        currentPath.substring(
+          0,
+          currentPath.lastIndexOf("/")
+        );
+
+      if(parent === ROOT){
+
+        backButton.href = "audio.html";
+        backButton.textContent =
+          "← Back to Trending Songs";
+
+      }else{
+
+        backButton.href =
+          `audio.html?path=${encodeURIComponent(parent)}`;
+
+        backButton.textContent =
+          "← Back";
+
+      }
+
+    }
+
+    /* =====================================================
+       NUMBER EVERYTHING LOCALLY
+    ===================================================== */
+
+    allItems.forEach((item,index)=>{
+
+      const link = document.createElement("a");
+
+      link.className = "row";
+
+      link.dataset.search =
+        item.name.toLowerCase();
+
+      /* FOLDER */
+
+      if(item.type === "dir"){
+
+        link.href =
+          `audio.html?path=${encodeURIComponent(item.path)}`;
+
+        link.innerHTML = `
+
+          <div class="number">
+            ${index + 1}
+          </div>
+
+          <div class="icon">
+            📁
+          </div>
+
+          <div class="text">
+            <div class="title">
+              ${cleanName(item.name)}
+            </div>
+
+            <div class="type">
+              Folder
+            </div>
+          </div>
+
+          <div class="arrow">
+            ›
+          </div>
+        `;
+
+      }
+
+      /* AUDIO FILE */
+
+      else{
+
+        link.href =
+          `media.html?path=${encodeURIComponent(item.path)}`;
+
+        link.innerHTML = `
+
+          <div class="number">
+            ${index + 1}
+          </div>
+
+          <div class="icon">
+            ▶️
+          </div>
+
+          <div class="text">
+            <div class="title">
+              ${cleanName(item.name)}
+            </div>
+
+            <div class="type">
+              Audio
+            </div>
+          </div>
+
+          <div class="arrow">
+            ›
+          </div>
+        `;
+
+      }
+
+      list.appendChild(link);
+
+    });
+
+  }catch(error){
+
+    console.error(error);
+
+    errorBox.innerHTML =
+      "Unable to load this music folder.<br><br>" +
+      "Please check the folder name in GitHub.";
+
+  }
+
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchBox.addEventListener("input",function(){
+
+  const value =
+    this.value.toLowerCase().trim();
+
+  document
+    .querySelectorAll(".row")
+    .forEach(row=>{
+
+      row.style.display =
+        row.dataset.search.includes(value)
+          ? "flex"
+          : "none";
+
+    });
+
 });
+
+/* =========================================================
+   START
+========================================================= */
+
+loadFolder();
+
 </script>
 
 </body>
