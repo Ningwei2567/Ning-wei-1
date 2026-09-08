@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ning Wei Media</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:#172033;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(0,140,255,.18),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(140,70,255,.16),transparent 30%),
+        radial-gradient(circle at 50% 100%,rgba(0,200,160,.13),transparent 35%),
+        #f5f8fc;
+}
+
+header{
+    background:linear-gradient(135deg,#087ee8,#1557d6);
+    color:white;
+    padding:25px 18px;
+    text-align:center;
+}
+
+header h1{
+    margin:0;
+    font-size:28px;
+}
+
+header p{
+    margin:7px 0 0;
+    opacity:.9;
+}
+
+.container{
+    max-width:850px;
+    margin:auto;
+    padding:18px 14px 35px;
+}
+
+.search{
+    width:100%;
+    padding:14px 18px;
+    border:none;
+    outline:none;
+    border-radius:30px;
+    font-size:16px;
+    background:rgba(255,255,255,.9);
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    margin-bottom:15px;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:15px 10px;
+    text-decoration:none;
+    color:#172033;
+    border-bottom:1px solid rgba(0,0,0,.08);
+    transition:.2s;
+}
+
+.item:hover{
+    background:rgba(255,255,255,.7);
+    padding-left:15px;
+}
+
+.icon{
+    width:40px;
+    text-align:center;
+    font-size:25px;
+}
+
+.info{
+    flex:1;
+}
+
+.name{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.type{
+    font-size:13px;
+    color:#718096;
+    margin-top:3px;
+}
+
+.arrow{
+    font-size:22px;
+    color:#168de2;
+}
+
+.message{
+    text-align:center;
+    padding:30px 10px;
+    color:#777;
+}
+
+.back{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    color:#087ee8;
+    text-decoration:none;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1 id="pageTitle">📁 Ning Wei Media</h1>
+    <p>Browse and search your media</p>
+</header>
+
+<div class="container">
+
+    <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="🔎 Search this folder..."
+    >
+
+    <div id="items">
+        <div class="message">Loading...</div>
+    </div>
+
+    <a class="back" href="index.html">
+        ← Back to Home
+    </a>
+
+</div>
+
+<script>
+
+const username = "Ningwei2567";
+const repository = "Ning-wei-1";
+const branch = "main";
+
+const params = new URLSearchParams(window.location.search);
+
+const folder =
+    params.get("path") || "media";
+
+const apiURL =
+    `https://api.github.com/repos/${username}/${repository}/contents/${folder}`;
+
+const itemsContainer =
+    document.getElementById("items");
+
+const search =
+    document.getElementById("search");
+
+const pageTitle =
+    document.getElementById("pageTitle");
+
+let allItems = [];
+
+function getIcon(item){
+
+    if(item.type === "dir"){
+
+        const name = item.name.toLowerCase();
+
+        if(name.includes("dj")) return "🎧";
+        if(name.includes("mapping")) return "🗺️";
+        if(name.includes("effect")) return "🔊";
+        if(name.includes("skin")) return "🎨";
+        if(name.includes("uganda")) return "🇺🇬";
+        if(name.includes("africa")) return "🌍";
+        if(name.includes("international")) return "🌎";
+        if(name.includes("song")) return "🎵";
+        if(name.includes("video")) return "🎬";
+        if(name.includes("photo")) return "📸";
+        if(name.includes("app")) return "📱";
+        if(name.includes("software")) return "💻";
+
+        return "📁";
+    }
+
+    const name = item.name.toLowerCase();
+
+    if(/\.(mp3|wav|m4a|ogg)$/i.test(name))
+        return "🎵";
+
+    if(/\.(mp4|mkv|mov|avi|webm)$/i.test(name))
+        return "🎬";
+
+    if(/\.(jpg|jpeg|png|gif|webp)$/i.test(name))
+        return "📸";
+
+    if(/\.(apk)$/i.test(name))
+        return "📱";
+
+    return "📄";
+}
+
+function cleanName(name){
+
+    return name
+        .replace(/\.[^/.]+$/, "")
+        .replace(/[-_]/g," ");
+}
+
+function displayItems(items){
+
+    itemsContainer.innerHTML = "";
+
+    if(items.length === 0){
+
+        itemsContainer.innerHTML =
+        `<div class="message">No matching files or folders.</div>`;
+
+        return;
+    }
+
+    items.forEach(item => {
+
+        const link = document.createElement("a");
+
+        link.className = "item";
+
+        if(item.type === "dir"){
+
+            link.href =
+                `media.html?path=${encodeURIComponent(item.path)}`;
+
+        }else{
+
+            link.href = item.html_url;
+            link.target = "_blank";
+        }
+
+        link.innerHTML = `
+            <div class="icon">${getIcon(item)}</div>
+
+            <div class="info">
+                <div class="name">
+                    ${cleanName(item.name)}
+                </div>
+
+                <div class="type">
+                    ${item.type === "dir" ? "Folder" : "File"}
+                </div>
+            </div>
+
+            <div class="arrow">›</div>
+        `;
+
+        itemsContainer.appendChild(link);
+
+    });
+}
+
+async function loadFolder(){
+
+    try{
+
+        const response =
+            await fetch(apiURL);
+
+        if(!response.ok)
+            throw new Error("Unable to load folder");
+
+        allItems =
+            await response.json();
+
+        const parts =
+            folder.split("/");
+
+        const current =
+            parts[parts.length - 1];
+
+        pageTitle.textContent =
+            "📁 " + cleanName(current);
+
+        displayItems(allItems);
+
+    }catch(error){
+
+        itemsContainer.innerHTML =
+        `<div class="message">
+            Unable to load this folder.
+        </div>`;
+
+    }
+}
+
+search.addEventListener("input",function(){
+
+    const query =
+        search.value.toLowerCase().trim();
+
+    const filtered =
+        allItems.filter(item =>
+            item.name.toLowerCase().includes(query)
+        );
+
+    displayItems(filtered);
+
+});
+
+loadFolder();
+
+</script>
+
+</body>
+</html>
