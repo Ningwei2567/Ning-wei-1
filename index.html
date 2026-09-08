@@ -4,96 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ning Wei Media</title>
-
 <style>
 *{box-sizing:border-box}
-
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f4f7f9;
- color:#111;
-}
-
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7f9;color:#111}
 header{
- height:350px;
- position:relative;
- background:
- linear-gradient(rgba(135,206,235,.28),rgba(135,206,235,.28)),
- url("ning-wei.png") center/cover no-repeat;
- display:flex;
- align-items:flex-end;
- padding:25px;
+height:350px;
+background:linear-gradient(rgba(135,206,235,.28),rgba(135,206,235,.28)),url("ning-wei.png") center/cover no-repeat;
+display:flex;align-items:flex-end;padding:25px
 }
-
-header h1{
- margin:0;
- color:white;
- font-size:34px;
- text-shadow:0 2px 5px #000;
-}
-
-main{
- max-width:750px;
- margin:auto;
- padding:18px;
-}
-
-.search{
- width:100%;
- padding:15px 20px;
- border:1px solid #ccc;
- border-radius:30px;
- font-size:18px;
- margin-bottom:15px;
-}
-
-.item{
- display:flex;
- align-items:center;
- gap:14px;
- background:white;
- padding:12px;
- margin:8px 0;
- border-radius:14px;
- text-decoration:none;
- color:#111;
- box-shadow:0 2px 7px #0002;
-}
-
-.num{
- width:44px;
- height:44px;
- min-width:44px;
- border-radius:50%;
- background:#000;
- color:#fff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:bold;
- font-size:20px;
-}
-
-.icon{
- width:38px;
- text-align:center;
- font-size:27px;
-}
-
-.name{
- font-size:18px;
- font-weight:bold;
-}
-
-.arrow{
- margin-left:auto;
- font-size:28px;
- color:#168baa;
-}
+header h1{margin:0;color:white;font-size:34px;text-shadow:0 2px 5px #000}
+main{max-width:750px;margin:auto;padding:18px}
+.search{width:100%;padding:15px 20px;border:1px solid #ccc;border-radius:30px;font-size:18px;margin-bottom:15px}
+.item{display:flex;align-items:center;gap:14px;background:white;padding:12px;margin:8px 0;border-radius:14px;text-decoration:none;color:#111;box-shadow:0 2px 7px #0002}
+.num{width:44px;height:44px;min-width:44px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px}
+.icon{width:40px;text-align:center;font-size:27px}
+.name{font-size:18px;font-weight:bold}
+.arrow{margin-left:auto;font-size:28px;color:#168baa}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -101,63 +29,43 @@ main{
 </header>
 
 <main>
+<input id="search" class="search" placeholder="Search Ning Wei Media...">
 
-<input
- id="search"
- class="search"
- type="search"
- placeholder="Search..."
->
-
-<div id="list">
+<div id="items">
 
 <a class="item" href="audio.html">
-<span class="num">1</span>
-<span class="icon">🎵</span>
-<span class="name">Trending Songs</span>
-<span class="arrow">›</span>
+<span class="num">1</span><span class="icon">🎵</span>
+<span class="name">Trending Songs</span><span class="arrow">›</span>
 </a>
 
-<a class="item" href="media/songs/Old-is-Gold/index.html">
-<span class="num">2</span>
-<span class="icon">🏆</span>
-<span class="name">Old is Gold</span>
-<span class="arrow">›</span>
+<a class="item" href="browse.html?path=media/songs/Old-is-Gold">
+<span class="num">2</span><span class="icon">🏆</span>
+<span class="name">Old is Gold</span><span class="arrow">›</span>
 </a>
 
-<a class="item" href="media/songs/DJ-Mixes/index.html">
-<span class="num">3</span>
-<span class="icon">🎧</span>
-<span class="name">DJ Mixes</span>
-<span class="arrow">›</span>
+<a class="item" href="browse.html?path=media/songs/DJ-Mixes">
+<span class="num">3</span><span class="icon">🎧</span>
+<span class="name">DJ Mixes</span><span class="arrow">›</span>
 </a>
 
 <a class="item" href="videos.html">
-<span class="num">4</span>
-<span class="icon">🎬</span>
-<span class="name">Videos</span>
-<span class="arrow">›</span>
+<span class="num">4</span><span class="icon">🎬</span>
+<span class="name">Videos</span><span class="arrow">›</span>
 </a>
 
 <a class="item" href="photos.html">
-<span class="num">5</span>
-<span class="icon">🖼️</span>
-<span class="name">Photos</span>
-<span class="arrow">›</span>
+<span class="num">5</span><span class="icon">🖼️</span>
+<span class="name">Photos</span><span class="arrow">›</span>
 </a>
 
 <a class="item" href="apks.html">
-<span class="num">6</span>
-<span class="icon">📱</span>
-<span class="name">Apps</span>
-<span class="arrow">›</span>
+<span class="num">6</span><span class="icon">📱</span>
+<span class="name">Apps</span><span class="arrow">›</span>
 </a>
 
 <a class="item" href="software.html">
-<span class="num">7</span>
-<span class="icon">💻</span>
-<span class="name">Software</span>
-<span class="arrow">›</span>
+<span class="num">7</span><span class="icon">💻</span>
+<span class="name">Software</span><span class="arrow">›</span>
 </a>
 
 </div>
@@ -169,12 +77,8 @@ const items=[...document.querySelectorAll(".item")];
 
 search.addEventListener("input",()=>{
  const q=search.value.toLowerCase();
-
- items.forEach(item=>{
-   item.style.display=
-     item.innerText.toLowerCase().includes(q)
-     ? "flex"
-     : "none";
+ items.forEach(x=>{
+  x.style.display=x.innerText.toLowerCase().includes(q)?"flex":"none";
  });
 });
 </script>
