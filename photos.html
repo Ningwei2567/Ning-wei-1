@@ -1,49 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media - Trending Hot Photos</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ning Wei Media - Photos</title>
 <style>
-body{margin:0;font-family:Arial;background:#f1f5fb;color:#222}
-header{background:#168de2;color:white;text-align:center;padding:35px 15px}
-.category{background:white;margin:18px;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc}
-.photo{background:#f1f5fb;padding:10px;margin-top:12px;border-radius:10px;text-align:center}
-.photo img{width:100%;border-radius:10px}
-.download{display:block;background:#168de2;color:white;text-align:center;padding:12px;margin-top:10px;border-radius:8px;text-decoration:none;font-weight:bold}
-.back{display:block;margin:25px;color:#168de2;font-weight:bold;text-decoration:none}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f8fa;color:#111}
+.header{
+height:190px;padding:15px;display:flex;align-items:flex-end;
+background:linear-gradient(rgba(80,190,235,.20),rgba(80,190,235,.20)),
+url("ning-wei.png") center/cover no-repeat
+}
+.header h1{margin:0;color:white;text-shadow:0 2px 6px #000;font-size:26px}
+.container{max-width:900px;margin:auto;padding:12px}
+.search{width:100%;padding:13px 17px;border:1px solid #ccc;border-radius:25px;font-size:16px;margin-bottom:12px}
+.back{display:inline-block;margin-bottom:12px;color:#087ea4;text-decoration:none;font-weight:bold}
+.item{display:flex;align-items:center;gap:10px;background:white;padding:9px;margin-bottom:7px;border-radius:8px;box-shadow:0 1px 4px #0002}
+.number{width:32px;height:32px;min-width:32px;border-radius:50%;background:#000;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.icon{font-size:21px}
+.item a{flex:1;color:#111;text-decoration:none;font-weight:bold;word-break:break-word}
+.arrow{color:#0795c5;font-size:22px}
+.message{text-align:center;padding:30px;color:#777}
 </style>
 </head>
 <body>
 
-<header>
-<h1>🔥 Trending Hot Photos</h1>
-<p>Choose your photo category</p>
+<header class="header">
+<h1>📷 Ning Wei Photos</h1>
 </header>
 
-<div class="category">
-<h2>🔥 Latest Photos</h2>
-<div class="photo">
-<img src="photo1.jpg" alt="Photo">
-<a class="download" href="photo1.jpg" download>⬇ Download Photo</a>
-</div>
+<div class="container">
+
+<a class="back" href="index.html">← Home</a>
+
+<input id="search" class="search" type="search" placeholder="Search photos...">
+
+<div id="list">
+<div class="message">Loading photos...</div>
 </div>
 
-<div class="category">
-<h2>📸 Entertainment</h2>
-<p>Your entertainment photos will appear here.</p>
 </div>
 
-<div class="category">
-<h2>👥 People</h2>
-<p>Your people photos will appear here.</p>
-</div>
+<script>
+const OWNER="Ningwei2567";
+const REPO="Ning-wei-1";
+const BRANCH="main";
 
-<div class="category">
-<h2>🌍 Trending Photos</h2>
-<p>Your trending photos will appear here.</p>
-</div>
+let currentPath=new URLSearchParams(location.search).get("path")||"media/photos";
+let allItems=[];
 
-<a class="back" href="index.html">← Back to Home</a>
+async function load(){
+
+try{
+
+const r=await fetch(
+`https://api.github.com/repos/${OWNER}/${REPO}/contents/${currentPath}?ref=${BRANCH}`
+);
+
+if(!r.ok)throw new Error();
+
+const data=await r.json();
+
+allItems=data.sort((a,b)=>{
+if(a.type!==b.type)return a.type==="dir"?-1:1;
+return a.name.localeCompare(b.name);
+});
+
+show(allItems);
+
+document.getElementById("back").href=
+currentPath==="media/photos"
+?"index.html"
+:"photos.html?path="+encodeURIComponent(
+currentPath.substring(0,currentPath.lastIndexOf("/"))
+);
+
+}catch(e){
+
+document.getElementById("list").innerHTML=
+'<div class="message">Unable to load photos.</div>';
+
+}
+}
+
+function show(items){
+
+const list=document.getElementById("list");
+list.innerHTML="";
+
+items.forEach((item,i)=>{
+
+const row=document.createElement("div");
+row.className="item";
+
+const num=document.createElement("div");
+num.className="number";
+num.textContent=i+1;
+
+const icon=document.createElement("span");
+icon.className="icon";
+icon.textContent=item.type==="dir"?"📁":"🖼️";
+
+const link=document.createElement("a");
+link.textContent=item.name.replace(/\.[^/.]+$/,"").replace(/[-_]/g," ");
+
+link.href=item.type==="dir"
+?"photos.html?path="+encodeURIComponent(item.path)
+:"media.html?path="+encodeURIComponent(item.path);
+
+const arrow=document.createElement("span");
+arrow.className="arrow";
+arrow.textContent=item.type==="dir"?"›":"👁";
+
+row.append(num,icon,link,arrow);
+list.appendChild(row);
+
+});
+}
+
+document.getElementById("search").addEventListener("input",function(){
+
+const q=this.value.toLowerCase().trim();
+
+show(q
+?allItems.filter(x=>x.name.toLowerCase().includes(q))
+:allItems);
+
+});
+
+load();
+</script>
+
 </body>
 </html>
