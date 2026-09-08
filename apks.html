@@ -7,25 +7,40 @@
 <style>
 body{margin:0;font-family:Arial;background:#f1f5fb;color:#222}
 header{background:#168de2;color:white;text-align:center;padding:35px 15px}
-h1{margin:0}
-.list{margin:20px}
-.item{display:block;background:white;margin:15px 0;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc;text-decoration:none;color:#222;font-size:20px;font-weight:bold}
+.category{background:white;margin:18px;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc}
+.app{background:#f1f5fb;padding:15px;margin-top:12px;border-radius:10px}
+.download{display:block;background:#168de2;color:white;text-align:center;padding:12px;margin-top:10px;border-radius:8px;text-decoration:none;font-weight:bold}
 .back{display:block;margin:25px;color:#168de2;font-weight:bold;text-decoration:none}
 </style>
 </head>
 <body>
-<header><h1>📱 Premium & Mod Apps</h1><p>Choose a category</p></header>
 
-<div class="list">
-<a class="item" href="#latest">🔥 Latest Apps</a>
-<a class="item" href="#premium">⭐ Premium Apps</a>
-<a class="item" href="#mods">🛠️ Mod Apps</a>
-<a class="item" href="#games">🎮 Games</a>
+<header>
+<h1>📱 Premium & Mod Apps</h1>
+<p>Choose your category</p>
+</header>
 
-<div id="latest" class="item">🔥 Latest Apps</div>
-<div id="premium" class="item">⭐ Premium Apps</div>
-<div id="mods" class="item">🛠️ Mod Apps</div>
-<div id="games" class="item">🎮 Games</div>
+<div class="category">
+<h2>🔥 Latest Apps</h2>
+<div class="app">
+<b>App 1</b>
+<a class="download" href="app1.apk" download>⬇ Download App</a>
+</div>
+</div>
+
+<div class="category">
+<h2>⭐ Premium Apps</h2>
+<p>Your premium apps will appear here.</p>
+</div>
+
+<div class="category">
+<h2>🛠️ Mod Apps</h2>
+<p>Your mod apps will appear here.</p>
+</div>
+
+<div class="category">
+<h2>🎮 Games</h2>
+<p>Your games will appear here.</p>
 </div>
 
 <a class="back" href="index.html">← Back to Home</a>
