@@ -6,15 +6,70 @@
 <title>Ning Wei Media - Trending Songs</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f1f5fb;color:#222}
-header{background:#168de2;color:white;text-align:center;padding:35px 15px}
-header h1{margin:0;font-size:32px}
-.category{background:white;margin:18px;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc}
-.category h2{margin-top:0}
-.song{background:#f1f5fb;padding:15px;margin-top:12px;border-radius:10px}
-audio{width:100%}
-.download{display:block;background:#168de2;color:white;text-align:center;padding:12px;margin-top:10px;border-radius:8px;text-decoration:none;font-weight:bold}
-.back{display:block;margin:25px;color:#168de2;font-weight:bold;text-decoration:none}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5fb;
+  color:#222;
+}
+
+header{
+  background:#168de2;
+  color:white;
+  text-align:center;
+  padding:35px 15px;
+}
+
+header h1{
+  margin:0;
+  font-size:32px;
+}
+
+.category{
+  background:white;
+  margin:20px;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 3px 12px #ccc;
+}
+
+.song{
+  background:#f1f5fb;
+  padding:15px;
+  margin-top:15px;
+  border-radius:10px;
+}
+
+.song-name{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:10px;
+  word-break:break-word;
+}
+
+audio{
+  width:100%;
+}
+
+.download{
+  display:block;
+  background:#168de2;
+  color:white;
+  text-align:center;
+  padding:12px;
+  margin-top:10px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.back{
+  display:block;
+  margin:25px;
+  color:#168de2;
+  font-weight:bold;
+  text-decoration:none;
+}
 </style>
 </head>
 
@@ -22,38 +77,77 @@ audio{width:100%}
 
 <header>
 <h1>🎵 Trending Songs</h1>
-<p>Choose your music category</p>
+<p>Listen and download music</p>
 </header>
 
 <div class="category">
 <h2>🔥 Latest Songs</h2>
 
-<div class="song">
-<p>Song 1</p>
-<audio controls>
-<source src="song1.mp3" type="audio/mpeg">
-</audio>
-<a class="download" href="song1.mp3" download>⬇ Download Song</a>
+<div id="songs">
+<p>Loading songs...</p>
 </div>
 
-</div>
-
-<div class="category">
-<h2>🇺🇬 Ugandan Music</h2>
-<p>Your Ugandan songs will appear here.</p>
-</div>
-
-<div class="category">
-<h2>🌍 African Music</h2>
-<p>Your African songs will appear here.</p>
-</div>
-
-<div class="category">
-<h2>🎧 DJ Mixes</h2>
-<p>Your DJ mixes will appear here.</p>
 </div>
 
 <a class="back" href="index.html">← Back to Home</a>
+
+<script>
+
+const username = "Ningwei2567";
+const repository = "Ning-wei-1";
+const folder = "media/songs";
+
+const api =
+`https://api.github.com/repos/${username}/${repository}/contents/${folder}`;
+
+fetch(api)
+.then(response => response.json())
+.then(files => {
+
+  const songs = document.getElementById("songs");
+
+  songs.innerHTML = "";
+
+  files
+    .filter(file =>
+      file.type === "file" &&
+      /\.(mp3|wav|m4a|ogg)$/i.test(file.name)
+    )
+    .forEach(file => {
+
+      const song = document.createElement("div");
+      song.className = "song";
+
+      song.innerHTML = `
+        <div class="song-name">🎵 ${file.name}</div>
+
+        <audio controls>
+          <source src="${file.download_url}">
+        </audio>
+
+        <a class="download"
+           href="${file.download_url}"
+           download>
+           ⬇ Download Song
+        </a>
+      `;
+
+      songs.appendChild(song);
+    });
+
+  if(songs.innerHTML === ""){
+    songs.innerHTML = "<p>No songs uploaded yet.</p>";
+  }
+
+})
+.catch(error => {
+
+  document.getElementById("songs").innerHTML =
+  "<p>Unable to load songs. Please refresh the page.</p>";
+
+});
+
+</script>
 
 </body>
 </html>
