@@ -3,161 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Ning Wei Media Player</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f4fbff;
- color:#111;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3faff;
+color:#111;
 }
 
 .header{
- height:318px;
- position:relative;
- overflow:hidden;
- background:#8ed8f5;
+position:relative;
+height:250px;
+overflow:hidden;
+color:#fff;
 }
 
 .header img{
- position:absolute;
- inset:0;
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center 20%;
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:50% 18%;
+transform:scale(1.08);
 }
 
 .overlay{
- position:absolute;
- inset:0;
- background:rgba(55,145,205,.38);
+position:absolute;
+inset:0;
+background:rgba(55,145,205,.38);
 }
 
 .headerText{
- position:absolute;
- bottom:24px;
- width:100%;
- text-align:center;
- color:#fff;
- text-shadow:0 2px 6px #000;
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+text-shadow:0 2px 7px #000;
 }
 
 .headerText h1{
- margin:0;
- font-size:30px;
+margin:0;
+font-size:32px;
 }
 
 .headerText p{
- margin:6px 0 0;
- font-size:14px;
+margin:7px 0;
+font-size:14px;
+font-weight:bold;
 }
 
 .container{
- width:min(700px,94%);
- margin:15px auto 40px;
+padding:18px 15px 30px;
 }
 
-.player{
- background:#fff;
- border-radius:15px;
- padding:18px;
- box-shadow:0 2px 12px #0001;
- text-align:center;
+.card{
+background:#fff;
+border-radius:16px;
+padding:18px;
+box-shadow:0 3px 15px #00000012;
+text-align:center;
 }
 
 .cover{
- width:170px;
- height:170px;
- border-radius:50%;
- object-fit:cover;
- margin:auto;
- display:block;
- box-shadow:0 3px 12px #0003;
+width:150px;
+height:150px;
+border-radius:15px;
+object-fit:cover;
+}
+
+h2{
+font-size:21px;
+margin:15px 0 5px;
+word-break:break-word;
 }
 
 .artist{
- margin-top:15px;
- font-size:14px;
- color:#087db5;
- font-weight:bold;
+color:#777;
+margin-bottom:15px;
 }
 
-.song{
- margin-top:5px;
- font-size:21px;
- font-weight:800;
- word-break:break-word;
+audio,video{
+width:100%;
+margin:10px 0 18px;
 }
 
-audio{
- width:100%;
- margin-top:18px;
-}
-
-.buttons{
- display:flex;
- gap:8px;
- margin-top:15px;
-}
-
-.buttons a,
-.buttons button{
- flex:1;
- border:0;
- border-radius:9px;
- padding:12px 8px;
- font-weight:bold;
- font-size:14px;
- text-decoration:none;
- text-align:center;
- cursor:pointer;
+.download,
+.share{
+display:block;
+padding:14px;
+margin-top:10px;
+border-radius:11px;
+text-decoration:none;
+font-weight:bold;
 }
 
 .download{
- background:#087db5;
- color:#fff;
+background:#000;
+color:#fff;
 }
 
 .share{
- background:#e9f7ff;
- color:#087db5;
+background:#eaf7ff;
+color:#168dcc;
+}
+
+.error{
+color:#b00020;
+font-weight:bold;
 }
 
 .ad{
- margin-top:15px;
- min-height:90px;
- border-radius:10px;
- background:#f1f1f1;
- display:flex;
- align-items:center;
- justify-content:center;
- color:#888;
- font-size:13px;
+margin-top:18px;
+padding:25px 10px;
+background:#f1f1f1;
+border-radius:10px;
+color:#888;
 }
 
-.message{
- margin-top:15px;
- padding:12px;
- border-radius:9px;
- background:#ffe9e9;
- color:#b00020;
- display:none;
+.back{
+display:block;
+margin-top:18px;
+color:#168dcc;
+text-decoration:none;
+font-weight:bold;
 }
 
-@media(max-width:500px){
- .header{
-   height:318px;
- }
-
- .cover{
-   width:145px;
-   height:145px;
- }
-}
 </style>
 </head>
 
@@ -165,266 +144,278 @@ audio{
 
 <header class="header">
 
-<img src="ning-wei.png" alt="Ning Wei Media">
+<img src="ning-wei.png">
 
 <div class="overlay"></div>
 
 <div class="headerText">
-
 <h1>Ning Wei Media</h1>
-
 <p>Music • Videos • Photos • Apps • Software</p>
-
 </div>
 
 </header>
 
-
 <div class="container">
 
-<div class="player">
+<div id="card" class="card">
 
 <img
- id="cover"
- class="cover"
- src="ning-wei.png"
- alt="Artist"
+id="cover"
+class="cover"
+src="ning-wei.png"
+alt=""
 >
 
-<div
- id="artist"
- class="artist">
-Ning Wei Media
-</div>
-
-<div
- id="song"
- class="song">
+<h2 id="title">
 Loading...
-</div>
+</h2>
 
+<div id="artist" class="artist"></div>
 
-<audio
- id="audio"
- controls
- preload="metadata">
-</audio>
-
-
-<div class="buttons">
+<div id="player"></div>
 
 <a
- id="download"
- class="download"
- download>
-📥 Download
+id="download"
+class="download"
+href="#"
+download
+>
+⬇ Download
 </a>
 
-<button
- id="share"
- class="share">
-📤 Share
-</button>
-
-</div>
-
+<a
+id="share"
+class="share"
+href="#"
+>
+🔗 Share
+</a>
 
 <div class="ad">
-ADVERTISEMENT
+Advertisement
 </div>
 
+<a
+class="back"
+href="javascript:history.back()"
+>
+← Back
+</a>
 
-<div
- id="message"
- class="message">
 </div>
 
 </div>
-
-</div>
-
 
 <script>
 
-/* =====================================================
-   NING WEI MEDIA SUPABASE PLAYER
-===================================================== */
+const params=
+new URLSearchParams(
+location.search
+);
 
-const SUPABASE_URL =
-"https://btksyizkcpzubtextuce.supabase.co";
+const path=
+params.get("path");
 
-const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+const directUrl=
+params.get("url");
 
-const audio =
-document.getElementById("audio");
+const song=
+params.get("song") ||
+"Media";
 
-const song =
-document.getElementById("song");
+const artist=
+params.get("artist") ||
+"Ning Wei Media";
 
-const artist =
+const cover=
+params.get("cover");
+
+
+const titleEl=
+document.getElementById("title");
+
+const artistEl=
 document.getElementById("artist");
 
-const cover =
+const coverEl=
 document.getElementById("cover");
 
-const download =
+const player=
+document.getElementById("player");
+
+const download=
 document.getElementById("download");
 
-const share =
+const share=
 document.getElementById("share");
 
-const message =
-document.getElementById("message");
+
+titleEl.textContent=
+song;
+
+artistEl.textContent=
+artist;
 
 
-function showError(text){
+if(cover){
+coverEl.src=cover;
+}
 
- message.style.display="block";
 
- message.innerHTML=text;
+/* ==========================
+   GET FILE URL
+========================== */
+
+function rawURL(p){
+
+const encoded=
+p.split("/")
+.map(encodeURIComponent)
+.join("/");
+
+return(
+"https://raw.githubusercontent.com/" +
+"Ningwei2567/Ning-wei-1/main/" +
+encoded
+);
 
 }
 
 
-function getParameter(name){
-
- return new URLSearchParams(
-   window.location.search
- ).get(name);
-
-}
+let mediaURL=
+directUrl || (
+path ? rawURL(path) : null
+);
 
 
-/* =====================================================
-   NEW SUPABASE SONG FORMAT
-===================================================== */
+if(!mediaURL){
 
-const songUrl =
-getParameter("url");
+player.innerHTML=
+'<div class="error">Media file is missing.</div>';
 
-const songName =
-getParameter("song");
-
-const artistName =
-getParameter("artist");
-
-const coverUrl =
-getParameter("cover");
-
-
-if(songUrl){
-
- audio.src =
- decodeURIComponent(songUrl);
-
- song.textContent =
- songName
- ? decodeURIComponent(songName)
- : "Music";
-
- artist.textContent =
- artistName
- ? decodeURIComponent(artistName)
- : "Ning Wei Media";
-
-
- if(coverUrl){
-
-   cover.src =
-   decodeURIComponent(coverUrl);
-
- }
-
-
- download.href =
- decodeURIComponent(songUrl);
-
- download.download =
- songName
- ? decodeURIComponent(songName)
- : "Ning-Wei-Media-Music";
-
+download.style.display="none";
 
 }else{
 
- showError(
-   "❌ No music was selected."
- );
+const lower=
+mediaURL.toLowerCase();
 
- song.textContent =
- "No song selected";
+
+/* AUDIO */
+
+if(
+/\.(mp3|m4a|wav|aac|ogg|oga|opus|flac)(\?|$)/i.test(lower)
+){
+
+player.innerHTML=`
+<audio
+controls
+preload="metadata"
+src="${mediaURL}"
+>
+</audio>
+`;
 
 }
 
 
-/* =====================================================
-   SHARE
-===================================================== */
+/* VIDEO */
+
+else if(
+/\.(mp4|webm|mov|m4v|avi|mkv)(\?|$)/i.test(lower)
+){
+
+player.innerHTML=`
+<video
+controls
+preload="metadata"
+src="${mediaURL}"
+>
+</video>
+`;
+
+}
+
+
+/* IMAGE */
+
+else if(
+/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i.test(lower)
+){
+
+player.innerHTML=`
+<img
+src="${mediaURL}"
+style="width:100%;border-radius:12px"
+>
+`;
+
+}
+
+else{
+
+player.innerHTML=
+'<div class="error">This file cannot be previewed here. Use Download.</div>';
+
+}
+
+
+download.href=
+mediaURL;
+
+download.download=
+song;
+
+
+/* SHARE */
 
 share.addEventListener(
 "click",
-async function(){
+async function(e){
 
- const url =
- window.location.href;
+e.preventDefault();
+
+const shareData={
+title:song,
+text:
+`Listen to ${song} on Ning Wei Media`,
+url:location.href
+};
 
 
- if(navigator.share){
+if(
+navigator.share
+){
 
-   try{
+try{
+await navigator.share(shareData);
+}catch(e){}
 
-     await navigator.share({
+}else{
 
-       title:
-       song.textContent,
+try{
 
-       text:
-       "Listen on Ning Wei Media",
+await navigator.clipboard.writeText(
+location.href
+);
 
-       url:url
+share.textContent=
+"✓ Link copied";
 
-     });
+}catch(e){
 
-   }catch(e){}
+prompt(
+"Copy this link:",
+location.href
+);
 
- }else{
+}
 
-   try{
-
-     await navigator.clipboard.writeText(url);
-
-     share.textContent =
-     "✅ Link Copied";
-
-     setTimeout(
-       ()=>{
-         share.textContent =
-         "📤 Share";
-       },
-       2000
-     );
-
-   }catch(e){
-
-     alert(url);
-
-   }
-
- }
+}
 
 });
 
-
-audio.addEventListener(
-"error",
-function(){
-
- showError(
-   "❌ This audio file could not be played by the browser. You can try Download instead."
- );
-
-});
+}
 
 </script>
 
