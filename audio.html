@@ -2,367 +2,119 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Trending Songs - Ning Wei Media</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Music - Ning Wei Media</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f8fc;color:#14213d}
 
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#eef6fb;
-  color:#111;
-}
+.hero{height:175px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:url("ning-wei.png") center 48%/cover no-repeat}
+.hero:after{content:"";position:absolute;inset:0;background:rgba(25,120,205,.48)}
+.heroText{position:absolute;z-index:2;right:3%;top:50%;transform:translateY(-50%);width:58%;text-align:center;color:white;text-shadow:0 2px 5px #0008}
+.heroText h1{margin:0;font-size:30px}
+.heroText p{margin:7px 0;font-size:14px}
 
-/* =========================
-   VERY SMALL HEADER
-========================= */
+.search{width:92%;margin:20px auto 12px}
+.search input{width:100%;height:54px;border-radius:30px;border:1px solid #ddd;padding:0 20px;font-size:18px;outline:none}
 
-.hero{
-  height:105px;
-  position:relative;
-  overflow:hidden;
+.upload{display:block;width:92%;margin:0 auto 16px;text-align:center;background:#168ba0;color:white;text-decoration:none;padding:13px;border-radius:14px;font-weight:bold}
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+.list{width:94%;margin:auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 5px 20px #0001}
 
-  background-image:
-    linear-gradient(rgba(90,175,225,.32),rgba(90,175,225,.32)),
-    url("ning-wei.png");
+.item{display:flex;align-items:center;min-height:68px;padding:8px 13px;text-decoration:none;color:#14213d;border-bottom:1px solid #e4e8ec}
+.item:last-child{border:0}
 
-  background-size:cover;
-  background-position:center 25%;
-}
+.num{width:45px;height:45px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:bold;margin-right:12px;flex:none}
+.icon{width:42px;text-align:center;font-size:27px;margin-right:9px;flex:none}
+.text{flex:1;min-width:0}
+.name{font-size:18px;font-weight:750;word-break:break-word}
+.type{font-size:13px;color:#7b858e;margin-top:3px}
+.arrow{font-size:29px;color:#168ba0;margin-left:8px}
 
-.hero-content{
-  color:white;
-  text-shadow:0 2px 5px rgba(0,0,0,.65);
-}
-
-.hero h1{
-  margin:0;
-  font-size:27px;
-  font-weight:800;
-}
-
-.hero p{
-  margin:3px 0 0;
-  font-size:13px;
-  font-weight:600;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.container{
-  max-width:760px;
-  margin:auto;
-  padding:10px 12px 25px;
-}
-
-/* BACK */
-.back{
-  display:inline-block;
-  color:#17879a;
-  text-decoration:none;
-  font-size:17px;
-  font-weight:800;
-  margin:2px 0 9px;
-}
-
-/* SEARCH */
-.search{
-  width:100%;
-  height:47px;
-
-  border:1px solid #d0d0d0;
-  border-radius:25px;
-
-  background:white;
-
-  padding:0 17px;
-
-  font-size:16px;
-  outline:none;
-
-  margin-bottom:11px;
-}
-
-/* TITLE */
-.title{
-  color:#177fa8;
-  font-size:24px;
-  font-weight:800;
-  margin:4px 3px 10px;
-}
-
-/* =========================
-   VERY SMALL ROWS
-========================= */
-
-.list{
-  background:white;
-  border-radius:16px;
-  overflow:hidden;
-
-  box-shadow:0 3px 10px rgba(0,0,0,.07);
-}
-
-.row{
-  display:flex;
-  align-items:center;
-
-  height:62px;
-  min-height:62px;
-
-  padding:5px 9px;
-
-  text-decoration:none;
-  color:#111;
-
-  border-bottom:1px solid #e5e5e5;
-}
-
-.row:last-child{
-  border-bottom:none;
-}
-
-/* BLACK NUMBER CIRCLE */
-.number{
-  width:46px;
-  height:46px;
-  min-width:46px;
-
-  border-radius:50%;
-
-  background:#000;
-  color:#fff;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:20px;
-  font-weight:800;
-
-  margin-right:10px;
-}
-
-/* ICON */
-.icon{
-  width:39px;
-  min-width:39px;
-
-  text-align:center;
-
-  font-size:25px;
-
-  margin-right:8px;
-}
-
-/* TEXT */
-.info{
-  flex:1;
-  min-width:0;
-}
-
-.name{
-  font-size:17px;
-  font-weight:800;
-
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.desc{
-  font-size:12px;
-  color:#777;
-  margin-top:2px;
-}
-
-/* ARROW */
-.arrow{
-  color:#16879a;
-  font-size:27px;
-  padding-left:5px;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-  .hero{
-    height:100px;
-  }
-
-  .hero h1{
-    font-size:25px;
-  }
-
-  .hero p{
-    font-size:12px;
-  }
-
-  .container{
-    padding:9px 10px 22px;
-  }
-
-  .back{
-    font-size:16px;
-  }
-
-  .search{
-    height:44px;
-    font-size:15px;
-  }
-
-  .title{
-    font-size:22px;
-  }
-
-  .row{
-    height:58px;
-    min-height:58px;
-    padding:4px 8px;
-  }
-
-  .number{
-    width:43px;
-    height:43px;
-    min-width:43px;
-    font-size:19px;
-    margin-right:9px;
-  }
-
-  .icon{
-    width:35px;
-    min-width:35px;
-    font-size:23px;
-    margin-right:7px;
-  }
-
-  .name{
-    font-size:16px;
-  }
-
-  .desc{
-    font-size:11px;
-  }
-
-  .arrow{
-    font-size:25px;
-  }
-}
+.status{text-align:center;padding:30px;color:#777}
 </style>
 </head>
 
 <body>
 
-<!-- SMALL PHOTO HEADER -->
 <header class="hero">
-  <div class="hero-content">
-    <h1>🎵 Trending Songs</h1>
-    <p>Music • Videos • Photos • Apps • Software</p>
-  </div>
+<div class="heroText">
+<h1>🎵 Music</h1>
+<p>Music • Audio • DJ Mixes</p>
+</div>
 </header>
 
-<div class="container">
+<div class="search">
+<input id="search" placeholder="🔎 Search music..." oninput="filterItems()">
+</div>
 
-  <a class="back" href="index.html">← Back to Home</a>
+<a class="upload"
+href="https://github.com/Ningwei2567/Ning-wei-1/upload/main/media/songs"
+target="_blank">
+📤 Upload Music Directly Here
+</a>
 
-  <input
-    id="search"
-    class="search"
-    type="search"
-    placeholder="Search music..."
-  >
-
-  <div class="title">🎵 Trending Songs</div>
-
-  <div class="list">
-
-    <!-- 1 -->
-    <a class="row"
-       href="audio.html?path=media/songs/Ugandan">
-
-      <div class="number">1</div>
-
-      <div class="icon">🇺🇬</div>
-
-      <div class="info">
-        <div class="name">Ugandan Music</div>
-        <div class="desc">Music and audio</div>
-      </div>
-
-      <div class="arrow">›</div>
-    </a>
-
-
-    <!-- 2 -->
-    <a class="row"
-       href="audio.html?path=media/songs/African">
-
-      <div class="number">2</div>
-
-      <div class="icon">🌍</div>
-
-      <div class="info">
-        <div class="name">African Music</div>
-        <div class="desc">Music and audio</div>
-      </div>
-
-      <div class="arrow">›</div>
-    </a>
-
-
-    <!-- 3 -->
-    <a class="row"
-       href="audio.html?path=media/songs/International">
-
-      <div class="number">3</div>
-
-      <div class="icon">🌍</div>
-
-      <div class="info">
-        <div class="name">International Music</div>
-        <div class="desc">Music and audio</div>
-      </div>
-
-      <div class="arrow">›</div>
-    </a>
-
-  </div>
-
+<div class="list" id="list">
+<div class="status">Loading music...</div>
 </div>
 
 <script>
-const search = document.getElementById("search");
-const rows = document.querySelectorAll(".row");
+const API="https://api.github.com/repos/Ningwei2567/Ning-wei-1/contents/media/songs";
 
-search.addEventListener("input", function(){
+async function load(){
+try{
+const r=await fetch(API);
+if(!r.ok)throw Error();
+const data=await r.json();
 
-  const value = this.value.toLowerCase();
+const folders=data.filter(x=>x.type==="dir");
+const files=data.filter(x=>x.type==="file");
 
-  rows.forEach(function(row){
+let html="";
+let n=1;
 
-    row.style.display =
-      row.innerText.toLowerCase().includes(value)
-      ? "flex"
-      : "none";
-
-  });
-
+folders.forEach(x=>{
+html+=`
+<a class="item" href="audio.html?path=${encodeURIComponent(x.path)}">
+<div class="num">${n++}</div>
+<div class="icon">📁</div>
+<div class="text">
+<div class="name">${x.name}</div>
+<div class="type">Music folder</div>
+</div>
+<div class="arrow">›</div>
+</a>`;
 });
+
+files.filter(x=>/\.(mp3|wav|m4a|aac|ogg|oga|opus|flac)$/i.test(x.name)).forEach(x=>{
+html+=`
+<a class="item" href="media.html?path=${encodeURIComponent(x.path)}">
+<div class="num">${n++}</div>
+<div class="icon">🎵</div>
+<div class="text">
+<div class="name">${x.name}</div>
+<div class="type">Audio</div>
+</div>
+<div class="arrow">›</div>
+</a>`;
+});
+
+document.getElementById("list").innerHTML=html||'<div class="status">No music found.</div>';
+}catch(e){
+document.getElementById("list").innerHTML='<div class="status">Unable to load music.</div>';
+}
+}
+
+function filterItems(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".item").forEach(x=>{
+x.style.display=x.innerText.toLowerCase().includes(q)?"flex":"none";
+});
+}
+
+load();
 </script>
 
 </body>
