@@ -6,71 +6,33 @@
     <title>Ning Wei Media - Player</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f7;
+            margin: 0; padding: 0; background-color: #f5f5f7;
             font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
         .container {
-            width: 100%;
-            max-width: 400px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-            overflow: hidden;
-            margin: 15px;
-            text-align: center;
-            border: 1px solid #e0e0e0;
+            width: 100%; max-width: 400px; background: #ffffff; border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06); overflow: hidden; margin: 15px; text-align: center; border: 1px solid #e0e0e0;
         }
         .banner {
             background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('ning-wei.png');
-            background-size: cover;
-            background-position: center;
-            height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
+            background-size: cover; background-position: center 30% !important; background-repeat: no-repeat; height: 140px; display: flex; flex-direction: column; justify-content: center; color: white;
         }
-        .banner h1 { margin: 0; font-size: 1.6rem; }
-        .banner p { margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.9; }
+        .banner h1 { margin: 0; font-size: 1.6rem; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .banner p { margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.9; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
         .player-card { padding: 24px; }
         .avatar-box {
-            width: 170px;
-            height: 170px;
-            margin: 0 auto 15px auto;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 170px; height: 170px; margin: 0 auto 15px auto; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
         .track-title { font-size: 1.4rem; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
         .track-filename { font-size: 1.3rem; font-weight: bold; color: #000000; margin-bottom: 20px; word-break: break-all; }
         audio { width: 100%; margin-bottom: 20px; }
         .btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            text-decoration: none;
+            width: 100%; padding: 14px; font-size: 1rem; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; box-sizing: border-box; text-decoration: none;
         }
         .btn-download { background-color: #000000; color: #ffffff; }
         .btn-share { background-color: #e8f4fd; color: #0076df; }
-        
-        /* Comments Layout */
         .comments-section { border-top: 1px solid #e5e5ea; padding-top: 15px; margin-top: 15px; text-align: left; }
         .comments-section h4 { margin: 0 0 10px 0; color: #1d1d1f; }
         .comment-box { display: flex; gap: 8px; margin-bottom: 12px; }
@@ -81,29 +43,20 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="banner">
             <h1>Ning Wei Media</h1>
             <p>Music • Videos • Photos • Apps • Software</p>
         </div>
-
         <div class="player-card">
             <div class="avatar-box">
                 <img src="ning-wei.png" alt="Profile">
             </div>
-
-            <div class="track-title">Call recording</div>
+            <div id="trackLabel" class="track-title">Playing Track</div>
             <div id="fileDisplay" class="track-filename">Loading file...</div>
-
-            <!-- Audio Control Element -->
             <audio id="audioPlayer" controls preload="auto"></audio>
-
-            <!-- CORRECTED BUTTON LINK TEXT -->
             <button onclick="downloadAudio()" class="btn btn-download">📥 Download this song</button>
             <button onclick="sharePage()" class="btn btn-share">🔗 Share Link</button>
-
-            <!-- Comments Component -->
             <div class="comments-section">
                 <h4>Comments</h4>
                 <div class="comment-box">
@@ -116,58 +69,41 @@
             </div>
         </div>
     </div>
-
     <script>
-        // Reads target track automatically out of the url address string query parameters
         const urlParams = new URLSearchParams(window.location.search);
         let audioFile = urlParams.get('file');
-
-        // Fallback default file name configuration mapping
-        if (!audioFile) {
-            audioFile = "17880208913860.mp4"; 
-        }
-
-        document.getElementById('fileDisplay').innerText = audioFile.replace(/\.[^/.]+$/, "");
-
+        if (!audioFile) { audioFile = "media/songs/DJ-Mixes/Call recording +256785766093_260907_205955.mp3"; }
+        const cleanFilenameWithExtension = audioFile.split('/').pop();
+        const baseTitleText = cleanFilenameWithExtension.replace(/\.[^/.]+$/, "");
+        document.getElementById('fileDisplay').innerText = baseTitleText;
         const player = document.getElementById('audioPlayer');
         player.src = audioFile;
 
-        // Force download execution structure block
         function downloadAudio() {
             fetch(audioFile)
-                .then(res => {
-                    if(!res.ok) throw new Error();
-                    return res.blob();
-                })
+                .then(res => { if(!res.ok) throw new Error(); return res.blob(); })
                 .then(blob => {
                     const blobUrl = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = blobUrl;
-                    link.download = audioFile;
-                    document.body.appendChild(link);
-                    link.click();
+                    const fileDownloadAnchor = document.createElement('a');
+                    fileDownloadAnchor.style.display = 'none';
+                    fileDownloadAnchor.href = blobUrl;
+                    fileDownloadAnchor.download = cleanFilenameWithExtension;
+                    document.body.appendChild(fileDownloadAnchor);
+                    fileDownloadAnchor.click();
                     window.URL.revokeObjectURL(blobUrl);
-                    link.remove();
+                    fileDownloadAnchor.remove();
                 })
                 .catch(() => {
-                    const fallback = document.createElement('a');
-                    fallback.href = audioFile;
-                    fallback.download = audioFile;
-                    fallback.click();
+                    const basicAnchor = document.createElement('a');
+                    basicAnchor.href = audioFile;
+                    basicAnchor.download = cleanFilenameWithExtension;
+                    basicAnchor.click();
                 });
         }
-
-        // Native Link sharing engine execution hooks
         function sharePage() {
-            if (navigator.share) {
-                navigator.share({ title: 'Ning Wei Media', url: window.location.href });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert('Link copied!');
-            }
+            if (navigator.share) { navigator.share({ title: 'Ning Wei Media', url: window.location.href }); }
+            else { navigator.clipboard.writeText(window.location.href); alert('Link copied!'); }
         }
-
-        // Local browser storage review addition helper hooks
         function submitComment() {
             const input = document.getElementById('commentInput');
             const text = input.value.trim();
