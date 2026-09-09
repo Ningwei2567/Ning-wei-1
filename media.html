@@ -40,16 +40,16 @@
         .banner p { margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.9; }
         .player-card { padding: 24px; }
         .avatar-box {
-            width: 130px;
-            height: 130px;
+            width: 170px;
+            height: 170px;
             margin: 0 auto 15px auto;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .track-title { font-size: 1.2rem; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
-        .track-filename { font-size: 1.1rem; font-weight: bold; color: #000000; margin-bottom: 20px; word-break: break-all; }
+        .track-title { font-size: 1.4rem; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
+        .track-filename { font-size: 1.3rem; font-weight: bold; color: #000000; margin-bottom: 20px; word-break: break-all; }
         audio { width: 100%; margin-bottom: 20px; }
         .btn {
             width: 100%;
@@ -90,21 +90,20 @@
 
         <div class="player-card">
             <div class="avatar-box">
-                <!-- Uses your exact image file from your repository -->
                 <img src="ning-wei.png" alt="Profile">
             </div>
 
             <div class="track-title">Call recording</div>
             <div id="fileDisplay" class="track-filename">Loading file...</div>
 
-            <!-- The Audio Control Player -->
+            <!-- Audio Control Element -->
             <audio id="audioPlayer" controls preload="auto"></audio>
 
-            <!-- Fixed Download & Share Buttons -->
-            <button onclick="downloadAudio()" class="btn btn-download">📥 Download Recording</button>
+            <!-- CORRECTED BUTTON LINK TEXT -->
+            <button onclick="downloadAudio()" class="btn btn-download">📥 Download this song</button>
             <button onclick="sharePage()" class="btn btn-share">🔗 Share Link</button>
 
-            <!-- Comments Area -->
+            <!-- Comments Component -->
             <div class="comments-section">
                 <h4>Comments</h4>
                 <div class="comment-box">
@@ -119,23 +118,21 @@
     </div>
 
     <script>
-        // SMART DETECTOR: Automatically catches file name parameters passed from the home page
+        // Reads target track automatically out of the url address string query parameters
         const urlParams = new URLSearchParams(window.location.search);
         let audioFile = urlParams.get('file');
 
-        // FALLBACK: If no specific file is selected, it plays your default file from the screen
+        // Fallback default file name configuration mapping
         if (!audioFile) {
             audioFile = "17880208913860.mp4"; 
         }
 
-        // Clean up text display to strip file extensions
         document.getElementById('fileDisplay').innerText = audioFile.replace(/\.[^/.]+$/, "");
 
-        // Set source relative to the main repository root paths
         const player = document.getElementById('audioPlayer');
         player.src = audioFile;
 
-        // FORCED DOWNLOAD FUNCTION
+        // Force download execution structure block
         function downloadAudio() {
             fetch(audioFile)
                 .then(res => {
@@ -160,7 +157,7 @@
                 });
         }
 
-        // SHARE FUNCTION
+        // Native Link sharing engine execution hooks
         function sharePage() {
             if (navigator.share) {
                 navigator.share({ title: 'Ning Wei Media', url: window.location.href });
@@ -170,7 +167,7 @@
             }
         }
 
-        // COMMENTS FUNCTION
+        // Local browser storage review addition helper hooks
         function submitComment() {
             const input = document.getElementById('commentInput');
             const text = input.value.trim();
