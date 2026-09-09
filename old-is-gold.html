@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old is Gold - Ning Wei Media</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#eef6fb;
+  color:#111;
+}
+
+/* SMALL HEADER */
+.hero{
+  height:135px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background-image:
+    linear-gradient(rgba(65,160,220,.48),rgba(65,160,220,.48)),
+    url("ning-wei.png");
+  background-size:cover;
+  background-position:center 25%;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  color:white;
+  text-shadow:0 2px 6px rgba(0,0,0,.55);
+}
+
+.hero h1{
+  margin:0;
+  font-size:30px;
+  font-weight:800;
+}
+
+.hero p{
+  margin:4px 0 0;
+  font-size:15px;
+  font-weight:600;
+}
+
+/* PAGE */
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:15px 14px 35px;
+}
+
+.back{
+  display:inline-block;
+  color:#17889b;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:800;
+  margin:2px 0 12px;
+}
+
+.search{
+  width:100%;
+  padding:14px 18px;
+  border:1px solid #d2d2d2;
+  border-radius:30px;
+  font-size:17px;
+  outline:none;
+  margin-bottom:15px;
+}
+
+/* TITLE */
+.title{
+  color:#197fae;
+  font-size:27px;
+  font-weight:800;
+  margin:8px 4px 12px;
+}
+
+/* NUMBERED ROWS */
+.list{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  min-height:78px;
+  padding:10px 12px;
+  text-decoration:none;
+  color:#111;
+  border-bottom:1px solid #e4e4e4;
+}
+
+.row:last-child{
+  border-bottom:none;
+}
+
+.number{
+  width:54px;
+  height:54px;
+  min-width:54px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:800;
+  margin-right:14px;
+}
+
+.icon{
+  width:48px;
+  min-width:48px;
+  text-align:center;
+  font-size:31px;
+  margin-right:10px;
+}
+
+.info{
+  flex:1;
+}
+
+.name{
+  font-size:19px;
+  font-weight:800;
+}
+
+.desc{
+  color:#777;
+  font-size:14px;
+  margin-top:3px;
+}
+
+.arrow{
+  color:#17889b;
+  font-size:28px;
+  margin-left:8px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .hero{
+    height:125px;
+  }
+
+  .hero h1{
+    font-size:27px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .container{
+    padding:13px 12px 30px;
+  }
+
+  .row{
+    min-height:70px;
+    padding:8px 9px;
+  }
+
+  .number{
+    width:48px;
+    height:48px;
+    min-width:48px;
+    font-size:20px;
+    margin-right:11px;
+  }
+
+  .icon{
+    width:42px;
+    min-width:42px;
+    font-size:27px;
+    margin-right:7px;
+  }
+
+  .name{
+    font-size:17px;
+  }
+
+  .desc{
+    font-size:13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="hero-content">
+    <h1>🏆 Old is Gold</h1>
+    <p>Classic music collection</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <a class="back" href="index.html">← Back to Home</a>
+
+  <input
+    class="search"
+    id="search"
+    type="search"
+    placeholder="Search Old is Gold..."
+  >
+
+  <div class="title">🏆 Old is Gold</div>
+
+  <div class="list" id="list">
+
+    <a class="row" href="audio.html?path=media/songs/Old-is-Gold/Ugandan-Music">
+      <div class="number">1</div>
+      <div class="icon">🇺🇬</div>
+      <div class="info">
+        <div class="name">Ugandan Music</div>
+        <div class="desc">Classic Ugandan music</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <a class="row" href="audio.html?path=media/songs/Old-is-Gold/Amapiano">
+      <div class="number">2</div>
+      <div class="icon">🎵</div>
+      <div class="info">
+        <div class="name">Amapiano</div>
+        <div class="desc">Classic and popular Amapiano</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <a class="row" href="audio.html?path=media/songs/Old-is-Gold/South-African-Music">
+      <div class="number">3</div>
+      <div class="icon">🎶</div>
+      <div class="info">
+        <div class="name">South African Music</div>
+        <div class="desc">Classic South African music</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+const search = document.getElementById("search");
+const rows = document.querySelectorAll(".row");
+
+search.addEventListener("input", function(){
+  const text = this.value.toLowerCase();
+
+  rows.forEach(row=>{
+    row.style.display =
+      row.innerText.toLowerCase().includes(text)
+      ? "flex"
+      : "none";
+  });
+});
+</script>
+
+</body>
+</html>
