@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ning Wei Media - Home</title>
     <style>
-        /* Base page alignment */
+        /* Base page layout alignment */
         body {
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             padding-bottom: 30px;
         }
 
-        /* Banner Header Section with Centered Face Image Alignment Fix */
+        /* Banner Header with Centered Image Fix */
         .banner {
             position: relative;
             background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('ning-wei.png');
@@ -57,9 +57,9 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
 
-        /* Search Input Area */
+        /* Search Bar Component */
         .search-container {
-            padding: 15px;
+            padding: 15px 15px 10px 15px;
             display: flex;
             justify-content: center;
         }
@@ -83,7 +83,34 @@
             color: #333;
         }
 
-        /* Home Page Section Header Text Label */
+        /* RESTORED: Artist Upload Section Button styling */
+        .upload-section {
+            padding: 0 15px 15px 15px;
+        }
+
+        .btn-upload-direct {
+            width: 100%;
+            background-color: #128c9e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(18, 140, 158, 0.2);
+            transition: background-color 0.2s;
+        }
+
+        .btn-upload-direct:active {
+            background-color: #0e6f7d;
+        }
+
+        /* Section Header styling */
         .section-header {
             padding: 0 15px 10px 15px;
             margin: 0;
@@ -92,7 +119,7 @@
             color: #000000;
         }
 
-        /* COMPACT LIST CONTAINER ROWS */
+        /* COMPACT LIST ROW DESIGN */
         .list-container {
             padding: 0 15px;
             display: flex;
@@ -103,7 +130,7 @@
         .list-item {
             background: #ffffff;
             border-radius: 14px;
-            padding: 8px 12px; /* Slim compact outer padding spacing matching folders */
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -120,7 +147,7 @@
             min-width: 0;
         }
 
-        /* Black Circle Numbers Badge Icons */
+        /* Compact circular item badges */
         .number-badge {
             width: 32px;
             height: 32px;
@@ -136,7 +163,7 @@
             flex-shrink: 0;
         }
 
-        /* List Row Visual Icons Spacing */
+        /* Row Category Icons spacing */
         .row-icon {
             width: 26px;
             height: 26px;
@@ -148,15 +175,15 @@
             font-size: 1.4rem;
         }
 
-        /* Compact Text Content Sizing Layout */
+        /* Inline Text alignment structure */
         .text-meta-box {
             display: flex;
-            flex-direction: row; /* Placed title and description inline */
+            flex-direction: row;
             align-items: baseline;
             gap: 6px;
             min-width: 0;
             flex: 1;
-            flex-wrap: wrap; /* Keeps responsive breaks safe */
+            flex-wrap: wrap;
         }
 
         .text-title {
@@ -185,22 +212,29 @@
 
     <div class="container">
         
-        <!-- Top Centered Profile Banner Background Area -->
+        <!-- Top Website Image Banner -->
         <div class="banner">
             <h1>Ning Wei Media</h1>
             <p>Music • Videos • Photos • Apps • Software</p>
         </div>
 
-        <!-- Directory Filter Search Bar Component -->
+        <!-- Live Content Filtering Input Component -->
         <div class="search-container">
             <div class="search-box">
                 <input type="text" id="searchInput" onkeyup="filterMenu()" placeholder="Search everything...">
             </div>
         </div>
 
+        <!-- RESTORED ACTION ELEMENT: Global Submission Portal Button -->
+        <div class="upload-section">
+            <button onclick="openArtistUploadPortal()" class="btn-upload-direct">
+                🎤 Upload Your Music Here
+            </button>
+        </div>
+
         <h2 class="section-header">Ning Wei Media</h2>
 
-        <!-- MAIN HOMEPAGE COMPACT CLEAN LIST -->
+        <!-- MAIN MAIN COMPACT MENU ROWS -->
         <div class="list-container" id="mainMenu">
             
             <!-- Item 1: Trending Songs -->
@@ -282,23 +316,3 @@
             </a>
 
             <!-- Item 7: Software -->
-            <a href="software.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">7</div>
-                    <div class="row-icon" style="color: #00b3b3;">💻</div>
-                    <div class="text-meta-box">
-                        <h3 class="text-title">Software</h3>
-                        <p class="text-subtitle">Software and programs</p>
-                    </div>
-                </div>
-                <div class="arrow-indicator">❯</div>
-            </a>
-
-        </div>
-    </div>
-
-    <!-- Client-Side Live Filter Search Engine Script -->
-    <script>
-        function filterMenu() {
-            const filterValue = document.getElementById('searchInput').value.toLowerCase();
-            const items = document.getElementById('mainMenu').getElementsByClassName('list-item');
