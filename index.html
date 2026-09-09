@@ -3,267 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>Ning Wei Media</title>
 
 <style>
-
-*{
- box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f5fbff;
- color:#111
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3faff;
+color:#111;
 }
 
-
-/* HEADER */
-
 .header{
- position:relative;
- height:318px;
- overflow:hidden;
- background:#8ed8f5
+height:300px;
+position:relative;
+overflow:hidden;
+color:#fff;
 }
 
 .header img{
- position:absolute;
- inset:0;
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center 20%
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:50% 18%;
+transform:scale(1.08);
 }
 
 .overlay{
- position:absolute;
- inset:0;
- background:rgba(55,145,205,.38)
+position:absolute;
+inset:0;
+background:rgba(55,145,205,.38);
 }
 
 .headerText{
- position:absolute;
- bottom:25px;
- width:100%;
- text-align:center;
- color:white;
- text-shadow:0 2px 6px #000
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+text-shadow:0 2px 7px #000;
 }
 
 .headerText h1{
- margin:0;
- font-size:31px
+margin:0;
+font-size:34px;
 }
 
 .headerText p{
- margin:6px 0 0;
- font-size:14px
+margin:7px 0 0;
+font-size:14px;
+font-weight:bold;
 }
 
-
-/* SEARCH */
+.main{
+padding:12px 15px 30px;
+}
 
 .search{
- width:94%;
- margin:12px auto;
- position:relative
+display:flex;
+gap:8px;
+margin-bottom:12px;
 }
 
 .search input{
- width:100%;
- padding:13px 17px;
- border:1px solid #cbdde7;
- border-radius:30px;
- font-size:15px;
- outline:none
+flex:1;
+height:48px;
+border:1px solid #d5e3e9;
+border-radius:25px;
+padding:0 16px;
+font-size:16px;
+outline:none;
 }
 
-
-/* MAIN */
-
-.container{
- width:94%;
- max-width:700px;
- margin:auto
+.search button{
+width:48px;
+height:48px;
+border:0;
+border-radius:50%;
+background:#168dcc;
+color:#fff;
+font-size:20px;
 }
 
-
-/* MENU */
-
-.menu{
- background:white;
- border-radius:14px;
- overflow:hidden;
- box-shadow:0 2px 10px #0001
+.section-title{
+font-size:18px;
+font-weight:bold;
+margin:15px 2px 8px;
 }
 
 .item{
- display:flex;
- align-items:center;
- min-height:48px;
- padding:6px 10px;
- border-bottom:1px solid #edf2f5;
- text-decoration:none;
- color:#111
-}
-
-.item:last-child{
- border-bottom:0
+display:flex;
+align-items:center;
+gap:9px;
+background:#fff;
+padding:9px 10px;
+margin:6px 0;
+border-radius:12px;
+text-decoration:none;
+color:#111;
+box-shadow:0 2px 8px #00000010;
 }
 
 .number{
- width:30px;
- height:30px;
- min-width:30px;
- border-radius:50%;
- background:#000;
- color:#fff;
- display:flex;
- align-items:center;
- justify-content:center;
- font-weight:bold;
- font-size:13px;
- margin-right:10px
+width:30px;
+height:30px;
+min-width:30px;
+border-radius:50%;
+background:#000;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+font-weight:bold;
 }
 
-.text{
- flex:1;
- font-size:14px;
- font-weight:600
+.icon{
+width:34px;
+min-width:34px;
+height:34px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+}
+
+.itemText{
+flex:1;
+font-size:15px;
+font-weight:bold;
 }
 
 .arrow{
- color:#087db5;
- font-size:24px
+font-size:25px;
+color:#168dcc;
 }
-
-
-/* SEARCH RESULTS */
-
-#results{
- margin-top:12px;
- display:none
-}
-
-.resultsTitle{
- font-size:17px;
- font-weight:bold;
- color:#087db5;
- margin:10px 3px
-}
-
-.result{
- display:flex;
- align-items:center;
- background:white;
- border-radius:10px;
- padding:9px;
- margin-bottom:7px;
- box-shadow:0 1px 6px #0001;
- text-decoration:none;
- color:#111
-}
-
-.resultIcon{
- width:38px;
- height:38px;
- min-width:38px;
- border-radius:50%;
- background:#087db5;
- color:white;
- display:flex;
- align-items:center;
- justify-content:center;
- margin-right:10px
-}
-
-.resultText{
- overflow:hidden
-}
-
-.resultName{
- font-weight:bold;
- font-size:14px;
- white-space:nowrap;
- overflow:hidden;
- text-overflow:ellipsis
-}
-
-.resultArtist{
- color:#777;
- font-size:12px;
- margin-top:3px
-}
-
-
-/* SECTIONS */
-
-.section{
- margin-top:15px;
- background:white;
- border-radius:14px;
- padding:12px;
- box-shadow:0 2px 10px #0001
-}
-
-.sectionTitle{
- color:#087db5;
- font-weight:bold;
- font-size:17px;
- margin-bottom:10px
-}
-
-
-/* APP ICONS */
 
 .apps{
- display:flex;
- gap:9px;
- overflow-x:auto
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
 }
 
 .app{
- min-width:60px;
- text-align:center;
- font-size:10px;
- font-weight:bold
+background:#fff;
+border-radius:12px;
+padding:10px 4px;
+text-align:center;
+text-decoration:none;
+color:#111;
+box-shadow:0 2px 8px #00000010;
 }
 
 .appIcon{
- width:48px;
- height:48px;
- border-radius:50%;
- margin:auto auto 5px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:23px
+width:48px;
+height:48px;
+margin:auto;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
 }
 
-
-/* SOCIAL */
+.appName{
+font-size:11px;
+font-weight:bold;
+margin-top:5px;
+}
 
 .social{
- display:flex;
- justify-content:center;
- gap:10px;
- flex-wrap:wrap
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:10px;
 }
 
 .social a{
- width:42px;
- height:42px;
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- color:white;
- text-decoration:none;
- font-weight:bold;
- font-size:17px
+width:42px;
+height:42px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+text-decoration:none;
+font-size:19px;
+font-weight:bold;
 }
 
 .instagram{background:#e1306c}
@@ -272,445 +203,236 @@ body{
 .youtube{background:#ff0000}
 .tiktok{background:#000}
 
+.footer{
+text-align:center;
+padding:20px;
+font-size:12px;
+color:#777;
+}
+
+@media(max-width:380px){
+.apps{
+grid-template-columns:repeat(4,1fr);
+gap:6px;
+}
+.appIcon{
+width:42px;
+height:42px;
+}
+}
 </style>
 </head>
 
-
 <body>
-
 
 <header class="header">
 
-<img src="ning-wei.png" alt="Ning Wei Media">
+<img src="ning-wei.png" alt="Ning Wei">
 
 <div class="overlay"></div>
 
 <div class="headerText">
-
 <h1>Ning Wei Media</h1>
-
-<p>
-Music • Videos • Photos • Apps • Software
-</p>
-
+<p>Music • Videos • Photos • Apps • Software</p>
 </div>
 
 </header>
 
 
+<main class="main">
+
+<!-- MASTER SEARCH -->
+
 <div class="search">
 
 <input
- id="search"
- type="search"
- placeholder="Search songs, artists, videos, photos, apps..."
- autocomplete="off"
+id="searchBox"
+placeholder="🔍 Search everything..."
+readonly
+onclick="openSearch()"
 >
 
-</div>
-
-
-<div class="container">
-
-
-<div id="results">
-
-<div class="resultsTitle">
-🔎 Search Results
-</div>
-
-<div id="resultList"></div>
+<button onclick="openSearch()">🔍</button>
 
 </div>
 
 
-<div class="menu">
+<!-- MAIN MENU -->
+
+<div class="section-title">
+Ning Wei Media
+</div>
 
 
 <a class="item" href="audio.html">
 <span class="number">1</span>
-<span class="text">Trending Songs</span>
+<span class="icon">🎵</span>
+<span class="itemText">Trending Songs</span>
 <span class="arrow">›</span>
 </a>
 
 
-<a
- class="item"
- href="audio.html?path=media/songs/Old-is-Gold"
->
+<a class="item"
+href="audio.html?path=media/songs/Old-is-Gold">
 <span class="number">2</span>
-<span class="text">Old is Gold</span>
+<span class="icon">⭐</span>
+<span class="itemText">Old is Gold</span>
 <span class="arrow">›</span>
 </a>
 
 
-<a
- class="item"
- href="audio.html?path=media/songs/DJ-Mixes"
->
+<a class="item"
+href="audio.html?path=media/songs/DJ-Mixes">
 <span class="number">3</span>
-<span class="text">DJ Mixes</span>
+<span class="icon">🎧</span>
+<span class="itemText">DJ Mixes</span>
 <span class="arrow">›</span>
 </a>
 
 
 <a class="item" href="videos.html">
 <span class="number">4</span>
-<span class="text">Videos</span>
+<span class="icon">🎬</span>
+<span class="itemText">Videos</span>
 <span class="arrow">›</span>
 </a>
 
 
 <a class="item" href="photos.html">
 <span class="number">5</span>
-<span class="text">Photos</span>
+<span class="icon">📸</span>
+<span class="itemText">Photos</span>
 <span class="arrow">›</span>
 </a>
 
 
 <a class="item" href="apks.html">
 <span class="number">6</span>
-<span class="text">Apps</span>
+<span class="icon">📱</span>
+<span class="itemText">Apps</span>
 <span class="arrow">›</span>
 </a>
 
 
 <a class="item" href="software.html">
 <span class="number">7</span>
-<span class="text">Software</span>
+<span class="icon">💻</span>
+<span class="itemText">Software</span>
 <span class="arrow">›</span>
 </a>
 
 
 <a class="item" href="upload.html">
 <span class="number">8</span>
-<span class="text">🎵 Upload Your Music Here</span>
+<span class="icon">🎤</span>
+<span class="itemText">Upload Your Music Here</span>
 <span class="arrow">›</span>
 </a>
 
 
-</div>
-
-
 <!-- TRENDING APPS -->
 
-<div class="section">
-
-<div class="sectionTitle">
+<div class="section-title">
 🔥 Trending Apps
 </div>
 
 <div class="apps">
 
-<div class="app">
-<div class="appIcon" style="background:#3ddc84">🤖</div>
-Android
-</div>
+<a class="app"
+href="apks.html">
+<div class="appIcon">📱</div>
+<div class="appName">Android Apps</div>
+</a>
 
-<div class="app">
-<div class="appIcon" style="background:#ff0000">▶</div>
-YouTube
-</div>
+<a class="app"
+href="apks.html">
+<div class="appIcon">⚡</div>
+<div class="appName">Latest Apps</div>
+</a>
 
-<div class="app">
-<div class="appIcon" style="background:#1877f2">f</div>
-Facebook
-</div>
+<a class="app"
+href="apks.html">
+<div class="appIcon">🎮</div>
+<div class="appName">Games</div>
+</a>
 
-<div class="app">
-<div class="appIcon" style="background:#25d366">◉</div>
-WhatsApp
-</div>
-
-<div class="app">
-<div class="appIcon" style="background:#000">♪</div>
-TikTok
-</div>
-
-</div>
+<a class="app"
+href="apks.html">
+<div class="appIcon">🛠️</div>
+<div class="appName">Tools</div>
+</a>
 
 </div>
 
 
 <!-- FOLLOW US -->
 
-<div class="section">
-
-<div class="sectionTitle">
+<div class="section-title">
 Follow Us
 </div>
 
 <div class="social">
 
-<a class="instagram" href="#">◎</a>
+<a
+class="instagram"
+href="https://www.instagram.com/"
+target="_blank">
+◎
+</a>
 
-<a class="facebook" href="#">f</a>
+<a
+class="facebook"
+href="https://www.facebook.com/"
+target="_blank">
+f
+</a>
 
-<a class="whatsapp" href="#">◉</a>
+<a
+class="whatsapp"
+href="https://wa.me/"
+target="_blank">
+☎
+</a>
 
-<a class="youtube" href="#">▶</a>
+<a
+class="youtube"
+href="https://www.youtube.com/"
+target="_blank">
+▶
+</a>
 
-<a class="tiktok" href="#">♪</a>
+<a
+class="tiktok"
+href="https://www.tiktok.com/"
+target="_blank">
+♪ 
+</a>
 
 </div>
 
+
+<div class="footer">
+© Ning Wei Media
 </div>
 
-
-</div>
+</main>
 
 
 <script>
 
+function openSearch(){
+location.href="search.html";
+}
 
-/* =====================================================
-   SUPABASE SEARCH
-===================================================== */
+document
+.getElementById("searchBox")
+.addEventListener("keydown",function(e){
 
-const SUPABASE_URL=
-"https://btksyizkcpzubtextuce.supabase.co";
-
-
-const SUPABASE_KEY=
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
-
-const searchInput=
-document.getElementById("search");
-
-const results=
-document.getElementById("results");
-
-const resultList=
-document.getElementById("resultList");
-
-
-let timer=null;
-
-
-searchInput.addEventListener(
-"input",
-function(){
-
- clearTimeout(timer);
-
- timer=setTimeout(
- runSearch,
- 300
- );
+if(e.key==="Enter"){
+openSearch();
+}
 
 });
-
-
-async function runSearch(){
-
- const q=
- searchInput.value.trim();
-
-
- if(q.length<2){
-
-   results.style.display="none";
-
-   resultList.innerHTML="";
-
-   return;
-
- }
-
-
- results.style.display="block";
-
- resultList.innerHTML=
- "<div class='result'>"+
- "🔎 Searching..."+
- "</div>";
-
-
- try{
-
-   const url=
-   SUPABASE_URL+
-   "/rest/v1/artist_submissions"+
-   "?select=id,artist_name,files,created_at"+
-   "&status=eq.approved"+
-   "&or=("+
-   "artist_name.ilike.*"+
-   encodeURIComponent(q)+
-   "*" +
-   ",files.cs."+encodeURIComponent(
-   JSON.stringify([
-     {name:q}
-   ])
-   )+
-   ")"+
-   "&order=created_at.desc";
-
-
-   const response=
-   await fetch(
-     url,
-     {
-       headers:{
-         "apikey":SUPABASE_KEY,
-         "Authorization":
-         "Bearer "+SUPABASE_KEY
-       }
-     }
-   );
-
-
-   if(!response.ok){
-
-     throw new Error(
-       "Search error "+response.status
-     );
-
-   }
-
-
-   const data=
-   await response.json();
-
-
-   const matches=[];
-
-
-   data.forEach(item=>{
-
-     if(
-       item.artist_name
-       .toLowerCase()
-       .includes(q.toLowerCase())
-     ){
-
-       matches.push({
-
-         artist:item.artist_name,
-
-         name:item.artist_name+
-         " — Artist Profile",
-
-         url:"#"
-
-       });
-
-     }
-
-
-     if(
-       Array.isArray(item.files)
-     ){
-
-       item.files.forEach(file=>{
-
-         if(
-           file.type==="song" &&
-           file.name &&
-           file.name
-           .toLowerCase()
-           .includes(q.toLowerCase())
-         ){
-
-           matches.push({
-
-             artist:item.artist_name,
-
-             name:file.name,
-
-             url:file.url
-
-           });
-
-         }
-
-       });
-
-     }
-
-   });
-
-
-   if(!matches.length){
-
-     resultList.innerHTML=
-     "<div class='result'>"+
-     "No music found for "+
-     "<strong>"+escapeHtml(q)+
-     "</strong>"+
-     "</div>";
-
-     return;
-
-   }
-
-
-   resultList.innerHTML="";
-
-
-   matches.forEach(item=>{
-
-     const a=
-     document.createElement("a");
-
-     a.className="result";
-
-     a.href=
-     item.url;
-
-
-     a.innerHTML=
-
-     "<div class='resultIcon'>🎵</div>"+
-
-     "<div class='resultText'>"+
-
-     "<div class='resultName'>"+
-     escapeHtml(item.name)+
-     "</div>"+
-
-     "<div class='resultArtist'>"+
-     "Artist: "+
-     escapeHtml(item.artist)+
-     "</div>"+
-
-     "</div>";
-
-
-     resultList.appendChild(a);
-
-   });
-
-
- }catch(error){
-
-   console.error(error);
-
-   resultList.innerHTML=
-   "<div class='result'>"+
-   "❌ Search unavailable right now."+
-   "</div>";
-
- }
-
-}
-
-
-function escapeHtml(text){
-
- return String(text)
-
- .replace(/&/g,"&amp;")
-
- .replace(/</g,"&lt;")
-
- .replace(/>/g,"&gt;")
-
- .replace(/"/g,"&quot;")
-
- .replace(/'/g,"&#039;");
-
-}
 
 </script>
 
