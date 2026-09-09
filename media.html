@@ -2,420 +2,700 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ning Wei Media Player</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f3faff;
-color:#111;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3faff;
+    color:#111;
 }
+
+/* HEADER */
 
 .header{
-position:relative;
-height:250px;
-overflow:hidden;
-color:#fff;
+    position:relative;
+    height:300px;
+    overflow:hidden;
+    color:white;
 }
 
-.header img{
-position:absolute;
-inset:0;
-width:100%;
-height:100%;
-object-fit:cover;
-object-position:50% 18%;
-transform:scale(1.08);
+.header-photo{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:50% 18%;
+    transform:scale(1.08);
 }
 
-.overlay{
-position:absolute;
-inset:0;
-background:rgba(55,145,205,.38);
+.header-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(55,145,205,.38);
 }
 
-.headerText{
-position:absolute;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-text-align:center;
-text-shadow:0 2px 7px #000;
+.header-content{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    text-shadow:0 2px 7px #000;
 }
 
-.headerText h1{
-margin:0;
-font-size:32px;
+.header-content h1{
+    margin:0;
+    font-size:34px;
+    font-weight:800;
 }
 
-.headerText p{
-margin:7px 0;
-font-size:14px;
-font-weight:bold;
+.header-content p{
+    margin:8px 0 0;
+    font-size:14px;
+    font-weight:bold;
 }
+
+/* PLAYER */
 
 .container{
-padding:18px 15px 30px;
+    padding:18px 15px 35px;
 }
 
-.card{
-background:#fff;
-border-radius:16px;
-padding:18px;
-box-shadow:0 3px 15px #00000012;
-text-align:center;
+.player-card{
+    max-width:760px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:25px 18px;
+    box-shadow:0 3px 18px rgba(0,0,0,.10);
+    text-align:center;
 }
 
 .cover{
-width:150px;
-height:150px;
-border-radius:15px;
-object-fit:cover;
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:18px;
+    display:block;
+    margin:0 auto 15px;
 }
 
-h2{
-font-size:21px;
-margin:15px 0 5px;
-word-break:break-word;
+#title{
+    margin:5px 0 6px;
+    font-size:25px;
+    word-break:break-word;
 }
 
-.artist{
-color:#777;
-margin-bottom:15px;
+#artist{
+    color:#777;
+    margin-bottom:18px;
 }
 
-audio,video{
-width:100%;
-margin:10px 0 18px;
-}
-
-.download,
-.share{
-display:block;
-padding:14px;
-margin-top:10px;
-border-radius:11px;
-text-decoration:none;
-font-weight:bold;
+audio,
+video{
+    width:100%;
+    display:block;
+    margin:15px 0 20px;
 }
 
 .download{
-background:#000;
-color:#fff;
+    display:block;
+    width:100%;
+    padding:16px;
+    border-radius:13px;
+    background:#000;
+    color:#fff;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    margin-top:10px;
 }
 
 .share{
-background:#eaf7ff;
-color:#168dcc;
-}
-
-.error{
-color:#b00020;
-font-weight:bold;
+    display:block;
+    width:100%;
+    padding:15px;
+    border-radius:13px;
+    background:#eaf7ff;
+    color:#168dcc;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    margin-top:12px;
 }
 
 .ad{
-margin-top:18px;
-padding:25px 10px;
-background:#f1f1f1;
-border-radius:10px;
-color:#888;
+    margin-top:20px;
+    padding:28px 10px;
+    background:#f1f1f1;
+    border-radius:12px;
+    color:#888;
+    font-size:17px;
 }
 
-.back{
-display:block;
-margin-top:18px;
-color:#168dcc;
-text-decoration:none;
-font-weight:bold;
+.error{
+    color:#c62828;
+    font-weight:bold;
+    line-height:1.5;
+    padding:15px 5px;
 }
 
+.loading{
+    color:#777;
+    padding:20px;
+}
+
+@media(max-width:500px){
+
+    .header{
+        height:300px;
+    }
+
+    .header-content h1{
+        font-size:32px;
+    }
+
+    .header-content p{
+        font-size:14px;
+    }
+
+    .player-card{
+        padding:22px 15px;
+    }
+}
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header class="header">
 
-<img src="ning-wei.png">
+    <img
+        class="header-photo"
+        src="ning-wei.png"
+        alt="Ning Wei Media"
+    >
 
-<div class="overlay"></div>
+    <div class="header-overlay"></div>
 
-<div class="headerText">
-<h1>Ning Wei Media</h1>
-<p>Music • Videos • Photos • Apps • Software</p>
-</div>
+    <div class="header-content">
+        <h1>Ning Wei Media</h1>
+        <p>Music • Videos • Photos • Apps • Software</p>
+    </div>
 
 </header>
 
+
+<!-- PLAYER -->
+
 <div class="container">
 
-<div id="card" class="card">
+    <div class="player-card">
 
-<img
-id="cover"
-class="cover"
-src="ning-wei.png"
-alt=""
->
+        <img
+            id="cover"
+            class="cover"
+            src="ning-wei.png"
+            alt="Ning Wei Media"
+        >
 
-<h2 id="title">
-Loading...
-</h2>
+        <h2 id="title">Loading...</h2>
 
-<div id="artist" class="artist"></div>
+        <div id="artist">
+            Ning Wei Media
+        </div>
 
-<div id="player"></div>
+        <div id="playerArea">
+            <div class="loading">
+                Loading media...
+            </div>
+        </div>
 
-<a
-id="download"
-class="download"
-href="#"
-download
->
-⬇ Download
-</a>
+        <a
+            id="downloadButton"
+            class="download"
+            href="#"
+            download
+        >
+            ⬇️ Download
+        </a>
 
-<a
-id="share"
-class="share"
-href="#"
->
-🔗 Share
-</a>
+        <a
+            id="shareButton"
+            class="share"
+            href="#"
+        >
+            🔗 Share
+        </a>
 
-<div class="ad">
-Advertisement
-</div>
+        <div class="ad">
+            Advertisement
+        </div>
 
-<a
-class="back"
-href="javascript:history.back()"
->
-← Back
-</a>
-
-</div>
+    </div>
 
 </div>
+
 
 <script>
 
-const params=
-new URLSearchParams(
-location.search
-);
+/* =========================================
+   NING WEI MEDIA UNIVERSAL PLAYER
+========================================= */
 
-const path=
-params.get("path");
-
-const directUrl=
-params.get("url");
-
-const song=
-params.get("song") ||
-"Media";
-
-const artist=
-params.get("artist") ||
-"Ning Wei Media";
-
-const cover=
-params.get("cover");
+const USERNAME = "Ningwei2567";
+const REPOSITORY = "Ning-wei-1";
+const BRANCH = "main";
 
 
-const titleEl=
-document.getElementById("title");
-
-const artistEl=
-document.getElementById("artist");
-
-const coverEl=
-document.getElementById("cover");
-
-const player=
-document.getElementById("player");
-
-const download=
-document.getElementById("download");
-
-const share=
-document.getElementById("share");
+const params =
+    new URLSearchParams(window.location.search);
 
 
-titleEl.textContent=
-song;
+/* =========================================
+   ACCEPT ALL CURRENT LINK FORMATS
+========================================= */
 
-artistEl.textContent=
-artist;
+let path =
+    params.get("path");
+
+let folder =
+    params.get("folder");
+
+let file =
+    params.get("file");
+
+let directURL =
+    params.get("url");
+
+let songTitle =
+    params.get("song") ||
+    params.get("title");
 
 
-if(cover){
-coverEl.src=cover;
+/* =========================================
+   BUILD GITHUB RAW URL
+========================================= */
+
+function githubRawURL(filePath){
+
+    if(!filePath){
+        return "";
+    }
+
+    const encodedPath =
+        filePath
+        .split("/")
+        .filter(Boolean)
+        .map(part => encodeURIComponent(part))
+        .join("/");
+
+    return (
+        "https://raw.githubusercontent.com/" +
+        USERNAME +
+        "/" +
+        REPOSITORY +
+        "/" +
+        BRANCH +
+        "/" +
+        encodedPath
+    );
 }
 
 
-/* ==========================
-   GET FILE URL
-========================== */
+/* =========================================
+   SUPPORT OLD FOLDER + FILE LINKS
+========================================= */
 
-function rawURL(p){
+if(!path && folder && file){
 
-const encoded=
-p.split("/")
-.map(encodeURIComponent)
-.join("/");
+    path =
+        "media/songs/" +
+        folder.replace(/^\/+|\/+$/g,"") +
+        "/" +
+        file;
+}
 
-return(
-"https://raw.githubusercontent.com/" +
-"Ningwei2567/Ning-wei-1/main/" +
-encoded
-);
+
+/* =========================================
+   SUPPORT SIMPLE ?file= LINKS
+========================================= */
+
+if(!path && file){
+
+    path = file;
+
+    if(
+        !path.startsWith("media/")
+    ){
+
+        path =
+            "media/songs/" +
+            path;
+
+    }
 
 }
 
 
-let mediaURL=
-directUrl || (
-path ? rawURL(path) : null
-);
+/* =========================================
+   DETERMINE MEDIA URL
+========================================= */
 
+let mediaURL = "";
+
+if(directURL){
+
+    mediaURL = directURL;
+
+}else if(path){
+
+    mediaURL =
+        githubRawURL(path);
+
+}
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const titleElement =
+    document.getElementById("title");
+
+const artistElement =
+    document.getElementById("artist");
+
+const coverElement =
+    document.getElementById("cover");
+
+const playerArea =
+    document.getElementById("playerArea");
+
+const downloadButton =
+    document.getElementById("downloadButton");
+
+const shareButton =
+    document.getElementById("shareButton");
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+function getFileName(p){
+
+    if(!p){
+        return "Media";
+    }
+
+    const parts =
+        p.split("/");
+
+    return parts[parts.length - 1];
+
+}
+
+
+function removeExtension(name){
+
+    return name
+        .replace(/\.[^/.]+$/,"");
+
+}
+
+
+if(!songTitle){
+
+    songTitle =
+        removeExtension(
+            getFileName(path)
+        );
+
+}
+
+
+titleElement.textContent =
+    songTitle || "Media";
+
+
+/* =========================================
+   ARTIST
+========================================= */
+
+const artistParam =
+    params.get("artist");
+
+if(artistParam){
+
+    artistElement.textContent =
+        artistParam;
+
+}else if(path){
+
+    const parts =
+        path.split("/");
+
+    if(
+        parts.includes("Ugandan") ||
+        parts.includes("African") ||
+        parts.includes("International")
+    ){
+
+        artistElement.textContent =
+            "Ning Wei Media";
+
+    }else{
+
+        artistElement.textContent =
+            "Ning Wei Media";
+
+    }
+
+}else{
+
+    artistElement.textContent =
+        "Ning Wei Media";
+
+}
+
+
+/* =========================================
+   COVER
+========================================= */
+
+const coverParam =
+    params.get("cover");
+
+if(coverParam){
+
+    coverElement.src =
+        coverParam;
+
+}
+
+
+/* =========================================
+   NO MEDIA URL
+========================================= */
 
 if(!mediaURL){
 
-player.innerHTML=
-'<div class="error">Media file is missing.</div>';
+    playerArea.innerHTML = `
+        <div class="error">
+            Media file could not be found.
+        </div>
+    `;
 
-download.style.display="none";
-
-}else{
-
-const lower=
-mediaURL.toLowerCase();
-
-
-/* AUDIO */
-
-if(
-/\.(mp3|m4a|wav|aac|ogg|oga|opus|flac)(\?|$)/i.test(lower)
-){
-
-player.innerHTML=`
-<audio
-controls
-preload="metadata"
-src="${mediaURL}"
->
-</audio>
-`;
+    downloadButton.style.display =
+        "none";
 
 }
 
 
-/* VIDEO */
-
-else if(
-/\.(mp4|webm|mov|m4v|avi|mkv)(\?|$)/i.test(lower)
-){
-
-player.innerHTML=`
-<video
-controls
-preload="metadata"
-src="${mediaURL}"
->
-</video>
-`;
-
-}
-
-
-/* IMAGE */
-
-else if(
-/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i.test(lower)
-){
-
-player.innerHTML=`
-<img
-src="${mediaURL}"
-style="width:100%;border-radius:12px"
->
-`;
-
-}
+/* =========================================
+   CREATE PLAYER
+========================================= */
 
 else{
 
-player.innerHTML=
-'<div class="error">This file cannot be previewed here. Use Download.</div>';
+    const lower =
+        mediaURL.toLowerCase();
+
+
+    /* AUDIO */
+
+    if(
+        /\.(mp3|m4a|aac|wav|ogg|oga|opus|flac)(\?|#|$)/i
+            .test(lower)
+    ){
+
+        playerArea.innerHTML = `
+            <audio
+                id="mediaPlayer"
+                controls
+                preload="auto"
+                playsinline
+            >
+                <source
+                    src="${mediaURL}"
+                >
+                Your browser does not support audio.
+            </audio>
+        `;
+
+    }
+
+
+    /* VIDEO */
+
+    else if(
+        /\.(mp4|webm|mov|m4v|avi|mkv)(\?|#|$)/i
+            .test(lower)
+    ){
+
+        playerArea.innerHTML = `
+            <video
+                id="mediaPlayer"
+                controls
+                preload="metadata"
+                playsinline
+            >
+                <source
+                    src="${mediaURL}"
+                >
+                Your browser does not support video.
+            </video>
+        `;
+
+    }
+
+
+    /* IMAGE */
+
+    else if(
+        /\.(jpg|jpeg|png|gif|webp|bmp)(\?|#|$)/i
+            .test(lower)
+    ){
+
+        playerArea.innerHTML = `
+            <img
+                src="${mediaURL}"
+                style="
+                    width:100%;
+                    max-height:600px;
+                    object-fit:contain;
+                    border-radius:12px;
+                "
+                alt="${songTitle}"
+            >
+        `;
+
+    }
+
+
+    /* UNKNOWN FILE */
+
+    else{
+
+        playerArea.innerHTML = `
+            <div class="error">
+                This file cannot be previewed in this browser.
+                Please use Download.
+            </div>
+        `;
+
+    }
+
+
+    /* =====================================
+       DOWNLOAD
+    ===================================== */
+
+    downloadButton.href =
+        mediaURL;
+
+    downloadButton.download =
+        getFileName(path) ||
+        songTitle;
+
+
+    /* =====================================
+       PLAYER ERROR
+    ===================================== */
+
+    const mediaPlayer =
+        document.getElementById("mediaPlayer");
+
+    if(mediaPlayer){
+
+        mediaPlayer.addEventListener(
+            "error",
+            function(){
+
+                playerArea.innerHTML = `
+                    <div class="error">
+                        The media file could not be played.
+                        Please try Download.
+                    </div>
+                `;
+
+            }
+        );
+
+    }
 
 }
 
 
-download.href=
-mediaURL;
+/* =========================================
+   SHARE
+========================================= */
 
-download.download=
-song;
+shareButton.addEventListener(
+    "click",
+    async function(event){
+
+        event.preventDefault();
+
+        const shareData = {
+
+            title:
+                songTitle,
+
+            text:
+                "Listen to " +
+                songTitle +
+                " on Ning Wei Media",
+
+            url:
+                window.location.href
+
+        };
 
 
-/* SHARE */
+        try{
 
-share.addEventListener(
-"click",
-async function(e){
+            if(
+                navigator.share
+            ){
 
-e.preventDefault();
+                await navigator.share(
+                    shareData
+                );
 
-const shareData={
-title:song,
-text:
-`Listen to ${song} on Ning Wei Media`,
-url:location.href
-};
+            }else{
 
+                await navigator.clipboard.writeText(
+                    window.location.href
+                );
 
-if(
-navigator.share
-){
+                shareButton.textContent =
+                    "✓ Link copied";
 
-try{
-await navigator.share(shareData);
-}catch(e){}
+            }
 
-}else{
+        }catch(error){
 
-try{
+            /* User cancelled sharing */
 
-await navigator.clipboard.writeText(
-location.href
+        }
+
+    }
 );
-
-share.textContent=
-"✓ Link copied";
-
-}catch(e){
-
-prompt(
-"Copy this link:",
-location.href
-);
-
-}
-
-}
-
-});
-
-}
 
 </script>
 
