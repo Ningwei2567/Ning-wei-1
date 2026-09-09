@@ -2,1263 +2,628 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Upload Your Music - Ning Wei Media</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4fbff;
-    color:#111;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f4fbff;
+ color:#111
 }
-
-/* =========================
-   HEADER
-========================= */
-
-.nw-header{
-    position:relative;
-    width:100%;
-    height:318px;
-    overflow:hidden;
-    background:#8ed8f5;
+.header{
+ height:318px;
+ position:relative;
+ overflow:hidden;
+ background:#8ed8f5
 }
-
-.nw-header-photo{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center 20%;
+.header img{
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ object-position:center 20%
 }
-
-.nw-header-overlay{
-    position:absolute;
-    inset:0;
-    background:rgba(55,145,205,0.38);
+.overlay{
+ position:absolute;
+ inset:0;
+ background:rgba(55,145,205,.38)
 }
-
-.nw-header-content{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:25px;
-    text-align:center;
-    color:white;
-    text-shadow:0 2px 6px rgba(0,0,0,.7);
-    padding:10px;
+.headerText{
+ position:absolute;
+ bottom:24px;
+ width:100%;
+ text-align:center;
+ color:white;
+ text-shadow:0 2px 6px #000
 }
-
-.nw-header-content h1{
-    margin:0;
-    font-size:31px;
-    font-weight:800;
+.headerText h1{
+ margin:0;
+ font-size:31px
 }
-
-.nw-header-content p{
-    margin:6px 0 0;
-    font-size:14px;
-    font-weight:600;
+.headerText p{
+ margin:6px 0 0;
+ font-size:14px
 }
-
-/* =========================
-   MAIN
-========================= */
-
 .container{
-    width:min(700px,94%);
-    margin:15px auto 40px;
+ width:min(700px,94%);
+ margin:15px auto 40px
 }
-
 .card{
-    background:white;
-    border-radius:15px;
-    padding:18px;
-    box-shadow:0 2px 12px rgba(0,0,0,.08);
+ background:white;
+ border-radius:15px;
+ padding:18px;
+ box-shadow:0 2px 12px #0001
 }
-
 .title{
-    text-align:center;
-    color:#087db5;
-    font-size:23px;
-    font-weight:800;
-    margin-bottom:6px;
+ text-align:center;
+ color:#087db5;
+ font-size:23px;
+ font-weight:bold
 }
-
 .subtitle{
-    text-align:center;
-    color:#666;
-    font-size:14px;
-    margin-bottom:18px;
+ text-align:center;
+ color:#666;
+ margin:6px 0 18px
 }
-
 .notice{
-    background:#fff5d9;
-    border-left:5px solid #f0a500;
-    padding:12px;
-    border-radius:8px;
-    margin-bottom:16px;
-    font-size:14px;
-    line-height:1.5;
+ background:#fff5d9;
+ border-left:5px solid #f0a500;
+ padding:12px;
+ border-radius:8px;
+ margin-bottom:15px
 }
-
 .email{
-    background:#e9f7ff;
-    padding:12px;
-    border-radius:9px;
-    text-align:center;
-    margin:12px 0 18px;
-    font-weight:700;
-    color:#087db5;
+ background:#e9f7ff;
+ padding:12px;
+ border-radius:9px;
+ text-align:center;
+ color:#087db5;
+ font-weight:bold
 }
-
-.requirements h3{
-    margin:13px 0 6px;
-    color:#087db5;
-    font-size:17px;
+h3{
+ color:#087db5;
+ font-size:17px;
+ margin:16px 0 7px
 }
-
-.requirements div{
-    font-size:14px;
-    padding:4px 0;
+.req{
+ font-size:14px;
+ padding:4px 0
 }
-
-/* =========================
-   FORM
-========================= */
-
 label{
-    display:block;
-    margin:14px 0 6px;
-    font-size:14px;
-    font-weight:700;
+ display:block;
+ margin:14px 0 6px;
+ font-size:14px;
+ font-weight:bold
 }
-
-input,
+input,textarea{
+ width:100%;
+ padding:11px;
+ border:1px solid #cbdde7;
+ border-radius:8px;
+ font-size:14px
+}
 textarea{
-    width:100%;
-    border:1px solid #c9dce6;
-    border-radius:8px;
-    padding:11px;
-    font-size:14px;
-    outline:none;
-    background:white;
+ min-height:100px;
+ resize:vertical
 }
-
-input:focus,
-textarea:focus{
-    border-color:#087db5;
+input[type=file]{
+ background:#f8fcff
 }
-
-textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-input[type="file"]{
-    background:#f8fcff;
-    padding:9px;
-}
-
-.small{
-    color:#777;
-    font-size:12px;
-    margin-top:5px;
-}
-
-/* =========================
-   BUTTON
-========================= */
-
 button{
-    width:100%;
-    border:0;
-    border-radius:9px;
-    padding:14px;
-    margin-top:18px;
-    background:#087db5;
-    color:white;
-    font-size:16px;
-    font-weight:800;
-    cursor:pointer;
+ width:100%;
+ border:0;
+ border-radius:9px;
+ padding:14px;
+ margin-top:18px;
+ background:#087db5;
+ color:white;
+ font-size:16px;
+ font-weight:bold
 }
-
-button:hover{
-    background:#066b9b;
-}
-
 button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
+ opacity:.6
 }
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-    display:none;
-    margin-top:15px;
-    padding:12px;
-    border-radius:8px;
-    font-size:14px;
-    line-height:1.5;
-}
-
-.status.show{
-    display:block;
-}
-
-.status.success{
-    background:#e7f8ec;
-    color:#14752b;
-}
-
-.status.error{
-    background:#ffe9e9;
-    color:#b00020;
-}
-
-/* =========================
-   PROGRESS
-========================= */
-
 .progress{
-    display:none;
-    height:8px;
-    margin-top:12px;
-    background:#e5eef3;
-    border-radius:10px;
-    overflow:hidden;
+ display:none;
+ height:8px;
+ margin-top:12px;
+ background:#e5eef3;
+ border-radius:10px;
+ overflow:hidden
 }
-
-.progress-bar{
-    width:0%;
-    height:100%;
-    background:#087db5;
-    transition:width:.2s;
+.bar{
+ width:0;
+ height:100%;
+ background:#087db5
+}
+.status{
+ display:none;
+ margin-top:15px;
+ padding:12px;
+ border-radius:8px;
+ font-size:14px
+}
+.status.show{display:block}
+.success{
+ background:#e7f8ec;
+ color:#14752b
+}
+.error{
+ background:#ffe9e9;
+ color:#b00020
+}
+.small{
+ color:#777;
+ font-size:12px;
+ margin-top:5px
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================================
-     NING WEI MEDIA HEADER
-========================================= -->
+<header class="header">
+<img src="ning-wei.png" alt="Ning Wei Media">
+<div class="overlay"></div>
 
-<header class="nw-header">
-
-    <img
-        class="nw-header-photo"
-        src="ning-wei.png"
-        alt="Ning Wei Media"
-    >
-
-    <div class="nw-header-overlay"></div>
-
-    <div class="nw-header-content">
-
-        <h1>Ning Wei Media</h1>
-
-        <p>
-            Music • Videos • Photos • Apps • Software
-        </p>
-
-    </div>
-
+<div class="headerText">
+<h1>Ning Wei Media</h1>
+<p>Music • Videos • Photos • Apps • Software</p>
+</div>
 </header>
 
 
-<!-- =========================================
-     UPLOAD FORM
-========================================= -->
-
 <div class="container">
-
 <div class="card">
 
-    <div class="title">
-        🎵 Upload your music here
-    </div>
+<div class="title">🎵 Upload your music here</div>
 
-    <div class="subtitle">
-        For new artists, singers, producers and DJs
-    </div>
-
-
-    <div class="notice">
-
-        <strong>
-            It's free. Don't be scammed!
-        </strong>
-
-        <br>
-
-        Send your music and artist information
-        directly through this form.
-
-    </div>
-
-
-    <div class="email">
-
-        Send the following requirements to us
-        using our email
-
-        <br>
-
-        <strong>
-            ningwei2567@gmail.com
-        </strong>
-
-    </div>
-
-
-    <div class="requirements">
-
-        <h3>Required</h3>
-
-        <div>
-            1. Biography / Artist Profile
-        </div>
-
-        <div>
-            2. Songs
-        </div>
-
-        <div>
-            3. Photo(s)
-        </div>
-
-
-        <h3>Optional</h3>
-
-        <div>
-            4. Lyrics
-        </div>
-
-        <div>
-            5. Song Cover Arts
-        </div>
-
-        <div>
-            6. Videos (YouTube Links)
-        </div>
-
-    </div>
-
-
-    <form id="uploadForm">
-
-
-        <!-- ARTIST NAME -->
-
-        <label for="artistName">
-            Artist / DJ Name *
-        </label>
-
-        <input
-            id="artistName"
-            type="text"
-            placeholder="Enter your artist or DJ name"
-            required
-        >
-
-
-        <!-- EMAIL -->
-
-        <label for="artistEmail">
-            Email *
-        </label>
-
-        <input
-            id="artistEmail"
-            type="email"
-            placeholder="Enter your email"
-            required
-        >
-
-
-        <!-- PHONE -->
-
-        <label for="phone">
-            Phone / WhatsApp
-        </label>
-
-        <input
-            id="phone"
-            type="text"
-            placeholder="Enter phone or WhatsApp number"
-        >
-
-
-        <!-- BIOGRAPHY -->
-
-        <label for="biography">
-            Biography / Artist Profile *
-        </label>
-
-        <textarea
-            id="biography"
-            placeholder="Tell us about the artist..."
-            required
-        ></textarea>
-
-
-        <!-- SONGS -->
-
-        <label for="songs">
-            Songs *
-        </label>
-
-        <input
-            id="songs"
-            type="file"
-            accept="audio/*,.mp3,.m4a,.wav,.aac,.ogg,.oga,.opus,.flac"
-            multiple
-            required
-        >
-
-        <div class="small">
-            Select one or more songs.
-        </div>
-
-
-        <!-- PHOTOS -->
-
-        <label for="photos">
-            Photo(s) *
-        </label>
-
-        <input
-            id="photos"
-            type="file"
-            accept="image/*"
-            multiple
-            required
-        >
-
-        <div class="small">
-            Select one or more artist photos.
-        </div>
-
-
-        <!-- LYRICS -->
-
-        <label for="lyrics">
-            Lyrics
-        </label>
-
-        <textarea
-            id="lyrics"
-            placeholder="Paste lyrics here if available..."
-        ></textarea>
-
-
-        <!-- COVER ART -->
-
-        <label for="covers">
-            Song Cover Art
-        </label>
-
-        <input
-            id="covers"
-            type="file"
-            accept="image/*"
-            multiple
-        >
-
-
-        <!-- YOUTUBE -->
-
-        <label for="youtube">
-            YouTube Video Links
-        </label>
-
-        <textarea
-            id="youtube"
-            placeholder="Paste YouTube links here..."
-        ></textarea>
-
-
-        <!-- UPLOAD -->
-
-        <button
-            id="uploadButton"
-            type="submit"
-        >
-            UPLOAD MUSIC
-        </button>
-
-
-        <!-- PROGRESS -->
-
-        <div
-            id="progress"
-            class="progress"
-        >
-
-            <div
-                id="progressBar"
-                class="progress-bar"
-            ></div>
-
-        </div>
-
-
-        <!-- STATUS -->
-
-        <div
-            id="status"
-            class="status"
-        ></div>
-
-
-    </form>
-
+<div class="subtitle">
+For new artists, singers, producers and DJs
 </div>
 
+<div class="notice">
+<strong>It's free. Don't be scammed!</strong><br>
+Upload your music directly to Ning Wei Media.
+</div>
+
+<div class="email">
+Send the following requirements to us using our email<br>
+<strong>ningwei2567@gmail.com</strong>
+</div>
+
+<h3>Required</h3>
+
+<div class="req">1. Biography / Artist Profile</div>
+<div class="req">2. Songs</div>
+<div class="req">3. Photo(s)</div>
+
+<h3>Optional</h3>
+
+<div class="req">4. Lyrics</div>
+<div class="req">5. Song Cover Arts</div>
+<div class="req">6. Videos (YouTube Links)</div>
+
+
+<form id="form">
+
+<label>Artist / DJ Name *</label>
+<input id="artist" required placeholder="Enter artist or DJ name">
+
+<label>Email *</label>
+<input id="email" type="email" required placeholder="Enter email">
+
+<label>Phone / WhatsApp</label>
+<input id="phone" placeholder="Phone or WhatsApp">
+
+<label>Biography / Artist Profile *</label>
+<textarea id="bio" required placeholder="Tell us about the artist"></textarea>
+
+<label>Songs *</label>
+<input
+ id="songs"
+ type="file"
+ multiple
+ required
+ accept="audio/*,.mp3,.m4a,.wav,.aac,.ogg,.oga,.opus,.flac"
+>
+
+<div class="small">Select one or more songs.</div>
+
+<label>Photo(s) *</label>
+<input
+ id="photos"
+ type="file"
+ multiple
+ required
+ accept="image/*"
+>
+
+<div class="small">Select one or more artist photos.</div>
+
+<label>Lyrics</label>
+<textarea id="lyrics" placeholder="Paste lyrics here"></textarea>
+
+<label>Song Cover Art</label>
+<input id="covers" type="file" multiple accept="image/*">
+
+<label>YouTube Video Links</label>
+<textarea id="youtube" placeholder="Paste YouTube links here"></textarea>
+
+<button id="button" type="submit">
+UPLOAD MUSIC
+</button>
+
+<div class="progress" id="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<div class="status" id="status"></div>
+
+</form>
+
+</div>
 </div>
 
 
 <script>
 
-/* =========================================================
-   SUPABASE CONFIGURATION
-========================================================= */
-
 const SUPABASE_URL =
-    "https://btksyizkcpzubtextuce.supabase.co";
+"https://btksyizkcpzubtextuce.supabase.co";
+
+const SUPABASE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+
+const BUCKET="artist-uploads";
+
+const form=document.getElementById("form");
+const button=document.getElementById("button");
+const statusBox=document.getElementById("status");
+const progress=document.getElementById("progress");
+const bar=document.getElementById("bar");
 
 
-/*
-   YOUR ANONYMOUS SUPABASE KEY
-*/
+function status(message,type){
 
-const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
-
-const BUCKET =
-    "artist-uploads";
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const form =
-    document.getElementById("uploadForm");
-
-const button =
-    document.getElementById("uploadButton");
-
-const statusBox =
-    document.getElementById("status");
-
-const progress =
-    document.getElementById("progress");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-
-/* =========================================================
-   STATUS MESSAGE
-========================================================= */
-
-function showStatus(message,type){
-
-    statusBox.className =
-        "status show " + type;
-
-    statusBox.innerHTML =
-        message;
-}
-
-
-/* =========================================================
-   CLEAN FILE NAME
-========================================================= */
-
-function cleanName(name){
-
-    return name
-
-        .replace(/[^\w.\- ]+/g,"")
-
-        .replace(/\s+/g,"-")
-
-        .substring(0,120);
+ statusBox.className="status show "+type;
+ statusBox.innerHTML=message;
 
 }
 
 
-/* =========================================================
-   CLEAN ARTIST FOLDER
-========================================================= */
+function clean(value){
 
-function cleanFolder(name){
-
-    return name
-
-        .trim()
-
-        .replace(/[^\w\- ]+/g,"")
-
-        .replace(/\s+/g,"-")
-
-        .substring(0,80);
+ return value
+ .trim()
+ .replace(/[^\w\- ]+/g,"")
+ .replace(/\s+/g,"-")
+ .substring(0,80);
 
 }
 
 
-/* =========================================================
-   UPLOAD FILE TO SUPABASE STORAGE
-========================================================= */
+function fileName(value){
 
-async function uploadFile(file,path){
-
-    const encodedPath =
-        path
-        .split("/")
-        .map(encodeURIComponent)
-        .join("/");
-
-
-    const url =
-        SUPABASE_URL +
-        "/storage/v1/object/" +
-        BUCKET +
-        "/" +
-        encodedPath;
-
-
-    const response =
-        await fetch(url,{
-
-            method:"POST",
-
-            headers:{
-
-                /*
-                   IMPORTANT:
-                   Supabase API key
-                */
-
-                "apikey":
-                    SUPABASE_ANON_KEY,
-
-
-                /*
-                   IMPORTANT:
-                   Legacy anon JWT
-                */
-
-                "Authorization":
-                    "Bearer " +
-                    SUPABASE_ANON_KEY,
-
-
-                "x-upsert":
-                    "false",
-
-
-                "Content-Type":
-                    file.type ||
-                    "application/octet-stream"
-
-            },
-
-            body:file
-
-        });
-
-
-    if(!response.ok){
-
-        let errorText = "";
-
-        try{
-
-            errorText =
-                await response.text();
-
-        }catch(e){
-
-            errorText =
-                "Unknown Supabase error";
-
-        }
-
-
-        throw new Error(
-
-            "Storage upload failed (" +
-            response.status +
-            "): " +
-            errorText
-
-        );
-
-    }
-
-
-    return (
-
-        SUPABASE_URL +
-
-        "/storage/v1/object/public/" +
-
-        BUCKET +
-
-        "/" +
-
-        encodedPath
-
-    );
+ return value
+ .replace(/[^\w.\- ]+/g,"")
+ .replace(/\s+/g,"-")
+ .substring(0,120);
 
 }
 
 
-/* =========================================================
-   SAVE ARTIST SUBMISSION
-========================================================= */
+function headers(){
 
-async function saveSubmission(data){
+ return {
 
-    const url =
-        SUPABASE_URL +
-        "/rest/v1/artist_submissions";
+   "apikey":SUPABASE_KEY,
 
+   "Authorization":
+   "Bearer "+SUPABASE_KEY
 
-    const response =
-        await fetch(url,{
-
-            method:"POST",
-
-            headers:{
-
-                "apikey":
-                    SUPABASE_ANON_KEY,
-
-                "Authorization":
-                    "Bearer " +
-                    SUPABASE_ANON_KEY,
-
-                "Content-Type":
-                    "application/json",
-
-                "Prefer":
-                    "return=minimal"
-
-            },
-
-            body:
-                JSON.stringify(data)
-
-        });
-
-
-    if(!response.ok){
-
-        let errorText = "";
-
-        try{
-
-            errorText =
-                await response.text();
-
-        }catch(e){
-
-            errorText =
-                "Unknown database error";
-
-        }
-
-
-        throw new Error(
-
-            "Database submission failed (" +
-            response.status +
-            "): " +
-            errorText
-
-        );
-
-    }
+ };
 
 }
 
 
-/* =========================================================
-   MAIN FORM
-========================================================= */
+async function upload(file,path){
 
-form.addEventListener(
-"submit",
-async function(event){
+ const encoded=path
+ .split("/")
+ .map(encodeURIComponent)
+ .join("/");
 
-    event.preventDefault();
+ const url=
+ SUPABASE_URL+
+ "/storage/v1/object/"+
+ BUCKET+
+ "/"+
+ encoded;
 
+ const response=await fetch(url,{
 
-    const artistName =
-        document
-        .getElementById("artistName")
-        .value
-        .trim();
+   method:"POST",
 
+   headers:{
+     ...headers(),
+     "Content-Type":
+     file.type ||
+     "application/octet-stream",
+     "x-upsert":"false"
+   },
 
-    const artistEmail =
-        document
-        .getElementById("artistEmail")
-        .value
-        .trim();
+   body:file
 
+ });
 
-    const phone =
-        document
-        .getElementById("phone")
-        .value
-        .trim();
+ if(!response.ok){
 
+   let text="";
 
-    const biography =
-        document
-        .getElementById("biography")
-        .value
-        .trim();
+   try{
+     text=await response.text();
+   }catch(e){}
 
+   throw new Error(
+     "Storage error "+response.status+
+     ": "+text
+   );
 
-    const lyrics =
-        document
-        .getElementById("lyrics")
-        .value
-        .trim();
+ }
 
+ return{
+   path:path,
+   url:
+   SUPABASE_URL+
+   "/storage/v1/object/public/"+
+   BUCKET+
+   "/"+
+   encoded
+ };
 
-    const youtube =
-        document
-        .getElementById("youtube")
-        .value
-        .trim();
+}
 
 
-    const songs =
-        Array.from(
-            document
-            .getElementById("songs")
-            .files
-        );
+async function save(data){
 
+ const response=await fetch(
 
-    const photos =
-        Array.from(
-            document
-            .getElementById("photos")
-            .files
-        );
+   SUPABASE_URL+
+   "/rest/v1/artist_submissions",
 
+   {
 
-    const covers =
-        Array.from(
-            document
-            .getElementById("covers")
-            .files
-        );
+     method:"POST",
 
+     headers:{
+       ...headers(),
+       "Content-Type":"application/json",
+       "Prefer":"return=minimal"
+     },
 
-    /* -----------------------------------------
-       VALIDATION
-    ----------------------------------------- */
+     body:JSON.stringify(data)
 
-    if(!songs.length){
+   }
 
-        showStatus(
-            "❌ Please select at least one song.",
-            "error"
-        );
+ );
 
-        return;
+ if(!response.ok){
 
-    }
+   let text="";
 
+   try{
+     text=await response.text();
+   }catch(e){}
 
-    if(!photos.length){
+   throw new Error(
+     "Database error "+response.status+
+     ": "+text
+   );
 
-        showStatus(
-            "❌ Please select at least one photo.",
-            "error"
-        );
+ }
 
-        return;
+}
 
-    }
 
+form.addEventListener("submit",async function(e){
 
-    button.disabled =
-        true;
+ e.preventDefault();
 
+ button.disabled=true;
 
-    progress.style.display =
-        "block";
+ progress.style.display="block";
 
+ bar.style.width="5%";
 
-    progressBar.style.width =
-        "5%";
 
+ const artist=
+ document.getElementById("artist").value.trim();
 
-    try{
+ const email=
+ document.getElementById("email").value.trim();
 
-        /* -------------------------------------
-           ARTIST FOLDER
-        ------------------------------------- */
+ const phone=
+ document.getElementById("phone").value.trim();
 
-        const folder =
-            cleanFolder(artistName) +
-            "-" +
-            Date.now();
+ const bio=
+ document.getElementById("bio").value.trim();
 
+ const lyrics=
+ document.getElementById("lyrics").value.trim();
 
-        const uploadedFiles =
-            [];
+ const youtube=
+ document.getElementById("youtube").value.trim();
 
+ const songs=
+ Array.from(document.getElementById("songs").files);
 
-        /* =====================================
-           SONGS
-        ===================================== */
+ const photos=
+ Array.from(document.getElementById("photos").files);
 
-        for(
-            let i=0;
-            i<songs.length;
-            i++
-        ){
+ const covers=
+ Array.from(document.getElementById("covers").files);
 
-            const file =
-                songs[i];
 
+ try{
 
-            const filename =
-                Date.now() +
-                "-" +
-                cleanName(file.name);
+   const folder=
+   clean(artist)+"-"+Date.now();
 
+   const files=[];
 
-            const path =
-                folder +
-                "/songs/" +
-                filename;
 
+   /* SONGS */
 
-            showStatus(
+   for(let i=0;i<songs.length;i++){
 
-                "⏳ Uploading song " +
+     status(
+       "⏳ Uploading song "+
+       (i+1)+" of "+songs.length+"...",
+       "success"
+     );
 
-                (i + 1) +
+     const name=
+     Date.now()+"-"+fileName(songs[i].name);
 
-                " of " +
+     const result=
+     await upload(
+       songs[i],
+       folder+"/songs/"+name
+     );
 
-                songs.length +
+     files.push({
+       type:"song",
+       name:songs[i].name,
+       path:result.path,
+       url:result.url
+     });
 
-                "...",
+     bar.style.width=
+     (10+((i+1)/songs.length)*45)+"%";
 
-                "success"
+   }
 
-            );
 
+   /* PHOTOS */
 
-            const publicUrl =
-                await uploadFile(
-                    file,
-                    path
-                );
+   for(let i=0;i<photos.length;i++){
 
+     status(
+       "⏳ Uploading photo "+
+       (i+1)+" of "+photos.length+"...",
+       "success"
+     );
 
-            uploadedFiles.push({
+     const name=
+     Date.now()+"-"+fileName(photos[i].name);
 
-                type:
-                    "song",
+     const result=
+     await upload(
+       photos[i],
+       folder+"/photos/"+name
+     );
 
-                name:
-                    file.name,
+     files.push({
+       type:"photo",
+       name:photos[i].name,
+       path:result.path,
+       url:result.url
+     });
 
-                path:
-                    path,
+     bar.style.width=
+     (55+((i+1)/photos.length)*20)+"%";
 
-                url:
-                    publicUrl
+   }
 
-            });
 
+   /* COVERS */
 
-            progressBar.style.width =
+   for(let i=0;i<covers.length;i++){
 
-                (
+     status(
+       "⏳ Uploading cover art...",
+       "success"
+     );
 
-                    10 +
+     const name=
+     Date.now()+"-"+fileName(covers[i].name);
 
-                    ((i + 1) /
-                    songs.length) * 45
+     const result=
+     await upload(
+       covers[i],
+       folder+"/covers/"+name
+     );
 
-                ) +
+     files.push({
+       type:"cover",
+       name:covers[i].name,
+       path:result.path,
+       url:result.url
+     });
 
-                "%";
+   }
 
-        }
 
+   bar.style.width="90%";
 
-        /* =====================================
-           PHOTOS
-        ===================================== */
 
-        for(
-            let i=0;
-            i<photos.length;
-            i++
-        ){
+   /* AUTOMATICALLY APPROVED */
 
-            const file =
-                photos[i];
+   await save({
 
+     artist_name:artist,
 
-            const filename =
-                Date.now() +
-                "-" +
-                cleanName(file.name);
+     artist_email:email,
 
+     phone:phone || null,
 
-            const path =
-                folder +
-                "/photos/" +
-                filename;
+     biography:bio,
 
+     lyrics:lyrics || null,
 
-            showStatus(
+     youtube_links:youtube || null,
 
-                "⏳ Uploading photo " +
+     files:files,
 
-                (i + 1) +
+     status:"approved"
 
-                " of " +
+   });
 
-                photos.length +
 
-                "...",
+   bar.style.width="100%";
 
-                "success"
 
-            );
+   status(
+     "✅ <strong>Upload successful!</strong><br><br>"+
+     "Your music is now published on Ning Wei Media.<br><br>"+
+     "You can search for your artist name or song from the website search bar.",
+     "success"
+   );
 
 
-            const publicUrl =
-                await uploadFile(
-                    file,
-                    path
-                );
+   form.reset();
 
 
-            uploadedFiles.push({
+ }catch(error){
 
-                type:
-                    "photo",
+   console.error(error);
 
-                name:
-                    file.name,
+   status(
+     "❌ <strong>Upload failed</strong><br><br>"+
+     error.message,
+     "error"
+   );
 
-                path:
-                    path,
+   bar.style.width="0%";
 
-                url:
-                    publicUrl
+ }
 
-            });
 
-
-            progressBar.style.width =
-
-                (
-
-                    55 +
-
-                    ((i + 1) /
-                    photos.length) * 20
-
-                ) +
-
-                "%";
-
-        }
-
-
-        /* =====================================
-           COVER ART
-        ===================================== */
-
-        for(
-            let i=0;
-            i<covers.length;
-            i++
-        ){
-
-            const file =
-                covers[i];
-
-
-            const filename =
-                Date.now() +
-                "-" +
-                cleanName(file.name);
-
-
-            const path =
-                folder +
-                "/covers/" +
-                filename;
-
-
-            showStatus(
-                "⏳ Uploading cover art...",
-                "success"
-            );
-
-
-            const publicUrl =
-                await uploadFile(
-                    file,
-                    path
-                );
-
-
-            uploadedFiles.push({
-
-                type:
-                    "cover",
-
-                name:
-                    file.name,
-
-                path:
-                    path,
-
-                url:
-                    publicUrl
-
-            });
-
-        }
-
-
-        progressBar.style.width =
-            "90%";
-
-
-        /* =====================================
-           SAVE SUBMISSION TO DATABASE
-        ===================================== */
-
-        showStatus(
-            "⏳ Saving your artist submission...",
-            "success"
-        );
-
-
-        await saveSubmission({
-
-            artist_name:
-                artistName,
-
-            artist_email:
-                artistEmail,
-
-            phone:
-                phone || null,
-
-            biography:
-                biography,
-
-            lyrics:
-                lyrics || null,
-
-            youtube_links:
-                youtube || null,
-
-            files:
-                uploadedFiles,
-
-            status:
-                "pending"
-
-        });
-
-
-        /* =====================================
-           SUCCESS
-        ===================================== */
-
-        progressBar.style.width =
-            "100%";
-
-
-        showStatus(
-
-            "✅ <strong>Upload successful!</strong>" +
-
-            "<br><br>" +
-
-            "Your music has been received by " +
-            "Ning Wei Media." +
-
-            "<br>" +
-
-            "Your submission is now waiting " +
-            "for approval.",
-
-            "success"
-
-        );
-
-
-        form.reset();
-
-
-    }catch(error){
-
-        console.error(
-            "NING WEI UPLOAD ERROR:",
-            error
-        );
-
-
-        showStatus(
-
-            "❌ <strong>Upload failed</strong>" +
-
-            "<br><br>" +
-
-            error.message,
-
-            "error"
-
-        );
-
-
-        progressBar.style.width =
-            "0%";
-
-    }finally{
-
-        button.disabled =
-            false;
-
-    }
+ button.disabled=false;
 
 });
 
