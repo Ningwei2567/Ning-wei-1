@@ -6,197 +6,228 @@
 <title>Ning Wei Media</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f3faff;
+  font-family:Arial,sans-serif;
+  background:#f4fbff;
   color:#111;
 }
 
-.header{
+/* ===== SAME THIN HEADER EVERYWHERE ===== */
+.nw-header{
   position:relative;
-  height:318px;
+  height:180px !important;
+  min-height:180px !important;
+  max-height:180px !important;
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  background:#000;
 }
 
-.header img{
+.nw-header-photo{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:50% 18%;
+  object-position:50% 20%;
+  filter:none !important;
+  opacity:1 !important;
+  transform:none !important;
 }
 
-.header::after{
-  display:none !important;
-  content:none !important;
-}
-
-.header-content{
+.nw-header-content{
   position:relative;
   z-index:2;
   color:white;
   text-shadow:0 2px 5px rgba(0,0,0,.55);
 }
 
-.header-content h1{
+.nw-header-content h1{
   margin:0;
-  font-size:38px;
-  font-weight:900;
+  font-size:30px;
 }
 
-.header-content p{
-  margin:8px 0 0;
-  font-size:17px;
-}
-
-.container{
-  width:min(850px,95%);
-  margin:15px auto 30px;
-}
-
-.back{
-  display:block;
-  color:#0789bd;
-  text-decoration:none;
-  font-weight:bold;
+.nw-header-content p{
+  margin:6px 0 0;
   font-size:14px;
-  margin-bottom:10px;
+}
+
+/* NO HEADER OVERLAY */
+.nw-header::before,
+.nw-header::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* ===== CONTENT ===== */
+.container{
+  width:94%;
+  max-width:900px;
+  margin:18px auto;
 }
 
 .card{
-  background:#fff;
+  background:white;
   border-radius:12px;
   padding:16px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  border:1px solid #d8edf7;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
 }
 
-.file-icon{
-  font-size:48px;
-  text-align:center;
-}
-
-.file-name{
+#title{
   text-align:center;
   font-size:20px;
-  font-weight:900;
-  margin:8px 0 4px;
+  font-weight:bold;
+  margin:0 0 15px;
   word-break:break-word;
 }
 
-.artist{
+/* ===== MEDIA ===== */
+.media-area{
+  width:100%;
   text-align:center;
-  color:#777;
-  font-size:13px;
-  margin-bottom:15px;
 }
 
-.media-box{
-  width:100%;
-  margin:15px 0;
-}
-
-audio{
-  display:block;
-  width:100%;
-}
-
+audio,
 video{
-  display:block;
   width:100%;
-  max-height:65vh;
-  background:#000;
-  border-radius:8px;
+  max-width:850px;
+  border-radius:10px;
 }
 
-.preview-image{
-  display:block;
+.photo-box{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:auto;
+  background:#111;
+  border-radius:10px;
+  padding:10px;
+}
+
+.photo-box img{
   max-width:100%;
-  max-height:65vh;
-  margin:auto;
-  border-radius:8px;
+  max-height:75vh;
+  object-fit:contain;
   cursor:zoom-in;
 }
 
-.preview-image.zoomed{
+.photo-box img.zoomed{
   max-width:none;
   width:auto;
-  transform:scale(1.6);
-  transform-origin:center;
+  height:auto;
+  transform:scale(1.7);
+  transform-origin:center center;
   cursor:zoom-out;
 }
 
-.buttons{
+/* ===== BUTTONS ===== */
+.actions{
   display:flex;
   justify-content:center;
-  gap:7px;
   flex-wrap:wrap;
-  margin-top:15px;
+  gap:9px;
+  margin-top:16px;
 }
 
-.download,
-.share{
-  border:0;
-  border-radius:9px;
-  padding:12px 18px;
-  color:#fff;
-  font-weight:900;
-  font-size:14px;
-  cursor:pointer;
+.btn{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:20px;
   text-decoration:none;
+  font-weight:bold;
+  border:0;
+  cursor:pointer;
+  font-size:14px;
 }
 
 .download{
-  background:#000;
+  background:#111;
+  color:white;
 }
 
 .share{
-  background:#078fc5;
+  background:#25d366;
+  color:white;
 }
 
-.message{
+.home{
+  background:#1597d4;
+  color:white;
+}
+
+/* ===== AD ===== */
+.ad{
+  margin:18px 0;
+  min-height:70px;
+  border:1px dashed #aaa;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#777;
+  font-size:13px;
+}
+
+/* ===== SOCIAL ===== */
+.social{
   text-align:center;
-  padding:25px 10px;
-  color:#d00000;
+  margin-top:20px;
+}
+
+.social a{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-decoration:none;
+  margin:4px;
   font-weight:bold;
 }
 
-.ad{
-  margin-top:14px;
-  padding:15px;
-  background:#eaf7fc;
-  border:1px dashed #8ccde5;
-  border-radius:8px;
+.instagram{background:#e1306c;}
+.facebook{background:#1877f2;}
+.whatsapp{background:#25d366;}
+.youtube{background:#ff0000;}
+.tiktok{background:#000;}
+
+#error{
   text-align:center;
-  color:#777;
+  color:#c00;
+  font-weight:bold;
+  padding:30px 10px;
+}
+
+footer{
+  text-align:center;
+  padding:20px 10px;
   font-size:12px;
+  color:#777;
 }
 
 @media(max-width:600px){
-
-  .header{
-    height:318px;
+  .nw-header{
+    height:180px !important;
+    min-height:180px !important;
+    max-height:180px !important;
   }
 
-  .header-content h1{
-    font-size:29px;
+  .nw-header-content h1{
+    font-size:25px;
   }
 
-  .header-content p{
-    font-size:14px;
-  }
-
-  .file-name{
-    font-size:17px;
+  .container{
+    width:95%;
   }
 }
 </style>
@@ -204,424 +235,442 @@ video{
 
 <body>
 
-<header class="header">
-
+<header class="nw-header">
   <img
+    class="nw-header-photo"
     src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
     alt="Ning Wei"
   >
 
-  <div class="header-content">
+  <div class="nw-header-content">
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
-
 </header>
 
-<main class="container">
-
-  <a href="javascript:history.back()" class="back">
-    ← Back
-  </a>
+<div class="container">
 
   <div class="card">
 
-    <div id="content">
-      Loading media...
+    <h2 id="title">Loading...</h2>
+
+    <div id="mediaArea" class="media-area"></div>
+
+    <div class="actions">
+
+      <a id="downloadBtn"
+         class="btn download"
+         href="#"
+         download>
+         Download
+      </a>
+
+      <button id="shareBtn"
+              class="btn share">
+        Share
+      </button>
+
+      <a class="btn home"
+         href="index.html">
+        Home
+      </a>
+
+    </div>
+
+    <div class="ad">
+      Advertisement
+    </div>
+
+    <div class="social">
+      <p><b>Follow Us</b></p>
+
+      <a class="social instagram"
+         href="#"
+         aria-label="Instagram">
+        IG
+      </a>
+
+      <a class="social facebook"
+         href="#"
+         aria-label="Facebook">
+        f
+      </a>
+
+      <a class="social whatsapp"
+         href="#"
+         aria-label="WhatsApp">
+        W
+      </a>
+
+      <a class="social youtube"
+         href="#"
+         aria-label="YouTube">
+        ▶
+      </a>
+
+      <a class="social tiktok"
+         href="#"
+         aria-label="TikTok">
+        ♪
+      </a>
     </div>
 
   </div>
 
-  <div class="ad">
-    Advertisement
-  </div>
+</div>
 
-</main>
+<div id="error"></div>
+
+<footer>
+  © Ning Wei Media
+</footer>
 
 <script>
-
-const params=
-  new URLSearchParams(
-    window.location.search
-  );
-
-const SITE=
+const SITE =
   "https://ningwei2567.github.io/Ning-wei-1/";
 
-let src=
-  params.get("url")||
-  "";
+const params =
+  new URLSearchParams(window.location.search);
 
-let path=
-  params.get("path")||
-  "";
+const mediaArea =
+  document.getElementById("mediaArea");
 
-let name=
-  params.get("name")||
-  "";
+const titleElement =
+  document.getElementById("title");
 
-let mime=
-  params.get("mime")||
-  "";
+const downloadBtn =
+  document.getElementById("downloadBtn");
 
-/* GITHUB PAGES FILE */
+const errorElement =
+  document.getElementById("error");
 
-if(!src && path){
+/* ===== GET FILE INFORMATION ===== */
 
-  src=
-    SITE+
-    path
+let fileUrl =
+  params.get("url");
+
+let fileName =
+  params.get("name");
+
+let mime =
+  params.get("mime");
+
+/* GitHub path mode */
+const path =
+  params.get("path");
+
+if(!fileUrl && path){
+
+  const cleanPath =
+    path.replace(/^\/+/,"");
+
+  fileUrl =
+    SITE +
+    cleanPath
       .split("/")
-      .filter(Boolean)
       .map(encodeURIComponent)
       .join("/");
 
 }
 
-/* OLD FORMAT */
+/* Old compatibility mode */
+if(!fileUrl){
 
-if(!src){
+  const oldFile =
+    params.get("file");
 
-  const folder=
-    params.get("folder")||"";
+  const folder =
+    params.get("folder");
 
-  const file=
-    params.get("file")||"";
+  if(oldFile){
 
-  if(folder && file){
+    if(folder){
 
-    const full=
-      folder+"/"+file;
+      fileUrl =
+        SITE +
+        folder.replace(/^\/+/,"") +
+        "/" +
+        oldFile;
 
-    src=
-      SITE+
-      full
-        .split("/")
-        .filter(Boolean)
-        .map(encodeURIComponent)
-        .join("/");
+    }else{
 
-    if(!name)
-      name=file;
+      fileUrl =
+        SITE +
+        oldFile.replace(/^\/+/,"");
 
+    }
   }
-
 }
 
-/* FILE NAME */
+/* ===== ERROR ===== */
 
-function filenameFromURL(url){
+if(!fileUrl){
 
-  try{
+  titleElement.textContent =
+    "No media selected";
 
-    const clean=
-      url.split("?")[0];
-
-    const parts=
-      clean.split("/");
-
-    return decodeURIComponent(
-      parts[parts.length-1]
-    )||"Media file";
-
-  }catch{
-
-    return "Media file";
-
-  }
-
-}
-
-if(!name)
-  name=filenameFromURL(src);
-
-/* EXTENSION */
-
-function getExtension(filename){
-
-  const clean=
-    filename
-      .split("?")[0]
-      .toLowerCase();
-
-  const parts=
-    clean.split(".");
-
-  return parts.length>1
-    ? parts.pop()
-    : "";
-
-}
-
-const ext=
-  getExtension(name);
-
-/* TYPES */
-
-const audioExt=[
-  "mp3",
-  "wav",
-  "m4a",
-  "aac",
-  "ogg",
-  "oga",
-  "flac",
-  "opus",
-  "wma"
-];
-
-const videoExt=[
-  "mp4",
-  "3gp",
-  "webm",
-  "mkv",
-  "avi",
-  "mov",
-  "m4v"
-];
-
-const imageExt=[
-  "jpg",
-  "jpeg",
-  "png",
-  "gif",
-  "webp",
-  "bmp",
-  "svg"
-];
-
-const isAudio=
-  mime.startsWith("audio/")||
-  audioExt.includes(ext);
-
-const isVideo=
-  mime.startsWith("video/")||
-  videoExt.includes(ext);
-
-const isImage=
-  mime.startsWith("image/")||
-  imageExt.includes(ext);
-
-const content=
-  document.getElementById("content");
-
-if(!src){
-
-  content.innerHTML=`
-    <div class="message">
-      ❌ No media file selected.
-    </div>
-  `;
+  errorElement.textContent =
+    "❌ No media file selected.";
 
 }else{
 
-  renderMedia();
+  /* ===== FILE NAME ===== */
 
-}
-
-/* ESCAPE */
-
-function escapeHTML(value){
-
-  return String(value||"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-/* RENDER */
-
-function renderMedia(){
-
-  let icon="💻";
-  let media="";
-
-  if(isAudio){
-
-    icon="🎵";
-
-    media=`
-
-      <div class="media-box">
-
-        <audio
-          id="audioPlayer"
-          controls
-          preload="auto"
-          src="${escapeHTML(src)}">
-        </audio>
-
-      </div>
-
-    `;
-
-  }
-
-  else if(isVideo){
-
-    icon="🎬";
-
-    media=`
-
-      <div class="media-box">
-
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          src="${escapeHTML(src)}">
-        </video>
-
-      </div>
-
-    `;
-
-  }
-
-  else if(isImage){
-
-    icon="📷";
-
-    media=`
-
-      <div class="media-box">
-
-        <img
-          id="photo"
-          class="preview-image"
-          src="${escapeHTML(src)}"
-          alt="${escapeHTML(name)}">
-
-      </div>
-
-    `;
-
-  }
-
-  else if(ext==="apk"){
-
-    icon="📱";
-
-  }
-
-  content.innerHTML=`
-
-    <div class="file-icon">
-      ${icon}
-    </div>
-
-    <div class="file-name">
-      ${escapeHTML(name)}
-    </div>
-
-    <div class="artist">
-      Ning Wei Media
-    </div>
-
-    ${media}
-
-    <div class="buttons">
-
-      <button
-        class="download"
-        onclick="downloadOriginal()">
-        📥 Download ${ext.toUpperCase()}
-      </button>
-
-      <button
-        class="share"
-        onclick="shareFile()">
-        🔗 Share
-      </button>
-
-    </div>
-
-  `;
-
-  /* PHOTO ZOOM */
-
-  const photo=
-    document.getElementById("photo");
-
-  if(photo){
-
-    photo.addEventListener(
-      "click",
-      ()=>{
-        photo.classList.toggle("zoomed");
-      }
-    );
-
-  }
-
-}
-
-/* DOWNLOAD ORIGINAL */
-
-function downloadOriginal(){
-
-  if(!src)
-    return;
-
-  const link=
-    document.createElement("a");
-
-  link.href=src;
-  link.download=name||"download";
-  link.target="_blank";
-  link.rel="noopener";
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-}
-
-/* SHARE */
-
-async function shareFile(){
-
-  const data={
-    title:name||"Ning Wei Media",
-    text:
-      "Check out "+
-      (name||"this file")+
-      " on Ning Wei Media",
-    url:window.location.href
-  };
-
-  if(navigator.share){
+  if(!fileName){
 
     try{
 
-      await navigator.share(data);
-      return;
+      fileName =
+        decodeURIComponent(
+          fileUrl.split("/").pop()
+        );
 
-    }catch{}
+    }catch(e){
+
+      fileName =
+        fileUrl.split("/").pop();
+
+    }
+  }
+
+  titleElement.textContent =
+    fileName || "Media";
+
+  /* ===== DETECT TYPE ===== */
+
+  const lower =
+    (fileName || fileUrl).toLowerCase();
+
+  if(!mime){
+
+    if(
+      lower.endsWith(".mp3") ||
+      lower.endsWith(".wav") ||
+      lower.endsWith(".m4a") ||
+      lower.endsWith(".aac") ||
+      lower.endsWith(".ogg") ||
+      lower.endsWith(".flac") ||
+      lower.endsWith(".opus")
+    ){
+
+      mime="audio";
+
+    }else if(
+      lower.endsWith(".mp4") ||
+      lower.endsWith(".3gp") ||
+      lower.endsWith(".webm") ||
+      lower.endsWith(".mov") ||
+      lower.endsWith(".mkv") ||
+      lower.endsWith(".avi")
+    ){
+
+      mime="video";
+
+    }else if(
+      lower.endsWith(".jpg") ||
+      lower.endsWith(".jpeg") ||
+      lower.endsWith(".png") ||
+      lower.endsWith(".gif") ||
+      lower.endsWith(".webp")
+    ){
+
+      mime="image";
+
+    }
+  }
+
+  /* ===== AUDIO ===== */
+
+  if(
+    mime === "audio" ||
+    mime.startsWith("audio/")
+  ){
+
+    const audio =
+      document.createElement("audio");
+
+    audio.controls = true;
+    audio.preload = "auto";
+    audio.src = fileUrl;
+
+    mediaArea.appendChild(audio);
+
+    downloadBtn.textContent =
+      "Download " +
+      getExtension(fileName);
 
   }
 
-  try{
+  /* ===== VIDEO ===== */
 
-    await navigator.clipboard.writeText(
-      window.location.href
-    );
+  else if(
+    mime === "video" ||
+    mime.startsWith("video/")
+  ){
 
-    alert("✅ Link copied!");
+    const video =
+      document.createElement("video");
 
-  }catch{
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.src = fileUrl;
 
-    alert(
-      "Copy this page link to share."
-    );
+    mediaArea.appendChild(video);
+
+    downloadBtn.textContent =
+      "Download " +
+      getExtension(fileName);
 
   }
+
+  /* ===== IMAGE ===== */
+
+  else if(
+    mime === "image" ||
+    mime.startsWith("image/")
+  ){
+
+    const box =
+      document.createElement("div");
+
+    box.className =
+      "photo-box";
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      fileUrl;
+
+    img.alt =
+      fileName;
+
+    img.addEventListener(
+      "click",
+      function(){
+
+        img.classList.toggle("zoomed");
+
+      }
+    );
+
+    box.appendChild(img);
+
+    mediaArea.appendChild(box);
+
+    downloadBtn.textContent =
+      "Download " +
+      getExtension(fileName);
+
+  }
+
+  /* ===== UNKNOWN ===== */
+
+  else{
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      fileUrl;
+
+    link.target =
+      "_blank";
+
+    link.rel =
+      "noopener";
+
+    link.className =
+      "btn download";
+
+    link.textContent =
+      "Open File";
+
+    mediaArea.appendChild(link);
+
+    downloadBtn.textContent =
+      "Download";
+
+  }
+
+  /* ===== DOWNLOAD ===== */
+
+  downloadBtn.href =
+    fileUrl;
+
+  downloadBtn.download =
+    fileName || "";
 
 }
 
+/* ===== EXTENSION ===== */
+
+function getExtension(name){
+
+  if(!name){
+    return "File";
+  }
+
+  const parts =
+    name.split(".");
+
+  if(parts.length < 2){
+    return "File";
+  }
+
+  return parts
+    .pop()
+    .toUpperCase();
+}
+
+/* ===== SHARE ===== */
+
+document
+  .getElementById("shareBtn")
+  .addEventListener(
+    "click",
+    async function(){
+
+      const shareData = {
+        title:
+          fileName || "Ning Wei Media",
+        text:
+          fileName || "Ning Wei Media",
+        url:
+          window.location.href
+      };
+
+      try{
+
+        if(
+          navigator.share
+        ){
+
+          await navigator.share(
+            shareData
+          );
+
+        }else{
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          alert(
+            "Link copied!"
+          );
+
+        }
+
+      }catch(e){
+
+        console.log(e);
+
+      }
+
+    }
+  );
 </script>
 
 </body>
