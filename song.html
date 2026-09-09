@@ -3,39 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ning Wei Media</title>
+    <title>Ning Wei Media - Music</title>
     <style>
-        /* Global Background Reset */
+        /* Base Setup matching your website design layout */
         body {
             margin: 0;
             padding: 0;
             background-color: #f5f5f7;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: start;
             min-height: 100vh;
         }
 
-        /* Phone App Screen Mockup Wrap Container */
-        .app-container {
+        .container {
             width: 100%;
-            max-width: 415px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            overflow: hidden;
-            margin: 15px;
-            display: flex;
-            flex-direction: column;
+            max-width: 420px;
+            background: #f5f5f7;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding-bottom: 30px;
         }
 
-        /* Premium Top Header Image Banner Layout */
-        .header-banner {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('ning-wei.png');
+        /* Banner Header Area */
+        .banner {
+            position: relative;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('ning-wei.png');
             background-size: cover;
             background-position: center;
-            height: 150px;
+            height: 180px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,316 +41,291 @@
             text-align: center;
         }
 
-        .header-banner h1 { margin: 0; font-size: 1.7rem; font-weight: 700; }
-        .header-banner p { margin: 4px 0 0 0; font-size: 0.8rem; opacity: 0.9; letter-spacing: 0.5px; }
-
-        /* Sleek Search Layout Component */
-        .search-area {
-            padding: 14px 16px;
+        .banner-title-box {
             display: flex;
+            align-items: center;
             gap: 10px;
-            background: #ffffff;
+            margin-bottom: 2px;
         }
 
-        .search-input-wrap {
-            position: relative;
-            flex: 1;
+        .banner h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
         }
 
-        .search-input-wrap input {
-            width: 100%;
-            padding: 10px 12px 10px 36px;
-            border: 1px solid #e0e0e0;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            background: #f5f5f7;
-            outline: none;
-            box-sizing: border-box;
+        .banner .music-icon {
+            font-size: 2rem;
         }
 
-        .search-input-wrap::before {
-            content: "🔍";
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
+        .banner p {
+            margin: 0;
             font-size: 0.9rem;
+            opacity: 0.95;
+            letter-spacing: 0.5px;
         }
 
-        .search-btn {
-            background: #0076df;
-            color: white;
+        /* Search Section Container */
+        .search-container {
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-box {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e5e5ea;
+        }
+
+        .search-box input {
             border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* RESTORED UPLOAD BUTTON COMPONENT */
+        .upload-section {
+            padding: 0 15px 15px 15px;
+        }
+
+        .btn-upload-direct {
+            width: 100%;
+            background-color: #128c9e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-size: 0.95rem;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(18, 140, 158, 0.2);
         }
 
-        /* Screen Main Interface Wrapper */
-        .main-content {
-            padding: 0 16px 20px 16px;
-        }
-
-        .breadcrumb-text {
-            font-size: 0.85rem;
-            color: #86868b;
-            margin: 0 0 12px 4px;
-            font-weight: 500;
-        }
-
-        /* FIXED UNIFIED COMPACT LIST ITEMS */
-        .compact-list {
+        /* FIXED COMPACT LISTS ROWS */
+        .list-container {
+            padding: 0 15px;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-bottom: 20px;
         }
 
-        .compact-row {
+        .list-item {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 8px 12px; /* Slim inline height padding */
             display: flex;
             align-items: center;
-            padding: 8px 12px;
-            background: #ffffff;
-            border: 1px solid #eef2f5;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: background 0.15s ease;
+            justify-content: space-between;
             text-decoration: none;
             color: inherit;
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .compact-row:active {
-            background: #f5f5f7;
+        .item-left-block {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
         }
 
-        .row-number {
-            width: 28px;
-            height: 28px;
+        /* Smaller Tighter Number Circles */
+        .number-badge {
+            width: 32px;
+            height: 32px;
             background: #000000;
             color: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
             font-weight: bold;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .row-icon {
-            font-size: 1.25rem;
-            margin-right: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .row-icon img {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
-        }
-
-        .row-text {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            overflow: hidden;
-        }
-
-        .row-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #1d1d1f;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .row-subtitle {
-            font-size: 0.75rem;
-            color: #86868b;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .row-arrow {
-            color: #0076df;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-left: 8px;
-            flex-shrink: 0;
-        }
-
-        /* INTEGRATED DETACHED AUDIO PLAYER CARD */
-        .player-card {
-            background: #ffffff;
-            border: 1px solid #eef2f5;
-            border-radius: 20px;
-            padding: 16px;
-            margin-top: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            display: none; /* Reveals automatically when a file row is clicked */
-        }
-
-        .player-track-info {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .player-track-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #1d1d1f;
-            word-break: break-all;
-            margin-bottom: 2px;
-        }
-
-        .player-track-author {
-            font-size: 0.8rem;
-            color: #86868b;
-        }
-
-        audio {
-            width: 100%;
-            margin-bottom: 14px;
-            border-radius: 8px;
-        }
-
-        /* Compact Control Grid Action Layout */
-        .action-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .action-btn {
-            padding: 12px;
             font-size: 0.9rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Row Icons (Folders & Music Notes) */
+        .row-icon {
+            width: 26px;
+            height: 26px;
+            margin-right: 12px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            transition: background 0.15s ease;
         }
 
-        .btn-black { background: #000000; color: #ffffff; }
-        .btn-black:active { background: #222222; }
-
-        .btn-blue { background: #e8f4fd; color: #0076df; }
-        .btn-blue:active { background: #d2e9fc; }
-
-        /* Universal Client Comment Framework Layout */
-        .comment-module {
-            border-top: 1px solid #e5e5ea;
-            padding-top: 12px;
-            text-align: left;
+        .folder-visual {
+            color: #ffcc00;
+            font-size: 1.6rem;
         }
 
-        .comment-module h4 { margin: 0 0 8px 0; font-size: 0.95rem; color: #1d1d1f; }
-
-        .comment-form { display: flex; gap: 6px; margin-bottom: 10px; }
-        
-        .comment-form input {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid #d2d2d7;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            outline: none;
-            background: #f5f5f7;
+        .audio-visual {
+            color: #a64dff;
+            font-size: 1.5rem;
         }
 
-        .comment-form button {
-            background: #0076df;
-            color: white;
-            border: none;
-            padding: 0 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .comment-scroll-box {
-            max-height: 100px;
-            overflow-y: auto;
+        /* Clean Compact Sized Text Layout */
+        .text-meta-box {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            min-width: 0;
+            flex: 1;
         }
 
-        .comment-bubble {
-            background: #f5f5f7;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            color: #333333;
+        .text-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Dynamic Navigation Bottom Bar Layout */
-        .bottom-nav {
-            display: flex;
-            justify-content: center;
-            padding-top: 10px;
-            border-top: 1px solid #eef2f5;
-            margin-top: 15px;
+        .text-subtitle {
+            font-size: 0.75rem;
+            color: #86868b;
+            margin: 2px 0 0 0;
         }
 
-        .back-home-link {
-            text-decoration: none;
-            color: #0076df;
-            font-size: 0.95rem;
-            font-weight: 600;
-            display: flex;
+        .arrow-indicator {
+            color: #0071e3;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding-left: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Home Button styling */
+        .home-navigation {
+            text-align: center;
+            margin-top: 25px;
+            padding: 0 15px;
+        }
+
+        .btn-back-home {
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
+            justify-content: center;
+            gap: 8px;
+            color: #0071e3;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 10px 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Top Website Head Graphic -->
-        <div class="header-banner">
-            <h1>Ning Wei Media</h1>
-            <p>Music • Videos • Photos • Apps • Software</p>
-        </div>
-
-        <!-- Sleek Global Search Component Layout -->
-        <div class="search-area">
-            <div class="search-input-wrap">
-                <input type="text" placeholder="Search everything...">
+    <div class="container">
+        
+        <!-- Header Banner Framework -->
+        <div class="banner">
+            <div class="banner-title-box">
+                <span class="music-icon">🎵</span>
+                <h1>Music</h1>
             </div>
-            <button class="search-btn">🔍</button>
+            <p>Music • Audio • DJ Mixes</p>
         </div>
 
-        <!-- Main Screen Feed Container Body -->
-        <div class="main-content">
-            <div class="breadcrumb-text">Music /</div>
+        <!-- Search Input Bar Box Component -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" onkeyup="filterTracks()" placeholder="Search music...">
+            </div>
+        </div>
 
-            <!-- COMPACT ROWS: Perfectly sized down to look small and sleek -->
-            <div class="compact-list">
-                <!-- Row Item 1: Folder link entry -->
-                <a href="african-folder/index.html" class="compact-row">
-                    <div class="row-number">1</div>
-                    <div class="row-icon">📁</div>
-                    <div class="row-text">
-                        <div class="row-title">African Folder</div>
+        <!-- Master Upload Component -->
+        <div class="upload-section">
+            <button onclick="openUploadPortal()" class="btn-upload-direct">
+                🚨 Upload Music Directly Here
+            </button>
+        </div>
+
+        <!-- COMPACT DOWNSIZED LISTS SECTION -->
+        <div class="list-container" id="masterTrackList">
+            
+            <!-- Item 1: African Folder Link -->
+            <a href="African/index.html" class="list-item">
+                <div class="item-left-block">
+                    <div class="number-badge">1</div>
+                    <div class="row-icon"><span class="folder-visual">📁</span></div>
+                    <div class="text-meta-box">
+                        <h3 class="text-title">African</h3>
+                        <p class="text-subtitle">Music folder</p>
                     </div>
-                    <div class="row-arrow">❯</div>
+                </div>
+                <div class="arrow-indicator">❯</div>
+            </a>
+
+            <!-- Item 2: DJ-Mixes Folder Link -->
+            <a href="DJ-Mixes/index.html" class="list-item">
+                <div class="item-left-block">
+                    <div class="number-badge">2</div>
+                    <div class="row-icon"><span class="folder-visual">📁</span></div>
+                    <div class="text-meta-box">
+                        <h3 class="text-title">DJ-Mixes</h3>
+                        <p class="text-subtitle">Music folder</p>
+                    </div>
+                </div>
+                <div class="arrow-indicator">❯</div>
+            </a>
+
+            <!-- Item 3: Ugandan Folder Link -->
+            <a href="Ugandan/index.html" class="list-item">
+                <div class="item-left-block">
+                    <div class="number-badge">3</div>
+                    <div class="row-icon"><span class="folder-visual">📁</span></div>
+                    <div class="text-meta-box">
+                        <h3 class="text-title">Ugandan</h3>
+                        <p class="text-subtitle">Music folder</p>
+                    </div>
+                </div>
+                <div class="arrow-indicator">❯</div>
+            </a>
+
+            <!-- Item 4: Direct Audio File Track Link -->
+            <!-- Direct links to your audio player file -->
+            <a href="media.html?file=Fire-Burn-Dem-Rasta-Colombiaft-serial-focus-ft-street-zuuka.mp3" class="list-item">
+                <div class="item-left-block">
+                    <div class="number-badge">4</div>
+                    <div class="row-icon"><span class="audio-visual">♫</span></div>
+                    <div class="text-meta-box">
+                        <h3 class="text-title">Fire-Burn-Dem-Rasta-Colombiaft-serial-focus-ft-street-zuuka.mp3</h3>
+                        <p class="text-subtitle">Audio</p>
+                    </div>
+                </div>
+                <div class="arrow-indicator">❯</div>
+            </a>
+
+        </div>
+
+        <!-- Bottom Navigation back to home index -->
+        <div class="home-navigation">
+            <a href="index.html" class="btn-back-home">← Home</a>
+        </div>
+
+    </div>
+
+    <!-- Script Functions Area -->
+    <script>
+        function openUploadPortal() {
+            alert("Upload portal active! Choose your audio track to upload to Ning Wei Media.");
+        }
+
+        function filterTracks() {
+            const filterValue = document.getElementById('searchInput').value.toLowerCase();
