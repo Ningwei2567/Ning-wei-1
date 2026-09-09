@@ -1,507 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ning Wei Media Library</title>
 
-  <title>Ning Wei Media Library</title>
+<style>
+*{box-sizing:border-box}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#eef9ff;
+  color:#111;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef9ff;
-      color: #111;
-    }
+/* MASTER HEADER */
+.header{
+  position:relative;
+  height:318px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:#000;
+}
 
-    /* HEADER */
-    .header {
-      position: relative;
-      height: 318px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+.header img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:50% 18%;
+}
 
-    .header img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 18%;
-      z-index: 0;
-    }
+.header::after{
+  display:none !important;
+  content:none !important;
+}
 
-    .header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(55, 165, 220, 0.38);
-      z-index: 1;
-    }
+.header-content{
+  position:relative;
+  z-index:2;
+  color:white;
+  text-shadow:0 2px 5px rgba(0,0,0,.55);
+}
 
-    .header-content {
-      position: relative;
-      z-index: 2;
-      color: white;
-      text-shadow: 0 2px 5px rgba(0,0,0,.55);
-      padding: 15px;
-    }
+.header-content h1{
+  margin:0;
+  font-size:38px;
+  font-weight:900;
+}
 
-    .header-content h1 {
-      margin: 0;
-      font-size: 38px;
-    }
+.header-content p{
+  margin:8px 0 0;
+  font-size:17px;
+}
 
-    .header-content p {
-      margin: 8px 0 0;
-      font-size: 17px;
-    }
+/* MAIN */
+.container{
+  width:94%;
+  max-width:900px;
+  margin:18px auto 40px;
+}
 
-    /* MAIN */
-    .container {
-      width: 94%;
-      max-width: 900px;
-      margin: 18px auto 40px;
-    }
+/* SEARCH */
+.search-box{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
 
-    /* SEARCH */
-    .search-box {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
+.search-box input{
+  flex:1;
+  min-width:0;
+  padding:11px 13px;
+  border:1px solid #b8dff0;
+  border-radius:9px;
+  font-size:15px;
+  outline:none;
+  background:white;
+}
 
-    .search-box input {
-      flex: 1;
-      min-width: 0;
-      padding: 11px 13px;
-      border: 1px solid #b8dff0;
-      border-radius: 9px;
-      font-size: 15px;
-      outline: none;
-      background: white;
-    }
+.search-box button{
+  border:0;
+  border-radius:9px;
+  padding:0 16px;
+  background:#111;
+  color:white;
+  font-weight:bold;
+}
 
-    .search-box button {
-      border: 0;
-      border-radius: 9px;
-      padding: 0 16px;
-      background: #159bd3;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+/* TOP BAR */
+.top-bar{
+  background:white;
+  border-radius:10px;
+  padding:11px;
+  margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
 
-    /* TOP BAR */
-    .top-bar {
-      background: white;
-      border-radius: 10px;
-      padding: 11px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
+.location{
+  font-size:14px;
+  color:#555;
+  margin-bottom:9px;
+  word-break:break-word;
+}
 
-    .location {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 9px;
-      word-break: break-word;
-    }
+.upload-owner{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  background:#111;
+  color:white;
+  padding:10px;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:bold;
+}
 
-    .upload-owner {
-      display: block;
-      width: 100%;
-      text-align: center;
-      text-decoration: none;
-      background: #111;
-      color: white;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
+/* ITEMS */
+.items{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
 
-    /* ITEMS */
-    .items {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+.item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  background:white;
+  border-radius:8px;
+  padding:7px 9px;
+  min-height:45px;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);
+}
 
-    .item {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      background: white;
-      border-radius: 8px;
-      padding: 7px 9px;
-      min-height: 45px;
-      box-shadow: 0 1px 5px rgba(0,0,0,.07);
-    }
+.number{
+  flex:0 0 29px;
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  font-weight:bold;
+}
 
-    .number {
-      flex: 0 0 29px;
-      width: 29px;
-      height: 29px;
-      border-radius: 50%;
-      background: #000;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: bold;
-    }
+.item-main{
+  flex:1;
+  min-width:0;
+}
 
-    .item-main {
-      flex: 1;
-      min-width: 0;
-    }
+.item-name{
+  font-size:14px;
+  font-weight:bold;
+  word-break:break-word;
+}
 
-    .item-name {
-      font-size: 14px;
-      font-weight: bold;
-      word-break: break-word;
-    }
+.item-meta{
+  margin-top:2px;
+  font-size:11px;
+  color:#777;
+  word-break:break-word;
+}
 
-    .item-meta {
-      margin-top: 2px;
-      font-size: 11px;
-      color: #777;
-      word-break: break-word;
-    }
+.item-actions{
+  display:flex;
+  gap:5px;
+  flex-shrink:0;
+}
 
-    .item-actions {
-      display: flex;
-      gap: 5px;
-      flex-shrink: 0;
-    }
+.action{
+  border:0;
+  border-radius:6px;
+  padding:7px 9px;
+  font-size:11px;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  white-space:nowrap;
+}
 
-    .action {
-      border: 0;
-      border-radius: 6px;
-      padding: 7px 9px;
-      font-size: 11px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-    }
+.open-btn{
+  background:#159bd3;
+  color:white;
+}
 
-    .open-btn {
-      background: #159bd3;
-      color: white;
-    }
+.download-btn{
+  background:#111;
+  color:white;
+}
 
-    .download-btn {
-      background: #111;
-      color: white;
-    }
+.folder-btn{
+  background:#e6f6fd;
+  color:#0875a5;
+  width:100%;
+  text-align:left;
+  border:1px solid #b9e4f4;
+}
 
-    .folder-btn {
-      background: #e6f6fd;
-      color: #0875a5;
-      width: 100%;
-      text-align: left;
-      border: 1px solid #b9e4f4;
-    }
+.status{
+  background:white;
+  padding:15px;
+  border-radius:9px;
+  text-align:center;
+  color:#555;
+  margin-top:10px;
+}
 
-    /* STATUS */
-    .status {
-      background: white;
-      padding: 15px;
-      border-radius: 9px;
-      text-align: center;
-      color: #555;
-      margin-top: 10px;
-    }
+.empty{
+  background:white;
+  border-radius:9px;
+  padding:20px;
+  text-align:center;
+  color:#666;
+}
 
-    .empty {
-      background: white;
-      border-radius: 9px;
-      padding: 20px;
-      text-align: center;
-      color: #666;
-    }
+.artist{
+  color:#0781b5;
+}
 
-    .artist {
-      color: #0781b5;
-    }
+/* PHOTO / VIDEO GRID */
+.media-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
 
-    @media (max-width: 600px) {
-      .header {
-        height: 260px;
-      }
+.media-card{
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid #ddd;
+  text-decoration:none;
+  color:#111;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);
+}
 
-      .header-content h1 {
-        font-size: 29px;
-      }
+.media-thumb{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  background:#000;
+}
 
-      .header-content p {
-        font-size: 14px;
-      }
+.media-title{
+  padding:7px 5px;
+  font-size:11px;
+  font-weight:bold;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
-      .item-actions {
-        gap: 3px;
-      }
+/* MOBILE */
+@media(max-width:600px){
 
-      .action {
-        padding: 6px 7px;
-        font-size: 10px;
-      }
-    }
-  </style>
+  .header{
+    height:318px;
+  }
+
+  .header-content h1{
+    font-size:29px;
+  }
+
+  .header-content p{
+    font-size:14px;
+  }
+
+  .media-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+  }
+
+  .item-actions{
+    gap:3px;
+  }
+
+  .action{
+    padding:6px 7px;
+    font-size:10px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <img src="ning-wei.png" alt="Ning Wei">
-    <div class="header-content">
-      <h1>Ning Wei Media</h1>
-      <p>Music • Videos • Photos • Apps • Software</p>
-    </div>
-  </header>
+<header class="header">
+  <img
+    src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+    alt="Ning Wei"
+  >
 
-  <main class="container">
+  <div class="header-content">
+    <h1>Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
+  </div>
+</header>
 
-    <!-- SEARCH -->
-    <div class="search-box">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search media..."
-        autocomplete="off"
-      >
-      <button onclick="performSearch()">Search</button>
-    </div>
+<main class="container">
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-      <div class="location" id="locationText">
-        Loading library...
-      </div>
+  <div class="search-box">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search media..."
+      autocomplete="off"
+    >
+    <button onclick="performSearch()">Search</button>
+  </div>
 
-      <!-- OWNER ONLY -->
-      <a
-        id="ownerUpload"
-        class="upload-owner"
-        href="#"
-      >
-        📤 Upload Directly Here
-      </a>
+  <div class="top-bar">
+
+    <div class="location" id="locationText">
+      Loading library...
     </div>
 
-    <!-- ITEMS -->
-    <div id="items" class="items"></div>
+    <a
+      id="ownerUpload"
+      class="upload-owner"
+      href="#"
+      target="_blank"
+      rel="noopener"
+    >
+      📤 Upload Directly Here
+    </a>
 
-    <div id="status" class="status">
-      Loading...
-    </div>
+  </div>
 
-  </main>
+  <div id="items" class="items"></div>
+
+  <div id="status" class="status">
+    Loading...
+  </div>
+
+</main>
 
 <script>
-/* =========================================================
-   NING WEI MEDIA UNIVERSAL LIBRARY
-   ========================================================= */
 
-const OWNER = "Ningwei2567";
-const REPO = "Ning-wei-1";
-const BRANCH = "main";
+const OWNER="Ningwei2567";
+const REPO="Ning-wei-1";
+const BRANCH="main";
 
-const category = (
-  new URLSearchParams(window.location.search)
-    .get("category") || "all"
+const SITE="https://ningwei2567.github.io/Ning-wei-1/";
+
+const params=new URLSearchParams(location.search);
+
+const category=(
+  params.get("category")||"all"
 ).toLowerCase();
 
-const requestedFolder = (
-  new URLSearchParams(window.location.search)
-    .get("folder") || ""
-).replace(/^\/+|\/+$/g, "");
+const requestedFolder=(
+  params.get("folder")||""
+).replace(/^\/+|\/+$/g,"");
 
-const initialSearch = (
-  new URLSearchParams(window.location.search)
-    .get("search") || ""
-).trim();
-
-const categoryPaths = {
-  songs: "media/songs",
-  videos: "media/videos",
-  photos: "media/photos",
-  apps: "media/apps",
-  software: "media/software",
-  all: "media"
+const categoryPaths={
+  songs:"media/songs",
+  videos:"media/videos",
+  photos:"media/photos",
+  apps:"media/apps",
+  software:"media/software",
+  all:"media"
 };
 
-const categoryNames = {
-  songs: "Songs",
-  videos: "Videos",
-  photos: "Photos",
-  apps: "Apps",
-  software: "Software",
-  all: "Media"
-};
+let githubItems=[];
+let supabaseItems=[];
+let allItems=[];
 
-let allItems = [];
-let githubItems = [];
-let supabaseItems = [];
+/* SUPABASE */
 
-/* =========================================================
-   SUPABASE
-   ========================================================= */
+const SUPABASE_URL=
+"https://btksyizkcpzubtextuce.supabase.co";
 
-const SUPABASE_URL =
-  "https://btksyizkcpzubtextuce.supabase.co";
+const SUPABASE_ANON_KEY=
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtz eXl6a2NwencidGV4dGN1Y2UiLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8"
+.replace(/\s/g,"");
 
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-function encodePath(path) {
-  return path
-    .split("/")
-    .map(part => encodeURIComponent(part))
+function encodePath(path){
+  return path.split("/")
+    .map(x=>encodeURIComponent(x))
     .join("/");
 }
 
-function getCategoryPath() {
-  return categoryPaths[category] || "media";
+function extension(name){
+  const clean=String(name||"").split("?")[0];
+  const parts=clean.split(".");
+  return parts.length>1
+    ? parts.pop().toLowerCase()
+    : "";
 }
 
-function extension(name) {
-  const clean = String(name || "").split("?")[0];
-  const parts = clean.split(".");
-  if (parts.length < 2) return "";
-  return parts.pop().toLowerCase();
-}
+function categoryFromExtension(name){
 
-function categoryFromExtension(name) {
-  const ext = extension(name);
+  const ext=extension(name);
 
-  if (
-    [
-      "mp3","wav","m4a","aac","ogg","oga",
-      "flac","opus","wma"
-    ].includes(ext)
-  ) {
-    return "songs";
-  }
+  if([
+    "mp3","wav","m4a","aac","ogg",
+    "oga","flac","opus","wma"
+  ].includes(ext)) return "songs";
 
-  if (
-    [
-      "mp4","3gp","webm","mkv","avi",
-      "mov","m4v"
-    ].includes(ext)
-  ) {
-    return "videos";
-  }
+  if([
+    "mp4","3gp","webm","mkv",
+    "avi","mov","m4v"
+  ].includes(ext)) return "videos";
 
-  if (
-    [
-      "jpg","jpeg","png","gif","webp",
-      "bmp","svg"
-    ].includes(ext)
-  ) {
-    return "photos";
-  }
+  if([
+    "jpg","jpeg","png","gif",
+    "webp","bmp","svg"
+  ].includes(ext)) return "photos";
 
-  if (
-    [
-      "apk","xapk"
-    ].includes(ext)
-  ) {
+  if(["apk","xapk"].includes(ext))
     return "apps";
-  }
 
-  if (
-    [
-      "exe","msi","zip","rar","7z",
-      "iso","dmg","deb"
-    ].includes(ext)
-  ) {
-    return "software";
-  }
+  if([
+    "exe","msi","zip","rar",
+    "7z","iso","dmg","deb"
+  ].includes(ext)) return "software";
 
   return "";
 }
 
-function categoryMatches(path, itemCategory) {
+/* IMPORTANT:
+   DIRECT GITHUB UPLOAD LINK
+*/
 
-  if (category === "all") {
-    return true;
-  }
+function ownerUploadFolder(){
 
-  if (itemCategory === category) {
-    return true;
-  }
-
-  const wanted = categoryPaths[category];
-
-  if (wanted && path.startsWith(wanted + "/")) {
-    return true;
-  }
-
-  return false;
-}
-
-/* =========================================================
-   OWNER UPLOAD LINK
-   ========================================================= */
-
-function ownerUploadFolder() {
-
-  if (requestedFolder) {
+  if(requestedFolder)
     return requestedFolder;
-  }
 
-  return getCategoryPath();
+  return categoryPaths[category]||"media";
 }
 
-function updateOwnerUploadLink() {
+function updateOwnerUploadLink(){
 
-  const folder = ownerUploadFolder();
+  const folder=ownerUploadFolder();
 
-  const url =
-    "admin-upload.html?folder=" +
-    encodeURIComponent(folder);
+  const githubUpload=
+    "https://github.com/" +
+    OWNER + "/" +
+    REPO +
+    "/upload/" +
+    BRANCH + "/" +
+    folder;
 
-  document.getElementById("ownerUpload").href = url;
+  document.getElementById("ownerUpload").href=
+    githubUpload;
 
-  document.getElementById("locationText").textContent =
-    folder
-      ? "Current folder: " + folder
-      : "Current section: " + (categoryNames[category] || "Media");
+  document.getElementById("locationText").textContent=
+    "Current folder: "+folder;
 }
 
-/* =========================================================
-   GITHUB
-   ========================================================= */
+/* GITHUB */
 
-async function loadGithub() {
+async function loadGithub(){
 
-  const api =
+  const api=
     "https://api.github.com/repos/" +
     OWNER + "/" +
     REPO +
@@ -509,321 +483,241 @@ async function loadGithub() {
     BRANCH +
     "?recursive=1";
 
-  try {
+  try{
 
-    const response = await fetch(api, {
-      headers: {
-        "Accept": "application/vnd.github+json"
-      }
-    });
+    const response=await fetch(api);
 
-    if (!response.ok) {
+    if(!response.ok)
       throw new Error("GitHub request failed");
-    }
 
-    const data = await response.json();
+    const data=await response.json();
 
-    if (!Array.isArray(data.tree)) {
+    githubItems=[];
+
+    if(!Array.isArray(data.tree))
       return;
-    }
 
-    githubItems = [];
+    data.tree.forEach(entry=>{
 
-    data.tree.forEach(entry => {
+      if(!entry.path)
+        return;
 
-      if (!entry.path) return;
+      if(entry.type==="tree"){
 
-      if (entry.type === "tree") {
         githubItems.push({
-          type: "folder",
-          path: entry.path,
-          name: entry.path.split("/").pop(),
-          source: "github"
+          type:"folder",
+          path:entry.path,
+          name:entry.path.split("/").pop(),
+          source:"github"
         });
+
         return;
       }
 
-      if (entry.type !== "blob") return;
+      if(entry.type!=="blob")
+        return;
 
-      const itemCategory =
+      const cat=
         categoryFromExtension(entry.path);
 
-      if (!categoryMatches(entry.path, itemCategory)) {
+      if(!cat)
         return;
-      }
+
+      if(
+        category!=="all" &&
+        cat!==category
+      )
+        return;
 
       githubItems.push({
-        type: "file",
-        path: entry.path,
-        name: entry.path.split("/").pop(),
-        category: itemCategory,
-        source: "github"
+        type:"file",
+        path:entry.path,
+        name:entry.path.split("/").pop(),
+        category:cat,
+        source:"github"
       });
 
     });
 
-  } catch (error) {
+  }catch(error){
 
     console.error(error);
 
   }
 }
 
-/* =========================================================
-   SUPABASE
-   ========================================================= */
+/* SUPABASE */
 
-async function loadSupabase() {
+async function loadSupabase(){
 
-  try {
+  try{
 
-    const endpoint =
-      SUPABASE_URL +
-      "/rest/v1/artist_submissions" +
-      "?select=id,artist_name,files,created_at,status" +
-      "&status=eq.approved" +
+    const endpoint=
+      SUPABASE_URL+
+      "/rest/v1/artist_submissions"+
+      "?select=id,artist_name,files,created_at,status"+
+      "&status=eq.approved"+
       "&order=created_at.desc";
 
-    const response = await fetch(endpoint, {
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY
+    const response=await fetch(endpoint,{
+      headers:{
+        apikey:SUPABASE_ANON_KEY,
+        Authorization:"Bearer "+SUPABASE_ANON_KEY
       }
     });
 
-    if (!response.ok) {
+    if(!response.ok)
       throw new Error("Supabase request failed");
-    }
 
-    const rows = await response.json();
+    const rows=await response.json();
 
-    supabaseItems = [];
+    supabaseItems=[];
 
-    rows.forEach(row => {
+    rows.forEach(row=>{
 
-      let files = row.files;
+      let files=row.files;
 
-      if (typeof files === "string") {
-        try {
-          files = JSON.parse(files);
-        } catch {
-          files = [];
+      if(typeof files==="string"){
+
+        try{
+          files=JSON.parse(files);
+        }catch{
+          files=[];
         }
+
       }
 
-      if (!Array.isArray(files)) {
-        files = [];
-      }
+      if(!Array.isArray(files))
+        files=[];
 
-      files.forEach(file => {
+      files.forEach(file=>{
 
-        if (!file) return;
+        if(!file)
+          return;
 
-        let fileName =
-          file.name ||
-          file.filename ||
-          file.file_name ||
+        const name=
+          file.name||
+          file.filename||
+          file.file_name||
           "Uploaded file";
 
-        let fileUrl =
-          file.url ||
-          file.public_url ||
-          file.publicUrl ||
+        let url=
+          file.url||
+          file.public_url||
+          file.publicUrl||
           "";
 
-        const fileCategory =
+        const cat=
           String(
-            file.category ||
-            categoryFromExtension(fileName) ||
+            file.category||
+            categoryFromExtension(name)||
             ""
           ).toLowerCase();
 
-        if (!fileCategory) return;
-
-        if (
-          category !== "all" &&
-          fileCategory !== category
-        ) {
+        if(!cat)
           return;
-        }
 
-        if (!fileUrl) {
+        if(
+          category!=="all" &&
+          cat!==category
+        )
+          return;
 
-          const storagePath =
-            file.path ||
-            file.storage_path ||
+        if(!url){
+
+          const storagePath=
+            file.path||
+            file.storage_path||
             "";
 
-          if (storagePath) {
+          if(storagePath){
 
-            fileUrl =
-              SUPABASE_URL +
-              "/storage/v1/object/public/artist-uploads/" +
+            url=
+              SUPABASE_URL+
+              "/storage/v1/object/public/artist-uploads/"+
               storagePath
                 .split("/")
-                .map(x => encodeURIComponent(x))
+                .map(encodeURIComponent)
                 .join("/");
 
           }
 
         }
 
-        if (!fileUrl) return;
+        if(!url)
+          return;
 
         supabaseItems.push({
-
-          type: "file",
-
-          name: fileName,
-
-          url: fileUrl,
-
-          category: fileCategory,
-
+          type:"file",
+          name:name,
+          url:url,
+          category:cat,
           artist:
-            row.artist_name ||
+            row.artist_name||
             "Artist upload",
-
-          source: "artist",
-
-          created_at: row.created_at || ""
-
+          source:"artist"
         });
 
       });
 
     });
 
-  } catch (error) {
+  }catch(error){
 
     console.error(error);
 
   }
 }
 
-/* =========================================================
-   IMMEDIATE FOLDER CHILDREN
-   ========================================================= */
+/* CURRENT FOLDER */
 
-function getImmediateGithubItems() {
+function getImmediateGithubItems(){
 
-  const folder =
-    requestedFolder;
+  const folder=
+    requestedFolder||
+    categoryPaths[category]||
+    "media";
 
-  if (!folder) {
+  const prefix=folder+"/";
 
-    const root =
-      getCategoryPath();
+  const result=[];
+  const seen=new Set();
 
-    const seenFolders = new Set();
-    const result = [];
+  githubItems.forEach(item=>{
 
-    githubItems.forEach(item => {
-
-      if (item.type === "folder") {
-
-        const prefix = root + "/";
-
-        if (!item.path.startsWith(prefix)) {
-          return;
-        }
-
-        const remaining =
-          item.path.slice(prefix.length);
-
-        if (!remaining) return;
-
-        const first =
-          remaining.split("/")[0];
-
-        if (
-          remaining.includes("/") &&
-          !seenFolders.has(first)
-        ) {
-
-          seenFolders.add(first);
-
-          result.push({
-            type: "folder",
-            name: first,
-            path: root + "/" + first,
-            source: "github"
-          });
-
-        }
-
-      }
-
-      if (item.type === "file") {
-
-        const prefix = root + "/";
-
-        if (!item.path.startsWith(prefix)) {
-          return;
-        }
-
-        const remaining =
-          item.path.slice(prefix.length);
-
-        if (
-          remaining &&
-          !remaining.includes("/")
-        ) {
-          result.push(item);
-        }
-
-      }
-
-    });
-
-    return result;
-  }
-
-  const prefix =
-    folder + "/";
-
-  const result = [];
-  const seenFolders = new Set();
-
-  githubItems.forEach(item => {
-
-    if (!item.path.startsWith(prefix)) {
+    if(!item.path.startsWith(prefix))
       return;
-    }
 
-    const remaining =
+    const remaining=
       item.path.slice(prefix.length);
 
-    if (!remaining) return;
+    if(!remaining)
+      return;
 
-    if (item.type === "folder") {
+    if(item.type==="folder"){
 
-      const first =
+      const first=
         remaining.split("/")[0];
 
-      if (
-        remaining.includes("/") &&
-        !seenFolders.has(first)
-      ) {
+      if(
+        !seen.has(first)
+      ){
 
-        seenFolders.add(first);
+        seen.add(first);
 
         result.push({
-          type: "folder",
-          name: first,
-          path: prefix + first,
-          source: "github"
+          type:"folder",
+          name:first,
+          path:prefix+first,
+          source:"github"
         });
 
       }
 
-    }
+    }else{
 
-    if (item.type === "file") {
-
-      if (!remaining.includes("/")) {
+      if(!remaining.includes("/"))
         result.push(item);
-      }
 
     }
 
@@ -832,23 +726,21 @@ function getImmediateGithubItems() {
   return result;
 }
 
-/* =========================================================
-   BUILD LIST
-   ========================================================= */
+/* BUILD */
 
-function buildItems() {
+function buildItems(){
 
-  const currentGithub =
+  const current=
     getImmediateGithubItems();
 
-  if (requestedFolder) {
+  if(requestedFolder){
 
-    allItems = currentGithub;
+    allItems=current;
 
-  } else {
+  }else{
 
-    allItems = [
-      ...currentGithub,
+    allItems=[
+      ...current,
       ...supabaseItems
     ];
 
@@ -857,148 +749,218 @@ function buildItems() {
   renderItems();
 }
 
-/* =========================================================
-   OPEN FILE
-   ========================================================= */
+/* GITHUB PAGES FILE URL */
 
-function githubRawUrl(path) {
+function githubPagesUrl(path){
 
-  return (
-    "https://raw.githubusercontent.com/" +
-    OWNER + "/" +
-    REPO + "/" +
-    BRANCH + "/" +
-    encodePath(path)
-  );
-
+  return SITE+
+    encodePath(path);
 }
 
-function playerUrl(item) {
+/* PLAYER URL */
 
-  if (item.source === "artist") {
+function playerUrl(item){
 
-    return (
-      "media.html?url=" +
-      encodeURIComponent(item.url) +
-      "&name=" +
-      encodeURIComponent(item.name)
-    );
+  if(item.source==="artist"){
+
+    return "media.html?url="+
+      encodeURIComponent(item.url)+
+      "&name="+
+      encodeURIComponent(item.name)+
+      "&mime="+
+      encodeURIComponent(
+        item.mime||""
+      );
 
   }
 
-  return (
-    "media.html?path=" +
-    encodeURIComponent(item.path)
-  );
+  return "media.html?path="+
+    encodeURIComponent(item.path)+
+    "&name="+
+    encodeURIComponent(item.name);
 
 }
 
-function downloadUrl(item) {
+/* DOWNLOAD */
 
-  if (item.source === "artist") {
+function downloadUrl(item){
+
+  if(item.source==="artist")
     return item.url;
-  }
 
-  return githubRawUrl(item.path);
-
+  return githubPagesUrl(item.path);
 }
 
-/* =========================================================
-   RENDER
-   ========================================================= */
+/* SHORT TITLE */
 
-function renderItems() {
+function shortTitle(name){
 
-  const container =
+  const noExt=
+    String(name)
+      .replace(/\.[^/.]+$/,"")
+      .replace(/[_-]+/g," ");
+
+  const words=
+    noExt.trim().split(/\s+/);
+
+  return words.slice(0,3).join(" ");
+}
+
+/* RENDER */
+
+function renderItems(){
+
+  const container=
     document.getElementById("items");
 
-  const status =
+  const status=
     document.getElementById("status");
 
-  container.innerHTML = "";
+  container.innerHTML="";
 
-  let items =
-    [...allItems];
+  let items=[...allItems];
 
-  const query =
+  const query=
     document.getElementById("searchInput")
-      .value
-      .trim()
+      .value.trim()
       .toLowerCase();
 
-  if (query) {
+  if(query){
 
-    items =
-      items.filter(item => {
+    items=items.filter(item=>{
 
-        const text = [
-          item.name,
-          item.path,
-          item.artist,
-          item.category
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
+      const text=[
+        item.name,
+        item.path,
+        item.artist,
+        item.category
+      ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
 
-        return text.includes(query);
+      return text.includes(query);
 
-      });
+    });
 
   }
 
-  /* FOLDERS FIRST */
-  items.sort((a, b) => {
+  items.sort((a,b)=>{
 
-    if (
-      a.type === "folder" &&
-      b.type !== "folder"
-    ) {
-      return -1;
-    }
+    if(
+      a.type==="folder" &&
+      b.type!=="folder"
+    ) return -1;
 
-    if (
-      a.type !== "folder" &&
-      b.type === "folder"
-    ) {
-      return 1;
-    }
+    if(
+      a.type!=="folder" &&
+      b.type==="folder"
+    ) return 1;
 
     return String(a.name)
       .localeCompare(String(b.name));
 
   });
 
-  if (!items.length) {
+  if(!items.length){
 
-    container.innerHTML =
+    container.innerHTML=
       '<div class="empty">No media found.</div>';
 
-    status.style.display = "none";
-
+    status.style.display="none";
     return;
+
   }
 
-  /* NUMBERING RESTARTS HERE */
-  items.forEach((item, index) => {
+  status.style.display="none";
 
-    const number =
-      index + 1;
+  const isVisual=
+    category==="photos" ||
+    category==="videos";
 
-    const row =
+  if(isVisual && requestedFolder){
+
+    container.className="media-grid";
+
+  }else{
+
+    container.className="items";
+
+  }
+
+  items.forEach((item,index)=>{
+
+    const number=index+1;
+
+    if(
+      isVisual &&
+      item.type==="file"
+    ){
+
+      const card=
+        document.createElement("a");
+
+      card.className="media-card";
+      card.href=playerUrl(item);
+
+      const ext=extension(item.name);
+
+      let thumb="";
+
+      if(category==="photos"){
+
+        thumb=
+          `<img class="media-thumb"
+           src="${escapeHtml(
+             item.source==="artist"
+               ? item.url
+               : githubPagesUrl(item.path)
+           )}"
+           alt="${escapeHtml(item.name)}">`;
+
+      }else{
+
+        thumb=
+          `<video
+             class="media-thumb"
+             muted
+             preload="metadata"
+             playsinline
+             src="${escapeHtml(
+               item.source==="artist"
+                 ? item.url
+                 : githubPagesUrl(item.path)
+             )}">
+           </video>`;
+
+      }
+
+      card.innerHTML=
+        thumb+
+        `<div class="media-title">
+          ${escapeHtml(shortTitle(item.name))}
+        </div>`;
+
+      container.appendChild(card);
+
+      return;
+
+    }
+
+    const row=
       document.createElement("div");
 
-    row.className = "item";
+    row.className="item";
 
-    if (item.type === "folder") {
+    if(item.type==="folder"){
 
-      const href =
-        "library.html?category=" +
-        encodeURIComponent(category) +
-        "&folder=" +
+      const href=
+        "library.html?category="+
+        encodeURIComponent(category)+
+        "&folder="+
         encodeURIComponent(item.path);
 
-      row.innerHTML = `
+      row.innerHTML=`
 
         <div class="number">
           ${number}
@@ -1017,31 +979,28 @@ function renderItems() {
         <div class="item-actions">
           <a
             class="action folder-btn"
-            href="${href}"
-          >
+            href="${href}">
             Open
           </a>
         </div>
-
       `;
 
-    } else {
+    }else{
 
-      const artist =
-        item.artist
-          ? `<span class="artist"> • ${escapeHtml(item.artist)}</span>`
-          : "";
-
-      const open =
+      const open=
         playerUrl(item);
 
-      const download =
+      const download=
         downloadUrl(item);
 
-      const ext =
-        extension(item.name);
+      const artist=
+        item.artist
+          ? `<span class="artist">
+               • ${escapeHtml(item.artist)}
+             </span>`
+          : "";
 
-      row.innerHTML = `
+      row.innerHTML=`
 
         <div class="number">
           ${number}
@@ -1051,15 +1010,13 @@ function renderItems() {
 
           <div class="item-name">
             ${escapeHtml(item.name)}
+            ${artist}
           </div>
 
           <div class="item-meta">
             ${escapeHtml(
-              item.category ||
-              ext.toUpperCase() ||
-              "Media"
+              extension(item.name).toUpperCase()
             )}
-            ${artist}
           </div>
 
         </div>
@@ -1068,21 +1025,18 @@ function renderItems() {
 
           <a
             class="action open-btn"
-            href="${open}"
-          >
+            href="${open}">
             Open
           </a>
 
           <a
             class="action download-btn"
             href="${download}"
-            download
-          >
+            download>
             Download
           </a>
 
         </div>
-
       `;
 
     }
@@ -1091,79 +1045,31 @@ function renderItems() {
 
   });
 
-  status.style.display = "none";
-
 }
 
-/* =========================================================
-   SEARCH
-   ========================================================= */
+/* SEARCH */
 
-function performSearch() {
+function performSearch(){
 
   renderItems();
 
-  const query =
-    document.getElementById("searchInput")
-      .value
-      .trim();
-
-  const url =
-    new URL(window.location.href);
-
-  if (query) {
-    url.searchParams.set("search", query);
-  } else {
-    url.searchParams.delete("search");
-  }
-
-  window.history.replaceState({}, "", url);
-
 }
 
-/* =========================================================
-   INIT
-   ========================================================= */
+document
+  .getElementById("searchInput")
+  .addEventListener(
+    "input",
+    renderItems
+  );
 
-async function init() {
+/* START */
 
-  updateOwnerUploadLink();
+updateOwnerUploadLink();
 
-  document.getElementById("searchInput").value =
-    initialSearch;
-
-  document
-    .getElementById("searchInput")
-    .addEventListener("keydown", event => {
-
-      if (event.key === "Enter") {
-        performSearch();
-      }
-
-    });
-
-  try {
-
-    await Promise.all([
-      loadGithub(),
-      loadSupabase()
-    ]);
-
-    buildItems();
-
-  } catch (error) {
-
-    console.error(error);
-
-    document.getElementById("status")
-      .textContent =
-      "Unable to load the library.";
-
-  }
-
-}
-
-init();
+Promise.all([
+  loadGithub(),
+  loadSupabase()
+]).then(buildItems);
 
 </script>
 
