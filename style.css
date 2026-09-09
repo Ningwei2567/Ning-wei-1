@@ -1,123 +1,24 @@
-/* ===== NING WEI MASTER HEADER ===== */
-.header,
-.nw-header{
-  position:relative !important;
-  height:125px !important;
-  min-height:125px !important;
-  max-height:125px !important;
-  overflow:hidden !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  text-align:center !important;
-  background:none !important;
+.header {
+  height: 125px !important;
+  min-height: 125px !important;
+  max-height: 125px !important;
+  overflow: hidden !important;
 }
 
-/* SAME PHOTO EVERYWHERE */
-.header img,
-.nw-header img,
-.nw-header-photo{
-  position:absolute !important;
-  inset:0 !important;
-  width:100% !important;
-  height:100% !important;
+.header img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 
-  object-fit:cover !important;
+  /* PUSH PHOTO DOWN */
+  object-position: 50% 50% !important;
 
-  /* HEAD AT TOP — ELBOW AT BOTTOM */
-  object-position:50% 34% !important;
-
-  transform:none !important;
-  filter:none !important;
-  opacity:1 !important;
+  filter: none !important;
+  opacity: 1 !important;
 }
 
-/* REMOVE ALL BLUE/DARK OVERLAYS */
 .header::before,
-.header::after,
-.nw-header::before,
-.nw-header::after,
-.nw-header-overlay{
-  display:none !important;
-  content:none !important;
-  background:none !important;
-}
-
-/* HEADER TEXT */
-.header-content,
-.nw-header-content{
-  position:relative !important;
-  z-index:5 !important;
-  color:#fff !important;
-  text-shadow:0 2px 5px rgba(0,0,0,.55) !important;
-}
-
-.header-content h1,
-.nw-header-content h1{
-  margin:0 !important;
-  font-size:26px !important;
-}
-
-.header-content p,
-.nw-header-content p{
-  margin:3px 0 0 !important;
-  font-size:12px !important;
-}
-
-/* NEVER MAKE IT BIG AGAIN ON PHONES */
-@media(max-width:600px){
-  .header,
-  .nw-header{
-    height:125px !important;
-    min-height:125px !important;
-    max-height:125px !important;
-  }
-
-  .header img,
-  .nw-header img,
-  .nw-header-photo{
-    object-position:50% 34% !important;
-  }
-}
-/* ========================================= */
-/* NING WEI MEDIA MASTER HEADER STYLES       */
-/* ========================================= */
-
-.hero-header {
-  width: 100%;
-  aspect-ratio: 16 / 9; 
-  max-height: 400px; 
-  /* Make sure this points to your exact image name in the main folder */
-  background-image: url('/your-image.jpg'); 
-  background-size: cover; 
-  background-position: center center; 
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  /* Adding a default background color just in case the image loads slowly */
-  background-color: #333; 
-}
-
-.hero-title {
-  color: white;
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin: 0;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
-}
-
-.hero-subtitle {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-top: 8px;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-}
-
-@media (max-width: 600px) {
-  .hero-title { font-size: 2rem; }
-  .hero-subtitle { font-size: 0.9rem; }
+.header::after {
+  display: none !important;
+  content: none !important;
 }
