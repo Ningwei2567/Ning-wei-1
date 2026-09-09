@@ -1,45 +1,831 @@
-.header {
-  position: relative;
-  height: 125px !important;
-  min-height: 125px !important;
-  max-height: 125px !important;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: #000;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.header img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 34% !important;
-}
+  <title>Ning Wei Media</title>
 
-.header-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-  text-shadow: 0 2px 5px rgba(0,0,0,.55);
-  padding: 10px;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.header-content h1 {
-  margin: 0;
-  font-size: 26px;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.header-content p {
-  margin: 3px 0 0;
-  font-size: 12px;
-}
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #111;
+    }
 
-.header::before,
-.header::after {
-  display: none !important;
-  content: none !important;
-}
+    /* =========================
+       HEADER
+       ========================= */
+
+    .header {
+      position: relative;
+      width: 100%;
+      height: 125px;
+      min-height: 125px;
+      max-height: 125px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #000;
+    }
+
+    .header img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 34%;
+      display: block;
+      filter: none !important;
+      opacity: 1 !important;
+    }
+
+    /* NO COLOR OVERLAY */
+    .header::before,
+    .header::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      text-align: center;
+      padding: 5px 10px;
+      text-shadow: 0 2px 5px rgba(0,0,0,.55);
+    }
+
+    .header-content h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .header-content p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    /* =========================
+       MAIN CONTAINER
+       ========================= */
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    /* =========================
+       SEARCH
+       ========================= */
+
+    .search-box {
+      width: 100%;
+      margin: 0 0 18px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 42px;
+      border: 1px solid #d4dbe5;
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    .search-box input:focus {
+      border-color: #4a90e2;
+    }
+
+    /* =========================
+       SECTIONS
+       ========================= */
+
+    section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    /* =========================
+       MAIN MENU
+       ========================= */
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 45px;
+      padding: 7px 10px;
+      background: white;
+      border-radius: 9px;
+      text-decoration: none;
+      color: #111;
+      border: 1px solid #e1e6ed;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,.08);
+    }
+
+    .number {
+      flex: 0 0 30px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      margin-right: 10px;
+    }
+
+    .menu-text {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       TRENDING SONGS
+       ========================= */
+
+    .song-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .song-card {
+      display: block;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 9px;
+      background: white;
+      border: 1px solid #e1e6ed;
+      color: #111;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+
+    .song-card:hover {
+      background: #f7f9fc;
+    }
+
+    /* =========================
+       TRENDING APPS
+       ========================= */
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .app-card {
+      background: white;
+      border: 1px solid #e1e6ed;
+      border-radius: 10px;
+      padding: 10px 5px;
+      text-align: center;
+      text-decoration: none;
+      color: #111;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+
+    .app-logo {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 7px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .youtube {
+      background: #ff0000;
+    }
+
+    .whatsapp {
+      background: #25d366;
+    }
+
+    .facebook {
+      background: #1877f2;
+    }
+
+    .instagram {
+      background: linear-gradient(
+        135deg,
+        #833ab4,
+        #fd1d1d,
+        #fcb045
+      );
+    }
+
+    .app-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       UPLOAD BOX
+       ========================= */
+
+    .upload-box {
+      background: white;
+      border: 1px solid #dfe5ec;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,.05);
+    }
+
+    .upload-box h3 {
+      margin: 0 0 7px;
+      font-size: 19px;
+    }
+
+    .upload-box p {
+      margin: 0 0 13px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .upload-button {
+      display: inline-block;
+      background: #000;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .upload-button:hover {
+      background: #222;
+    }
+
+    /* =========================
+       SOCIAL SECTION
+       ========================= */
+
+    .social-section {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .social-section h2 {
+      margin: 0 0 13px;
+      font-size: 20px;
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .social-youtube {
+      background: #ff0000;
+    }
+
+    .social-instagram {
+      background: linear-gradient(
+        135deg,
+        #833ab4,
+        #fd1d1d,
+        #fcb045
+      );
+    }
+
+    .social-facebook {
+      background: #1877f2;
+    }
+
+    .social-whatsapp {
+      background: #25d366;
+    }
+
+    .social-tiktok {
+      background: #000;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      text-align: center;
+      padding: 20px 10px 25px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 700px) {
+
+      .header {
+        height: 125px;
+        min-height: 125px;
+        max-height: 125px;
+      }
+
+      .header img {
+        object-position: 50% 34%;
+      }
+
+      .header-content h1 {
+        font-size: 27px;
+      }
+
+      .header-content p {
+        font-size: 12px;
+      }
+
+      .container {
+        padding: 12px;
+      }
+
+      .section-title {
+        font-size: 19px;
+      }
+
+      .menu-item {
+        min-height: 43px;
+      }
+
+      .number {
+        width: 29px;
+        height: 29px;
+        flex-basis: 29px;
+        margin-right: 9px;
+      }
+
+      .menu-text {
+        font-size: 14px;
+      }
+
+      .apps-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 7px;
+      }
+
+      .app-card {
+        padding: 8px 3px;
+      }
+
+      .app-logo {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+
+      .app-name {
+        font-size: 11px;
+      }
+
+      .social {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 380px) {
+
+      .header-content h1 {
+        font-size: 24px;
+      }
+
+      .header-content p {
+        font-size: 11px;
+      }
+
+      .apps-grid {
+        gap: 5px;
+      }
+
+      .app-logo {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+
+  <header class="header">
+
+    <img
+      src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+      alt="Ning Wei"
+    >
+
+    <div class="header-content">
+      <h1>Ning Wei Media</h1>
+      <p>Music • Videos • Photos • Apps • Software</p>
+    </div>
+
+  </header>
+
+
+  <main class="container">
+
+    <!-- =========================
+         SEARCH
+         ========================= -->
+
+    <div class="search-box">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="🔍 Search music, videos, photos, apps or software..."
+        autocomplete="off"
+      >
+    </div>
+
+
+    <!-- =========================
+         MAIN MENU
+         ========================= -->
+
+    <section>
+
+      <h2 class="section-title">Explore</h2>
+
+      <div class="menu-list" id="mainMenu">
+
+        <a class="menu-item" href="audio.html">
+          <span class="number">1</span>
+          <span class="menu-text">🎵 Songs</span>
+        </a>
+
+        <a class="menu-item" href="videos.html">
+          <span class="number">2</span>
+          <span class="menu-text">🎬 Videos</span>
+        </a>
+
+        <a class="menu-item" href="photos.html">
+          <span class="number">3</span>
+          <span class="menu-text">📸 Photos</span>
+        </a>
+
+        <a class="menu-item" href="apks.html">
+          <span class="number">4</span>
+          <span class="menu-text">📱 Apps</span>
+        </a>
+
+        <a class="menu-item" href="software.html">
+          <span class="number">5</span>
+          <span class="menu-text">💻 Software</span>
+        </a>
+
+        <a
+          class="menu-item"
+          href="media/songs/DJ-Mixes/index.html"
+        >
+          <span class="number">6</span>
+          <span class="menu-text">🎧 DJ Mixes</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TRENDING SONGS
+         ========================= -->
+
+    <section style="margin-top:28px;">
+
+      <h2 class="section-title">🔥 Trending Songs</h2>
+
+      <div class="song-list">
+
+        <a
+          class="song-card"
+          href="library.html?category=songs&folder=Ugandan"
+        >
+          Ugandan Music
+        </a>
+
+        <a
+          class="song-card"
+          href="library.html?category=songs&folder=African"
+        >
+          African Music
+        </a>
+
+        <a
+          class="song-card"
+          href="library.html?category=songs&folder=International"
+        >
+          International Music
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         OLD IS GOLD
+         ========================= -->
+
+    <section style="margin-top:28px;">
+
+      <h2 class="section-title">🕰️ Old Is Gold</h2>
+
+      <div class="menu-list">
+
+        <a
+          class="menu-item"
+          href="library.html?category=songs&folder=Old-is-Gold/Ugandan-Music"
+        >
+          <span class="number">1</span>
+          <span class="menu-text">Ugandan Music</span>
+        </a>
+
+        <a
+          class="menu-item"
+          href="library.html?category=songs&folder=Old-is-Gold/Amapiano"
+        >
+          <span class="number">2</span>
+          <span class="menu-text">Amapiano</span>
+        </a>
+
+        <a
+          class="menu-item"
+          href="library.html?category=songs&folder=Old-is-Gold/South-African-Music"
+        >
+          <span class="number">3</span>
+          <span class="menu-text">South African Music</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TRENDING APPS
+         ========================= -->
+
+    <section style="margin-top:28px;">
+
+      <h2 class="section-title">📱 Trending Apps</h2>
+
+      <div class="apps-grid">
+
+        <a
+          class="app-card"
+          href="https://www.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="app-logo youtube">▶</div>
+          <div class="app-name">YouTube</div>
+        </a>
+
+        <a
+          class="app-card"
+          href="https://www.whatsapp.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="app-logo whatsapp">☎</div>
+          <div class="app-name">WhatsApp</div>
+        </a>
+
+        <a
+          class="app-card"
+          href="https://www.facebook.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="app-logo facebook">f</div>
+          <div class="app-name">Facebook</div>
+        </a>
+
+        <a
+          class="app-card"
+          href="https://www.instagram.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="app-logo instagram">◎</div>
+          <div class="app-name">Instagram</div>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ARTIST / VIEWER UPLOAD
+         HOMEPAGE ONLY
+         ========================= -->
+
+    <section style="margin-top:28px;">
+
+      <div class="upload-box">
+
+        <h3>📤 Upload Your Media</h3>
+
+        <p>
+          Artists and visitors can submit songs, videos, photos,
+          apps or software.
+        </p>
+
+        <a
+          class="upload-button"
+          href="upload.html"
+        >
+          📤 Upload Media
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOLLOW US
+         ========================= -->
+
+    <section class="social-section">
+
+      <h2>Follow Us</h2>
+
+      <div class="social-buttons">
+
+        <a
+          class="social social-youtube"
+          href="https://www.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+        >
+          ▶
+        </a>
+
+        <a
+          class="social social-instagram"
+          href="https://www.instagram.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          ◎
+        </a>
+
+        <a
+          class="social social-facebook"
+          href="https://www.facebook.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          f
+        </a>
+
+        <a
+          class="social social-whatsapp"
+          href="https://www.whatsapp.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+        >
+          ☎
+        </a>
+
+        <a
+          class="social social-tiktok"
+          href="https://www.tiktok.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="TikTok"
+        >
+          ♪
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+       ========================= -->
+
+  <footer>
+    © 2026 Ning Wei Media
+  </footer>
+
+
+  <!-- =========================
+       SEARCH SCRIPT
+       ========================= -->
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("input", function () {
+
+      const query = this.value
+        .toLowerCase()
+        .trim();
+
+      const items = document.querySelectorAll(
+        ".menu-item, .song-card, .app-card"
+      );
+
+      items.forEach(function (item) {
+
+        const text = item.textContent
+          .toLowerCase();
+
+        if (!query || text.includes(query)) {
+          item.style.display = "";
+        } else {
+          item.style.display = "none";
+        }
+
+      });
+
+    });
+  </script>
+
+</body>
+</html>
