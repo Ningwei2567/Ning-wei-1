@@ -1,6 +1,6 @@
 /* =========================================================
    NING WEI MEDIA — MASTER STYLE
-   UNIVERSAL HEADER
+   ONE CSS FOR ALL PAGES
    ========================================================= */
 
 * {
@@ -9,388 +9,283 @@
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #eef7fc;
-    color: #14243d;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: 100% !important;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif !important;
+    background: #f3faff !important;
+    color: #111 !important;
+}
+
+
 /* =========================================================
-   UNIVERSAL HEADER
+   MASTER HEADER
+   This creates the header without needing new HTML.
    ========================================================= */
 
-.nw-header {
-    position: relative;
-    width: 100%;
-    height: 318px;
-    min-height: 318px;
-    max-height: 318px;
-    overflow: hidden;
+body::before {
+    content: "Ning Wei Media\A Music • Videos • Photos • Apps • Software";
+
+    display: block !important;
+
+    width: 100% !important;
+    height: 205px !important;
 
     background-image:
         linear-gradient(
-            rgba(32, 130, 185, 0.28),
-            rgba(32, 130, 185, 0.28)
+            rgba(55,145,205,.38),
+            rgba(55,145,205,.38)
         ),
-        url("ning-wei.png");
+        url("ning-wei.png") !important;
 
-    background-repeat: no-repeat;
-
-    /*
-       IMPORTANT:
-       The photo starts from the TOP of the original image.
-       This keeps the head visible instead of cutting it away.
-    */
-    background-size: cover;
-    background-position: center top;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Extra light blue layer */
-.nw-header::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(30, 130, 190, 0.12);
-    pointer-events: none;
-}
-
-/* =========================================================
-   HEADER CONTENT
-   ========================================================= */
-
-.nw-header-content {
-    position: relative;
-    z-index: 5;
-
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
+    background-size: cover !important;
 
     /*
-       Text stays on the right like the HOME screenshot.
+       Crop the lower-left arm.
+       Keep the portrait toward the left
+       and the large face visible.
     */
-    align-items: flex-end;
-    justify-content: center;
+    background-position: 24% 16% !important;
 
-    padding: 20px 7%;
-    text-align: center;
-}
+    background-repeat: no-repeat !important;
 
-/* Main title */
+    color: white !important;
 
-.nw-header-title {
-    margin: 0;
+    text-align: center !important;
 
-    color: white;
+    white-space: pre-line !important;
 
-    font-size: clamp(38px, 5vw, 64px);
-    line-height: 1.1;
-    font-weight: 800;
+    font-size: 32px !important;
 
-    text-shadow:
-        0 3px 8px rgba(0, 0, 0, 0.65);
-}
+    font-weight: 800 !important;
 
-/* Subtitle */
+    line-height: 1.15 !important;
 
-.nw-header-subtitle {
-    margin: 14px 0 0;
-
-    color: white;
-
-    font-size: clamp(20px, 2.8vw, 32px);
-    line-height: 1.25;
-    font-weight: 500;
+    padding-top: 72px !important;
 
     text-shadow:
-        0 3px 7px rgba(0, 0, 0, 0.65);
+        0 2px 6px rgba(0,0,0,.85) !important;
+
+    overflow: hidden !important;
+
+    position: relative !important;
+
+    z-index: 10 !important;
 }
+
 
 /* =========================================================
-   REMOVE BACK TO HOME EVERYWHERE
+   REMOVE OLD HEADER MARKUP
    ========================================================= */
 
-.back-home,
-.back-to-home,
-.back-home-button,
-.home-back,
-.back-button,
-.go-home,
-[href="index.html"].back,
-[href="../index.html"].back {
+header,
+.header,
+.site-header,
+.main-header,
+.page-header,
+.hero,
+.hero-header,
+.banner,
+.site-banner,
+.nw-header {
+    /*
+       Existing header markup is hidden because
+       body::before is now the master header.
+    */
     display: none !important;
 }
+
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+
+main,
+.container,
+.content,
+.page-content,
+.wrapper {
+    max-width: 100% !important;
+}
+
 
 /* =========================================================
    SEARCH
    ========================================================= */
 
-.nw-search {
-    width: calc(100% - 60px);
-    max-width: 1100px;
-
-    margin: 38px auto 28px;
+input[type="search"],
+input[type="text"],
+.search-input {
+    max-width: 100% !important;
 }
 
-.nw-search input {
-    width: 100%;
-    height: 72px;
 
-    padding: 0 28px;
+/* =========================================================
+   NUMBER CIRCLES
+   ========================================================= */
 
-    border: 1px solid #d2d2d2;
-    border-radius: 40px;
+.nw-number,
+.number,
+.number-circle,
+.badge {
+    background: #000 !important;
+    color: #fff !important;
 
-    background: #ffffff;
+    border-radius: 50% !important;
 
-    color: #555;
+    width: 46px !important;
+    height: 46px !important;
 
-    font-size: 25px;
+    min-width: 46px !important;
+    min-height: 46px !important;
 
-    outline: none;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   COMPACT ROWS
+   ========================================================= */
+
+.nw-item,
+.item,
+.file-item,
+.folder-item,
+.media-item,
+.list-item {
+    min-height: 70px !important;
+
+    padding: 10px 14px !important;
+
+    margin-bottom: 8px !important;
+
+    border-radius: 18px !important;
+
+    background: #fff !important;
 
     box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.06);
+        0 2px 8px rgba(0,0,0,.06) !important;
 }
 
-.nw-search input:focus {
-    border-color: #168fa8;
-}
 
 /* =========================================================
-   MAIN CONTENT
+   TEXT
    ========================================================= */
 
-.nw-content {
-    width: 100%;
-    max-width: 1100px;
-
-    margin: 0 auto;
-
-    padding: 0 20px 40px;
+.nw-item-text,
+.item-title,
+.file-name,
+.folder-name {
+    font-weight: 700 !important;
 }
+
 
 /* =========================================================
-   NUMBERED LIST
+   ARROWS
    ========================================================= */
 
-.nw-list {
-    width: 100%;
-
-    background: white;
-
-    border-radius: 28px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.06);
+.nw-arrow,
+.arrow,
+.chevron {
+    color: #168dcc !important;
+    font-weight: 900 !important;
 }
 
-.nw-item {
-    display: flex;
-    align-items: center;
-
-    min-height: 100px;
-
-    padding: 12px 20px;
-
-    background: white;
-
-    border-bottom: 1px solid #e2e2e2;
-}
-
-.nw-item:last-child {
-    border-bottom: none;
-}
-
-/* BLACK NUMBER */
-
-.nw-number {
-    width: 66px;
-    height: 66px;
-
-    min-width: 66px;
-
-    margin-right: 28px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #000000;
-    color: #ffffff;
-
-    font-size: 28px;
-    font-weight: 700;
-}
 
 /* =========================================================
-   ITEM TEXT
+   LINKS
    ========================================================= */
 
-.nw-item-title {
-    font-size: 28px;
-    font-weight: 700;
-
-    color: #14243d;
+a {
+    text-decoration: none !important;
 }
 
-.nw-item-description {
-    margin-top: 5px;
-
-    font-size: 20px;
-
-    color: #7a8088;
-}
 
 /* =========================================================
-   ARROW
+   PLAYER CARDS
    ========================================================= */
 
-.nw-arrow {
-    margin-left: auto;
-
-    font-size: 42px;
-
-    color: #168da3;
+.player-card {
+    max-width: 760px !important;
+    margin: 18px auto !important;
+    border-radius: 20px !important;
 }
+
+
+/* =========================================================
+   DOWNLOAD
+   ========================================================= */
+
+.download {
+    background: #000 !important;
+    color: #fff !important;
+    border-radius: 13px !important;
+}
+
+
+/* =========================================================
+   SHARE
+   ========================================================= */
+
+.share {
+    color: #168dcc !important;
+    background: #eaf7ff !important;
+    border-radius: 13px !important;
+}
+
 
 /* =========================================================
    MOBILE
    ========================================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
 
-    .nw-header {
-        width: 100%;
+    body::before {
 
-        height: 318px;
-        min-height: 318px;
-        max-height: 318px;
+        height: 205px !important;
 
-        /*
-           DO NOT center vertically.
-           Keep the original image top visible so
-           the head remains visible.
-        */
-        background-position: center top;
+        background-position:
+            23% 15% !important;
+
+        background-size:
+            cover !important;
+
+        font-size:
+            30px !important;
+
+        padding-top:
+            70px !important;
     }
 
-    .nw-header-content {
-        padding: 20px 25px;
-
-        /*
-           Put text on the right side,
-           matching the home screen.
-        */
-        align-items: flex-end;
-
-        justify-content: center;
-    }
-
-    .nw-header-title {
-        max-width: 58%;
-
-        font-size: 40px;
-    }
-
-    .nw-header-subtitle {
-        max-width: 58%;
-
-        font-size: 20px;
-    }
-
-    .nw-search {
-        width: calc(100% - 40px);
-
-        margin-top: 38px;
-    }
-
-    .nw-search input {
-        height: 70px;
-
-        font-size: 23px;
-    }
-
-    .nw-content {
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-
-    .nw-item {
-        min-height: 100px;
-    }
-
-    .nw-number {
-        width: 66px;
-        height: 66px;
-
-        min-width: 66px;
-
-        margin-right: 20px;
-    }
-
-    .nw-item-title {
-        font-size: 25px;
-    }
-
-    .nw-item-description {
-        font-size: 18px;
-    }
 }
 
+
 /* =========================================================
-   SMALL PHONE
+   VERY SMALL PHONES
    ========================================================= */
 
-@media (max-width: 500px) {
+@media (max-width: 380px) {
 
-    .nw-header {
-        height: 318px;
-        min-height: 318px;
-        max-height: 318px;
+    body::before {
 
-        background-position: center top;
+        height: 195px !important;
+
+        background-position:
+            22% 15% !important;
+
+        font-size:
+            27px !important;
+
+        padding-top:
+            65px !important;
     }
 
-    .nw-header-content {
-        padding-right: 18px;
-    }
-
-    .nw-header-title {
-        max-width: 60%;
-
-        font-size: 36px;
-    }
-
-    .nw-header-subtitle {
-        max-width: 60%;
-
-        font-size: 18px;
-    }
-
-    .nw-search input {
-        font-size: 21px;
-    }
-
-    .nw-number {
-        width: 62px;
-        height: 62px;
-
-        min-width: 62px;
-
-        font-size: 27px;
-    }
 }
