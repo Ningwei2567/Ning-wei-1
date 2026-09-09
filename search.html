@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Search - Ning Wei Media</title>
+<title>Master Search — Ning Wei Media</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -21,18 +20,19 @@ body{
   color:#111;
 }
 
-/* =========================
+/* ==============================
    HEADER
-========================= */
+============================== */
 
-.header{
+.nw-header{
   position:relative;
-  height:190px;
+  height:300px;
   overflow:hidden;
-  color:white;
+  background:#62b9e5;
+  color:#fff;
 }
 
-.header img{
+.nw-header-photo{
   position:absolute;
   inset:0;
   width:100%;
@@ -42,13 +42,13 @@ body{
   transform:scale(1.08);
 }
 
-.overlay{
+.nw-header-overlay{
   position:absolute;
   inset:0;
   background:rgba(55,145,205,.38);
 }
 
-.header-content{
+.nw-header-content{
   position:absolute;
   inset:0;
   display:flex;
@@ -56,25 +56,25 @@ body{
   justify-content:center;
   flex-direction:column;
   text-align:center;
-  padding:15px;
-  text-shadow:0 2px 6px rgba(0,0,0,.65);
+  padding:20px;
+  text-shadow:0 2px 7px rgba(0,0,0,.65);
 }
 
-.header h1{
+.nw-header h1{
   margin:0;
-  font-size:32px;
+  font-size:34px;
   font-weight:900;
 }
 
-.header p{
+.nw-header p{
   margin:7px 0 0;
-  font-size:14px;
+  font-size:15px;
   font-weight:bold;
 }
 
-/* =========================
-   SEARCH
-========================= */
+/* ==============================
+   SEARCH AREA
+============================== */
 
 .search-area{
   padding:15px;
@@ -88,11 +88,12 @@ body{
 
 #searchInput{
   flex:1;
+  min-width:0;
   height:52px;
   border:1px solid #d4e2e8;
-  border-radius:27px;
+  border-radius:28px;
+  background:#fff;
   padding:0 18px;
-  background:white;
   font-size:17px;
   outline:none;
   box-shadow:0 3px 12px rgba(0,0,0,.08);
@@ -109,8 +110,8 @@ body{
   border:0;
   border-radius:50%;
   background:#168dcc;
-  color:white;
-  font-size:23px;
+  color:#fff;
+  font-size:22px;
   cursor:pointer;
 }
 
@@ -118,44 +119,46 @@ body{
   transform:scale(.95);
 }
 
-/* =========================
-   STATUS
-========================= */
-
-.status{
-  padding:5px 4px 10px;
+#status{
+  padding:9px 3px 2px;
   color:#777;
-  font-size:14px;
+  font-size:13px;
 }
 
-/* =========================
+/* ==============================
    RESULTS
-========================= */
+============================== */
 
-.results{
+#results{
   padding:0 15px 25px;
+}
+
+.section-title{
+  margin:15px 2px 8px;
+  font-size:18px;
+  font-weight:900;
 }
 
 .result{
   display:flex;
   align-items:center;
-  gap:10px;
-  background:white;
+  gap:9px;
+  padding:9px 10px;
+  margin:6px 0;
   border-radius:12px;
-  padding:10px;
-  margin:7px 0;
-  text-decoration:none;
+  background:#fff;
   color:#111;
+  text-decoration:none;
   box-shadow:0 2px 8px rgba(0,0,0,.07);
 }
 
-.number{
-  width:31px;
-  height:31px;
-  min-width:31px;
+.result-number{
+  width:30px;
+  height:30px;
+  min-width:30px;
   border-radius:50%;
   background:#000;
-  color:white;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -168,19 +171,19 @@ body{
   height:38px;
   min-width:38px;
   border-radius:10px;
-  background:#eef8fd;
+  background:#edf8fd;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:20px;
+  font-size:19px;
 }
 
-.info{
-  min-width:0;
+.result-info{
   flex:1;
+  min-width:0;
 }
 
-.name{
+.result-name{
   font-size:15px;
   font-weight:800;
   white-space:nowrap;
@@ -188,94 +191,108 @@ body{
   text-overflow:ellipsis;
 }
 
-.location{
+.result-path{
   margin-top:3px;
-  font-size:12px;
   color:#777;
+  font-size:12px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.arrow{
+.result-arrow{
   color:#168dcc;
   font-size:25px;
   font-weight:bold;
 }
 
-.category{
-  margin:17px 2px 7px;
-  font-size:18px;
-  font-weight:900;
+.loading{
+  text-align:center;
+  padding:25px 5px;
+  color:#777;
 }
 
 .empty{
-  background:white;
-  border-radius:12px;
+  margin-top:10px;
   padding:20px;
+  border-radius:12px;
+  background:#fff;
   text-align:center;
   color:#777;
-  margin-top:10px;
 }
 
 .error{
-  background:#fff0f0;
-  color:#b00020;
+  margin-top:10px;
   padding:15px;
   border-radius:12px;
-  margin-top:10px;
-}
-
-.loading{
-  text-align:center;
-  padding:25px;
-  color:#777;
+  background:#fff0f0;
+  color:#b00020;
 }
 
 .back{
   display:block;
   margin:0 15px 25px;
   padding:13px;
-  background:white;
   border-radius:12px;
-  text-align:center;
+  background:#fff;
   color:#168dcc;
   text-decoration:none;
+  text-align:center;
   font-weight:bold;
   box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
 footer{
-  text-align:center;
   padding:20px;
+  text-align:center;
   color:#777;
   font-size:13px;
 }
 
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:500px){
+
+  .nw-header{
+    height:300px;
+  }
+
+  .nw-header h1{
+    font-size:31px;
+  }
+
+  .nw-header p{
+    font-size:14px;
+  }
+
+}
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- =================================
+     NING WEI MEDIA HEADER
+================================= -->
 
-<header class="header">
+<header class="nw-header">
 
   <img
+    class="nw-header-photo"
     src="ning-wei.png"
     alt="Ning Wei Media"
   >
 
-  <div class="overlay"></div>
+  <div class="nw-header-overlay"></div>
 
-  <div class="header-content">
+  <div class="nw-header-content">
 
     <h1>Ning Wei Media</h1>
 
     <p>
-      Search Everything
+      Music • Videos • Photos • Apps • Software
     </p>
 
   </div>
@@ -283,9 +300,9 @@ footer{
 </header>
 
 
-<!-- =========================
-     SEARCH BOX
-========================= -->
+<!-- =================================
+     MASTER SEARCH
+================================= -->
 
 <section class="search-area">
 
@@ -294,7 +311,7 @@ footer{
     <input
       id="searchInput"
       type="search"
-      placeholder="Search everything..."
+      placeholder="🔍 Search everything..."
       autocomplete="off"
     >
 
@@ -308,31 +325,25 @@ footer{
 
   </div>
 
-  <div
-    id="status"
-    class="status"
-  >
-    Type any word to search Ning Wei Media.
+  <div id="status">
+    Search everything on Ning Wei Media.
   </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =================================
      RESULTS
-========================= -->
+================================= -->
 
-<main
-  id="results"
-  class="results"
-></main>
+<main id="results"></main>
 
 
 <a
   class="back"
   href="index.html"
 >
-  ← Back to Ning Wei Media
+  ← Ning Wei Media Home
 </a>
 
 
@@ -344,13 +355,14 @@ footer{
 <script>
 
 /* =====================================================
-   NING WEI MEDIA — MASTER GLOBAL SEARCH
+   MASTER SEARCH ENGINE
+   NING WEI MEDIA
 ===================================================== */
 
 
-/* =========================
-   GITHUB
-========================= */
+/* =====================================================
+   GITHUB CONFIG
+===================================================== */
 
 const GITHUB_USER =
   "Ningwei2567";
@@ -362,17 +374,21 @@ const GITHUB_BRANCH =
   "main";
 
 
-/* =========================
-   SUPABASE
-========================= */
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
 
 const SUPABASE_URL =
   "https://btksyizkcpzubtextuce.supabase.co";
 
+
 /*
   IMPORTANT:
-  Use the SAME public/anonymous key
+
+  Put the SAME PUBLIC/ANONYMOUS KEY
   that is already working in upload.html.
+
+  NEVER put a secret/service-role key here.
 */
 
 const SUPABASE_KEY =
@@ -386,14 +402,14 @@ const supabaseClient =
   );
 
 
-/* =========================
-   PAGE ELEMENTS
-========================= */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-const input =
+const searchInput =
   document.getElementById("searchInput");
 
-const button =
+const searchButton =
   document.getElementById("searchButton");
 
 const results =
@@ -403,43 +419,335 @@ const status =
   document.getElementById("status");
 
 
-/* =========================
-   DATA
-========================= */
+/* =====================================================
+   MASTER DATA
+===================================================== */
 
-let githubItems = [];
+let githubData = [];
 
-let supabaseSongs = [];
+let supabaseData = [];
 
-let loaded = false;
+let everythingLoaded = false;
 
 
 /* =====================================================
-   GITHUB TREE
+   GITHUB API URL
 ===================================================== */
 
-async function loadGitHub(){
+function githubTreeURL(){
 
-  const url =
+  return (
     "https://api.github.com/repos/" +
     GITHUB_USER +
     "/" +
     GITHUB_REPO +
     "/git/trees/" +
     GITHUB_BRANCH +
-    "?recursive=1";
+    "?recursive=1"
+  );
 
+}
+
+
+/* =====================================================
+   ENCODE PATH
+===================================================== */
+
+function encodePath(path){
+
+  return path
+    .split("/")
+    .map(part =>
+      encodeURIComponent(part)
+    )
+    .join("/");
+
+}
+
+
+/* =====================================================
+   DETECT FILE TYPE
+===================================================== */
+
+function getIcon(path){
+
+  const p =
+    String(path || "")
+    .toLowerCase();
+
+
+  /* MUSIC */
+
+  if(
+    p.endsWith(".mp3") ||
+    p.endsWith(".m4a") ||
+    p.endsWith(".wav") ||
+    p.endsWith(".aac") ||
+    p.endsWith(".ogg") ||
+    p.endsWith(".oga") ||
+    p.endsWith(".opus") ||
+    p.endsWith(".flac")
+  ){
+
+    return "🎵";
+
+  }
+
+
+  /* VIDEO */
+
+  if(
+    p.endsWith(".mp4") ||
+    p.endsWith(".webm") ||
+    p.endsWith(".mov") ||
+    p.endsWith(".m4v") ||
+    p.endsWith(".avi") ||
+    p.endsWith(".mkv")
+  ){
+
+    return "🎬";
+
+  }
+
+
+  /* PHOTO */
+
+  if(
+    p.endsWith(".jpg") ||
+    p.endsWith(".jpeg") ||
+    p.endsWith(".png") ||
+    p.endsWith(".gif") ||
+    p.endsWith(".webp") ||
+    p.endsWith(".bmp")
+  ){
+
+    return "📸";
+
+  }
+
+
+  /* APK */
+
+  if(
+    p.endsWith(".apk")
+  ){
+
+    return "📱";
+
+  }
+
+
+  /* SOFTWARE */
+
+  if(
+    p.endsWith(".exe") ||
+    p.endsWith(".msi") ||
+    p.endsWith(".zip") ||
+    p.endsWith(".rar") ||
+    p.endsWith(".7z")
+  ){
+
+    return "💻";
+
+  }
+
+
+  /* DJ */
+
+  if(
+    p.includes("dj-mixes") ||
+    p.includes("mixtapes") ||
+    p.includes("mappings") ||
+    p.includes("sound-effects") ||
+    p.includes("virtual-dj")
+  ){
+
+    return "🎧";
+
+  }
+
+
+  /* FOLDER */
+
+  if(
+    !p.includes(".")
+  ){
+
+    return "📁";
+
+  }
+
+
+  return "📄";
+
+}
+
+
+/* =====================================================
+   GITHUB DESTINATION
+===================================================== */
+
+function githubDestination(path,type){
+
+  const lower =
+    path.toLowerCase();
+
+
+  /* SONGS */
+
+  if(
+    lower.startsWith("media/songs/")
+  ){
+
+    return (
+      "audio.html?path=" +
+      encodeURIComponent(path)
+    );
+
+  }
+
+
+  /* VIDEOS */
+
+  if(
+    lower.startsWith("media/videos")
+  ){
+
+    return (
+      "videos.html?path=" +
+      encodeURIComponent(path)
+    );
+
+  }
+
+
+  /* PHOTOS */
+
+  if(
+    lower.startsWith("media/photos")
+  ){
+
+    return (
+      "photos.html?path=" +
+      encodeURIComponent(path)
+    );
+
+  }
+
+
+  /* APPS */
+
+  if(
+    lower.startsWith("media/apps")
+  ){
+
+    return (
+      "apks.html?path=" +
+      encodeURIComponent(path)
+    );
+
+  }
+
+
+  /* SOFTWARE */
+
+  if(
+    lower.startsWith("media/software")
+  ){
+
+    return (
+      "software.html?path=" +
+      encodeURIComponent(path)
+    );
+
+  }
+
+
+  /* ROOT HTML/PAGES */
+
+  if(
+    type === "blob"
+  ){
+
+    const file =
+      path
+      .split("/")
+      .pop()
+      .toLowerCase();
+
+
+    /*
+      Media files open in the universal player.
+    */
+
+    if(
+      lower.endsWith(".mp3") ||
+      lower.endsWith(".m4a") ||
+      lower.endsWith(".wav") ||
+      lower.endsWith(".aac") ||
+      lower.endsWith(".ogg") ||
+      lower.endsWith(".flac") ||
+      lower.endsWith(".mp4") ||
+      lower.endsWith(".webm") ||
+      lower.endsWith(".mov") ||
+      lower.endsWith(".jpg") ||
+      lower.endsWith(".jpeg") ||
+      lower.endsWith(".png") ||
+      lower.endsWith(".gif") ||
+      lower.endsWith(".webp")
+    ){
+
+      return (
+        "media.html?path=" +
+        encodeURIComponent(path)
+      );
+
+    }
+
+
+    /*
+      Otherwise open the website file
+      through GitHub.
+    */
+
+    return (
+      "https://github.com/" +
+      GITHUB_USER +
+      "/" +
+      GITHUB_REPO +
+      "/blob/" +
+      GITHUB_BRANCH +
+      "/" +
+      encodePath(path)
+    );
+
+  }
+
+
+  return "index.html";
+
+}
+
+
+/* =====================================================
+   LOAD COMPLETE GITHUB TREE
+===================================================== */
+
+async function loadGitHub(){
 
   const response =
-    await fetch(url, {
-      cache:"no-store"
-    });
+    await fetch(
+      githubTreeURL(),
+      {
+        cache:"no-store"
+      }
+    );
 
 
   if(!response.ok){
 
     throw new Error(
-      "GitHub search connection failed."
+      "GitHub repository could not be searched."
     );
 
   }
@@ -449,16 +757,19 @@ async function loadGitHub(){
     await response.json();
 
 
-  if(!Array.isArray(data.tree)){
+  if(
+    !data.tree ||
+    !Array.isArray(data.tree)
+  ){
 
     throw new Error(
-      "GitHub repository tree could not be read."
+      "GitHub returned an invalid repository tree."
     );
 
   }
 
 
-  githubItems =
+  githubData =
     data.tree
     .filter(item =>
       item.type === "blob" ||
@@ -473,9 +784,10 @@ async function loadGitHub(){
         item.type,
 
       url:
-        item.type === "blob"
-        ? githubFileUrl(item.path)
-        : githubFolderUrl(item.path)
+        githubDestination(
+          item.path,
+          item.type
+        )
 
     }));
 
@@ -484,227 +796,16 @@ async function loadGitHub(){
 
 
 /* =====================================================
-   GITHUB FILE URL
+   CHECK AUDIO
 ===================================================== */
 
-function githubFileUrl(path){
-
-  const encoded =
-    path
-    .split("/")
-    .map(encodeURIComponent)
-    .join("/");
-
-
-  return (
-    "media.html?path=" +
-    encodeURIComponent(path)
-  );
-
-}
-
-
-/* =====================================================
-   GITHUB FOLDER URL
-===================================================== */
-
-function githubFolderUrl(path){
-
-  /*
-    All folders open through audio/videos/photos/apps/
-    depending on where they are located.
-  */
-
-  const lower =
-    path.toLowerCase();
-
-
-  if(lower.startsWith("media/songs/")){
-
-    return (
-      "audio.html?path=" +
-      encodeURIComponent(path)
-    );
-
-  }
-
-
-  if(lower.startsWith("media/videos")){
-
-    return (
-      "videos.html?path=" +
-      encodeURIComponent(path)
-    );
-
-  }
-
-
-  if(lower.startsWith("media/photos")){
-
-    return (
-      "photos.html?path=" +
-      encodeURIComponent(path)
-    );
-
-  }
-
-
-  if(lower.startsWith("media/apps")){
-
-    return (
-      "apks.html?path=" +
-      encodeURIComponent(path)
-    );
-
-  }
-
-
-  if(lower.startsWith("media/software")){
-
-    return (
-      "software.html?path=" +
-      encodeURIComponent(path)
-    );
-
-  }
-
-
-  return "index.html";
-
-}
-
-
-/* =====================================================
-   SUPABASE MUSIC
-===================================================== */
-
-async function loadSupabaseMusic(){
-
-  const { data, error } =
-    await supabaseClient
-    .from("artist_submissions")
-    .select(
-      "id,artist_name,files,created_at"
-    )
-    .eq("status","approved")
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    )
-    .limit(1000);
-
-
-  if(error){
-
-    console.warn(
-      "Supabase search:",
-      error
-    );
-
-    return;
-
-  }
-
-
-  supabaseSongs = [];
-
-
-  (data || []).forEach(row => {
-
-    let files =
-      row.files;
-
-
-    if(typeof files === "string"){
-
-      try{
-
-        files =
-          JSON.parse(files);
-
-      }catch(e){
-
-        files = [];
-
-      }
-
-    }
-
-
-    if(!Array.isArray(files)){
-      return;
-    }
-
-
-    const cover =
-      findCover(files);
-
-
-    files.forEach(file => {
-
-      if(!isAudio(file)){
-        return;
-      }
-
-
-      const url =
-        file.url ||
-        file.public_url ||
-        file.path;
-
-
-      if(!url){
-        return;
-      }
-
-
-      supabaseSongs.push({
-
-        artist:
-          row.artist_name ||
-          "Unknown Artist",
-
-        name:
-          cleanName(
-            file.name ||
-            "Untitled Song"
-          ),
-
-        original:
-          file.name ||
-          "",
-
-        url:
-          url,
-
-        cover:
-          cover,
-
-        date:
-          row.created_at
-
-      });
-
-    });
-
-  });
-
-}
-
-
-/* =====================================================
-   AUDIO CHECK
-===================================================== */
-
-function isAudio(file){
+function isAudioFile(file){
 
   const name =
     String(
-      file.name ||
-      ""
-    ).toLowerCase();
+      file.name || ""
+    )
+    .toLowerCase();
 
 
   return [
@@ -726,32 +827,53 @@ function isAudio(file){
 
 
 /* =====================================================
-   COVER
+   FIND SUPABASE COVER
 ===================================================== */
 
 function findCover(files){
 
+  if(
+    !Array.isArray(files)
+  ){
+
+    return "ning-wei.png";
+
+  }
+
+
   const cover =
     files.find(file =>
-      String(file.type || "")
-      .toLowerCase() === "cover"
+      String(
+        file.type || ""
+      ).toLowerCase() === "cover"
     );
 
 
-  if(cover && cover.url){
+  if(
+    cover &&
+    cover.url
+  ){
+
     return cover.url;
+
   }
 
 
   const photo =
     files.find(file =>
-      String(file.type || "")
-      .toLowerCase() === "photo"
+      String(
+        file.type || ""
+      ).toLowerCase() === "photo"
     );
 
 
-  if(photo && photo.url){
+  if(
+    photo &&
+    photo.url
+  ){
+
     return photo.url;
+
   }
 
 
@@ -761,10 +883,10 @@ function findCover(files){
 
 
 /* =====================================================
-   CLEAN NAME
+   CLEAN SONG NAME
 ===================================================== */
 
-function cleanName(name){
+function cleanSongName(name){
 
   return String(name || "")
     .replace(/\.[^/.]+$/,"")
@@ -775,104 +897,203 @@ function cleanName(name){
 
 
 /* =====================================================
-   ESCAPE HTML
+   LOAD SUPABASE
 ===================================================== */
 
-function escapeHtml(value){
+async function loadSupabase(){
 
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+    .from("artist_submissions")
+    .select(
+      "id,artist_name,files,created_at"
+    )
+    .eq(
+      "status",
+      "approved"
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    )
+    .limit(1000);
+
+
+  if(error){
+
+    console.warn(
+      "Supabase search unavailable:",
+      error
+    );
+
+    supabaseData = [];
+
+    return;
+
+  }
+
+
+  supabaseData = [];
+
+
+  (data || []).forEach(row => {
+
+    let files =
+      row.files;
+
+
+    if(
+      typeof files === "string"
+    ){
+
+      try{
+
+        files =
+          JSON.parse(files);
+
+      }catch(e){
+
+        files = [];
+
+      }
+
+    }
+
+
+    if(
+      !Array.isArray(files)
+    ){
+
+      return;
+
+    }
+
+
+    const cover =
+      findCover(files);
+
+
+    files.forEach(file => {
+
+      if(
+        !isAudioFile(file)
+      ){
+
+        return;
+
+      }
+
+
+      const url =
+        file.url ||
+        file.public_url ||
+        file.path;
+
+
+      if(!url){
+
+        return;
+
+      }
+
+
+      supabaseData.push({
+
+        id:
+          row.id,
+
+        artist:
+          row.artist_name ||
+          "Unknown Artist",
+
+        name:
+          cleanSongName(
+            file.name ||
+            "Untitled Song"
+          ),
+
+        original:
+          file.name ||
+          "",
+
+        url:
+          url,
+
+        cover:
+          cover,
+
+        created:
+          row.created_at
+
+      });
+
+    });
+
+  });
 
 }
 
 
 /* =====================================================
-   DETERMINE ICON
+   LOAD EVERYTHING
 ===================================================== */
 
-function getIcon(path){
-
-  const p =
-    path.toLowerCase();
-
+async function loadEverything(){
 
   if(
-    p.endsWith(".mp3") ||
-    p.endsWith(".m4a") ||
-    p.endsWith(".wav") ||
-    p.endsWith(".aac") ||
-    p.endsWith(".ogg") ||
-    p.endsWith(".flac")
+    everythingLoaded
   ){
-    return "🎵";
+
+    return;
+
   }
 
 
-  if(
-    p.endsWith(".mp4") ||
-    p.endsWith(".webm") ||
-    p.endsWith(".mov")
-  ){
-    return "🎬";
+  status.textContent =
+    "Loading the master search index...";
+
+
+  try{
+
+    await Promise.all([
+
+      loadGitHub(),
+
+      loadSupabase()
+
+    ]);
+
+
+    everythingLoaded =
+      true;
+
+
+    status.textContent =
+      "Ready — search everything.";
+
+  }catch(error){
+
+    console.error(error);
+
+
+    status.textContent =
+      "Search loaded with some sources unavailable.";
+
   }
-
-
-  if(
-    p.endsWith(".jpg") ||
-    p.endsWith(".jpeg") ||
-    p.endsWith(".png") ||
-    p.endsWith(".gif") ||
-    p.endsWith(".webp")
-  ){
-    return "📸";
-  }
-
-
-  if(
-    p.endsWith(".apk")
-  ){
-    return "📱";
-  }
-
-
-  if(
-    p.endsWith(".zip") ||
-    p.endsWith(".rar") ||
-    p.endsWith(".exe") ||
-    p.endsWith(".msi")
-  ){
-    return "💻";
-  }
-
-
-  if(
-    p.includes("dj-mixes")
-  ){
-    return "🎧";
-  }
-
-
-  if(
-    p.includes("/")
-  ){
-    return "📁";
-  }
-
-
-  return "📄";
 
 }
 
 
 /* =====================================================
-   PLAYER URL FOR SUPABASE SONG
+   SUPABASE PLAYER URL
 ===================================================== */
 
-function makePlayerUrl(song){
+function makePlayerURL(song){
 
   const params =
     new URLSearchParams();
@@ -911,61 +1132,260 @@ function makePlayerUrl(song){
 
 
 /* =====================================================
-   LOAD EVERYTHING
+   ESCAPE HTML
 ===================================================== */
 
-async function loadEverything(){
+function escapeHTML(value){
 
-  if(loaded){
-    return;
-  }
-
-
-  status.textContent =
-    "Loading everything...";
-
-
-  try{
-
-    await Promise.all([
-
-      loadGitHub(),
-
-      loadSupabaseMusic()
-
-    ]);
-
-
-    loaded = true;
-
-
-    status.textContent =
-      "Ready. Search the whole website.";
-
-
-  }catch(error){
-
-    console.error(error);
-
-
-    status.textContent =
-      "Search loaded with some results unavailable.";
-
-  }
+  return String(
+    value || ""
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
-   SEARCH EVERYTHING
+   SEARCH GITHUB
 ===================================================== */
 
-async function searchEverything(){
+function searchGitHub(query){
+
+  return githubData.filter(item => {
+
+    const path =
+      String(
+        item.path || ""
+      )
+      .toLowerCase();
+
+
+    return path.includes(
+      query
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   SEARCH SUPABASE
+===================================================== */
+
+function searchSupabase(query){
+
+  return supabaseData.filter(song => {
+
+    const artist =
+      String(
+        song.artist || ""
+      )
+      .toLowerCase();
+
+
+    const name =
+      String(
+        song.name || ""
+      )
+      .toLowerCase();
+
+
+    const original =
+      String(
+        song.original || ""
+      )
+      .toLowerCase();
+
+
+    return (
+
+      artist.includes(query) ||
+
+      name.includes(query) ||
+
+      original.includes(query)
+
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   DRAW GITHUB RESULTS
+===================================================== */
+
+function drawGitHubResults(items){
+
+  if(
+    !items.length
+  ){
+
+    return "";
+
+  }
+
+
+  let html = `
+
+    <div class="section-title">
+      🌐 Website files & folders
+    </div>
+
+  `;
+
+
+  items.forEach(
+    (item,index) => {
+
+      const parts =
+        item.path.split("/");
+
+
+      const name =
+        parts[parts.length - 1];
+
+
+      html += `
+
+        <a
+          class="result"
+          href="${escapeHTML(item.url)}"
+        >
+
+          <span class="result-number">
+            ${index + 1}
+          </span>
+
+          <span class="result-icon">
+            ${getIcon(item.path)}
+          </span>
+
+          <span class="result-info">
+
+            <div class="result-name">
+              ${escapeHTML(name)}
+            </div>
+
+            <div class="result-path">
+              ${escapeHTML(item.path)}
+            </div>
+
+          </span>
+
+          <span class="result-arrow">
+            ›
+          </span>
+
+        </a>
+
+      `;
+
+    }
+  );
+
+
+  return html;
+
+}
+
+
+/* =====================================================
+   DRAW SUPABASE RESULTS
+===================================================== */
+
+function drawSupabaseResults(items){
+
+  if(
+    !items.length
+  ){
+
+    return "";
+
+  }
+
+
+  let html = `
+
+    <div class="section-title">
+      ☁️ Uploaded Music
+    </div>
+
+  `;
+
+
+  items.forEach(
+    (song,index) => {
+
+      html += `
+
+        <a
+          class="result"
+          href="${escapeHTML(
+            makePlayerURL(song)
+          )}"
+        >
+
+          <span class="result-number">
+            ${index + 1}
+          </span>
+
+          <span class="result-icon">
+            🎵
+          </span>
+
+          <span class="result-info">
+
+            <div class="result-name">
+              ${escapeHTML(
+                song.name
+              )}
+            </div>
+
+            <div class="result-path">
+              ${escapeHTML(
+                song.artist
+              )}
+              • Uploaded music
+            </div>
+
+          </span>
+
+          <span class="result-arrow">
+            ›
+          </span>
+
+        </a>
+
+      `;
+
+    }
+  );
+
+
+  return html;
+
+}
+
+
+/* =====================================================
+   MASTER SEARCH
+===================================================== */
+
+async function masterSearch(){
+
+  const originalQuery =
+    searchInput.value.trim();
+
 
   const query =
-    input.value
-    .trim()
-    .toLowerCase();
+    originalQuery.toLowerCase();
 
 
   if(!query){
@@ -973,7 +1393,7 @@ async function searchEverything(){
     results.innerHTML = "";
 
     status.textContent =
-      "Type any word to search Ning Wei Media.";
+      "Search everything on Ning Wei Media.";
 
     return;
 
@@ -983,81 +1403,44 @@ async function searchEverything(){
   await loadEverything();
 
 
-  results.innerHTML =
-    `<div class="loading">
-       🔎 Searching everywhere...
-     </div>`;
+  results.innerHTML = `
 
+    <div class="loading">
+      🔍 Searching everywhere...
+    </div>
 
-  /* ==========================================
-     GITHUB RESULTS
-  ========================================== */
+  `;
+
 
   const githubMatches =
-    githubItems.filter(item => {
-
-      const path =
-        String(item.path || "")
-        .toLowerCase();
+    searchGitHub(query);
 
 
-      return path.includes(query);
+  const supabaseMatches =
+    searchSupabase(query);
 
-    });
-
-
-  /* ==========================================
-     SUPABASE RESULTS
-  ========================================== */
-
-  const musicMatches =
-    supabaseSongs.filter(song => {
-
-      const artist =
-        String(song.artist || "")
-        .toLowerCase();
-
-
-      const name =
-        String(song.name || "")
-        .toLowerCase();
-
-
-      const original =
-        String(song.original || "")
-        .toLowerCase();
-
-
-      return (
-        artist.includes(query) ||
-        name.includes(query) ||
-        original.includes(query)
-      );
-
-    });
-
-
-  /* ==========================================
-     RESULTS COUNT
-  ========================================== */
 
   const total =
     githubMatches.length +
-    musicMatches.length;
+    supabaseMatches.length;
 
 
-  if(total === 0){
+  if(
+    total === 0
+  ){
 
     results.innerHTML = `
 
       <div class="empty">
 
         🔍 Nothing found for
-        <b>${escapeHtml(input.value)}</b>.
+        <b>${escapeHTML(
+          originalQuery
+        )}</b>
 
         <br><br>
 
-        Try another word.
+        Try another word or part of a filename.
 
       </div>
 
@@ -1075,143 +1458,34 @@ async function searchEverything(){
   status.textContent =
     total +
     " result" +
-    (total === 1 ? "" : "s") +
+    (
+      total === 1
+      ? ""
+      : "s"
+    ) +
     " found.";
 
 
-  let html = "";
-
-
-  /* ==========================================
-     UPLOADED MUSIC
-  ========================================== */
-
-  if(musicMatches.length){
-
-    html += `
-      <div class="category">
-        🎵 Music
-      </div>
-    `;
-
-
-    musicMatches.forEach((song,index) => {
-
-      html += `
-
-        <a
-          class="result"
-          href="${makePlayerUrl(song)}"
-        >
-
-          <span class="number">
-            ${index + 1}
-          </span>
-
-          <span class="result-icon">
-            🎵
-          </span>
-
-          <span class="info">
-
-            <div class="name">
-              ${escapeHtml(song.name)}
-            </div>
-
-            <div class="location">
-              ${escapeHtml(song.artist)}
-              • Uploaded music
-            </div>
-
-          </span>
-
-          <span class="arrow">
-            ›
-          </span>
-
-        </a>
-
-      `;
-
-    });
-
-  }
-
-
-  /* ==========================================
-     WEBSITE FILES/FOLDERS
-  ========================================== */
-
-  if(githubMatches.length){
-
-    html += `
-      <div class="category">
-        🌐 Website
-      </div>
-    `;
-
-
-    githubMatches.forEach((item,index) => {
-
-      const filename =
-        item.path
-        .split("/")
-        .pop();
-
-
-      html += `
-
-        <a
-          class="result"
-          href="${item.url}"
-        >
-
-          <span class="number">
-            ${index + 1}
-          </span>
-
-          <span class="result-icon">
-            ${getIcon(item.path)}
-          </span>
-
-          <span class="info">
-
-            <div class="name">
-              ${escapeHtml(filename)}
-            </div>
-
-            <div class="location">
-              ${escapeHtml(item.path)}
-            </div>
-
-          </span>
-
-          <span class="arrow">
-            ›
-          </span>
-
-        </a>
-
-      `;
-
-    });
-
-  }
-
-
   results.innerHTML =
-    html;
+
+    drawSupabaseResults(
+      supabaseMatches
+    ) +
+
+    drawGitHubResults(
+      githubMatches
+    );
 
 }
 
 
 /* =====================================================
-   BUTTON
+   SEARCH BUTTON
 ===================================================== */
 
-button.addEventListener(
+searchButton.addEventListener(
   "click",
-  searchEverything
+  masterSearch
 );
 
 
@@ -1219,13 +1493,15 @@ button.addEventListener(
    ENTER KEY
 ===================================================== */
 
-input.addEventListener(
+searchInput.addEventListener(
   "keydown",
   function(event){
 
-    if(event.key === "Enter"){
+    if(
+      event.key === "Enter"
+    ){
 
-      searchEverything();
+      masterSearch();
 
     }
 
@@ -1237,19 +1513,22 @@ input.addEventListener(
    LIVE SEARCH
 ===================================================== */
 
-let searchTimer;
+let searchTimer = null;
 
-input.addEventListener(
+
+searchInput.addEventListener(
   "input",
   function(){
 
-    clearTimeout(searchTimer);
+    clearTimeout(
+      searchTimer
+    );
 
 
     searchTimer =
       setTimeout(
-        searchEverything,
-        350
+        masterSearch,
+        400
       );
 
   }
@@ -1257,7 +1536,7 @@ input.addEventListener(
 
 
 /* =====================================================
-   START
+   INITIALIZE
 ===================================================== */
 
 loadEverything();
