@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Ning Wei Media</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -26,20 +28,21 @@ body{
     height:280px;
     position:relative;
     overflow:hidden;
-    background:#8fc7e8;
 }
 
 .hero::before{
     content:"";
     position:absolute;
     inset:0;
+
     background-image:url("ning-wei.png");
     background-size:cover;
     background-position:center center;
     background-repeat:no-repeat;
 }
 
-/* 38% blue overlay */
+/* BLUE OVERLAY = 38% */
+
 .hero::after{
     content:"";
     position:absolute;
@@ -51,10 +54,12 @@ body{
     position:absolute;
     z-index:2;
     inset:0;
+
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+
     text-align:center;
     padding:20px;
 }
@@ -64,14 +69,19 @@ body{
     color:white;
     font-size:42px;
     font-weight:800;
-    text-shadow:0 3px 7px rgba(0,0,0,.55);
+
+    text-shadow:
+        0 3px 7px rgba(0,0,0,.55);
 }
 
 .hero p{
     margin:12px 0 0;
+
     color:white;
     font-size:22px;
-    text-shadow:0 2px 5px rgba(0,0,0,.55);
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,.55);
 }
 
 /* ================= MAIN ================= */
@@ -79,46 +89,62 @@ body{
 .container{
     max-width:1100px;
     margin:auto;
-    padding:22px 20px 40px;
+    padding:22px 20px 35px;
 }
 
-/* SEARCH */
+/* ================= SEARCH ================= */
 
 .search-box{
     width:100%;
     background:white;
+
     border-radius:40px;
-    padding:18px 25px;
+    padding:17px 25px;
+
     border:1px solid #ddd;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.08);
+
     margin-bottom:22px;
 }
 
 .search-box input{
     width:100%;
+
     border:0;
     outline:none;
-    font-size:20px;
+
     background:transparent;
+
+    font-size:20px;
 }
 
 /* ================= MAIN MENU ================= */
 
 .main-menu{
     background:white;
+
     border-radius:25px;
     overflow:hidden;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.08);
 }
 
 .menu-item{
     display:flex;
     align-items:center;
+
     min-height:92px;
-    padding:12px 18px;
+
+    padding:10px 18px;
+
     border-bottom:1px solid #e4e4e4;
+
     text-decoration:none;
     color:#111;
+
     transition:.2s;
 }
 
@@ -127,33 +153,45 @@ body{
 }
 
 .menu-item:hover{
-    background:#f4fbff;
+    background:#f5fbff;
 }
 
-/* BLACK NUMBER */
+/* ================= BLACK NUMBER ================= */
 
 .number{
     width:58px;
     height:58px;
     min-width:58px;
+
     border-radius:50%;
+
     background:#000;
     color:#fff;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:24px;
     font-weight:800;
-    margin-right:22px;
-    box-shadow:0 3px 8px rgba(0,0,0,.18);
+
+    margin-right:20px;
+
+    box-shadow:
+        0 3px 8px rgba(0,0,0,.18);
 }
+
+/* ================= MENU ICON ================= */
 
 .menu-icon{
     width:65px;
     min-width:65px;
-    font-size:42px;
+
     text-align:center;
-    margin-right:18px;
+
+    font-size:40px;
+
+    margin-right:15px;
 }
 
 .menu-text{
@@ -161,127 +199,195 @@ body{
 }
 
 .menu-title{
-    font-size:25px;
+    font-size:24px;
     font-weight:800;
+
     line-height:1.15;
 }
 
 .menu-sub{
     margin-top:5px;
+
     color:#777;
+
     font-size:17px;
 }
 
 .arrow{
     color:#1686a0;
-    font-size:30px;
-    padding-left:10px;
+
+    font-size:32px;
+
+    padding-left:8px;
 }
 
-/* ================= SECTION TITLES ================= */
+/* ================= SECTION ================= */
 
 .section-title{
     margin:28px 5px 14px;
+
     color:#1976bd;
+
     font-size:30px;
+
     font-weight:800;
 }
 
 /* ================= TRENDING APPS ================= */
+/* NO NUMBERS HERE */
 
 .apps-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(2,1fr);
+
     gap:12px;
 }
 
 .app{
     background:white;
-    min-height:68px;
+
+    min-height:72px;
+
     border-radius:16px;
+
     display:flex;
     align-items:center;
-    padding:9px 12px;
-    box-shadow:0 3px 12px rgba(0,0,0,.07);
+
+    padding:10px 15px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.07);
+
     text-decoration:none;
+
     color:#111;
 }
 
-.app-number{
-    width:38px;
-    height:38px;
-    min-width:38px;
-    border-radius:50%;
-    background:#000;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:800;
-    font-size:16px;
-    margin-right:10px;
+.app:hover{
+    background:#f5fbff;
 }
 
+/* ACTUAL APP LOGOS */
+
 .app-icon{
-    width:43px;
-    min-width:43px;
+    width:55px;
+    min-width:55px;
+
     text-align:center;
-    font-size:31px;
-    margin-right:8px;
+
+    font-size:38px;
+
+    margin-right:12px;
 }
 
 .app-name{
-    font-size:17px;
+    font-size:18px;
     font-weight:700;
 }
 
-/* Brand colors */
-.youtube{color:#ff0000;}
-.instagram{color:#e4405f;}
-.tiktok{color:#000;}
-.facebook{color:#1877f2;}
-.whatsapp{color:#25d366;}
-.spotify{color:#1db954;}
-.pinterest{color:#bd081c;}
-.telegram{color:#229ed9;}
-.snapchat{color:#fffc00;}
-.netflix{color:#e50914;}
-.xlogo{color:#000;}
+/* LOGO COLORS */
+
+.youtube{
+    color:#ff0000;
+}
+
+.instagram{
+    color:#e4405f;
+}
+
+.tiktok{
+    color:#000;
+}
+
+.facebook{
+    color:#1877f2;
+}
+
+.whatsapp{
+    color:#25d366;
+}
+
+.spotify{
+    color:#1db954;
+}
+
+.pinterest{
+    color:#bd081c;
+}
+
+.telegram{
+    color:#229ed9;
+}
+
+.snapchat{
+    color:#fffc00;
+    text-shadow:0 0 2px #555;
+}
+
+.netflix{
+    color:#e50914;
+}
+
+.xlogo{
+    color:#000;
+}
 
 /* ================= FOLLOW ================= */
 
 .follow{
     margin-top:30px;
+
     background:white;
+
     border-radius:22px;
+
     padding:22px 15px;
+
     text-align:center;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.08);
 }
 
 .follow h2{
     margin:0 0 18px;
+
     color:#1976bd;
+
     font-size:28px;
 }
 
 .socials{
     display:flex;
+
     justify-content:center;
+
     flex-wrap:wrap;
+
     gap:12px;
 }
 
 .social{
     display:flex;
+
     align-items:center;
+
     gap:8px;
-    padding:11px 18px;
+
+    padding:10px 18px;
+
     border-radius:25px;
+
     background:#198ed3;
+
     color:white;
+
     text-decoration:none;
+
     font-size:16px;
+
     font-weight:700;
 }
 
@@ -293,8 +399,11 @@ body{
 
 footer{
     text-align:center;
+
     color:#777;
-    padding:30px 10px 20px;
+
+    padding:25px 10px 20px;
+
     font-size:15px;
 }
 
@@ -315,11 +424,14 @@ footer{
     }
 
     .container{
-        padding:18px 14px 35px;
+        padding:
+            18px 14px 30px;
     }
 
     .search-box{
-        padding:15px 20px;
+        padding:
+            15px 20px;
+
         margin-bottom:18px;
     }
 
@@ -329,21 +441,27 @@ footer{
 
     .menu-item{
         min-height:82px;
-        padding:10px 12px;
+
+        padding:
+            9px 12px;
     }
 
     .number{
         width:54px;
         height:54px;
         min-width:54px;
+
         font-size:22px;
+
         margin-right:12px;
     }
 
     .menu-icon{
-        width:50px;
-        min-width:50px;
+        width:48px;
+        min-width:48px;
+
         font-size:34px;
+
         margin-right:10px;
     }
 
@@ -356,7 +474,7 @@ footer{
     }
 
     .arrow{
-        font-size:26px;
+        font-size:27px;
     }
 
     .section-title{
@@ -364,37 +482,40 @@ footer{
     }
 
     .apps-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
+
         gap:10px;
     }
 
     .app{
-        min-height:62px;
-        padding:8px;
-    }
+        min-height:68px;
 
-    .app-number{
-        width:32px;
-        height:32px;
-        min-width:32px;
-        font-size:14px;
+        padding:
+            8px 10px;
     }
 
     .app-icon{
-        width:36px;
-        min-width:36px;
-        font-size:27px;
+        width:42px;
+        min-width:42px;
+
+        font-size:31px;
+
+        margin-right:8px;
     }
 
     .app-name{
-        font-size:15px;
+        font-size:16px;
     }
 
     .social{
-        padding:10px 14px;
+        padding:
+            10px 14px;
+
         font-size:15px;
     }
 }
+
 </style>
 </head>
 
@@ -403,265 +524,590 @@ footer{
 <!-- ================= HEADER ================= -->
 
 <header class="hero">
+
     <div class="hero-content">
+
         <h1>Ning Wei Media</h1>
-        <p>Music • Videos • Photos • Apps • Software</p>
+
+        <p>
+            Music • Videos • Photos • Apps • Software
+        </p>
+
     </div>
+
 </header>
+
 
 <main class="container">
 
-<!-- SEARCH -->
+<!-- ================= SEARCH ================= -->
 
 <div class="search-box">
+
     <input
-        type="text"
         id="search"
+        type="text"
         placeholder="Search Ning Wei Media..."
         onkeyup="searchSite()">
+
 </div>
+
 
 <!-- ================= MAIN MENU ================= -->
 
-<div class="main-menu" id="mainMenu">
+<div class="main-menu">
 
-<a class="menu-item" href="audio.html">
-    <div class="number">1</div>
-    <div class="menu-icon">🎵</div>
-    <div class="menu-text">
-        <div class="menu-title">Trending Songs</div>
-        <div class="menu-sub">Music and audio</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+    <!-- 1 -->
 
-<a class="menu-item" href="old-is-gold.html">
-    <div class="number">2</div>
-    <div class="menu-icon">🏆</div>
-    <div class="menu-text">
-        <div class="menu-title">Old is Gold</div>
-        <div class="menu-sub">Classic and old music</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+    <a class="menu-item"
+       href="audio.html">
 
-<a class="menu-item" href="media/songs/DJ-Mixes/index.html">
-    <div class="number">3</div>
-    <div class="menu-icon">🎧</div>
-    <div class="menu-text">
-        <div class="menu-title">DJ Mixes / Nonstop</div>
-        <div class="menu-sub">DJ mixes and mixtapes</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+        <div class="number">
+            1
+        </div>
 
-<a class="menu-item" href="videos.html">
-    <div class="number">4</div>
-    <div class="menu-icon">🎬</div>
-    <div class="menu-text">
-        <div class="menu-title">Trending Videos</div>
-        <div class="menu-sub">Watch videos</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+        <div class="menu-icon">
+            🎵
+        </div>
 
-<a class="menu-item" href="photos.html">
-    <div class="number">5</div>
-    <div class="menu-icon">📸</div>
-    <div class="menu-text">
-        <div class="menu-title">Trending Photos</div>
-        <div class="menu-sub">View photos</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+        <div class="menu-text">
 
-<a class="menu-item" href="apks.html">
-    <div class="number">6</div>
-    <div class="menu-icon">📱</div>
-    <div class="menu-text">
-        <div class="menu-title">Premium &amp; Paid Apps</div>
-        <div class="menu-sub">Applications</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+            <div class="menu-title">
+                Trending Songs
+            </div>
 
-<a class="menu-item" href="software.html">
-    <div class="number">7</div>
-    <div class="menu-icon">💻</div>
-    <div class="menu-text">
-        <div class="menu-title">All Softwares</div>
-        <div class="menu-sub">Software and programs</div>
-    </div>
-    <div class="arrow">›</div>
-</a>
+            <div class="menu-sub">
+                Music and audio
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
+
+
+    <!-- 2 -->
+
+    <a class="menu-item"
+       href="old-is-gold.html">
+
+        <div class="number">
+            2
+        </div>
+
+        <div class="menu-icon">
+            🏆
+        </div>
+
+        <div class="menu-text">
+
+            <div class="menu-title">
+                Old is Gold
+            </div>
+
+            <div class="menu-sub">
+                Classic and old music
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
+
+
+    <!-- 3 -->
+
+    <a class="menu-item"
+       href="media/songs/DJ-Mixes/index.html">
+
+        <div class="number">
+            3
+        </div>
+
+        <div class="menu-icon">
+            🎧
+        </div>
+
+        <div class="menu-text">
+
+            <div class="menu-title">
+                DJ Mixes / Nonstop
+            </div>
+
+            <div class="menu-sub">
+                DJ mixes and mixtapes
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
+
+
+    <!-- 4 -->
+
+    <a class="menu-item"
+       href="videos.html">
+
+        <div class="number">
+            4
+        </div>
+
+        <div class="menu-icon">
+            🎬
+        </div>
+
+        <div class="menu-text">
+
+            <div class="menu-title">
+                Trending Videos
+            </div>
+
+            <div class="menu-sub">
+                Watch videos
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
+
+
+    <!-- 5 -->
+
+    <a class="menu-item"
+       href="photos.html">
+
+        <div class="number">
+            5
+        </div>
+
+        <div class="menu-icon">
+            📸
+        </div>
+
+        <div class="menu-text">
+
+            <div class="menu-title">
+                Trending Photos
+            </div>
+
+            <div class="menu-sub">
+                View photos
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
+
+
+    <!-- 6 -->
+
+    <a class="menu-item"
+       href="apks.html">
+
+        <div class="number">
+            6
+        </div>
+
+        <div class="menu-icon">
+            📱
+        </div>
+
+        <div class="menu-text">
+
+            <div class="menu-title">
+                Premium &amp; Paid Apps
+            </div>
+
+            <div class="menu-sub">
+                Applications
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
+
+
+    <!-- 7 -->
+
+    <a class="menu-item"
+       href="software.html">
+
+        <div class="number">
+            7
+        </div>
+
+        <div class="menu-icon">
+            💻
+        </div>
+
+        <div class="menu-text">
+
+            <div class="menu-title">
+                All Softwares
+            </div>
+
+            <div class="menu-sub">
+                Software and programs
+            </div>
+
+        </div>
+
+        <div class="arrow">
+            ›
+        </div>
+
+    </a>
 
 </div>
+
 
 <!-- ================= TRENDING APPS ================= -->
 
-<h2 class="section-title">🔥 Trending Apps</h2>
+<h2 class="section-title">
+    🔥 Trending Apps
+</h2>
+
 
 <div class="apps-grid">
 
-<a class="app" href="https://www.spotify.com/" target="_blank">
-    <div class="app-number">1</div>
-    <div class="app-icon spotify">
-        <i class="fa-brands fa-spotify"></i>
-    </div>
-    <div class="app-name">Spotify</div>
-</a>
 
-<a class="app" href="https://www.youtube.com/" target="_blank">
-    <div class="app-number">2</div>
-    <div class="app-icon youtube">
-        <i class="fa-brands fa-youtube"></i>
-    </div>
-    <div class="app-name">YouTube</div>
-</a>
+    <!-- Spotify -->
 
-<a class="app" href="https://www.tiktok.com/" target="_blank">
-    <div class="app-number">3</div>
-    <div class="app-icon tiktok">
-        <i class="fa-brands fa-tiktok"></i>
-    </div>
-    <div class="app-name">TikTok</div>
-</a>
+    <a class="app"
+       href="https://www.spotify.com/"
+       target="_blank">
 
-<a class="app" href="https://www.instagram.com/" target="_blank">
-    <div class="app-number">4</div>
-    <div class="app-icon instagram">
-        <i class="fa-brands fa-instagram"></i>
-    </div>
-    <div class="app-name">Instagram</div>
-</a>
+        <div class="app-icon spotify">
+            <i class="fa-brands fa-spotify"></i>
+        </div>
 
-<a class="app" href="https://www.facebook.com/" target="_blank">
-    <div class="app-number">5</div>
-    <div class="app-icon facebook">
-        <i class="fa-brands fa-facebook"></i>
-    </div>
-    <div class="app-name">Facebook</div>
-</a>
+        <div class="app-name">
+            Spotify
+        </div>
 
-<a class="app" href="https://www.pinterest.com/" target="_blank">
-    <div class="app-number">6</div>
-    <div class="app-icon pinterest">
-        <i class="fa-brands fa-pinterest"></i>
-    </div>
-    <div class="app-name">Pinterest</div>
-</a>
+    </a>
 
-<a class="app" href="https://www.whatsapp.com/" target="_blank">
-    <div class="app-number">7</div>
-    <div class="app-icon whatsapp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </div>
-    <div class="app-name">WhatsApp</div>
-</a>
 
-<a class="app" href="https://telegram.org/" target="_blank">
-    <div class="app-number">8</div>
-    <div class="app-icon telegram">
-        <i class="fa-brands fa-telegram"></i>
-    </div>
-    <div class="app-name">Telegram</div>
-</a>
+    <!-- YouTube -->
 
-<a class="app" href="https://www.snapchat.com/" target="_blank">
-    <div class="app-number">9</div>
-    <div class="app-icon snapchat">
-        <i class="fa-brands fa-snapchat"></i>
-    </div>
-    <div class="app-name">Snapchat</div>
-</a>
+    <a class="app"
+       href="https://www.youtube.com/"
+       target="_blank">
 
-<a class="app" href="https://www.netflix.com/" target="_blank">
-    <div class="app-number">10</div>
-    <div class="app-icon netflix">
-        <i class="fa-solid fa-n"></i>
-    </div>
-    <div class="app-name">Netflix</div>
-</a>
+        <div class="app-icon youtube">
+            <i class="fa-brands fa-youtube"></i>
+        </div>
 
-<a class="app" href="https://x.com/" target="_blank">
-    <div class="app-number">11</div>
-    <div class="app-icon xlogo">
-        <i class="fa-brands fa-x-twitter"></i>
-    </div>
-    <div class="app-name">X</div>
-</a>
+        <div class="app-name">
+            YouTube
+        </div>
+
+    </a>
+
+
+    <!-- TikTok -->
+
+    <a class="app"
+       href="https://www.tiktok.com/"
+       target="_blank">
+
+        <div class="app-icon tiktok">
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+
+        <div class="app-name">
+            TikTok
+        </div>
+
+    </a>
+
+
+    <!-- Instagram -->
+
+    <a class="app"
+       href="https://www.instagram.com/"
+       target="_blank">
+
+        <div class="app-icon instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+
+        <div class="app-name">
+            Instagram
+        </div>
+
+    </a>
+
+
+    <!-- Facebook -->
+
+    <a class="app"
+       href="https://www.facebook.com/"
+       target="_blank">
+
+        <div class="app-icon facebook">
+            <i class="fa-brands fa-facebook"></i>
+        </div>
+
+        <div class="app-name">
+            Facebook
+        </div>
+
+    </a>
+
+
+    <!-- Pinterest -->
+
+    <a class="app"
+       href="https://www.pinterest.com/"
+       target="_blank">
+
+        <div class="app-icon pinterest">
+            <i class="fa-brands fa-pinterest"></i>
+        </div>
+
+        <div class="app-name">
+            Pinterest
+        </div>
+
+    </a>
+
+
+    <!-- WhatsApp -->
+
+    <a class="app"
+       href="https://www.whatsapp.com/"
+       target="_blank">
+
+        <div class="app-icon whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+
+        <div class="app-name">
+            WhatsApp
+        </div>
+
+    </a>
+
+
+    <!-- Telegram -->
+
+    <a class="app"
+       href="https://telegram.org/"
+       target="_blank">
+
+        <div class="app-icon telegram">
+            <i class="fa-brands fa-telegram"></i>
+        </div>
+
+        <div class="app-name">
+            Telegram
+        </div>
+
+    </a>
+
+
+    <!-- Snapchat -->
+
+    <a class="app"
+       href="https://www.snapchat.com/"
+       target="_blank">
+
+        <div class="app-icon snapchat">
+            <i class="fa-brands fa-snapchat"></i>
+        </div>
+
+        <div class="app-name">
+            Snapchat
+        </div>
+
+    </a>
+
+
+    <!-- Netflix -->
+
+    <a class="app"
+       href="https://www.netflix.com/"
+       target="_blank">
+
+        <div class="app-icon netflix">
+            <i class="fa-solid fa-n"></i>
+        </div>
+
+        <div class="app-name">
+            Netflix
+        </div>
+
+    </a>
+
+
+    <!-- X -->
+
+    <a class="app"
+       href="https://x.com/"
+       target="_blank">
+
+        <div class="app-icon xlogo">
+            <i class="fa-brands fa-x-twitter"></i>
+        </div>
+
+        <div class="app-name">
+            X
+        </div>
+
+    </a>
 
 </div>
+
 
 <!-- ================= FOLLOW ================= -->
 
 <div class="follow">
 
-<h2>Follow Ning Wei Media</h2>
+    <h2>
+        Follow Ning Wei Media
+    </h2>
 
-<div class="socials">
 
-<a class="social" href="https://www.youtube.com/" target="_blank">
-    <i class="fa-brands fa-youtube"></i>
-    YouTube
-</a>
+    <div class="socials">
 
-<a class="social" href="https://www.instagram.com/" target="_blank">
-    <i class="fa-brands fa-instagram"></i>
-    Instagram
-</a>
 
-<a class="social" href="https://www.tiktok.com/" target="_blank">
-    <i class="fa-brands fa-tiktok"></i>
-    TikTok
-</a>
+        <a class="social"
+           href="https://www.youtube.com/"
+           target="_blank">
 
-<a class="social" href="https://www.facebook.com/" target="_blank">
-    <i class="fa-brands fa-facebook"></i>
-    Facebook
-</a>
+            <i class="fa-brands fa-youtube"></i>
 
-<a class="social" href="https://www.pinterest.com/" target="_blank">
-    <i class="fa-brands fa-pinterest"></i>
-    Pinterest
-</a>
+            YouTube
 
-<a class="social" href="https://www.whatsapp.com/" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-    WhatsApp
-</a>
+        </a>
 
-</div>
+
+        <a class="social"
+           href="https://www.instagram.com/"
+           target="_blank">
+
+            <i class="fa-brands fa-instagram"></i>
+
+            Instagram
+
+        </a>
+
+
+        <a class="social"
+           href="https://www.tiktok.com/"
+           target="_blank">
+
+            <i class="fa-brands fa-tiktok"></i>
+
+            TikTok
+
+        </a>
+
+
+        <a class="social"
+           href="https://www.facebook.com/"
+           target="_blank">
+
+            <i class="fa-brands fa-facebook"></i>
+
+            Facebook
+
+        </a>
+
+
+        <a class="social"
+           href="https://www.pinterest.com/"
+           target="_blank">
+
+            <i class="fa-brands fa-pinterest"></i>
+
+            Pinterest
+
+        </a>
+
+
+        <a class="social"
+           href="https://www.whatsapp.com/"
+           target="_blank">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            WhatsApp
+
+        </a>
+
+    </div>
+
 </div>
 
 </main>
 
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
+
     © 2026 Ning Wei Media
+
 </footer>
 
+
 <script>
+
 function searchSite(){
 
     const search =
-        document.getElementById("search")
+        document
+        .getElementById("search")
         .value
         .toLowerCase();
 
     const items =
-        document.querySelectorAll(".menu-item");
+        document
+        .querySelectorAll(".menu-item");
 
-    items.forEach(item => {
+    items.forEach(function(item){
 
         const text =
             item.innerText.toLowerCase();
 
-        item.style.display =
-            text.includes(search)
-            ? "flex"
-            : "none";
+        if(text.includes(search)){
+
+            item.style.display = "flex";
+
+        }else{
+
+            item.style.display = "none";
+
+        }
+
     });
+
 }
+
 </script>
 
 </body>
