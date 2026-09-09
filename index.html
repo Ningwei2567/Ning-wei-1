@@ -3,362 +3,305 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Ning Wei Media</title>
 
 <style>
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html,body{
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f3f8fc;
-  color:#14213d;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5faff;
+    color:#111;
+}
+
+body{
+    min-height:100vh;
 }
 
 /* =========================
    HEADER
-   ========================= */
-.hero{
-  position:relative;
-  width:100%;
-  height:190px;
-  overflow:hidden;
-  background:#2878c9;
+========================= */
+
+.nw-header{
+    position:relative;
+    width:100%;
+    height:318px;
+    overflow:hidden;
+    background:#9bdcff;
 }
 
-/* YOUR PHOTO */
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background-image:url("ning-wei.png");
-  background-repeat:no-repeat;
-
-  /*
-     LEFT SIDE = YOUR BODY
-     CENTER = YOUR HEAD
-     RIGHT SIDE = FADED FACE
-  */
-  background-size:cover;
-  background-position:center 48%;
-
-  transform:scale(1.02);
+.nw-header-photo{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:50% 18%;
+    transform:scale(1.05);
 }
 
-/* LIGHT BLUE OVERLAY */
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(25,120,205,.48);
+.nw-header-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(55,145,205,0.38);
 }
 
-/* HEADER TEXT */
-.hero-content{
-  position:absolute;
-  z-index:2;
-
-  right:5%;
-  top:50%;
-  transform:translateY(-50%);
-
-  text-align:center;
-  color:white;
-
-  text-shadow:
-    0 2px 5px rgba(0,0,0,.55);
+.nw-header-content{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    text-align:center;
+    padding:20px 15px 25px;
 }
 
-.hero-title{
-  margin:0;
-  font-size:42px;
-  font-weight:800;
-  line-height:1.05;
+.nw-title{
+    margin:0;
+    color:white;
+    font-size:32px;
+    font-weight:800;
+    text-shadow:0 2px 6px rgba(0,0,0,.5);
 }
 
-.hero-subtitle{
-  margin-top:12px;
-  font-size:21px;
-  font-weight:500;
+.nw-subtitle{
+    margin:7px 0 15px;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+    text-shadow:0 2px 5px rgba(0,0,0,.5);
 }
 
-/* MOBILE HEADER */
-@media(max-width:700px){
+/* SEARCH */
 
-  .hero{
-    height:175px;
-  }
+.nw-search{
+    width:min(92%,520px);
+    height:43px;
+    border:0;
+    outline:0;
+    border-radius:25px;
+    padding:0 18px;
+    font-size:15px;
+    background:white;
+    box-shadow:0 3px 12px rgba(0,0,0,.18);
+}
 
-  .hero::before{
-    background-size:cover;
+/* =========================
+   MAIN
+========================= */
 
-    /*
-      Keeps the person's head around
-      the middle of the banner.
-    */
-    background-position:center 46%;
-  }
+.nw-container{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:12px 10px 25px;
+}
 
-  .hero-content{
-    right:3%;
-    width:57%;
-  }
+.nw-list{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
 
-  .hero-title{
-    font-size:27px;
-  }
+/* MENU ROW */
 
-  .hero-subtitle{
+.nw-item{
+    width:100%;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    color:#111;
+    background:white;
+    border-radius:10px;
+    padding:5px 10px;
+    box-shadow:0 1px 5px rgba(0,0,0,.10);
+    transition:.15s;
+}
+
+.nw-item:active{
+    transform:scale(.98);
+}
+
+.nw-number{
+    width:30px;
+    height:30px;
+    min-width:30px;
+    border-radius:50%;
+    background:#000;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size:13px;
-    margin-top:8px;
-  }
+    font-weight:bold;
 }
 
-/* VERY SMALL PHONES */
-@media(max-width:400px){
+.nw-item-text{
+    flex:1;
+    padding-left:12px;
+    font-size:15px;
+    font-weight:600;
+}
 
-  .hero{
-    height:160px;
-  }
-
-  .hero-content{
-    right:2%;
-    width:58%;
-  }
-
-  .hero-title{
-    font-size:23px;
-  }
-
-  .hero-subtitle{
-    font-size:11px;
-  }
+.nw-arrow{
+    font-size:25px;
+    line-height:1;
+    color:#168ab5;
+    padding-left:5px;
 }
 
 /* =========================
-   SEARCH
-   ========================= */
-.search-box{
-  margin:22px auto 16px;
-  width:92%;
+   SECTION
+========================= */
+
+.nw-section{
+    margin-top:18px;
 }
 
-.search-box input{
-  width:100%;
-  height:55px;
-  border:1px solid #d5dce5;
-  border-radius:30px;
-  padding:0 22px;
-  font-size:19px;
-  outline:none;
-  background:white;
-  box-shadow:0 5px 18px rgba(0,0,0,.06);
-}
-
-/* =========================
-   MAIN LIST
-   ========================= */
-.container{
-  width:94%;
-  max-width:1000px;
-  margin:auto;
-}
-
-.list{
-  background:rgba(255,255,255,.75);
-  border-radius:25px;
-  overflow:hidden;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
-
-/* SMALL THIN ROWS */
-.item{
-  display:flex;
-  align-items:center;
-
-  min-height:74px;
-  padding:10px 16px;
-
-  text-decoration:none;
-  color:#14213d;
-
-  border-bottom:1px solid #e1e6ec;
-}
-
-.item:last-child{
-  border-bottom:none;
-}
-
-/* BLACK CIRCULAR NUMBER */
-.number{
-  flex:none;
-
-  width:48px;
-  height:48px;
-
-  border-radius:50%;
-
-  background:#000;
-  color:#fff;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:22px;
-  font-weight:800;
-
-  margin-right:16px;
-}
-
-/* ICON */
-.icon{
-  width:48px;
-  text-align:center;
-  font-size:30px;
-  margin-right:12px;
-}
-
-/* TEXT */
-.text{
-  flex:1;
-  min-width:0;
-}
-
-.title{
-  font-size:20px;
-  font-weight:750;
-}
-
-.description{
-  margin-top:3px;
-  color:#77808d;
-  font-size:15px;
-}
-
-/* ARROW */
-.arrow{
-  font-size:30px;
-  color:#168ba0;
-  margin-left:10px;
-}
-
-/* MOBILE ROWS */
-@media(max-width:600px){
-
-  .item{
-    min-height:68px;
-    padding:8px 12px;
-  }
-
-  .number{
-    width:44px;
-    height:44px;
-    font-size:20px;
-    margin-right:12px;
-  }
-
-  .icon{
-    width:40px;
-    font-size:27px;
-    margin-right:9px;
-  }
-
-  .title{
+.nw-section-title{
     font-size:18px;
-  }
-
-  .description{
-    font-size:13px;
-  }
-
-  .arrow{
-    font-size:27px;
-  }
+    font-weight:800;
+    margin:0 0 8px;
+    padding-left:3px;
 }
 
 /* =========================
    TRENDING APPS
-   ========================= */
-.section-title{
-  margin:24px 4px 12px;
-  font-size:27px;
-  font-weight:800;
+========================= */
+
+.app-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
 }
 
-.apps{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.app{
-  min-height:62px;
-  background:white;
-  border-radius:18px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-
-  font-weight:700;
-  box-shadow:0 4px 15px rgba(0,0,0,.04);
+.app-card{
+    background:white;
+    border-radius:12px;
+    padding:8px 4px;
+    text-decoration:none;
+    color:#111;
+    text-align:center;
+    box-shadow:0 1px 5px rgba(0,0,0,.10);
 }
 
 .app-icon{
-  font-size:27px;
+    width:42px;
+    height:42px;
+    margin:auto;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
 }
 
-@media(max-width:600px){
-  .apps{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .app{
-    min-height:58px;
-    font-size:14px;
-  }
+.app-name{
+    display:block;
+    margin-top:5px;
+    font-size:11px;
+    font-weight:700;
 }
 
 /* =========================
-   FOLLOW
-   ========================= */
-.follow{
-  margin:25px 0;
-  padding:20px;
-  background:white;
-  border-radius:24px;
-  text-align:center;
-}
+   SOCIAL
+========================= */
 
-.follow h2{
-  margin:0 0 15px;
-  font-size:24px;
-}
-
-.socials{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:15px 28px;
+.social-grid{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:5px 0 12px;
 }
 
 .social{
-  font-weight:700;
-  color:#1478c9;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
 }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  color:#707b86;
-  padding:15px 0 25px;
-  font-size:15px;
+/* Real brand-style colors */
+
+.instagram{
+    background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+}
+
+.facebook{
+    background:#1877f2;
+}
+
+.whatsapp{
+    background:#25d366;
+}
+
+.youtube{
+    background:#ff0000;
+}
+
+.tiktok{
+    background:#000;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.nw-footer{
+    text-align:center;
+    padding:15px 10px 25px;
+    font-size:12px;
+    color:#777;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:480px){
+
+    .nw-header{
+        height:318px;
+    }
+
+    .nw-title{
+        font-size:29px;
+    }
+
+    .nw-subtitle{
+        font-size:12px;
+    }
+
+    .nw-item{
+        min-height:46px;
+    }
+
+    .nw-item-text{
+        font-size:14px;
+    }
+
+    .app-grid{
+        grid-template-columns:repeat(4,1fr);
+        gap:6px;
+    }
+
+    .app-icon{
+        width:38px;
+        height:38px;
+    }
 }
 </style>
 </head>
@@ -366,228 +309,295 @@ footer{
 <body>
 
 <!-- =========================
-     HEADER
-     ========================= -->
-<header class="hero">
+     UNIVERSAL HEADER
+========================= -->
 
-  <div class="hero-content">
-    <h1 class="hero-title">Ning Wei Media</h1>
+<header class="nw-header">
 
-    <div class="hero-subtitle">
-      Music • Videos • Photos • Apps • Software
+    <img
+        class="nw-header-photo"
+        src="ning-wei.png"
+        alt="Ning Wei Media"
+    >
+
+    <div class="nw-header-overlay"></div>
+
+    <div class="nw-header-content">
+
+        <h1 class="nw-title">
+            Ning Wei Media
+        </h1>
+
+        <div class="nw-subtitle">
+            Music • Videos • Photos • Apps • Software
+        </div>
+
+        <input
+            id="searchBox"
+            class="nw-search"
+            type="search"
+            placeholder="Search Ning Wei Media..."
+            oninput="searchSite()"
+        >
+
     </div>
-  </div>
 
 </header>
 
 
-<!-- =========================
-     SEARCH
-     ========================= -->
-<div class="search-box">
-  <input
-    type="search"
-    id="search"
-    placeholder="🔎 Search Ning Wei Media..."
-    oninput="searchItems()"
-  >
-</div>
-
+<main class="nw-container">
 
 <!-- =========================
-     MAIN
-     ========================= -->
-<main class="container">
+     MAIN MENU
+========================= -->
 
-<div class="list" id="mainList">
+<div id="mainMenu" class="nw-list">
 
-  <a class="item" href="audio.html">
-    <div class="number">1</div>
-    <div class="icon">🎵</div>
-    <div class="text">
-      <div class="title">Trending Songs</div>
-      <div class="description">Music and audio</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
+    <a class="nw-item"
+       href="audio.html">
+        <span class="nw-number">1</span>
+        <span class="nw-item-text">Trending Songs</span>
+        <span class="nw-arrow">›</span>
+    </a>
 
-  <a class="item" href="videos.html">
-    <div class="number">2</div>
-    <div class="icon">🎬</div>
-    <div class="text">
-      <div class="title">Trending Videos</div>
-      <div class="description">Watch videos</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
 
-  <a class="item" href="photos.html">
-    <div class="number">3</div>
-    <div class="icon">📸</div>
-    <div class="text">
-      <div class="title">Trending Photos</div>
-      <div class="description">View photos</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
+    <a class="nw-item"
+       href="audio.html?path=media/songs/Old-is-Gold">
+        <span class="nw-number">2</span>
+        <span class="nw-item-text">Old is Gold</span>
+        <span class="nw-arrow">›</span>
+    </a>
 
-  <a class="item" href="apks.html">
-    <div class="number">4</div>
-    <div class="icon">📱</div>
-    <div class="text">
-      <div class="title">Premium & Paid Apps</div>
-      <div class="description">Applications</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
 
-  <a class="item" href="software.html">
-    <div class="number">5</div>
-    <div class="icon">💻</div>
-    <div class="text">
-      <div class="title">All Softwares</div>
-      <div class="description">Software and programs</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
+    <a class="nw-item"
+       href="audio.html?path=media/songs/DJ-Mixes">
+        <span class="nw-number">3</span>
+        <span class="nw-item-text">DJ Mixes</span>
+        <span class="nw-arrow">›</span>
+    </a>
 
-  <a class="item" href="audio.html">
-    <div class="number">6</div>
-    <div class="icon">🎧</div>
-    <div class="text">
-      <div class="title">DJ Mixes</div>
-      <div class="description">DJ mixes and mixtapes</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
 
-  <a class="item" href="old-is-gold.html">
-    <div class="number">7</div>
-    <div class="icon">🕰️</div>
-    <div class="text">
-      <div class="title">Old is Gold</div>
-      <div class="description">Classic music</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
+    <a class="nw-item"
+       href="videos.html">
+        <span class="nw-number">4</span>
+        <span class="nw-item-text">Videos</span>
+        <span class="nw-arrow">›</span>
+    </a>
+
+
+    <a class="nw-item"
+       href="photos.html">
+        <span class="nw-number">5</span>
+        <span class="nw-item-text">Photos</span>
+        <span class="nw-arrow">›</span>
+    </a>
+
+
+    <a class="nw-item"
+       href="apks.html">
+        <span class="nw-number">6</span>
+        <span class="nw-item-text">Apps</span>
+        <span class="nw-arrow">›</span>
+    </a>
+
+
+    <a class="nw-item"
+       href="software.html">
+        <span class="nw-number">7</span>
+        <span class="nw-item-text">Software</span>
+        <span class="nw-arrow">›</span>
+    </a>
+
+
+    <!-- UPLOAD MUSIC -->
+    <a class="nw-item"
+       href="upload.html">
+        <span class="nw-number">8</span>
+        <span class="nw-item-text">🎵 Upload Your Music Here</span>
+        <span class="nw-arrow">›</span>
+    </a>
 
 </div>
 
 
 <!-- =========================
      TRENDING APPS
-     ========================= -->
-<h2 class="section-title">🔥 Trending Apps</h2>
+========================= -->
 
-<div class="apps">
+<section class="nw-section">
 
-  <div class="app">
-    <span class="app-icon">🎵</span>
-    TikTok
-  </div>
+    <h2 class="nw-section-title">
+        Trending Apps
+    </h2>
 
-  <div class="app">
-    <span class="app-icon">📷</span>
-    Instagram
-  </div>
+    <div class="app-grid">
 
-  <div class="app">
-    <span class="app-icon">▶️</span>
-    YouTube
-  </div>
+        <a class="app-card"
+           href="apks.html">
 
-  <div class="app">
-    <span class="app-icon">🟢</span>
-    WhatsApp
-  </div>
+            <img
+                class="app-icon"
+                src="ning-wei.png"
+                alt="Apps"
+            >
 
-  <div class="app">
-    <span class="app-icon">🟢</span>
-    Spotify
-  </div>
+            <span class="app-name">
+                Apps
+            </span>
 
-  <div class="app">
-    <span class="app-icon">🔵</span>
-    Facebook
-  </div>
+        </a>
 
-  <div class="app">
-    <span class="app-icon">📌</span>
-    Pinterest
-  </div>
 
-  <div class="app">
-    <span class="app-icon">✈️</span>
-    Telegram
-  </div>
+        <a class="app-card"
+           href="apks.html">
 
-  <div class="app">
-    <span class="app-icon">👻</span>
-    Snapchat
-  </div>
+            <img
+                class="app-icon"
+                src="ning-wei.png"
+                alt="Android"
+            >
 
-  <div class="app">
-    <span class="app-icon">N</span>
-    Netflix
-  </div>
+            <span class="app-name">
+                Android
+            </span>
 
-  <div class="app">
-    <span class="app-icon">𝕏</span>
-    X
-  </div>
+        </a>
 
-</div>
+
+        <a class="app-card"
+           href="software.html">
+
+            <img
+                class="app-icon"
+                src="ning-wei.png"
+                alt="Software"
+            >
+
+            <span class="app-name">
+                Software
+            </span>
+
+        </a>
+
+
+        <a class="app-card"
+           href="apks.html">
+
+            <img
+                class="app-icon"
+                src="ning-wei.png"
+                alt="Downloads"
+            >
+
+            <span class="app-name">
+                Downloads
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
 
 
 <!-- =========================
-     FOLLOW
-     ========================= -->
-<section class="follow">
+     FOLLOW US
+========================= -->
 
-  <h2>👥 Follow Ning Wei Media</h2>
+<section class="nw-section">
 
-  <div class="socials">
-    <span class="social">▶ YouTube</span>
-    <span class="social">◎ Instagram</span>
-    <span class="social">♪ TikTok</span>
-    <span class="social">● Facebook</span>
-    <span class="social">📌 Pinterest</span>
-    <span class="social">● WhatsApp</span>
-  </div>
+    <h2 class="nw-section-title">
+        Follow Us
+    </h2>
+
+    <div class="social-grid">
+
+        <a class="social instagram"
+           href="#"
+           aria-label="Instagram">
+            ◎
+        </a>
+
+        <a class="social facebook"
+           href="#"
+           aria-label="Facebook">
+            f
+        </a>
+
+        <a class="social whatsapp"
+           href="#"
+           aria-label="WhatsApp">
+            ☎
+        </a>
+
+        <a class="social youtube"
+           href="#"
+           aria-label="YouTube">
+            ▶
+        </a>
+
+        <a class="social tiktok"
+           href="#"
+           aria-label="TikTok">
+            ♪
+        </a>
+
+    </div>
 
 </section>
+
 
 </main>
 
 
-<footer>
-  © 2026 Ning Wei Media
+<footer class="nw-footer">
+    © 2026 Ning Wei Media
 </footer>
 
 
 <script>
-function searchItems(){
 
-  const search =
-    document.getElementById("search")
-    .value
-    .toLowerCase();
+/* =========================
+   HOMEPAGE SEARCH
+========================= */
 
-  const items =
-    document.querySelectorAll(".item");
+function searchSite(){
 
-  items.forEach(item => {
+    const search =
+        document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase()
+        .trim();
 
-    const text =
-      item.innerText.toLowerCase();
+    const items =
+        document
+        .querySelectorAll(".nw-item");
 
-    item.style.display =
-      text.includes(search)
-      ? "flex"
-      : "none";
+    items.forEach(function(item){
 
-  });
+        const text =
+            item
+            .innerText
+            .toLowerCase();
+
+        if(
+            search === "" ||
+            text.includes(search)
+        ){
+
+            item.style.display="flex";
+
+        }else{
+
+            item.style.display="none";
+
+        }
+
+    });
+
 }
+
 </script>
 
 </body>
