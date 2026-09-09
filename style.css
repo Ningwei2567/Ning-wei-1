@@ -1,7 +1,7 @@
-/* =========================================================
-   NING WEI MEDIA — MASTER STYLE
-   SMALL HEADER + CENTERED FACE + COMPACT FOLDERS
-   ========================================================= */
+/* =========================================
+   NING WEI MEDIA — UNIVERSAL STYLE
+   SMALL HEADER + CENTERED PHOTO
+   ========================================= */
 
 * {
   box-sizing: border-box;
@@ -11,503 +11,351 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, sans-serif;
   background: #eef7fc;
   color: #111;
 }
 
-/* =========================================================
+/* =========================================
    UNIVERSAL HEADER
-   ========================================================= */
+   ========================================= */
 
 .hero,
 header,
-.site-header {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  min-height: 300px;
-  overflow: hidden;
+.site-header,
+.top-header {
+  position: relative !important;
+  width: 100% !important;
+
+  /* Header size */
+  height: 380px !important;
+  min-height: 380px !important;
+  max-height: 380px !important;
+
+  overflow: hidden !important;
 
   /* YOUR PHOTO */
   background-image:
     linear-gradient(
-      rgba(120, 190, 230, 0.38),
-      rgba(120, 190, 230, 0.38)
+      rgba(85, 170, 220, 0.48),
+      rgba(85, 170, 220, 0.48)
     ),
-    url("ning-wei.png");
+    url("ning-wei.png") !important;
+
+  background-repeat: no-repeat !important;
 
   /*
      IMPORTANT:
-     Move the photograph DOWN.
-     25% keeps the face around the middle.
+     This moves the picture DOWN.
+     The face should now sit around
+     the middle of the header.
   */
-  background-position: center 25%;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-position: center 12% !important;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  background-size: cover !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  text-align: center !important;
 }
 
-/* Header content stays centered */
+/* If the page uses a hero-content box */
 .hero-content,
-.header-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding: 20px;
+.header-content,
+.site-header-content {
+  position: relative !important;
+  z-index: 5 !important;
+  width: 100% !important;
+  text-align: center !important;
 }
 
-/* Main heading */
+/* =========================================
+   HEADER TITLE
+   ========================================= */
+
 .hero h1,
 header h1,
-.site-header h1 {
-  margin: 0;
-  color: white;
-  font-size: clamp(38px, 6vw, 76px);
-  font-weight: 800;
-  line-height: 1.05;
+.site-header h1,
+.top-header h1 {
+  margin: 0 !important;
+  padding: 0 12px !important;
+
+  font-size: clamp(30px, 6vw, 70px) !important;
+  line-height: 1.05 !important;
+
+  color: white !important;
+  font-weight: 800 !important;
+
   text-shadow:
-    0 3px 8px rgba(0,0,0,0.65);
+    0 3px 8px rgba(0,0,0,.75) !important;
 }
 
 /* Header subtitle */
+
 .hero p,
 header p,
-.site-header p {
-  margin: 18px 0 0;
-  color: white;
-  font-size: clamp(18px, 3vw, 34px);
-  font-weight: 600;
+.site-header p,
+.top-header p {
+  margin: 14px 10px 0 !important;
+
+  font-size: clamp(16px, 3vw, 32px) !important;
+  line-height: 1.2 !important;
+
+  color: white !important;
+  font-weight: 600 !important;
+
   text-shadow:
-    0 2px 6px rgba(0,0,0,0.65);
+    0 3px 8px rgba(0,0,0,.75) !important;
 }
 
-/* =========================================================
+/* =========================================
+   REMOVE BACK TO HOME EVERYWHERE
+   ========================================= */
+
+.back-home,
+.back,
+.back-button,
+.back-to-home,
+a.back-home,
+a.back,
+a[href*="index.html"].back-home {
+  display: none !important;
+}
+
+/* =========================================
    PAGE CONTENT
-   ========================================================= */
+   ========================================= */
 
 main,
-.container,
-.content {
+.content,
+.container {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 22px 18px 40px;
+  padding: 18px 14px;
 }
 
-/* =========================================================
+/* =========================================
    SEARCH BAR
-   ========================================================= */
+   ========================================= */
 
-.search,
-.search-box,
 input[type="search"],
-input[type="text"] {
-  width: 100%;
-  height: 58px;
-  padding: 0 22px;
-  margin: 12px 0 22px;
+.search,
+.search-box {
+  width: 100% !important;
+  height: 58px !important;
 
-  border: 1px solid #c8c8c8;
-  border-radius: 30px;
+  margin: 12px 0 18px !important;
+  padding: 0 20px !important;
 
-  background: white;
-  color: #222;
+  border: 1px solid #ccc !important;
+  border-radius: 30px !important;
 
-  font-size: 19px;
-  outline: none;
+  background: white !important;
+
+  font-size: 20px !important;
+  outline: none !important;
 }
 
-.search:focus,
-.search-box:focus,
-input[type="search"]:focus,
-input[type="text"]:focus {
-  border-color: #2491ad;
-}
+/* =========================================
+   COMPACT FOLDER / FILE ROWS
+   ========================================= */
 
-/* =========================================================
-   FOLDER / FILE LIST
-   SMALL COMPACT ROWS
-   ========================================================= */
-
-.items,
-.folder-list,
-.file-list,
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Every folder/file card */
 .item,
 .folder,
 .file,
-.list-item,
 .media-item,
+.list-item,
 .song-item,
-.app-item {
-  width: 100%;
-  min-height: 68px;
+.app-item,
+.software-item,
+.video-item,
+.photo-item {
+  display: flex !important;
+  align-items: center !important;
 
-  display: flex;
-  align-items: center;
+  width: 100% !important;
 
-  padding: 8px 14px;
+  min-height: 72px !important;
+  height: auto !important;
 
-  background: white;
-  border-radius: 18px;
+  margin: 8px 0 !important;
+  padding: 10px 14px !important;
 
-  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+  background: white !important;
 
-  text-decoration: none;
-  color: #111;
+  border-radius: 20px !important;
 
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.08) !important;
 }
 
-.item:hover,
-.folder:hover,
-.file:hover,
-.list-item:hover,
-.media-item:hover,
-.song-item:hover,
-.app-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 16px rgba(0,0,0,0.10);
-}
-
-/* =========================================================
-   BLACK CIRCULAR NUMBER
-   ========================================================= */
+/* =========================================
+   BLACK NUMBER CIRCLES
+   ========================================= */
 
 .number,
 .num,
-.index,
-.item-number {
-  flex: 0 0 48px;
+.item-number,
+.folder-number,
+.file-number {
+  flex: 0 0 52px !important;
 
-  width: 48px;
-  height: 48px;
+  width: 52px !important;
+  height: 52px !important;
 
-  margin-right: 13px;
+  margin-right: 14px !important;
 
-  border-radius: 50%;
+  border-radius: 50% !important;
 
-  background: #000;
-  color: #fff;
+  background: #000 !important;
+  color: #fff !important;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 
-  font-size: 21px;
-  font-weight: 800;
+  font-size: 22px !important;
+  font-weight: 800 !important;
 }
 
-/* =========================================================
-   ICON
-   ========================================================= */
-
-.icon,
-.folder-icon,
-.file-icon,
-.item-icon {
-  flex: 0 0 42px;
-
-  width: 42px;
-  height: 42px;
-
-  margin-right: 12px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 29px;
-}
-
-/* =========================================================
-   TEXT
-   ========================================================= */
-
-.item-info,
-.folder-info,
-.file-info {
-  min-width: 0;
-  flex: 1;
-}
+/* =========================================
+   TEXT INSIDE ROWS
+   ========================================= */
 
 .item-title,
 .folder-title,
 .file-title,
-.item-info h2,
-.item-info h3 {
-  margin: 0;
-
-  font-size: 20px;
-  line-height: 1.15;
-
-  font-weight: 750;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.song-title,
+.app-title,
+.name {
+  font-size: 20px !important;
+  font-weight: 700 !important;
 }
 
 .item-description,
 .folder-description,
 .file-description,
-.item-info p {
-  margin: 4px 0 0;
-
-  color: #777;
-
-  font-size: 14px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.description {
+  font-size: 14px !important;
+  color: #777 !important;
 }
 
-/* Arrow */
-.arrow,
-.chevron {
-  flex: 0 0 auto;
+/* =========================================
+   LINKS
+   ========================================= */
 
-  margin-left: 10px;
-
-  color: #238ca1;
-
-  font-size: 30px;
-  font-weight: 700;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* =========================================================
-   SECTION HEADINGS
-   ========================================================= */
-
-h2.section-title,
-.section-title {
-  margin: 20px 0 12px;
-
-  color: #16819c;
-
-  font-size: 30px;
-  font-weight: 800;
-}
-
-/* =========================================================
-   TRENDING APPS — SMALL CIRCULAR ICON STYLE
-   ========================================================= */
+/* =========================================
+   TRENDING APP CIRCLES
+   ========================================= */
 
 .apps,
 .trending-apps {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 10px !important;
 }
 
 .app-card {
-  min-height: 72px;
+  min-height: 90px !important;
 
-  display: flex;
-  align-items: center;
+  border-radius: 50% !important;
 
-  padding: 9px 12px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 
-  background: white;
-  border-radius: 18px;
+  background: white !important;
 
-  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.08) !important;
 }
 
-.app-logo {
-  width: 48px;
-  height: 48px;
-
-  flex: 0 0 48px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  font-size: 25px;
-}
-
-.app-card span,
-.app-card strong {
-  margin-left: 10px;
-
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* =========================================================
-   REMOVE BACK TO HOME
-   ========================================================= */
-
-.back-home,
-.back-to-home,
-.home-back,
-.back {
-  display: none !important;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer {
-  padding: 25px 15px;
-
-  text-align: center;
-
-  color: #777;
-
-  font-size: 16px;
-}
-
-/* =========================================================
+/* =========================================
    MOBILE
-   ========================================================= */
+   ========================================= */
 
 @media (max-width: 600px) {
 
   .hero,
   header,
-  .site-header {
-    height: 260px;
-    min-height: 260px;
+  .site-header,
+  .top-header {
+    height: 300px !important;
+    min-height: 300px !important;
+    max-height: 300px !important;
 
     /*
-       MOBILE:
-       face remains around the middle.
+       Even lower image position on phone
+       so the face stays visible in the middle.
     */
-    background-position: center 25%;
-  }
-
-  .hero-content,
-  .header-content {
-    padding: 12px;
+    background-position: center 10% !important;
   }
 
   .hero h1,
   header h1,
-  .site-header h1 {
-    font-size: 38px;
+  .site-header h1,
+  .top-header h1 {
+    font-size: 36px !important;
   }
 
   .hero p,
   header p,
-  .site-header p {
-    margin-top: 10px;
-    font-size: 17px;
+  .site-header p,
+  .top-header p {
+    font-size: 18px !important;
   }
 
   main,
-  .container,
-  .content {
-    padding: 15px 12px 30px;
-  }
-
-  .search,
-  .search-box,
-  input[type="search"],
-  input[type="text"] {
-    height: 52px;
-    font-size: 17px;
-    margin-bottom: 15px;
+  .content,
+  .container {
+    padding: 12px 10px !important;
   }
 
   .item,
   .folder,
   .file,
-  .list-item,
   .media-item,
-  .song-item,
-  .app-item {
-    min-height: 62px;
-    padding: 7px 10px;
-    border-radius: 16px;
+  .list-item {
+    min-height: 64px !important;
+    padding: 8px 10px !important;
+    border-radius: 17px !important;
   }
 
   .number,
   .num,
-  .index,
-  .item-number {
-    flex-basis: 44px;
-    width: 44px;
-    height: 44px;
-
-    margin-right: 10px;
-
-    font-size: 19px;
-  }
-
-  .icon,
-  .folder-icon,
-  .file-icon,
-  .item-icon {
-    flex-basis: 38px;
-    width: 38px;
-    height: 38px;
-
-    margin-right: 9px;
-
-    font-size: 25px;
+  .item-number,
+  .folder-number,
+  .file-number {
+    flex-basis: 46px !important;
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 20px !important;
   }
 
   .item-title,
   .folder-title,
   .file-title,
-  .item-info h2,
-  .item-info h3 {
-    font-size: 17px;
+  .song-title,
+  .app-title,
+  .name {
+    font-size: 17px !important;
   }
 
-  .item-description,
-  .folder-description,
-  .file-description,
-  .item-info p {
-    font-size: 12px;
-  }
-
-  .arrow,
-  .chevron {
-    font-size: 25px;
-  }
-
-  .apps,
-  .trending-apps {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .app-card {
-    min-height: 64px;
-    padding: 7px;
-  }
-
-  .app-logo {
-    width: 42px;
-    height: 42px;
-    flex-basis: 42px;
-    font-size: 22px;
-  }
-
-  .app-card span,
-  .app-card strong {
-    font-size: 15px;
+  input[type="search"],
+  .search,
+  .search-box {
+    height: 52px !important;
+    font-size: 17px !important;
   }
 }
