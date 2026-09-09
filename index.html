@@ -1,329 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ning Wei Media - Home</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f7;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: start;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ning Wei Media</title>
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            background: #f5f5f7;
-            min-height: 100vh;
-            box-sizing: border-box;
-            padding-bottom: 40px;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        /* FIXED BANNER LAYOUT - PERFECTLY CENTERS THE FACE VERTICALLY */
-        .banner {
-            position: relative;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('ning-wei.png');
-            background-size: cover;
-            background-position: center 55% !important; /* Pushes the image down to put your head right in the middle */
-            background-repeat: no-repeat;
-            height: 190px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f8fb;
+    color: #111;
+}
 
-        .banner h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-        }
+body {
+    overflow-x: hidden;
+}
 
-        .banner p {
-            margin: 4px 0 0 0;
-            font-size: 0.9rem;
-            opacity: 0.95;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-        }
+/* ================= HEADER ================= */
 
-        /* Search Bar Component */
-        .search-container {
-            padding: 15px 15px 10px 15px;
-            display: flex;
-            justify-content: center;
-        }
+.nw-header {
+    position: relative;
+    width: 100%;
+    height: 205px;
+    overflow: hidden;
+    background: #87ceeb;
+}
 
-        .search-box {
-            width: 100%;
-            background: #ffffff;
-            border-radius: 25px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid #e5e5ea;
-        }
+.nw-header-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 18%;
+    transform: scale(1.15);
+}
 
-        .search-box input {
-            border: none;
-            outline: none;
-            width: 100%;
-            font-size: 1rem;
-            color: #333;
-        }
+.nw-header-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(55,145,205,.38);
+}
 
-        /* Device File Selector Upload Area */
-        .upload-section {
-            padding: 0 15px 15px 15px;
-        }
+.nw-header-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+}
 
-        .btn-upload-direct {
-            width: 100%;
-            background-color: #128c9e;
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(18, 140, 158, 0.2);
-        }
+.nw-title {
+    margin: 0;
+    color: white;
+    font-size: 30px;
+    font-weight: 800;
+    text-shadow: 0 2px 5px rgba(0,0,0,.5);
+}
 
-        /* Section Headings Styling */
-        .section-header {
-            padding: 15px 15px 10px 15px;
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #000000;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+.nw-subtitle {
+    margin: 5px 0 13px;
+    color: white;
+    font-size: 13px;
+    text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
 
-        /* 7 CORE COMPACT CATEGORY LIST ROWS */
-        .list-container {
-            padding: 0 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+.nw-search {
+    width: min(92%, 500px);
+    height: 42px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    padding: 0 18px;
+    font-size: 15px;
+}
 
-        .list-item {
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            color: inherit;
-            border: 1px solid rgba(0,0,0,0.02);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        }
+/* ================= MAIN ================= */
 
-        .item-left-block {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            min-width: 0;
-        }
+.nw-container {
+    width: min(94%, 700px);
+    margin: 14px auto 35px;
+}
 
-        .number-badge {
-            width: 32px;
-            height: 32px;
-            background: #000000;
-            color: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
+.nw-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
 
-        .row-icon {
-            width: 26px;
-            height: 26px;
-            margin-right: 12px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-        }
+.nw-item {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 5px 9px;
+    background: white;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #111;
+    box-shadow: 0 1px 5px rgba(0,0,0,.08);
+}
 
-        .text-meta-box {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            gap: 6px;
-            min-width: 0;
-            flex: 1;
-            flex-wrap: wrap;
-        }
+.nw-number {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-        .text-title { font-size: 1rem; font-weight: 700; color: #1d1d1f; margin: 0; }
-        .text-subtitle { font-size: 0.78rem; color: #86868b; margin: 0; }
-        .arrow-indicator { color: #0071e3; font-size: 1.1rem; font-weight: bold; padding-left: 8px; flex-shrink: 0; }
+.nw-item-text {
+    flex: 1;
+    padding-left: 11px;
+    font-size: 15px;
+    font-weight: 600;
+}
 
-        /* TRENDING APPS GRID SYSTEM - COMPACT CIRCULAR DESIGN */
-        .apps-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 0 15px;
-        }
+.nw-arrow {
+    font-size: 25px;
+    color: #078da9;
+    padding-right: 5px;
+}
 
-        .grid-item {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #000000;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            border: 1px solid rgba(0,0,0,0.02);
-        }
+/* ================= SECTIONS ================= */
 
-        .grid-number {
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #ffffff;
-            background: #000000;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
+.nw-section {
+    margin-top: 22px;
+}
 
-        /* Circular Colored App Icons styling */
-        .app-circle {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-right: 12px;
-            flex-shrink: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+.nw-section-title {
+    margin: 0 0 10px;
+    font-size: 19px;
+    font-weight: 800;
+}
 
-        .app-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
+/* ================= TRENDING APPS ================= */
 
-        /* FOLLOW ME CARD BLOCK DESIGN */
-        .follow-card {
-            background: #ffffff;
-            border-radius: 24px;
-            margin: 25px 15px 0 15px;
-            padding: 20px 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            text-align: center;
-            border: 1px solid #eef2f5;
-        }
+.nw-apps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+}
 
-        .follow-card h2 {
-            margin: 0 0 15px 0;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #0076df;
-        }
+.nw-app {
+    background: white;
+    border-radius: 10px;
+    padding: 10px 5px;
+    text-decoration: none;
+    color: #111;
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0,0,0,.08);
+}
 
-        .social-buttons-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+.nw-app img {
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+    border-radius: 10px;
+}
 
-        .btn-social {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px;
-            border-radius: 12px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-    </style>
+.nw-app-name {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* ================= SOCIAL ================= */
+
+.nw-social {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nw-social a {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.instagram {
+    background: linear-gradient(45deg,#feda75,#d62976,#4f5bd5);
+}
+
+.facebook {
+    background: #1877f2;
+}
+
+.whatsapp {
+    background: #25d366;
+}
+
+.youtube {
+    background: #ff0000;
+}
+
+.tiktok {
+    background: #000;
+}
+
+.telegram {
+    background: #229ed9;
+}
+
+.nw-footer {
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+    margin-top: 25px;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        
-        <!-- Top Visual Profile Banner -->
-        <div class="banner">
-            <h1>Ning Wei Media</h1>
-            <p>Music • Videos • Photos • Apps • Software</p>
-        </div>
+<!-- ================= HEADER ================= -->
 
-        <!-- Search Filtering Bar -->
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" onkeyup="filterEverything()" placeholder="Search everything...">
-            </div>
-        </div>
+<header class="nw-header">
 
-        <!-- Functional Device Upload System Module -->
-        <div class="upload-section">
-            <input type="file" id="homeSelector" style="display: none;" onchange="alert('File selected! Connecting pipeline...')">
-            <button onclick="document.getElementById('homeSelector').click()" class="btn-upload-direct">
-                🎤 Upload Your Music Here
-            </button>
-        </div>
+    <img
+        class="nw-header-photo"
+        src="ning-wei.png"
+        alt="Ning Wei Media"
+    >
 
-        <h2 class="section-header">Ning Wei Media</h2>
+    <div class="nw-header-overlay"></div>
 
-        <!-- PART 1: 7 CORE COMPACT DIRECTORY ROWS -->
-        <div class="list-container" id="mainMenu">
-            <a href="song.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">1</div>
-                    <div class="row-icon" style="color: #a64dff;">🎵</div>
-                    <div class="text-meta-box"><h3 class="text-title">Trending Songs</h3><p class="text-subtitle">Music and audio</p></div>
-                </div>
-                <div class="arrow-indicator">❯</div>
+    <div class="nw-header-content">
+
+        <h1 class="nw-title">
+            Ning Wei Media
+        </h1>
+
+        <p class="nw-subtitle">
+            Music • Videos • Photos • Apps • Software
+        </p>
+
+        <input
+            class="nw-search"
+            id="searchBox"
+            type="search"
+            placeholder="Search Ning Wei Media..."
+        >
+
+    </div>
+
+</header>
+
+
+<!-- ================= CONTENT ================= -->
+
+<main class="nw-container">
+
+    <div class="nw-menu">
+
+        <!-- 1 -->
+        <a class="nw-item" href="audio.html">
+            <span class="nw-number">1</span>
+            <span class="nw-item-text">🎵 Trending Songs</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 2 -->
+        <a
+            class="nw-item"
+            href="audio.html?path=media/songs/Old-is-Gold"
+        >
+            <span class="nw-number">2</span>
+            <span class="nw-item-text">🎶 Old is Gold</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 3 -->
+        <a
+            class="nw-item"
+            href="audio.html?path=media/songs/DJ-Mixes"
+        >
+            <span class="nw-number">3</span>
+            <span class="nw-item-text">🎧 DJ Mixes</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 4 -->
+        <a class="nw-item" href="videos.html">
+            <span class="nw-number">4</span>
+            <span class="nw-item-text">🎬 Videos</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 5 -->
+        <a class="nw-item" href="photos.html">
+            <span class="nw-number">5</span>
+            <span class="nw-item-text">📸 Photos</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 6 -->
+        <a class="nw-item" href="apks.html">
+            <span class="nw-number">6</span>
+            <span class="nw-item-text">📱 Apps</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 7 -->
+        <a class="nw-item" href="software.html">
+            <span class="nw-number">7</span>
+            <span class="nw-item-text">💻 Software</span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+        <!-- 8 — DIRECT FORM -->
+        <a class="nw-item" href="upload.html">
+            <span class="nw-number">8</span>
+            <span class="nw-item-text">
+                🎵 Upload Your Music Here
+            </span>
+            <span class="nw-arrow">›</span>
+        </a>
+
+    </div>
+
+
+    <!-- ================= TRENDING APPS ================= -->
+
+    <section class="nw-section">
+
+        <h2 class="nw-section-title">
+            🔥 Trending Apps
+        </h2>
+
+        <div class="nw-apps">
+
+            <a class="nw-app" href="apks.html">
+                <img src="ning-wei.png" alt="Apps">
+                <span class="nw-app-name">Apps</span>
             </a>
-            <a href="old-is-gold.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">2</div>
-                    <div class="row-icon" style="color: #ffcc00;">⭐</div>
-                    <div class="text-meta-box"><h3 class="text-title">Old is Gold</h3><p class="text-subtitle">Classic and old music</p></div>
-                </div>
-                <div class="arrow-indicator">❯</div>
+
+            <a class="nw-app" href="apks.html">
+                <img src="ning-wei.png" alt="Android">
+                <span class="nw-app-name">Android</span>
             </a>
-            <a href="dj-mixes.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">3</div>
+
+            <a class="nw-app" href="software.html">
+                <img src="ning-wei.png" alt="Software">
+                <span class="nw-app-name">Software</span>
+            </a>
+
+            <a class="nw-app" href="videos.html">
+                <img src="ning-wei.png" alt="Media">
+                <span class="nw-app-name">Media</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOLLOW US ================= -->
+
+    <section class="nw-section">
+
+        <h2 class="nw-section-title">
+            Follow Us
+        </h2>
+
+        <div class="nw-social">
+
+            <a
+                class="instagram"
+                href="https://www.instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+            >◎</a>
+
+            <a
+                class="facebook"
+                href="https://www.facebook.com/"
+                target="_blank"
+                aria-label="Facebook"
+            >f</a>
+
+            <a
+                class="whatsapp"
+                href="https://wa.me/"
+                target="_blank"
+                aria-label="WhatsApp"
+            >☎</a>
+
+            <a
+                class="youtube"
+                href="https://www.youtube.com/"
+                target="_blank"
+                aria-label="YouTube"
+            >▶</a>
+
+            <a
+                class="tiktok"
+                href="https://www.tiktok.com/"
+                target="_blank"
+                aria-label="TikTok"
+            >♪</a>
+
+            <a
+                class="telegram"
+                href="https://telegram.org/"
+                target="_blank"
+                aria-label="Telegram"
+            >➤</a>
+
+        </div>
+
+    </section>
+
+
+    <div class="nw-footer">
+        © Ning Wei Media
+    </div>
+
+</main>
+
+
+<script>
+const searchBox = document.getElementById("searchBox");
+
+searchBox.addEventListener("keydown", function(event) {
+
+    if (event.key !== "Enter") return;
+
+    const query =
+        searchBox.value.trim();
+
+    if (!query) return;
+
+    window.location.href =
+        "audio.html?search=" +
+        encodeURIComponent(query);
+
+});
+</script>
+
+</body>
+</html>
