@@ -1,361 +1,631 @@
-/* =========================================
-   NING WEI MEDIA — UNIVERSAL STYLE
-   SMALL HEADER + CENTERED PHOTO
-   ========================================= */
+/* =========================================================
+   NING WEI MEDIA — UNIVERSAL SITE STYLE
+   ONE STYLE FOR EVERY PAGE AND EVERY FOLDER
+   ========================================================= */
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-html,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-  font-family: Arial, sans-serif;
-  background: #eef7fc;
-  color: #111;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef7fc !important;
+    color: #101b32;
 }
 
-/* =========================================
+/* =========================================================
    UNIVERSAL HEADER
-   ========================================= */
+   Same size as the homepage
+   ========================================================= */
 
-.hero,
 header,
+.hero,
 .site-header,
+.page-header,
+.header,
+.media-header,
 .top-header {
-  position: relative !important;
-  width: 100% !important;
+    position: relative !important;
+    width: 100% !important;
 
-  /* Header size */
-  height: 380px !important;
-  min-height: 380px !important;
-  max-height: 380px !important;
+    /* SAME SIZE AS HOME PAGE */
+    height: clamp(180px, 31vw, 320px) !important;
+    min-height: 180px !important;
+    max-height: 320px !important;
 
-  overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-  /* YOUR PHOTO */
-  background-image:
-    linear-gradient(
-      rgba(85, 170, 220, 0.48),
-      rgba(85, 170, 220, 0.48)
-    ),
-    url("ning-wei.png") !important;
+    overflow: hidden !important;
 
-  background-repeat: no-repeat !important;
+    background-image:
+        linear-gradient(
+            rgba(75, 160, 215, 0.40),
+            rgba(75, 160, 215, 0.40)
+        ),
+        url("ning-wei.png") !important;
 
-  /*
-     IMPORTANT:
-     This moves the picture DOWN.
-     The face should now sit around
-     the middle of the header.
-  */
-  background-position: center 12% !important;
+    background-size: cover !important;
 
-  background-size: cover !important;
+    /*
+       Keeps the face around the middle of the header.
+       This is intentionally NOT top-positioned.
+    */
+    background-position: center center !important;
 
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-
-  text-align: center !important;
+    background-repeat: no-repeat !important;
 }
 
-/* If the page uses a hero-content box */
-.hero-content,
-.header-content,
-.site-header-content {
-  position: relative !important;
-  z-index: 5 !important;
-  width: 100% !important;
-  text-align: center !important;
+/* Extra overlay for pages whose header has its own background */
+header::before,
+.hero::before,
+.site-header::before,
+.page-header::before,
+.header::before,
+.media-header::before,
+.top-header::before {
+    content: "";
+    position: absolute !important;
+    inset: 0 !important;
+
+    background: rgba(91, 171, 220, 0.28) !important;
+
+    pointer-events: none !important;
+    z-index: 1 !important;
 }
 
-/* =========================================
-   HEADER TITLE
-   ========================================= */
+/* =========================================================
+   HEADER IMAGE — IF PAGE USES <img>
+   ========================================================= */
 
-.hero h1,
+header img,
+.hero img,
+.site-header img,
+.page-header img,
+.header img,
+.media-header img,
+.top-header img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    /*
+       Middle of the picture.
+    */
+    object-position: center center !important;
+
+    display: block !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    z-index: 0 !important;
+}
+
+/* =========================================================
+   HEADER CONTENT
+   ========================================================= */
+
+header > *,
+.hero > *,
+.site-header > *,
+.page-header > *,
+.header > *,
+.media-header > *,
+.top-header > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Main header title */
+
 header h1,
+.hero h1,
 .site-header h1,
+.page-header h1,
+.header h1,
+.media-header h1,
 .top-header h1 {
-  margin: 0 !important;
-  padding: 0 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-  font-size: clamp(30px, 6vw, 70px) !important;
-  line-height: 1.05 !important;
+    color: white !important;
 
-  color: white !important;
-  font-weight: 800 !important;
+    text-align: center !important;
 
-  text-shadow:
-    0 3px 8px rgba(0,0,0,.75) !important;
+    font-weight: 800 !important;
+
+    text-shadow:
+        0 3px 8px rgba(0,0,0,0.65) !important;
 }
 
 /* Header subtitle */
 
-.hero p,
 header p,
+.hero p,
 .site-header p,
+.page-header p,
+.header p,
+.media-header p,
 .top-header p {
-  margin: 14px 10px 0 !important;
+    color: white !important;
 
-  font-size: clamp(16px, 3vw, 32px) !important;
-  line-height: 1.2 !important;
+    text-align: center !important;
 
-  color: white !important;
-  font-weight: 600 !important;
-
-  text-shadow:
-    0 3px 8px rgba(0,0,0,.75) !important;
+    text-shadow:
+        0 2px 6px rgba(0,0,0,0.60) !important;
 }
 
-/* =========================================
-   REMOVE BACK TO HOME EVERYWHERE
-   ========================================= */
+/* =========================================================
+   REMOVE BACK TO HOME
+   ========================================================= */
 
-.back-home,
 .back,
+.back-home,
+.back-home-link,
+.back-link,
+.go-back,
+.home-back,
+.backButton,
 .back-button,
-.back-to-home,
-a.back-home,
 a.back,
-a[href*="index.html"].back-home {
-  display: none !important;
+a.back-home,
+a.back-link,
+button.back,
+button.back-home {
+    display: none !important;
 }
 
-/* =========================================
-   PAGE CONTENT
-   ========================================= */
+/* Common navigation/back containers */
+
+.back-container,
+.back-to-home,
+.home-button,
+.home-link {
+    display: none !important;
+}
+
+/* =========================================================
+   MAIN PAGE AREA
+   ========================================================= */
 
 main,
 .content,
-.container {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 18px 14px;
+.container,
+.page-content,
+.media-content {
+    width: 100% !important;
+
+    max-width: 1000px !important;
+
+    margin: 0 auto !important;
+
+    padding: 18px 20px 40px !important;
 }
 
-/* =========================================
+/* =========================================================
    SEARCH BAR
-   ========================================= */
+   Same compact style everywhere
+   ========================================================= */
 
 input[type="search"],
+input[type="text"],
 .search,
-.search-box {
-  width: 100% !important;
-  height: 58px !important;
+.search-box,
+.search-input,
+#search,
+#searchBox,
+#searchInput {
+    width: 100% !important;
 
-  margin: 12px 0 18px !important;
-  padding: 0 20px !important;
+    height: 58px !important;
 
-  border: 1px solid #ccc !important;
-  border-radius: 30px !important;
+    margin: 0 0 18px 0 !important;
 
-  background: white !important;
+    padding: 0 22px !important;
 
-  font-size: 20px !important;
-  outline: none !important;
+    border-radius: 30px !important;
+
+    border: 1px solid #cbd4dc !important;
+
+    background: white !important;
+
+    color: #333 !important;
+
+    font-size: 20px !important;
+
+    outline: none !important;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.07) !important;
 }
 
-/* =========================================
-   COMPACT FOLDER / FILE ROWS
-   ========================================= */
+input[type="search"]:focus,
+input[type="text"]:focus,
+.search-input:focus {
+    border-color: #70b9e4 !important;
 
-.item,
+    box-shadow:
+        0 0 0 3px rgba(90,170,220,0.18) !important;
+}
+
+/* =========================================================
+   SECTION TITLES
+   ========================================================= */
+
+main h2,
+.content h2,
+.page-content h2,
+.section-title {
+    margin: 12px 5px 12px !important;
+
+    font-size: 28px !important;
+
+    color: #16849a !important;
+
+    font-weight: 800 !important;
+}
+
+/* =========================================================
+   FOLDER / FILE LIST
+   SMALL + THIN
+   ========================================================= */
+
+.folder-list,
+.file-list,
+.items,
+.list,
+.media-list,
+.results,
+#list,
+#items,
+#results {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 8px !important;
+}
+
+/* =========================================================
+   EVERY ROW / CARD
+   ========================================================= */
+
 .folder,
 .file,
+.item,
 .media-item,
+.media-row,
 .list-item,
-.song-item,
-.app-item,
-.software-item,
-.video-item,
-.photo-item {
-  display: flex !important;
-  align-items: center !important;
+.result,
+.card,
+.folder-card,
+.file-card {
+    width: 100% !important;
 
-  width: 100% !important;
+    min-height: 68px !important;
 
-  min-height: 72px !important;
-  height: auto !important;
+    height: auto !important;
 
-  margin: 8px 0 !important;
-  padding: 10px 14px !important;
+    margin: 0 !important;
 
-  background: white !important;
+    padding: 9px 14px !important;
 
-  border-radius: 20px !important;
+    border-radius: 18px !important;
 
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.08) !important;
+    background: white !important;
+
+    border: 0 !important;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.06) !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    overflow: hidden !important;
 }
 
-/* =========================================
-   BLACK NUMBER CIRCLES
-   ========================================= */
+/* =========================================================
+   NUMBER CIRCLES
+   BLACK + WHITE
+   ========================================================= */
 
 .number,
 .num,
+.index,
+.badge,
+.rank,
 .item-number,
 .folder-number,
 .file-number {
-  flex: 0 0 52px !important;
+    flex: 0 0 48px !important;
 
-  width: 52px !important;
-  height: 52px !important;
+    width: 48px !important;
+    height: 48px !important;
 
-  margin-right: 14px !important;
+    min-width: 48px !important;
 
-  border-radius: 50% !important;
+    border-radius: 50% !important;
 
-  background: #000 !important;
-  color: #fff !important;
+    background: #000 !important;
 
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+    color: #fff !important;
 
-  font-size: 22px !important;
-  font-weight: 800 !important;
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    font-size: 22px !important;
+
+    font-weight: 800 !important;
+
+    text-align: center !important;
 }
 
-/* =========================================
-   TEXT INSIDE ROWS
-   ========================================= */
+/* =========================================================
+   ROW ICON
+   ========================================================= */
 
-.item-title,
-.folder-title,
-.file-title,
-.song-title,
-.app-title,
+.folder-icon,
+.file-icon,
+.item-icon,
+.icon {
+    flex: 0 0 auto !important;
+
+    width: 38px !important;
+
+    min-width: 38px !important;
+
+    font-size: 30px !important;
+
+    text-align: center !important;
+}
+
+/* =========================================================
+   ROW TEXT
+   ========================================================= */
+
+.folder-name,
+.file-name,
+.item-name,
+.title,
 .name {
-  font-size: 20px !important;
-  font-weight: 700 !important;
+    flex: 1 !important;
+
+    min-width: 0 !important;
+
+    font-size: 19px !important;
+
+    font-weight: 750 !important;
+
+    line-height: 1.2 !important;
+
+    color: #101b32 !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
 }
 
-.item-description,
-.folder-description,
-.file-description,
-.description {
-  font-size: 14px !important;
-  color: #777 !important;
+.description,
+.subtitle,
+.meta,
+.type {
+    display: block !important;
+
+    margin-top: 3px !important;
+
+    font-size: 14px !important;
+
+    color: #7a858f !important;
 }
 
-/* =========================================
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.arrow,
+.chevron,
+.next,
+.row-arrow {
+    flex: 0 0 auto !important;
+
+    font-size: 28px !important;
+
+    color: #168b9f !important;
+
+    font-weight: bold !important;
+}
+
+/* =========================================================
    LINKS
-   ========================================= */
+   ========================================================= */
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+
+    text-decoration: none !important;
 }
 
-/* =========================================
-   TRENDING APP CIRCLES
-   ========================================= */
-
-.apps,
-.trending-apps {
-  display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 10px !important;
-}
-
-.app-card {
-  min-height: 90px !important;
-
-  border-radius: 50% !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  background: white !important;
-
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.08) !important;
-}
-
-/* =========================================
+/* =========================================================
    MOBILE
-   ========================================= */
+   ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-  .hero,
-  header,
-  .site-header,
-  .top-header {
-    height: 300px !important;
-    min-height: 300px !important;
-    max-height: 300px !important;
+    header,
+    .hero,
+    .site-header,
+    .page-header,
+    .header,
+    .media-header,
+    .top-header {
+        height: 190px !important;
+        min-height: 190px !important;
+        max-height: 190px !important;
 
-    /*
-       Even lower image position on phone
-       so the face stays visible in the middle.
-    */
-    background-position: center 10% !important;
-  }
+        background-position: center center !important;
+    }
 
-  .hero h1,
-  header h1,
-  .site-header h1,
-  .top-header h1 {
-    font-size: 36px !important;
-  }
+    header img,
+    .hero img,
+    .site-header img,
+    .page-header img,
+    .header img,
+    .media-header img,
+    .top-header img {
+        object-position: center center !important;
+    }
 
-  .hero p,
-  header p,
-  .site-header p,
-  .top-header p {
-    font-size: 18px !important;
-  }
+    main,
+    .content,
+    .container,
+    .page-content,
+    .media-content {
+        padding: 14px 14px 30px !important;
+    }
 
-  main,
-  .content,
-  .container {
-    padding: 12px 10px !important;
-  }
+    input[type="search"],
+    input[type="text"],
+    .search,
+    .search-box,
+    .search-input,
+    #search,
+    #searchBox,
+    #searchInput {
+        height: 54px !important;
 
-  .item,
-  .folder,
-  .file,
-  .media-item,
-  .list-item {
-    min-height: 64px !important;
-    padding: 8px 10px !important;
-    border-radius: 17px !important;
-  }
+        font-size: 18px !important;
 
-  .number,
-  .num,
-  .item-number,
-  .folder-number,
-  .file-number {
-    flex-basis: 46px !important;
-    width: 46px !important;
-    height: 46px !important;
-    font-size: 20px !important;
-  }
+        margin-bottom: 14px !important;
+    }
 
-  .item-title,
-  .folder-title,
-  .file-title,
-  .song-title,
-  .app-title,
-  .name {
-    font-size: 17px !important;
-  }
+    .folder,
+    .file,
+    .item,
+    .media-item,
+    .media-row,
+    .list-item,
+    .result,
+    .card,
+    .folder-card,
+    .file-card {
+        min-height: 62px !important;
 
-  input[type="search"],
-  .search,
-  .search-box {
-    height: 52px !important;
-    font-size: 17px !important;
-  }
+        padding: 7px 10px !important;
+
+        border-radius: 16px !important;
+
+        gap: 9px !important;
+    }
+
+    .number,
+    .num,
+    .index,
+    .badge,
+    .rank,
+    .item-number,
+    .folder-number,
+    .file-number {
+        width: 44px !important;
+        height: 44px !important;
+
+        min-width: 44px !important;
+
+        flex-basis: 44px !important;
+
+        font-size: 20px !important;
+    }
+
+    .folder-icon,
+    .file-icon,
+    .item-icon,
+    .icon {
+        width: 32px !important;
+
+        min-width: 32px !important;
+
+        font-size: 25px !important;
+    }
+
+    .folder-name,
+    .file-name,
+    .item-name,
+    .title,
+    .name {
+        font-size: 17px !important;
+    }
+
+    .description,
+    .subtitle,
+    .meta,
+    .type {
+        font-size: 13px !important;
+    }
+
+    .arrow,
+    .chevron,
+    .next,
+    .row-arrow {
+        font-size: 24px !important;
+    }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    header,
+    .hero,
+    .site-header,
+    .page-header,
+    .header,
+    .media-header,
+    .top-header {
+        height: 180px !important;
+        min-height: 180px !important;
+        max-height: 180px !important;
+    }
+
+    .number,
+    .num,
+    .index,
+    .badge,
+    .rank,
+    .item-number,
+    .folder-number,
+    .file-number {
+        width: 42px !important;
+        height: 42px !important;
+
+        min-width: 42px !important;
+
+        flex-basis: 42px !important;
+    }
 }
