@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Old is Gold - Ning Wei Media</title>
 
 <style>
@@ -14,116 +13,180 @@
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:#eef6fb;
-  color:#111;
+  background:#f3f8fc;
+  color:#14213d;
 }
 
-/* SMALL HEADER */
+/* ================= HEADER ================= */
+
 .hero{
-  height:125px;
   position:relative;
+  width:100%;
+  height:190px;
   overflow:hidden;
+  background:#2878c9;
+}
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
 
-  background-image:
-    linear-gradient(rgba(75,170,225,.30),rgba(75,170,225,.30)),
-    url("ning-wei.png");
-
+  background-image:url("ning-wei.png");
+  background-repeat:no-repeat;
   background-size:cover;
-  background-position:center 25%;
+
+  /* keeps the head around the middle */
+  background-position:center 48%;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(25,120,205,.48);
 }
 
 .hero-content{
+  position:absolute;
+  z-index:2;
+
+  right:5%;
+  top:50%;
+  transform:translateY(-50%);
+
+  width:55%;
+  text-align:center;
   color:white;
-  text-shadow:0 2px 6px rgba(0,0,0,.65);
+
+  text-shadow:0 2px 5px rgba(0,0,0,.55);
 }
 
-.hero h1{
+.hero-title{
   margin:0;
-  font-size:29px;
+  font-size:40px;
   font-weight:800;
 }
 
-.hero p{
-  margin:4px 0 0;
-  font-size:14px;
-  font-weight:600;
+.hero-subtitle{
+  margin-top:10px;
+  font-size:20px;
 }
 
-/* CONTENT */
-.container{
-  max-width:800px;
-  margin:auto;
-  padding:14px 12px 30px;
+/* ================= MOBILE HEADER ================= */
+
+@media(max-width:700px){
+
+  .hero{
+    height:175px;
+  }
+
+  .hero::before{
+    background-position:center 48%;
+  }
+
+  .hero-content{
+    right:2%;
+    width:57%;
+  }
+
+  .hero-title{
+    font-size:27px;
+  }
+
+  .hero-subtitle{
+    font-size:13px;
+  }
 }
 
-.back{
-  display:inline-block;
-  margin:2px 0 12px;
-  color:#16879a;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:800;
+@media(max-width:400px){
+
+  .hero{
+    height:160px;
+  }
+
+  .hero-content{
+    width:58%;
+  }
+
+  .hero-title{
+    font-size:23px;
+  }
+
+  .hero-subtitle{
+    font-size:11px;
+  }
 }
+
+/* ================= SEARCH ================= */
 
 .search{
+  width:92%;
+  margin:20px auto 16px;
+}
+
+.search input{
   width:100%;
-  height:54px;
-  border:1px solid #d5d5d5;
+  height:55px;
+
+  border:1px solid #d3d9df;
   border-radius:30px;
+
   padding:0 20px;
-  font-size:17px;
+  font-size:18px;
+
   outline:none;
-  margin-bottom:14px;
-}
-
-/* TITLE */
-.title{
-  color:#187fad;
-  font-size:27px;
-  font-weight:800;
-  margin:8px 4px 12px;
-}
-
-/* LIST */
-.list{
   background:white;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 4px 15px rgba(0,0,0,.07);
+
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
 }
 
-.row{
+/* ================= LIST ================= */
+
+.container{
+  width:94%;
+  max-width:1000px;
+  margin:auto;
+}
+
+.list{
+  background:rgba(255,255,255,.8);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+/* SMALL THIN FOLDER ROW */
+
+.folder{
   display:flex;
   align-items:center;
 
-  min-height:76px;
-  padding:9px 11px;
+  min-height:70px;
+  padding:9px 14px;
 
-  color:#111;
   text-decoration:none;
+  color:#14213d;
 
-  border-bottom:1px solid #e5e5e5;
+  border-bottom:1px solid #e1e6eb;
 }
 
-.row:last-child{
+.folder:last-child{
   border-bottom:none;
 }
 
-/* BLACK CIRCLE */
+/* BLACK NUMBER CIRCLE */
+
 .number{
-  width:52px;
-  height:52px;
-  min-width:52px;
+  width:46px;
+  height:46px;
+
+  flex:none;
 
   border-radius:50%;
 
   background:#000;
-  color:#fff;
+  color:white;
 
   display:flex;
   align-items:center;
@@ -136,177 +199,217 @@ body{
 }
 
 /* ICON */
+
 .icon{
-  width:48px;
-  min-width:48px;
+  width:45px;
+  flex:none;
+
   text-align:center;
+  font-size:27px;
 
-  font-size:30px;
-
-  margin-right:9px;
+  margin-right:10px;
 }
 
 /* TEXT */
-.info{
+
+.text{
   flex:1;
+  min-width:0;
 }
 
 .name{
   font-size:18px;
-  font-weight:800;
+  font-weight:750;
 }
 
-.desc{
+.description{
   margin-top:3px;
-  color:#777;
-  font-size:14px;
+  font-size:13px;
+  color:#78818b;
 }
 
 /* ARROW */
+
 .arrow{
-  color:#16879a;
-  font-size:28px;
-  padding-left:7px;
+  color:#168ba0;
+  font-size:29px;
+  margin-left:8px;
 }
 
-/* MOBILE */
-@media(max-width:600px){
+/* ================= FOOTER ================= */
 
-  .hero{
-    height:120px;
-  }
-
-  .hero h1{
-    font-size:26px;
-  }
-
-  .hero p{
-    font-size:13px;
-  }
-
-  .row{
-    min-height:70px;
-  }
-
-  .number{
-    width:48px;
-    height:48px;
-    min-width:48px;
-    font-size:20px;
-    margin-right:10px;
-  }
-
-  .icon{
-    width:40px;
-    min-width:40px;
-    font-size:26px;
-  }
-
-  .name{
-    font-size:17px;
-  }
-
-  .desc{
-    font-size:13px;
-  }
+footer{
+  text-align:center;
+  color:#707b86;
+  padding:25px 0;
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header class="hero">
+
   <div class="hero-content">
-    <h1>🏆 Old is Gold</h1>
-    <p>Classic Music Collection</p>
+
+    <h1 class="hero-title">
+      🕰️ Old is Gold
+    </h1>
+
+    <div class="hero-subtitle">
+      Classic Music • Old School • Timeless Hits
+    </div>
+
   </div>
+
 </header>
 
-<div class="container">
 
-  <a class="back" href="index.html">← Back to Home</a>
+<!-- SEARCH -->
+
+<div class="search">
 
   <input
-    id="search"
-    class="search"
     type="search"
-    placeholder="Search Old is Gold..."
+    id="search"
+    placeholder="🔎 Search Old is Gold..."
+    oninput="searchFolders()"
   >
-
-  <div class="title">🏆 Old is Gold</div>
-
-  <div class="list">
-
-    <a class="row"
-       href="audio.html?path=media/songs/Old-is-Gold/Ugandan-Music">
-
-      <div class="number">1</div>
-
-      <div class="icon">🎵</div>
-
-      <div class="info">
-        <div class="name">Ugandan Music</div>
-        <div class="desc">Classic Ugandan music</div>
-      </div>
-
-      <div class="arrow">›</div>
-    </a>
-
-
-    <a class="row"
-       href="audio.html?path=media/songs/Old-is-Gold/Amapiano">
-
-      <div class="number">2</div>
-
-      <div class="icon">🎶</div>
-
-      <div class="info">
-        <div class="name">Amapiano</div>
-        <div class="desc">Classic Amapiano music</div>
-      </div>
-
-      <div class="arrow">›</div>
-    </a>
-
-
-    <a class="row"
-       href="audio.html?path=media/songs/Old-is-Gold/South-African-Music">
-
-      <div class="number">3</div>
-
-      <div class="icon">🎧</div>
-
-      <div class="info">
-        <div class="name">South African Music</div>
-        <div class="desc">Classic South African music</div>
-      </div>
-
-      <div class="arrow">›</div>
-    </a>
-
-  </div>
 
 </div>
 
+
+<!-- FOLDERS -->
+
+<main class="container">
+
+  <div class="list" id="folderList">
+
+
+    <!-- 1 -->
+
+    <a
+      class="folder"
+      href="audio.html?path=media/songs/Old-is-Gold/Ugandan"
+    >
+
+      <div class="number">1</div>
+
+      <div class="icon">🇺🇬</div>
+
+      <div class="text">
+
+        <div class="name">
+          Ugandan Music
+        </div>
+
+        <div class="description">
+          Classic Ugandan music
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </a>
+
+
+    <!-- 2 -->
+
+    <a
+      class="folder"
+      href="audio.html?path=media/songs/Old-is-Gold/Amapiano"
+    >
+
+      <div class="number">2</div>
+
+      <div class="icon">🎵</div>
+
+      <div class="text">
+
+        <div class="name">
+          Amapiano
+        </div>
+
+        <div class="description">
+          Classic and old Amapiano
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </a>
+
+
+    <!-- 3 -->
+
+    <a
+      class="folder"
+      href="audio.html?path=media/songs/Old-is-Gold/South-African-Music"
+    >
+
+      <div class="number">3</div>
+
+      <div class="icon">🌍</div>
+
+      <div class="text">
+
+        <div class="name">
+          South African Music
+        </div>
+
+        <div class="description">
+          Classic South African music
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </a>
+
+
+  </div>
+
+</main>
+
+
+<footer>
+  © 2026 Ning Wei Media
+</footer>
+
+
 <script>
-const search = document.getElementById("search");
-const rows = document.querySelectorAll(".row");
 
-search.addEventListener("input", function(){
+function searchFolders(){
 
-  const value = this.value.toLowerCase();
+  const value =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
 
-  rows.forEach(function(row){
+  const folders =
+    document.querySelectorAll(".folder");
 
-    if(row.innerText.toLowerCase().includes(value)){
-      row.style.display = "flex";
-    }else{
-      row.style.display = "none";
-    }
+  folders.forEach(folder => {
+
+    const text =
+      folder.innerText.toLowerCase();
+
+    folder.style.display =
+      text.includes(value)
+      ? "flex"
+      : "none";
 
   });
 
-});
+}
+
 </script>
 
 </body>
