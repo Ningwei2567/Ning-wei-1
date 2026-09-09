@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Old is Gold - Ning Wei Media</title>
 
 <style>
@@ -19,160 +20,172 @@ body{
 
 /* SMALL HEADER */
 .hero{
-  height:135px;
+  height:125px;
   position:relative;
   overflow:hidden;
+
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
+
   background-image:
-    linear-gradient(rgba(65,160,220,.48),rgba(65,160,220,.48)),
+    linear-gradient(rgba(75,170,225,.30),rgba(75,170,225,.30)),
     url("ning-wei.png");
+
   background-size:cover;
   background-position:center 25%;
 }
 
 .hero-content{
-  position:relative;
-  z-index:2;
   color:white;
-  text-shadow:0 2px 6px rgba(0,0,0,.55);
+  text-shadow:0 2px 6px rgba(0,0,0,.65);
 }
 
 .hero h1{
   margin:0;
-  font-size:30px;
+  font-size:29px;
   font-weight:800;
 }
 
 .hero p{
   margin:4px 0 0;
-  font-size:15px;
+  font-size:14px;
   font-weight:600;
 }
 
-/* PAGE */
+/* CONTENT */
 .container{
-  max-width:850px;
+  max-width:800px;
   margin:auto;
-  padding:15px 14px 35px;
+  padding:14px 12px 30px;
 }
 
 .back{
   display:inline-block;
-  color:#17889b;
+  margin:2px 0 12px;
+  color:#16879a;
   text-decoration:none;
   font-size:18px;
   font-weight:800;
-  margin:2px 0 12px;
 }
 
 .search{
   width:100%;
-  padding:14px 18px;
-  border:1px solid #d2d2d2;
+  height:54px;
+  border:1px solid #d5d5d5;
   border-radius:30px;
+  padding:0 20px;
   font-size:17px;
   outline:none;
-  margin-bottom:15px;
+  margin-bottom:14px;
 }
 
 /* TITLE */
 .title{
-  color:#197fae;
+  color:#187fad;
   font-size:27px;
   font-weight:800;
   margin:8px 4px 12px;
 }
 
-/* NUMBERED ROWS */
+/* LIST */
 .list{
   background:white;
   border-radius:20px;
   overflow:hidden;
-  box-shadow:0 5px 18px rgba(0,0,0,.06);
+  box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
 .row{
   display:flex;
   align-items:center;
-  min-height:78px;
-  padding:10px 12px;
-  text-decoration:none;
+
+  min-height:76px;
+  padding:9px 11px;
+
   color:#111;
-  border-bottom:1px solid #e4e4e4;
+  text-decoration:none;
+
+  border-bottom:1px solid #e5e5e5;
 }
 
 .row:last-child{
   border-bottom:none;
 }
 
+/* BLACK CIRCLE */
 .number{
-  width:54px;
-  height:54px;
-  min-width:54px;
+  width:52px;
+  height:52px;
+  min-width:52px;
+
   border-radius:50%;
+
   background:#000;
   color:#fff;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
+
+  font-size:21px;
   font-weight:800;
-  margin-right:14px;
+
+  margin-right:13px;
 }
 
+/* ICON */
 .icon{
   width:48px;
   min-width:48px;
   text-align:center;
-  font-size:31px;
-  margin-right:10px;
+
+  font-size:30px;
+
+  margin-right:9px;
 }
 
+/* TEXT */
 .info{
   flex:1;
 }
 
 .name{
-  font-size:19px;
+  font-size:18px;
   font-weight:800;
 }
 
 .desc{
+  margin-top:3px;
   color:#777;
   font-size:14px;
-  margin-top:3px;
 }
 
+/* ARROW */
 .arrow{
-  color:#17889b;
+  color:#16879a;
   font-size:28px;
-  margin-left:8px;
+  padding-left:7px;
 }
 
 /* MOBILE */
 @media(max-width:600px){
+
   .hero{
-    height:125px;
+    height:120px;
   }
 
   .hero h1{
-    font-size:27px;
+    font-size:26px;
   }
 
   .hero p{
-    font-size:14px;
-  }
-
-  .container{
-    padding:13px 12px 30px;
+    font-size:13px;
   }
 
   .row{
     min-height:70px;
-    padding:8px 9px;
   }
 
   .number{
@@ -180,14 +193,13 @@ body{
     height:48px;
     min-width:48px;
     font-size:20px;
-    margin-right:11px;
+    margin-right:10px;
   }
 
   .icon{
-    width:42px;
-    min-width:42px;
-    font-size:27px;
-    margin-right:7px;
+    width:40px;
+    min-width:40px;
+    font-size:26px;
   }
 
   .name{
@@ -206,7 +218,7 @@ body{
 <header class="hero">
   <div class="hero-content">
     <h1>🏆 Old is Gold</h1>
-    <p>Classic music collection</p>
+    <p>Classic Music Collection</p>
   </div>
 </header>
 
@@ -215,43 +227,60 @@ body{
   <a class="back" href="index.html">← Back to Home</a>
 
   <input
-    class="search"
     id="search"
+    class="search"
     type="search"
     placeholder="Search Old is Gold..."
   >
 
   <div class="title">🏆 Old is Gold</div>
 
-  <div class="list" id="list">
+  <div class="list">
 
-    <a class="row" href="audio.html?path=media/songs/Old-is-Gold/Ugandan-Music">
+    <a class="row"
+       href="audio.html?path=media/songs/Old-is-Gold/Ugandan-Music">
+
       <div class="number">1</div>
-      <div class="icon">🇺🇬</div>
+
+      <div class="icon">🎵</div>
+
       <div class="info">
         <div class="name">Ugandan Music</div>
         <div class="desc">Classic Ugandan music</div>
       </div>
+
       <div class="arrow">›</div>
     </a>
 
-    <a class="row" href="audio.html?path=media/songs/Old-is-Gold/Amapiano">
+
+    <a class="row"
+       href="audio.html?path=media/songs/Old-is-Gold/Amapiano">
+
       <div class="number">2</div>
-      <div class="icon">🎵</div>
+
+      <div class="icon">🎶</div>
+
       <div class="info">
         <div class="name">Amapiano</div>
-        <div class="desc">Classic and popular Amapiano</div>
+        <div class="desc">Classic Amapiano music</div>
       </div>
+
       <div class="arrow">›</div>
     </a>
 
-    <a class="row" href="audio.html?path=media/songs/Old-is-Gold/South-African-Music">
+
+    <a class="row"
+       href="audio.html?path=media/songs/Old-is-Gold/South-African-Music">
+
       <div class="number">3</div>
-      <div class="icon">🎶</div>
+
+      <div class="icon">🎧</div>
+
       <div class="info">
         <div class="name">South African Music</div>
         <div class="desc">Classic South African music</div>
       </div>
+
       <div class="arrow">›</div>
     </a>
 
@@ -264,14 +293,19 @@ const search = document.getElementById("search");
 const rows = document.querySelectorAll(".row");
 
 search.addEventListener("input", function(){
-  const text = this.value.toLowerCase();
 
-  rows.forEach(row=>{
-    row.style.display =
-      row.innerText.toLowerCase().includes(text)
-      ? "flex"
-      : "none";
+  const value = this.value.toLowerCase();
+
+  rows.forEach(function(row){
+
+    if(row.innerText.toLowerCase().includes(value)){
+      row.style.display = "flex";
+    }else{
+      row.style.display = "none";
+    }
+
   });
+
 });
 </script>
 
