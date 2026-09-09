@@ -8,320 +8,272 @@
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
+  margin:0;
+  background:#eef6fb;
   font-family:Arial,Helvetica,sans-serif;
-  background:#f1f7fb;
   color:#111;
 }
 
-/* ===== SMALL HEADER ===== */
+/* =========================
+   UNIVERSAL HEADER
+========================= */
+
 .hero{
-  height:135px;
+  width:100%;
+  height:270px;
   position:relative;
-  background:
-    linear-gradient(rgba(40,145,205,.48),rgba(40,145,205,.48)),
-    url("ning-wei.png") center/cover no-repeat;
+  overflow:hidden;
+  background-image:url("ning-wei.png");
+  background-size:cover;
+  background-position:center;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   text-align:center;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(70,155,215,.45);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  color:white;
+  padding:10px;
+  text-shadow:0 3px 8px rgba(0,0,0,.7);
 }
 
 .hero h1{
-  color:white;
-  font-size:30px;
-  margin-bottom:5px;
-  text-shadow:0 2px 5px #333;
+  margin:0;
+  font-size:48px;
+  font-weight:800;
 }
 
 .hero p{
-  color:white;
-  font-size:16px;
-  text-shadow:0 1px 4px #333;
+  margin:12px 0 0;
+  font-size:22px;
+  font-weight:600;
 }
 
-/* ===== SEARCH ===== */
-.search-box{
-  margin:14px 18px;
+/* =========================
+   SEARCH
+========================= */
+
+.search-area{
+  padding:25px 22px 12px;
 }
 
-.search-box input{
+.search{
+  display:block;
   width:100%;
-  height:48px;
-  border:none;
-  border-radius:25px;
-  padding:0 20px;
-  font-size:17px;
-  outline:none;
-  box-shadow:0 3px 12px #d5dde3;
-}
-
-/* ===== MAIN FOLDERS ===== */
-.main-list{
-  margin:8px 18px 18px;
+  max-width:720px;
+  margin:auto;
+  border:1px solid #ccc;
+  border-radius:35px;
+  padding:16px 22px;
+  font-size:19px;
   background:white;
-  border-radius:25px;
-  overflow:hidden;
-  box-shadow:0 3px 15px #dbe2e7;
+  outline:none;
 }
 
-.main-item{
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+  max-width:900px;
+  margin:10px auto 16px;
+  padding:0 22px;
+  color:#16849a;
+  font-size:30px;
+  font-weight:800;
+}
+
+/* =========================
+   LIST
+========================= */
+
+.list{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:0 20px 40px;
+}
+
+/* =========================
+   VERY SMALL FOLDER ROW
+========================= */
+
+.item{
+  width:100%;
+  min-height:72px;
+  margin-bottom:9px;
+  padding:8px 12px;
+
+  background:white;
+  border-radius:18px;
+
   display:flex;
   align-items:center;
-  min-height:78px;
-  padding:9px 14px;
-  border-bottom:1px solid #ddd;
+
   text-decoration:none;
   color:#111;
+
+  box-shadow:0 4px 13px rgba(0,0,0,.06);
+
+  transition:transform .15s;
 }
 
-.main-item:last-child{
-  border-bottom:none;
+.item:active{
+  transform:scale(.98);
 }
+
+/* BLACK CIRCLE */
 
 .number{
-  width:55px;
-  height:55px;
-  min-width:55px;
+  width:50px;
+  height:50px;
+  min-width:50px;
+
   border-radius:50%;
+
   background:#000;
   color:#fff;
+
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:24px;
-  font-weight:bold;
-  margin-right:15px;
+  justify-content:center;
+
+  font-size:22px;
+  font-weight:800;
+
+  margin-right:13px;
 }
 
-.folder-icon{
-  width:55px;
-  min-width:55px;
+/* ICON */
+
+.icon{
+  width:45px;
+  min-width:45px;
+  font-size:28px;
   text-align:center;
-  font-size:38px;
-  margin-right:10px;
+  margin-right:8px;
 }
 
-.folder-info{
+/* TEXT */
+
+.info{
   flex:1;
+  min-width:0;
 }
 
-.folder-title{
-  font-size:21px;
-  font-weight:bold;
+.name{
+  font-size:20px;
+  font-weight:800;
+  line-height:1.1;
 }
 
-.folder-desc{
-  font-size:15px;
-  color:#777;
+.desc{
   margin-top:3px;
+  font-size:14px;
+  color:#777;
 }
+
+/* ARROW */
 
 .arrow{
-  color:#218ca5;
-  font-size:31px;
+  font-size:29px;
+  color:#16899a;
+  margin-left:8px;
 }
 
-/* ===== SECTION TITLE ===== */
-.section-title{
-  margin:15px 25px 10px;
-  color:#1976b5;
-  font-size:30px;
-  font-weight:bold;
-}
+/* =========================
+   LOADING / ERROR
+========================= */
 
-/* ===== TRENDING APPS ===== */
-.apps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin:0 20px 25px;
-}
-
-.app{
-  text-decoration:none;
-  color:#111;
+.message{
   text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-.app-logo{
-  width:66px;
-  height:66px;
-  border-radius:50%;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 3px 10px #d8e0e5;
-  padding:12px;
-}
-
-.app-logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.app-name{
-  font-size:13px;
-  font-weight:bold;
-  margin-top:6px;
-}
-
-/* ===== FOLLOW SECTION ===== */
-.follow{
-  background:white;
-  margin:15px 20px 25px;
-  padding:18px 12px;
-  border-radius:25px;
-  box-shadow:0 3px 15px #dbe2e7;
-  text-align:center;
-}
-
-.follow h2{
-  color:#1976b5;
-  font-size:25px;
-  margin-bottom:15px;
-}
-
-.socials{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:18px;
-}
-
-.social{
-  text-decoration:none;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  color:#111;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.social-icon{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:14px;
-}
-
-.social-icon img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-/* ===== BRAND COLORS ===== */
-.youtube{background:#ff0000;}
-.instagram{background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);}
-.tiktok{background:#000;}
-.facebook{background:#1877f2;}
-.pinterest{background:#e60023;}
-.whatsapp{background:#25d366;}
-.telegram{background:#229ed9;}
-
-.social-name{
-  margin-top:5px;
-}
-
-/* ===== FOOTER ===== */
-footer{
-  text-align:center;
+  padding:45px 20px;
   color:#777;
-  font-size:15px;
-  padding:10px 0 25px;
+  font-size:20px;
 }
 
-/* ===== MOBILE ===== */
-@media(max-width:500px){
+.error{
+  color:#c33;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
 
   .hero{
-    height:125px;
+    height:270px;
   }
 
   .hero h1{
-    font-size:27px;
+    font-size:38px;
   }
 
   .hero p{
-    font-size:15px;
-  }
-
-  .main-item{
-    min-height:72px;
-    padding:8px 10px;
-  }
-
-  .number{
-    width:50px;
-    height:50px;
-    min-width:50px;
-    font-size:22px;
-    margin-right:10px;
-  }
-
-  .folder-icon{
-    width:48px;
-    min-width:48px;
-    font-size:32px;
-    margin-right:5px;
-  }
-
-  .folder-title{
     font-size:18px;
   }
 
-  .folder-desc{
-    font-size:14px;
+  .search-area{
+    padding:20px 20px 10px;
   }
 
-  .arrow{
+  .search{
+    font-size:18px;
+    padding:15px 20px;
+  }
+
+  .page-title{
+    font-size:27px;
+  }
+
+  .list{
+    padding:0 20px 30px;
+  }
+
+  .item{
+    min-height:68px;
+    padding:7px 9px;
+    border-radius:17px;
+  }
+
+  .number{
+    width:47px;
+    height:47px;
+    min-width:47px;
+    font-size:20px;
+    margin-right:11px;
+  }
+
+  .icon{
+    width:42px;
+    min-width:42px;
     font-size:26px;
   }
 
-  .apps{
-    grid-template-columns:repeat(4,1fr);
-    gap:12px 8px;
-    margin-left:15px;
-    margin-right:15px;
+  .name{
+    font-size:18px;
   }
 
-  .app-logo{
-    width:58px;
-    height:58px;
-    padding:11px;
+  .desc{
+    font-size:13px;
   }
 
-  .app-name{
-    font-size:11px;
-  }
-
-  .follow{
-    margin-left:15px;
-    margin-right:15px;
-  }
-
-  .socials{
-    gap:15px;
-  }
-
-  .social-icon{
-    width:55px;
-    height:55px;
+  .arrow{
+    font-size:27px;
   }
 }
 </style>
@@ -329,264 +281,590 @@ footer{
 
 <body>
 
-<!-- HEADER -->
+<!-- =========================
+     UNIVERSAL HEADER
+========================= -->
+
 <header class="hero">
-  <h1>Ning Wei Media</h1>
-  <p>Music • Videos • Photos • Apps • Software</p>
+  <div class="hero-content">
+    <h1 id="title">Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
+  </div>
 </header>
 
-<!-- SEARCH -->
-<div class="search-box">
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div class="search-area">
   <input
-    type="search"
     id="search"
+    class="search"
+    type="search"
     placeholder="Search Ning Wei Media..."
-    oninput="searchPage()"
   >
 </div>
 
-<!-- MAIN SECTIONS -->
-<div class="main-list" id="mainList">
 
-  <a class="main-item" href="audio.html">
-    <div class="number">1</div>
-    <div class="folder-icon">🎵</div>
-    <div class="folder-info">
-      <div class="folder-title">Trending Songs</div>
-      <div class="folder-desc">Music and audio</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
+<!-- =========================
+     PAGE TITLE
+========================= -->
 
-  <a class="main-item" href="audio.html?path=media/songs/Old-is-Gold">
-    <div class="number">2</div>
-    <div class="folder-icon">🏆</div>
-    <div class="folder-info">
-      <div class="folder-title">Old is Gold</div>
-      <div class="folder-desc">Classic and old music</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="main-item" href="audio.html?path=media/songs/DJ-Mixes">
-    <div class="number">3</div>
-    <div class="folder-icon">🎧</div>
-    <div class="folder-info">
-      <div class="folder-title">DJ Mixes / Nonstop</div>
-      <div class="folder-desc">DJ mixes and mixtapes</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="main-item" href="videos.html">
-    <div class="number">4</div>
-    <div class="folder-icon">🎬</div>
-    <div class="folder-info">
-      <div class="folder-title">Trending Videos</div>
-      <div class="folder-desc">Watch videos</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="main-item" href="photos.html">
-    <div class="number">5</div>
-    <div class="folder-icon">📸</div>
-    <div class="folder-info">
-      <div class="folder-title">Trending Photos</div>
-      <div class="folder-desc">View photos</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="main-item" href="apks.html">
-    <div class="number">6</div>
-    <div class="folder-icon">📱</div>
-    <div class="folder-info">
-      <div class="folder-title">Premium & Paid Apps</div>
-      <div class="folder-desc">Applications</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="main-item" href="software.html">
-    <div class="number">7</div>
-    <div class="folder-icon">💻</div>
-    <div class="folder-info">
-      <div class="folder-title">All Softwares</div>
-      <div class="folder-desc">Software and programs</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
+<div class="page-title" id="pageTitle">
+  Ning Wei Media
 </div>
 
-<!-- TRENDING APPS -->
-<h2 class="section-title">🔥 Trending Apps</h2>
 
-<div class="apps">
+<!-- =========================
+     CONTENT
+========================= -->
 
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/spotify/1DB954">
-    </div>
-    <div class="app-name">Spotify</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/youtube/FF0000">
-    </div>
-    <div class="app-name">YouTube</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/tiktok/000000">
-    </div>
-    <div class="app-name">TikTok</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/instagram/E4405F">
-    </div>
-    <div class="app-name">Instagram</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/facebook/1877F2">
-    </div>
-    <div class="app-name">Facebook</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/pinterest/E60023">
-    </div>
-    <div class="app-name">Pinterest</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/whatsapp/25D366">
-    </div>
-    <div class="app-name">WhatsApp</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/telegram/229ED9">
-    </div>
-    <div class="app-name">Telegram</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/snapchat/FFFC00">
-    </div>
-    <div class="app-name">Snapchat</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/netflix/E50914">
-    </div>
-    <div class="app-name">Netflix</div>
-  </a>
-
-  <a class="app" href="#">
-    <div class="app-logo">
-      <img src="https://cdn.simpleicons.org/x/000000">
-    </div>
-    <div class="app-name">X</div>
-  </a>
-
+<div class="list" id="list">
+  <div class="message">Loading...</div>
 </div>
 
-<!-- FOLLOW -->
-<div class="follow">
-
-  <h2>Follow Ning Wei Media</h2>
-
-  <div class="socials">
-
-    <a class="social" href="#">
-      <div class="social-icon youtube">
-        <img src="https://cdn.simpleicons.org/youtube/FFFFFF">
-      </div>
-      <div class="social-name">YouTube</div>
-    </a>
-
-    <a class="social" href="#">
-      <div class="social-icon instagram">
-        <img src="https://cdn.simpleicons.org/instagram/FFFFFF">
-      </div>
-      <div class="social-name">Instagram</div>
-    </a>
-
-    <a class="social" href="#">
-      <div class="social-icon tiktok">
-        <img src="https://cdn.simpleicons.org/tiktok/FFFFFF">
-      </div>
-      <div class="social-name">TikTok</div>
-    </a>
-
-    <a class="social" href="#">
-      <div class="social-icon facebook">
-        <img src="https://cdn.simpleicons.org/facebook/FFFFFF">
-      </div>
-      <div class="social-name">Facebook</div>
-    </a>
-
-    <a class="social" href="#">
-      <div class="social-icon pinterest">
-        <img src="https://cdn.simpleicons.org/pinterest/FFFFFF">
-      </div>
-      <div class="social-name">Pinterest</div>
-    </a>
-
-    <a class="social" href="#">
-      <div class="social-icon whatsapp">
-        <img src="https://cdn.simpleicons.org/whatsapp/FFFFFF">
-      </div>
-      <div class="social-name">WhatsApp</div>
-    </a>
-
-  </div>
-</div>
-
-<footer>
-  © 2026 Ning Wei Media
-</footer>
 
 <script>
-function searchPage(){
 
-  const text =
-    document.getElementById("search")
-    .value
-    .toLowerCase()
-    .trim();
+/* =====================================================
+   GITHUB SETTINGS
+===================================================== */
 
-  document.querySelectorAll(".main-item").forEach(item => {
+const OWNER = "Ningwei2567";
+const REPO = "Ning-wei-1";
+const BRANCH = "main";
 
-    const name =
+
+/* =====================================================
+   CURRENT FOLDER
+===================================================== */
+
+const params = new URLSearchParams(location.search);
+
+let currentPath = params.get("path") || "";
+
+
+/* =====================================================
+   SPECIAL HOME PAGE
+===================================================== */
+
+const homeItems = [
+
+  {
+    name:"Trending Songs",
+    icon:"🎵",
+    desc:"Music and audio",
+    path:"TRENDING"
+  },
+
+  {
+    name:"Old is Gold",
+    icon:"🏆",
+    desc:"Classic and old music",
+    path:"media/songs/Old-is-Gold"
+  },
+
+  {
+    name:"DJ Mixes / Nonstop",
+    icon:"🎧",
+    desc:"DJ mixes and mixtapes",
+    path:"media/songs/DJ-Mixes"
+  },
+
+  {
+    name:"Trending Videos",
+    icon:"🎬",
+    desc:"Watch videos",
+    path:"media/videos"
+  },
+
+  {
+    name:"Trending Photos",
+    icon:"📸",
+    desc:"View photos",
+    path:"media/photos"
+  },
+
+  {
+    name:"All Apps",
+    icon:"📱",
+    desc:"Apps and APK files",
+    path:"media/apps"
+  },
+
+  {
+    name:"All Softwares",
+    icon:"💻",
+    desc:"Software and programs",
+    path:"media/software"
+  }
+
+];
+
+
+/* =====================================================
+   FILE TYPES
+===================================================== */
+
+const audioTypes = [
+  "mp3","wav","m4a","aac","ogg","oga","opus","flac"
+];
+
+const videoTypes = [
+  "mp4","webm","mov","m4v","avi","mkv"
+];
+
+const imageTypes = [
+  "jpg","jpeg","png","gif","webp","bmp"
+];
+
+const downloadTypes = [
+  "apk","zip","rar","7z","exe","msi"
+];
+
+
+/* =====================================================
+   GITHUB API
+===================================================== */
+
+async function githubFolder(path){
+
+  let url =
+    "https://api.github.com/repos/" +
+    OWNER + "/" +
+    REPO +
+    "/contents/" +
+    path +
+    "?ref=" +
+    BRANCH;
+
+  const response = await fetch(url);
+
+  if(!response.ok){
+    throw new Error("GitHub folder could not be loaded.");
+  }
+
+  return await response.json();
+}
+
+
+/* =====================================================
+   CREATE ITEM
+===================================================== */
+
+function createItem(item, number){
+
+  const row = document.createElement("a");
+
+  row.className = "item";
+
+  const numberBox = document.createElement("div");
+  numberBox.className = "number";
+  numberBox.textContent = number;
+
+  const icon = document.createElement("div");
+  icon.className = "icon";
+
+  const info = document.createElement("div");
+  info.className = "info";
+
+  const name = document.createElement("div");
+  name.className = "name";
+
+  const desc = document.createElement("div");
+  desc.className = "desc";
+
+  const arrow = document.createElement("div");
+  arrow.className = "arrow";
+  arrow.textContent = "›";
+
+  name.textContent = item.name;
+
+  if(item.type === "dir"){
+    icon.textContent = getFolderIcon(item.name);
+    desc.textContent = "Folder";
+
+    row.href =
+      "index.html?path=" +
+      encodeURIComponent(item.path);
+
+  }else{
+
+    icon.textContent = getFileIcon(item.name);
+
+    desc.textContent = "Media file";
+
+    row.href =
+      "media.html?path=" +
+      encodeURIComponent(item.path);
+  }
+
+  info.appendChild(name);
+  info.appendChild(desc);
+
+  row.appendChild(numberBox);
+  row.appendChild(icon);
+  row.appendChild(info);
+  row.appendChild(arrow);
+
+  return row;
+}
+
+
+/* =====================================================
+   FOLDER ICONS
+===================================================== */
+
+function getFolderIcon(name){
+
+  const n = name.toLowerCase();
+
+  if(n.includes("uganda")) return "🇺🇬";
+  if(n.includes("african")) return "🌍";
+  if(n.includes("international")) return "🌎";
+  if(n.includes("amapiano")) return "🎵";
+  if(n.includes("south african")) return "🇿🇦";
+  if(n.includes("dj")) return "🎧";
+  if(n.includes("mixtape")) return "🎶";
+  if(n.includes("mapping")) return "🗺️";
+  if(n.includes("sound")) return "🔊";
+  if(n.includes("skin")) return "🎨";
+  if(n.includes("video")) return "🎬";
+  if(n.includes("photo")) return "📸";
+  if(n.includes("app")) return "📱";
+  if(n.includes("software")) return "💻";
+
+  return "📁";
+}
+
+
+/* =====================================================
+   FILE ICONS
+===================================================== */
+
+function getFileIcon(name){
+
+  const ext =
+    name.split(".").pop().toLowerCase();
+
+  if(audioTypes.includes(ext)) return "🎵";
+
+  if(videoTypes.includes(ext)) return "🎬";
+
+  if(imageTypes.includes(ext)) return "📸";
+
+  if(ext === "apk") return "📱";
+
+  if(downloadTypes.includes(ext)) return "📦";
+
+  return "📄";
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+function setTitle(){
+
+  if(!currentPath){
+
+    document.getElementById("title").textContent =
+      "Ning Wei Media";
+
+    document.getElementById("pageTitle").textContent =
+      "Ning Wei Media";
+
+    return;
+  }
+
+  if(currentPath === "TRENDING"){
+
+    document.getElementById("title").textContent =
+      "🎵 Trending Songs";
+
+    document.getElementById("pageTitle").textContent =
+      "🎵 Trending Songs";
+
+    return;
+  }
+
+  const parts =
+    currentPath.split("/");
+
+  const folderName =
+    parts[parts.length - 1]
+      .replace(/-/g," ");
+
+  document.getElementById("title").textContent =
+    folderName;
+
+  document.getElementById("pageTitle").textContent =
+    folderName;
+}
+
+
+/* =====================================================
+   TRENDING SONGS
+===================================================== */
+
+function showTrendingSongs(){
+
+  const list =
+    document.getElementById("list");
+
+  list.innerHTML = "";
+
+  const categories = [
+
+    {
+      name:"Ugandan Music",
+      icon:"🇺🇬",
+      desc:"Music and audio",
+      path:"media/songs/Ugandan"
+    },
+
+    {
+      name:"African Music",
+      icon:"🌍",
+      desc:"Music and audio",
+      path:"media/songs/African"
+    },
+
+    {
+      name:"International Music",
+      icon:"🌎",
+      desc:"Music and audio",
+      path:"media/songs/International"
+    }
+
+  ];
+
+  categories.forEach((item,index)=>{
+
+    const row =
+      document.createElement("a");
+
+    row.className = "item";
+
+    row.href =
+      "index.html?path=" +
+      encodeURIComponent(item.path);
+
+    row.innerHTML = `
+      <div class="number">${index + 1}</div>
+      <div class="icon">${item.icon}</div>
+
+      <div class="info">
+        <div class="name">${item.name}</div>
+        <div class="desc">${item.desc}</div>
+      </div>
+
+      <div class="arrow">›</div>
+    `;
+
+    list.appendChild(row);
+
+  });
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function showHome(){
+
+  const list =
+    document.getElementById("list");
+
+  list.innerHTML = "";
+
+  homeItems.forEach((item,index)=>{
+
+    const row =
+      document.createElement("a");
+
+    row.className = "item";
+
+    if(item.path === "TRENDING"){
+
+      row.href =
+        "index.html?path=TRENDING";
+
+    }else{
+
+      row.href =
+        "index.html?path=" +
+        encodeURIComponent(item.path);
+
+    }
+
+    row.innerHTML = `
+      <div class="number">${index + 1}</div>
+
+      <div class="icon">${item.icon}</div>
+
+      <div class="info">
+        <div class="name">${item.name}</div>
+        <div class="desc">${item.desc}</div>
+      </div>
+
+      <div class="arrow">›</div>
+    `;
+
+    list.appendChild(row);
+
+  });
+}
+
+
+/* =====================================================
+   LOAD REAL GITHUB FOLDER
+===================================================== */
+
+async function loadFolder(){
+
+  const list =
+    document.getElementById("list");
+
+  list.innerHTML =
+    '<div class="message">Loading...</div>';
+
+  try{
+
+    const data =
+      await githubFolder(currentPath);
+
+    if(!Array.isArray(data)){
+      throw new Error("Not a folder.");
+    }
+
+    list.innerHTML = "";
+
+    /* FOLDERS FIRST */
+
+    const folders =
+      data
+      .filter(x => x.type === "dir")
+      .sort((a,b)=>
+        a.name.localeCompare(b.name)
+      );
+
+    /* FILES SECOND */
+
+    const files =
+      data
+      .filter(x => x.type === "file")
+      .sort((a,b)=>
+        a.name.localeCompare(b.name)
+      );
+
+    const all =
+      [...folders,...files];
+
+    let number = 1;
+
+    all.forEach(item=>{
+
+      /* Hide technical files */
+
+      const hidden = [
+        "index.html",
+        "audio.html",
+        "photos.html",
+        "videos.html",
+        "software.html",
+        "apks.html",
+        "media.html",
+        "song.html",
+        "style.css"
+      ];
+
+      if(hidden.includes(item.name.toLowerCase())){
+        return;
+      }
+
+      const row =
+        createItem(item,number);
+
+      list.appendChild(row);
+
+      number++;
+
+    });
+
+    if(number === 1){
+
+      list.innerHTML =
+        '<div class="message">This folder is empty.</div>';
+
+    }
+
+  }catch(error){
+
+    list.innerHTML = `
+      <div class="message error">
+        Unable to load this folder.
+        <br><br>
+        Please check that the folder exists in GitHub.
+      </div>
+    `;
+
+  }
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+  const value =
+    this.value.toLowerCase().trim();
+
+  const items =
+    document.querySelectorAll(".item");
+
+  items.forEach(item=>{
+
+    const text =
       item.innerText.toLowerCase();
 
     item.style.display =
-      name.includes(text) ? "flex" : "none";
+      text.includes(value)
+      ? "flex"
+      : "none";
+
   });
 
-  document.querySelectorAll(".app").forEach(app => {
+});
 
-    const name =
-      app.innerText.toLowerCase();
 
-    app.style.display =
-      name.includes(text) ? "flex" : "none";
-  });
+/* =====================================================
+   START
+===================================================== */
+
+setTitle();
+
+if(!currentPath){
+
+  showHome();
+
+}else if(currentPath === "TRENDING"){
+
+  showTrendingSongs();
+
+}else{
+
+  loadFolder();
+
 }
+
 </script>
 
 </body>
