@@ -2,925 +2,187 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ning Wei Media</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
-html,body{
-    margin:0;
-    padding:0;
-    background:#f3f9fc;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#17243d;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.nw-header{
-    position:relative;
-    width:100%;
-    height:318px;
-    overflow:hidden;
-    background:#79bde3;
-}
-
-.nw-header-photo{
-    position:absolute;
-    width:100%;
-    height:100%;
-    left:0;
-    top:0;
-
-    object-fit:cover;
-    object-position:50% 18%;
-
-    transform:scale(1.08);
-}
-
-.nw-header-overlay{
-    position:absolute;
-    inset:0;
-    background:rgba(55,145,205,.38);
-}
-
-.nw-header-content{
-    position:absolute;
-    inset:0;
-    z-index:2;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-    padding:20px;
-}
-
-.nw-title{
-    margin:0;
-    color:#fff;
-
-    font-size:42px;
-    line-height:1.1;
-    font-weight:900;
-
-    text-shadow:0 3px 7px rgba(0,0,0,.45);
-}
-
-.nw-subtitle{
-    margin-top:8px;
-
-    color:#fff;
-    font-size:18px;
-    font-weight:600;
-
-    text-shadow:0 2px 5px rgba(0,0,0,.4);
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.container{
-    width:94%;
-    max-width:850px;
-
-    margin:25px auto 50px;
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.search{
-    width:100%;
-    height:64px;
-
-    border:1px solid #ddd;
-    border-radius:36px;
-
-    background:#fff;
-
-    padding:0 24px;
-
-    font-size:22px;
-    outline:none;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
-
-/* =========================
-   UPLOAD BUTTON
-========================= */
-
-.upload-button{
-    display:block;
-
-    width:100%;
-
-    margin:20px 0;
-
-    padding:19px 12px;
-
-    background:#168fa3;
-    color:#fff;
-
-    border-radius:20px;
-
-    text-align:center;
-    text-decoration:none;
-
-    font-size:20px;
-    font-weight:900;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.12);
-}
-
-.upload-button:active{
-    transform:scale(.99);
-}
-
-/* =========================
-   FOLDER TITLE
-========================= */
-
-.folder-title{
-    margin:5px 0 15px;
-
-    font-size:27px;
-    font-weight:900;
-
-    color:#14233d;
-}
-
-/* =========================
-   LIST
-========================= */
-
-.list{
-    background:#fff;
-
-    border-radius:27px;
-
-    overflow:hidden;
-
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
-}
-
-.item{
-    display:flex;
-    align-items:center;
-
-    width:100%;
-    min-height:92px;
-
-    padding:10px 15px;
-
-    border-bottom:1px solid #e4e4e4;
-
-    text-decoration:none;
-    color:#14233d;
-}
-
-.item:last-child{
-    border-bottom:0;
-}
-
-.item:active{
-    background:#f5fbfe;
-}
-
-/* =========================
-   NUMBER
-========================= */
-
-.number{
-    width:62px;
-    height:62px;
-
-    flex:0 0 62px;
-
-    border-radius:50%;
-
-    background:#000;
-    color:#fff;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    margin-right:15px;
-
-    font-size:29px;
-    font-weight:900;
-}
-
-/* =========================
-   ICON
-========================= */
-
-.icon{
-    width:55px;
-    flex:0 0 55px;
-
-    margin-right:10px;
-
-    text-align:center;
-
-    font-size:39px;
-}
-
-/* =========================
-   TEXT
-========================= */
-
-.info{
-    flex:1;
-    min-width:0;
-}
-
-.name{
-    font-size:21px;
-    font-weight:900;
-
-    word-break:break-word;
-}
-
-.type{
-    margin-top:5px;
-
-    color:#858585;
-
-    font-size:15px;
-}
-
-/* =========================
-   ARROW
-========================= */
-
-.arrow{
-    margin-left:8px;
-
-    color:#168ca1;
-
-    font-size:34px;
-    font-weight:400;
-}
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-    background:#fff;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    text-align:center;
-
-    color:#777;
-
-    font-size:16px;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .nw-header{
-        height:318px;
-    }
-
-    .nw-title{
-        font-size:38px;
-    }
-
-    .nw-subtitle{
-        font-size:17px;
-    }
-
-    .container{
-        width:92%;
-        margin-top:25px;
-    }
-
-    .search{
-        height:62px;
-        font-size:20px;
-    }
-
-    .upload-button{
-        font-size:18px;
-        padding:18px 8px;
-    }
-
-    .folder-title{
-        font-size:24px;
-    }
-
-    .item{
-        min-height:91px;
-    }
-
-    .number{
-        width:58px;
-        height:58px;
-        flex-basis:58px;
-        font-size:27px;
-    }
-
-    .icon{
-        width:48px;
-        flex-basis:48px;
-        font-size:35px;
-    }
-
-    .name{
-        font-size:19px;
-    }
-
-    .type{
-        font-size:14px;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f3f8fb;color:#111}
+.nw-header{height:205px;position:relative;overflow:hidden;background:#87ceeb}
+.nw-header img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover;object-position:50% 18%;transform:scale(1.15)}
+.overlay{position:absolute;inset:0;background:rgba(55,145,205,.38)}
+.head{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.head h1{margin:0;color:white;font-size:30px;text-shadow:0 2px 5px #333}
+.head p{margin:5px 0 12px;color:white;font-size:13px}
+.search{width:92%;max-width:500px;height:42px;border:0;border-radius:25px;padding:0 17px;font-size:15px;outline:none}
+.wrap{width:94%;max-width:700px;margin:14px auto 40px}
+.path{font-size:13px;color:#666;margin:8px 2px 10px;word-break:break-all}
+.upload{display:block;text-align:center;text-decoration:none;background:#0796b5;color:white;font-weight:bold;padding:11px;border-radius:9px;margin-bottom:10px}
+.row{display:flex;align-items:center;background:white;border-radius:9px;min-height:47px;padding:5px 8px;margin:6px 0;box-shadow:0 1px 5px #ddd;text-decoration:none;color:#111}
+.num{width:31px;height:31px;border-radius:50%;background:#000;color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;flex:none}
+.icon{font-size:20px;width:35px;text-align:center}
+.name{flex:1;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arrow{font-size:24px;color:#078da9;padding:0 4px}
+.empty{text-align:center;padding:25px;color:#777}
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     UNIVERSAL HEADER
-========================= -->
-
 <header class="nw-header">
-
-    <img
-        class="nw-header-photo"
-        src="ning-wei.png"
-        alt="Ning Wei"
-    >
-
-    <div class="nw-header-overlay"></div>
-
-    <div class="nw-header-content">
-
-        <h1 class="nw-title">
-            Ning Wei Media
-        </h1>
-
-        <div class="nw-subtitle">
-            Music • Videos • Photos • Apps • Software
-        </div>
-
-    </div>
-
+<img src="ning-wei.png" alt="">
+<div class="overlay"></div>
+<div class="head">
+<h1>Ning Wei Media</h1>
+<p>Music • Videos • Photos • Apps • Software</p>
+<input id="search" class="search" placeholder="Search this folder...">
+</div>
 </header>
 
+<main class="wrap">
 
-<main class="container">
+<div id="path" class="path"></div>
 
-    <!-- SEARCH -->
+<a id="upload" class="upload">📤 Upload Directly Here</a>
 
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="🔎 Search this folder..."
-        autocomplete="off"
-    >
-
-
-    <!-- GITHUB ADMIN UPLOAD -->
-
-    <a
-        id="uploadButton"
-        class="upload-button"
-        href="#"
-        target="_blank"
-        rel="noopener"
-    >
-        📤 Upload Directly Here
-    </a>
-
-
-    <!-- CURRENT FOLDER -->
-
-    <h1
-        id="folderTitle"
-        class="folder-title"
-    >
-        Loading...
-    </h1>
-
-
-    <!-- FILES -->
-
-    <div
-        id="list"
-        class="list"
-    >
-        <div class="status">
-            Loading...
-        </div>
-    </div>
+<div id="list">Loading...</div>
 
 </main>
 
-
 <script>
+const OWNER="Ningwei2567";
+const REPO="Ning-wei-1";
+const BRANCH="main";
+const API="https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/";
 
-/* =====================================================
-   WEBSITE
-===================================================== */
+const params=new URLSearchParams(location.search);
+const currentPath=params.get("path") || "media";
 
-const OWNER = "Ningwei2567";
+let allItems=[];
 
-const REPO = "Ning-wei-1";
-
-const BRANCH = "main";
-
-
-/* =====================================================
-   GITHUB API
-===================================================== */
-
-const API =
-    `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
-
-
-/* =====================================================
-   CURRENT PATH
-===================================================== */
-
-const params =
-    new URLSearchParams(window.location.search);
-
-let currentPath =
-    params.get("path") || "media";
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const list =
-    document.getElementById("list");
-
-const title =
-    document.getElementById("folderTitle");
-
-const search =
-    document.getElementById("search");
-
-const uploadButton =
-    document.getElementById("uploadButton");
-
-
-/* =====================================================
-   ENCODE GITHUB PATH
-===================================================== */
-
-function encodePath(path){
-
-    return path
-        .split("/")
-        .filter(Boolean)
-        .map(
-            part => encodeURIComponent(part)
-        )
-        .join("/");
+function apiPath(path){
+    return API+path.split("/").map(encodeURIComponent).join("/");
 }
 
-
-/* =====================================================
-   CLEAN DISPLAY NAME
-===================================================== */
-
-function displayName(name){
-
-    return name
-        .replace(/\.[^/.]+$/,"")
-        .replace(/[-_]+/g," ")
-        .trim();
+function rawUrl(path){
+    return "https://raw.githubusercontent.com/"+OWNER+"/"+REPO+"/"+BRANCH+"/"+path.split("/").map(encodeURIComponent).join("/");
 }
 
+function icon(item){
+    if(item.type==="dir") return "📁";
 
-/* =====================================================
-   HTML ESCAPE
-===================================================== */
+    const ext=item.name.split(".").pop().toLowerCase();
 
-function escapeHTML(text){
+    if(["mp3","wav","m4a","aac","ogg","oga","opus","flac"].includes(ext)) return "🎵";
+    if(["mp4","webm","mov","m4v"].includes(ext)) return "🎬";
+    if(["jpg","jpeg","png","gif","webp","bmp"].includes(ext)) return "📸";
+    if(["apk"].includes(ext)) return "📱";
+    if(["exe","msi","zip","rar","7z"].includes(ext)) return "💻";
 
-    return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    return "📄";
 }
 
-
-/* =====================================================
-   FILE ICON
-===================================================== */
-
-function getIcon(item){
-
-    if(item.type === "dir"){
-        return "📁";
-    }
-
-    const name =
-        item.name.toLowerCase();
-
-
-    /* AUDIO */
-
-    if(
-        /\.(mp3|m4a|wav|aac|ogg|oga|opus|flac)$/i
-        .test(name)
-    ){
-        return "🎵";
-    }
-
-
-    /* VIDEO */
-
-    if(
-        /\.(mp4|webm|mov|m4v|avi|mkv)$/i
-        .test(name)
-    ){
-        return "🎬";
-    }
-
-
-    /* IMAGE */
-
-    if(
-        /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i
-        .test(name)
-    ){
-        return "🖼️";
-    }
-
-
-    /* APK */
-
-    if(
-        /\.apk$/i.test(name)
-    ){
-        return "📱";
-    }
-
-
-    /* SOFTWARE */
-
-    if(
-        /\.(exe|msi|dmg|deb|rpm|zip|rar|7z)$/i
-        .test(name)
-    ){
-        return "💻";
-    }
-
-
-    /* DOCUMENT */
-
-    if(
-        /\.(pdf|doc|docx|txt|rtf|xls|xlsx|ppt|pptx)$/i
-        .test(name)
-    ){
-        return "📄";
-    }
-
-
-    return "📦";
+function mediaLink(path){
+    return "media.html?path="+encodeURIComponent(path);
 }
 
-
-/* =====================================================
-   ITEM LINK
-===================================================== */
-
-function getItemLink(item){
-
-    /*
-       FOLDER
-
-       Open the same universal browser again
-       with the new folder path.
-    */
-
-    if(item.type === "dir"){
-
-        return `browser.html?path=${
-            encodeURIComponent(item.path)
-        }`;
-    }
-
-
-    /*
-       FILE
-
-       Open universal media player.
-    */
-
-    return `media.html?path=${
-        encodeURIComponent(item.path)
-    }`;
+function uploadLink(path){
+    return "github-upload.html?path="+encodeURIComponent(path);
 }
 
+function render(items){
 
-/* =====================================================
-   GITHUB UPLOAD LINK
-===================================================== */
-
-function createUploadLink(){
-
-    /*
-       THIS IS THE IMPORTANT PART.
-
-       The upload destination is automatically
-       the folder currently being viewed.
-
-       Example:
-
-       media/songs/Ugandan
-
-       becomes a GitHub upload destination
-       for exactly that folder.
-    */
-
-    const encoded =
-        currentPath
-            .split("/")
-            .filter(Boolean)
-            .map(
-                part => encodeURIComponent(part)
-            )
-            .join("/");
-
-
-    uploadButton.href =
-        `https://github.com/${OWNER}/${REPO}/upload/${BRANCH}/${encoded}`;
-}
-
-
-/* =====================================================
-   LOAD FOLDER
-===================================================== */
-
-async function loadFolder(){
-
-    title.textContent =
-        displayName(
-            currentPath
-                .split("/")
-                .filter(Boolean)
-                .pop() || "Ning Wei Media"
-        );
-
-
-    /*
-       Set GitHub upload destination.
-    */
-
-    createUploadLink();
-
-
-    list.innerHTML =
-        `<div class="status">
-            Loading...
-         </div>`;
-
-
-    try{
-
-        const response =
-            await fetch(
-                `${API}/${encodePath(currentPath)}?ref=${BRANCH}`
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                `GitHub returned ${response.status}`
-            );
-        }
-
-
-        const items =
-            await response.json();
-
-
-        if(!Array.isArray(items)){
-
-            throw new Error(
-                "This location is not a folder."
-            );
-        }
-
-
-        /*
-           FOLDERS FIRST
-        */
-
-        items.sort((a,b)=>{
-
-            if(
-                a.type === "dir" &&
-                b.type !== "dir"
-            ){
-                return -1;
-            }
-
-            if(
-                a.type !== "dir" &&
-                b.type === "dir"
-            ){
-                return 1;
-            }
-
-            return a.name.localeCompare(
-                b.name,
-                undefined,
-                {
-                    numeric:true,
-                    sensitivity:"base"
-                }
-            );
-        });
-
-
-        allItems =
-            items.filter(
-                item =>
-                    item.type === "dir" ||
-                    item.type === "file"
-            );
-
-
-        draw(allItems);
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        list.innerHTML =
-            `<div class="status">
-                ❌ ${escapeHTML(error.message)}
-            </div>`;
-    }
-}
-
-
-/* =====================================================
-   STORE ITEMS
-===================================================== */
-
-let allItems = [];
-
-
-/* =====================================================
-   DRAW ITEMS
-===================================================== */
-
-function draw(items){
-
-    list.innerHTML = "";
-
+    const box=document.getElementById("list");
 
     if(!items.length){
-
-        list.innerHTML =
-            `<div class="status">
-                This folder is empty.
-            </div>`;
-
+        box.innerHTML='<div class="empty">No files found in this folder.</div>';
         return;
     }
 
+    items.sort((a,b)=>{
+        if(a.type==="dir" && b.type!=="dir") return -1;
+        if(a.type!=="dir" && b.type==="dir") return 1;
+        return a.name.localeCompare(b.name);
+    });
 
-    items.forEach(
-        (item,index)=>{
+    box.innerHTML=items.map((item,index)=>{
 
-            const number =
-                index + 1;
+        const path=currentPath+"/"+item.name;
 
-
-            const link =
-                document.createElement("a");
-
-
-            link.className =
-                "item";
-
-
-            link.href =
-                getItemLink(item);
-
-
-            link.innerHTML = `
-
-                <div class="number">
-                    ${number}
-                </div>
-
-                <div class="icon">
-                    ${getIcon(item)}
-                </div>
-
-                <div class="info">
-
-                    <div class="name">
-                        ${escapeHTML(
-                            displayName(item.name)
-                        )}
-                    </div>
-
-                    <div class="type">
-
-                        ${
-                            item.type === "dir"
-                            ? "Folder"
-                            : "File"
-                        }
-
-                    </div>
-
-                </div>
-
-                <div class="arrow">
-                    ›
-                </div>
-
-            `;
-
-
-            list.appendChild(link);
-
+        if(item.type==="dir"){
+            return `
+            <a class="row"
+               href="browser.html?path=${encodeURIComponent(path)}">
+                <span class="num">${index+1}</span>
+                <span class="icon">📁</span>
+                <span class="name">${escapeHtml(item.name)}</span>
+                <span class="arrow">›</span>
+            </a>`;
         }
-    );
+
+        return `
+        <a class="row"
+           href="${mediaLink(path)}">
+            <span class="num">${index+1}</span>
+            <span class="icon">${icon(item)}</span>
+            <span class="name">${escapeHtml(item.name)}</span>
+            <span class="arrow">›</span>
+        </a>`;
+    }).join("");
 }
 
+function escapeHtml(text){
+    return text.replace(/[&<>"']/g,m=>({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+    }[m]));
+}
 
-/* =====================================================
-   SEARCH
-===================================================== */
+async function load(){
 
-search.addEventListener(
-    "input",
-    function(){
+    document.getElementById("path").textContent=
+        "Folder: "+currentPath;
 
-        const query =
-            this.value
-                .trim()
-                .toLowerCase();
+    document.getElementById("upload").href=
+        uploadLink(currentPath);
 
+    try{
 
-        if(!query){
+        const response=await fetch(apiPath(currentPath),{
+            headers:{
+                "Accept":"application/vnd.github+json"
+            }
+        });
 
-            draw(allItems);
+        if(!response.ok)
+            throw new Error("GitHub folder could not be loaded.");
 
-            return;
-        }
+        allItems=await response.json();
 
+        render(allItems);
 
-        const results =
-            allItems.filter(
-                item =>
-                    item.name
-                        .toLowerCase()
-                        .includes(query)
-            );
+    }catch(error){
 
-
-        draw(results);
-
+        document.getElementById("list").innerHTML=
+            '<div class="empty">❌ '+escapeHtml(error.message)+'</div>';
     }
-);
+}
 
+document.getElementById("search").addEventListener("input",function(){
 
-/* =====================================================
-   START
-===================================================== */
+    const q=this.value.toLowerCase().trim();
 
-loadFolder();
+    render(
+        allItems.filter(x=>
+            x.name.toLowerCase().includes(q)
+        )
+    );
+});
 
+load();
 </script>
 
 </body>
