@@ -6,42 +6,17 @@
     <title>Ning Wei Media - Music</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f7;
+            margin: 0; padding: 0; background-color: #f5f5f7;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: start;
-            min-height: 100vh;
+            display: flex; justify-content: center; align-items: start; min-height: 100vh;
         }
-        .container {
-            width: 100%;
-            max-width: 420px;
-            background: #f5f5f7;
-            min-height: 100vh;
-            box-sizing: border-box;
-            padding-bottom: 30px;
-        }
-        /* REPLACED BANNER LAYOUT - PERMANENTLY CENTERS FACE GRAPHIC */
+        .container { width: 100%; max-width: 420px; background: #f5f5f7; min-height: 100vh; box-sizing: border-box; padding-bottom: 30px; }
         .banner {
-            position: relative;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('ning-wei.png');
-            background-size: cover;
-            background-position: center 30% !important; /* Forces your face to look perfectly centered */
-            background-repeat: no-repeat;
-            height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
+            position: relative; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('ning-wei.png');
+            background-size: cover; background-position: center 30% !important; background-repeat: no-repeat;
+            height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;
         }
-        .banner-title-box { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
         .banner h1 { margin: 0; font-size: 2.2rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-        .banner .music-icon { font-size: 2rem; }
-        .banner p { margin: 0; font-size: 0.9rem; opacity: 0.95; letter-spacing: 0.5px; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
         .search-container { padding: 15px; display: flex; justify-content: center; }
         .search-box {
             width: 100%; background: #ffffff; border-radius: 25px; padding: 12px 20px;
@@ -50,23 +25,20 @@
         .search-box input { border: none; outline: none; width: 100%; font-size: 1rem; color: #333; }
         .upload-section { padding: 0 15px 15px 15px; }
         .btn-upload-direct {
-            width: 100%; background-color: #128c9e; color: #ffffff; border: none;
-            border-radius: 12px; padding: 14px; font-size: 1rem; font-weight: bold; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 10px rgba(18, 140, 158, 0.2);
+            width: 100%; background-color: #128c9e; color: #ffffff; border: none; border-radius: 12px;
+            padding: 14px; font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .list-container { padding: 0 15px; display: flex; flex-direction: column; gap: 8px; }
         .list-item {
-            background: #ffffff; border-radius: 14px; padding: 8px 12px; display: flex;
-            align-items: center; justify-content: space-between; text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.02);
+            background: #ffffff; border-radius: 14px; padding: 8px 12px; display: flex; align-items: center;
+            justify-content: space-between; text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.02);
         }
         .item-left-block { display: flex; align-items: center; flex: 1; min-width: 0; }
         .number-badge {
             width: 32px; height: 32px; background: #000000; color: #ffffff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; margin-right: 12px; flex-shrink: 0;
         }
-        .row-icon { width: 26px; height: 26px; margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-        .folder-visual { color: #ffcc00; font-size: 1.6rem; }
-        .audio-visual { color: #a64dff; font-size: 1.5rem; }
+        .row-icon { width: 26px; height: 26px; margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .text-meta-box { display: flex; flex-direction: column; min-width: 0; flex: 1; }
         .text-title { font-size: 1rem; font-weight: 700; color: #1d1d1f; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .text-subtitle { font-size: 0.75rem; color: #86868b; margin: 2px 0 0 0; }
@@ -76,7 +48,7 @@
 <body>
     <div class="container">
         <div class="banner">
-            <div class="banner-title-box"><span class="music-icon">🎵</span><h1>Music</h1></div>
+            <h1>Music</h1>
             <p>Music • Audio • DJ Mixes</p>
         </div>
         <div class="search-container">
@@ -88,38 +60,17 @@
             <button onclick="openUploadPortal()" class="btn-upload-direct">🚨 Upload Music Directly Here</button>
         </div>
         <div class="list-container" id="masterTrackList">
-            <a href="African/index.html" class="list-item">
+            
+            <!-- FIXED SUBFOLDER DIRECTORY PATH LINK -->
+            <a href="media/songs/DJ-Mixes/index.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">1</div>
-                    <div class="row-icon"><span class="folder-visual">📁</span></div>
-                    <div class="text-meta-box"><h3 class="text-title">African</h3><p class="text-subtitle">Music folder</p></div>
-                </div>
-                <div class="arrow-indicator">❯</div>
-            </a>
-            <a href="DJ-Mixes/index.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">2</div>
-                    <div class="row-icon"><span class="folder-visual">📁</span></div>
+                    <div class="row-icon">📁</div>
                     <div class="text-meta-box"><h3 class="text-title">DJ-Mixes</h3><p class="text-subtitle">Music folder</p></div>
                 </div>
                 <div class="arrow-indicator">❯</div>
             </a>
-            <a href="Ugandan/index.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">3</div>
-                    <div class="row-icon"><span class="folder-visual">📁</span></div>
-                    <div class="text-meta-box"><h3 class="text-title">Ugandan</h3><p class="text-subtitle">Music folder</p></div>
-                </div>
-                <div class="arrow-indicator">❯</div>
-            </a>
-            <a href="media.html?file=Fire-Burn-Dem-Rasta-Colombiaft-serial-focus-ft-street-zuuka.mp3" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">4</div>
-                    <div class="row-icon"><span class="audio-visual">♫</span></div>
-                    <div class="text-meta-box"><h3 class="text-title">Fire-Burn-Dem-Rasta-Colombiaft-serial-focus-ft-street-zuuka.mp3</h3><p class="text-subtitle">Audio</p></div>
-                </div>
-                <div class="arrow-indicator">❯</div>
-            </a>
+
         </div>
     </div>
     <script>
