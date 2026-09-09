@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ning Wei Media - Home</title>
     <style>
-        /* Modern clean mobile shell alignment */
+        /* Base page alignment */
         body {
             margin: 0;
             padding: 0;
@@ -26,12 +26,13 @@
             padding-bottom: 30px;
         }
 
-        /* Banner Header Section Layout */
+        /* Banner Header Section with Centered Face Image Alignment Fix */
         .banner {
             position: relative;
             background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('ning-wei.png');
             background-size: cover;
-            background-position: center;
+            background-position: center 30% !important;
+            background-repeat: no-repeat;
             height: 180px;
             display: flex;
             flex-direction: column;
@@ -45,6 +46,7 @@
             margin: 0;
             font-size: 2.2rem;
             font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
         .banner p {
@@ -52,9 +54,10 @@
             font-size: 0.9rem;
             opacity: 0.95;
             letter-spacing: 0.5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
 
-        /* Search Section Wrapper Container */
+        /* Search Input Area */
         .search-container {
             padding: 15px;
             display: flex;
@@ -80,7 +83,7 @@
             color: #333;
         }
 
-        /* Home Page Core Title Header Label */
+        /* Home Page Section Header Text Label */
         .section-header {
             padding: 0 15px 10px 15px;
             margin: 0;
@@ -89,7 +92,7 @@
             color: #000000;
         }
 
-        /* MASTER REBUILT COMPACT LIST ROWS CONFIGURATION */
+        /* COMPACT LIST CONTAINER ROWS */
         .list-container {
             padding: 0 15px;
             display: flex;
@@ -100,7 +103,7 @@
         .list-item {
             background: #ffffff;
             border-radius: 14px;
-            padding: 8px 12px; /* Slim compact outer spacing matching your folders */
+            padding: 8px 12px; /* Slim compact outer padding spacing matching folders */
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -117,7 +120,7 @@
             min-width: 0;
         }
 
-        /* Tiny Crisp Black Circles */
+        /* Black Circle Numbers Badge Icons */
         .number-badge {
             width: 32px;
             height: 32px;
@@ -133,7 +136,7 @@
             flex-shrink: 0;
         }
 
-        /* Universal Inline Icon Spacing Setup */
+        /* List Row Visual Icons Spacing */
         .row-icon {
             width: 26px;
             height: 26px;
@@ -142,23 +145,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.4rem;
         }
 
-        .row-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Clean Compact Text Content Sizing Layout */
+        /* Compact Text Content Sizing Layout */
         .text-meta-box {
             display: flex;
-            flex-direction: row; /* Puts title and text description inline */
+            flex-direction: row; /* Placed title and description inline */
             align-items: baseline;
             gap: 6px;
             min-width: 0;
             flex: 1;
-            flex-wrap: wrap; /* Prevents text overflow breaks on small devices */
+            flex-wrap: wrap; /* Keeps responsive breaks safe */
         }
 
         .text-title {
@@ -187,13 +185,13 @@
 
     <div class="container">
         
-        <!-- Header Image Area banner styling -->
+        <!-- Top Centered Profile Banner Background Area -->
         <div class="banner">
             <h1>Ning Wei Media</h1>
             <p>Music • Videos • Photos • Apps • Software</p>
         </div>
 
-        <!-- Filter Navigation Elements -->
+        <!-- Directory Filter Search Bar Component -->
         <div class="search-container">
             <div class="search-box">
                 <input type="text" id="searchInput" onkeyup="filterMenu()" placeholder="Search everything...">
@@ -202,17 +200,14 @@
 
         <h2 class="section-header">Ning Wei Media</h2>
 
-        <!-- MAIN HOMEPAGE LIST: ALL COMPACT ROWS LOADED HERE -->
+        <!-- MAIN HOMEPAGE COMPACT CLEAN LIST -->
         <div class="list-container" id="mainMenu">
             
             <!-- Item 1: Trending Songs -->
             <a href="song.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">1</div>
-                    <div class="row-icon">
-                        <!-- Custom Inline Unicode Symbols used as clean native fallbacks -->
-                        <span style="color:#a64dff; font-size:1.4rem;">🎵</span>
-                    </div>
+                    <div class="row-icon" style="color: #a64dff;">🎵</div>
                     <div class="text-meta-box">
                         <h3 class="text-title">Trending Songs</h3>
                         <p class="text-subtitle">Music and audio</p>
@@ -225,9 +220,7 @@
             <a href="old-is-gold.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">2</div>
-                    <div class="row-icon">
-                        <span style="color:#ffcc00; font-size:1.4rem;">⭐</span>
-                    </div>
+                    <div class="row-icon" style="color: #ffcc00;">⭐</div>
                     <div class="text-meta-box">
                         <h3 class="text-title">Old is Gold</h3>
                         <p class="text-subtitle">Classic and old music</p>
@@ -240,9 +233,7 @@
             <a href="dj-mixes.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">3</div>
-                    <div class="row-icon">
-                        <span style="color:#111111; font-size:1.4rem;">🎧</span>
-                    </div>
+                    <div class="row-icon" style="color: #111111;">🎧</div>
                     <div class="text-meta-box">
                         <h3 class="text-title">DJ Mixes</h3>
                         <p class="text-subtitle">DJ mixes and mixtapes</p>
@@ -255,9 +246,7 @@
             <a href="videos.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">4</div>
-                    <div class="row-icon">
-                        <span style="color:#444444; font-size:1.3rem;">🎬</span>
-                    </div>
+                    <div class="row-icon" style="color: #444444;">🎬</div>
                     <div class="text-meta-box">
                         <h3 class="text-title">Videos</h3>
                         <p class="text-subtitle">Watch videos</p>
@@ -270,9 +259,7 @@
             <a href="photos.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">5</div>
-                    <div class="row-icon">
-                        <span style="color:#ff4d4d; font-size:1.3rem;">📸</span>
-                    </div>
+                    <div class="row-icon" style="color: #ff4d4d;">📸</div>
                     <div class="text-meta-box">
                         <h3 class="text-title">Photos</h3>
                         <p class="text-subtitle">View photos</p>
@@ -285,9 +272,7 @@
             <a href="apps.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">6</div>
-                    <div class="row-icon">
-                        <span style="color:#0071e3; font-size:1.4rem;">📱</span>
-                    </div>
+                    <div class="row-icon" style="color: #0071e3;">📱</div>
                     <div class="text-meta-box">
                         <h3 class="text-title">Apps</h3>
                         <p class="text-subtitle">Applications</p>
@@ -300,6 +285,20 @@
             <a href="software.html" class="list-item">
                 <div class="item-left-block">
                     <div class="number-badge">7</div>
-                    <div class="row-icon">
-                        <span style="color:#00b3b3; font-size:1.3rem;">💻</span>
+                    <div class="row-icon" style="color: #00b3b3;">💻</div>
+                    <div class="text-meta-box">
+                        <h3 class="text-title">Software</h3>
+                        <p class="text-subtitle">Software and programs</p>
                     </div>
+                </div>
+                <div class="arrow-indicator">❯</div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Client-Side Live Filter Search Engine Script -->
+    <script>
+        function filterMenu() {
+            const filterValue = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.getElementById('mainMenu').getElementsByClassName('list-item');
