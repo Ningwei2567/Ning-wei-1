@@ -15,65 +15,47 @@ body{
   color:#111;
 }
 
-.nw-header{
+.header{
   position:relative;
   height:318px;
   overflow:hidden;
-  background:#8ed8ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:#000;
 }
 
-.nw-header-photo{
+.header img{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
   object-position:50% 18%;
-  transform:scale(1.08);
 }
 
-.nw-header-overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(55,165,220,.38);
+.header::after{
+  display:none !important;
+  content:none !important;
 }
 
-.nw-header-content{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  align-items:center;
-  text-align:center;
-  padding:20px 12px;
+.header-content{
+  position:relative;
+  z-index:2;
+  color:white;
+  text-shadow:0 2px 5px rgba(0,0,0,.55);
 }
 
-.nw-title{
+.header-content h1{
   margin:0;
-  color:#fff;
-  font-size:29px;
+  font-size:38px;
   font-weight:900;
-  text-shadow:0 2px 6px rgba(0,0,0,.45);
 }
 
-.nw-subtitle{
-  color:#fff;
-  font-size:13px;
-  font-weight:bold;
-  margin:5px 0 12px;
-  text-shadow:0 1px 4px rgba(0,0,0,.4);
-}
-
-.search{
-  width:min(94%,520px);
-  height:43px;
-  border:0;
-  outline:0;
-  border-radius:25px;
-  padding:0 18px;
-  font-size:15px;
-  box-shadow:0 3px 12px rgba(0,0,0,.2);
+.header-content p{
+  margin:8px 0 0;
+  font-size:17px;
 }
 
 .container{
@@ -120,7 +102,7 @@ body{
 
 .media-box{
   width:100%;
-  margin:10px 0;
+  margin:15px 0;
 }
 
 audio{
@@ -142,6 +124,15 @@ video{
   max-height:65vh;
   margin:auto;
   border-radius:8px;
+  cursor:zoom-in;
+}
+
+.preview-image.zoomed{
+  max-width:none;
+  width:auto;
+  transform:scale(1.6);
+  transform-origin:center;
+  cursor:zoom-out;
 }
 
 .buttons{
@@ -191,46 +182,41 @@ video{
 }
 
 @media(max-width:600px){
-  .nw-header{height:318px}
 
-  .nw-title{font-size:26px}
+  .header{
+    height:318px;
+  }
 
-  .file-name{font-size:17px}
+  .header-content h1{
+    font-size:29px;
+  }
+
+  .header-content p{
+    font-size:14px;
+  }
+
+  .file-name{
+    font-size:17px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="nw-header">
+<header class="header">
 
   <img
-    class="nw-header-photo"
-    src="ning-wei.png"
-    alt=""
+    src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+    alt="Ning Wei"
   >
 
-  <div class="nw-header-overlay"></div>
-
-  <div class="nw-header-content">
-
-    <h1 class="nw-title">Ning Wei Media</h1>
-
-    <div class="nw-subtitle">
-      Music • Videos • Photos • Apps • Software
-    </div>
-
-    <input
-      id="search"
-      class="search"
-      type="search"
-      placeholder="Search songs, videos, photos, apps..."
-    >
-
+  <div class="header-content">
+    <h1>Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
   </div>
 
 </header>
-
 
 <main class="container">
 
@@ -252,208 +238,178 @@ video{
 
 </main>
 
-
 <script>
 
-/* ==========================================
-   READ FILE INFORMATION
-========================================== */
+const params=
+  new URLSearchParams(
+    window.location.search
+  );
 
-const params =
-  new URLSearchParams(window.location.search);
+const SITE=
+  "https://ningwei2567.github.io/Ning-wei-1/";
 
-let src =
-  params.get("url") ||
-  params.get("src") ||
+let src=
+  params.get("url")||
   "";
 
-let path =
-  params.get("path") ||
+let path=
+  params.get("path")||
   "";
 
-let name =
-  params.get("name") ||
+let name=
+  params.get("name")||
   "";
 
-let mime =
-  params.get("mime") ||
-  params.get("type") ||
+let mime=
+  params.get("mime")||
   "";
 
-
-/* ==========================================
-   GITHUB FILE
-========================================== */
+/* GITHUB PAGES FILE */
 
 if(!src && path){
 
-  const encoded =
+  src=
+    SITE+
     path
       .split("/")
       .filter(Boolean)
-      .map(
-        p => encodeURIComponent(p)
-      )
+      .map(encodeURIComponent)
       .join("/");
 
-  src =
-    "https://raw.githubusercontent.com/" +
-    "Ningwei2567/Ning-wei-1/main/" +
-    encoded;
 }
 
-
-/* ==========================================
-   OLD folder + file FORMAT
-========================================== */
+/* OLD FORMAT */
 
 if(!src){
 
-  const folder =
-    params.get("folder") || "";
+  const folder=
+    params.get("folder")||"";
 
-  const file =
-    params.get("file") || "";
+  const file=
+    params.get("file")||"";
 
   if(folder && file){
 
-    const full =
-      folder + "/" + file;
+    const full=
+      folder+"/"+file;
 
-    const encoded =
+    src=
+      SITE+
       full
         .split("/")
         .filter(Boolean)
-        .map(
-          p => encodeURIComponent(p)
-        )
+        .map(encodeURIComponent)
         .join("/");
 
-    src =
-      "https://raw.githubusercontent.com/" +
-      "Ningwei2567/Ning-wei-1/main/" +
-      encoded;
-
     if(!name)
-      name = file;
+      name=file;
+
   }
+
 }
 
-
-/* ==========================================
-   GET NAME FROM URL
-========================================== */
+/* FILE NAME */
 
 function filenameFromURL(url){
 
   try{
 
-    const clean =
+    const clean=
       url.split("?")[0];
 
-    const parts =
+    const parts=
       clean.split("/");
 
     return decodeURIComponent(
-      parts[parts.length - 1]
-    ) || "Media file";
+      parts[parts.length-1]
+    )||"Media file";
 
-  }catch(e){
+  }catch{
 
     return "Media file";
 
   }
+
 }
 
-
 if(!name)
-  name = filenameFromURL(src);
+  name=filenameFromURL(src);
 
-
-/* ==========================================
-   EXTENSION
-========================================== */
+/* EXTENSION */
 
 function getExtension(filename){
 
-  const clean =
+  const clean=
     filename
       .split("?")[0]
       .toLowerCase();
 
-  const parts =
+  const parts=
     clean.split(".");
 
-  return parts.length > 1
+  return parts.length>1
     ? parts.pop()
     : "";
+
 }
 
-const ext =
+const ext=
   getExtension(name);
 
+/* TYPES */
 
-/* ==========================================
-   MEDIA TYPES
-========================================== */
-
-const audioExt = [
+const audioExt=[
   "mp3",
   "wav",
   "m4a",
   "aac",
   "ogg",
   "oga",
+  "flac",
   "opus",
-  "flac"
+  "wma"
 ];
 
-const videoExt = [
+const videoExt=[
   "mp4",
+  "3gp",
   "webm",
-  "mov",
-  "m4v",
-  "avi",
   "mkv",
-  "3gp"
+  "avi",
+  "mov",
+  "m4v"
 ];
 
-const imageExt = [
+const imageExt=[
   "jpg",
   "jpeg",
   "png",
   "gif",
   "webp",
-  "bmp"
+  "bmp",
+  "svg"
 ];
 
-const isAudio =
-  mime.startsWith("audio/") ||
+const isAudio=
+  mime.startsWith("audio/")||
   audioExt.includes(ext);
 
-const isVideo =
-  mime.startsWith("video/") ||
+const isVideo=
+  mime.startsWith("video/")||
   videoExt.includes(ext);
 
-const isImage =
-  mime.startsWith("image/") ||
+const isImage=
+  mime.startsWith("image/")||
   imageExt.includes(ext);
 
-
-/* ==========================================
-   NO FILE
-========================================== */
-
-const content =
+const content=
   document.getElementById("content");
 
 if(!src){
 
-  content.innerHTML = `
+  content.innerHTML=`
     <div class="message">
       ❌ No media file selected.
-      <br><br>
-      Go back and select the file again.
     </div>
   `;
 
@@ -463,58 +419,53 @@ if(!src){
 
 }
 
+/* ESCAPE */
 
-/* ==========================================
-   RENDER
-========================================== */
+function escapeHTML(value){
+
+  return String(value||"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+/* RENDER */
 
 function renderMedia(){
 
-  let icon = "📁";
-
-  if(isAudio)
-    icon = "🎵";
-
-  else if(isVideo)
-    icon = "🎬";
-
-  else if(isImage)
-    icon = "📷";
-
-  else if(ext === "apk")
-    icon = "📱";
-
-  else
-    icon = "💻";
-
-
-  let media = "";
-
-
-  /* AUDIO */
+  let icon="💻";
+  let media="";
 
   if(isAudio){
 
-    media = `
+    icon="🎵";
+
+    media=`
+
       <div class="media-box">
 
         <audio
+          id="audioPlayer"
           controls
-          preload="metadata"
+          preload="auto"
           src="${escapeHTML(src)}">
         </audio>
 
       </div>
+
     `;
 
   }
 
-
-  /* VIDEO */
-
   else if(isVideo){
 
-    media = `
+    icon="🎬";
+
+    media=`
+
       <div class="media-box">
 
         <video
@@ -525,71 +476,38 @@ function renderMedia(){
         </video>
 
       </div>
+
     `;
 
   }
 
-
-  /* IMAGE */
-
   else if(isImage){
 
-    media = `
+    icon="📷";
+
+    media=`
+
       <div class="media-box">
 
         <img
+          id="photo"
           class="preview-image"
           src="${escapeHTML(src)}"
           alt="${escapeHTML(name)}">
 
       </div>
+
     `;
 
   }
 
+  else if(ext==="apk"){
 
-  /* FILE */
-
-  else{
-
-    media = `
-      <div style="
-        text-align:center;
-        padding:25px 5px;
-        color:#555;
-      ">
-        This file is ready for download.
-      </div>
-    `;
+    icon="📱";
 
   }
 
-
-  /*
-  SONG DOWNLOAD NAME
-  */
-
-  let downloadText =
-    "📥 Download Original";
-
-  if(isAudio && ext === "mp3")
-    downloadText = "📥 Download MP3";
-
-  else if(isAudio)
-    downloadText =
-      "📥 Download " +
-      ext.toUpperCase();
-
-  else if(isVideo)
-    downloadText =
-      "📥 Download " +
-      ext.toUpperCase();
-
-  else if(ext === "apk")
-    downloadText = "📥 Download APK";
-
-
-  content.innerHTML = `
+  content.innerHTML=`
 
     <div class="file-icon">
       ${icon}
@@ -609,9 +527,8 @@ function renderMedia(){
 
       <button
         class="download"
-        id="downloadButton"
         onclick="downloadOriginal()">
-        ${downloadText}
+        📥 Download ${ext.toUpperCase()}
       </button>
 
       <button
@@ -624,181 +541,68 @@ function renderMedia(){
 
   `;
 
+  /* PHOTO ZOOM */
+
+  const photo=
+    document.getElementById("photo");
+
+  if(photo){
+
+    photo.addEventListener(
+      "click",
+      ()=>{
+        photo.classList.toggle("zoomed");
+      }
+    );
+
+  }
+
 }
 
+/* DOWNLOAD ORIGINAL */
 
-/* ==========================================
-   ESCAPE
-========================================== */
-
-function escapeHTML(value){
-
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* ==========================================
-   DOWNLOAD ORIGINAL
-========================================== */
-
-async function downloadOriginal(){
+function downloadOriginal(){
 
   if(!src)
     return;
 
+  const link=
+    document.createElement("a");
 
-  const button =
-    document.getElementById(
-      "downloadButton"
-    );
+  link.href=src;
+  link.download=name||"download";
+  link.target="_blank";
+  link.rel="noopener";
 
-  const original =
-    button.innerHTML;
-
-
-  button.innerHTML =
-    "⏳ Preparing...";
-
-
-  /*
-  Try to fetch the original file.
-  No conversion is performed.
-  */
-
-  try{
-
-    const response =
-      await fetch(src);
-
-    if(!response.ok)
-      throw new Error(
-        "Unable to download"
-      );
-
-    const blob =
-      await response.blob();
-
-    const blobURL =
-      URL.createObjectURL(blob);
-
-    const link =
-      document.createElement("a");
-
-    link.href =
-      blobURL;
-
-    link.download =
-      name || "download";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-    setTimeout(
-      () => URL.revokeObjectURL(blobURL),
-      5000
-    );
-
-    button.innerHTML =
-      "✅ Downloaded";
-
-    setTimeout(
-      () => {
-        button.innerHTML =
-          original;
-      },
-      2000
-    );
-
-  }catch(error){
-
-    console.log(
-      "Download fallback:",
-      error
-    );
-
-
-    /*
-    FALLBACK:
-    Open the exact original URL.
-    */
-
-    const link =
-      document.createElement("a");
-
-    link.href =
-      src;
-
-    link.download =
-      name || "download";
-
-    link.target =
-      "_blank";
-
-    link.rel =
-      "noopener";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-    button.innerHTML =
-      original;
-
-  }
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 
 }
 
-
-/* ==========================================
-   SHARE
-========================================== */
+/* SHARE */
 
 async function shareFile(){
 
-  const shareData = {
-
-    title:
-      name || "Ning Wei Media",
-
+  const data={
+    title:name||"Ning Wei Media",
     text:
-      `Check out ${name || "this file"} on Ning Wei Media`,
-
-    url:
-      window.location.href
-
+      "Check out "+
+      (name||"this file")+
+      " on Ning Wei Media",
+    url:window.location.href
   };
 
+  if(navigator.share){
 
-  try{
+    try{
 
-    if(navigator.share){
-
-      await navigator.share(
-        shareData
-      );
-
+      await navigator.share(data);
       return;
-    }
 
-  }catch(error){
-
-    console.log(
-      "Share cancelled"
-    );
+    }catch{}
 
   }
-
 
   try{
 
@@ -806,11 +610,9 @@ async function shareFile(){
       window.location.href
     );
 
-    alert(
-      "✅ Link copied!"
-    );
+    alert("✅ Link copied!");
 
-  }catch(error){
+  }catch{
 
     alert(
       "Copy this page link to share."
@@ -819,36 +621,6 @@ async function shareFile(){
   }
 
 }
-
-
-/* ==========================================
-   SEARCH
-========================================== */
-
-document
-  .getElementById("search")
-  .addEventListener(
-    "keydown",
-    function(event){
-
-      if(event.key === "Enter"){
-
-        const q =
-          this.value.trim();
-
-        if(q){
-
-          window.location.href =
-            "library.html?category=all" +
-            "&search=" +
-            encodeURIComponent(q);
-
-        }
-
-      }
-
-    }
-  );
 
 </script>
 
