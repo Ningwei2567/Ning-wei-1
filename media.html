@@ -3,19 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ning Wei Media Player</title>
+<title>Ning Wei Media</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
+  font-family:Arial,Helvetica,sans-serif;
   background:#f3faff;
   color:#111;
-  font-family:Arial,Helvetica,sans-serif;
 }
 
 .nw-header{
@@ -46,10 +43,10 @@ body{
   inset:0;
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:flex-end;
-  padding:20px 12px;
+  align-items:center;
   text-align:center;
+  padding:20px 12px;
 }
 
 .nw-title{
@@ -64,7 +61,7 @@ body{
   color:#fff;
   font-size:13px;
   font-weight:bold;
-  margin-top:5px;
+  margin:5px 0 12px;
   text-shadow:0 1px 4px rgba(0,0,0,.4);
 }
 
@@ -75,7 +72,6 @@ body{
   outline:0;
   border-radius:25px;
   padding:0 18px;
-  margin-top:12px;
   font-size:15px;
   box-shadow:0 3px 12px rgba(0,0,0,.2);
 }
@@ -128,10 +124,12 @@ body{
 }
 
 audio{
+  display:block;
   width:100%;
 }
 
 video{
+  display:block;
   width:100%;
   max-height:65vh;
   background:#000;
@@ -144,44 +142,40 @@ video{
   max-height:65vh;
   margin:auto;
   border-radius:8px;
-  object-fit:contain;
 }
 
-.file-download{
-  text-align:center;
-  padding:25px 5px;
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.download,
+.share{
+  border:0;
+  border-radius:9px;
+  padding:12px 18px;
+  color:#fff;
+  font-weight:900;
+  font-size:14px;
+  cursor:pointer;
+  text-decoration:none;
 }
 
 .download{
-  display:inline-block;
   background:#000;
-  color:#fff;
-  text-decoration:none;
-  border-radius:9px;
-  padding:13px 22px;
-  font-weight:900;
-  font-size:15px;
-  cursor:pointer;
-  border:0;
 }
 
 .share{
-  display:inline-block;
   background:#078fc5;
-  color:#fff;
-  border:0;
-  border-radius:9px;
-  padding:13px 22px;
-  font-weight:900;
-  font-size:15px;
-  margin-left:5px;
-  cursor:pointer;
 }
 
 .message{
   text-align:center;
   padding:25px 10px;
-  color:#d00;
+  color:#d00000;
   font-weight:bold;
 }
 
@@ -197,23 +191,11 @@ video{
 }
 
 @media(max-width:600px){
-  .nw-header{
-    height:318px;
-  }
+  .nw-header{height:318px}
 
-  .nw-title{
-    font-size:26px;
-  }
+  .nw-title{font-size:26px}
 
-  .file-name{
-    font-size:17px;
-  }
-
-  .download,
-  .share{
-    padding:11px 15px;
-    font-size:13px;
-  }
+  .file-name{font-size:17px}
 }
 </style>
 </head>
@@ -232,19 +214,17 @@ video{
 
   <div class="nw-header-content">
 
-    <h1 class="nw-title">
-      Ning Wei Media
-    </h1>
+    <h1 class="nw-title">Ning Wei Media</h1>
 
     <div class="nw-subtitle">
       Music • Videos • Photos • Apps • Software
     </div>
 
     <input
-      class="search"
       id="search"
+      class="search"
       type="search"
-      placeholder="Search..."
+      placeholder="Search songs, videos, photos, apps..."
     >
 
   </div>
@@ -254,16 +234,14 @@ video{
 
 <main class="container">
 
-  <a
-    href="javascript:history.back()"
-    class="back">
+  <a href="javascript:history.back()" class="back">
     ← Back
   </a>
 
   <div class="card">
 
     <div id="content">
-      Loading...
+      Loading media...
     </div>
 
   </div>
@@ -277,20 +255,16 @@ video{
 
 <script>
 
+/* ==========================================
+   READ FILE INFORMATION
+========================================== */
+
 const params =
   new URLSearchParams(window.location.search);
-
-
-/*
-====================================================
-ACCEPT ALL POSSIBLE MEDIA PARAMETERS
-====================================================
-*/
 
 let src =
   params.get("url") ||
   params.get("src") ||
-  params.get("media") ||
   "";
 
 let path =
@@ -299,7 +273,6 @@ let path =
 
 let name =
   params.get("name") ||
-  params.get("file") ||
   "";
 
 let mime =
@@ -308,35 +281,31 @@ let mime =
   "";
 
 
-/*
-====================================================
-IF GITHUB PATH WAS SENT
-====================================================
-*/
+/* ==========================================
+   GITHUB FILE
+========================================== */
 
 if(!src && path){
 
-  const encodedPath =
+  const encoded =
     path
       .split("/")
       .filter(Boolean)
       .map(
-        part => encodeURIComponent(part)
+        p => encodeURIComponent(p)
       )
       .join("/");
 
   src =
     "https://raw.githubusercontent.com/" +
     "Ningwei2567/Ning-wei-1/main/" +
-    encodedPath;
+    encoded;
 }
 
 
-/*
-====================================================
-IF OLD folder + file FORMAT WAS SENT
-====================================================
-*/
+/* ==========================================
+   OLD folder + file FORMAT
+========================================== */
 
 if(!src){
 
@@ -348,15 +317,15 @@ if(!src){
 
   if(folder && file){
 
-    const fullPath =
+    const full =
       folder + "/" + file;
 
     const encoded =
-      fullPath
+      full
         .split("/")
         .filter(Boolean)
         .map(
-          part => encodeURIComponent(part)
+          p => encodeURIComponent(p)
         )
         .join("/");
 
@@ -371,13 +340,11 @@ if(!src){
 }
 
 
-/*
-====================================================
-GET FILENAME FROM URL
-====================================================
-*/
+/* ==========================================
+   GET NAME FROM URL
+========================================== */
 
-function getFilename(url){
+function filenameFromURL(url){
 
   try{
 
@@ -388,8 +355,8 @@ function getFilename(url){
       clean.split("/");
 
     return decodeURIComponent(
-      parts[parts.length - 1] || "Media file"
-    );
+      parts[parts.length - 1]
+    ) || "Media file";
 
   }catch(e){
 
@@ -399,19 +366,13 @@ function getFilename(url){
 }
 
 
-if(!name){
-
-  name =
-    getFilename(src);
-
-}
+if(!name)
+  name = filenameFromURL(src);
 
 
-/*
-====================================================
-DETECT FILE TYPE
-====================================================
-*/
+/* ==========================================
+   EXTENSION
+========================================== */
 
 function getExtension(filename){
 
@@ -428,12 +389,15 @@ function getExtension(filename){
     : "";
 }
 
-
 const ext =
   getExtension(name);
 
 
-const audioExtensions = [
+/* ==========================================
+   MEDIA TYPES
+========================================== */
+
+const audioExt = [
   "mp3",
   "wav",
   "m4a",
@@ -444,18 +408,17 @@ const audioExtensions = [
   "flac"
 ];
 
-
-const videoExtensions = [
+const videoExt = [
   "mp4",
   "webm",
   "mov",
   "m4v",
   "avi",
-  "mkv"
+  "mkv",
+  "3gp"
 ];
 
-
-const imageExtensions = [
+const imageExt = [
   "jpg",
   "jpeg",
   "png",
@@ -464,31 +427,25 @@ const imageExtensions = [
   "bmp"
 ];
 
-
 const isAudio =
   mime.startsWith("audio/") ||
-  audioExtensions.includes(ext);
-
+  audioExt.includes(ext);
 
 const isVideo =
   mime.startsWith("video/") ||
-  videoExtensions.includes(ext);
-
+  videoExt.includes(ext);
 
 const isImage =
   mime.startsWith("image/") ||
-  imageExtensions.includes(ext);
+  imageExt.includes(ext);
 
 
-/*
-====================================================
-DISPLAY ERROR ONLY IF REALLY NO URL
-====================================================
-*/
+/* ==========================================
+   NO FILE
+========================================== */
 
 const content =
   document.getElementById("content");
-
 
 if(!src){
 
@@ -496,7 +453,7 @@ if(!src){
     <div class="message">
       ❌ No media file selected.
       <br><br>
-      Please go back and select a file again.
+      Go back and select the file again.
     </div>
   `;
 
@@ -507,11 +464,9 @@ if(!src){
 }
 
 
-/*
-====================================================
-RENDER MEDIA
-====================================================
-*/
+/* ==========================================
+   RENDER
+========================================== */
 
 function renderMedia(){
 
@@ -529,26 +484,21 @@ function renderMedia(){
   else if(ext === "apk")
     icon = "📱";
 
-  else if(
-    ["exe","msi","zip","rar","7z","iso"].includes(ext)
-  )
+  else
     icon = "💻";
 
 
-  let mediaHTML = "";
+  let media = "";
 
 
-  /*
-  AUDIO
-  */
+  /* AUDIO */
 
   if(isAudio){
 
-    mediaHTML = `
+    media = `
       <div class="media-box">
 
         <audio
-          id="audioPlayer"
           controls
           preload="metadata"
           src="${escapeHTML(src)}">
@@ -560,17 +510,14 @@ function renderMedia(){
   }
 
 
-  /*
-  VIDEO
-  */
+  /* VIDEO */
 
   else if(isVideo){
 
-    mediaHTML = `
+    media = `
       <div class="media-box">
 
         <video
-          id="videoPlayer"
           controls
           playsinline
           preload="metadata"
@@ -583,21 +530,35 @@ function renderMedia(){
   }
 
 
-  /*
-  IMAGE
-  */
+  /* IMAGE */
 
   else if(isImage){
 
-    mediaHTML = `
+    media = `
       <div class="media-box">
 
         <img
           class="preview-image"
           src="${escapeHTML(src)}"
-          alt="${escapeHTML(name)}"
-        >
+          alt="${escapeHTML(name)}">
 
+      </div>
+    `;
+
+  }
+
+
+  /* FILE */
+
+  else{
+
+    media = `
+      <div style="
+        text-align:center;
+        padding:25px 5px;
+        color:#555;
+      ">
+        This file is ready for download.
       </div>
     `;
 
@@ -605,24 +566,27 @@ function renderMedia(){
 
 
   /*
-  APK / SOFTWARE / UNKNOWN
+  SONG DOWNLOAD NAME
   */
 
-  else{
+  let downloadText =
+    "📥 Download Original";
 
-    mediaHTML = `
-      <div class="file-download">
-        <div style="font-size:45px">
-          ${icon}
-        </div>
+  if(isAudio && ext === "mp3")
+    downloadText = "📥 Download MP3";
 
-        <p>
-          This file is ready to download.
-        </p>
-      </div>
-    `;
+  else if(isAudio)
+    downloadText =
+      "📥 Download " +
+      ext.toUpperCase();
 
-  }
+  else if(isVideo)
+    downloadText =
+      "📥 Download " +
+      ext.toUpperCase();
+
+  else if(ext === "apk")
+    downloadText = "📥 Download APK";
 
 
   content.innerHTML = `
@@ -639,14 +603,15 @@ function renderMedia(){
       Ning Wei Media
     </div>
 
-    ${mediaHTML}
+    ${media}
 
-    <div style="text-align:center;margin-top:15px">
+    <div class="buttons">
 
       <button
         class="download"
-        onclick="downloadFile()">
-        📥 Download
+        id="downloadButton"
+        onclick="downloadOriginal()">
+        ${downloadText}
       </button>
 
       <button
@@ -662,11 +627,9 @@ function renderMedia(){
 }
 
 
-/*
-====================================================
-ESCAPE HTML
-====================================================
-*/
+/* ==========================================
+   ESCAPE
+========================================== */
 
 function escapeHTML(value){
 
@@ -680,41 +643,43 @@ function escapeHTML(value){
 }
 
 
-/*
-====================================================
-DOWNLOAD
-====================================================
-*/
+/* ==========================================
+   DOWNLOAD ORIGINAL
+========================================== */
 
-async function downloadFile(){
+async function downloadOriginal(){
 
   if(!src)
     return;
 
+
   const button =
-    document.querySelector(".download");
+    document.getElementById(
+      "downloadButton"
+    );
 
-  const oldText =
-    button ? button.textContent : "";
+  const original =
+    button.innerHTML;
 
-  if(button)
-    button.textContent =
-      "⏳ Preparing...";
+
+  button.innerHTML =
+    "⏳ Preparing...";
 
 
   /*
-  TRY NORMAL BROWSER DOWNLOAD
+  Try to fetch the original file.
+  No conversion is performed.
   */
 
   try{
 
     const response =
-      await fetch(src, {
-        mode:"cors"
-      });
+      await fetch(src);
 
     if(!response.ok)
-      throw new Error("Download failed");
+      throw new Error(
+        "Unable to download"
+      );
 
     const blob =
       await response.blob();
@@ -742,68 +707,62 @@ async function downloadFile(){
       5000
     );
 
-    if(button)
-      button.textContent =
-        "✅ Downloaded";
+    button.innerHTML =
+      "✅ Downloaded";
 
     setTimeout(
       () => {
-        if(button)
-          button.textContent = oldText;
+        button.innerHTML =
+          original;
       },
       2000
     );
 
-    return;
-
   }catch(error){
 
     console.log(
-      "Direct download fallback:",
+      "Download fallback:",
       error
     );
 
+
+    /*
+    FALLBACK:
+    Open the exact original URL.
+    */
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      src;
+
+    link.download =
+      name || "download";
+
+    link.target =
+      "_blank";
+
+    link.rel =
+      "noopener";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    button.innerHTML =
+      original;
+
   }
-
-
-  /*
-  FALLBACK
-  */
-
-  const link =
-    document.createElement("a");
-
-  link.href =
-    src;
-
-  link.download =
-    name || "download";
-
-  link.target =
-    "_blank";
-
-  link.rel =
-    "noopener";
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
-
-
-  if(button)
-    button.textContent =
-      oldText;
 
 }
 
 
-/*
-====================================================
-SHARE
-====================================================
-*/
+/* ==========================================
+   SHARE
+========================================== */
 
 async function shareFile(){
 
@@ -813,7 +772,7 @@ async function shareFile(){
       name || "Ning Wei Media",
 
     text:
-      `Check out ${name || "this media"} on Ning Wei Media`,
+      `Check out ${name || "this file"} on Ning Wei Media`,
 
     url:
       window.location.href
@@ -823,20 +782,6 @@ async function shareFile(){
 
   try{
 
-    if(
-      navigator.share &&
-      navigator.canShare &&
-      navigator.canShare(shareData)
-    ){
-
-      await navigator.share(
-        shareData
-      );
-
-      return;
-
-    }
-
     if(navigator.share){
 
       await navigator.share(
@@ -844,14 +789,12 @@ async function shareFile(){
       );
 
       return;
-
     }
 
   }catch(error){
 
     console.log(
-      "Share cancelled:",
-      error
+      "Share cancelled"
     );
 
   }
@@ -878,45 +821,9 @@ async function shareFile(){
 }
 
 
-/*
-====================================================
-PLAYER ERROR HANDLING
-====================================================
-*/
-
-document.addEventListener(
-  "error",
-  function(event){
-
-    const target =
-      event.target;
-
-    if(
-      target &&
-      (
-        target.tagName === "AUDIO" ||
-        target.tagName === "VIDEO" ||
-        target.tagName === "IMG"
-      )
-    ){
-
-      console.log(
-        "Media loading error:",
-        src
-      );
-
-    }
-
-  },
-  true
-);
-
-
-/*
-====================================================
-SEARCH
-====================================================
-*/
+/* ==========================================
+   SEARCH
+========================================== */
 
 document
   .getElementById("search")
@@ -932,7 +839,9 @@ document
         if(q){
 
           window.location.href =
-            `library.html?category=all&search=${encodeURIComponent(q)}`;
+            "library.html?category=all" +
+            "&search=" +
+            encodeURIComponent(q);
 
         }
 
