@@ -1,6 +1,6 @@
 /* =========================================================
-   NING WEI MEDIA — UNIVERSAL WEBSITE STYLE
-   ONE HEADER STYLE FOR ALL PAGES AND ALL FOLDERS
+   NING WEI MEDIA — MASTER STYLE
+   UNIVERSAL HEADER
    ========================================================= */
 
 * {
@@ -22,265 +22,249 @@ body {
    UNIVERSAL HEADER
    ========================================================= */
 
-.site-header,
-header,
-.hero,
-.page-header,
-.media-header,
-.header {
-    position: relative !important;
-    width: 100% !important;
-
-    /* SAME SIZE AS THE HOME HEADER */
-    height: 318px !important;
-    min-height: 318px !important;
-    max-height: 318px !important;
-
-    overflow: hidden !important;
+.nw-header {
+    position: relative;
+    width: 100%;
+    height: 318px;
+    min-height: 318px;
+    max-height: 318px;
+    overflow: hidden;
 
     background-image:
         linear-gradient(
-            rgba(25, 130, 190, 0.38),
-            rgba(25, 130, 190, 0.38)
+            rgba(32, 130, 185, 0.28),
+            rgba(32, 130, 185, 0.28)
         ),
-        url("ning-wei.png") !important;
+        url("ning-wei.png");
 
-    background-repeat: no-repeat !important;
+    background-repeat: no-repeat;
 
-    /* FACE LOWER — BODY/HANDS LOWER */
-    background-size: cover !important;
-    background-position: 50% 10% !important;
+    /*
+       IMPORTANT:
+       The photo starts from the TOP of the original image.
+       This keeps the head visible instead of cutting it away.
+    */
+    background-size: cover;
+    background-position: center top;
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Header image itself, if a page uses <img> */
-.site-header img,
-header img,
-.hero img,
-.page-header img,
-.media-header img,
-.header img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-
-    /* THIS IS THE IMPORTANT PART */
-    object-position: 50% 10% !important;
-}
-
-/* =========================================================
-   LIGHT BLUE OVERLAY
-   ========================================================= */
-
-.site-header::before,
-header::before,
-.hero::before,
-.page-header::before,
-.media-header::before,
-.header::before {
+/* Extra light blue layer */
+.nw-header::after {
     content: "";
-    position: absolute !important;
-    inset: 0 !important;
-
-    background: rgba(25, 130, 190, 0.18) !important;
-
-    z-index: 1 !important;
-    pointer-events: none !important;
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 130, 190, 0.12);
+    pointer-events: none;
 }
 
 /* =========================================================
-   HEADER TEXT
+   HEADER CONTENT
    ========================================================= */
 
-.site-header-content,
-.header-content,
-.hero-content,
-.page-header-content {
-    position: relative !important;
-    z-index: 5 !important;
+.nw-header-content {
+    position: relative;
+    z-index: 5;
 
-    width: 100% !important;
-    text-align: center !important;
+    width: 100%;
+    height: 100%;
 
-    color: white !important;
+    display: flex;
+    flex-direction: column;
 
-    padding: 20px !important;
+    /*
+       Text stays on the right like the HOME screenshot.
+    */
+    align-items: flex-end;
+    justify-content: center;
 
-    text-shadow:
-        0 3px 7px rgba(0,0,0,0.65) !important;
+    padding: 20px 7%;
+    text-align: center;
 }
 
-.site-header h1,
-header h1,
-.hero h1,
-.page-header h1,
-.media-header h1,
-.header h1 {
-    position: relative !important;
-    z-index: 5 !important;
+/* Main title */
 
-    margin: 0 !important;
+.nw-header-title {
+    margin: 0;
 
-    color: white !important;
+    color: white;
 
-    font-size: clamp(34px, 6vw, 72px) !important;
-    font-weight: 800 !important;
-
-    line-height: 1.1 !important;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.1;
+    font-weight: 800;
 
     text-shadow:
-        0 3px 8px rgba(0,0,0,0.65) !important;
+        0 3px 8px rgba(0, 0, 0, 0.65);
 }
 
-.site-header p,
-header p,
-.hero p,
-.page-header p,
-.media-header p,
-.header p {
-    position: relative !important;
-    z-index: 5 !important;
+/* Subtitle */
 
-    margin: 18px 0 0 !important;
+.nw-header-subtitle {
+    margin: 14px 0 0;
 
-    color: white !important;
+    color: white;
 
-    font-size: clamp(18px, 3vw, 34px) !important;
-    font-weight: 500 !important;
-
-    line-height: 1.3 !important;
+    font-size: clamp(20px, 2.8vw, 32px);
+    line-height: 1.25;
+    font-weight: 500;
 
     text-shadow:
-        0 3px 7px rgba(0,0,0,0.65) !important;
+        0 3px 7px rgba(0, 0, 0, 0.65);
 }
 
 /* =========================================================
-   REMOVE "BACK TO HOME" EVERYWHERE
+   REMOVE BACK TO HOME EVERYWHERE
    ========================================================= */
 
 .back-home,
 .back-to-home,
-.home-back,
-.back,
-.back-button,
 .back-home-button,
-a[href="index.html"],
-a[href="../index.html"] {
-    display: none !important;
-}
-
-/* Also remove headings/buttons containing Back to Home */
-.back-home *,
-.back-to-home *,
-.home-back *,
-.back-button * {
+.home-back,
+.back-button,
+.go-home,
+[href="index.html"].back,
+[href="../index.html"].back {
     display: none !important;
 }
 
 /* =========================================================
-   SEARCH BAR
+   SEARCH
    ========================================================= */
 
-.search,
-.search-box,
-.search-container {
-    width: calc(100% - 60px) !important;
-    max-width: 1100px !important;
+.nw-search {
+    width: calc(100% - 60px);
+    max-width: 1100px;
 
-    margin: 38px auto 25px !important;
+    margin: 38px auto 28px;
 }
 
-.search input,
-.search-box input,
-.search-container input {
-    width: 100% !important;
+.nw-search input {
+    width: 100%;
+    height: 72px;
 
-    height: 72px !important;
+    padding: 0 28px;
 
-    padding: 0 28px !important;
+    border: 1px solid #d2d2d2;
+    border-radius: 40px;
 
-    border: 1px solid #d0d0d0 !important;
-    border-radius: 40px !important;
+    background: #ffffff;
 
-    background: white !important;
+    color: #555;
 
-    font-size: 25px !important;
-    color: #555 !important;
+    font-size: 25px;
 
-    outline: none !important;
+    outline: none;
 
     box-shadow:
-        0 4px 15px rgba(0,0,0,0.06) !important;
+        0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-.search input:focus,
-.search-box input:focus,
-.search-container input:focus {
-    border-color: #1592ad !important;
-}
-
-/* =========================================================
-   PAGE CONTENT
-   ========================================================= */
-
-main,
-.content,
-.page-content,
-.container {
-    width: 100% !important;
-    max-width: 1100px !important;
-
-    margin-left: auto !important;
-    margin-right: auto !important;
-
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+.nw-search input:focus {
+    border-color: #168fa8;
 }
 
 /* =========================================================
-   NUMBERED ITEMS
+   MAIN CONTENT
    ========================================================= */
 
-.item,
-.row,
-.media-item,
-.folder-item,
-.file-item,
-.list-item {
-    position: relative !important;
+.nw-content {
+    width: 100%;
+    max-width: 1100px;
 
-    min-height: 95px !important;
+    margin: 0 auto;
 
-    background: white !important;
-
-    border-bottom: 1px solid #e1e1e1 !important;
+    padding: 0 20px 40px;
 }
 
-/* Black number circles */
-.number,
-.num,
-.index,
-.badge,
-.item-number {
-    background: #000 !important;
-    color: #fff !important;
+/* =========================================================
+   NUMBERED LIST
+   ========================================================= */
 
-    width: 66px !important;
-    height: 66px !important;
+.nw-list {
+    width: 100%;
 
-    min-width: 66px !important;
+    background: white;
 
-    border-radius: 50% !important;
+    border-radius: 28px;
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    overflow: hidden;
 
-    font-size: 28px !important;
-    font-weight: 700 !important;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.nw-item {
+    display: flex;
+    align-items: center;
+
+    min-height: 100px;
+
+    padding: 12px 20px;
+
+    background: white;
+
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.nw-item:last-child {
+    border-bottom: none;
+}
+
+/* BLACK NUMBER */
+
+.nw-number {
+    width: 66px;
+    height: 66px;
+
+    min-width: 66px;
+
+    margin-right: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #000000;
+    color: #ffffff;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   ITEM TEXT
+   ========================================================= */
+
+.nw-item-title {
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #14243d;
+}
+
+.nw-item-description {
+    margin-top: 5px;
+
+    font-size: 20px;
+
+    color: #7a8088;
+}
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.nw-arrow {
+    margin-left: auto;
+
+    font-size: 42px;
+
+    color: #168da3;
 }
 
 /* =========================================================
@@ -289,107 +273,124 @@ main,
 
 @media (max-width: 800px) {
 
-    .site-header,
-    header,
-    .hero,
-    .page-header,
-    .media-header,
-    .header {
-        height: 318px !important;
-        min-height: 318px !important;
-        max-height: 318px !important;
+    .nw-header {
+        width: 100%;
+
+        height: 318px;
+        min-height: 318px;
+        max-height: 318px;
 
         /*
-          FACE IS KEPT LOW ENOUGH TO BE VISIBLE.
-          BODY + HANDS STAY BELOW.
+           DO NOT center vertically.
+           Keep the original image top visible so
+           the head remains visible.
         */
-        background-position: 50% 10% !important;
+        background-position: center top;
     }
 
-    .site-header img,
-    header img,
-    .hero img,
-    .page-header img,
-    .media-header img,
-    .header img {
-        object-position: 50% 10% !important;
+    .nw-header-content {
+        padding: 20px 25px;
+
+        /*
+           Put text on the right side,
+           matching the home screen.
+        */
+        align-items: flex-end;
+
+        justify-content: center;
     }
 
-    .site-header h1,
-    header h1,
-    .hero h1,
-    .page-header h1,
-    .media-header h1,
-    .header h1 {
-        font-size: 42px !important;
+    .nw-header-title {
+        max-width: 58%;
+
+        font-size: 40px;
     }
 
-    .site-header p,
-    header p,
-    .hero p,
-    .page-header p,
-    .media-header p,
-    .header p {
-        font-size: 22px !important;
+    .nw-header-subtitle {
+        max-width: 58%;
+
+        font-size: 20px;
     }
 
-    .search,
-    .search-box,
-    .search-container {
-        width: calc(100% - 40px) !important;
-        margin-top: 38px !important;
+    .nw-search {
+        width: calc(100% - 40px);
+
+        margin-top: 38px;
     }
 
-    .search input,
-    .search-box input,
-    .search-container input {
-        height: 70px !important;
-        font-size: 23px !important;
+    .nw-search input {
+        height: 70px;
+
+        font-size: 23px;
     }
 
-    main,
-    .content,
-    .page-content,
-    .container {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
+    .nw-content {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .nw-item {
+        min-height: 100px;
+    }
+
+    .nw-number {
+        width: 66px;
+        height: 66px;
+
+        min-width: 66px;
+
+        margin-right: 20px;
+    }
+
+    .nw-item-title {
+        font-size: 25px;
+    }
+
+    .nw-item-description {
+        font-size: 18px;
     }
 }
 
 /* =========================================================
-   SMALL PHONES
+   SMALL PHONE
    ========================================================= */
 
 @media (max-width: 500px) {
 
-    .site-header,
-    header,
-    .hero,
-    .page-header,
-    .media-header,
-    .header {
-        height: 318px !important;
-        min-height: 318px !important;
-        max-height: 318px !important;
+    .nw-header {
+        height: 318px;
+        min-height: 318px;
+        max-height: 318px;
 
-        background-position: 50% 10% !important;
+        background-position: center top;
     }
 
-    .site-header h1,
-    header h1,
-    .hero h1,
-    .page-header h1,
-    .media-header h1,
-    .header h1 {
-        font-size: 36px !important;
+    .nw-header-content {
+        padding-right: 18px;
     }
 
-    .site-header p,
-    header p,
-    .hero p,
-    .page-header p,
-    .media-header p,
-    .header p {
-        font-size: 19px !important;
+    .nw-header-title {
+        max-width: 60%;
+
+        font-size: 36px;
+    }
+
+    .nw-header-subtitle {
+        max-width: 60%;
+
+        font-size: 18px;
+    }
+
+    .nw-search input {
+        font-size: 21px;
+    }
+
+    .nw-number {
+        width: 62px;
+        height: 62px;
+
+        min-width: 62px;
+
+        font-size: 27px;
     }
 }
