@@ -7,115 +7,143 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f8fc;color:#14213d}
-
-.hero{height:175px;position:relative;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:0;background:url("ning-wei.png") center 48%/cover no-repeat}
-.hero:after{content:"";position:absolute;inset:0;background:rgba(25,120,205,.48)}
-.heroText{position:absolute;z-index:2;right:3%;top:50%;transform:translateY(-50%);width:58%;text-align:center;color:white;text-shadow:0 2px 5px #0008}
-.heroText h1{margin:0;font-size:30px}
-.heroText p{margin:7px 0;font-size:14px}
-
-.search{width:92%;margin:20px auto 12px}
-.search input{width:100%;height:54px;border-radius:30px;border:1px solid #ddd;padding:0 20px;font-size:18px;outline:none}
-
-.upload{display:block;width:92%;margin:0 auto 16px;text-align:center;background:#168ba0;color:white;text-decoration:none;padding:13px;border-radius:14px;font-weight:bold}
-
-.list{width:94%;margin:auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 5px 20px #0001}
-
-.item{display:flex;align-items:center;min-height:68px;padding:8px 13px;text-decoration:none;color:#14213d;border-bottom:1px solid #e4e8ec}
-.item:last-child{border:0}
-
-.num{width:45px;height:45px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:bold;margin-right:12px;flex:none}
-.icon{width:42px;text-align:center;font-size:27px;margin-right:9px;flex:none}
-.text{flex:1;min-width:0}
-.name{font-size:18px;font-weight:750;word-break:break-word}
-.type{font-size:13px;color:#7b858e;margin-top:3px}
-.arrow{font-size:29px;color:#168ba0;margin-left:8px}
-
-.status{text-align:center;padding:30px;color:#777}
+body{margin:0;font-family:Arial,sans-serif;background:#f3faff;color:#111}
+.header{position:relative;height:300px;overflow:hidden;color:#fff}
+.header img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover;object-position:50% 18%;transform:scale(1.08)}
+.overlay{position:absolute;inset:0;background:rgba(55,145,205,.38)}
+.headerText{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;text-shadow:0 2px 7px #000}
+.headerText h1{margin:0;font-size:34px}
+.headerText p{margin:7px 0;font-size:14px;font-weight:bold}
+.top{padding:12px 15px}
+.search{display:flex;gap:8px}
+.search input{flex:1;height:48px;border:1px solid #d5e3e9;border-radius:25px;padding:0 16px;font-size:16px}
+.search button{width:48px;border:0;border-radius:50%;background:#168dcc;color:#fff;font-size:20px}
+.path{padding:10px 15px;color:#777;font-size:13px}
+.list{padding:0 15px 25px}
+.row{display:flex;align-items:center;gap:9px;background:#fff;margin:6px 0;padding:9px 10px;border-radius:12px;text-decoration:none;color:#111;box-shadow:0 2px 8px #00000010}
+.num{width:30px;height:30px;min-width:30px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold}
+.icon{width:36px;height:36px;min-width:36px;border-radius:9px;background:#edf8fd;display:flex;align-items:center;justify-content:center}
+.info{flex:1;min-width:0}
+.name{font-weight:bold;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub{font-size:12px;color:#777;margin-top:3px}
+.arrow{font-size:25px;color:#168dcc}
+.back{display:block;margin:0 15px 25px;padding:12px;background:#fff;border-radius:12px;text-align:center;text-decoration:none;color:#168dcc;font-weight:bold}
+.empty{text-align:center;background:#fff;padding:20px;border-radius:12px;color:#777}
 </style>
 </head>
 
 <body>
 
-<header class="hero">
-<div class="heroText">
-<h1>🎵 Music</h1>
-<p>Music • Audio • DJ Mixes</p>
+<header class="header">
+<img src="ning-wei.png" alt="">
+<div class="overlay"></div>
+<div class="headerText">
+<h1>Ning Wei Media</h1>
+<p>Music • Videos • Photos • Apps • Software</p>
 </div>
 </header>
 
+<div class="top">
 <div class="search">
-<input id="search" placeholder="🔎 Search music..." oninput="filterItems()">
+<input id="search" placeholder="🔍 Search everything...">
+<button onclick="goSearch()">🔍</button>
+</div>
 </div>
 
-<a class="upload"
-href="https://github.com/Ningwei2567/Ning-wei-1/upload/main/media/songs"
-target="_blank">
-📤 Upload Music Directly Here
-</a>
+<div id="path" class="path"></div>
+<div id="list" class="list"></div>
 
-<div class="list" id="list">
-<div class="status">Loading music...</div>
-</div>
+<a class="back" href="index.html">← Home</a>
 
 <script>
-const API="https://api.github.com/repos/Ningwei2567/Ning-wei-1/contents/media/songs";
+
+const USER="Ningwei2567";
+const REPO="Ning-wei-1";
+const BRANCH="main";
+
+const params=new URLSearchParams(location.search);
+const currentPath=params.get("path")||"media/songs";
+
+function goSearch(){
+location.href="search.html";
+}
+
+document.getElementById("search").addEventListener("keydown",e=>{
+if(e.key==="Enter")goSearch();
+});
+
+function encodePath(path){
+return path.split("/").map(encodeURIComponent).join("/");
+}
 
 async function load(){
-try{
-const r=await fetch(API);
-if(!r.ok)throw Error();
-const data=await r.json();
 
-const folders=data.filter(x=>x.type==="dir");
-const files=data.filter(x=>x.type==="file");
+const api=
+`https://api.github.com/repos/${USER}/${REPO}/contents/${encodePath(currentPath)}?ref=${BRANCH}`;
+
+const response=await fetch(api,{cache:"no-store"});
+
+if(!response.ok){
+document.getElementById("list").innerHTML=
+`<div class="empty">Unable to load this folder.</div>`;
+return;
+}
+
+let items=await response.json();
+
+if(!Array.isArray(items))items=[items];
+
+items=items.filter(item=>{
+if(item.type==="dir")return true;
+return /\.(mp3|m4a|wav|aac|ogg|oga|opus|flac)$/i.test(item.name);
+});
+
+items.sort((a,b)=>{
+if(a.type!==b.type)return a.type==="dir"?-1:1;
+return a.name.localeCompare(b.name);
+});
+
+document.getElementById("path").textContent=
+currentPath.replace(/^media\/songs\/?/,"Music / ");
 
 let html="";
-let n=1;
 
-folders.forEach(x=>{
+items.forEach((item,i)=>{
+
+let href;
+
+if(item.type==="dir"){
+href="audio.html?path="+encodeURIComponent(item.path);
+}else{
+href="media.html?path="+encodeURIComponent(item.path);
+}
+
 html+=`
-<a class="item" href="audio.html?path=${encodeURIComponent(x.path)}">
-<div class="num">${n++}</div>
-<div class="icon">📁</div>
-<div class="text">
-<div class="name">${x.name}</div>
-<div class="type">Music folder</div>
-</div>
-<div class="arrow">›</div>
+<a class="row" href="${href}">
+<span class="num">${i+1}</span>
+<span class="icon">${item.type==="dir"?"📁":"🎵"}</span>
+<span class="info">
+<span class="name">${escapeHTML(item.name)}</span>
+<span class="sub">${item.type==="dir"?"Folder":"Audio"}</span>
+</span>
+<span class="arrow">›</span>
 </a>`;
 });
 
-files.filter(x=>/\.(mp3|wav|m4a|aac|ogg|oga|opus|flac)$/i.test(x.name)).forEach(x=>{
-html+=`
-<a class="item" href="media.html?path=${encodeURIComponent(x.path)}">
-<div class="num">${n++}</div>
-<div class="icon">🎵</div>
-<div class="text">
-<div class="name">${x.name}</div>
-<div class="type">Audio</div>
-</div>
-<div class="arrow">›</div>
-</a>`;
-});
+document.getElementById("list").innerHTML=
+html||`<div class="empty">This folder is empty.</div>`;
 
-document.getElementById("list").innerHTML=html||'<div class="status">No music found.</div>';
-}catch(e){
-document.getElementById("list").innerHTML='<div class="status">Unable to load music.</div>';
-}
 }
 
-function filterItems(){
-let q=document.getElementById("search").value.toLowerCase();
-document.querySelectorAll(".item").forEach(x=>{
-x.style.display=x.innerText.toLowerCase().includes(q)?"flex":"none";
-});
+function escapeHTML(x){
+return String(x).replace(/[&<>"']/g,m=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",
+'"':"&quot;","'":"&#039;"
+}[m]));
 }
 
 load();
-</script>
 
+</script>
 </body>
 </html>
