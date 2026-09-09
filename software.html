@@ -1,83 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Software</title>
-<link rel="stylesheet" href="style.css">
+<title>Software - Ning Wei Media</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f8fc;color:#14213d}
+
+.hero{height:175px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:url("ning-wei.png") center 48%/cover no-repeat}
+.hero:after{content:"";position:absolute;inset:0;background:rgba(25,120,205,.48)}
+.heroText{position:absolute;z-index:2;right:3%;top:50%;transform:translateY(-50%);width:58%;text-align:center;color:white;text-shadow:0 2px 5px #0008}
+.heroText h1{margin:0;font-size:30px}
+.heroText p{margin:7px 0;font-size:14px}
+
+.search{width:92%;margin:20px auto 12px}
+.search input{width:100%;height:54px;border-radius:30px;border:1px solid #ddd;padding:0 20px;font-size:18px;outline:none}
+
+.upload{display:block;width:92%;margin:0 auto 16px;text-align:center;background:#168ba0;color:white;text-decoration:none;padding:13px;border-radius:14px;font-weight:bold}
+
+.list{width:94%;margin:auto;background:white;border-radius:22px;overflow:hidden;box-shadow:0 5px 20px #0001}
+.item{display:flex;align-items:center;min-height:68px;padding:8px 13px;text-decoration:none;color:#14213d;border-bottom:1px solid #e4e8ec}
+.item:last-child{border:0}
+
+.num{width:45px;height:45px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:bold;margin-right:12px;flex:none}
+.icon{width:42px;text-align:center;font-size:27px;margin-right:9px}
+.text{flex:1;min-width:0}
+.name{font-size:18px;font-weight:750;word-break:break-word}
+.type{font-size:13px;color:#7b858e;margin-top:3px}
+.arrow{font-size:29px;color:#168ba0}
+.status{text-align:center;padding:30px;color:#777}
+</style>
 </head>
 
 <body>
 
-<header class="header">
-<div class="header-content">
-<h1>💻 All Softwares</h1>
-<p>Software and programs</p>
+<header class="hero">
+<div class="heroText">
+<h1>💻 Software</h1>
+<p>Programs • Tools • Software</p>
 </div>
 </header>
 
-<main class="container">
+<div class="search">
+<input id="search" placeholder="🔎 Search software..." oninput="filterItems()">
+</div>
 
-<a class="back" href="index.html">← Back to Home</a>
+<a class="upload" href="https://github.com/Ningwei2567/Ning-wei-1/upload/main/media/software" target="_blank">
+📤 Upload Software Directly Here
+</a>
 
-<input class="search" placeholder="Search software..."
-oninput="filter(this.value)">
-
-<div id="list" class="list"></div>
-
-</main>
+<div class="list" id="list">
+<div class="status">Loading software...</div>
+</div>
 
 <script>
+const API="https://api.github.com/repos/Ningwei2567/Ning-wei-1/contents/media/software";
 
-const repo="Ningwei2567/Ning-wei-1";
-const base="media/software";
+async function load(){
+try{
+const r=await fetch(API);
+if(!r.ok)throw Error();
+const data=await r.json();
 
-fetch(`https://api.github.com/repos/${repo}/contents/${base}`)
-.then(r=>r.json())
-.then(data=>{
+let n=1,html="";
 
-const list=document.getElementById("list");
-
-data
-.filter(x=>x.name!=="index.html")
-.forEach((x,i)=>{
-
-const a=document.createElement("a");
-
-a.className="item";
-
-a.href=x.type==="dir"
-?`browser.html?base=${encodeURIComponent(x.path)}`
-:x.download_url;
-
-a.innerHTML=`
-<div class="num">${i+1}</div>
-<div class="icon">${x.type==="dir"?"📁":"💻"}</div>
-<div class="text">
-<div class="title">${x.name}</div>
-<div class="sub">${x.type==="dir"?"Folder":"Software"}</div>
-</div>
-<div class="arrow">›</div>
-`;
-
-list.appendChild(a);
-
+data.forEach(x=>{
+if(x.type==="dir"){
+html+=`
+<a class="item" href="software.html?path=${encodeURIComponent(x.path)}">
+<div class="num">${n++}</div><div class="icon">📁</div>
+<div class="text"><div class="name">${x.name}</div><div class="type">Software folder</div></div>
+<div class="arrow">›</div></a>`;
+}
 });
 
+data.filter(x=>x.type==="file").forEach(x=>{
+html+=`
+<a class="item" href="${x.html_url}" target="_blank">
+<div class="num">${n++}</div><div class="icon">💻</div>
+<div class="text"><div class="name">${x.name}</div><div class="type">Software / Program</div></div>
+<div class="arrow">›</div></a>`;
 });
 
-function filter(q){
-
-q=q.toLowerCase();
-
-document.querySelectorAll(".item").forEach(x=>{
-x.style.display=
-x.innerText.toLowerCase().includes(q)?"":"none";
-});
-
+document.getElementById("list").innerHTML=html||'<div class="status">No software found.</div>';
+}catch(e){
+document.getElementById("list").innerHTML='<div class="status">Unable to load software.</div>';
+}
 }
 
-</script>
+function filterItems(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".item").forEach(x=>x.style.display=x.innerText.toLowerCase().includes(q)?"flex":"none");
+}
 
+load();
+</script>
 </body>
 </html>
