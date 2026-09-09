@@ -1,288 +1,97 @@
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+<!-- MASTER NING WEI MEDIA HEADER -->
+<header class="master-header">
+  <img src="/Ning-wei-1/ning-wei.png" alt="Ning Wei Media">
+  <div class="header-overlay"></div>
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f3f7fa;
-  color:#111;
-}
+  <div class="header-text">
+    <h1>Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
+  </div>
+</header>
 
-.header{
-  height:280px;
+<style>
+/* ===== MASTER HEADER — USE EVERYWHERE ===== */
+
+.master-header{
   position:relative;
+  width:100%;
+  height:clamp(210px, 30vw, 430px);
   overflow:hidden;
+  background:#8fc4e8;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
 }
 
-.header::before{
-  content:"";
+/* PHOTO AUTOMATICALLY FITS THE HEADER */
+.master-header img{
   position:absolute;
   inset:0;
-  background:url("ning-wei.png") center center/cover no-repeat;
+  width:100%;
+  height:100%;
+
+  /*
+    CONTAIN keeps the whole picture visible.
+    Nothing is manually moved or cropped.
+  */
+  object-fit:cover;
+
+  /*
+    CENTER keeps the picture balanced.
+  */
+  object-position:center center;
+
+  display:block;
 }
 
-.header::after{
-  content:"";
+/* LIGHT SKY-BLUE OVERLAY */
+.header-overlay{
   position:absolute;
   inset:0;
-  background:rgba(42,157,201,.38);
+  background:rgba(75,155,205,.30);
+  z-index:1;
 }
 
-.header-content{
+/* HEADER WORDS */
+.header-text{
   position:relative;
   z-index:2;
-  color:#fff;
-  text-shadow:0 3px 7px rgba(0,0,0,.65);
-}
-
-.header h1{
-  font-size:48px;
-  font-weight:800;
-  margin-bottom:12px;
-}
-
-.header p{
-  font-size:25px;
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:26px;
-}
-
-.search{
-  width:100%;
-  height:68px;
-  border:1px solid #ccc;
-  outline:none;
-  border-radius:40px;
-  padding:0 30px;
-  font-size:24px;
-  background:#fff;
-  box-shadow:0 5px 18px rgba(0,0,0,.10);
-  margin-bottom:25px;
-}
-
-.back{
-  display:block;
-  color:#167f91;
-  font-size:25px;
-  font-weight:800;
-  text-decoration:none;
-  margin:0 0 25px 5px;
-}
-
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.item{
-  min-height:92px;
-  display:flex;
-  align-items:center;
-  gap:18px;
-  padding:15px 20px;
-  border-radius:22px;
-  background:#fff;
-  text-decoration:none;
-  color:#111;
-  box-shadow:0 4px 14px rgba(0,0,0,.09);
-}
-
-.num{
-  width:64px;
-  height:64px;
-  flex:0 0 64px;
-  border-radius:50%;
-  background:#000;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:27px;
-  font-weight:800;
-}
-
-.icon{
-  width:58px;
-  flex:0 0 58px;
   text-align:center;
-  font-size:40px;
+  color:white;
+  padding:10px;
+  text-shadow:0 3px 8px rgba(0,0,0,.65);
 }
 
-.text{
-  flex:1;
-  min-width:0;
-}
-
-.title{
-  font-size:24px;
-  font-weight:800;
-  word-break:break-word;
-}
-
-.sub{
-  color:#777;
-  font-size:18px;
-  margin-top:5px;
-}
-
-.arrow{
-  font-size:38px;
-  color:#168ca5;
-}
-
-.section-title{
-  color:#176fb2;
-  font-size:31px;
-  margin:32px 8px 16px;
-}
-
-.apps{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.app{
-  min-height:90px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  padding:14px;
-  background:#fff;
-  border-radius:18px;
-  text-decoration:none;
-  color:#111;
-  box-shadow:0 4px 14px rgba(0,0,0,.08);
-}
-
-.app .num{
-  width:48px;
-  height:48px;
-  flex-basis:48px;
-  font-size:21px;
-}
-
-.app-logo{
-  font-size:35px;
-}
-
-.app-name{
-  font-size:19px;
+.header-text h1{
+  margin:0;
+  font-size:clamp(32px,5vw,68px);
   font-weight:800;
 }
 
-.follow{
-  margin-top:32px;
-  padding:25px;
-  background:#fff;
-  border-radius:22px;
-  text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,.08);
+.header-text p{
+  margin:12px 0 0;
+  font-size:clamp(17px,2.5vw,32px);
+  font-weight:600;
 }
 
-.follow h2{
-  color:#176fb2;
-  font-size:30px;
-  margin-bottom:20px;
-}
+/* PHONE */
+@media(max-width:600px){
 
-.social{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-.social a{
-  background:#168fd1;
-  color:#fff;
-  padding:12px 20px;
-  border-radius:30px;
-  text-decoration:none;
-  font-size:18px;
-}
-
-footer{
-  text-align:center;
-  color:#777;
-  font-size:18px;
-  padding:45px 10px 25px;
-}
-
-.error{
-  background:#fff;
-  padding:25px;
-  border-radius:20px;
-  text-align:center;
-  color:#777;
-}
-
-@media(max-width:700px){
-
-  .header{
-    height:280px;
+  .master-header{
+    height:230px;
   }
 
-  .header h1{
-    font-size:40px;
+  .master-header img{
+    object-position:center center;
   }
 
-  .header p{
-    font-size:20px;
-  }
-
-  .container{
-    padding:18px;
-  }
-
-  .search{
-    height:64px;
-    font-size:21px;
-  }
-
-  .item{
-    min-height:90px;
-    padding:14px;
-    gap:12px;
-  }
-
-  .num{
-    width:60px;
-    height:60px;
-    flex-basis:60px;
-    font-size:25px;
-  }
-
-  .icon{
-    width:48px;
-    flex-basis:48px;
-    font-size:35px;
-  }
-
-  .title{
-    font-size:22px;
-  }
-
-  .sub{
-    font-size:16px;
-  }
-
-  .arrow{
+  .header-text h1{
     font-size:32px;
   }
 
-  .apps{
-    grid-template-columns:1fr 1fr;
+  .header-text p{
+    font-size:16px;
+    margin-top:8px;
   }
 }
+</style>
