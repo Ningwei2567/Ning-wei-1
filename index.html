@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ning Wei Media - Home</title>
     <style>
-        /* Base page layout alignment */
         body {
             margin: 0;
             padding: 0;
@@ -83,7 +82,7 @@
             color: #333;
         }
 
-        /* RESTORED: Artist Upload Section Button styling */
+        /* Artist Upload Section Button styling */
         .upload-section {
             padding: 0 15px 15px 15px;
         }
@@ -225,16 +224,19 @@
             </div>
         </div>
 
-        <!-- RESTORED ACTION ELEMENT: Global Submission Portal Button -->
+        <!-- RESTORED & FUNCTIONAL UPLOAD ENTRY COMPONENT -->
         <div class="upload-section">
-            <button onclick="openArtistUploadPortal()" class="btn-upload-direct">
+            <!-- Hidden input that actually triggers the system file selector -->
+            <input type="file" id="mediaFileSelector" accept="audio/*" style="display: none;" onchange="processSelectedMusic(this)">
+            
+            <button onclick="triggerFileSelector()" class="btn-upload-direct">
                 🎤 Upload Your Music Here
             </button>
         </div>
 
         <h2 class="section-header">Ning Wei Media</h2>
 
-        <!-- MAIN MAIN COMPACT MENU ROWS -->
+        <!-- MAIN MENU COMPACT LISTS -->
         <div class="list-container" id="mainMenu">
             
             <!-- Item 1: Trending Songs -->
@@ -310,9 +312,3 @@
                     <div class="text-meta-box">
                         <h3 class="text-title">Apps</h3>
                         <p class="text-subtitle">Applications</p>
-                    </div>
-                </div>
-                <div class="arrow-indicator">❯</div>
-            </a>
-
-            <!-- Item 7: Software -->
