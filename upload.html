@@ -1,129 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ning Wei Media - Artist Upload</title>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Ning Wei Media Upload</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-*{
-box-sizing:border-box;
-}
-
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#f5f5f7;
-color:#222;
 }
 
 .container{
-max-width:430px;
+max-width:420px;
 margin:auto;
 padding:15px;
 }
 
 .header{
-
 height:125px;
-overflow:hidden;
 position:relative;
-border-radius:0 0 20px 20px;
-
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
 }
 
 .header img{
-
+position:absolute;
 width:100%;
 height:125px;
 object-fit:cover;
-
 }
 
-.header h1{
-
-position:absolute;
-top:35px;
-width:100%;
-text-align:center;
-color:white;
-font-size:25px;
+.header div{
+position:relative;
+z-index:2;
 text-shadow:0 2px 5px black;
-
 }
 
 .card{
-
 background:white;
-border-radius:18px;
-padding:20px;
+padding:18px;
 margin-top:15px;
-box-shadow:0 3px 15px #ddd;
-
+border-radius:15px;
 }
 
-h2{
-
-text-align:center;
-color:#128c9e;
-
-}
-
-
-label{
-
-display:block;
-font-weight:bold;
-margin-top:15px;
-
-}
-
-
-input,textarea{
-
+input,button{
 width:100%;
 padding:12px;
-margin-top:7px;
+margin-top:10px;
 border-radius:10px;
-border:1px solid #ccc;
-font-size:16px;
-
 }
 
+input{
+border:1px solid #ccc;
+}
 
 button{
-
-width:100%;
-padding:15px;
-margin-top:20px;
 border:0;
-border-radius:12px;
 background:#128c9e;
 color:white;
-font-size:18px;
 font-weight:bold;
-
+font-size:16px;
 }
-
 
 #status{
-
 margin-top:15px;
-padding:12px;
-border-radius:10px;
-background:#e8ffe8;
-display:none;
-
 }
-
 
 </style>
 
 </head>
+
 
 <body>
 
@@ -131,78 +89,53 @@ display:none;
 <div class="container">
 
 
-<div class="header">
+<header class="header">
 
 <img src="ning-wei.png">
 
-<h1>
-Ning Wei Media
-</h1>
+<div>
+
+<h1>Ning Wei Media</h1>
+
+<p>Artist Upload</p>
 
 </div>
+
+</header>
+
 
 
 <div class="card">
 
 
-<h2>
-Upload Music
-</h2>
+<h2>Upload Music</h2>
 
 
-<label>
-Artist Name
-</label>
+<input id="name" placeholder="Artist name">
 
-<input id="artistName"
-placeholder="Enter artist name">
+<input id="email" placeholder="Artist email">
 
 
-<label>
-Artist Email
-</label>
+<label>Artist Photo</label>
 
-<input id="artistEmail"
-placeholder="Email">
+<input id="artistPhoto" type="file" accept="image/*">
 
 
-<label>
-Artist Photo
-</label>
-
-<input id="artistPhoto"
-type="file"
-accept="image/*">
+<input id="title" placeholder="Song title">
 
 
-<label>
-Song Title
-</label>
+<label>Song File</label>
 
-<input id="songTitle"
-placeholder="Song title">
+<input id="song" type="file" accept="audio/*">
 
 
-<label>
-Song File
-</label>
+<label>Song Cover</label>
 
-<input id="songFile"
-type="file"
-accept="audio/*">
+<input id="cover" type="file" accept="image/*">
 
 
-<label>
-Song Cover
-</label>
-
-<input id="songCover"
-type="file"
-accept="image/*">
-<!-- PART 2/3 -->
-
-<button onclick="uploadEverything()">
-📤 Upload Everything
+<button onclick="upload()">
+Upload
 </button>
 
 
@@ -211,41 +144,35 @@ accept="image/*">
 
 </div>
 
+
 </div>
+
 
 
 <script>
 
 
-const SUPABASE_URL = 
-"https://btksyizkcpzubtextuce.supabase.co";
+const URL="https://btksyizkcpzubtextuce.supabase.co";
 
 
-const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 
-const supabaseClient =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+const db=supabase.createClient(URL,KEY);
 
 
 
 async function uploadFile(bucket,file){
 
-if(!file) return null;
+if(!file)return null;
 
 
-const fileName =
-Date.now()+"-"+file.name;
+let filename=Date.now()+"-"+file.name;
 
 
-const {data,error}=await supabaseClient
-.storage
+let {error}=await db.storage
 .from(bucket)
-.upload(fileName,file);
+.upload(filename,file);
 
 
 if(error){
@@ -256,189 +183,89 @@ return null;
 }
 
 
-const url =
-SUPABASE_URL+
+return URL+
 "/storage/v1/object/public/"+
 bucket+
 "/"+
-fileName;
-
-
-return url;
+filename;
 
 }
 
 
 
-async function uploadEverything(){
+async function upload(){
 
 
-const status =
-document.getElementById("status");
+let status=document.getElementById("status");
 
-
-status.style.display="block";
 status.innerHTML="Uploading...";
 
 
+let name=document.getElementById("name").value;
 
-const artistName =
-document.getElementById("artistName").value;
+let email=document.getElementById("email").value;
 
-
-const artistEmail =
-document.getElementById("artistEmail").value;
+let title=document.getElementById("title").value;
 
 
-const artistPhoto =
-document.getElementById("artistPhoto")
-.files[0];
+let artistPhoto=
+document.getElementById("artistPhoto").files[0];
 
 
-const songTitle =
-document.getElementById("songTitle").value;
+let song=
+document.getElementById("song").files[0];
 
 
-const songFile =
-document.getElementById("songFile")
-.files[0];
-
-
-const songCover =
-document.getElementById("songCover")
-.files[0];
+let cover=
+document.getElementById("cover").files[0];
 
 
 
-if(!artistName || !songTitle){
-
-status.innerHTML=
-"Please enter artist name and song title";
-
-return;
-
-}
+let photoURL=
+await uploadFile("artist-photos",artistPhoto);
 
 
+let songURL=
+await uploadFile("songs",song);
 
-const artistPhotoURL =
-await uploadFile(
-"artist-photos",
-artistPhoto
-);
+
+let coverURL=
+await uploadFile("covers",cover);
 
 
 
-const songURL =
-await uploadFile(
-"songs",
-songFile
-);
 
-
-
-const coverURL =
-await uploadFile(
-"covers",
-songCover
-);
-  <!-- PART 3/3 -->
-
-
-// Create or find artist
-
-let {data:existingArtist} =
-await supabaseClient
+let {data:artist}=await db
 .from("artists")
-.select("*")
-.eq("email",artistEmail)
-.single();
-
-
-
-let artistId;
-
-
-
-if(existingArtist){
-
-
-artistId = existingArtist.id;
-
-
-
-await supabaseClient
-.from("artists")
-.update({
-
-name:artistName,
-
-photo:artistPhotoURL
-
-})
-
-.eq("id",artistId);
-
-
-
-}else{
-
-
-const {data:newArtist,error:artistError}=
-
-await supabaseClient
-
-.from("artists")
-
 .insert({
 
-name:artistName,
-
-email:artistEmail,
-
-photo:artistPhotoURL
+name:name,
+email:email,
+photo:photoURL
 
 })
-
 .select()
-
 .single();
 
 
 
-if(artistError){
+if(!artist){
 
-status.innerHTML=
-"Artist save failed";
-
-console.log(artistError);
+status.innerHTML="Artist upload failed";
 
 return;
 
 }
 
 
-artistId=newArtist.id;
 
-
-}
-
-
-
-// Save song metadata
-
-
-const {error:songError}=
-
-await supabaseClient
-
+let {error}=await db
 .from("songs")
-
 .insert({
 
-artist_id:artistId,
+artist_id:artist.id,
 
-title:songTitle,
+title:title,
 
 song_url:songURL,
 
@@ -448,25 +275,17 @@ cover_url:coverURL
 
 
 
-if(songError){
+if(error){
 
-
-status.innerHTML=
-"Song upload failed";
-
-console.log(songError);
+status.innerHTML="Song upload failed";
 
 return;
-
 
 }
 
 
 
-status.innerHTML=
-
-"✅ Upload successful! Your song, cover and artist profile are live on Ning Wei Media.";
-
+status.innerHTML="✅ Upload complete";
 
 
 }
