@@ -1,91 +1,253 @@
-/* =====================================================
-   NING WEI MEDIA — UNIVERSAL HEADER
-   SAME HEADER ON EVERY PAGE AND FOLDER
-   ===================================================== */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.container,
+.page-container,
+.main-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #f5f5f7;
+    padding-bottom: 30px;
+}
+
+/* =========================================
+   MASTER NING WEI HEADER
+   SAME SIZE EVERYWHERE
+   ========================================= */
 
 .header,
+.banner,
 header {
-  position: relative !important;
-  width: 100% !important;
-  height: 125px !important;
-  min-height: 125px !important;
-  max-height: 125px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 125px !important;
+    min-height: 125px !important;
+    max-height: 125px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
 
-  /* CLEAN PHOTO — NO OVERLAY */
-  background-image: url("https://ningwei2567.github.io/Ning-wei-1/ning-wei.png") !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-  /* MOVE THE PHOTO DOWN */
-  background-position: 50% 65% !important;
+    text-align: center !important;
+    color: #fff !important;
 
-  background-color: #87ceeb !important;
-  filter: none !important;
-  opacity: 1 !important;
+    background: #000 !important;
+    background-image: none !important;
 
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
+    box-shadow: none !important;
 }
 
-/* If the page uses <img> instead of background */
-.header > img,
-header > img,
+/* Header photo */
 .header img,
+.banner img,
 header img {
-  position: absolute !important;
-  left: 0 !important;
-  top: 0 !important;
+    position: absolute !important;
+    inset: 0 !important;
 
-  width: 100% !important;
-  height: 125px !important;
-  min-height: 125px !important;
-  max-height: 125px !important;
+    width: 100% !important;
+    height: 125px !important;
 
-  object-fit: cover !important;
+    min-width: 100% !important;
+    min-height: 125px !important;
 
-  /* MOVE PHOTO DOWN */
-  object-position: 50% 65% !important;
+    object-fit: cover !important;
 
-  filter: none !important;
-  opacity: 1 !important;
-  z-index: 1 !important;
+    /* Upper part of the photograph */
+    object-position: 50% 20% !important;
+
+    display: block !important;
+
+    opacity: 1 !important;
+    filter: none !important;
+
+    z-index: 0 !important;
 }
 
-/* REMOVE ALL OLD COLOR OVERLAYS */
+/* Remove ALL overlays */
 .header::before,
 .header::after,
+.banner::before,
+.banner::after,
 header::before,
 header::after {
-  content: none !important;
-  display: none !important;
-  background: none !important;
-  opacity: 0 !important;
+    content: none !important;
+    display: none !important;
+    background: none !important;
 }
 
-/* KEEP TITLE ABOVE PHOTO */
+/* Header text */
 .header-content,
-.header .header-content,
+.banner-content,
 header .header-content {
-  position: relative !important;
-  z-index: 5 !important;
+    position: relative !important;
+    z-index: 5 !important;
+
+    width: 100% !important;
+    padding: 8px 10px !important;
+
+    color: #fff !important;
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,.9),
+        0 1px 2px rgba(0,0,0,.9) !important;
 }
 
-/* HEADER TITLE */
 .header h1,
+.banner h1,
 header h1 {
-  margin: 0 !important;
-  color: #fff !important;
-  text-shadow: 2px 2px 5px #000 !important;
+    margin: 0 !important;
+    font-size: 1.65rem !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    color: #fff !important;
 }
 
-/* HEADER SUBTITLE */
 .header p,
+.banner p,
 header p {
-  color: #fff !important;
-  text-shadow: 1px 1px 3px #000 !important;
+    margin: 5px 0 0 !important;
+    font-size: .78rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+}
+
+/* =========================================
+   SEARCH
+   ========================================= */
+
+.search-container {
+    padding: 12px 15px !important;
+}
+
+.search-box {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e5ea;
+    border-radius: 22px;
+    padding: 10px 17px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: .95rem;
+    color: #333;
+}
+
+/* =========================================
+   COMPACT LISTS
+   ========================================= */
+
+.list-container,
+.menu,
+.folder-list,
+.file-list {
+    padding: 0 15px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.list-item,
+.menu-item,
+.folder-item,
+.file-item {
+    min-height: 48px;
+    padding: 7px 10px !important;
+
+    background: #fff;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    text-decoration: none;
+    color: #1d1d1f;
+
+    border: 1px solid rgba(0,0,0,.03);
+}
+
+/* =========================================
+   BLACK NUMBER CIRCLES
+   ========================================= */
+
+.number-badge,
+.number,
+.badge {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+
+    border-radius: 50% !important;
+
+    background: #000 !important;
+    color: #fff !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: .82rem !important;
+    font-weight: 800 !important;
+
+    margin-right: 10px !important;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+button {
+    font-family: inherit;
+}
+
+.upload-section {
+    padding: 0 15px 12px !important;
+}
+
+.btn-upload-direct {
+    width: 100%;
+    border: 0;
+    border-radius: 11px;
+    padding: 11px;
+    background: #128c9e;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 15px;
 }
