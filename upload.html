@@ -10,6 +10,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <style>
 
 body{
@@ -24,7 +25,9 @@ margin:auto;
 padding:15px;
 }
 
+
 .header{
+
 height:125px;
 position:relative;
 overflow:hidden;
@@ -33,52 +36,77 @@ align-items:center;
 justify-content:center;
 color:white;
 text-align:center;
+
 }
 
+
 .header img{
+
 position:absolute;
 width:100%;
 height:125px;
 object-fit:cover;
+
 }
 
+
 .header div{
+
 position:relative;
 z-index:2;
 text-shadow:0 2px 5px black;
+
 }
+
 
 .card{
+
 background:white;
 padding:18px;
-margin-top:15px;
 border-radius:15px;
+margin-top:15px;
+
 }
 
+
 input,button{
+
 width:100%;
 padding:12px;
 margin-top:10px;
 border-radius:10px;
+
 }
+
 
 input{
+
 border:1px solid #ccc;
+
 }
+
 
 button{
-border:0;
+
 background:#128c9e;
+border:0;
 color:white;
-font-weight:bold;
 font-size:16px;
+font-weight:bold;
+
 }
+
 
 #status{
+
 margin-top:15px;
+font-weight:bold;
+
 }
 
+
 </style>
+
 
 </head>
 
@@ -108,35 +136,63 @@ margin-top:15px;
 <div class="card">
 
 
-<h2>Upload Music</h2>
+<h2>Upload Your Song</h2>
 
 
-<input id="name" placeholder="Artist name">
-
-<input id="email" placeholder="Artist email">
-
-
-<label>Artist Photo</label>
-
-<input id="artistPhoto" type="file" accept="image/*">
+<input id="artistName"
+placeholder="Artist name">
 
 
-<input id="title" placeholder="Song title">
+
+<input id="artistEmail"
+placeholder="Artist email">
 
 
-<label>Song File</label>
 
-<input id="song" type="file" accept="audio/*">
-
-
-<label>Song Cover</label>
-
-<input id="cover" type="file" accept="image/*">
+<label>
+Artist Photo
+</label>
 
 
-<button onclick="upload()">
+<input id="artistPhoto"
+type="file"
+accept="image/*">
+
+
+
+<input id="songTitle"
+placeholder="Song title">
+
+
+
+<label>
+Song File
+</label>
+
+
+<input id="songFile"
+type="file"
+accept="audio/*,video/*">
+
+
+
+<label>
+Song Cover
+</label>
+
+
+<input id="songCover"
+type="file"
+accept="image/*">
+
+
+
+<button onclick="uploadSong()">
+
 Upload
+
 </button>
+
 
 
 <div id="status"></div>
@@ -149,135 +205,164 @@ Upload
 
 
 
+
 <script>
 
 
-const URL="https://btksyizkcpzubtextuce.supabase.co";
+const SUPABASE_URL =
+"https://btksyizkcpzubtextuce.supabase.co";
 
 
-const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+const SUPABASE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 
-const db=supabase.createClient(URL,KEY);
+const db =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
 
 async function uploadFile(bucket,file){
 
-if(!file)return null;
 
+if(!file){
 
-let filename=Date.now()+"-"+file.name;
-
-
-let {error}=await db.storage
-.from(bucket)
-.upload(filename,file);
-
-
-if(error){
-
-console.log(error);
 return null;
 
 }
 
 
-return URL+
-"/storage/v1/object/public/"+
-bucket+
-"/"+
-filename;
-
-}
+let filename =
+Date.now()+"-"+file.name;
 
 
 
-async function upload(){
+let {error}=await db.storage
 
+.from(bucket)
 
-let status=document.getElementById("status");
-
-status.innerHTML="Uploading...";
-
-
-let name=document.getElementById("name").value;
-
-let email=document.getElementById("email").value;
-
-let title=document.getElementById("title").value;
-
-
-let artistPhoto=
-document.getElementById("artistPhoto").files[0];
-
-
-let song=
-document.getElementById("song").files[0];
-
-
-let cover=
-document.getElementById("cover").files[0];
-
-
-
-let photoURL=
-await uploadFile("artist-photos",artistPhoto);
-
-
-let songURL=
-await uploadFile("songs",song);
-
-
-let coverURL=
-await uploadFile("covers",cover);
-
-
-
-
-let {data:artist}=await db
-.from("artists")
-.insert({
-
-name:name,
-email:email,
-photo:photoURL
-
-})
-.select()
-.single();
-
-
-
-if(!artist){
-
-status.innerHTML="Artist upload failed";
-
-return;
-
-}
-
-
-
-let {error}=await db
-.from("songs")
-.insert({
-
-artist_id:artist.id,
-
-title:title,
-
-song_url:songURL,
-
-cover_url:coverURL
-
-});
+.upload(filename,file);
 
 
 
 if(error){
 
-status.innerHTML="Song upload failed";
+console.log(error);
+
+return null;
+
+}
+
+
+
+return SUPABASE_URL+
+"/storage/v1/object/public/"+
+bucket+
+"/"+
+filename;
+
+
+}
+
+
+
+
+
+async function uploadSong(){
+
+
+let status=
+document.getElementById("status");
+
+
+status.innerHTML="Uploading...";
+
+
+
+let name=
+document.getElementById("artistName").value;
+
+
+let email=
+document.getElementById("artistEmail").value;
+
+
+let photo=
+document.getElementById("artistPhoto").files[0];
+
+
+let title=
+document.getElementById("songTitle").value;
+
+
+let song=
+document.getElementById("songFile").files[0];
+
+
+let cover=
+document.getElementById("songCover").files[0];
+
+
+
+
+let photoURL =
+await uploadFile(
+"artist-photos",
+photo
+);
+
+
+
+let songURL =
+await uploadFile(
+"songs",
+song
+);
+
+
+
+let coverURL =
+await uploadFile(
+"covers",
+cover
+);
+
+
+
+
+// create artist
+
+let {data:artist,error:artistError}=
+
+await db
+
+.from("artists")
+
+.insert({
+
+name:name,
+
+email:email,
+
+photo:photoURL
+
+})
+
+.select()
+
+.single();
+
+
+
+
+if(artistError){
+
+console.log(artistError);
+
+status.innerHTML="Artist failed";
 
 return;
 
@@ -285,7 +370,46 @@ return;
 
 
 
-status.innerHTML="✅ Upload complete";
+
+// create song
+
+let {error:songError}=
+
+await db
+
+.from("songs")
+
+.insert({
+
+title:title,
+
+song_url:songURL,
+
+cover_url:coverURL,
+
+artist_id:artist.id
+
+});
+
+
+
+
+
+if(songError){
+
+console.log(songError);
+
+status.innerHTML="Song failed";
+
+return;
+
+}
+
+
+
+
+status.innerHTML=
+"✅ Upload successful";
 
 
 }
