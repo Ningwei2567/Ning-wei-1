@@ -1,1352 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Ning Wei Media Library</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
 *{
- box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
- margin:0;
- font-family:Arial,Helvetica,sans-serif;
- background:#eef9ff;
- color:#111;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+padding-bottom:30px;
 }
 
 
-/* =========================
-   MASTER HEADER
-========================= */
-
 .header{
- position:relative;
- width:100%;
- height:125px;
- min-height:125px;
- max-height:125px;
- overflow:hidden;
 
- display:flex;
- align-items:center;
- justify-content:center;
+height:125px;
+background:#000;
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
 
- text-align:center;
- background:#000;
 }
 
 
 .header img{
- position:absolute;
 
- left:0;
- top:0;
+position:absolute;
+width:100%;
+height:125px;
+object-fit:cover;
+object-position:center 35%;
 
- width:100%;
- height:125px;
-
- object-fit:cover;
-
- /* PUSH IMAGE DOWN */
- object-position:center 65%;
-
- display:block;
 }
 
 
-.header::before,
-.header::after{
- display:none!important;
- content:none!important;
+.header div{
+
+position:relative;
+z-index:2;
+text-shadow:0 2px 5px #000;
+
 }
 
 
-.header-content{
- position:relative;
- z-index:2;
+.card{
 
- color:white;
+background:white;
+margin:15px;
+padding:15px;
+border-radius:15px;
 
- text-shadow:
- 0 2px 5px rgba(0,0,0,.8);
 }
 
 
-.header-content h1{
- margin:0;
- font-size:30px;
- font-weight:900;
+.artist-box{
+
+display:flex;
+align-items:center;
+gap:12px;
+
 }
 
 
-.header-content p{
- margin:5px 0 0;
- font-size:13px;
-}
+.artist-photo{
 
-
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
- width:100%;
- max-width:900px;
- margin:auto;
- padding:15px;
-}
-
-
-
-/* =========================
- SEARCH
-========================= */
-
-.search-box{
- margin-bottom:15px;
-}
-
-
-.search-box input{
-
- width:100%;
- height:42px;
-
- border:1px solid #ccc;
- border-radius:10px;
-
- padding:0 14px;
-
- font-size:15px;
-
- background:white;
+width:60px;
+height:60px;
+border-radius:50%;
+object-fit:cover;
 
 }
 
 
 
-/* =========================
- TOP BAR
-========================= */
+.song-card{
 
-.top-bar{
-
- background:white;
-
- border-radius:12px;
-
- padding:12px;
-
- margin-bottom:15px;
-
- box-shadow:
- 0 2px 8px rgba(0,0,0,.08);
+background:white;
+margin:15px;
+border-radius:15px;
+overflow:hidden;
 
 }
 
 
-.location{
+.cover{
 
- font-size:14px;
- color:#666;
-
- margin-bottom:10px;
-
- word-break:break-word;
+width:100%;
+height:250px;
+object-fit:cover;
 
 }
 
 
-.upload-owner{
+.song-info{
 
- display:block;
-
- background:#000;
-
- color:white;
-
- text-align:center;
-
- padding:11px;
-
- border-radius:9px;
-
- text-decoration:none;
-
- font-weight:bold;
+padding:15px;
 
 }
 
 
+button,a{
 
-/* =========================
- ITEMS
-========================= */
-
-.items{
-
- display:flex;
-
- flex-direction:column;
-
- gap:7px;
+display:inline-block;
+padding:10px 15px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
 
 }
 
 
-.item{
+.play{
 
- background:white;
-
- border-radius:9px;
-
- padding:8px;
-
- display:flex;
-
- align-items:center;
-
- gap:10px;
-
- box-shadow:
- 0 1px 5px rgba(0,0,0,.08);
+background:#128c9e;
+color:white;
 
 }
 
 
-.number{
+.download{
 
- width:30px;
- height:30px;
-
- flex-shrink:0;
-
- border-radius:50%;
-
- background:#000;
-
- color:white;
-
- display:flex;
-
- align-items:center;
- justify-content:center;
-
- font-weight:bold;
-
- font-size:13px;
+background:#000;
+color:white;
 
 }
 
-
-.item-main{
-
- flex:1;
- min-width:0;
-
-}
-
-
-.item-name{
-
- font-size:14px;
- font-weight:bold;
-
- word-break:break-word;
-
-}
-
-
-.item-meta{
-
- font-size:11px;
- color:#777;
-
-}
-
-
-.item-actions{
-
- display:flex;
-
- gap:5px;
-
-}
-
-
-.action{
-
- padding:7px 9px;
-
- border-radius:7px;
-
- font-size:11px;
-
- font-weight:bold;
-
- text-decoration:none;
-
- white-space:nowrap;
-
-}
-
-
-.open-btn{
-
- background:#159bd3;
- color:white;
-
-}
-
-
-.download-btn{
-
- background:#000;
- color:white;
-
-}
-
-
-.folder-btn{
-
- background:#e5f7ff;
- color:#0077aa;
-
-}
-
-
-
-/* =========================
- MEDIA GRID
-========================= */
-
-.media-grid{
-
- display:grid;
-
- grid-template-columns:repeat(4,1fr);
-
- gap:8px;
-
-}
-
-
-.media-card{
-
- background:white;
-
- border-radius:8px;
-
- overflow:hidden;
-
- text-decoration:none;
-
- color:#111;
-
-}
-
-
-.media-thumb{
-
- width:100%;
-
- aspect-ratio:1/1;
-
- object-fit:cover;
-
- background:#000;
-
-}
-
-
-.media-title{
-
- padding:7px;
-
- font-size:11px;
-
- font-weight:bold;
-
- text-align:center;
-
- overflow:hidden;
-
- white-space:nowrap;
-
- text-overflow:ellipsis;
-
-}
-
-
-
-/* =========================
- EMPTY
-========================= */
-
-.empty{
-
- background:white;
-
- padding:20px;
-
- border-radius:10px;
-
- text-align:center;
-
- color:#777;
-
-}
-
-
-
-@media(max-width:600px){
-
-.header-content h1{
-
- font-size:26px;
-
-}
-
-.media-grid{
-
- grid-template-columns:repeat(4,1fr);
-
-}
-
-}
 
 </style>
 
 </head>
 
+
 <body>
+
+
+<div class="container">
 
 
 <header class="header">
 
 <img src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png">
 
-
-<div class="header-content">
+<div>
 
 <h1>Ning Wei Media</h1>
 
-<p>
-Music • Videos • Photos • Apps • Software
-</p>
+<p>Music Library</p>
 
 </div>
 
 </header>
 
 
-<main class="container">
 
+<div id="library"></div>
 
-<div class="search-box">
-
-<input
-id="searchInput"
-type="search"
-placeholder="Search media..."
->
 
 </div>
 
 
-<div class="top-bar">
 
-<div id="locationText" class="location">
-Loading library...
-</div>
-
-
-<a
-id="ownerUpload"
-class="upload-owner"
-target="_blank">
-📤 Upload Directly Here
-</a>
-
-</div>
-
-
-<div id="items" class="items"></div>
-
-
-<div id="status" class="empty">
-Loading...
-</div>
 <script>
 
-const OWNER = "Ningwei2567";
-const REPO = "Ning-wei-1";
-const BRANCH = "main";
-
-const SITE =
-"https://ningwei2567.github.io/Ning-wei-1/";
 
 const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
-const SUPABASE_ANON_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtz eXl6a2Nwd3BidGV4dGN1Y2UiLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8"
-.replace(/\s/g,"");
 
+const SUPABASE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
-const params =
-new URLSearchParams(location.search);
 
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-const category =
-(params.get("category") || "all")
-.toLowerCase();
 
 
-const requestedFolder =
-(params.get("folder") || "")
-.replace(/^\/+|\/+$/g,"");
+async function loadMusic(){
 
 
-const categoryPaths = {
+let {data,error}=await supabaseClient
 
-songs:"media/songs",
+.from("songs")
 
-videos:"media/videos",
+.select(`
 
-photos:"media/photos",
+id,
+title,
+song_url,
+cover_url,
 
-apps:"media/apps",
+artists(
+name,
+photo
 
-software:"media/software",
-
-all:"media"
-
-};
-
-
-let githubItems=[];
-
-let supabaseItems=[];
-
-let allItems=[];
-
-
-
-function escapeHtml(value){
-
-return String(value ?? "")
-
-.replace(/&/g,"&amp;")
-
-.replace(/</g,"&lt;")
-
-.replace(/>/g,"&gt;")
-
-.replace(/"/g,"&quot;")
-
-.replace(/'/g,"&#039;");
-
-}
-
-
-
-function encodePath(path){
-
-return path.split("/")
-
-.map(x=>encodeURIComponent(x))
-
-.join("/");
-
-}
-
-
-
-function extension(name){
-
-const parts =
-String(name)
-.split("?")[0]
-.split(".");
-
-return parts.length>1
-? parts.pop().toLowerCase()
-:"";
-
-}
-
-
-
-function categoryFromExtension(name){
-
-const ext=extension(name);
-
-
-if([
-"mp3","wav","m4a","aac",
-"ogg","flac","opus"
-].includes(ext))
-
-return "songs";
-
-
-if([
-"mp4","3gp","webm",
-"mkv","avi","mov"
-].includes(ext))
-
-return "videos";
-
-
-if([
-"jpg","jpeg","png",
-"gif","webp","bmp"
-].includes(ext))
-
-return "photos";
-
-
-if([
-"apk","xapk"
-].includes(ext))
-
-return "apps";
-
-
-if([
-"exe","msi","zip",
-"rar","7z","iso"
-].includes(ext))
-
-return "software";
-
-
-return "";
-
-}
-
-
-
-/* UPLOAD LINK */
-
-function updateOwnerUploadLink(){
-
-let folder =
-requestedFolder ||
-categoryPaths[category] ||
-"media";
-
-
-document.getElementById(
-"ownerUpload"
-).href =
-"https://github.com/"
-+OWNER+
-"/"
-+REPO+
-"/upload/"
-+BRANCH+
-"/"
-+folder;
-
-
-document.getElementById(
-"locationText"
-).textContent =
-"Current folder: "+folder;
-
-}
-
-
-
-/* GITHUB SCANNER */
-
-async function loadGithub(){
-
-try{
-
-
-const api =
-"https://api.github.com/repos/"
-+OWNER+
-"/"
-+REPO+
-"/git/trees/"
-+BRANCH+
-"?recursive=1";
-
-
-const response =
-await fetch(api);
-
-
-const data =
-await response.json();
-
-
-githubItems=[];
-
-
-
-data.tree.forEach(entry=>{
-
-
-if(!entry.path)
-return;
-
-
-
-if(entry.type==="tree"){
-
-
-githubItems.push({
-
-type:"folder",
-
-path:entry.path,
-
-name:
-entry.path.split("/").pop(),
-
-source:"github"
-
-});
-
-
-return;
-
-}
-
-
-
-if(entry.type!=="blob")
-return;
-
-
-
-const cat =
-categoryFromExtension(entry.path);
-
-
-
-if(!cat)
-return;
-
-
-
-if(
-category!=="all" &&
-cat!==category
 )
-return;
+
+`)
+
+.order("id",{ascending:false});
 
 
 
-githubItems.push({
-
-type:"file",
-
-path:entry.path,
-
-name:
-entry.path.split("/").pop(),
-
-category:cat,
-
-source:"github"
-
-});
-
-
-
-});
-
-
-}catch(error){
+if(error){
 
 console.log(error);
 
-}
-
-
-}
-
-
-
-
-
-/* SUPABASE OLD UPLOADS */
-
-async function loadSupabase(){
-
-
-try{
-
-
-const url =
-SUPABASE_URL+
-"/rest/v1/artist_submissions"+
-"?select=id,artist_name,files,status"+
-"&status=eq.approved";
-
-
-
-const response =
-await fetch(url,{
-
-headers:{
-
-apikey:SUPABASE_ANON_KEY,
-
-Authorization:
-"Bearer "+SUPABASE_ANON_KEY
-
-}
-
-});
-
-
-
-const rows =
-await response.json();
-
-
-
-supabaseItems=[];
-
-
-
-rows.forEach(row=>{
-
-
-let files=row.files;
-
-
-if(typeof files==="string"){
-
-try{
-
-files=JSON.parse(files);
-
-}catch{
-
-files=[];
-
-}
-
-}
-
-
-
-if(!Array.isArray(files))
 return;
 
-
-
-files.forEach(file=>{
-
-
-let name =
-file.name ||
-file.filename ||
-"Uploaded file";
-
-
-let url =
-file.url ||
-file.public_url ||
-"";
-
-
-
-let cat =
-file.category ||
-categoryFromExtension(name);
-
-
-
-if(
-category!=="all" &&
-cat!==category
-)
-return;
-
-
-
-if(!url)
-return;
-
-
-
-supabaseItems.push({
-
-type:"file",
-
-name:name,
-
-url:url,
-
-artist:
-row.artist_name ||
-"Artist upload",
-
-category:cat,
-
-source:"artist"
-
-
-});
-
-
-
-});
-
-
-
-});
-
-
-
-}catch(error){
-
-console.log(error);
-
-}
-
-
-}
-  <script>
-
-function githubPagesUrl(path){
-
-  return "https://raw.githubusercontent.com/" +
-    OWNER + "/" +
-    REPO + "/" +
-    BRANCH + "/" +
-    encodePath(path);
-
 }
 
 
 
-function getFolderItems(){
-
-
-let folder =
-requestedFolder ||
-categoryPaths[category] ||
-"media";
-
-let prefix =
-folder + "/";
-
-
-let result=[];
-
-
-githubItems.forEach(item=>{
-
-
-if(!item.path.startsWith(prefix))
-return;
-
-
-let remaining =
-item.path.substring(prefix.length);
-
-
-
-if(!remaining)
-return;
-
-
-
-if(item.type==="folder"){
-
-
-let first =
-remaining.split("/")[0];
-
-
-if(!result.find(x=>x.name===first)){
-
-
-result.push({
-
-type:"folder",
-
-name:first,
-
-path:prefix+first,
-
-source:"github"
-
-});
-
-
-}
-
-
-
-}else{
-
-
-if(!remaining.includes("/")){
-
-
-result.push(item);
-
-
-}
-
-
-}
-
-
-
-});
-
-
-return result;
-
-}
-
-
-
-
-function openUrl(item){
-
-
-if(item.source==="artist"){
-
-
-return "media.html?url="+
-encodeURIComponent(item.url)+
-"&name="+
-encodeURIComponent(item.name);
-
-
-}
-
-
-return "media.html?path="+
-encodeURIComponent(item.path)+
-"&name="+
-encodeURIComponent(item.name);
-
-
-}
-
-
-
-
-
-function downloadUrl(item){
-
-
-if(item.source==="artist")
-return item.url;
-
-
-return githubPagesUrl(item.path);
-
-
-}
-
-
-
-
-function render(){
-
-
-const box =
-document.getElementById("items");
-
-
-const status =
-document.getElementById("status");
+let box=document.getElementById("library");
 
 
 box.innerHTML="";
 
 
 
-let items =
-getFolderItems();
+data.forEach(song=>{
 
 
+box.innerHTML+=`
 
-if(!requestedFolder){
+<div class="song-card">
 
-items=[
-...items,
-...supabaseItems
-];
 
-}
+<img 
+class="cover"
+src="${song.cover_url}"
+>
 
 
+<div class="song-info">
 
-let search =
-document.getElementById(
-"searchInput"
-).value
-.toLowerCase()
-.trim();
 
+<div class="artist-box">
 
 
-if(search){
+<img
+class="artist-photo"
+src="${song.artists.photo}"
+>
 
 
-items =
-items.filter(item=>{
-
-
-let text =
-(item.name+
-(item.artist||"")+
-(item.path||""))
-.toLowerCase();
-
-
-return text.includes(search);
-
-
-});
-
-
-}
-
-
-
-
-
-if(!items.length){
-
-
-box.innerHTML =
-'<div class="empty">No media found.</div>';
-
-
-status.style.display="none";
-
-return;
-
-}
-
-
-
-status.style.display="none";
-
-
-
-
-
-items.sort((a,b)=>{
-
-
-if(
-a.type==="folder" &&
-b.type!=="folder"
-)
-return -1;
-
-
-if(
-a.type!=="folder" &&
-b.type==="folder"
-)
-return 1;
-
-
-return a.name.localeCompare(b.name);
-
-
-});
-
-
-
-
-
-items.forEach((item,index)=>{
-
-
-let row =
-document.createElement("div");
-
-
-row.className="item";
-
-
-
-let number=index+1;
-
-
-
-
-if(item.type==="folder"){
-
-
-row.innerHTML=`
-
-<div class="number">
-${number}
-</div>
-
-
-<div class="item-main">
-
-<div class="item-name">
-📁 ${escapeHtml(item.name)}
-</div>
-
-
-<div class="item-meta">
-Folder
-</div>
-
-</div>
-
-
-<div class="item-actions">
-
-<a class="action folder-btn"
-href="library.html?category=${category}&folder=${encodeURIComponent(item.path)}">
-
-Open
-
-</a>
-
-</div>
-
-`;
-
-
-
-}else{
-
-
-
-row.innerHTML=`
-
-<div class="number">
-${number}
-</div>
-
-
-<div class="item-main">
-
-
-<div class="item-name">
-
-${escapeHtml(item.name)}
-
-${item.artist
-?
-" • "+escapeHtml(item.artist)
-:""}
-
-</div>
-
-
-
-<div class="item-meta">
-
-${extension(item.name).toUpperCase()}
-
-</div>
+<h3>
+${song.artists.name}
+</h3>
 
 
 </div>
 
 
-<div class="item-actions">
+<h2>
+${song.title}
+</h2>
 
 
-<a class="action open-btn"
-href="${openUrl(item)}">
 
-Open
+<a class="play"
+href="media.html?url=${encodeURIComponent(song.song_url)}">
+
+▶ Play
 
 </a>
 
 
 
-<a class="action download-btn"
-href="${downloadUrl(item)}"
+<a class="download"
+href="${song.song_url}"
 download>
 
-Download
+⬇ Download
 
 </a>
 
 
+
 </div>
+
+
+</div>
+
 
 `;
 
 
-
-}
-
-
-
-box.appendChild(row);
-
-
 });
-
 
 
 }
 
 
 
-
-
-document
-.getElementById("searchInput")
-.addEventListener(
-"input",
-render
-);
-
-
-
-
-
-updateOwnerUploadLink();
-
-
-
-Promise.all([
-
-loadGithub(),
-
-loadSupabase()
-
-])
-.then(()=>{
-
-
-render();
-
-
-});
-
+loadMusic();
 
 
 </script>
 
 
 </body>
-
 </html>
