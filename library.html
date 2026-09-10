@@ -926,7 +926,11 @@ console.log(error);
 
 function githubPagesUrl(path){
 
-return SITE + encodePath(path);
+  return "https://raw.githubusercontent.com/" +
+    OWNER + "/" +
+    REPO + "/" +
+    BRANCH + "/" +
+    encodePath(path);
 
 }
 
