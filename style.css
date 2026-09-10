@@ -1,262 +1,91 @@
-*{
-  box-sizing:border-box;
+/* =====================================================
+   NING WEI MEDIA — UNIVERSAL HEADER
+   SAME HEADER ON EVERY PAGE AND FOLDER
+   ===================================================== */
+
+.header,
+header {
+  position: relative !important;
+  width: 100% !important;
+  height: 125px !important;
+  min-height: 125px !important;
+  max-height: 125px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+
+  /* CLEAN PHOTO — NO OVERLAY */
+  background-image: url("https://ningwei2567.github.io/Ning-wei-1/ning-wei.png") !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+
+  /* MOVE THE PHOTO DOWN */
+  background-position: 50% 65% !important;
+
+  background-color: #87ceeb !important;
+  filter: none !important;
+  opacity: 1 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
 }
 
-html,body{
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-  background:#f4fbff;
-  color:#123;
+/* If the page uses <img> instead of background */
+.header > img,
+header > img,
+.header img,
+header img {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+
+  width: 100% !important;
+  height: 125px !important;
+  min-height: 125px !important;
+  max-height: 125px !important;
+
+  object-fit: cover !important;
+
+  /* MOVE PHOTO DOWN */
+  object-position: 50% 65% !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+  z-index: 1 !important;
 }
 
-body{
-  min-height:100vh;
-}
-
-/* ===== MASTER HEADER — SAME EVERYWHERE ===== */
-.header{
-  position:relative !important;
-  width:100% !important;
-  height:125px !important;
-  min-height:125px !important;
-  max-height:125px !important;
-  overflow:hidden !important;
-  background:#87ceeb !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  text-align:center !important;
-  padding:0 !important;
-  margin:0 !important;
-}
-
-.header img{
-  position:absolute !important;
-  inset:0 !important;
-  width:100% !important;
-  height:125px !important;
-  min-height:125px !important;
-  max-height:125px !important;
-  object-fit:cover !important;
-
-  /* PUSH PHOTO DOWN SO HEAD IS VISIBLE */
-  object-position:50% 65% !important;
-
-  filter:none !important;
-  opacity:1 !important;
-  z-index:1 !important;
-}
-
+/* REMOVE ALL OLD COLOR OVERLAYS */
 .header::before,
-.header::after{
-  display:none !important;
-  content:none !important;
-  background:none !important;
+.header::after,
+header::before,
+header::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  opacity: 0 !important;
 }
 
-.header-content{
-  position:relative !important;
-  z-index:2 !important;
-  padding:5px 10px !important;
+/* KEEP TITLE ABOVE PHOTO */
+.header-content,
+.header .header-content,
+header .header-content {
+  position: relative !important;
+  z-index: 5 !important;
 }
 
-.header h1{
-  margin:0 !important;
-  font-size:26px !important;
-  line-height:1.1 !important;
-  color:white !important;
-  text-shadow:2px 2px 5px #000 !important;
+/* HEADER TITLE */
+.header h1,
+header h1 {
+  margin: 0 !important;
+  color: #fff !important;
+  text-shadow: 2px 2px 5px #000 !important;
 }
 
-.header p{
-  margin:5px 0 0 !important;
-  font-size:13px !important;
-  color:white !important;
-  text-shadow:1px 1px 3px #000 !important;
-}
-
-/* ===== PAGE ===== */
-.container{
-  width:94%;
-  max-width:1100px;
-  margin:12px auto;
-}
-
-/* ===== SEARCH ===== */
-.search-box{
-  width:100%;
-  padding:11px 14px;
-  border:1px solid #b9ddeb;
-  border-radius:25px;
-  outline:none;
-  font-size:15px;
-  background:white;
-}
-
-/* ===== MENUS / ROWS ===== */
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.menu a,
-.folder-row,
-.file-row{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  min-height:42px;
-  padding:7px 10px;
-  background:white;
-  border-radius:9px;
-  text-decoration:none;
-  color:#123;
-  box-shadow:0 1px 5px rgba(0,0,0,.08);
-}
-
-.number{
-  flex:0 0 27px;
-  width:27px;
-  height:27px;
-  border-radius:50%;
-  background:#000 !important;
-  color:#fff !important;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:13px;
-}
-
-/* ===== MEDIA GRID ===== */
-.media-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-
-.media-card{
-  display:block;
-  background:white;
-  border-radius:8px;
-  overflow:hidden;
-  text-decoration:none;
-  color:#123;
-  box-shadow:0 1px 5px rgba(0,0,0,.1);
-}
-
-.media-card img,
-.media-card video{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  display:block;
-  background:#ddd;
-}
-
-.media-title{
-  padding:6px 4px;
-  text-align:center;
-  font-size:11px;
-  font-weight:bold;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* ===== BUTTONS ===== */
-button,
-.btn{
-  border:0;
-  border-radius:8px;
-  padding:9px 13px;
-  cursor:pointer;
-  text-decoration:none;
-  display:inline-block;
-}
-
-/* ===== APP ICONS ===== */
-.app-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-
-.app-card{
-  background:white;
-  border-radius:9px;
-  padding:10px 5px;
-  text-align:center;
-  box-shadow:0 1px 5px rgba(0,0,0,.08);
-}
-
-.app-card img{
-  width:42px;
-  height:42px;
-  object-fit:contain;
-  border-radius:50%;
-}
-
-/* ===== SOCIAL ===== */
-.social{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:9px;
-}
-
-.social a{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-/* ===== FOOTER ===== */
-footer{
-  text-align:center;
-  padding:20px 10px;
-  font-size:12px;
-}
-
-/* ===== MOBILE ===== */
-@media(max-width:600px){
-  .header{
-    height:125px !important;
-    min-height:125px !important;
-    max-height:125px !important;
-  }
-
-  .header img{
-    height:125px !important;
-    object-position:50% 65% !important;
-  }
-
-  .header h1{
-    font-size:23px !important;
-  }
-
-  .header p{
-    font-size:11px !important;
-  }
-
-  .container{
-    width:95%;
-  }
-
-  .media-grid{
-    grid-template-columns:repeat(4,1fr);
-    gap:5px;
-  }
-
-  .media-title{
-    font-size:9px;
-  }
+/* HEADER SUBTITLE */
+.header p,
+header p {
+  color: #fff !important;
+  text-shadow: 1px 1px 3px #000 !important;
 }
