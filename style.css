@@ -1,567 +1,262 @@
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html,body{
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+  background:#f4fbff;
+  color:#123;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f7fb;
-  color: #111;
+body{
+  min-height:100vh;
 }
 
-/* =========================================
-   MASTER HEADER — SAME EVERYWHERE
-   ========================================= */
-
-.header {
-  position: relative !important;
-  width: 100% !important;
-
-  height: 125px !important;
-  min-height: 125px !important;
-  max-height: 125px !important;
-
-  overflow: hidden !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  text-align: center !important;
-
-  background: #000 !important;
+/* ===== MASTER HEADER — SAME EVERYWHERE ===== */
+.header{
+  position:relative !important;
+  width:100% !important;
+  height:125px !important;
+  min-height:125px !important;
+  max-height:125px !important;
+  overflow:hidden !important;
+  background:#87ceeb !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  padding:0 !important;
+  margin:0 !important;
 }
 
-/* MASTER PHOTO */
-.header img {
-  position: absolute !important;
+.header img{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:125px !important;
+  min-height:125px !important;
+  max-height:125px !important;
+  object-fit:cover !important;
 
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  /* PUSH PHOTO DOWN SO HEAD IS VISIBLE */
+  object-position:50% 65% !important;
 
-  width: 100% !important;
-  height: 100% !important;
-
-  object-fit: cover !important;
-
-  /* PHOTO PUSHED DOWN */
-  object-position: 50% 50% !important;
-
-  display: block !important;
-
-  filter: none !important;
-  opacity: 1 !important;
+  filter:none !important;
+  opacity:1 !important;
+  z-index:1 !important;
 }
 
-/* REMOVE ALL HEADER OVERLAYS */
 .header::before,
-.header::after {
-  content: none !important;
-  display: none !important;
-  background: none !important;
-  opacity: 0 !important;
+.header::after{
+  display:none !important;
+  content:none !important;
+  background:none !important;
 }
 
-/* HEADER TEXT */
-.header-content {
-  position: relative !important;
-  z-index: 2 !important;
-
-  color: #fff !important;
-
-  text-align: center !important;
-
-  padding: 5px 10px !important;
-
-  text-shadow: 0 2px 5px rgba(0,0,0,.55) !important;
+.header-content{
+  position:relative !important;
+  z-index:2 !important;
+  padding:5px 10px !important;
 }
 
-.header-content h1 {
-  margin: 0 !important;
-
-  font-size: 30px !important;
-  line-height: 1.1 !important;
-
-  font-weight: 800 !important;
+.header h1{
+  margin:0 !important;
+  font-size:26px !important;
+  line-height:1.1 !important;
+  color:white !important;
+  text-shadow:2px 2px 5px #000 !important;
 }
 
-.header-content p {
-  margin: 5px 0 0 !important;
-
-  font-size: 13px !important;
-  line-height: 1.2 !important;
-
-  font-weight: 500 !important;
+.header p{
+  margin:5px 0 0 !important;
+  font-size:13px !important;
+  color:white !important;
+  text-shadow:1px 1px 3px #000 !important;
 }
 
-/* =========================================
-   PAGE CONTAINER
-   ========================================= */
-
-.container {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 15px;
+/* ===== PAGE ===== */
+.container{
+  width:94%;
+  max-width:1100px;
+  margin:12px auto;
 }
 
-/* =========================================
-   SEARCH
-   ========================================= */
-
-.search-box {
-  width: 100%;
-  margin: 0 0 18px;
+/* ===== SEARCH ===== */
+.search-box{
+  width:100%;
+  padding:11px 14px;
+  border:1px solid #b9ddeb;
+  border-radius:25px;
+  outline:none;
+  font-size:15px;
+  background:white;
 }
 
-.search-box input {
-  width: 100%;
-  height: 42px;
-
-  border: 1px solid #d4dbe5;
-  border-radius: 10px;
-
-  padding: 0 14px;
-
-  font-size: 15px;
-  outline: none;
-
-  background: #fff;
+/* ===== MENUS / ROWS ===== */
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
 }
 
-.search-box input:focus {
-  border-color: #4a90e2;
+.menu a,
+.folder-row,
+.file-row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:42px;
+  padding:7px 10px;
+  background:white;
+  border-radius:9px;
+  text-decoration:none;
+  color:#123;
+  box-shadow:0 1px 5px rgba(0,0,0,.08);
 }
 
-/* =========================================
-   SECTIONS
-   ========================================= */
-
-section {
-  margin-bottom: 24px;
+.number{
+  flex:0 0 27px;
+  width:27px;
+  height:27px;
+  border-radius:50%;
+  background:#000 !important;
+  color:#fff !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:13px;
 }
 
-.section-title {
-  margin: 0 0 10px;
-
-  font-size: 21px;
-  font-weight: 800;
+/* ===== MEDIA GRID ===== */
+.media-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
 }
 
-/* =========================================
-   MENU
-   ========================================= */
-
-.menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+.media-card{
+  display:block;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  text-decoration:none;
+  color:#123;
+  box-shadow:0 1px 5px rgba(0,0,0,.1);
 }
 
-.menu-item {
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-  min-height: 45px;
-
-  padding: 7px 10px;
-
-  background: #fff;
-
-  border-radius: 9px;
-  border: 1px solid #e1e6ed;
-
-  text-decoration: none;
-  color: #111;
-
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+.media-card img,
+.media-card video{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  background:#ddd;
 }
 
-.menu-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0,0,0,.08);
+.media-title{
+  padding:6px 4px;
+  text-align:center;
+  font-size:11px;
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-/* BLACK NUMBER CIRCLES */
-.number {
-  flex: 0 0 30px;
-
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
-
-  background: #000 !important;
-  color: #fff !important;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 14px;
-  font-weight: 800;
-
-  margin-right: 10px;
+/* ===== BUTTONS ===== */
+button,
+.btn{
+  border:0;
+  border-radius:8px;
+  padding:9px 13px;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
 }
 
-.menu-text {
-  font-size: 15px;
-  font-weight: 700;
+/* ===== APP ICONS ===== */
+.app-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
 }
 
-/* =========================================
-   SONG CARDS
-   ========================================= */
-
-.song-list {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+.app-card{
+  background:white;
+  border-radius:9px;
+  padding:10px 5px;
+  text-align:center;
+  box-shadow:0 1px 5px rgba(0,0,0,.08);
 }
 
-.song-card {
-  display: block;
-
-  width: 100%;
-
-  padding: 12px 14px;
-
-  border-radius: 9px;
-
-  background: #fff;
-
-  border: 1px solid #e1e6ed;
-
-  color: #111;
-
-  text-decoration: none;
-
-  font-size: 15px;
-  font-weight: 700;
-
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+.app-card img{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+  border-radius:50%;
 }
 
-/* =========================================
-   APPS
-   ========================================= */
-
-.apps-grid {
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 10px;
+/* ===== SOCIAL ===== */
+.social{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:9px;
 }
 
-.app-card {
-  background: #fff;
-
-  border: 1px solid #e1e6ed;
-  border-radius: 10px;
-
-  padding: 10px 5px;
-
-  text-align: center;
-
-  text-decoration: none;
-  color: #111;
-
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+.social a{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
 }
 
-.app-logo {
-  width: 42px;
-  height: 42px;
-
-  margin: 0 auto 7px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #fff;
-
-  font-size: 20px;
-  font-weight: 800;
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:20px 10px;
+  font-size:12px;
 }
 
-.youtube {
-  background: #ff0000;
-}
-
-.whatsapp {
-  background: #25d366;
-}
-
-.facebook {
-  background: #1877f2;
-}
-
-.instagram {
-  background: linear-gradient(
-    135deg,
-    #833ab4,
-    #fd1d1d,
-    #fcb045
-  );
-}
-
-.app-name {
-  font-size: 12px;
-  font-weight: 700;
-}
-
-/* =========================================
-   UPLOAD
-   ========================================= */
-
-.upload-box {
-  background: #fff;
-
-  border: 1px solid #dfe5ec;
-  border-radius: 12px;
-
-  padding: 18px;
-
-  text-align: center;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,.05);
-}
-
-.upload-box h3 {
-  margin: 0 0 7px;
-  font-size: 19px;
-}
-
-.upload-box p {
-  margin: 0 0 13px;
-
-  font-size: 14px;
-  line-height: 1.5;
-
-  color: #555;
-}
-
-.upload-button {
-  display: inline-block;
-
-  background: #000;
-  color: #fff;
-
-  padding: 10px 18px;
-
-  border-radius: 8px;
-
-  text-decoration: none;
-
-  font-size: 14px;
-  font-weight: 700;
-}
-
-/* =========================================
-   SOCIAL
-   ========================================= */
-
-.social-section {
-  text-align: center;
-  margin-top: 28px;
-}
-
-.social-section h2 {
-  margin: 0 0 13px;
-  font-size: 20px;
-}
-
-.social-buttons {
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 12px;
-
-  flex-wrap: wrap;
-}
-
-.social {
-  width: 43px;
-  height: 43px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #fff;
-
-  text-decoration: none;
-
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.social-youtube {
-  background: #ff0000;
-}
-
-.social-instagram {
-  background: linear-gradient(
-    135deg,
-    #833ab4,
-    #fd1d1d,
-    #fcb045
-  );
-}
-
-.social-facebook {
-  background: #1877f2;
-}
-
-.social-whatsapp {
-  background: #25d366;
-}
-
-.social-tiktok {
-  background: #000;
-}
-
-/* =========================================
-   FOOTER
-   ========================================= */
-
-footer {
-  text-align: center;
-
-  padding: 20px 10px 25px;
-
-  font-size: 13px;
-
-  color: #666;
-}
-
-/* =========================================
-   MOBILE
-   ========================================= */
-
-@media (max-width: 700px) {
-
-  .header {
-    height: 125px !important;
-    min-height: 125px !important;
-    max-height: 125px !important;
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .header{
+    height:125px !important;
+    min-height:125px !important;
+    max-height:125px !important;
   }
 
-  .header img {
-    width: 100% !important;
-    height: 100% !important;
-
-    object-fit: cover !important;
-
-    /* SAME POSITION ON PHONE */
-    object-position: 50% 50% !important;
+  .header img{
+    height:125px !important;
+    object-position:50% 65% !important;
   }
 
-  .header-content h1 {
-    font-size: 27px !important;
+  .header h1{
+    font-size:23px !important;
   }
 
-  .header-content p {
-    font-size: 12px !important;
+  .header p{
+    font-size:11px !important;
   }
 
-  .container {
-    padding: 12px;
+  .container{
+    width:95%;
   }
 
-  .section-title {
-    font-size: 19px;
+  .media-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
   }
 
-  .menu-item {
-    min-height: 43px;
-  }
-
-  .number {
-    width: 29px;
-    height: 29px;
-
-    flex-basis: 29px;
-
-    margin-right: 9px;
-  }
-
-  .menu-text {
-    font-size: 14px;
-  }
-
-  .apps-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
-  }
-
-  .app-card {
-    padding: 8px 3px;
-  }
-
-  .app-logo {
-    width: 38px;
-    height: 38px;
-
-    font-size: 18px;
-  }
-
-  .app-name {
-    font-size: 11px;
-  }
-
-  .social {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-/* =========================================
-   VERY SMALL PHONES
-   ========================================= */
-
-@media (max-width: 380px) {
-
-  .header {
-    height: 125px !important;
-    min-height: 125px !important;
-    max-height: 125px !important;
-  }
-
-  .header img {
-    object-position: 50% 50% !important;
-  }
-
-  .header-content h1 {
-    font-size: 24px !important;
-  }
-
-  .header-content p {
-    font-size: 11px !important;
-  }
-
-  .apps-grid {
-    gap: 5px;
-  }
-
-  .app-logo {
-    width: 35px;
-    height: 35px;
+  .media-title{
+    font-size:9px;
   }
 }
