@@ -6,9 +6,7 @@
 <title>Ning Wei Media Library</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -17,17 +15,10 @@ body{
   color:#111;
 }
 
-/* =========================
-   MASTER HEADER
-   SAME SIZE EVERYWHERE
-   ========================= */
-
 .header{
   position:relative;
   width:100%;
   height:125px;
-  min-height:125px;
-  max-height:125px;
   overflow:hidden;
   display:flex;
   align-items:center;
@@ -42,18 +33,6 @@ body{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:50% 50%;
-  display:block;
-  opacity:1;
-  filter:none;
-}
-
-/* NO OVERLAY */
-
-.header::before,
-.header::after{
-  display:none !important;
-  content:none !important;
 }
 
 .header-content{
@@ -68,29 +47,18 @@ body{
 .header-content h1{
   margin:0;
   font-size:25px;
-  line-height:1.1;
-  color:#111;
 }
 
 .header-content p{
   margin:4px 0 0;
   font-size:12px;
-  color:#222;
 }
-
-/* =========================
-   MAIN
-   ========================= */
 
 .container{
   width:min(100%,850px);
   margin:auto;
   padding:12px 10px 30px;
 }
-
-/* =========================
-   SEARCH
-   ========================= */
 
 .search-box{
   display:flex;
@@ -117,10 +85,6 @@ body{
   color:#fff;
   font-weight:bold;
 }
-
-/* =========================
-   TOP BAR
-   ========================= */
 
 .top-bar{
   background:#fff;
@@ -149,10 +113,6 @@ body{
   font-size:13px;
   font-weight:bold;
 }
-
-/* =========================
-   NORMAL LIST
-   ========================= */
 
 .items{
   display:flex;
@@ -200,7 +160,6 @@ body{
   margin-top:2px;
   font-size:10px;
   color:#777;
-  word-break:break-word;
 }
 
 .item-actions{
@@ -240,10 +199,6 @@ body{
   color:#0781b5;
 }
 
-/* =========================
-   PHOTO / VIDEO GRID
-   ========================= */
-
 .media-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -258,7 +213,6 @@ body{
   border:1px solid #ddd;
   text-decoration:none;
   color:#111;
-  box-shadow:0 1px 4px rgba(0,0,0,.07);
 }
 
 .media-thumb{
@@ -279,48 +233,20 @@ body{
   text-overflow:ellipsis;
 }
 
-/* =========================
-   EMPTY / STATUS
-   ========================= */
-
-.status{
-  background:#fff;
-  padding:14px;
-  border-radius:8px;
-  text-align:center;
-  color:#555;
-  margin-top:8px;
-  font-size:13px;
-}
-
-.empty{
+.status,.empty{
   background:#fff;
   border-radius:8px;
-  padding:20px;
+  padding:18px;
   text-align:center;
   color:#666;
   font-size:13px;
+  margin-top:8px;
 }
 
-/* =========================
-   MOBILE
-   ========================= */
-
 @media(max-width:600px){
-
-  .header{
-    height:125px;
-    min-height:125px;
-    max-height:125px;
-  }
-
-  .header-content h1{
-    font-size:22px;
-  }
-
-  .header-content p{
-    font-size:10px;
-  }
+  .header{height:125px}
+  .header-content h1{font-size:22px}
+  .header-content p{font-size:10px}
 
   .media-grid{
     grid-template-columns:repeat(4,1fr);
@@ -330,10 +256,6 @@ body{
   .media-title{
     font-size:9px;
     padding:5px 3px;
-  }
-
-  .item-actions{
-    gap:3px;
   }
 
   .action{
@@ -346,12 +268,7 @@ body{
 
 <body>
 
-<!-- =========================
-     MASTER HEADER
-     ========================= -->
-
 <header class="header">
-
   <img
     src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
     alt="Ning Wei"
@@ -361,38 +278,23 @@ body{
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
-
 </header>
-
 
 <main class="container">
 
-  <!-- SEARCH -->
-
   <div class="search-box">
-
     <input
       id="searchInput"
       type="search"
       placeholder="Search media..."
       autocomplete="off"
     >
-
-    <button onclick="performSearch()">
-      Search
-    </button>
-
+    <button onclick="performSearch()">Search</button>
   </div>
-
-
-  <!-- TOP BAR -->
 
   <div class="top-bar">
 
-    <div
-      class="location"
-      id="locationText"
-    >
+    <div id="locationText" class="location">
       Loading library...
     </div>
 
@@ -408,72 +310,69 @@ body{
 
   </div>
 
+  <div id="items" class="items"></div>
 
-  <!-- ITEMS -->
-
-  <div
-    id="items"
-    class="items"
-  ></div>
-
-
-  <div
-    id="status"
-    class="status"
-  >
-    Loading...
+  <div id="status" class="status">
+    Loading media...
   </div>
 
 </main>
 
-
 <script>
 
-/* =========================
-   SETTINGS
-   ========================= */
+/* =====================================================
+   NING WEI MEDIA SETTINGS
+   ===================================================== */
 
-const OWNER="Ningwei2567";
-const REPO="Ning-wei-1";
-const BRANCH="main";
+const OWNER = "Ningwei2567";
+const REPO = "Ning-wei-1";
+const BRANCH = "main";
 
-const SITE=
+const SITE =
   "https://ningwei2567.github.io/Ning-wei-1/";
 
-const SUPABASE_URL=
+const SUPABASE_URL =
   "https://btksyizkcpzubtextuce.supabase.co";
 
-const SUPABASE_ANON_KEY=
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtz eXl6a2NwencidGV4dGN1Y2UiLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8"
-  .replace(/\s/g,"");
+/*
+ IMPORTANT:
+ Put your NEW Supabase ANON/PUBLIC key here.
+ Do NOT use the key that was previously exposed.
+*/
+const SUPABASE_ANON_KEY =
+  "PASTE_YOUR_NEW_SUPABASE_ANON_KEY_HERE";
+
+/*
+ Your actual Supabase Storage bucket.
+*/
+const STORAGE_BUCKET =
+  "Artist Upload";
 
 
-/* =========================
+/* =====================================================
    URL PARAMETERS
-   ========================= */
+   ===================================================== */
 
-const params=
-  new URLSearchParams(location.search);
+const params =
+  new URLSearchParams(window.location.search);
 
-const category=
+const category =
   (
-    params.get("category") ||
-    "all"
+    params.get("category") || "all"
   ).toLowerCase();
 
-const requestedFolder=
+const requestedFolder =
   (
-    params.get("folder") ||
-    ""
+    params.get("folder") || ""
   )
   .replace(/^\/+|\/+$/g,"");
 
 
-/* =========================
+/* =====================================================
    CATEGORY PATHS
-   ========================= */
+   ===================================================== */
 
-const categoryPaths={
+const categoryPaths = {
 
   songs:"media/songs",
 
@@ -490,14 +389,18 @@ const categoryPaths={
 };
 
 
-let githubItems=[];
-let supabaseItems=[];
-let allItems=[];
+/* =====================================================
+   DATA
+   ===================================================== */
+
+let githubItems = [];
+let supabaseItems = [];
+let allItems = [];
 
 
-/* =========================
+/* =====================================================
    HELPERS
-   ========================= */
+   ===================================================== */
 
 function escapeHtml(value){
 
@@ -515,9 +418,7 @@ function encodePath(path){
 
   return String(path)
     .split("/")
-    .map(
-      part=>encodeURIComponent(part)
-    )
+    .map(part => encodeURIComponent(part))
     .join("/");
 
 }
@@ -525,14 +426,14 @@ function encodePath(path){
 
 function extension(name){
 
-  const clean=
+  const clean =
     String(name || "")
       .split("?")[0];
 
-  const parts=
+  const parts =
     clean.split(".");
 
-  if(parts.length<2)
+  if(parts.length < 2)
     return "";
 
   return parts
@@ -542,105 +443,88 @@ function extension(name){
 }
 
 
-/* =========================
-   CATEGORY FROM EXTENSION
-   ========================= */
+/* =====================================================
+   CATEGORY DETECTION
+   ===================================================== */
 
 function categoryFromExtension(name){
 
-  const ext=
-    extension(name);
-
+  const ext = extension(name);
 
   if([
-    "mp3",
-    "wav",
-    "m4a",
-    "aac",
-    "ogg",
-    "oga",
-    "flac",
-    "opus",
-    "wma"
+    "mp3","wav","m4a","aac",
+    "ogg","oga","flac","opus","wma"
   ].includes(ext)){
 
     return "songs";
 
   }
 
-
   if([
-    "mp4",
-    "3gp",
-    "webm",
-    "mkv",
-    "avi",
-    "mov",
-    "m4v"
+    "mp4","3gp","webm","mkv",
+    "avi","mov","m4v"
   ].includes(ext)){
 
     return "videos";
 
   }
 
-
   if([
-    "jpg",
-    "jpeg",
-    "png",
-    "gif",
-    "webp",
-    "bmp",
-    "svg"
+    "jpg","jpeg","png","gif",
+    "webp","bmp","svg"
   ].includes(ext)){
 
     return "photos";
 
   }
 
-
   if([
-    "apk",
-    "xapk"
+    "apk","xapk"
   ].includes(ext)){
 
     return "apps";
 
   }
 
-
   if([
-    "exe",
-    "msi",
-    "zip",
-    "rar",
-    "7z",
-    "iso",
-    "dmg",
-    "deb"
+    "exe","msi","zip","rar",
+    "7z","iso","dmg","deb"
   ].includes(ext)){
 
     return "software";
 
   }
 
-
   return "";
 
 }
 
 
-/* =========================
-   OWNER UPLOAD
-   ========================= */
+/* =====================================================
+   SUPABASE STORAGE URL
+   ===================================================== */
+
+function supabasePublicUrl(path){
+
+  return (
+    SUPABASE_URL +
+    "/storage/v1/object/public/" +
+    encodeURIComponent(STORAGE_BUCKET) +
+    "/" +
+    encodePath(path)
+  );
+
+}
+
+
+/* =====================================================
+   OWNER UPLOAD LINK
+   ===================================================== */
 
 function ownerUploadFolder(){
 
-  if(requestedFolder){
-
+  if(requestedFolder)
     return requestedFolder;
-
-  }
 
   return (
     categoryPaths[category] ||
@@ -652,11 +536,10 @@ function ownerUploadFolder(){
 
 function updateOwnerUploadLink(){
 
-  const folder=
+  const folder =
     ownerUploadFolder();
 
-
-  const githubUpload=
+  const githubUpload =
     "https://github.com/" +
     OWNER +
     "/" +
@@ -666,32 +549,25 @@ function updateOwnerUploadLink(){
     "/" +
     folder;
 
-
-  const uploadButton=
-    document.getElementById(
-      "ownerUpload"
-    );
-
-
-  uploadButton.href=
-    githubUpload;
-
+  document.getElementById(
+    "ownerUpload"
+  ).href = githubUpload;
 
   document.getElementById(
     "locationText"
-  ).textContent=
+  ).textContent =
     "Current folder: " + folder;
 
 }
 
 
-/* =========================
-   GITHUB
-   ========================= */
+/* =====================================================
+   LOAD GITHUB
+   ===================================================== */
 
 async function loadGithub(){
 
-  const api=
+  const api =
     "https://api.github.com/repos/" +
     OWNER +
     "/" +
@@ -700,45 +576,28 @@ async function loadGithub(){
     BRANCH +
     "?recursive=1";
 
-
   try{
 
-    const response=
+    const response =
       await fetch(api);
 
+    if(!response.ok)
+      throw new Error("GitHub request failed");
 
-    if(!response.ok){
-
-      throw new Error(
-        "GitHub request failed"
-      );
-
-    }
-
-
-    const data=
+    const data =
       await response.json();
 
+    githubItems = [];
 
-    githubItems=[];
-
-
-    if(!Array.isArray(data.tree)){
-
+    if(!Array.isArray(data.tree))
       return;
 
-    }
-
-
-    data.tree.forEach(entry=>{
+    data.tree.forEach(entry => {
 
       if(!entry.path)
         return;
 
-
-      /* FOLDER */
-
-      if(entry.type==="tree"){
+      if(entry.type === "tree"){
 
         githubItems.push({
 
@@ -759,32 +618,22 @@ async function loadGithub(){
 
       }
 
-
-      /* FILE */
-
-      if(entry.type!=="blob")
+      if(entry.type !== "blob")
         return;
 
-
-      const cat=
+      const cat =
         categoryFromExtension(
           entry.path
         );
 
-
       if(!cat)
         return;
 
-
       if(
-        category!=="all" &&
-        cat!==category
-      ){
-
+        category !== "all" &&
+        cat !== category
+      )
         return;
-
-      }
-
 
       githubItems.push({
 
@@ -805,11 +654,10 @@ async function loadGithub(){
 
     });
 
-
   }catch(error){
 
     console.error(
-      "GitHub:",
+      "GitHub error:",
       error
     );
 
@@ -818,23 +666,36 @@ async function loadGithub(){
 }
 
 
-/* =========================
-   SUPABASE
-   ========================= */
+/* =====================================================
+   LOAD SUPABASE DATABASE
+   ===================================================== */
 
-async function loadSupabase(){
+async function loadSupabaseDatabase(){
+
+  if(
+    !SUPABASE_ANON_KEY ||
+    SUPABASE_ANON_KEY ===
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8"
+  ){
+
+    console.warn(
+      "Supabase anon key has not been added."
+    );
+
+    return;
+
+  }
 
   try{
 
-    const endpoint=
+    const endpoint =
       SUPABASE_URL +
       "/rest/v1/artist_submissions" +
       "?select=id,artist_name,files,created_at,status" +
       "&status=eq.approved" +
       "&order=created_at.desc";
 
-
-    const response=
+    const response =
       await fetch(
         endpoint,
         {
@@ -844,135 +705,120 @@ async function loadSupabase(){
 
             Authorization:
               "Bearer " +
-              SUPABASE_ANON_KEY
+              SUPABASE_ANON_KEY,
+
+            Accept:
+              "application/json"
           }
         }
       );
 
-
     if(!response.ok){
 
+      const text =
+        await response.text();
+
       throw new Error(
-        "Supabase request failed"
+        "Supabase database error: " +
+        response.status +
+        " " +
+        text
       );
 
     }
 
-
-    const rows=
+    const rows =
       await response.json();
 
+    supabaseItems = [];
 
-    supabaseItems=[];
+    if(!Array.isArray(rows))
+      return;
 
+    rows.forEach(row => {
 
-    rows.forEach(row=>{
+      let files = row.files;
 
-      let files=
-        row.files;
-
-
-      if(typeof files==="string"){
+      if(typeof files === "string"){
 
         try{
 
-          files=
+          files =
             JSON.parse(files);
 
         }catch{
 
-          files=[];
+          files = [];
 
         }
 
       }
 
+      if(!Array.isArray(files))
+        files = [];
 
-      if(!Array.isArray(files)){
-
-        files=[];
-
-      }
-
-
-      files.forEach(file=>{
+      files.forEach(file => {
 
         if(!file)
           return;
 
-
-        const name=
+        const name =
           file.name ||
           file.filename ||
           file.file_name ||
           "Uploaded file";
 
-
-        let url=
+        let url =
           file.url ||
           file.public_url ||
           file.publicUrl ||
           "";
 
+        const path =
+          file.path ||
+          file.storage_path ||
+          file.storagePath ||
+          "";
 
-        const cat=
+        const cat =
           String(
             file.category ||
             categoryFromExtension(name) ||
             ""
           ).toLowerCase();
 
-
         if(!cat)
           return;
 
-
         if(
-          category!=="all" &&
-          cat!==category
-        ){
-
+          category !== "all" &&
+          cat !== category
+        )
           return;
 
-        }
+        /*
+         If the database does not contain
+         a complete public URL, build one
+         from the actual Artist Upload bucket.
+        */
 
+        if(!url && path){
 
-        /* STORAGE URL */
-
-        if(!url){
-
-          const storagePath=
-            file.path ||
-            file.storage_path ||
-            "";
-
-
-          if(storagePath){
-
-            url=
-              SUPABASE_URL +
-              "/storage/v1/object/public/artist-uploads/" +
-              storagePath
-                .split("/")
-                .map(
-                  encodeURIComponent
-                )
-                .join("/");
-
-          }
+          url =
+            supabasePublicUrl(path);
 
         }
-
 
         if(!url)
           return;
-
 
         supabaseItems.push({
 
           type:"file",
 
           name:name,
+
+          path:path,
 
           url:url,
 
@@ -982,6 +828,9 @@ async function loadSupabase(){
             row.artist_name ||
             "Artist upload",
 
+          created_at:
+            row.created_at || "",
+
           source:"artist"
 
         });
@@ -990,11 +839,184 @@ async function loadSupabase(){
 
     });
 
+  }catch(error){
+
+    console.error(
+      "Supabase database:",
+      error
+    );
+
+    document.getElementById(
+      "locationText"
+    ).textContent =
+      "Supabase connection error — check the anon key and database permissions.";
+
+  }
+
+}
+
+
+/* =====================================================
+   LOAD SUPABASE STORAGE DIRECTLY
+   ===================================================== */
+
+async function loadSupabaseStorage(){
+
+  if(
+    !SUPABASE_ANON_KEY ||
+    SUPABASE_ANON_KEY ===
+    "PASTE_YOUR_NEW_SUPABASE_ANON_KEY_HERE"
+  )
+    return;
+
+  try{
+
+    /*
+     Ask Supabase Storage for objects
+     inside the actual Artist Upload bucket.
+    */
+
+    const endpoint =
+      SUPABASE_URL +
+      "/storage/v1/object/list/" +
+      encodeURIComponent(
+        STORAGE_BUCKET
+      );
+
+    const response =
+      await fetch(
+        endpoint,
+        {
+          method:"POST",
+
+          headers:{
+            apikey:
+              SUPABASE_ANON_KEY,
+
+            Authorization:
+              "Bearer " +
+              SUPABASE_ANON_KEY,
+
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+
+            prefix:
+              requestedFolder || "",
+
+            limit:1000,
+
+            offset:0,
+
+            sortBy:{
+              column:"created_at",
+              order:"desc"
+            }
+
+          })
+
+        }
+      );
+
+    if(!response.ok){
+
+      const text =
+        await response.text();
+
+      throw new Error(
+        "Storage error: " +
+        response.status +
+        " " +
+        text
+      );
+
+    }
+
+    const objects =
+      await response.json();
+
+    if(!Array.isArray(objects))
+      return;
+
+    objects.forEach(object => {
+
+      if(!object.name)
+        return;
+
+      /*
+       Storage listing can return folders.
+       We only add real files here.
+      */
+
+      const name =
+        object.name;
+
+      const cat =
+        categoryFromExtension(name);
+
+      if(!cat)
+        return;
+
+      if(
+        category !== "all" &&
+        cat !== category
+      )
+        return;
+
+      const folder =
+        requestedFolder
+          ? requestedFolder + "/"
+          : "";
+
+      const path =
+        folder + name;
+
+      const url =
+        supabasePublicUrl(path);
+
+      /*
+       Avoid duplicates when the same file
+       already came from artist_submissions.
+      */
+
+      const alreadyExists =
+        supabaseItems.some(item =>
+          item.url === url ||
+          (
+            item.path &&
+            item.path === path
+          )
+        );
+
+      if(alreadyExists)
+        return;
+
+      supabaseItems.push({
+
+        type:"file",
+
+        name:name,
+
+        path:path,
+
+        url:url,
+
+        category:cat,
+
+        artist:"Artist upload",
+
+        source:"artist"
+
+      });
+
+    });
 
   }catch(error){
 
     console.error(
-      "Supabase:",
+      "Supabase Storage:",
       error
     );
 
@@ -1003,61 +1025,48 @@ async function loadSupabase(){
 }
 
 
-/* =========================
+/* =====================================================
    CURRENT GITHUB FOLDER
-   ========================= */
+   ===================================================== */
 
 function getImmediateGithubItems(){
 
-  const folder=
+  const folder =
     requestedFolder ||
     categoryPaths[category] ||
     "media";
 
-
-  const prefix=
+  const prefix =
     folder + "/";
 
+  const result = [];
 
-  const result=[];
-
-  const seen=
+  const seen =
     new Set();
 
-
-  githubItems.forEach(item=>{
+  githubItems.forEach(item => {
 
     if(
       !item.path.startsWith(prefix)
-    ){
-
+    )
       return;
 
-    }
-
-
-    const remaining=
+    const remaining =
       item.path.slice(
         prefix.length
       );
 
-
     if(!remaining)
       return;
 
+    if(item.type === "folder"){
 
-    /* FOLDER */
-
-    if(item.type==="folder"){
-
-      const first=
+      const first =
         remaining.split("/")[0];
-
 
       if(!seen.has(first)){
 
         seen.add(first);
-
 
         result.push({
 
@@ -1074,16 +1083,9 @@ function getImmediateGithubItems(){
 
       }
 
+    }else{
 
-    }
-
-    /* FILE */
-
-    else{
-
-      if(
-        !remaining.includes("/")
-      ){
+      if(!remaining.includes("/")){
 
         result.push(item);
 
@@ -1093,45 +1095,52 @@ function getImmediateGithubItems(){
 
   });
 
-
   return result;
 
 }
 
 
-/* =========================
-   BUILD
-   ========================= */
+/* =====================================================
+   BUILD ITEMS
+   ===================================================== */
 
 function buildItems(){
 
-  const current=
+  const current =
     getImmediateGithubItems();
 
+  /*
+   When inside a specific GitHub folder,
+   show that folder's GitHub contents.
+
+   On category/front pages, show both
+   GitHub and Supabase media.
+  */
 
   if(requestedFolder){
 
-    allItems=
-      current;
+    allItems = [
+      ...current,
+      ...supabaseItems
+    ];
 
   }else{
 
-    allItems=[
+    allItems = [
       ...current,
       ...supabaseItems
     ];
 
   }
 
-
   renderItems();
 
 }
 
 
-/* =========================
-   GITHUB PAGES URL
-   ========================= */
+/* =====================================================
+   GITHUB URL
+   ===================================================== */
 
 function githubPagesUrl(path){
 
@@ -1141,13 +1150,13 @@ function githubPagesUrl(path){
 }
 
 
-/* =========================
+/* =====================================================
    PLAYER
-   ========================= */
+   ===================================================== */
 
 function playerUrl(item){
 
-  if(item.source==="artist"){
+  if(item.source === "artist"){
 
     return (
       "media.html?url=" +
@@ -1162,7 +1171,6 @@ function playerUrl(item){
 
   }
 
-
   return (
     "media.html?path=" +
     encodeURIComponent(item.path) +
@@ -1173,20 +1181,14 @@ function playerUrl(item){
 }
 
 
-/* =========================
+/* =====================================================
    DOWNLOAD
-   ========================= */
+   ===================================================== */
 
 function downloadUrl(item){
 
-  if(
-    item.source==="artist"
-  ){
-
+  if(item.source === "artist")
     return item.url;
-
-  }
-
 
   return githubPagesUrl(
     item.path
@@ -1195,13 +1197,13 @@ function downloadUrl(item){
 }
 
 
-/* =========================
+/* =====================================================
    SHORT TITLE
-   ========================= */
+   ===================================================== */
 
 function shortTitle(name){
 
-  const noExt=
+  const noExt =
     String(name)
       .replace(
         /\.[^/.]+$/,
@@ -1212,12 +1214,10 @@ function shortTitle(name){
         " "
       );
 
-
-  const words=
+  const words =
     noExt
       .trim()
       .split(/\s+/);
-
 
   return words
     .slice(0,3)
@@ -1226,34 +1226,28 @@ function shortTitle(name){
 }
 
 
-/* =========================
+/* =====================================================
    RENDER
-   ========================= */
+   ===================================================== */
 
 function renderItems(){
 
-  const container=
+  const container =
     document.getElementById(
       "items"
     );
 
-
-  const status=
+  const status =
     document.getElementById(
       "status"
     );
 
+  container.innerHTML = "";
 
-  container.innerHTML="";
-
-
-  let items=
+  let items =
     [...allItems];
 
-
-  /* SEARCH */
-
-  const query=
+  const query =
     document.getElementById(
       "searchInput"
     )
@@ -1261,55 +1255,84 @@ function renderItems(){
     .trim()
     .toLowerCase();
 
-
   if(query){
 
-    items=
-      items.filter(item=>{
+    items =
+      items.filter(item => {
 
-        const text=[
+        const text = [
+
           item.name,
+
           item.path,
+
           item.artist,
+
           item.category
+
         ]
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
 
-
-        return text.includes(
-          query
-        );
+        return text.includes(query);
 
       });
 
   }
 
 
-  /* SORT */
+  /*
+   Remove duplicate media.
+  */
 
-  items.sort((a,b)=>{
+  const unique = [];
+
+  const seen = new Set();
+
+  items.forEach(item => {
+
+    const key =
+      item.source === "artist"
+        ? (
+            item.url ||
+            item.path ||
+            item.name
+          )
+        : (
+            item.path ||
+            item.name
+          );
+
+    if(seen.has(key))
+      return;
+
+    seen.add(key);
+
+    unique.push(item);
+
+  });
+
+  items = unique;
+
+
+  /*
+   Folders first.
+  */
+
+  items.sort((a,b) => {
 
     if(
-      a.type==="folder" &&
-      b.type!=="folder"
-    ){
-
+      a.type === "folder" &&
+      b.type !== "folder"
+    )
       return -1;
 
-    }
-
-
     if(
-      a.type!=="folder" &&
-      b.type==="folder"
-    ){
-
+      a.type !== "folder" &&
+      b.type === "folder"
+    )
       return 1;
-
-    }
-
 
     return String(a.name)
       .localeCompare(
@@ -1321,185 +1344,150 @@ function renderItems(){
 
   if(!items.length){
 
-    container.className=
+    container.className =
       "items";
 
-
-    container.innerHTML=
+    container.innerHTML =
       '<div class="empty">' +
       'No media found.' +
       '</div>';
 
-
-    status.style.display=
+    status.style.display =
       "none";
-
 
     return;
 
   }
 
 
-  status.style.display=
+  status.style.display =
     "none";
 
 
-  /*
-    PHOTOS AND VIDEOS:
-    ALWAYS USE 4-COLUMN GRID
-  */
-
-  const isVisual=
-    category==="photos" ||
-    category==="videos";
+  const isVisual =
+    category === "photos" ||
+    category === "videos";
 
 
   if(isVisual){
 
-    container.className=
+    container.className =
       "media-grid";
 
   }else{
 
-    container.className=
+    container.className =
       "items";
 
   }
 
 
   items.forEach(
-    (item,index)=>{
+    (item,index) => {
 
-      const number=
+      const number =
         index + 1;
 
 
-      /* =====================
-         VISUAL FILE
-         ===================== */
+      /*
+       PHOTO / VIDEO
+      */
 
       if(
         isVisual &&
-        item.type==="file"
+        item.type === "file"
       ){
 
-        const card=
-          document.createElement(
-            "a"
-          );
+        const card =
+          document.createElement("a");
 
-
-        card.className=
+        card.className =
           "media-card";
 
-
-        card.href=
+        card.href =
           playerUrl(item);
 
-
-        const mediaUrl=
-          item.source==="artist"
+        const mediaUrl =
+          item.source === "artist"
             ? item.url
             : githubPagesUrl(
                 item.path
               );
 
+        let thumb = "";
 
-        let thumb="";
 
+        if(category === "photos"){
 
-        /* PHOTO */
-
-        if(category==="photos"){
-
-          thumb=
+          thumb =
             '<img ' +
             'class="media-thumb" ' +
             'src="' +
-            escapeHtml(
-              mediaUrl
-            ) +
+            escapeHtml(mediaUrl) +
             '" ' +
             'alt="' +
-            escapeHtml(
-              item.name
-            ) +
+            escapeHtml(item.name) +
             '" ' +
             'loading="lazy">';
 
-        }
+        }else{
 
-
-        /* VIDEO */
-
-        else{
-
-          thumb=
+          thumb =
             '<video ' +
             'class="media-thumb" ' +
             'muted ' +
             'preload="metadata" ' +
             'playsinline ' +
             'src="' +
-            escapeHtml(
-              mediaUrl
-            ) +
+            escapeHtml(mediaUrl) +
             '"></video>';
 
         }
 
 
-        card.innerHTML=
+        card.innerHTML =
           thumb +
           '<div class="media-title">' +
           escapeHtml(
-            shortTitle(
-              item.name
-            )
+            shortTitle(item.name)
           ) +
           '</div>';
-
 
         container.appendChild(
           card
         );
-
 
         return;
 
       }
 
 
-      /* =====================
-         FOLDER / FILE LIST
-         ===================== */
+      /*
+       NORMAL LIST
+      */
 
-      const row=
+      const row =
         document.createElement(
           "div"
         );
 
-
-      row.className=
+      row.className =
         "item";
 
 
-      /* FOLDER */
+      /*
+       FOLDER
+      */
 
-      if(item.type==="folder"){
+      if(item.type === "folder"){
 
-        const href=
+        const href =
           "library.html?category=" +
-          encodeURIComponent(
-            category
-          ) +
+          encodeURIComponent(category) +
           "&folder=" +
-          encodeURIComponent(
-            item.path
-          );
+          encodeURIComponent(item.path);
 
-
-        row.innerHTML=
+        row.innerHTML =
 
           '<div class="number">' +
           number +
@@ -1509,9 +1497,7 @@ function renderItems(){
 
           '<div class="item-name">' +
           '📁 ' +
-          escapeHtml(
-            item.name
-          ) +
+          escapeHtml(item.name) +
           '</div>' +
 
           '<div class="item-meta">' +
@@ -1535,29 +1521,26 @@ function renderItems(){
       }
 
 
-      /* FILE */
+      /*
+       FILE
+      */
 
       else{
 
-        const open=
+        const open =
           playerUrl(item);
 
-
-        const download=
+        const download =
           downloadUrl(item);
 
-
-        const artist=
+        const artist =
           item.artist
             ? '<span class="artist"> • ' +
-              escapeHtml(
-                item.artist
-              ) +
+              escapeHtml(item.artist) +
               '</span>'
             : "";
 
-
-        row.innerHTML=
+        row.innerHTML =
 
           '<div class="number">' +
           number +
@@ -1566,17 +1549,14 @@ function renderItems(){
           '<div class="item-main">' +
 
           '<div class="item-name">' +
-          escapeHtml(
-            item.name
-          ) +
+          escapeHtml(item.name) +
           artist +
           '</div>' +
 
           '<div class="item-meta">' +
           escapeHtml(
-            extension(
-              item.name
-            ).toUpperCase()
+            extension(item.name)
+              .toUpperCase()
           ) +
           '</div>' +
 
@@ -1594,7 +1574,7 @@ function renderItems(){
 
           '<a ' +
           'class="action download-btn" ' +
-          'href="' +
+          href="' +
           download +
           '" ' +
           'download>' +
@@ -1605,10 +1585,7 @@ function renderItems(){
 
       }
 
-
-      container.appendChild(
-        row
-      );
+      container.appendChild(row);
 
     }
   );
@@ -1616,9 +1593,9 @@ function renderItems(){
 }
 
 
-/* =========================
+/* =====================================================
    SEARCH
-   ========================= */
+   ===================================================== */
 
 function performSearch(){
 
@@ -1628,32 +1605,61 @@ function performSearch(){
 
 
 document
-  .getElementById(
-    "searchInput"
-  )
+  .getElementById("searchInput")
   .addEventListener(
     "input",
     renderItems
   );
 
 
-/* =========================
+/* =====================================================
    START
-   ========================= */
+   ===================================================== */
 
 updateOwnerUploadLink();
+
+document.getElementById(
+  "status"
+).textContent =
+  "Loading media...";
 
 
 Promise.all([
 
   loadGithub(),
 
-  loadSupabase()
+  loadSupabaseDatabase(),
+
+  loadSupabaseStorage()
 
 ])
-.then(
-  buildItems
-);
+.then(() => {
+
+  buildItems();
+
+  const count =
+    allItems.length;
+
+  if(count > 0){
+
+    document.getElementById(
+      "locationText"
+    ).textContent =
+      "Media found: " + count;
+
+  }
+
+})
+.catch(error => {
+
+  console.error(error);
+
+  document.getElementById(
+    "status"
+  ).textContent =
+    "Unable to load media.";
+
+});
 
 </script>
 
