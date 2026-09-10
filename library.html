@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -11,10 +12,14 @@
 
 <style>
 
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#eaf7ff;
+background:#f5f5f7;
 }
 
 .container{
@@ -22,79 +27,106 @@ max-width:600px;
 margin:auto;
 }
 
+
 .header{
-height:150px;
+
+height:125px;
 position:relative;
-background:#000;
 overflow:hidden;
 display:flex;
 align-items:center;
 justify-content:center;
 color:white;
 text-align:center;
+
 }
 
 .header img{
+
 position:absolute;
 width:100%;
-height:150px;
+height:125px;
 object-fit:cover;
-opacity:.6;
+object-position:center 35%;
+
 }
 
 .header div{
+
 position:relative;
 z-index:2;
+text-shadow:0 2px 5px black;
+
 }
 
+
 .song-card{
+
 background:white;
 margin:15px;
 border-radius:15px;
 overflow:hidden;
-box-shadow:0 3px 10px #ccc;
+box-shadow:0 3px 10px #ddd;
+
 }
 
+
 .cover{
+
 width:100%;
 height:250px;
 object-fit:cover;
+
 }
+
 
 .info{
+
 padding:15px;
+
 }
+
 
 .artist{
+
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px;
+
 }
+
 
 .artist img{
-width:55px;
-height:55px;
+
+width:60px;
+height:60px;
 border-radius:50%;
 object-fit:cover;
+
 }
 
-button,a{
+
+.play{
+
+background:#128c9e;
+color:white;
 padding:10px 15px;
 border-radius:8px;
 text-decoration:none;
 font-weight:bold;
-display:inline-block;
-margin-top:10px;
+
 }
 
-.play{
-background:#0099cc;
-color:white;
-}
 
 .download{
+
 background:#000;
 color:white;
+padding:10px 15px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+
 }
 
 </style>
@@ -104,18 +136,23 @@ color:white;
 
 <body>
 
+
 <div class="container">
 
-<div class="header">
 
-<img src="ning-we i.png">
+<header class="header">
+
+<img src="ning-wei.png">
 
 <div>
+
 <h1>Ning Wei Media</h1>
+
 <p>Music Library</p>
-</div>
 
 </div>
+
+</header>
 
 
 <div id="library"></div>
@@ -136,35 +173,47 @@ const SUPABASE_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 
-const db = supabase.createClient(
+const db =
+supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
 
 
-async function loadSongs(){
+async function loadMusic(){
 
 
-let {data,error}=await db
+const {data,error}=await db
+
 .from("songs")
+
 .select(`
+
 id,
 title,
 song_url,
 cover_url,
+
 artists(
 name,
 photo
+
 )
+
 `)
-.order("id",{ascending:false});
+
+.order("created_at",{ascending:false});
+
 
 
 if(error){
+
 console.log(error);
 return;
+
 }
+
 
 
 let html="";
@@ -173,7 +222,7 @@ let html="";
 data.forEach(song=>{
 
 
-html += `
+html+=`
 
 <div class="song-card">
 
@@ -186,14 +235,18 @@ html += `
 
 <div class="artist">
 
+
 <img src="${song.artists.photo}">
 
+
 <h3>${song.artists.name}</h3>
+
 
 </div>
 
 
 <h2>${song.title}</h2>
+
 
 
 <a class="play"
@@ -202,6 +255,7 @@ href="media.html?url=${encodeURIComponent(song.song_url)}">
 ▶ Play
 
 </a>
+
 
 
 <a class="download"
@@ -213,6 +267,7 @@ download>
 </a>
 
 
+
 </div>
 
 
@@ -221,7 +276,9 @@ download>
 
 `;
 
+
 });
+
 
 
 document.getElementById("library").innerHTML=html;
@@ -230,11 +287,13 @@ document.getElementById("library").innerHTML=html;
 }
 
 
-loadSongs();
+
+loadMusic();
 
 
 </script>
 
 
 </body>
+
 </html>
