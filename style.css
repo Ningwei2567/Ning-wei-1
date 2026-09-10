@@ -72,7 +72,7 @@ header img {
     object-fit: cover !important;
 
     /* Upper part of the photograph */
-    object-position: 50% 20% !important;
+    object-position: 50% 5% !important;
 
     display: block !important;
 
