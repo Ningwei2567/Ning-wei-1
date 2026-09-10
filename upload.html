@@ -2,997 +2,652 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Upload - Ning Wei Media</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Upload Your Music - Ning Wei Media</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f3f8fb;
-color:#111
+    background:#f5f5f7;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    color:#1d1d1f;
 }
 
-.nw-header{
-position:relative;
-height:310px;
-overflow:hidden;
-background:#72c7ed
+.page{
+    width:100%;
+    max-width:420px;
+    min-height:100vh;
+    margin:0 auto;
+    background:#f5f5f7;
+    padding-bottom:30px;
 }
 
-.nw-header-photo{
-position:absolute;
-inset:0;
-width:100%;
-height:100%;
-object-fit:cover;
-object-position:50% 18%;
-transform:scale(1.08)
+/* =====================================================
+   MASTER HEADER
+   EXACTLY 125PX
+   ===================================================== */
+
+.site-header{
+    position:relative;
+    width:100%;
+    height:125px;
+    min-height:125px;
+    max-height:125px;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+    color:#fff;
+
+    background:#000;
 }
 
-.nw-header-overlay{
-position:absolute;
-inset:0;
-background:rgba(55,165,220,.38)
+/* Clean photo — no overlay */
+.site-header-photo{
+    position:absolute;
+    left:0;
+    top:0;
+
+    width:100%;
+    height:125px;
+
+    object-fit:cover;
+    object-position:center 20%;
+
+    display:block;
+
+    opacity:1;
+    filter:none;
+
+    z-index:0;
 }
 
-.nw-header-content{
-position:relative;
-z-index:2;
-height:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:15px
+.site-header-content{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    padding:8px 10px;
+
+    color:#fff;
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,.9),
+        0 1px 2px rgba(0,0,0,.9);
 }
 
-.nw-header-content h1{
-margin:0;
-font-size:34px;
-color:#fff;
-text-shadow:0 2px 5px rgba(0,0,0,.45)
+.site-header-content h1{
+    margin:0;
+
+    font-size:1.65rem;
+    line-height:1.1;
+
+    font-weight:800;
 }
 
-.nw-header-content p{
-margin:8px 0 18px;
-font-size:15px;
-font-weight:bold;
-color:#fff;
-text-shadow:0 1px 4px rgba(0,0,0,.5)
+.site-header-content p{
+    margin:5px 0 0;
+
+    font-size:.78rem;
+    font-weight:600;
 }
 
-.search{
-width:92%;
-max-width:500px;
-padding:13px 18px;
-border:0;
-border-radius:30px;
-outline:0;
-font-size:15px
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+.search-area{
+    padding:12px 15px;
 }
 
-.container{
-width:94%;
-max-width:700px;
-margin:15px auto 40px
+.search-box{
+    width:100%;
+
+    background:#fff;
+
+    border:1px solid #e5e5ea;
+    border-radius:22px;
+
+    padding:10px 17px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
 }
 
-.title,.requirements,.form-box{
-background:#fff;
-border-radius:12px;
-padding:15px;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
-margin-bottom:12px
+.search-box input{
+    width:100%;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    font-size:.95rem;
+    color:#333;
 }
 
-.title h2{
-margin:0;
-font-size:21px;
-color:#1688c5
+/* =====================================================
+   UPLOAD CARD
+   ===================================================== */
+
+.upload-card{
+    margin:0 15px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:22px 18px;
+
+    box-shadow:0 3px 14px rgba(0,0,0,.07);
+
+    text-align:center;
 }
 
-.title p{
-margin:6px 0 0;
-font-size:13px;
-color:#666
+.upload-icon{
+    font-size:32px;
+    margin-bottom:5px;
 }
 
-.requirements h3{
-margin:0 0 8px;
-font-size:17px;
-color:#1688c5
+.upload-card h2{
+    margin:0;
+
+    font-size:1.45rem;
+    font-weight:800;
+
+    color:#172033;
 }
 
-.requirements p,
-.requirements li{
-font-size:13px;
-line-height:1.6
+.warning{
+    margin:7px 0 15px;
+
+    font-size:.9rem;
+    font-weight:600;
+
+    color:#444;
+}
+
+.instructions{
+    margin:0 0 8px;
+
+    font-size:.9rem;
+    color:#444;
 }
 
 .email{
-font-weight:bold;
-color:#1688c5
+    display:block;
+
+    margin:5px 0 20px;
+
+    color:#e91e63;
+
+    font-size:1rem;
+    font-weight:800;
+
+    text-decoration:none;
 }
 
-label{
-display:block;
-font-weight:bold;
-font-size:14px;
-margin:13px 0 6px
+/* =====================================================
+   REQUIREMENTS
+   ===================================================== */
+
+.section-title{
+    margin:15px 0 8px;
+
+    text-align:left;
+
+    color:#e91e63;
+
+    font-size:1rem;
+    font-weight:800;
 }
 
-input,textarea{
-width:100%;
-padding:11px;
-border:1px solid #ccd8df;
-border-radius:8px;
-font-size:14px;
-outline:0;
-background:#fff
+.requirement{
+    display:flex;
+
+    align-items:center;
+
+    text-align:left;
+
+    padding:7px 0;
 }
 
-textarea{
-min-height:90px;
-resize:vertical
+.requirement-number{
+    width:29px;
+    height:29px;
+    min-width:29px;
+
+    margin-right:10px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#128c9e;
+    color:#fff;
+
+    font-size:.8rem;
+    font-weight:800;
 }
 
-.category{
-margin-top:18px;
-border:1px solid #d8e5ec;
-border-radius:10px;
-overflow:hidden
+.requirement-text{
+    font-size:.88rem;
+    color:#222;
 }
 
-.category-title{
-padding:11px 12px;
-background:#eaf7fd;
-color:#0878ae;
-font-weight:bold;
-font-size:15px
+/* =====================================================
+   UPLOAD BUTTON
+   ===================================================== */
+
+.upload-button{
+    display:block;
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:13px;
+
+    border:0;
+    border-radius:12px;
+
+    background:#128c9e;
+
+    color:#fff;
+
+    font-size:.95rem;
+    font-weight:800;
+
+    text-decoration:none;
+
+    cursor:pointer;
 }
 
-.category-body{
-padding:12px
+/* =====================================================
+   TRENDING APPS
+   ===================================================== */
+
+.trending{
+    margin:20px 15px 0;
 }
 
-.category-body small{
-display:block;
-margin-top:6px;
-font-size:12px;
-color:#777
+.trending h2{
+    margin:0 0 10px;
+
+    font-size:1.05rem;
 }
 
-input[type=file]{
-padding:9px
+.app-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:8px;
 }
 
-.upload-btn{
-width:100%;
-margin-top:20px;
-padding:14px;
-border:0;
-border-radius:9px;
-background:#1688c5;
-color:#fff;
-font-size:16px;
-font-weight:bold
+.app-card{
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:11px;
+
+    text-decoration:none;
+    color:#1d1d1f;
+
+    border:1px solid rgba(0,0,0,.03);
 }
 
-.upload-btn:disabled{
-opacity:.6
+.app-icon{
+    font-size:24px;
 }
 
-.progress-box{
-display:none;
-margin-top:15px
+.app-name{
+    display:block;
+
+    margin-top:3px;
+
+    font-size:.9rem;
+    font-weight:700;
 }
 
-.progress{
-height:10px;
-background:#e1e8ec;
-border-radius:10px;
-overflow:hidden
+.app-subtitle{
+    display:block;
+
+    margin-top:2px;
+
+    font-size:.68rem;
+    color:#86868b;
 }
 
-.progress-bar{
-height:100%;
-width:0;
-background:#1688c5;
-transition:width .2s
+/* =====================================================
+   FOLLOW US
+   ===================================================== */
+
+.follow{
+    margin:20px 15px 0;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    text-align:center;
 }
 
-.status{
-margin-top:10px;
-padding:10px;
-border-radius:8px;
-background:#eef7fb;
-font-size:13px;
-line-height:1.5
+.follow h2{
+    margin:0 0 12px;
+
+    font-size:1rem;
 }
 
-.success{
-background:#e9f8ed;
-color:#176b2d
+.social-row{
+    display:flex;
+
+    justify-content:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
 }
 
-.error{
-background:#fff0f0;
-color:#a11
+.social{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:17px;
+    font-weight:800;
 }
+
+.instagram{
+    background:linear-gradient(135deg,#feda75,#d62976,#4f5bd5);
+}
+
+.facebook{
+    background:#1877f2;
+}
+
+.whatsapp{
+    background:#25d366;
+}
+
+.youtube{
+    background:#ff0000;
+}
+
+.tiktok{
+    background:#000;
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
 
 footer{
-text-align:center;
-padding:20px;
-font-size:12px;
-color:#777
-}
+    padding:20px 15px;
 
-@media(max-width:600px){
-.nw-header{height:300px}
-.nw-header-content h1{font-size:29px}
+    text-align:center;
+
+    color:#777;
+
+    font-size:.75rem;
 }
 </style>
 </head>
 
 <body>
 
-<header class="nw-header">
+<div class="page">
 
-<img
-class="nw-header-photo"
-src="ning-wei.png"
-alt="Ning Wei Media">
+    <!-- MASTER 125PX HEADER -->
+    <header class="site-header">
 
-<div class="nw-header-overlay"></div>
+        <img
+            class="site-header-photo"
+            src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+            alt="Ning Wei"
+        >
 
-<div class="nw-header-content">
+        <div class="site-header-content">
+            <h1>Ning Wei Media</h1>
+            <p>Music • Videos • Photos • Apps • Software</p>
+        </div>
 
-<h1>Ning Wei Media</h1>
+    </header>
 
-<p>Music • Videos • Photos • Apps • Software</p>
 
-<input
-class="search"
-id="searchBox"
-type="search"
-placeholder="Search Ning Wei Media...">
+    <!-- SEARCH -->
+    <div class="search-area">
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search Ning Wei Media..."
+            >
+        </div>
+    </div>
+
+
+    <!-- ARTIST UPLOAD CARD -->
+    <section class="upload-card">
+
+        <div class="upload-icon">🎵</div>
+
+        <h2>Upload your music here</h2>
+
+        <p class="warning">
+            It's free. Don't be scammed!
+        </p>
+
+        <p class="instructions">
+            Send the following requirements to us using our email
+        </p>
+
+        <a
+            class="email"
+            href="mailto:howwebiz@gmail.com"
+        >
+            howwebiz@gmail.com
+        </a>
+
+
+        <div class="section-title">
+            Required
+        </div>
+
+        <div class="requirement">
+            <div class="requirement-number">1</div>
+            <div class="requirement-text">
+                Biography / Artist Profile
+            </div>
+        </div>
+
+        <div class="requirement">
+            <div class="requirement-number">2</div>
+            <div class="requirement-text">
+                Songs
+            </div>
+        </div>
+
+        <div class="requirement">
+            <div class="requirement-number">3</div>
+            <div class="requirement-text">
+                Photo(s)
+            </div>
+        </div>
+
+
+        <div class="section-title">
+            Optional
+        </div>
+
+        <div class="requirement">
+            <div class="requirement-number">4</div>
+            <div class="requirement-text">
+                Lyrics
+            </div>
+        </div>
+
+        <div class="requirement">
+            <div class="requirement-number">5</div>
+            <div class="requirement-text">
+                Song Cover Arts
+            </div>
+        </div>
+
+        <div class="requirement">
+            <div class="requirement-number">6</div>
+            <div class="requirement-text">
+                Videos (YouTube Links)
+            </div>
+        </div>
+
+
+        <!-- EXISTING ARTIST UPLOAD PORTAL -->
+        <a
+            class="upload-button"
+            href="upload.html"
+        >
+            📤 Upload Your Music Here
+        </a>
+
+    </section>
+
+
+    <!-- TRENDING APPS -->
+    <section class="trending">
+
+        <h2>🔥 Trending Apps</h2>
+
+        <div class="app-grid">
+
+            <a href="apks.html" class="app-card">
+                <span class="app-icon">🤖</span>
+                <span class="app-name">Apps</span>
+                <span class="app-subtitle">
+                    Download latest apps
+                </span>
+            </a>
+
+            <a href="software.html" class="app-card">
+                <span class="app-icon">💻</span>
+                <span class="app-name">Software</span>
+                <span class="app-subtitle">
+                    Windows • Mac • Android
+                </span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOLLOW US -->
+    <section class="follow">
+
+        <h2>Follow Us</h2>
+
+        <div class="social-row">
+
+            <a
+                href="#"
+                class="social instagram"
+                aria-label="Instagram"
+            >
+                ◎
+            </a>
+
+            <a
+                href="#"
+                class="social facebook"
+                aria-label="Facebook"
+            >
+                f
+            </a>
+
+            <a
+                href="#"
+                class="social whatsapp"
+                aria-label="WhatsApp"
+            >
+                ☎
+            </a>
+
+            <a
+                href="#"
+                class="social youtube"
+                aria-label="YouTube"
+            >
+                ▶
+            </a>
+
+            <a
+                href="#"
+                class="social tiktok"
+                aria-label="TikTok"
+            >
+                ♪
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        © 2026 Ning Wei Media
+    </footer>
 
 </div>
-</header>
-
-
-<main class="container">
-
-<section class="title">
-
-<h2>📤 Upload Your Music & Media Here</h2>
-
-<p>
-Artists, DJs and creators can upload their files directly to Ning Wei Media.
-</p>
-
-</section>
-
-
-<section class="requirements">
-
-<h3>How to Upload</h3>
-
-<p><strong>It's free. Don't get scammed!</strong></p>
-
-<p>Upload your music and media directly here.</p>
-
-<p>
-For inquiries:
-<span class="email">ningwei2567@gmail.com</span>
-</p>
-
-<ol>
-<li>Artist / DJ Name</li>
-<li>Biography / Artist Profile</li>
-<li>Songs</li>
-<li>Photos</li>
-<li>Videos</li>
-<li>Apps / APKs</li>
-<li>Windows / Software</li>
-<li>Lyrics — optional</li>
-<li>Song Cover Arts — optional</li>
-<li>YouTube Video Links — optional</li>
-</ol>
-
-</section>
-
-
-<form id="uploadForm" class="form-box">
-
-
-<label>Artist / DJ Name *</label>
-
-<input
-id="artistName"
-type="text"
-required
-placeholder="Enter artist or DJ name">
-
-
-<label>Email *</label>
-
-<input
-id="email"
-type="email"
-required
-placeholder="Enter email address">
-
-
-<label>Phone / WhatsApp</label>
-
-<input
-id="phone"
-type="text"
-placeholder="Phone or WhatsApp number">
-
-
-<label>Biography / Artist Profile *</label>
-
-<textarea
-id="biography"
-required
-placeholder="Write artist or DJ biography..."></textarea>
-
-
-<section class="category">
-
-<div class="category-title">
-🎵 1. Songs / Music
-</div>
-
-<div class="category-body">
-
-<input
-id="songs"
-type="file"
-accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac"
-multiple>
-
-<small>
-Upload MP3, WAV, M4A, AAC, OGG, FLAC and other audio files.
-</small>
-
-</div>
-</section>
-
-
-<section class="category">
-
-<div class="category-title">
-🎬 2. Videos
-</div>
-
-<div class="category-body">
-
-<input
-id="videos"
-type="file"
-accept="video/*,.mp4,.webm,.mov,.m4v,.avi,.mkv"
-multiple>
-
-<small>
-Upload music videos, performances, DJ videos and other videos.
-</small>
-
-</div>
-</section>
-
-
-<section class="category">
-
-<div class="category-title">
-📸 3. Photos
-</div>
-
-<div class="category-body">
-
-<input
-id="photos"
-type="file"
-accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp"
-multiple>
-
-<small>
-Upload artist photos, DJ photos, event photos and other images.
-</small>
-
-</div>
-</section>
-
-
-<section class="category">
-
-<div class="category-title">
-📱 4. Apps / APKs
-</div>
-
-<div class="category-body">
-
-<input
-id="apps"
-type="file"
-accept=".apk,.xapk,.apks,.aab"
-multiple>
-
-<small>
-Upload Android APK and supported application files.
-</small>
-
-</div>
-</section>
-
-
-<section class="category">
-
-<div class="category-title">
-💻 5. Windows / Software
-</div>
-
-<div class="category-body">
-
-<input
-id="software"
-type="file"
-accept=".exe,.msi,.zip,.rar,.7z,.iso,.dmg,.deb,.rpm"
-multiple>
-
-<small>
-Upload Windows programs, installers and software packages.
-</small>
-
-</div>
-</section>
-
-
-<label>Lyrics — Optional</label>
-
-<textarea
-id="lyrics"
-placeholder="Paste song lyrics here..."></textarea>
-
-
-<label>Song Cover Art — Optional</label>
-
-<input
-id="covers"
-type="file"
-accept="image/*"
-multiple>
-
-
-<label>YouTube Video Links — Optional</label>
-
-<textarea
-id="youtubeLinks"
-placeholder="Paste YouTube links here..."></textarea>
-
-
-<button
-id="uploadBtn"
-class="upload-btn"
-type="submit">
-
-📤 Upload Everything
-
-</button>
-
-
-<div
-id="progressBox"
-class="progress-box">
-
-<div class="progress">
-
-<div
-id="progressBar"
-class="progress-bar">
-</div>
-
-</div>
-
-<div
-id="status"
-class="status">
-
-Preparing upload...
-
-</div>
-
-</div>
-
-</form>
-
-</main>
-
-
-<footer>
-© 2026 Ning Wei Media
-</footer>
-
 
 <script>
+const searchInput = document.getElementById("searchInput");
 
-/* =====================================================
-   SUPABASE CONNECTION
-   ===================================================== */
+searchInput.addEventListener("input", function(){
 
-const SUPABASE_URL =
-"https://btksyizkcpzubtextuce.supabase.co";
+    const value = this.value.toLowerCase();
 
+    document.querySelectorAll(
+        ".upload-card, .trending, .follow"
+    ).forEach(function(section){
 
-/*
-IMPORTANT:
-Use your REAL Supabase anon/publishable key here.
-*/
+        if(!value){
+            section.style.display = "";
+            return;
+        }
 
-const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+        const text = section.innerText.toLowerCase();
 
-
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-const BUCKET =
-"artist-uploads";
-
-
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const form =
-document.getElementById("uploadForm");
-
-const uploadBtn =
-document.getElementById("uploadBtn");
-
-const progressBox =
-document.getElementById("progressBox");
-
-const progressBar =
-document.getElementById("progressBar");
-
-const statusBox =
-document.getElementById("status");
-
-
-/* =====================================================
-   SAFE FOLDER NAME
-   ===================================================== */
-
-function safeName(name){
-
-return name
-.normalize("NFKD")
-.replace(/[^\w.\- ]/g,"")
-.replace(/\s+/g,"-")
-.replace(/-+/g,"-")
-.replace(/^-|-$/g,"");
-
-}
-
-
-/* =====================================================
-   UPLOAD FILES
-   ===================================================== */
-
-async function uploadFiles(
-files,
-category,
-artist
-){
-
-const results=[];
-
-if(!files || files.length===0){
-return results;
-}
-
-
-for(let i=0;i<files.length;i++){
-
-const file=files[i];
-
-const cleanFile=
-safeName(file.name) ||
-("file-"+Date.now());
-
-
-const filePath=
-artist+
-"/"+
-category+
-"/"+
-Date.now()+
-"-"+
-cleanFile;
-
-
-statusBox.textContent=
-"Uploading "+
-category+
-": "+
-(i+1)+
-" of "+
-files.length+
-" — "+
-file.name;
-
-
-const {data,error}=
-await supabaseClient
-.storage
-.from(BUCKET)
-.upload(
-filePath,
-file,
-{
-cacheControl:"3600",
-upsert:false
-}
-);
-
-
-if(error){
-
-throw new Error(
-category+
-" upload failed: "+
-error.message
-);
-
-}
-
-
-const publicUrl=
-supabaseClient
-.storage
-.from(BUCKET)
-.getPublicUrl(filePath)
-.data
-.publicUrl;
-
-
-results.push({
-
-category:category,
-
-original_name:file.name,
-
-path:filePath,
-
-url:publicUrl,
-
-size:file.size,
-
-type:file.type
+        section.style.display =
+            text.includes(value) ? "" : "none";
+    });
 
 });
-
-
-progressBar.style.width=
-Math.round(
-((i+1)/files.length)*100
-)+"%";
-
-}
-
-return results;
-
-}
-
-
-/* =====================================================
-   SUBMIT
-   ===================================================== */
-
-form.addEventListener(
-"submit",
-async function(event){
-
-event.preventDefault();
-
-
-uploadBtn.disabled=true;
-
-progressBox.style.display="block";
-
-progressBar.style.width="0%";
-
-statusBox.className="status";
-
-statusBox.textContent=
-"Starting upload...";
-
-
-try{
-
-
-const artistName=
-document
-.getElementById("artistName")
-.value
-.trim();
-
-
-const email=
-document
-.getElementById("email")
-.value
-.trim();
-
-
-const phone=
-document
-.getElementById("phone")
-.value
-.trim();
-
-
-const biography=
-document
-.getElementById("biography")
-.value
-.trim();
-
-
-const lyrics=
-document
-.getElementById("lyrics")
-.value
-.trim();
-
-
-const youtubeLinks=
-document
-.getElementById("youtubeLinks")
-.value
-.trim();
-
-
-if(!artistName ||
-!email ||
-!biography){
-
-throw new Error(
-"Please complete all required fields."
-);
-
-}
-
-
-const artist=
-safeName(artistName) ||
-"Unknown-Artist";
-
-
-let allFiles=[];
-
-
-/* SONGS */
-
-allFiles=
-allFiles.concat(
-await uploadFiles(
-document.getElementById("songs").files,
-"songs",
-artist
-)
-);
-
-
-/* VIDEOS */
-
-allFiles=
-allFiles.concat(
-await uploadFiles(
-document.getElementById("videos").files,
-"videos",
-artist
-)
-);
-
-
-/* PHOTOS */
-
-allFiles=
-allFiles.concat(
-await uploadFiles(
-document.getElementById("photos").files,
-"photos",
-artist
-)
-);
-
-
-/* APPS */
-
-allFiles=
-allFiles.concat(
-await uploadFiles(
-document.getElementById("apps").files,
-"apps",
-artist
-)
-);
-
-
-/* SOFTWARE */
-
-allFiles=
-allFiles.concat(
-await uploadFiles(
-document.getElementById("software").files,
-"software",
-artist
-)
-);
-
-
-/* COVERS */
-
-allFiles=
-allFiles.concat(
-await uploadFiles(
-document.getElementById("covers").files,
-"covers",
-artist
-)
-);
-
-
-if(allFiles.length===0){
-
-throw new Error(
-"Please select at least one file."
-);
-
-}
-
-
-statusBox.textContent=
-"Saving your submission...";
-
-
-/* =====================================================
-   DATABASE
-   ===================================================== */
-
-const {error}=
-await supabaseClient
-.from("artist_submissions")
-.insert({
-
-artist_name:artistName,
-
-artist_email:email,
-
-phone:phone || null,
-
-biography:biography,
-
-lyrics:lyrics || null,
-
-youtube_links:youtubeLinks || null,
-
-files:allFiles,
-
-status:"approved"
-
-});
-
-
-if(error){
-
-throw new Error(
-"Submission could not be saved: "+
-error.message
-);
-
-}
-
-
-/* =====================================================
-   SUCCESS
-   ===================================================== */
-
-progressBar.style.width="100%";
-
-statusBox.className=
-"status success";
-
-statusBox.innerHTML=
-"<strong>✅ Upload successful!</strong><br>"+
-"Your files are now live on Ning Wei Media.<br>"+
-"Viewers can access and download the uploaded files.";
-
-
-form.reset();
-
-
-}
-catch(error){
-
-console.error(error);
-
-statusBox.className=
-"status error";
-
-statusBox.innerHTML=
-"<strong>❌ Upload failed</strong><br>"+
-error.message;
-
-}
-finally{
-
-uploadBtn.disabled=false;
-
-}
-
-});
-
-
-/* =====================================================
-   SEARCH
-   ===================================================== */
-
-document
-.getElementById("searchBox")
-.addEventListener(
-"input",
-function(){
-
-const search=
-this.value
-.toLowerCase()
-.trim();
-
-
-document
-.querySelectorAll(
-".title,.requirements,.category"
-)
-.forEach(function(item){
-
-if(!search){
-
-item.style.display="";
-
-return;
-
-}
-
-
-const text=
-item.innerText
-.toLowerCase();
-
-
-item.style.display=
-text.includes(search)
-?""
-:"none";
-
-});
-
-});
-
 </script>
 
 </body>
