@@ -4,85 +4,334 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ning Wei Media - Music</title>
+
     <style>
-        body {
-            margin: 0; padding: 0; background-color: #f5f5f7;
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f7;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex; justify-content: center; align-items: start; min-height: 100vh;
         }
-        .container { width: 100%; max-width: 420px; background: #f5f5f7; min-height: 100vh; box-sizing: border-box; padding-bottom: 30px; }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            min-height: 100vh;
+            background: #f5f5f7;
+            padding-bottom: 30px;
+        }
+
+        /* =========================
+           MASTER NING WEI HEADER
+           ========================= */
+
         .banner {
-            position: relative; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('ning-wei.png');
-            background-size: cover; background-position: center 30% !important; background-repeat: no-repeat;
-            height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;
+            position: relative;
+            width: 100%;
+            height: 125px !important;
+            min-height: 125px !important;
+            max-height: 125px !important;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: #000;
         }
-        .banner h1 { margin: 0; font-size: 2.2rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-        .search-container { padding: 15px; display: flex; justify-content: center; }
+
+        .banner img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 20%;
+            display: block;
+            filter: none !important;
+            opacity: 1 !important;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 10px;
+            text-shadow:
+                0 2px 4px rgba(0,0,0,.8),
+                0 1px 2px rgba(0,0,0,.8);
+        }
+
+        .banner h1 {
+            margin: 0;
+            font-size: 1.65rem;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .banner p {
+            margin: 5px 0 0;
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        /* =========================
+           SEARCH
+           ========================= */
+
+        .search-container {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: center;
+        }
+
         .search-box {
-            width: 100%; background: #ffffff; border-radius: 25px; padding: 12px 20px;
-            display: flex; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e5e5ea;
+            width: 100%;
+            background: #fff;
+            border-radius: 22px;
+            padding: 10px 17px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,.04);
+            border: 1px solid #e5e5ea;
         }
-        .search-box input { border: none; outline: none; width: 100%; font-size: 1rem; color: #333; }
-        .upload-section { padding: 0 15px 15px 15px; }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: .95rem;
+            color: #333;
+            background: transparent;
+        }
+
+        /* =========================
+           UPLOAD
+           ========================= */
+
+        .upload-section {
+            padding: 0 15px 12px;
+        }
+
         .btn-upload-direct {
-            width: 100%; background-color: #128c9e; color: #ffffff; border: none; border-radius: 12px;
-            padding: 14px; font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%;
+            background: #128c9e;
+            color: #fff;
+            border: none;
+            border-radius: 11px;
+            padding: 11px;
+            font-size: .9rem;
+            font-weight: 700;
+            cursor: pointer;
         }
-        .list-container { padding: 0 15px; display: flex; flex-direction: column; gap: 8px; }
+
+        /* =========================
+           LIST
+           ========================= */
+
+        .list-container {
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
         .list-item {
-            background: #ffffff; border-radius: 14px; padding: 8px 12px; display: flex; align-items: center;
-            justify-content: space-between; text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.02);
+            background: #fff;
+            border-radius: 12px;
+            padding: 7px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(0,0,0,.03);
+            min-height: 48px;
         }
-        .item-left-block { display: flex; align-items: center; flex: 1; min-width: 0; }
+
+        .item-left-block {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* BLACK NUMBER CIRCLE */
+
         .number-badge {
-            width: 32px; height: 32px; background: #000000; color: #ffffff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; margin-right: 12px; flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: .82rem;
+            margin-right: 10px;
         }
-        .row-icon { width: 26px; height: 26px; margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .text-meta-box { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-        .text-title { font-size: 1rem; font-weight: 700; color: #1d1d1f; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .text-subtitle { font-size: 0.75rem; color: #86868b; margin: 2px 0 0 0; }
-        .arrow-indicator { color: #0071e3; font-size: 1.1rem; font-weight: bold; padding-left: 8px; flex-shrink: 0; }
+
+        .row-icon {
+            width: 25px;
+            height: 25px;
+            margin-right: 9px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+        }
+
+        .text-meta-box {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .text-title {
+            font-size: .94rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .text-subtitle {
+            font-size: .7rem;
+            color: #86868b;
+            margin: 2px 0 0;
+        }
+
+        .arrow-indicator {
+            color: #0071e3;
+            font-size: 1rem;
+            font-weight: 800;
+            padding-left: 7px;
+            flex-shrink: 0;
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="banner">
-            <h1>Music</h1>
+
+<div class="container">
+
+    <!-- CLEAN MASTER HEADER -->
+    <div class="banner">
+
+        <img
+            src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+            alt="Ning Wei"
+        >
+
+        <div class="banner-content">
+            <h1>Ning Wei Media</h1>
             <p>Music • Audio • DJ Mixes</p>
         </div>
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" onkeyup="filterTracks()" placeholder="Search music...">
-            </div>
-        </div>
-        <div class="upload-section">
-            <button onclick="openUploadPortal()" class="btn-upload-direct">🚨 Upload Music Directly Here</button>
-        </div>
-        <div class="list-container" id="masterTrackList">
-            
-            <!-- FIXED SUBFOLDER DIRECTORY PATH LINK -->
-            <a href="media/songs/DJ-Mixes/index.html" class="list-item">
-                <div class="item-left-block">
-                    <div class="number-badge">1</div>
-                    <div class="row-icon">📁</div>
-                    <div class="text-meta-box"><h3 class="text-title">DJ-Mixes</h3><p class="text-subtitle">Music folder</p></div>
-                </div>
-                <div class="arrow-indicator">❯</div>
-            </a>
 
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-container">
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                onkeyup="filterTracks()"
+                placeholder="Search music..."
+            >
         </div>
     </div>
-    <script>
-        function openUploadPortal() { alert("Upload portal active!"); }
-        function filterTracks() {
-            const filterValue = document.getElementById('searchInput').value.toLowerCase();
-            const items = document.getElementById('masterTrackList').getElementsByClassName('list-item');
-            for (let i = 0; i < items.length; i++) {
-                const titleText = items[i].querySelector('.text-title').innerText.toLowerCase();
-                if (titleText.includes(filterValue)) { items[i].style.display = "flex"; } else { items[i].style.display = "none"; }
-            }
+
+    <!-- OWNER UPLOAD -->
+    <div class="upload-section">
+        <button
+            onclick="openUploadPortal()"
+            class="btn-upload-direct"
+        >
+            🚨 Upload Music Directly Here
+        </button>
+    </div>
+
+    <!-- MUSIC FOLDERS -->
+    <div class="list-container" id="masterTrackList">
+
+        <a
+            href="media/songs/DJ-Mixes/index.html"
+            class="list-item"
+        >
+            <div class="item-left-block">
+
+                <div class="number-badge">1</div>
+
+                <div class="row-icon">📁</div>
+
+                <div class="text-meta-box">
+                    <h3 class="text-title">DJ-Mixes</h3>
+                    <p class="text-subtitle">Music folder</p>
+                </div>
+
+            </div>
+
+            <div class="arrow-indicator">❯</div>
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function openUploadPortal() {
+    alert("Upload portal active!");
+}
+
+function filterTracks() {
+
+    const filterValue =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const items =
+        document
+        .getElementById("masterTrackList")
+        .getElementsByClassName("list-item");
+
+    for (let i = 0; i < items.length; i++) {
+
+        const titleText =
+            items[i]
+            .querySelector(".text-title")
+            .innerText
+            .toLowerCase();
+
+        if (titleText.includes(filterValue)) {
+            items[i].style.display = "flex";
+        } else {
+            items[i].style.display = "none";
         }
-    </script>
+    }
+}
+
+</script>
+
 </body>
 </html>
