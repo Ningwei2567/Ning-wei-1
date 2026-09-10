@@ -3,264 +3,235 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media Library</title>
+
+<title>Ning Wei Media</title>
 
 <style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
-  color:#111;
+* {
+  box-sizing: border-box;
 }
 
-.header{
-  position:relative;
-  width:100%;
-  height:125px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:#fff;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef9ff;
+  color: #123;
 }
 
-.header img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+header {
+  background: #39a9e8;
+  color: white;
+  padding: 14px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 
-.header-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-  background:rgba(255,255,255,.82);
-  padding:6px 18px;
-  border-radius:8px;
+.logo {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 8px;
 }
 
-.header-content h1{
-  margin:0;
-  font-size:25px;
+h1 {
+  margin: 4px 0;
+  font-size: 25px;
 }
 
-.header-content p{
-  margin:4px 0 0;
-  font-size:12px;
+.subtitle {
+  margin: 0;
+  font-size: 13px;
+  opacity: .95;
 }
 
-.container{
-  width:min(100%,850px);
-  margin:auto;
-  padding:12px 10px 30px;
+nav {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 10px;
+  background: white;
+  border-bottom: 1px solid #d5edf9;
+  position: sticky;
+  top: 126px;
+  z-index: 10;
 }
 
-.search-box{
-  display:flex;
-  gap:7px;
-  margin-bottom:10px;
+nav button {
+  border: 0;
+  background: #e1f4ff;
+  color: #0879b8;
+  padding: 9px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-.search-box input{
-  flex:1;
-  min-width:0;
-  padding:10px 13px;
-  border:1px solid #ccc;
-  border-radius:20px;
-  font-size:14px;
-  outline:none;
-  background:#fff;
+nav button.active {
+  background: #1599df;
+  color: white;
 }
 
-.search-box button{
-  border:0;
-  border-radius:20px;
-  padding:0 15px;
-  background:#111;
-  color:#fff;
-  font-weight:bold;
+#status {
+  text-align: center;
+  padding: 15px;
+  color: #39708e;
+  font-size: 14px;
 }
 
-.top-bar{
-  background:#fff;
-  border-radius:9px;
-  padding:9px;
-  margin-bottom:10px;
-  box-shadow:0 1px 5px rgba(0,0,0,.08);
+#content {
+  padding: 12px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.location{
-  font-size:12px;
-  color:#666;
-  margin-bottom:7px;
-  word-break:break-word;
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 12px 0;
+  color: #0879b8;
 }
 
-.upload-owner{
-  display:block;
-  width:100%;
-  text-align:center;
-  text-decoration:none;
-  background:#111;
-  color:#fff;
-  padding:9px;
-  border-radius:7px;
-  font-size:13px;
-  font-weight:bold;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
 }
 
-.items{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+.card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  border: 1px solid #d9eef8;
 }
 
-.item{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:#fff;
-  border-radius:8px;
-  padding:6px 8px;
-  min-height:43px;
-  box-shadow:0 1px 4px rgba(0,0,0,.06);
+.card-body {
+  padding: 11px;
 }
 
-.number{
-  flex:0 0 28px;
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  background:#000;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  font-weight:bold;
+.thumb {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  background: #dff3fc;
+  display: block;
 }
 
-.item-main{
-  flex:1;
-  min-width:0;
+.video-thumb {
+  width: 100%;
+  max-height: 260px;
+  background: #000;
+  display: block;
 }
 
-.item-name{
-  font-size:13px;
-  font-weight:bold;
-  word-break:break-word;
+audio {
+  width: 100%;
+  margin-top: 8px;
 }
 
-.item-meta{
-  margin-top:2px;
-  font-size:10px;
-  color:#777;
+.file-name {
+  font-weight: bold;
+  font-size: 14px;
+  word-break: break-word;
+  margin-bottom: 6px;
 }
 
-.item-actions{
-  display:flex;
-  gap:4px;
-  flex-shrink:0;
+.artist {
+  color: #168ac2;
+  font-size: 12px;
+  margin-bottom: 7px;
 }
 
-.action{
-  border:0;
-  border-radius:6px;
-  padding:6px 8px;
-  font-size:10px;
-  font-weight:bold;
-  cursor:pointer;
-  text-decoration:none;
-  white-space:nowrap;
+.actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 9px;
 }
 
-.open-btn{
-  background:#159bd3;
-  color:#fff;
+.action {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #1599df;
+  color: white;
 }
 
-.download-btn{
-  background:#111;
-  color:#fff;
+.action.secondary {
+  background: #e5f5fd;
+  color: #0879b8;
 }
 
-.folder-btn{
-  background:#e8f7fd;
-  color:#0875a5;
-  border:1px solid #b9e4f4;
+.folder {
+  background: white;
+  border: 1px solid #d5edf9;
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  cursor: pointer;
 }
 
-.artist{
-  color:#0781b5;
+.folder-icon {
+  font-size: 42px;
+  margin-bottom: 8px;
 }
 
-.media-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
+.folder-name {
+  font-weight: bold;
+  word-break: break-word;
 }
 
-.media-card{
-  display:block;
-  background:#fff;
-  border-radius:8px;
-  overflow:hidden;
-  border:1px solid #ddd;
-  text-decoration:none;
-  color:#111;
+.empty {
+  background: white;
+  border-radius: 14px;
+  padding: 25px;
+  text-align: center;
+  color: #678;
 }
 
-.media-thumb{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  display:block;
-  background:#000;
+.back {
+  display: inline-block;
+  margin-bottom: 12px;
+  background: #1599df;
+  color: white;
+  border: 0;
+  border-radius: 9px;
+  padding: 9px 15px;
+  font-weight: bold;
 }
 
-.media-title{
-  padding:6px 4px;
-  font-size:10px;
-  font-weight:bold;
-  text-align:center;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+#error {
+  color: #b00020;
+  background: #fff0f2;
+  border: 1px solid #ffc8d0;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  display: none;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-.status,.empty{
-  background:#fff;
-  border-radius:8px;
-  padding:18px;
-  text-align:center;
-  color:#666;
-  font-size:13px;
-  margin-top:8px;
-}
-
-@media(max-width:600px){
-  .header{height:125px}
-  .header-content h1{font-size:22px}
-  .header-content p{font-size:10px}
-
-  .media-grid{
-    grid-template-columns:repeat(4,1fr);
-    gap:5px;
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .media-title{
-    font-size:9px;
-    padding:5px 3px;
+  .thumb {
+    height: 125px;
   }
 
-  .action{
-    padding:5px 6px;
-    font-size:9px;
+  .video-thumb {
+    max-height: 180px;
   }
 }
 </style>
@@ -268,244 +239,138 @@ body{
 
 <body>
 
-<header class="header">
-  <img
-    src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
-    alt="Ning Wei"
-  >
-
-  <div class="header-content">
-    <h1>Ning Wei Media</h1>
-    <p>Music • Videos • Photos • Apps • Software</p>
-  </div>
+<header>
+  <img src="ning-wei.png" class="logo" onerror="this.style.display='none'">
+  <h1>Ning Wei Media</h1>
+  <p class="subtitle">Music • Videos • Photos • Apps • Software</p>
 </header>
 
-<main class="container">
+<nav>
+  <button data-category="all">All</button>
+  <button data-category="songs">Songs</button>
+  <button data-category="videos">Videos</button>
+  <button data-category="photos">Photos</button>
+  <button data-category="apps">Apps</button>
+  <button data-category="software">Software</button>
+</nav>
 
-  <div class="search-box">
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search media..."
-      autocomplete="off"
-    >
-    <button onclick="performSearch()">Search</button>
-  </div>
+<div id="status">Loading media...</div>
 
-  <div class="top-bar">
-
-    <div id="locationText" class="location">
-      Loading library...
-    </div>
-
-    <a
-      id="ownerUpload"
-      class="upload-owner"
-      href="#"
-      target="_blank"
-      rel="noopener"
-    >
-      📤 Upload Directly Here
-    </a>
-
-  </div>
-
-  <div id="items" class="items"></div>
-
-  <div id="status" class="status">
-    Loading media...
-  </div>
-
-</main>
+<div id="content">
+  <div id="error"></div>
+</div>
 
 <script>
-
-/* =====================================================
-   NING WEI MEDIA SETTINGS
-   ===================================================== */
-
-const OWNER = "Ningwei2567";
-const REPO = "Ning-wei-1";
-const BRANCH = "main";
-
-const SITE =
-  "https://ningwei2567.github.io/Ning-wei-1/";
+/* =========================================================
+   SUPABASE SETTINGS
+   ========================================================= */
 
 const SUPABASE_URL =
   "https://btksyizkcpzubtextuce.supabase.co";
 
-/*
- IMPORTANT:
- Put your NEW Supabase ANON/PUBLIC key here.
- Do NOT use the key that was previously exposed.
-*/
 const SUPABASE_ANON_KEY =
   "PASTE_YOUR_NEW_SUPABASE_ANON_KEY_HERE";
 
 /*
- Your actual Supabase Storage bucket.
+   IMPORTANT:
+   This is the exact bucket name you gave me.
 */
-const STORAGE_BUCKET =
-  "Artist Upload";
+const STORAGE_BUCKET = "Artist Upload";
 
 
-/* =====================================================
-   URL PARAMETERS
-   ===================================================== */
+/* =========================================================
+   GITHUB SETTINGS
+   ========================================================= */
 
-const params =
-  new URLSearchParams(window.location.search);
-
-const category =
-  (
-    params.get("category") || "all"
-  ).toLowerCase();
-
-const requestedFolder =
-  (
-    params.get("folder") || ""
-  )
-  .replace(/^\/+|\/+$/g,"");
+const GITHUB_OWNER = "Ningwei2567";
+const GITHUB_REPO = "Ning-wei-1";
+const GITHUB_BRANCH = "main";
 
 
-/* =====================================================
-   CATEGORY PATHS
-   ===================================================== */
+/* =========================================================
+   FILE TYPES
+   ========================================================= */
 
-const categoryPaths = {
+const IMAGE_EXTENSIONS = [
+  "jpg", "jpeg", "png", "gif", "webp",
+  "bmp", "svg", "avif", "heic"
+];
 
-  songs:"media/songs",
+const AUDIO_EXTENSIONS = [
+  "mp3", "wav", "ogg", "oga", "m4a",
+  "aac", "flac", "opus", "weba"
+];
 
-  videos:"media/videos",
+const VIDEO_EXTENSIONS = [
+  "mp4", "webm", "mov", "m4v",
+  "avi", "mkv", "ogv", "3gp"
+];
 
-  photos:"media/photos",
+const APP_EXTENSIONS = [
+  "apk", "xapk", "aab"
+];
 
-  apps:"media/apps",
-
-  software:"media/software",
-
-  all:"media"
-
-};
+const SOFTWARE_EXTENSIONS = [
+  "exe", "msi", "zip", "rar", "7z",
+  "dmg", "deb", "rpm", "iso",
+  "tar", "gz"
+];
 
 
-/* =====================================================
-   DATA
-   ===================================================== */
+/* =========================================================
+   STATE
+   ========================================================= */
 
-let githubItems = [];
-let supabaseItems = [];
 let allItems = [];
+let currentCategory = "all";
+let currentFolder = "";
 
 
-/* =====================================================
+/* =========================================================
    HELPERS
-   ===================================================== */
+   ========================================================= */
 
-function escapeHtml(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
+function getExtension(name) {
+  const clean = String(name || "").split("?")[0];
+  const parts = clean.split(".");
+  if (parts.length < 2) return "";
+  return parts.pop().toLowerCase();
 }
 
+function getFileCategory(name) {
+  const ext = getExtension(name);
 
-function encodePath(path){
+  if (IMAGE_EXTENSIONS.includes(ext)) return "photos";
+  if (AUDIO_EXTENSIONS.includes(ext)) return "songs";
+  if (VIDEO_EXTENSIONS.includes(ext)) return "videos";
+  if (APP_EXTENSIONS.includes(ext)) return "apps";
+  if (SOFTWARE_EXTENSIONS.includes(ext)) return "software";
 
+  return "other";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function encodePath(path) {
   return String(path)
     .split("/")
     .map(part => encodeURIComponent(part))
     .join("/");
-
 }
 
 
-function extension(name){
+/* =========================================================
+   STORAGE URL
+   ========================================================= */
 
-  const clean =
-    String(name || "")
-      .split("?")[0];
-
-  const parts =
-    clean.split(".");
-
-  if(parts.length < 2)
-    return "";
-
-  return parts
-    .pop()
-    .toLowerCase();
-
-}
-
-
-/* =====================================================
-   CATEGORY DETECTION
-   ===================================================== */
-
-function categoryFromExtension(name){
-
-  const ext = extension(name);
-
-  if([
-    "mp3","wav","m4a","aac",
-    "ogg","oga","flac","opus","wma"
-  ].includes(ext)){
-
-    return "songs";
-
-  }
-
-  if([
-    "mp4","3gp","webm","mkv",
-    "avi","mov","m4v"
-  ].includes(ext)){
-
-    return "videos";
-
-  }
-
-  if([
-    "jpg","jpeg","png","gif",
-    "webp","bmp","svg"
-  ].includes(ext)){
-
-    return "photos";
-
-  }
-
-  if([
-    "apk","xapk"
-  ].includes(ext)){
-
-    return "apps";
-
-  }
-
-  if([
-    "exe","msi","zip","rar",
-    "7z","iso","dmg","deb"
-  ].includes(ext)){
-
-    return "software";
-
-  }
-
-  return "";
-
-}
-
-
-/* =====================================================
-   SUPABASE STORAGE URL
-   ===================================================== */
-
-function supabasePublicUrl(path){
-
+function storagePublicUrl(path) {
   return (
     SUPABASE_URL +
     "/storage/v1/object/public/" +
@@ -513,1153 +378,694 @@ function supabasePublicUrl(path){
     "/" +
     encodePath(path)
   );
-
 }
 
 
-/* =====================================================
-   OWNER UPLOAD LINK
-   ===================================================== */
+/*
+   Normal download/open URL.
 
-function ownerUploadFolder(){
-
-  if(requestedFolder)
-    return requestedFolder;
-
-  return (
-    categoryPaths[category] ||
-    "media"
-  );
-
+   For a PUBLIC bucket this works directly.
+*/
+function storageUrl(path) {
+  return storagePublicUrl(path);
 }
 
 
-function updateOwnerUploadLink(){
+/* =========================================================
+   RECURSIVE SUPABASE STORAGE SCANNER
+   ========================================================= */
 
-  const folder =
-    ownerUploadFolder();
+async function listStorageFolder(prefix = "") {
 
-  const githubUpload =
-    "https://github.com/" +
-    OWNER +
-    "/" +
-    REPO +
-    "/upload/" +
-    BRANCH +
-    "/" +
-    folder;
+  const url =
+    SUPABASE_URL +
+    "/storage/v1/object/list/" +
+    encodeURIComponent(STORAGE_BUCKET);
 
-  document.getElementById(
-    "ownerUpload"
-  ).href = githubUpload;
-
-  document.getElementById(
-    "locationText"
-  ).textContent =
-    "Current folder: " + folder;
-
-}
-
-
-/* =====================================================
-   LOAD GITHUB
-   ===================================================== */
-
-async function loadGithub(){
-
-  const api =
-    "https://api.github.com/repos/" +
-    OWNER +
-    "/" +
-    REPO +
-    "/git/trees/" +
-    BRANCH +
-    "?recursive=1";
-
-  try{
-
-    const response =
-      await fetch(api);
-
-    if(!response.ok)
-      throw new Error("GitHub request failed");
-
-    const data =
-      await response.json();
-
-    githubItems = [];
-
-    if(!Array.isArray(data.tree))
-      return;
-
-    data.tree.forEach(entry => {
-
-      if(!entry.path)
-        return;
-
-      if(entry.type === "tree"){
-
-        githubItems.push({
-
-          type:"folder",
-
-          path:entry.path,
-
-          name:
-            entry.path
-              .split("/")
-              .pop(),
-
-          source:"github"
-
-        });
-
-        return;
-
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      prefix: prefix,
+      limit: 1000,
+      offset: 0,
+      sortBy: {
+        column: "name",
+        order: "asc"
       }
+    })
+  });
 
-      if(entry.type !== "blob")
-        return;
-
-      const cat =
-        categoryFromExtension(
-          entry.path
-        );
-
-      if(!cat)
-        return;
-
-      if(
-        category !== "all" &&
-        cat !== category
-      )
-        return;
-
-      githubItems.push({
-
-        type:"file",
-
-        path:entry.path,
-
-        name:
-          entry.path
-            .split("/")
-            .pop(),
-
-        category:cat,
-
-        source:"github"
-
-      });
-
-    });
-
-  }catch(error){
-
-    console.error(
-      "GitHub error:",
-      error
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      "Storage list failed (" +
+      response.status +
+      "): " +
+      text
     );
-
   }
 
+  return await response.json();
 }
 
 
-/* =====================================================
-   LOAD SUPABASE DATABASE
-   ===================================================== */
+/*
+   This walks through ALL folders.
 
-async function loadSupabaseDatabase(){
+   Example:
 
-  if(
-    !SUPABASE_ANON_KEY ||
-    SUPABASE_ANON_KEY ===
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8"
-  ){
+   Artist Upload
+      Kenzo
+         songs
+         Cover photo
+         videos
 
+   It will find all of them automatically.
+*/
+async function scanStorageRecursively() {
+
+  const found = [];
+  const foldersToScan = [""];
+  const scannedFolders = new Set();
+
+  while (foldersToScan.length > 0) {
+
+    const prefix = foldersToScan.shift();
+
+    if (scannedFolders.has(prefix)) {
+      continue;
+    }
+
+    scannedFolders.add(prefix);
+
+    let entries;
+
+    try {
+      entries = await listStorageFolder(prefix);
+    } catch (error) {
+      console.error("Could not scan:", prefix, error);
+      continue;
+    }
+
+    if (!Array.isArray(entries)) {
+      continue;
+    }
+
+    for (const entry of entries) {
+
+      const name = entry.name || "";
+
+      if (!name) {
+        continue;
+      }
+
+      /*
+        Supabase can return folders as entries with
+        no metadata/id.
+      */
+
+      const isFolder =
+        !entry.metadata ||
+        entry.id === null ||
+        entry.id === undefined;
+
+      const fullPath =
+        prefix +
+        (prefix ? "/" : "") +
+        name;
+
+      if (isFolder) {
+
+        foldersToScan.push(
+          fullPath.endsWith("/")
+            ? fullPath
+            : fullPath + "/"
+        );
+
+        continue;
+      }
+
+      const category = getFileCategory(name);
+
+      if (category === "other") {
+        continue;
+      }
+
+      const url = storageUrl(fullPath);
+
+      /*
+        First folder is normally the artist name.
+      */
+      const pathParts = fullPath
+        .split("/")
+        .filter(Boolean);
+
+      const artist =
+        pathParts.length > 0
+          ? pathParts[0]
+          : "Ning Wei Media";
+
+      found.push({
+        source: "supabase",
+        name: name,
+        path: fullPath,
+        url: url,
+        category: category,
+        artist: artist
+      });
+    }
+  }
+
+  return found;
+}
+
+
+/* =========================================================
+   SUPABASE DATABASE
+   ========================================================= */
+
+async function loadDatabaseItems() {
+
+  const url =
+    SUPABASE_URL +
+    "/rest/v1/artist_submissions" +
+    "?select=id,artist_name,files,created_at,status" +
+    "&order=created_at.desc";
+
+  const response = await fetch(url, {
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY
+    }
+  });
+
+  if (!response.ok) {
     console.warn(
-      "Supabase anon key has not been added."
+      "artist_submissions could not be loaded:",
+      response.status
     );
-
-    return;
-
+    return [];
   }
 
-  try{
-
-    const endpoint =
-      SUPABASE_URL +
-      "/rest/v1/artist_submissions" +
-      "?select=id,artist_name,files,created_at,status" +
-      "&status=eq.approved" +
-      "&order=created_at.desc";
-
-    const response =
-      await fetch(
-        endpoint,
-        {
-          headers:{
-            apikey:
-              SUPABASE_ANON_KEY,
-
-            Authorization:
-              "Bearer " +
-              SUPABASE_ANON_KEY,
-
-            Accept:
-              "application/json"
-          }
-        }
-      );
-
-    if(!response.ok){
-
-      const text =
-        await response.text();
-
-      throw new Error(
-        "Supabase database error: " +
-        response.status +
-        " " +
-        text
-      );
-
-    }
-
-    const rows =
-      await response.json();
-
-    supabaseItems = [];
-
-    if(!Array.isArray(rows))
-      return;
-
-    rows.forEach(row => {
-
-      let files = row.files;
-
-      if(typeof files === "string"){
-
-        try{
-
-          files =
-            JSON.parse(files);
-
-        }catch{
-
-          files = [];
-
-        }
-
-      }
-
-      if(!Array.isArray(files))
-        files = [];
-
-      files.forEach(file => {
-
-        if(!file)
-          return;
-
-        const name =
-          file.name ||
-          file.filename ||
-          file.file_name ||
-          "Uploaded file";
-
-        let url =
-          file.url ||
-          file.public_url ||
-          file.publicUrl ||
-          "";
-
-        const path =
-          file.path ||
-          file.storage_path ||
-          file.storagePath ||
-          "";
-
-        const cat =
-          String(
-            file.category ||
-            categoryFromExtension(name) ||
-            ""
-          ).toLowerCase();
-
-        if(!cat)
-          return;
-
-        if(
-          category !== "all" &&
-          cat !== category
-        )
-          return;
-
-        /*
-         If the database does not contain
-         a complete public URL, build one
-         from the actual Artist Upload bucket.
-        */
-
-        if(!url && path){
-
-          url =
-            supabasePublicUrl(path);
-
-        }
-
-        if(!url)
-          return;
-
-        supabaseItems.push({
-
-          type:"file",
-
-          name:name,
-
-          path:path,
-
-          url:url,
-
-          category:cat,
-
-          artist:
-            row.artist_name ||
-            "Artist upload",
-
-          created_at:
-            row.created_at || "",
-
-          source:"artist"
-
-        });
-
-      });
-
-    });
-
-  }catch(error){
-
-    console.error(
-      "Supabase database:",
-      error
-    );
-
-    document.getElementById(
-      "locationText"
-    ).textContent =
-      "Supabase connection error — check the anon key and database permissions.";
-
-  }
-
-}
-
-
-/* =====================================================
-   LOAD SUPABASE STORAGE DIRECTLY
-   ===================================================== */
-
-async function loadSupabaseStorage(){
-
-  if(
-    !SUPABASE_ANON_KEY ||
-    SUPABASE_ANON_KEY ===
-    "PASTE_YOUR_NEW_SUPABASE_ANON_KEY_HERE"
-  )
-    return;
-
-  try{
-
-    /*
-     Ask Supabase Storage for objects
-     inside the actual Artist Upload bucket.
-    */
-
-    const endpoint =
-      SUPABASE_URL +
-      "/storage/v1/object/list/" +
-      encodeURIComponent(
-        STORAGE_BUCKET
-      );
-
-    const response =
-      await fetch(
-        endpoint,
-        {
-          method:"POST",
-
-          headers:{
-            apikey:
-              SUPABASE_ANON_KEY,
-
-            Authorization:
-              "Bearer " +
-              SUPABASE_ANON_KEY,
-
-            "Content-Type":
-              "application/json"
-          },
-
-          body:JSON.stringify({
-
-            prefix:
-              requestedFolder || "",
-
-            limit:1000,
-
-            offset:0,
-
-            sortBy:{
-              column:"created_at",
-              order:"desc"
-            }
-
-          })
-
-        }
-      );
-
-    if(!response.ok){
-
-      const text =
-        await response.text();
-
-      throw new Error(
-        "Storage error: " +
-        response.status +
-        " " +
-        text
-      );
-
-    }
-
-    const objects =
-      await response.json();
-
-    if(!Array.isArray(objects))
-      return;
-
-    objects.forEach(object => {
-
-      if(!object.name)
-        return;
-
-      /*
-       Storage listing can return folders.
-       We only add real files here.
-      */
-
-      const name =
-        object.name;
-
-      const cat =
-        categoryFromExtension(name);
-
-      if(!cat)
-        return;
-
-      if(
-        category !== "all" &&
-        cat !== category
-      )
-        return;
-
-      const folder =
-        requestedFolder
-          ? requestedFolder + "/"
-          : "";
-
-      const path =
-        folder + name;
-
-      const url =
-        supabasePublicUrl(path);
-
-      /*
-       Avoid duplicates when the same file
-       already came from artist_submissions.
-      */
-
-      const alreadyExists =
-        supabaseItems.some(item =>
-          item.url === url ||
-          (
-            item.path &&
-            item.path === path
-          )
-        );
-
-      if(alreadyExists)
-        return;
-
-      supabaseItems.push({
-
-        type:"file",
-
-        name:name,
-
-        path:path,
-
-        url:url,
-
-        category:cat,
-
-        artist:"Artist upload",
-
-        source:"artist"
-
-      });
-
-    });
-
-  }catch(error){
-
-    console.error(
-      "Supabase Storage:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   CURRENT GITHUB FOLDER
-   ===================================================== */
-
-function getImmediateGithubItems(){
-
-  const folder =
-    requestedFolder ||
-    categoryPaths[category] ||
-    "media";
-
-  const prefix =
-    folder + "/";
+  const rows = await response.json();
 
   const result = [];
 
-  const seen =
-    new Set();
+  for (const row of rows) {
 
-  githubItems.forEach(item => {
+    let files = row.files;
 
-    if(
-      !item.path.startsWith(prefix)
-    )
-      return;
-
-    const remaining =
-      item.path.slice(
-        prefix.length
-      );
-
-    if(!remaining)
-      return;
-
-    if(item.type === "folder"){
-
-      const first =
-        remaining.split("/")[0];
-
-      if(!seen.has(first)){
-
-        seen.add(first);
-
-        result.push({
-
-          type:"folder",
-
-          name:first,
-
-          path:
-            prefix + first,
-
-          source:"github"
-
-        });
-
+    if (typeof files === "string") {
+      try {
+        files = JSON.parse(files);
+      } catch {
+        files = [];
       }
-
-    }else{
-
-      if(!remaining.includes("/")){
-
-        result.push(item);
-
-      }
-
     }
 
-  });
+    if (!Array.isArray(files)) {
+      continue;
+    }
+
+    for (const file of files) {
+
+      if (!file) continue;
+
+      const name =
+        file.name ||
+        file.filename ||
+        file.file_name ||
+        "file";
+
+      const path =
+        file.path ||
+        file.storage_path ||
+        file.storagePath ||
+        "";
+
+      let url =
+        file.url ||
+        file.public_url ||
+        file.publicUrl ||
+        "";
+
+      if (!url && path) {
+        url = storageUrl(path);
+      }
+
+      if (!url) {
+        continue;
+      }
+
+      const category = getFileCategory(name);
+
+      if (category === "other") {
+        continue;
+      }
+
+      result.push({
+        source: "database",
+        name: name,
+        path: path,
+        url: url,
+        category: category,
+        artist:
+          row.artist_name ||
+          "Ning Wei Media"
+      });
+    }
+  }
 
   return result;
-
 }
 
 
-/* =====================================================
-   BUILD ITEMS
-   ===================================================== */
+/* =========================================================
+   GITHUB FILES
+   ========================================================= */
 
-function buildItems(){
+async function loadGithubItems() {
 
-  const current =
-    getImmediateGithubItems();
+  const api =
+    "https://api.github.com/repos/" +
+    GITHUB_OWNER +
+    "/" +
+    GITHUB_REPO +
+    "/git/trees/" +
+    GITHUB_BRANCH +
+    "?recursive=1";
 
-  /*
-   When inside a specific GitHub folder,
-   show that folder's GitHub contents.
+  const response = await fetch(api);
 
-   On category/front pages, show both
-   GitHub and Supabase media.
-  */
-
-  if(requestedFolder){
-
-    allItems = [
-      ...current,
-      ...supabaseItems
-    ];
-
-  }else{
-
-    allItems = [
-      ...current,
-      ...supabaseItems
-    ];
-
+  if (!response.ok) {
+    console.warn("GitHub tree could not be loaded.");
+    return [];
   }
 
-  renderItems();
+  const data = await response.json();
 
-}
-
-
-/* =====================================================
-   GITHUB URL
-   ===================================================== */
-
-function githubPagesUrl(path){
-
-  return SITE +
-    encodePath(path);
-
-}
-
-
-/* =====================================================
-   PLAYER
-   ===================================================== */
-
-function playerUrl(item){
-
-  if(item.source === "artist"){
-
-    return (
-      "media.html?url=" +
-      encodeURIComponent(item.url) +
-      "&name=" +
-      encodeURIComponent(item.name) +
-      "&mime=" +
-      encodeURIComponent(
-        item.mime || ""
-      )
-    );
-
+  if (!data.tree) {
+    return [];
   }
 
-  return (
-    "media.html?path=" +
-    encodeURIComponent(item.path) +
-    "&name=" +
-    encodeURIComponent(item.name)
-  );
+  const result = [];
 
-}
+  for (const item of data.tree) {
 
+    if (item.type !== "blob") {
+      continue;
+    }
 
-/* =====================================================
-   DOWNLOAD
-   ===================================================== */
+    const name =
+      item.path.split("/").pop();
 
-function downloadUrl(item){
+    const category =
+      getFileCategory(name);
 
-  if(item.source === "artist")
-    return item.url;
+    if (category === "other") {
+      continue;
+    }
 
-  return githubPagesUrl(
-    item.path
-  );
+    const rawUrl =
+      "https://raw.githubusercontent.com/" +
+      GITHUB_OWNER +
+      "/" +
+      GITHUB_REPO +
+      "/" +
+      GITHUB_BRANCH +
+      "/" +
+      item.path
+        .split("/")
+        .map(encodeURIComponent)
+        .join("/");
 
-}
-
-
-/* =====================================================
-   SHORT TITLE
-   ===================================================== */
-
-function shortTitle(name){
-
-  const noExt =
-    String(name)
-      .replace(
-        /\.[^/.]+$/,
-        ""
-      )
-      .replace(
-        /[_-]+/g,
-        " "
-      );
-
-  const words =
-    noExt
-      .trim()
-      .split(/\s+/);
-
-  return words
-    .slice(0,3)
-    .join(" ");
-
-}
-
-
-/* =====================================================
-   RENDER
-   ===================================================== */
-
-function renderItems(){
-
-  const container =
-    document.getElementById(
-      "items"
-    );
-
-  const status =
-    document.getElementById(
-      "status"
-    );
-
-  container.innerHTML = "";
-
-  let items =
-    [...allItems];
-
-  const query =
-    document.getElementById(
-      "searchInput"
-    )
-    .value
-    .trim()
-    .toLowerCase();
-
-  if(query){
-
-    items =
-      items.filter(item => {
-
-        const text = [
-
-          item.name,
-
-          item.path,
-
-          item.artist,
-
-          item.category
-
-        ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-        return text.includes(query);
-
-      });
-
+    result.push({
+      source: "github",
+      name: name,
+      path: item.path,
+      url: rawUrl,
+      category: category,
+      artist: "Ning Wei Media"
+    });
   }
 
+  return result;
+}
 
-  /*
-   Remove duplicate media.
-  */
 
-  const unique = [];
+/* =========================================================
+   REMOVE DUPLICATES
+   ========================================================= */
 
-  const seen = new Set();
+function uniqueItems(items) {
 
-  items.forEach(item => {
+  const map = new Map();
+
+  for (const item of items) {
 
     const key =
-      item.source === "artist"
-        ? (
-            item.url ||
-            item.path ||
-            item.name
-          )
-        : (
-            item.path ||
-            item.name
-          );
+      (item.url || "") +
+      "|" +
+      (item.path || "");
 
-    if(seen.has(key))
-      return;
+    if (!map.has(key)) {
+      map.set(key, item);
+    }
+  }
 
-    seen.add(key);
-
-    unique.push(item);
-
-  });
-
-  items = unique;
+  return Array.from(map.values());
+}
 
 
-  /*
-   Folders first.
-  */
+/* =========================================================
+   LOAD EVERYTHING
+   ========================================================= */
 
-  items.sort((a,b) => {
+async function loadEverything() {
 
-    if(
-      a.type === "folder" &&
-      b.type !== "folder"
-    )
-      return -1;
+  showStatus("Scanning media...");
 
-    if(
-      a.type !== "folder" &&
-      b.type === "folder"
-    )
-      return 1;
+  if (
+    SUPABASE_ANON_KEY ===
+    "PASTE_YOUR_NEW_SUPABASE_ANON_KEY_HERE"
+  ) {
 
-    return String(a.name)
-      .localeCompare(
-        String(b.name)
-      );
-
-  });
-
-
-  if(!items.length){
-
-    container.className =
-      "items";
-
-    container.innerHTML =
-      '<div class="empty">' +
-      'No media found.' +
-      '</div>';
-
-    status.style.display =
-      "none";
+    showError(
+      "Your Supabase anon/public key has not been added yet."
+    );
 
     return;
-
   }
 
+  const results = await Promise.allSettled([
+    scanStorageRecursively(),
+    loadDatabaseItems(),
+    loadGithubItems()
+  ]);
 
-  status.style.display =
-    "none";
+  let storageItems = [];
+  let databaseItems = [];
+  let githubItems = [];
 
-
-  const isVisual =
-    category === "photos" ||
-    category === "videos";
-
-
-  if(isVisual){
-
-    container.className =
-      "media-grid";
-
-  }else{
-
-    container.className =
-      "items";
-
+  if (results[0].status === "fulfilled") {
+    storageItems = results[0].value;
   }
 
+  if (results[1].status === "fulfilled") {
+    databaseItems = results[1].value;
+  }
 
-  items.forEach(
-    (item,index) => {
+  if (results[2].status === "fulfilled") {
+    githubItems = results[2].value;
+  }
 
-      const number =
-        index + 1;
+  allItems = uniqueItems([
+    ...storageItems,
+    ...databaseItems,
+    ...githubItems
+  ]);
 
+  console.log("Storage:", storageItems);
+  console.log("Database:", databaseItems);
+  console.log("GitHub:", githubItems);
+  console.log("Total:", allItems.length);
 
-      /*
-       PHOTO / VIDEO
-      */
-
-      if(
-        isVisual &&
-        item.type === "file"
-      ){
-
-        const card =
-          document.createElement("a");
-
-        card.className =
-          "media-card";
-
-        card.href =
-          playerUrl(item);
-
-        const mediaUrl =
-          item.source === "artist"
-            ? item.url
-            : githubPagesUrl(
-                item.path
-              );
-
-        let thumb = "";
-
-
-        if(category === "photos"){
-
-          thumb =
-            '<img ' +
-            'class="media-thumb" ' +
-            'src="' +
-            escapeHtml(mediaUrl) +
-            '" ' +
-            'alt="' +
-            escapeHtml(item.name) +
-            '" ' +
-            'loading="lazy">';
-
-        }else{
-
-          thumb =
-            '<video ' +
-            'class="media-thumb" ' +
-            'muted ' +
-            'preload="metadata" ' +
-            'playsinline ' +
-            'src="' +
-            escapeHtml(mediaUrl) +
-            '"></video>';
-
-        }
-
-
-        card.innerHTML =
-          thumb +
-          '<div class="media-title">' +
-          escapeHtml(
-            shortTitle(item.name)
-          ) +
-          '</div>';
-
-        container.appendChild(
-          card
-        );
-
-        return;
-
-      }
-
-
-      /*
-       NORMAL LIST
-      */
-
-      const row =
-        document.createElement(
-          "div"
-        );
-
-      row.className =
-        "item";
-
-
-      /*
-       FOLDER
-      */
-
-      if(item.type === "folder"){
-
-        const href =
-          "library.html?category=" +
-          encodeURIComponent(category) +
-          "&folder=" +
-          encodeURIComponent(item.path);
-
-        row.innerHTML =
-
-          '<div class="number">' +
-          number +
-          '</div>' +
-
-          '<div class="item-main">' +
-
-          '<div class="item-name">' +
-          '📁 ' +
-          escapeHtml(item.name) +
-          '</div>' +
-
-          '<div class="item-meta">' +
-          'Folder' +
-          '</div>' +
-
-          '</div>' +
-
-          '<div class="item-actions">' +
-
-          '<a ' +
-          'class="action folder-btn" ' +
-          'href="' +
-          href +
-          '">' +
-          'Open' +
-          '</a>' +
-
-          '</div>';
-
-      }
-
-
-      /*
-       FILE
-      */
-
-      else{
-
-        const open =
-          playerUrl(item);
-
-        const download =
-          downloadUrl(item);
-
-        const artist =
-          item.artist
-            ? '<span class="artist"> • ' +
-              escapeHtml(item.artist) +
-              '</span>'
-            : "";
-
-        row.innerHTML =
-
-          '<div class="number">' +
-          number +
-          '</div>' +
-
-          '<div class="item-main">' +
-
-          '<div class="item-name">' +
-          escapeHtml(item.name) +
-          artist +
-          '</div>' +
-
-          '<div class="item-meta">' +
-          escapeHtml(
-            extension(item.name)
-              .toUpperCase()
-          ) +
-          '</div>' +
-
-          '</div>' +
-
-          '<div class="item-actions">' +
-
-          '<a ' +
-          'class="action open-btn" ' +
-          'href="' +
-          open +
-          '">' +
-          'Open' +
-          '</a>' +
-
-          '<a ' +
-          'class="action download-btn" ' +
-          href="' +
-          download +
-          '" ' +
-          'download>' +
-          'Download' +
-          '</a>' +
-
-          '</div>';
-
-      }
-
-      container.appendChild(row);
-
-    }
+  showStatus(
+    allItems.length +
+    " media files found."
   );
 
+  render();
 }
 
 
-/* =====================================================
-   SEARCH
-   ===================================================== */
+/* =========================================================
+   RENDER
+   ========================================================= */
 
-function performSearch(){
+function render() {
 
-  renderItems();
+  const content =
+    document.getElementById("content");
 
+  content.innerHTML = "";
+
+  const error =
+    document.createElement("div");
+
+  error.id = "error";
+  content.appendChild(error);
+
+  let items = allItems;
+
+  if (currentCategory !== "all") {
+    items = items.filter(
+      item => item.category === currentCategory
+    );
+  }
+
+  if (currentFolder) {
+
+    items = items.filter(item => {
+
+      const path =
+        item.path || "";
+
+      return (
+        path === currentFolder ||
+        path.startsWith(currentFolder + "/")
+      );
+    });
+  }
+
+  if (items.length === 0) {
+
+    const empty =
+      document.createElement("div");
+
+    empty.className = "empty";
+
+    empty.innerHTML =
+      "No media found in this section.";
+
+    content.appendChild(empty);
+
+    return;
+  }
+
+  /*
+    When viewing All, show files directly.
+  */
+  if (!currentFolder) {
+
+    const title =
+      document.createElement("div");
+
+    title.className =
+      "section-title";
+
+    title.textContent =
+      currentCategory === "all"
+        ? "All Media"
+        : currentCategory.charAt(0).toUpperCase() +
+          currentCategory.slice(1);
+
+    content.appendChild(title);
+  }
+
+  const grid =
+    document.createElement("div");
+
+  grid.className = "grid";
+
+  /*
+    If inside a folder, show the files.
+  */
+  for (const item of items) {
+
+    grid.appendChild(
+      createMediaCard(item)
+    );
+  }
+
+  content.appendChild(grid);
 }
 
+
+/* =========================================================
+   MEDIA CARD
+   ========================================================= */
+
+function createMediaCard(item) {
+
+  const card =
+    document.createElement("div");
+
+  card.className = "card";
+
+  const body =
+    document.createElement("div");
+
+  body.className = "card-body";
+
+  const category =
+    item.category;
+
+  const safeName =
+    escapeHtml(item.name);
+
+  const safeArtist =
+    escapeHtml(item.artist || "");
+
+  let mediaHtml = "";
+
+  if (category === "photos") {
+
+    mediaHtml =
+      '<img class="thumb" ' +
+      'src="' + escapeHtml(item.url) + '" ' +
+      'alt="' + safeName + '" ' +
+      'loading="lazy" ' +
+      'onerror="this.style.display=\'none\'">';
+
+  } else if (category === "videos") {
+
+    mediaHtml =
+      '<video class="video-thumb" controls preload="metadata">' +
+      '<source src="' +
+      escapeHtml(item.url) +
+      '">' +
+      'Your browser cannot play this video.' +
+      '</video>';
+
+  } else if (category === "songs") {
+
+    mediaHtml =
+      '<div style="font-size:48px;text-align:center;padding:18px;">🎵</div>' +
+      '<audio controls preload="metadata">' +
+      '<source src="' +
+      escapeHtml(item.url) +
+      '">' +
+      'Your browser cannot play this audio.' +
+      '</audio>';
+
+  } else if (category === "apps") {
+
+    mediaHtml =
+      '<div style="font-size:55px;text-align:center;padding:25px;">📱</div>';
+
+  } else if (category === "software") {
+
+    mediaHtml =
+      '<div style="font-size:55px;text-align:center;padding:25px;">💻</div>';
+
+  }
+
+  card.innerHTML =
+    mediaHtml +
+    '<div class="card-body">' +
+
+      '<div class="file-name">' +
+        safeName +
+      '</div>' +
+
+      '<div class="artist">' +
+        safeArtist +
+      '</div>' +
+
+      '<div class="actions">' +
+
+        '<a class="action" ' +
+        'href="' +
+        escapeHtml(item.url) +
+        '" ' +
+        'target="_blank" ' +
+        'rel="noopener">' +
+        'Open' +
+        '</a>' +
+
+        '<a class="action secondary" ' +
+        'href="' +
+        escapeHtml(item.url) +
+        '" ' +
+        'download>' +
+        'Download' +
+        '</a>' +
+
+      '</div>' +
+
+    '</div>';
+
+  return card;
+}
+
+
+/* =========================================================
+   STATUS / ERROR
+   ========================================================= */
+
+function showStatus(message) {
+
+  document.getElementById("status")
+    .textContent = message;
+}
+
+function showError(message) {
+
+  const error =
+    document.getElementById("error");
+
+  if (!error) return;
+
+  error.style.display = "block";
+  error.textContent = message;
+
+  showStatus("There was a problem loading media.");
+}
+
+
+/* =========================================================
+   CATEGORY BUTTONS
+   ========================================================= */
 
 document
-  .getElementById("searchInput")
-  .addEventListener(
-    "input",
-    renderItems
-  );
+  .querySelectorAll("nav button")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      currentCategory =
+        button.dataset.category;
+
+      currentFolder = "";
+
+      document
+        .querySelectorAll("nav button")
+        .forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+      button.classList.add("active");
+
+      render();
+    });
+  });
 
 
-/* =====================================================
+/* =========================================================
    START
-   ===================================================== */
+   ========================================================= */
 
-updateOwnerUploadLink();
+document
+  .querySelector('nav button[data-category="all"]')
+  .classList.add("active");
 
-document.getElementById(
-  "status"
-).textContent =
-  "Loading media...";
-
-
-Promise.all([
-
-  loadGithub(),
-
-  loadSupabaseDatabase(),
-
-  loadSupabaseStorage()
-
-])
-.then(() => {
-
-  buildItems();
-
-  const count =
-    allItems.length;
-
-  if(count > 0){
-
-    document.getElementById(
-      "locationText"
-    ).textContent =
-      "Media found: " + count;
-
-  }
-
-})
-.catch(error => {
-
-  console.error(error);
-
-  document.getElementById(
-    "status"
-  ).textContent =
-    "Unable to load media.";
-
-});
+loadEverything();
 
 </script>
 
