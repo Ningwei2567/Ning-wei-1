@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Upload - Ning Wei Media</title>
+<title>Ning Wei Media - Artist Upload</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
 box-sizing:border-box;
 }
@@ -17,152 +18,192 @@ body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#f5f5f7;
-color:#111;
+color:#222;
 }
 
-.page{
-max-width:420px;
+.container{
+max-width:430px;
 margin:auto;
-padding-bottom:30px;
+padding:15px;
 }
-
-/* HEADER */
 
 .header{
+
 height:125px;
 overflow:hidden;
 position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-background:#000;
-color:white;
+border-radius:0 0 20px 20px;
+
 }
 
 .header img{
-position:absolute;
+
 width:100%;
 height:125px;
 object-fit:cover;
-object-position:center 35%;
-}
 
-.header div{
-position:relative;
-z-index:2;
-text-shadow:0 2px 5px #000;
 }
 
 .header h1{
-margin:0;
-font-size:28px;
-}
 
-/* FORM */
+position:absolute;
+top:35px;
+width:100%;
+text-align:center;
+color:white;
+font-size:25px;
+text-shadow:0 2px 5px black;
+
+}
 
 .card{
+
 background:white;
-margin:15px;
-padding:18px;
-border-radius:15px;
+border-radius:18px;
+padding:20px;
+margin-top:15px;
+box-shadow:0 3px 15px #ddd;
+
 }
 
-input,textarea{
-width:100%;
-padding:12px;
-margin:8px 0;
-border-radius:10px;
-border:1px solid #ddd;
-font-size:15px;
+h2{
+
+text-align:center;
+color:#128c9e;
+
 }
+
 
 label{
-font-weight:bold;
+
 display:block;
-margin-top:12px;
+font-weight:bold;
+margin-top:15px;
+
 }
 
-button{
+
+input,textarea{
+
 width:100%;
-padding:14px;
+padding:12px;
+margin-top:7px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+
+}
+
+
+button{
+
+width:100%;
+padding:15px;
+margin-top:20px;
 border:0;
 border-radius:12px;
 background:#128c9e;
 color:white;
-font-size:17px;
+font-size:18px;
 font-weight:bold;
-margin-top:15px;
+
 }
 
+
 #status{
-margin:15px;
+
+margin-top:15px;
 padding:12px;
 border-radius:10px;
-background:#e8f8ec;
+background:#e8ffe8;
 display:none;
+
 }
+
+
 </style>
 
 </head>
 
 <body>
 
-<div class="page">
+
+<div class="container">
 
 
-<header class="header">
+<div class="header">
 
-<img src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png">
+<img src="ning-wei.png">
 
-<div>
-<h1>Ning Wei Media</h1>
-<p>Artists Upload Music • Videos • Photos</p>
+<h1>
+Ning Wei Media
+</h1>
+
 </div>
-
-</header>
-
 
 
 <div class="card">
 
-<h2>Artist Upload</h2>
+
+<h2>
+Upload Music
+</h2>
 
 
-<label>Artist Name</label>
-<input id="artistName" placeholder="Enter artist name">
+<label>
+Artist Name
+</label>
+
+<input id="artistName"
+placeholder="Enter artist name">
 
 
-<label>Artist Photo</label>
-<input id="artistPhoto" type="file" accept="image/*">
+<label>
+Artist Email
+</label>
+
+<input id="artistEmail"
+placeholder="Email">
 
 
-<label>Song Title</label>
-<input id="songTitle" placeholder="Song title">
+<label>
+Artist Photo
+</label>
+
+<input id="artistPhoto"
+type="file"
+accept="image/*">
 
 
-<label>Song File</label>
-<input id="songFile" type="file" accept="audio/*">
+<label>
+Song Title
+</label>
+
+<input id="songTitle"
+placeholder="Song title">
 
 
-<label>Song Cover</label>
-<input id="songCover" type="file" accept="image/*">
+<label>
+Song File
+</label>
+
+<input id="songFile"
+type="file"
+accept="audio/*">
 
 
-<label>Video (optional)</label>
-<input id="videoFile" type="file" accept="video/*">
+<label>
+Song Cover
+</label>
 
+<input id="songCover"
+type="file"
+accept="image/*">
+<!-- PART 2/3 -->
 
-<label>Lyrics (optional)</label>
-<textarea id="lyrics" placeholder="Paste lyrics"></textarea>
-
-
-<button onclick="uploadMedia()">
+<button onclick="uploadEverything()">
 📤 Upload Everything
 </button>
-
-
-</div>
 
 
 <div id="status"></div>
@@ -170,11 +211,13 @@ display:none;
 
 </div>
 
+</div>
+
 
 <script>
 
 
-const SUPABASE_URL =
+const SUPABASE_URL = 
 "https://btksyizkcpzubtextuce.supabase.co";
 
 
@@ -190,32 +233,35 @@ SUPABASE_KEY
 
 
 
-async function uploadFile(file,bucket){
+async function uploadFile(bucket,file){
 
-if(!file) return "";
+if(!file) return null;
 
 
-let filename =
+const fileName =
 Date.now()+"-"+file.name;
 
 
-let {error}=await supabaseClient
+const {data,error}=await supabaseClient
 .storage
 .from(bucket)
-.upload(filename,file);
+.upload(fileName,file);
 
 
 if(error){
-throw error;
+
+console.log(error);
+return null;
+
 }
 
 
-let url =
+const url =
 SUPABASE_URL+
 "/storage/v1/object/public/"+
 bucket+
 "/"+
-filename;
+fileName;
 
 
 return url;
@@ -224,99 +270,203 @@ return url;
 
 
 
-async function uploadMedia(){
+async function uploadEverything(){
 
 
-try{
+const status =
+document.getElementById("status");
 
 
-let artistName =
+status.style.display="block";
+status.innerHTML="Uploading...";
+
+
+
+const artistName =
 document.getElementById("artistName").value;
 
 
-let songTitle =
+const artistEmail =
+document.getElementById("artistEmail").value;
+
+
+const artistPhoto =
+document.getElementById("artistPhoto")
+.files[0];
+
+
+const songTitle =
 document.getElementById("songTitle").value;
 
 
-let artistPhoto =
+const songFile =
+document.getElementById("songFile")
+.files[0];
+
+
+const songCover =
+document.getElementById("songCover")
+.files[0];
+
+
+
+if(!artistName || !songTitle){
+
+status.innerHTML=
+"Please enter artist name and song title";
+
+return;
+
+}
+
+
+
+const artistPhotoURL =
 await uploadFile(
-document.getElementById("artistPhoto").files[0],
-"artist-photos"
+"artist-photos",
+artistPhoto
 );
 
 
 
-let songFile =
+const songURL =
 await uploadFile(
-document.getElementById("songFile").files[0],
-"songs"
+"songs",
+songFile
 );
 
 
 
-let cover =
+const coverURL =
 await uploadFile(
-document.getElementById("songCover").files[0],
-"covers"
+"covers",
+songCover
 );
+  <!-- PART 3/3 -->
 
 
+// Create or find artist
 
-let video =
-await uploadFile(
-document.getElementById("videoFile").files[0],
-"videos"
-);
-
-
-
-let {data:artist}=await supabaseClient
+let {data:existingArtist} =
+await supabaseClient
 .from("artists")
-.insert({
-
-name:artistName,
-photo:artistPhoto
-
-})
-.select()
+.select("*")
+.eq("email",artistEmail)
 .single();
 
 
 
+let artistId;
+
+
+
+if(existingArtist){
+
+
+artistId = existingArtist.id;
+
+
+
 await supabaseClient
-.from("songs")
+.from("artists")
+.update({
+
+name:artistName,
+
+photo:artistPhotoURL
+
+})
+
+.eq("id",artistId);
+
+
+
+}else{
+
+
+const {data:newArtist,error:artistError}=
+
+await supabaseClient
+
+.from("artists")
+
 .insert({
 
-artist_id:artist.id,
+name:artistName,
+
+email:artistEmail,
+
+photo:artistPhotoURL
+
+})
+
+.select()
+
+.single();
+
+
+
+if(artistError){
+
+status.innerHTML=
+"Artist save failed";
+
+console.log(artistError);
+
+return;
+
+}
+
+
+artistId=newArtist.id;
+
+
+}
+
+
+
+// Save song metadata
+
+
+const {error:songError}=
+
+await supabaseClient
+
+.from("songs")
+
+.insert({
+
+artist_id:artistId,
 
 title:songTitle,
 
-song_url:songFile,
+song_url:songURL,
 
-cover_url:cover,
-
-video_url:video,
-
-lyrics:
-document.getElementById("lyrics").value
+cover_url:coverURL
 
 });
 
 
 
-let status=document.getElementById("status");
+if(songError){
 
-status.style.display="block";
 
 status.innerHTML=
-"✅ Upload successful! Your music is now live.";
+"Song upload failed";
 
+console.log(songError);
 
-}catch(error){
+return;
 
-alert(error.message);
 
 }
+
+
+
+status.innerHTML=
+
+"✅ Upload successful! Your song, cover and artist profile are live on Ning Wei Media.";
+
 
 
 }
@@ -326,4 +476,5 @@ alert(error.message);
 
 
 </body>
+
 </html>
