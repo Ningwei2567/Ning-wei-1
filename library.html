@@ -27,9 +27,7 @@ max-width:600px;
 margin:auto;
 }
 
-
 .header{
-
 height:125px;
 position:relative;
 overflow:hidden;
@@ -38,76 +36,63 @@ align-items:center;
 justify-content:center;
 color:white;
 text-align:center;
-
 }
 
 .header img{
-
 position:absolute;
 width:100%;
 height:125px;
 object-fit:cover;
-
 }
 
-
 .header div{
-
 position:relative;
 z-index:2;
 text-shadow:0 2px 5px #000;
-
 }
 
-
 .song-card{
-
 background:white;
 margin:15px;
 border-radius:15px;
 overflow:hidden;
 box-shadow:0 3px 10px #ddd;
-
 }
 
-
 .cover{
-
 width:100%;
 height:260px;
 object-fit:cover;
-
 }
-
 
 .info{
-
 padding:15px;
-
 }
 
-
 .artist{
-
 display:flex;
 align-items:center;
 gap:12px;
-
 }
 
-
 .artist img{
-
 width:60px;
 height:60px;
 border-radius:50%;
 object-fit:cover;
-
 }
 
+.title{
+margin:15px 0 8px;
+}
+
+.date{
+font-size:13px;
+color:#777;
+margin:0 0 15px;
+}
 
 .play{
-
 display:inline-block;
 background:#128c9e;
 color:white;
@@ -115,12 +100,10 @@ padding:12px 18px;
 border-radius:10px;
 text-decoration:none;
 font-weight:bold;
-
+margin-right:6px;
 }
 
-
 .download{
-
 display:inline-block;
 background:#000;
 color:white;
@@ -128,9 +111,24 @@ padding:12px 18px;
 border-radius:10px;
 text-decoration:none;
 font-weight:bold;
-
 }
 
+.empty{
+background:white;
+margin:15px;
+padding:25px;
+border-radius:15px;
+text-align:center;
+color:#777;
+}
+
+.error{
+background:#fff0f0;
+color:#b00000;
+margin:15px;
+padding:15px;
+border-radius:12px;
+}
 
 </style>
 
@@ -145,7 +143,7 @@ font-weight:bold;
 
 <header class="header">
 
-<img src="ning-wei.png">
+<img src="ning-wei.png" alt="Ning Wei">
 
 <div>
 
@@ -158,9 +156,7 @@ font-weight:bold;
 </header>
 
 
-
 <div id="library"></div>
-
 
 
 </div>
@@ -175,7 +171,7 @@ const SUPABASE_URL =
 
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYnRrc3l6aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 
 const db =
@@ -186,7 +182,41 @@ SUPABASE_KEY
 
 
 
+function formatUploadDate(dateValue){
+
+if(!dateValue){
+return "Upload date unavailable";
+}
+
+const date = new Date(dateValue);
+
+if(isNaN(date.getTime())){
+return "Upload date unavailable";
+}
+
+return date.toLocaleDateString(
+"en-GB",
+{
+day:"2-digit",
+month:"long",
+year:"numeric"
+}
+);
+
+}
+
+
+
 async function loadLibrary(){
+
+
+const library =
+document.getElementById("library");
+
+
+library.innerHTML =
+'<div class="empty">Loading music...</div>';
+
 
 
 let {data,error}=await db
@@ -199,6 +229,7 @@ id,
 title,
 song_url,
 cover_url,
+created_at,
 
 artists(
 name,
@@ -208,13 +239,45 @@ photo
 
 `)
 
-.order("id",{ascending:false});
+.order("created_at",{ascending:false});
 
 
 
 if(error){
 
-console.log(error);
+console.error(error);
+
+library.innerHTML = `
+
+<div class="error">
+
+Unable to load the music library.
+
+<br><br>
+
+${error.message}
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+
+if(!data || data.length === 0){
+
+library.innerHTML = `
+
+<div class="empty">
+
+No uploaded music found.
+
+</div>
+
+`;
 
 return;
 
@@ -229,13 +292,42 @@ let html="";
 data.forEach(song=>{
 
 
+const artist =
+song.artists || {};
+
+
+const artistName =
+artist.name || "Unknown Artist";
+
+
+const artistPhoto =
+artist.photo || "default-user.png";
+
+
+const cover =
+song.cover_url || "default-cover.jpg";
+
+
+const title =
+song.title || "Untitled";
+
+
+const uploadDate =
+formatUploadDate(song.created_at);
+
+
+
 html += `
 
 <div class="song-card">
 
 
-<img class="cover"
-src="${song.cover_url || 'default-cover.jpg'}">
+<img
+class="cover"
+src="${cover}"
+alt="${title}"
+onerror="this.src='default-cover.jpg'"
+>
 
 
 <div class="info">
@@ -244,46 +336,54 @@ src="${song.cover_url || 'default-cover.jpg'}">
 <div class="artist">
 
 
-<img src="${song.artists.photo || 'default-user.png'}">
+<img
+src="${artistPhoto}"
+alt="${artistName}"
+onerror="this.src='default-user.png'"
+>
 
 
-<h3>${song.artists.name}</h3>
+<h3>${artistName}</h3>
 
 
 </div>
 
 
-<h2>${song.title}</h2>
+<h2 class="title">
+${title}
+</h2>
 
 
+<p class="date">
+📅 Uploaded: ${uploadDate}
+</p>
 
-<a class="play"
 
-href="media.html?id=${song.id}">
+<a
+class="play"
+href="media.html?id=${encodeURIComponent(song.id)}"
+>
 
 ▶ Play
 
 </a>
 
 
-
-<a class="download"
-
-href="${song.song_url}"
-
-download>
+<a
+class="download"
+href="${song.song_url || '#'}"
+${song.song_url ? 'download' : ''}
+>
 
 ⬇ Download
 
 </a>
 
 
-
 </div>
 
 
 </div>
-
 
 `;
 
@@ -293,7 +393,7 @@ download>
 
 
 
-document.getElementById("library").innerHTML=html;
+library.innerHTML=html;
 
 
 }
