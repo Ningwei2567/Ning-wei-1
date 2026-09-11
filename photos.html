@@ -1,14 +1,274 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0;url=library.html?category=photos">
-<title>Photos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ning Wei Media - Photos</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f2f7fa;
+        color: #111;
+    }
+
+    header {
+        background: #111;
+        color: white;
+        text-align: center;
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+    }
+
+    header p {
+        margin: 0;
+        font-size: 16px;
+        color: #ddd;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .photo-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    }
+
+    .photo-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .photo-card img:hover {
+        transform: scale(1.03);
+    }
+
+    .photo-name {
+        padding: 10px;
+        font-size: 13px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .error {
+        padding: 30px;
+        text-align: center;
+        color: #c00;
+        background: white;
+        border-radius: 12px;
+    }
+
+    /* Full-screen photo viewer */
+    .viewer {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.95);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .viewer img {
+        max-width: 95%;
+        max-height: 90%;
+        object-fit: contain;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 800px) {
+        .photo-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .photo-card img {
+            height: 180px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .photo-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .photo-card img {
+            height: 150px;
+        }
+    }
+</style>
 </head>
+
 <body>
+
+<header>
+    <h1>Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
+</header>
+
+<div class="container">
+
+    <h2 class="title">📷 Photos</h2>
+
+    <div class="photo-grid" id="photoGrid"></div>
+
+</div>
+
+<!-- Full-screen viewer -->
+<div class="viewer" id="viewer">
+    <span class="close" onclick="closeViewer()">×</span>
+    <img id="viewerImage" src="" alt="Photo">
+</div>
+
 <script>
-location.replace("library.html?category=photos");
+
+/*
+=================================================
+YOUR PHOTO FILES
+=================================================
+
+IMPORTANT:
+Your images must actually be inside:
+
+media/photos/
+
+Example:
+
+media/photos/IMG-20260830-WA0002.jpg
+media/photos/IMG-20260903-WA0003.jpg
+*/
+
+const photos = [
+
+    "IMG-20260830-WA0002.jpg",
+    "IMG-20260903-WA0003.jpg",
+    "IMG-20260903-WA0006.jpg",
+    "IMG-20260903-WA0007.jpg",
+    "IMG-20260903-WA0008.jpg",
+    "IMG-20260903-WA0009.jpg",
+    "IMG-20260903-WA0010.jpg",
+    "IMG-20260903-WA0012.jpg",
+    "IMG-20260903-WA0013.jpg",
+    "IMG-20260903-WA0014.jpg",
+    "IMG-20260903-WA0015.jpg",
+    "IMG-20260903-WA0016.jpg",
+    "IMG-20260903-WA0018.jpg"
+
+];
+
+const photoGrid = document.getElementById("photoGrid");
+
+photos.forEach(function(file) {
+
+    const card = document.createElement("div");
+    card.className = "photo-card";
+
+    const img = document.createElement("img");
+
+    /*
+    THIS IS THE IMPORTANT PART.
+    The website looks inside media/photos/
+    */
+
+    img.src = "media/photos/" + file;
+
+    img.alt = file;
+
+    img.onclick = function() {
+        openViewer(img.src);
+    };
+
+    img.onerror = function() {
+        card.innerHTML =
+            '<div class="error">❌ Photo not found<br><small>' +
+            file +
+            '</small></div>';
+    };
+
+    card.appendChild(img);
+
+    const name = document.createElement("div");
+    name.className = "photo-name";
+    name.textContent = file;
+
+    card.appendChild(name);
+
+    photoGrid.appendChild(card);
+
+});
+
+
+function openViewer(src) {
+
+    document.getElementById("viewerImage").src = src;
+
+    document.getElementById("viewer").style.display = "flex";
+
+}
+
+
+function closeViewer() {
+
+    document.getElementById("viewer").style.display = "none";
+
+    document.getElementById("viewerImage").src = "";
+
+}
+
+
+document.getElementById("viewer").onclick = function(event) {
+
+    if (event.target === this) {
+        closeViewer();
+    }
+
+};
+
 </script>
+
 </body>
 </html>
