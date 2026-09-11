@@ -14,110 +14,482 @@
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
-font-family:Arial,sans-serif;
+font-family:Arial,Helvetica,sans-serif;
 background:#f5f5f7;
+color:#111;
+}
+
+a{
+-webkit-tap-highlight-color:transparent;
+font-family:inherit;
 }
 
 .container{
-max-width:420px;
+width:100%;
+max-width:600px;
 margin:auto;
 min-height:100vh;
-padding-bottom:30px;
+padding-bottom:25px;
 }
 
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .header{
 
 height:150px;
+
 position:relative;
 overflow:hidden;
+
 display:flex;
 align-items:center;
 justify-content:center;
+
 text-align:center;
+
 color:white;
 background:#000;
 
 }
 
-
 .header img{
 
 position:absolute;
+
+left:0;
+top:0;
+
 width:100%;
 height:150px;
+
 object-fit:cover;
 object-position:center 35%;
 
 }
 
-
 .header-content{
 
 position:relative;
 z-index:2;
-text-shadow:0 2px 5px black;
+
+padding:8px 15px;
+
+text-shadow:
+0 2px 5px rgba(0,0,0,.9),
+0 1px 2px rgba(0,0,0,.9);
 
 }
-
 
 .header h1{
 
 margin:0;
+
 font-size:30px;
+font-weight:800;
+
+}
+
+.header p{
+
+margin:8px 0 0;
+
+font-size:15px;
 
 }
 
 
-.card{
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
 
-background:white;
-margin:15px;
-padding:18px;
-border-radius:16px;
-box-shadow:0 3px 10px #ddd;
+.section{
+
+padding:14px 18px 4px;
+
+}
+
+.section h2{
+
+margin:0 0 10px;
+
+font-size:24px;
+font-weight:800;
 
 }
 
 
-.card a{
+/* =========================================================
+   EXPLORE
+   ========================================================= */
 
-display:block;
-padding:14px;
-margin-top:10px;
+.explore-list{
+
+display:flex;
+
+flex-direction:column;
+
+gap:8px;
+
+padding:0 18px;
+
+}
+
+.explore-row{
+
+display:flex;
+
+align-items:center;
+
+min-height:60px;
+
+padding:8px 12px;
+
+background:#fff;
+
+border:1px solid #ddd;
+
 border-radius:12px;
+
 text-decoration:none;
-font-weight:bold;
-text-align:center;
+
+color:#111;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.06);
 
 }
 
+.number{
 
-.music{
+width:42px;
+height:42px;
 
-background:#128c9e;
-color:white;
+min-width:42px;
 
-}
+border-radius:50%;
 
+display:flex;
 
-.upload{
+align-items:center;
+justify-content:center;
 
 background:#000;
-color:white;
+color:#fff;
+
+font-size:17px;
+font-weight:800;
+
+margin-right:12px;
+
+}
+
+.category-name{
+
+font-size:17px;
+font-weight:700;
 
 }
 
 
-.media{
+/* =========================================================
+   TRENDING APPS
+   ========================================================= */
 
-background:#e91e63;
-color:white;
+.trending{
+
+padding:20px 18px 5px;
 
 }
 
+.trending h2{
+
+margin:0 0 10px;
+
+font-size:24px;
+font-weight:800;
+
+}
+
+
+/*
+   Small compact grid so ten apps fit naturally
+   without making the homepage unnecessarily long.
+*/
+
+.apps{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,minmax(0,1fr));
+
+gap:8px;
+
+}
+
+.app{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+min-height:86px;
+
+padding:8px 3px;
+
+background:#fff;
+
+border-radius:11px;
+
+text-decoration:none;
+
+color:#111;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.07);
+
+}
+
+.app-logo{
+
+width:43px;
+height:43px;
+
+object-fit:contain;
+
+display:block;
+
+margin-bottom:6px;
+
+}
+
+.app-name{
+
+font-size:9px;
+
+font-weight:700;
+
+text-align:center;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+width:100%;
+
+}
+
+
+/* =========================================================
+   FOLLOW US
+   ========================================================= */
+
+.social{
+
+padding:20px 18px 10px;
+
+}
+
+.social h2{
+
+margin:0 0 12px;
+
+font-size:24px;
+
+}
+
+.social-list{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.social a{
+
+width:42px;
+height:42px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+background:#000;
+
+overflow:hidden;
+
+}
+
+.social img{
+
+width:25px;
+height:25px;
+
+object-fit:contain;
+
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+
+padding:20px 15px;
+
+text-align:center;
+
+font-size:12px;
+
+color:#777;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:420px){
+
+.header{
+
+height:150px;
+
+}
+
+.header img{
+
+height:150px;
+
+}
+
+.header h1{
+
+font-size:27px;
+
+}
+
+.header p{
+
+font-size:13px;
+
+}
+
+.section h2,
+.trending h2,
+.social h2{
+
+font-size:22px;
+
+}
+
+.explore-list{
+
+padding:0 18px;
+
+}
+
+.explore-row{
+
+min-height:56px;
+
+}
+
+.number{
+
+width:38px;
+height:38px;
+
+min-width:38px;
+
+font-size:15px;
+
+}
+
+.category-name{
+
+font-size:16px;
+
+}
+
+
+/* Five small apps across the screen */
+
+.apps{
+
+grid-template-columns:
+repeat(5,minmax(0,1fr));
+
+gap:6px;
+
+}
+
+.app{
+
+min-height:80px;
+
+padding:7px 2px;
+
+}
+
+.app-logo{
+
+width:36px;
+height:36px;
+
+}
+
+.app-name{
+
+font-size:8px;
+
+}
+
+.social-list{
+
+gap:10px;
+
+}
+
+.social a{
+
+width:38px;
+height:38px;
+
+}
+
+.social img{
+
+width:22px;
+height:22px;
+
+}
+
+}
 
 </style>
 
@@ -130,54 +502,437 @@ color:white;
 <div class="container">
 
 
+<!-- ======================================================
+     HEADER
+     ====================================================== -->
+
 <header class="header">
 
-<img src="ning-wei.png">
+<img
+src="ning-wei.png"
+alt="Ning Wei Media"
+>
 
 <div class="header-content">
 
 <h1>Ning Wei Media</h1>
 
-<p>Music • Videos • Photos • Apps</p>
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
 
 </div>
 
 </header>
 
 
+<!-- ======================================================
+     EXPLORE
+     ====================================================== -->
 
-<div class="card">
+<section class="section">
 
-<h2>Welcome</h2>
+<h2>
+Explore
+</h2>
 
-<p>
-Your home for music, videos and digital content.
-</p>
+</section>
 
 
-<a class="music" href="library.html">
+<div class="explore-list">
 
-🎵 Music Library
+
+<a
+class="explore-row"
+href="library.html?category=songs"
+>
+
+<span class="number">
+1
+</span>
+
+<span class="category-name">
+Songs
+</span>
 
 </a>
 
 
-<a class="upload" href="upload.html">
+<a
+class="explore-row"
+href="library.html?category=videos"
+>
 
-📤 Upload Content
+<span class="number">
+2
+</span>
+
+<span class="category-name">
+Videos
+</span>
 
 </a>
 
 
-<a class="media" href="media.html">
+<a
+class="explore-row"
+href="library.html?category=photos"
+>
 
-▶ Media Player
+<span class="number">
+3
+</span>
+
+<span class="category-name">
+Photos
+</span>
+
+</a>
+
+
+<a
+class="explore-row"
+href="library.html?category=apps"
+>
+
+<span class="number">
+4
+</span>
+
+<span class="category-name">
+Apps
+</span>
+
+</a>
+
+
+<a
+class="explore-row"
+href="library.html?category=software"
+>
+
+<span class="number">
+5
+</span>
+
+<span class="category-name">
+Software
+</span>
+
+</a>
+
+
+<a
+class="explore-row"
+href="library.html?category=dj-mixes"
+>
+
+<span class="number">
+6
+</span>
+
+<span class="category-name">
+DJ Mixes
+</span>
 
 </a>
 
 
 </div>
 
+
+<!-- ======================================================
+     TRENDING APPS
+     ====================================================== -->
+
+<section class="trending">
+
+<h2>
+Trending Apps
+</h2>
+
+
+<div class="apps">
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/youtube/FF0000"
+alt="YouTube"
+>
+
+<span class="app-name">
+YouTube
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/whatsapp/25D366"
+alt="WhatsApp"
+>
+
+<span class="app-name">
+WhatsApp
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/facebook/1877F2"
+alt="Facebook"
+>
+
+<span class="app-name">
+Facebook
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/instagram/E4405F"
+alt="Instagram"
+>
+
+<span class="app-name">
+Instagram
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/x/000000"
+alt="X"
+>
+
+<span class="app-name">
+X
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/tiktok/000000"
+alt="TikTok"
+>
+
+<span class="app-name">
+TikTok
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/telegram/26A5E4"
+alt="Telegram"
+>
+
+<span class="app-name">
+Telegram
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/pinterest/BD081C"
+alt="Pinterest"
+>
+
+<span class="app-name">
+Pinterest
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/snapchat/FFFC00"
+alt="Snapchat"
+>
+
+<span class="app-name">
+Snapchat
+</span>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<img
+class="app-logo"
+src="https://cdn.simpleicons.org/spotify/1DB954"
+alt="Spotify"
+>
+
+<span class="app-name">
+Spotify
+</span>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     FOLLOW US
+     ====================================================== -->
+
+<section class="social">
+
+<h2>
+Follow Us
+</h2>
+
+
+<div class="social-list">
+
+
+<a
+href="#"
+aria-label="Instagram"
+>
+
+<img
+src="https://cdn.simpleicons.org/instagram/FFFFFF"
+alt="Instagram"
+>
+
+</a>
+
+
+<a
+href="#"
+aria-label="Facebook"
+>
+
+<img
+src="https://cdn.simpleicons.org/facebook/FFFFFF"
+alt="Facebook"
+>
+
+</a>
+
+
+<a
+href="#"
+aria-label="WhatsApp"
+>
+
+<img
+src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
+alt="WhatsApp"
+>
+
+</a>
+
+
+<a
+href="#"
+aria-label="YouTube"
+>
+
+<img
+src="https://cdn.simpleicons.org/youtube/FFFFFF"
+alt="YouTube"
+>
+
+</a>
+
+
+<a
+href="#"
+aria-label="X"
+>
+
+<img
+src="https://cdn.simpleicons.org/x/FFFFFF"
+alt="X"
+>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     FOOTER
+     ====================================================== -->
+
+<footer class="footer">
+
+© Ning Wei Media
+
+</footer>
 
 
 </div>
