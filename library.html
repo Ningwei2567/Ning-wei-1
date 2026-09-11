@@ -17,7 +17,7 @@ content="width=device-width, initial-scale=1.0"
 <style>
 
 /* =========================================================
-   NING WEI MEDIA — MASTER LIBRARY
+   NING WEI MEDIA — LIBRARY
    ========================================================= */
 
 *{
@@ -35,13 +35,10 @@ background:#f5f5f7;
 color:#111;
 }
 
-a{
--webkit-tap-highlight-color:transparent;
-}
-
-button,
-a{
+a,
+button{
 font-family:inherit;
+-webkit-tap-highlight-color:transparent;
 }
 
 .container{
@@ -51,8 +48,9 @@ margin:0 auto;
 min-height:100vh;
 }
 
+
 /* =========================================================
-   MASTER HEADER
+   HEADER
    ========================================================= */
 
 .header{
@@ -124,6 +122,7 @@ font-size:13px;
 font-weight:600;
 }
 
+
 /* =========================================================
    SEARCH
    ========================================================= */
@@ -134,7 +133,6 @@ padding:12px 15px 5px;
 
 .search-box input{
 width:100%;
-
 height:44px;
 
 border:1px solid #ddd;
@@ -156,6 +154,7 @@ box-shadow:
 border-color:#128c9e;
 }
 
+
 /* =========================================================
    PAGE TITLE
    ========================================================= */
@@ -171,9 +170,11 @@ font-size:20px;
 
 .page-title p{
 margin:5px 0 0;
+
 font-size:13px;
 color:#777;
 }
+
 
 /* =========================================================
    ADMIN UPLOAD
@@ -208,6 +209,7 @@ border-radius:9px;
 font-size:14px;
 font-weight:700;
 }
+
 
 /* =========================================================
    CATEGORY MENU
@@ -273,6 +275,7 @@ font-size:14px;
 font-weight:700;
 }
 
+
 /* =========================================================
    OLD IS GOLD
    ========================================================= */
@@ -286,8 +289,9 @@ margin:0 0 8px;
 font-size:17px;
 }
 
+
 /* =========================================================
-   LOADING / EMPTY / ERROR
+   STATUS / ERROR
    ========================================================= */
 
 .status{
@@ -322,6 +326,7 @@ color:#a00000;
 
 font-size:14px;
 }
+
 
 /* =========================================================
    FILE ROW
@@ -401,7 +406,6 @@ text-overflow:ellipsis;
 .file-actions{
 display:flex;
 gap:5px;
-
 margin-left:6px;
 }
 
@@ -430,6 +434,146 @@ color:#fff;
 background:#000;
 }
 
+
+/* =========================================================
+   AUDIO ROW
+   ========================================================= */
+
+.audio-row{
+display:block;
+
+background:#fff;
+
+border-radius:10px;
+
+padding:8px;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.06);
+
+cursor:pointer;
+
+transition:
+box-shadow .15s ease,
+transform .15s ease;
+}
+
+.audio-row:active{
+transform:scale(.995);
+}
+
+.audio-row.selected{
+box-shadow:
+0 3px 12px rgba(0,0,0,.12);
+}
+
+.audio-top{
+display:flex;
+align-items:center;
+
+min-height:40px;
+}
+
+.audio-number{
+width:27px;
+height:27px;
+
+min-width:27px;
+
+border-radius:50%;
+
+background:#000;
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:12px;
+font-weight:800;
+
+margin-right:9px;
+}
+
+.audio-main{
+min-width:0;
+flex:1;
+}
+
+.audio-name{
+font-size:13px;
+font-weight:700;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.audio-meta{
+font-size:11px;
+color:#777;
+
+margin-top:3px;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.audio-expand{
+font-size:10px;
+
+color:#777;
+
+margin-left:8px;
+
+white-space:nowrap;
+}
+
+.audio-panel{
+display:none;
+
+margin-top:8px;
+
+padding-top:8px;
+
+border-top:1px solid #eee;
+}
+
+.audio-row.selected .audio-panel{
+display:block;
+}
+
+.audio-player{
+width:100%;
+
+height:40px;
+
+display:block;
+}
+
+.audio-download{
+display:block;
+
+margin-top:7px;
+
+background:#111;
+
+color:#fff;
+
+text-align:center;
+
+text-decoration:none;
+
+padding:9px;
+
+border-radius:8px;
+
+font-size:12px;
+font-weight:700;
+}
+
+
 /* =========================================================
    PHOTO / VIDEO GRID
    ========================================================= */
@@ -445,23 +589,7 @@ repeat(4,minmax(0,1fr));
 gap:7px;
 }
 
-.media-card{
-background:#fff;
-
-border-radius:9px;
-
-overflow:hidden;
-
-box-shadow:
-0 2px 7px rgba(0,0,0,.08);
-
-text-decoration:none;
-
-color:#111;
-
-display:block;
-}
-
+.media-card,
 .media-video-card{
 background:#fff;
 
@@ -477,6 +605,10 @@ color:#111;
 display:block;
 }
 
+.media-card{
+text-decoration:none;
+}
+
 .media-preview{
 width:100%;
 
@@ -489,6 +621,14 @@ background:#111;
 object-fit:cover;
 }
 
+
+/*
+   VIDEO THUMBNAIL
+
+   No controls.
+   No visible play/download buttons.
+*/
+
 .media-video{
 width:100%;
 
@@ -499,7 +639,18 @@ display:block;
 background:#111;
 
 object-fit:cover;
+
+pointer-events:none;
 }
+
+.media-video-card{
+cursor:default;
+}
+
+
+/* =========================================================
+   MEDIA TITLE / DATE
+   ========================================================= */
 
 .media-title{
 padding:6px 5px 2px;
@@ -530,46 +681,9 @@ overflow:hidden;
 text-overflow:ellipsis;
 }
 
-.media-actions{
-display:flex;
-
-gap:4px;
-
-padding:0 5px 6px;
-}
-
-.media-action{
-flex:1;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-min-height:28px;
-
-padding:4px 3px;
-
-border-radius:7px;
-
-background:#128c9e;
-
-color:#fff;
-
-text-decoration:none;
-
-font-size:9px;
-
-font-weight:700;
-
-text-align:center;
-}
-
-.media-action.download{
-background:#000;
-}
 
 /* =========================================================
-   ARTIST INFORMATION
+   ARTIST
    ========================================================= */
 
 .artist-line{
@@ -601,8 +715,9 @@ overflow:hidden;
 text-overflow:ellipsis;
 }
 
+
 /* =========================================================
-   ARTIST SONG CARD
+   SONG CARD
    ========================================================= */
 
 .song-card{
@@ -664,6 +779,7 @@ font-weight:700;
 
 .song-date{
 font-size:11px;
+
 color:#777;
 
 margin-bottom:10px;
@@ -697,6 +813,7 @@ background:#128c9e;
 .song-actions a.download{
 background:#000;
 }
+
 
 /* =========================================================
    TRENDING APPS
@@ -761,6 +878,7 @@ font-size:10px;
 font-weight:700;
 }
 
+
 /* =========================================================
    SOCIAL
    ========================================================= */
@@ -798,6 +916,7 @@ font-weight:800;
 color:#fff;
 }
 
+
 /* =========================================================
    FOOTER
    ========================================================= */
@@ -811,6 +930,7 @@ font-size:11px;
 
 color:#777;
 }
+
 
 /* =========================================================
    MOBILE
@@ -828,6 +948,7 @@ font-size:11px;
 
 .media-grid{
 gap:5px;
+
 padding-left:7px;
 padding-right:7px;
 }
@@ -840,10 +961,6 @@ font-size:10px;
 font-size:8px;
 }
 
-.media-action{
-font-size:8px;
-}
-
 }
 
 </style>
@@ -852,7 +969,6 @@ font-size:8px;
 
 
 <body>
-
 
 <div class="container">
 
@@ -1051,7 +1167,6 @@ Old Is Gold
 
 <div class="category-list">
 
-
 <a
 class="category-row"
 href="library.html?category=old-is-gold&folder=Ugandan"
@@ -1093,7 +1208,6 @@ South African Music
 
 </a>
 
-
 </div>
 
 </section>
@@ -1123,7 +1237,6 @@ Trending Apps
 </h3>
 
 <div class="apps">
-
 
 <a
 class="app"
@@ -1200,7 +1313,6 @@ Instagram
 
 </a>
 
-
 </div>
 
 </section>
@@ -1218,7 +1330,6 @@ Follow Us
 
 <div class="social-list">
 
-
 <a
 href="#"
 style="background:#E1306C"
@@ -1226,7 +1337,6 @@ aria-label="Instagram"
 >
 ◎
 </a>
-
 
 <a
 href="#"
@@ -1236,7 +1346,6 @@ aria-label="Facebook"
 f
 </a>
 
-
 <a
 href="#"
 style="background:#25D366"
@@ -1244,7 +1353,6 @@ aria-label="WhatsApp"
 >
 ☎
 </a>
-
 
 <a
 href="#"
@@ -1254,7 +1362,6 @@ aria-label="YouTube"
 ▶
 </a>
 
-
 <a
 href="#"
 style="background:#000"
@@ -1262,7 +1369,6 @@ aria-label="TikTok"
 >
 ♪
 </a>
-
 
 </div>
 
@@ -1385,7 +1491,7 @@ software:
 
 
 /* =========================================================
-   ESTABLISHED SONG SUBCATEGORIES
+   SONG FOLDERS
    ========================================================= */
 
 const SONG_FOLDERS = [
@@ -1409,7 +1515,7 @@ path:"media/songs/International"
 
 
 /* =========================================================
-   DJ MIX SUBCATEGORIES
+   DJ MIX FOLDERS
    ========================================================= */
 
 const DJ_FOLDERS = [
@@ -1438,7 +1544,7 @@ path:"media/songs/DJ-Mixes/Virtual-DJ-Skins"
 
 
 /* =========================================================
-   OLD IS GOLD SUBCATEGORIES
+   OLD IS GOLD FOLDERS
    ========================================================= */
 
 const OLD_GOLD_FOLDERS = [
@@ -1574,10 +1680,8 @@ if(!cleaned){
 return "Media";
 }
 
-const words =
-cleaned.split(" ");
-
-return words
+return cleaned
+.split(" ")
 .slice(0,3)
 .join(" ");
 
@@ -1600,7 +1704,7 @@ match[1].toLowerCase()
 
 
 /* =========================================================
-   ORIGINAL VIDEO MIME TYPES
+   VIDEO MIME
    ========================================================= */
 
 function videoMimeType(
@@ -1628,27 +1732,16 @@ extension(name);
 const videoMimes = {
 
 mp4:"video/mp4",
-
 webm:"video/webm",
-
 mov:"video/quicktime",
-
 m4v:"video/mp4",
-
 "3gp":"video/3gpp",
-
 "3g2":"video/3gpp2",
-
 mpg:"video/mpeg",
-
 mpeg:"video/mpeg",
-
 mpe:"video/mpeg",
-
 ogv:"video/ogg",
-
 avi:"video/x-msvideo",
-
 mkv:"video/x-matroska"
 
 };
@@ -1659,7 +1752,7 @@ return videoMimes[ext] || "";
 
 
 /* =========================================================
-   GENERAL MIME TYPE
+   GENERAL MIME
    ========================================================= */
 
 function mediaMimeType(
@@ -1823,7 +1916,7 @@ return "file";
 
 
 /* =========================================================
-   ORIGINAL DOWNLOAD URL
+   DOWNLOAD URL
    ========================================================= */
 
 function originalDownloadURL(item){
@@ -1834,13 +1927,6 @@ item.url || "";
 if(!url){
 return "";
 }
-
-
-/*
-   For Supabase public storage we can request
-   attachment/download behavior without changing
-   the actual file or converting it.
-*/
 
 if(
 item.source === "supabase" &&
@@ -1870,12 +1956,6 @@ return url;
 
 }
 
-
-/*
-   GitHub and all other sources keep their
-   exact original URL.
-*/
-
 return url;
 
 }
@@ -1901,6 +1981,7 @@ date.getTime()
 ){
 
 return "";
+
 }
 
 return date.toLocaleDateString(
@@ -1916,7 +1997,7 @@ year:"numeric"
 
 
 /* =========================================================
-   MEDIA PLAYER URL
+   MEDIA PLAYER PAGE
    ========================================================= */
 
 function playerURL(item){
@@ -1980,7 +2061,7 @@ return result;
 
 
 /* =========================================================
-   SUPABASE FILE EXTRACTION
+   SUPABASE FILE NORMALIZATION
    ========================================================= */
 
 function normalizeSupabaseFile(
@@ -1991,6 +2072,7 @@ submission
 if(!raw){
 return null;
 }
+
 
 if(
 typeof raw === "string"
@@ -2011,8 +2093,7 @@ mime:"",
 artistName:
 submission.artist_name || "",
 
-artistPhoto:
-"",
+artistPhoto:"",
 
 cover:"",
 
@@ -2026,8 +2107,12 @@ source:"supabase"
 }
 
 
-if(typeof raw !== "object"){
+if(
+typeof raw !== "object"
+){
+
 return null;
+
 }
 
 
@@ -2157,7 +2242,7 @@ source:"supabase"
 
 
 /* =========================================================
-   RECURSIVE SUPABASE FILE EXTRACTION
+   RECURSIVE SUPABASE EXTRACTION
    ========================================================= */
 
 function collectSubmissionFiles(
@@ -2258,7 +2343,7 @@ return result;
 
 
 /* =========================================================
-   LOAD SUPABASE ARTIST SUBMISSIONS
+   SUPABASE
    ========================================================= */
 
 async function loadSupabaseMedia(){
@@ -2322,7 +2407,7 @@ return result;
 
 
 /* =========================================================
-   LOAD GITHUB TREE
+   GITHUB TREE
    ========================================================= */
 
 async function loadGitHubTree(){
@@ -2361,12 +2446,10 @@ return json.tree || [];
 
 
 /* =========================================================
-   DETERMINE CATEGORY
+   CATEGORY FROM PATH
    ========================================================= */
 
-function categoryFromPath(
-path
-){
+function categoryFromPath(path){
 
 const lower =
 String(path)
@@ -2424,30 +2507,10 @@ return "";
 
 
 /* =========================================================
-   FILTER CATEGORY
+   GITHUB ITEM
    ========================================================= */
 
-function matchesCategory(
-item,
-category
-){
-
-if(!category){
-return true;
-}
-
-return item.category === category;
-
-}
-
-
-/* =========================================================
-   CONVERT GITHUB TREE ITEM
-   ========================================================= */
-
-function githubItem(
-treeItem
-){
+function githubItem(treeItem){
 
 const path =
 treeItem.path || "";
@@ -2477,10 +2540,6 @@ extension(name);
 let mime = "";
 
 
-/* =======================================================
-   CORRECT ORIGINAL MIME TYPES
-   ======================================================= */
-
 if(
 category === "photos"
 ){
@@ -2498,8 +2557,7 @@ avif:"image/avif"
 };
 
 mime =
-imageMimes[ext] ||
-"";
+imageMimes[ext] || "";
 
 }
 
@@ -2534,8 +2592,7 @@ opus:"audio/opus"
 };
 
 mime =
-audioMimes[ext] ||
-"";
+audioMimes[ext] || "";
 
 }
 
@@ -2626,7 +2683,7 @@ error
 
 
 /* =========================================================
-   CONVERT SUPABASE ITEMS
+   NORMALIZE SUPABASE ITEMS
    ========================================================= */
 
 const normalizedSupabase =
@@ -2634,7 +2691,6 @@ supabaseMedia
 .map(item=>{
 
 let category = "";
-
 
 const type =
 detectType(
@@ -2662,11 +2718,7 @@ category = "songs";
 }
 
 else if(
-[
-"apk"
-].includes(
-extension(item.name)
-)
+extension(item.name) === "apk"
 ){
 
 category = "apps";
@@ -2706,52 +2758,7 @@ return [
 
 
 /* =========================================================
-   FOLDER HELPERS
-   ========================================================= */
-
-function relativeFolder(
-path,
-base
-){
-
-if(
-!path.startsWith(base)
-){
-
-return "";
-
-}
-
-let value =
-path.slice(
-base.length
-);
-
-if(
-value.startsWith("/")
-){
-
-value =
-value.slice(1);
-
-}
-
-const parts =
-value.split("/");
-
-if(parts.length <= 1){
-return "";
-}
-
-parts.pop();
-
-return parts.join("/");
-
-}
-
-
-/* =========================================================
-   FIND DIRECT FOLDERS
+   FOLDERS
    ========================================================= */
 
 function getFolders(
@@ -2768,7 +2775,9 @@ item=>{
 
 if(
 !item.path ||
-!item.path.startsWith(base + "/")
+!item.path.startsWith(
+base + "/"
+)
 ){
 
 return;
@@ -2816,148 +2825,10 @@ a.name.localeCompare(b.name)
 
 
 /* =========================================================
-   FOLDER PAGE
-   ========================================================= */
-
-function renderFolder(
-items,
-folderPath,
-title
-){
-
-const direct =
-items.filter(
-item=>{
-
-if(!item.path){
-return false;
-}
-
-const parent =
-item.path
-.split("/")
-.slice(0,-1)
-.join("/");
-
-return parent === folderPath;
-
-}
-);
-
-
-const folders =
-getFolders(
-items,
-folderPath
-);
-
-
-let html = "";
-
-
-if(folders.length){
-
-html +=
-'<div class="file-list">';
-
-let n = 1;
-
-folders.forEach(
-folder=>{
-
-html += `
-
-<a
-class="category-row"
-href="library.html?category=${encodeURIComponent(categoryParam)}&folder=${encodeURIComponent(folder.path)}"
->
-
-<span class="number">
-${n}
-</span>
-
-<span class="category-name">
-📁 ${escapeHTML(
-cleanName(folder.name)
-)}
-</span>
-
-</a>
-
-`;
-
-n++;
-
-});
-
-html +=
-"</div>";
-
-}
-
-
-if(
-direct.length
-){
-
-const mediaItems =
-direct.filter(
-item=>
-item.type === "photo" ||
-item.type === "video"
-);
-
-
-if(
-mediaItems.length &&
-(
-categoryParam === "photos" ||
-categoryParam === "videos"
-)
-){
-
-html +=
-renderMediaGrid(
-mediaItems
-);
-
-}
-else{
-
-html +=
-renderFileRows(
-direct
-);
-
-}
-
-}
-
-
-if(
-!folders.length &&
-!direct.length
-){
-
-html +=
-'<div class="status">This folder is empty.</div>';
-
-}
-
-
-library.innerHTML =
-html;
-
-}
-
-
-/* =========================================================
    FILE ROWS
    ========================================================= */
 
-function renderFileRows(
-items
-){
+function renderFileRows(items){
 
 let html =
 '<div class="file-list">';
@@ -2965,39 +2836,177 @@ let html =
 let number = 1;
 
 
-items.forEach(
-item=>{
+items.forEach(item=>{
 
 const date =
-formatDate(
-item.date
-);
+formatDate(item.date);
 
 const title =
-cleanName(
-item.name
-);
+cleanName(item.name);
 
 const type =
 item.type;
 
+
+/* =======================================================
+   AUDIO
+   ======================================================= */
+
+if(type === "audio"){
+
+const downloadURL =
+originalDownloadURL(item);
+
+const mime =
+mediaMimeType(
+item.name,
+item.mime
+);
+
+html += `
+
+<div
+class="audio-row"
+tabindex="0"
+role="button"
+data-search="${escapeHTML(
+(
+title + " " +
+item.artistName + " " +
+item.category
+).toLowerCase()
+)}"
+>
+
+<div class="audio-top">
+
+<span class="audio-number">
+${number}
+</span>
+
+
+<div class="audio-main">
+
+<div class="audio-name">
+${escapeHTML(title)}
+</div>
+
+
+<div class="audio-meta">
+
+${
+item.artistName
+?
+escapeHTML(item.artistName) + " • "
+:
+""
+}
+
+${
+date
+?
+"Uploaded: " +
+escapeHTML(date)
+:
+""
+}
+
+</div>
+
+</div>
+
+
+<span class="audio-expand">
+Tap to play
+</span>
+
+</div>
+
+
+<div class="audio-panel">
+
+<audio
+class="audio-player"
+controls
+preload="none"
+>
+
+${
+mime
+?
+`
+
+<source
+src="${escapeHTML(item.url || "")}"
+type="${escapeHTML(mime)}"
+>
+
+`
+:
+`
+
+<source
+src="${escapeHTML(item.url || "")}"
+>
+
+`
+}
+
+Your browser does not support audio playback.
+
+</audio>
+
+
+${
+downloadURL
+?
+`
+
+<a
+class="audio-download"
+href="${escapeHTML(downloadURL)}"
+download="${escapeHTML(item.name || "audio")}"
+>
+
+⬇ Download Audio
+
+</a>
+
+`
+:
+""
+}
+
+</div>
+
+</div>
+
+`;
+
+number++;
+
+return;
+
+}
+
+
+/* =======================================================
+   NORMAL FILE
+   ======================================================= */
 
 let openURL = "#";
 
 
 if(
 type === "photo" ||
-type === "video" ||
-type === "audio"
+type === "video"
 ){
 
 openURL =
 playerURL(item);
 
 }
-else if(
-item.url
-){
+else if(item.url){
 
 openURL =
 item.url;
@@ -3030,23 +3039,24 @@ ${number}
 <div class="file-main">
 
 <div class="file-name">
-
 ${escapeHTML(title)}
-
 </div>
 
 
 <div class="file-meta">
 
-${item.artistName
+${
+item.artistName
 ?
 escapeHTML(item.artistName) + " • "
 :
-""}
+""
+}
 
-${date
+${
+date
 ?
-"📅 Uploaded: " +
+"Uploaded: " +
 escapeHTML(date)
 :
 ""
@@ -3059,7 +3069,6 @@ escapeHTML(date)
 
 <div class="file-actions">
 
-
 <a
 class="file-button"
 href="${escapeHTML(openURL)}"
@@ -3070,10 +3079,9 @@ type === "photo"
 ?
 "View"
 :
-type === "video" ||
-type === "audio"
+type === "video"
 ?
-"Play"
+"Open"
 :
 "Open"
 }
@@ -3101,7 +3109,6 @@ download="${escapeHTML(item.name || "download")}"
 ""
 }
 
-
 </div>
 
 </div>
@@ -3122,43 +3129,33 @@ return html;
 
 
 /* =========================================================
-   PHOTO / VIDEO GRID
+   MEDIA GRID
    ========================================================= */
 
-function renderMediaGrid(
-items
-){
+function renderMediaGrid(items){
 
 let html =
 '<div class="media-grid">';
 
 
-items.forEach(
-item=>{
+items.forEach(item=>{
 
 const url =
 item.url || "";
 
-const openURL =
-playerURL(item);
-
-const downloadURL =
-originalDownloadURL(item);
-
 const date =
-formatDate(
-item.date
-);
+formatDate(item.date);
 
 const title =
-shortTitle(
-item.name
-);
+shortTitle(item.name);
 
 
 if(
 item.type === "photo"
 ){
+
+const openURL =
+playerURL(item);
 
 html += `
 
@@ -3229,7 +3226,7 @@ date
 `
 
 <div class="media-date">
-📅 ${escapeHTML(date)}
+${escapeHTML(date)}
 </div>
 
 `
@@ -3237,13 +3234,16 @@ date
 ""
 }
 
-
 </a>
 
 `;
 
 }
 
+
+/* =======================================================
+   VIDEO THUMBNAIL
+   ======================================================= */
 
 else if(
 item.type === "video"
@@ -3255,6 +3255,15 @@ item.name,
 item.mime
 );
 
+
+/*
+   IMPORTANT:
+
+   There are NO controls here.
+   There are NO Open/Download buttons.
+
+   The video is only used visually as a thumbnail.
+*/
 
 html += `
 
@@ -3270,9 +3279,10 @@ item.artistName
 
 <video
 class="media-video"
-controls
+muted
 playsinline
 preload="metadata"
+poster="${escapeHTML(item.cover || "")}"
 >
 
 ${
@@ -3296,7 +3306,7 @@ src="${escapeHTML(url)}"
 `
 }
 
-Your browser may not support this video format.
+Your browser does not support this video format.
 
 </video>
 
@@ -3348,49 +3358,13 @@ date
 `
 
 <div class="media-date">
-📅 ${escapeHTML(date)}
+${escapeHTML(date)}
 </div>
 
 `
 :
 ""
 }
-
-
-<div class="media-actions">
-
-<a
-class="media-action"
-href="${escapeHTML(openURL)}"
->
-
-▶ Open
-
-</a>
-
-
-${
-downloadURL
-?
-`
-
-<a
-class="media-action download"
-href="${escapeHTML(downloadURL)}"
-download="${escapeHTML(item.name || "video")}"
->
-
-⬇ Download
-
-</a>
-
-`
-:
-""
-}
-
-</div>
-
 
 </div>
 
@@ -3410,212 +3384,10 @@ return html;
 
 
 /* =========================================================
-   SONG GRID / CARDS
-   ========================================================= */
-
-function renderSongCards(
-items
-){
-
-let html = "";
-
-
-items.forEach(
-item=>{
-
-const date =
-formatDate(
-item.date
-);
-
-const title =
-item.name ||
-"Untitled";
-
-
-const cover =
-item.cover ||
-"ning-wei.png";
-
-
-const play =
-playerURL(item);
-
-
-const downloadURL =
-originalDownloadURL(item);
-
-
-html += `
-
-<div
-class="song-card"
-data-search="${escapeHTML(
-(
-title + " " +
-item.artistName
-).toLowerCase()
-)}"
->
-
-<img
-class="song-cover"
-src="${escapeHTML(cover)}"
-alt="${escapeHTML(title)}"
-onerror="this.src='ning-wei.png'"
->
-
-
-<div class="song-info">
-
-<h2 class="song-title">
-${escapeHTML(
-cleanName(title)
-)}
-</h2>
-
-
-${
-item.artistName
-?
-`
-
-<div class="song-artist">
-
-${
-item.artistPhoto
-?
-`
-
-<img
-src="${escapeHTML(item.artistPhoto)}"
-alt=""
-onerror="this.style.display='none'"
->
-
-`
-:
-""
-}
-
-<span>
-${escapeHTML(item.artistName)}
-</span>
-
-</div>
-
-`
-:
-""
-}
-
-
-${
-date
-?
-`
-
-<div class="song-date">
-📅 Uploaded: ${escapeHTML(date)}
-</div>
-
-`
-:
-""
-}
-
-
-<div class="song-actions">
-
-<a
-href="${escapeHTML(play)}"
->
-
-▶ Play
-
-</a>
-
-
-${
-downloadURL
-?
-`
-
-<a
-class="download"
-href="${escapeHTML(downloadURL)}"
-download="${escapeHTML(item.name || "song")}"
->
-
-⬇ Download
-
-</a>
-
-`
-:
-""
-}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-
-return html;
-
-}
-
-
-/* =========================================================
-   CATEGORY DISPLAY
-   ========================================================= */
-
-function renderCategory(
-items
-){
-
-categoryMenu.style.display =
-"none";
-
-oldGold.style.display =
-"none";
-
-
-const category =
-categoryParam;
-
-
-const categoryTitle =
-CATEGORY_NAMES[category] ||
-"Media Library";
-
-
-pageTitle.textContent =
-categoryTitle;
-
-
-pageDescription.textContent =
-"Browse uploaded media.";
-
-
-const base =
-CATEGORY_PATHS[category];
-
-
-/* =======================================================
    SONG CATEGORY
-   ======================================================= */
+   ========================================================= */
 
-if(
-category === "songs" &&
-!folderParam
-){
+function renderSongFolders(){
 
 let html =
 '<div class="file-list">';
@@ -3623,8 +3395,7 @@ let html =
 let n = 1;
 
 
-SONG_FOLDERS.forEach(
-folder=>{
+SONG_FOLDERS.forEach(folder=>{
 
 html += `
 
@@ -3673,22 +3444,16 @@ DJ Mixes
 html +=
 "</div>";
 
-library.innerHTML =
-html;
-
-return;
+return html;
 
 }
 
 
-/* =======================================================
-   DJ MIX CATEGORY
-   ======================================================= */
+/* =========================================================
+   DJ FOLDERS
+   ========================================================= */
 
-if(
-category === "dj-mixes" &&
-!folderParam
-){
+function renderDJFolders(){
 
 let html =
 '<div class="file-list">';
@@ -3696,8 +3461,7 @@ let html =
 let n = 1;
 
 
-DJ_FOLDERS.forEach(
-folder=>{
+DJ_FOLDERS.forEach(folder=>{
 
 html += `
 
@@ -3726,22 +3490,16 @@ n++;
 html +=
 "</div>";
 
-library.innerHTML =
-html;
-
-return;
+return html;
 
 }
 
 
-/* =======================================================
-   OLD IS GOLD CATEGORY
-   ======================================================= */
+/* =========================================================
+   OLD GOLD FOLDERS
+   ========================================================= */
 
-if(
-category === "old-is-gold" &&
-!folderParam
-){
+function renderOldGoldFolders(){
 
 let html =
 '<div class="file-list">';
@@ -3749,8 +3507,7 @@ let html =
 let n = 1;
 
 
-OLD_GOLD_FOLDERS.forEach(
-folder=>{
+OLD_GOLD_FOLDERS.forEach(folder=>{
 
 html += `
 
@@ -3779,8 +3536,69 @@ n++;
 html +=
 "</div>";
 
+return html;
+
+}
+
+
+/* =========================================================
+   CATEGORY DISPLAY
+   ========================================================= */
+
+function renderCategory(items){
+
+categoryMenu.style.display =
+"none";
+
+oldGold.style.display =
+"none";
+
+
+const category =
+categoryParam;
+
+
+pageTitle.textContent =
+CATEGORY_NAMES[category] ||
+"Media Library";
+
+pageDescription.textContent =
+"Browse uploaded media.";
+
+
+if(
+category === "songs" &&
+!folderParam
+){
+
 library.innerHTML =
-html;
+renderSongFolders();
+
+return;
+
+}
+
+
+if(
+category === "dj-mixes" &&
+!folderParam
+){
+
+library.innerHTML =
+renderDJFolders();
+
+return;
+
+}
+
+
+if(
+category === "old-is-gold" &&
+!folderParam
+){
+
+library.innerHTML =
+renderOldGoldFolders();
 
 return;
 
@@ -3788,57 +3606,34 @@ return;
 
 
 /* =======================================================
-   DIRECT CATEGORY MEDIA
+   PHOTOS
    ======================================================= */
 
 if(
-category === "photos" ||
-category === "videos"
+category === "photos"
 ){
 
-const filtered =
+let filtered =
 items.filter(
 item=>
-item.category === category
+item.category === "photos"
 );
 
 
-const search =
-searchInput.value
-.trim()
-.toLowerCase();
+filtered =
+applySearch(filtered);
 
 
-const searched =
-search
-?
-filtered.filter(
-item=>
-(
-item.name + " " +
-item.artistName
-)
-.toLowerCase()
-.includes(search)
-)
-:
-filtered;
-
-
-if(
-searched.length
-){
+if(filtered.length){
 
 library.innerHTML =
-renderMediaGrid(
-searched
-);
+renderMediaGrid(filtered);
 
 }
 else{
 
 library.innerHTML =
-'<div class="status">No media found.</div>';
+'<div class="status">No photos found.</div>';
 
 }
 
@@ -3848,7 +3643,44 @@ return;
 
 
 /* =======================================================
-   SONGS / DJ MIXES — DISPLAY FILES
+   VIDEOS
+   ======================================================= */
+
+if(
+category === "videos"
+){
+
+let filtered =
+items.filter(
+item=>
+item.category === "videos"
+);
+
+
+filtered =
+applySearch(filtered);
+
+
+if(filtered.length){
+
+library.innerHTML =
+renderMediaGrid(filtered);
+
+}
+else{
+
+library.innerHTML =
+'<div class="status">No videos found.</div>';
+
+}
+
+return;
+
+}
+
+
+/* =======================================================
+   SONGS
    ======================================================= */
 
 if(
@@ -3866,59 +3698,29 @@ item.category === "songs"
 if(folderParam){
 
 filtered =
-filtered.filter(
-item=>{
+filtered.filter(item=>{
 
-if(
-!item.path
-){
-
+if(!item.path){
 return false;
-
 }
 
-return (
-item.path.startsWith(
+return item.path.startsWith(
 folderParam + "/"
-)
 );
 
-}
-);
+});
 
 }
 
-
-const search =
-searchInput.value
-.trim()
-.toLowerCase();
-
-
-if(search){
 
 filtered =
-filtered.filter(
-item=>
-(
-item.name + " " +
-item.artistName
-)
-.toLowerCase()
-.includes(search)
-);
-
-}
+applySearch(filtered);
 
 
-if(
-filtered.length
-){
+if(filtered.length){
 
 library.innerHTML =
-renderFileRows(
-filtered
-);
+renderFileRows(filtered);
 
 }
 else{
@@ -3934,7 +3736,7 @@ return;
 
 
 /* =======================================================
-   APPS / SOFTWARE / GENERAL
+   APPS / SOFTWARE
    ======================================================= */
 
 let filtered =
@@ -3947,55 +3749,29 @@ item.category === category
 if(folderParam){
 
 filtered =
-filtered.filter(
-item=>{
+filtered.filter(item=>{
 
 if(!item.path){
 return false;
 }
 
-return (
-item.path.startsWith(
+return item.path.startsWith(
 folderParam + "/"
-)
 );
 
-}
-);
+});
 
 }
 
-
-const search =
-searchInput.value
-.trim()
-.toLowerCase();
-
-
-if(search){
 
 filtered =
-filtered.filter(
-item=>
-(
-item.name + " " +
-item.artistName
-)
-.toLowerCase()
-.includes(search)
-);
-
-}
+applySearch(filtered);
 
 
-if(
-filtered.length
-){
+if(filtered.length){
 
 library.innerHTML =
-renderFileRows(
-filtered
-);
+renderFileRows(filtered);
 
 }
 else{
@@ -4009,12 +3785,40 @@ library.innerHTML =
 
 
 /* =========================================================
+   SEARCH FILTER
+   ========================================================= */
+
+function applySearch(items){
+
+const search =
+searchInput.value
+.trim()
+.toLowerCase();
+
+
+if(!search){
+return items;
+}
+
+
+return items.filter(item=>
+(
+item.name + " " +
+item.artistName + " " +
+item.category
+)
+.toLowerCase()
+.includes(search)
+);
+
+}
+
+
+/* =========================================================
    ROOT LIBRARY
    ========================================================= */
 
-function renderRoot(
-items
-){
+function renderRoot(items){
 
 categoryMenu.style.display =
 "block";
@@ -4029,13 +3833,9 @@ pageDescription.textContent =
 "Music • Videos • Photos • Apps • Software";
 
 
-/* newest uploads preview */
-
 const recent =
 items
-.filter(
-item=>item.date
-)
+.filter(item=>item.date)
 .sort(
 (a,b)=>
 new Date(b.date) -
@@ -4060,35 +3860,30 @@ let html =
 
 const photos =
 recent.filter(
-item=>item.type === "photo"
+item=>
+item.type === "photo"
 );
+
 
 const videos =
 recent.filter(
-item=>item.type === "video"
+item=>
+item.type === "video"
 );
 
 
-if(
-photos.length
-){
+if(photos.length){
 
 html +=
-renderMediaGrid(
-photos
-);
+renderMediaGrid(photos);
 
 }
 
 
-if(
-videos.length
-){
+if(videos.length){
 
 html +=
-renderMediaGrid(
-videos
-);
+renderMediaGrid(videos);
 
 }
 
@@ -4101,14 +3896,10 @@ item.type !== "video"
 );
 
 
-if(
-other.length
-){
+if(other.length){
 
 html +=
-renderFileRows(
-other
-);
+renderFileRows(other);
 
 }
 
@@ -4120,12 +3911,10 @@ html;
 
 
 /* =========================================================
-   DIRECT FOLDER HANDLING
+   DIRECT FOLDER
    ========================================================= */
 
-function renderDirectFolder(
-items
-){
+function renderDirectFolder(items){
 
 categoryMenu.style.display =
 "none";
@@ -4145,8 +3934,7 @@ pageDescription.textContent =
 
 
 const direct =
-items.filter(
-item=>{
+items.filter(item=>{
 
 if(!item.path){
 return false;
@@ -4160,8 +3948,7 @@ item.path
 
 return parent === folderParam;
 
-}
-);
+});
 
 
 const folders =
@@ -4182,8 +3969,7 @@ html +=
 let n = 1;
 
 
-folders.forEach(
-folder=>{
+folders.forEach(folder=>{
 
 html += `
 
@@ -4197,7 +3983,9 @@ ${n}
 </span>
 
 <span class="category-name">
-📁 ${escapeHTML(cleanName(folder.name))}
+📁 ${escapeHTML(
+cleanName(folder.name)
+)}
 </span>
 
 </a>
@@ -4215,18 +4003,18 @@ html +=
 }
 
 
-if(
-direct.length
-){
+if(direct.length){
 
 const photos =
 direct.filter(
-item=>item.type === "photo"
+item=>
+item.type === "photo"
 );
 
 const videos =
 direct.filter(
-item=>item.type === "video"
+item=>
+item.type === "video"
 );
 
 
@@ -4236,12 +4024,9 @@ categoryParam === "photos"
 ){
 
 html +=
-renderMediaGrid(
-photos
-);
+renderMediaGrid(photos);
 
 }
-
 
 else if(
 videos.length &&
@@ -4249,19 +4034,14 @@ categoryParam === "videos"
 ){
 
 html +=
-renderMediaGrid(
-videos
-);
+renderMediaGrid(videos);
 
 }
-
 
 else{
 
 html +=
-renderFileRows(
-direct
-);
+renderFileRows(direct);
 
 }
 
@@ -4286,7 +4066,205 @@ html;
 
 
 /* =========================================================
-   MAIN RENDER
+   AUDIO SELECTION
+   ========================================================= */
+
+function activateAudioRows(){
+
+const rows =
+document.querySelectorAll(
+".audio-row"
+);
+
+
+rows.forEach(row=>{
+
+row.addEventListener(
+"click",
+event=>{
+
+/*
+   Don't toggle the row when the user
+   is already interacting with the audio
+   controls or download button.
+*/
+
+if(
+event.target.closest(
+".audio-panel"
+)
+){
+
+return;
+
+}
+
+
+const wasSelected =
+row.classList.contains(
+"selected"
+);
+
+
+/*
+   Close all other audio rows.
+*/
+
+rows.forEach(other=>{
+
+if(other !== row){
+
+other.classList.remove(
+"selected"
+);
+
+const player =
+other.querySelector(
+"audio"
+);
+
+if(player){
+
+player.pause();
+
+}
+
+}
+
+});
+
+
+if(wasSelected){
+
+row.classList.remove(
+"selected"
+);
+
+}
+else{
+
+row.classList.add(
+"selected"
+);
+
+const player =
+row.querySelector(
+"audio"
+);
+
+if(player){
+
+player.load();
+
+}
+
+}
+
+}
+);
+
+
+/*
+   Keyboard accessibility.
+*/
+
+row.addEventListener(
+"keydown",
+event=>{
+
+if(
+event.key === "Enter" ||
+event.key === " "
+){
+
+event.preventDefault();
+
+row.click();
+
+}
+
+});
+
+});
+
+}
+
+
+/* =========================================================
+   VIDEO THUMBNAILS
+   ========================================================= */
+
+function prepareVideoThumbnails(){
+
+const videos =
+document.querySelectorAll(
+".media-video"
+);
+
+
+videos.forEach(video=>{
+
+/*
+   The video is never given controls.
+
+   It only loads enough information to
+   display the first available frame.
+*/
+
+video.controls =
+false;
+
+video.muted =
+true;
+
+video.playsInline =
+true;
+
+
+/*
+   If there is no poster image, keep the
+   first frame as the visual preview.
+*/
+
+video.addEventListener(
+"loadeddata",
+()=>{
+
+try{
+
+video.currentTime = 0;
+
+}
+catch(error){
+
+}
+
+},
+{
+once:true
+}
+);
+
+});
+
+}
+
+
+/* =========================================================
+   REFRESH INTERACTIVE MEDIA
+   ========================================================= */
+
+function refreshMediaUI(){
+
+activateAudioRows();
+
+prepareVideoThumbnails();
+
+}
+
+
+/* =========================================================
+   MAIN START
    ========================================================= */
 
 let allMedia = [];
@@ -4301,7 +4279,7 @@ await loadAllMedia();
 
 
 /* =======================================================
-   ADMIN UPLOAD TARGET
+   UPLOAD TARGET
    ======================================================= */
 
 let uploadFolder = "";
@@ -4368,6 +4346,8 @@ allMedia
 }
 
 
+refreshMediaUI();
+
 }
 catch(error){
 
@@ -4402,24 +4382,22 @@ searchInput.addEventListener(
 "input",
 ()=>{
 
-if(
-folderParam
-){
+if(folderParam){
 
 renderDirectFolder(
 allMedia
 );
 
 }
-else if(
-categoryParam
-){
+
+else if(categoryParam){
 
 renderCategory(
 allMedia
 );
 
 }
+
 else{
 
 renderRoot(
@@ -4428,8 +4406,9 @@ allMedia
 
 }
 
-}
-);
+refreshMediaUI();
+
+});
 
 
 /* =========================================================
@@ -4439,7 +4418,6 @@ allMedia
 start();
 
 </script>
-
 
 </body>
 
