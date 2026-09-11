@@ -352,6 +352,106 @@ color:white;
 }
 
 /* =========================
+   DOWNLOAD POPUP
+========================= */
+
+.download-popup{
+position:fixed;
+
+left:50%;
+
+bottom:24px;
+
+transform:
+translate(-50%,20px)
+scale(.96);
+
+width:calc(100% - 36px);
+
+max-width:360px;
+
+background:white;
+
+border-radius:18px;
+
+padding:14px 16px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+box-shadow:
+0 8px 30px rgba(0,0,0,.25);
+
+opacity:0;
+
+visibility:hidden;
+
+z-index:99999;
+
+transition:
+opacity .22s ease,
+transform .22s ease,
+visibility .22s ease;
+}
+
+.download-popup.show{
+opacity:1;
+
+visibility:visible;
+
+transform:
+translate(-50%,0)
+scale(1);
+}
+
+.download-popup-icon{
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+background:#ffd21c;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+flex-shrink:0;
+}
+
+.download-popup-text{
+min-width:0;
+}
+
+.download-popup-title{
+font-size:15px;
+
+font-weight:800;
+
+margin:0 0 3px;
+}
+
+.download-popup-file{
+font-size:11px;
+
+color:#777;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -587,6 +687,43 @@ style="display:none;"
 </footer>
 
 
+<!-- =========================
+     DOWNLOAD POPUP
+========================= -->
+
+<div
+id="downloadPopup"
+class="download-popup"
+>
+
+<div
+id="downloadPopupIcon"
+class="download-popup-icon"
+>
+⬇
+</div>
+
+<div class="download-popup-text">
+
+<p
+id="downloadPopupTitle"
+class="download-popup-title"
+>
+Download started!
+</p>
+
+<div
+id="downloadPopupFile"
+class="download-popup-file"
+>
+Ning Wei Media
+</div>
+
+</div>
+
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
@@ -603,7 +740,7 @@ const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5enprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5enprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyMn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
 supabase.createClient(
@@ -671,6 +808,128 @@ document.getElementById("download");
 
 const shareButton =
 document.getElementById("share");
+
+
+/* =====================================================
+   DOWNLOAD POPUP ELEMENTS
+===================================================== */
+
+const downloadPopup =
+document.getElementById(
+"downloadPopup"
+);
+
+const downloadPopupTitle =
+document.getElementById(
+"downloadPopupTitle"
+);
+
+const downloadPopupFile =
+document.getElementById(
+"downloadPopupFile"
+);
+
+let downloadPopupTimer = null;
+
+
+/* =====================================================
+   DOWNLOAD POPUP
+===================================================== */
+
+function showDownloadPopup(
+filename,
+finished=false
+){
+
+clearTimeout(
+downloadPopupTimer
+);
+
+downloadPopupFile.textContent =
+filename ||
+"Ning Wei Media";
+
+
+if(finished){
+
+downloadPopupTitle.textContent =
+"Download finished!";
+
+}
+else{
+
+downloadPopupTitle.textContent =
+"Download started!";
+
+}
+
+
+downloadPopup.classList.add(
+"show"
+);
+
+
+downloadPopupTimer =
+setTimeout(
+function(){
+
+downloadPopup.classList.remove(
+"show"
+);
+
+},
+2200
+);
+
+}
+
+
+/* =====================================================
+   DOWNLOAD CLICK
+===================================================== */
+
+download.addEventListener(
+"click",
+function(){
+
+const filename =
+download.getAttribute(
+"download"
+) ||
+download.textContent.trim() ||
+"Ning Wei Media";
+
+
+/*
+   Show immediately when
+   the download is requested.
+*/
+
+showDownloadPopup(
+filename,
+false
+);
+
+
+/*
+   Give the browser time to
+   start the download, then
+   change the message.
+*/
+
+setTimeout(
+function(){
+
+showDownloadPopup(
+filename,
+true
+);
+
+},
+1200
+);
+
+});
 
 
 /* =====================================================
@@ -838,8 +1097,6 @@ const m =
 .trim();
 
 
-/* MIME TYPE FIRST */
-
 if(
 m.startsWith("image/")
 ){
@@ -864,8 +1121,6 @@ return "audio";
 
 }
 
-
-/* EXTENSION */
 
 const ext =
 extensionOf(filename);
@@ -967,11 +1222,6 @@ const supplied =
 .split(";")[0]
 .trim();
 
-
-/*
-   If the supplied MIME type is already
-   a proper video MIME type, use it.
-*/
 
 if(
 supplied.startsWith("video/")
@@ -1331,12 +1581,6 @@ filename,
 mime
 );
 
-
-/*
-   Put the original URL directly
-   into the HTML5 video source.
-*/
-
 videoSource.src =
 mediaUrl;
 
@@ -1374,15 +1618,6 @@ let filename = "";
 
 let mime =
 suppliedMime || "";
-
-
-/*
-   Priority:
-
-   1. url
-   2. path
-   3. old folder/file
-*/
 
 
 if(directUrl){
@@ -1563,12 +1798,6 @@ mime
 );
 
 
-/*
-   This message stays available
-   for formats that a particular
-   browser cannot decode.
-*/
-
 videoFormatNote.style.display =
 "block";
 
@@ -1635,17 +1864,6 @@ showError(
 /* =====================
    DOWNLOAD
 ===================== */
-
-
-/*
-   IMPORTANT:
-
-   This is the ORIGINAL URL.
-
-   No conversion.
-   No compression.
-   No re-encoding.
-*/
 
 download.href =
 mediaUrl;
@@ -1760,10 +1978,6 @@ mediaTitle.style.display =
 "none";
 
 
-/* =====================
-   SONG META
-===================== */
-
 songMeta.style.display =
 "flex";
 
@@ -1836,10 +2050,6 @@ data.cover_url;
 
 }
 
-
-/* =====================
-   SONG TYPE
-===================== */
 
 const songUrl =
 data.song_url;
@@ -2116,11 +2326,6 @@ console.log(error);
 
 async function start(){
 
-/*
-   If id exists,
-   use Supabase song mode.
-*/
-
 if(id){
 
 await loadSupabaseSong();
@@ -2129,11 +2334,6 @@ return;
 
 }
 
-
-/*
-   Otherwise use
-   path / url / folder / file mode.
-*/
 
 const loaded =
 loadDirectMedia();
