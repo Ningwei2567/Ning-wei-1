@@ -172,9 +172,16 @@ cursor:pointer;
 
 }
 
+
+/* =========================================================
+   UPLOAD YOUR MUSIC BUTTON
+   ========================================================= */
+
 .upload-button{
 
 display:flex;
+
+flex-direction:column;
 
 align-items:center;
 
@@ -182,15 +189,15 @@ justify-content:center;
 
 width:100%;
 
-min-height:56px;
+min-height:66px;
 
 margin-top:10px;
 
-padding:12px 15px;
+padding:10px 15px;
 
 border-radius:12px;
 
-background:#087ff5;
+background:#55bfe8;
 
 color:#fff;
 
@@ -200,8 +207,26 @@ font-size:16px;
 
 font-weight:800;
 
+line-height:1.2;
+
 box-shadow:
 0 3px 9px rgba(0,0,0,.12);
+
+}
+
+.upload-button-description{
+
+display:block;
+
+margin-top:5px;
+
+font-size:11px;
+
+font-weight:600;
+
+line-height:1.2;
+
+opacity:.95;
 
 }
 
@@ -515,7 +540,13 @@ padding-right:18px;
 
 font-size:15px;
 
-min-height:54px;
+min-height:64px;
+
+}
+
+.upload-button-description{
+
+font-size:10px;
 
 }
 
@@ -678,7 +709,13 @@ class="upload-button"
 href="upload.html"
 >
 
+<span>
 🎵 Upload Your Music From Here
+</span>
+
+<span class="upload-button-description">
+Artists • DJs • Producers
+</span>
 
 </a>
 
