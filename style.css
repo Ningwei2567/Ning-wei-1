@@ -1,6 +1,6 @@
 /* =========================================================
    NING WEI MEDIA — MASTER SITE STYLE
-   ONE HEADER SYSTEM FOR ALL PAGES
+   CLEAN HEADER + NO UNWANTED EMPTY SPACE
    ========================================================= */
 
 * {
@@ -12,16 +12,18 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
+    min-height: 100%;
 }
 
 body {
     background: #f5f5f7;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    min-height: 100%;
+    color: #111;
 }
 
 /* =========================================================
    PAGE WIDTH
+   IMPORTANT: NO 100vh MINIMUM HEIGHT
    ========================================================= */
 
 .container,
@@ -30,19 +32,17 @@ body {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
-    min-height: 100%;
     background: #f5f5f7;
-    padding-bottom: 30px;
+    padding: 0 0 30px 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
 }
 
 /* =========================================================
    MASTER HEADER
-   125PX EVERYWHERE
    ========================================================= */
 
-.header,
-.banner,
-header {
+.hero-header {
     position: relative !important;
 
     width: 100% !important;
@@ -56,54 +56,36 @@ header {
     overflow: hidden !important;
 
     display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
 
     text-align: center !important;
 
-    color: white !important;
+    color: #fff !important;
 
     background: #000 !important;
-    background-image: none !important;
 
     box-shadow: none !important;
 }
 
 /* =========================================================
-   ONE MASTER PHOTO
-   NO COLOR OVERLAY
+   HEADER PHOTO
    ========================================================= */
 
-.header::before,
-.banner::before,
-header::before {
+.hero-header::before {
     content: "" !important;
 
     position: absolute !important;
-
-    left: 0 !important;
-    right: 0 !important;
-    top: 0 !important;
+    inset: 0 !important;
 
     width: 100% !important;
     height: 100% !important;
 
     background-image: url("https://ningwei2567.github.io/Ning-wei-1/ning-wei.png") !important;
     background-repeat: no-repeat !important;
-
-    /*
-       THIS IS THE ONLY PHOTO POSITION SETTING.
-
-       0% = top of photo
-       50% = middle
-       100% = bottom
-
-       We start at 0% so the head is kept near
-       the upper edge of the thin header.
-    */
-
     background-size: cover !important;
-    background-position: center 0% !important;
+    background-position: center top !important;
 
     opacity: 1 !important;
 
@@ -111,57 +93,23 @@ header::before {
 }
 
 /* =========================================================
-   REMOVE ALL OLD OVERLAYS
-   ========================================================= */
-
-.header::after,
-.banner::after,
-header::after {
-    content: none !important;
-    display: none !important;
-}
-
-/* =========================================================
-   HIDE OLD HEADER PHOTOS
-   THE MASTER ::before PHOTO IS USED INSTEAD
-   ========================================================= */
-
-.header > img,
-.banner > img,
-header > img {
-    display: none !important;
-}
-
-/* =========================================================
    HEADER TEXT
    ========================================================= */
 
-.header-content,
-.banner-content,
-header .header-content {
+.hero-title,
+.hero-subtitle {
     position: relative !important;
+    z-index: 2 !important;
 
-    z-index: 10 !important;
-
-    width: 100% !important;
-
-    padding: 8px 10px !important;
-
-    color: white !important;
-
-    text-align: center !important;
+    color: #fff !important;
 
     text-shadow:
-        0 2px 5px rgba(0, 0, 0, .9),
-        0 1px 2px rgba(0, 0, 0, .9) !important;
+        0 2px 5px rgba(0, 0, 0, 0.9),
+        0 1px 2px rgba(0, 0, 0, 0.9) !important;
 }
 
-.header h1,
-.banner h1,
-header h1 {
+.hero-title {
     margin: 0 !important;
-
-    color: white !important;
 
     font-size: 1.65rem !important;
     line-height: 1.1 !important;
@@ -169,16 +117,27 @@ header h1 {
     font-weight: 800 !important;
 }
 
-.header p,
-.banner p,
-header p {
-    margin: 5px 0 0 !important;
+.hero-subtitle {
+    margin: 6px 0 0 0 !important;
 
-    color: white !important;
-
-    font-size: .78rem !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
 
     font-weight: 600 !important;
+}
+
+/* =========================================================
+   REMOVE UNWANTED HEADER SPACING
+   ========================================================= */
+
+header {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 
 /* =========================================================
@@ -187,6 +146,7 @@ header p {
 
 .search-container {
     width: 100%;
+    margin: 0 !important;
     padding: 12px 15px !important;
 }
 
@@ -196,6 +156,8 @@ header p {
     display: flex;
     align-items: center;
 
+    margin: 0 !important;
+
     background: #fff;
 
     border: 1px solid #e5e5ea;
@@ -204,136 +166,4 @@ header p {
 
     padding: 10px 17px;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,.04);
-}
-
-.search-box input {
-    width: 100%;
-
-    border: 0;
-    outline: 0;
-
-    background: transparent;
-
-    color: #333;
-
-    font-size: .95rem;
-}
-
-/* =========================================================
-   COMPACT LISTS
-   ========================================================= */
-
-.list-container,
-.menu,
-.folder-list,
-.file-list {
-    width: 100%;
-
-    padding: 0 15px !important;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-}
-
-.list-item,
-.menu-item,
-.folder-item,
-.file-item {
-    width: 100%;
-
-    min-height: 48px;
-
-    padding: 7px 10px !important;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    background: #fff;
-
-    border: 1px solid rgba(0,0,0,.03);
-
-    border-radius: 12px;
-
-    color: #1d1d1f;
-
-    text-decoration: none;
-}
-
-/* =========================================================
-   BLACK NUMBER CIRCLES
-   ========================================================= */
-
-.number-badge,
-.number,
-.badge {
-    width: 30px !important;
-    height: 30px !important;
-
-    min-width: 30px !important;
-
-    margin-right: 10px !important;
-
-    display: flex !important;
-
-    align-items: center !important;
-    justify-content: center !important;
-
-    border-radius: 50% !important;
-
-    background: #000 !important;
-
-    color: #fff !important;
-
-    font-size: .82rem !important;
-
-    font-weight: 800 !important;
-}
-
-/* =========================================================
-   UPLOAD
-   ========================================================= */
-
-.upload-section {
-    width: 100%;
-
-    padding: 0 15px 12px !important;
-}
-
-.btn-upload-direct {
-    width: 100%;
-
-    padding: 11px;
-
-    border: 0;
-
-    border-radius: 11px;
-
-    background: #128c9e;
-
-    color: #fff;
-
-    font-size: .9rem;
-
-    font-weight: 700;
-
-    cursor: pointer;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer {
-    width: 100%;
-
-    padding: 20px 15px;
-
-    text-align: center;
-}
+   
