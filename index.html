@@ -28,6 +28,7 @@ color:#111;
 a{
 -webkit-tap-highlight-color:transparent;
 font-family:inherit;
+text-decoration:none;
 }
 
 .container{
@@ -201,8 +202,6 @@ background:#55bfe8;
 
 color:#fff;
 
-text-decoration:none;
-
 font-size:16px;
 
 font-weight:800;
@@ -238,12 +237,12 @@ transform:scale(.98);
 
 
 /* =========================================================
-   SECTION HEADINGS
+   MAIN SECTION
    ========================================================= */
 
 .section{
 
-padding:14px 18px 4px;
+padding:16px 18px 5px;
 
 }
 
@@ -251,45 +250,118 @@ padding:14px 18px 4px;
 
 margin:0 0 10px;
 
-font-size:24px;
+font-size:22px;
 font-weight:800;
+
+line-height:1.2;
 
 }
 
 
 /* =========================================================
-   EXPLORE
+   CATEGORY GRID
    ========================================================= */
 
-.explore-list{
+.category-grid{
 
-display:flex;
+display:grid;
 
-flex-direction:column;
+grid-template-columns:
+repeat(2,minmax(0,1fr));
 
 gap:8px;
 
-padding:0 18px;
-
 }
 
-.explore-row{
+.category-card{
 
 display:flex;
 
 align-items:center;
 
-min-height:60px;
+min-height:62px;
 
-padding:8px 12px;
+padding:9px;
+
+background:#fff;
+
+border:1px solid #e2e2e2;
+
+border-radius:12px;
+
+color:#111;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.06);
+
+transition:
+transform .12s ease,
+box-shadow .12s ease;
+
+}
+
+.category-card:active{
+
+transform:scale(.97);
+
+}
+
+.category-icon{
+
+width:40px;
+height:40px;
+
+min-width:40px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+border-radius:10px;
+
+background:#111;
+
+color:#fff;
+
+font-size:20px;
+
+margin-right:9px;
+
+}
+
+.category-text{
+
+font-size:13px;
+
+font-weight:700;
+
+line-height:1.2;
+
+}
+
+
+/* =========================================================
+   SINGLE FEATURE CATEGORY
+   ========================================================= */
+
+.feature-card{
+
+display:flex;
+
+align-items:center;
+
+width:100%;
+
+min-height:68px;
+
+padding:10px;
 
 background:#fff;
 
 border:1px solid #ddd;
 
 border-radius:12px;
-
-text-decoration:none;
 
 color:#111;
 
@@ -298,34 +370,44 @@ box-shadow:
 
 }
 
-.number{
+.feature-icon{
 
-width:42px;
-height:42px;
+width:45px;
+height:45px;
 
-min-width:42px;
-
-border-radius:50%;
+min-width:45px;
 
 display:flex;
 
 align-items:center;
 justify-content:center;
 
-background:#000;
+border-radius:11px;
+
+background:#111;
+
 color:#fff;
 
-font-size:17px;
-font-weight:800;
+font-size:22px;
 
-margin-right:12px;
+margin-right:11px;
 
 }
 
-.category-name{
+.feature-title{
 
-font-size:17px;
-font-weight:700;
+font-size:15px;
+font-weight:800;
+
+}
+
+.feature-subtitle{
+
+font-size:10px;
+
+color:#777;
+
+margin-top:4px;
 
 }
 
@@ -348,12 +430,6 @@ font-size:24px;
 font-weight:800;
 
 }
-
-
-/*
-   Small compact grid so ten apps fit naturally
-   without making the homepage unnecessarily long.
-*/
 
 .apps{
 
@@ -554,39 +630,42 @@ font-size:10px;
 .trending h2,
 .social h2{
 
-font-size:22px;
+font-size:21px;
 
 }
 
-.explore-list{
+.category-grid{
 
-padding:0 18px;
-
-}
-
-.explore-row{
-
-min-height:56px;
+gap:6px;
 
 }
 
-.number{
+.category-card{
 
-width:38px;
-height:38px;
+min-height:58px;
 
-min-width:38px;
-
-font-size:15px;
+padding:8px;
 
 }
 
-.category-name{
+.category-icon{
 
-font-size:16px;
+width:36px;
+height:36px;
+
+min-width:36px;
+
+font-size:18px;
+
+margin-right:7px;
 
 }
 
+.category-text{
+
+font-size:11px;
+
+}
 
 /* Five small apps across the screen */
 
@@ -724,118 +803,970 @@ Artists • DJs • Producers
 
 
 <!-- ======================================================
-     EXPLORE
+     1. ALL TOP MUSIC CHARTS
      ====================================================== -->
 
 <section class="section">
 
 <h2>
-Explore
+🎵 All Top Music Charts
 </h2>
 
-</section>
-
-
-<div class="explore-list">
+<div class="category-grid">
 
 
 <a
-class="explore-row"
-href="library.html?category=songs"
+class="category-card"
+href="library.html?folder=Top-Ugandan-Music"
 >
 
-<span class="number">
-1
-</span>
+<span class="category-icon">🇺🇬</span>
 
-<span class="category-name">
-Songs
+<span class="category-text">
+Top Ugandan Music
 </span>
 
 </a>
 
 
 <a
-class="explore-row"
-href="library.html?category=videos"
+class="category-card"
+href="library.html?folder=Amapiano-Music"
 >
 
-<span class="number">
-2
-</span>
+<span class="category-icon">🎵</span>
 
-<span class="category-name">
-Videos
+<span class="category-text">
+Amapiano Music
 </span>
 
 </a>
 
 
 <a
-class="explore-row"
-href="library.html?category=photos"
+class="category-card"
+href="library.html?folder=Afrobeat-Music"
 >
 
-<span class="number">
-3
-</span>
+<span class="category-icon">🔥</span>
 
-<span class="category-name">
-Photos
+<span class="category-text">
+Afrobeat Music
 </span>
 
 </a>
 
 
 <a
-class="explore-row"
-href="library.html?category=apps"
+class="category-card"
+href="library.html?folder=Dancehall-Music"
 >
 
-<span class="number">
-4
-</span>
+<span class="category-icon">🎤</span>
 
-<span class="category-name">
-Apps
+<span class="category-text">
+Dancehall Music
 </span>
 
 </a>
 
 
 <a
-class="explore-row"
-href="library.html?category=software"
+class="category-card"
+href="library.html?folder=R-B-Music"
 >
 
-<span class="number">
-5
-</span>
+<span class="category-icon">❤️</span>
 
-<span class="category-name">
-Software
+<span class="category-text">
+R&amp;B Music
 </span>
 
 </a>
 
 
 <a
-class="explore-row"
-href="library.html?category=dj-mixes"
+class="category-card"
+href="library.html?folder=Reggae"
 >
 
-<span class="number">
-6
+<span class="category-icon">🌴</span>
+
+<span class="category-text">
+Reggae
 </span>
 
-<span class="category-name">
-DJ Mixes
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Old-School-R-B"
+>
+
+<span class="category-icon">📻</span>
+
+<span class="category-text">
+Old School R&amp;B
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Old-South-African-Music"
+>
+
+<span class="category-icon">🇿🇦</span>
+
+<span class="category-text">
+Old South African Music
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Western-Music"
+>
+
+<span class="category-icon">🌎</span>
+
+<span class="category-text">
+Western Music
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Love-Songs"
+>
+
+<span class="category-icon">💖</span>
+
+<span class="category-text">
+Love Songs
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Oldies-Kikadde-Music"
+>
+
+<span class="category-icon">🎶</span>
+
+<span class="category-text">
+Oldies / Kikadde Music
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Kadongo-Kamu"
+>
+
+<span class="category-icon">🎸</span>
+
+<span class="category-text">
+Kadongo Kamu
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=High-School-Music"
+>
+
+<span class="category-icon">🏫</span>
+
+<span class="category-text">
+High School Music
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Lingala-Music"
+>
+
+<span class="category-icon">🎼</span>
+
+<span class="category-text">
+Lingala Music
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Instrumental"
+>
+
+<span class="category-icon">🎹</span>
+
+<span class="category-text">
+Instrumental
 </span>
 
 </a>
 
 
 </div>
+
+</section>
+
+
+<!-- ======================================================
+     2. TRENDING VIDEOS
+     ====================================================== -->
+
+<section class="section">
+
+<h2>
+🎬 Trending Videos
+</h2>
+
+
+<a
+class="feature-card"
+href="library.html?folder=Trending-Videos"
+>
+
+<span class="feature-icon">
+🎬
+</span>
+
+<span>
+
+<span class="feature-title">
+Trending Videos
+</span>
+
+<span class="feature-subtitle">
+Latest trending videos
+</span>
+
+</span>
+
+</a>
+
+</section>
+
+
+<!-- ======================================================
+     3. TRENDING PHOTOS & JOKES
+     ====================================================== -->
+
+<section class="section">
+
+<h2>
+📸 Trending Photos &amp; Jokes
+</h2>
+
+
+<a
+class="feature-card"
+href="library.html?folder=Trending-Photos-Jokes"
+>
+
+<span class="feature-icon">
+📸
+</span>
+
+<span>
+
+<span class="feature-title">
+Trending Photos &amp; Jokes
+</span>
+
+<span class="feature-subtitle">
+Latest photos, jokes and pictures
+</span>
+
+</span>
+
+</a>
+
+</section>
+
+
+<!-- ======================================================
+     4. PREMIUM APPS + FREE UNLIMITED INTERNET
+     ====================================================== -->
+
+<section class="section">
+
+<h2>
+📱 Premium Unlocked Apps and Free Unlimited Internet
+</h2>
+
+<div class="category-grid">
+
+
+<a
+class="category-card"
+href="library.html?folder=Premium-Unlocked-Apps"
+>
+
+<span class="category-icon">📱</span>
+
+<span class="category-text">
+Premium Unlocked Apps
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Free-Unlimited-Internet-VPNs"
+>
+
+<span class="category-icon">🌐</span>
+
+<span class="category-text">
+Free Unlimited Internet VPNs
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Social-Media"
+>
+
+<span class="category-icon">📲</span>
+
+<span class="category-text">
+Social Media
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Messaging"
+>
+
+<span class="category-icon">💬</span>
+
+<span class="category-text">
+Messaging
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Music-Audio"
+>
+
+<span class="category-icon">🎧</span>
+
+<span class="category-text">
+Music &amp; Audio
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Video-Streaming"
+>
+
+<span class="category-icon">▶️</span>
+
+<span class="category-text">
+Video &amp; Streaming
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Photo-Camera"
+>
+
+<span class="category-icon">📷</span>
+
+<span class="category-text">
+Photo &amp; Camera
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Video-Editing"
+>
+
+<span class="category-icon">🎞️</span>
+
+<span class="category-text">
+Video Editing
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Music-DJ"
+>
+
+<span class="category-icon">🎚️</span>
+
+<span class="category-text">
+Music &amp; DJ
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Games"
+>
+
+<span class="category-icon">🎮</span>
+
+<span class="category-text">
+Games
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Education"
+>
+
+<span class="category-icon">📚</span>
+
+<span class="category-text">
+Education
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Business-Work"
+>
+
+<span class="category-icon">💼</span>
+
+<span class="category-text">
+Business &amp; Work
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Finance-Banking"
+>
+
+<span class="category-icon">💰</span>
+
+<span class="category-text">
+Finance &amp; Banking
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Shopping"
+>
+
+<span class="category-icon">🛒</span>
+
+<span class="category-text">
+Shopping
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Travel-Transport"
+>
+
+<span class="category-icon">✈️</span>
+
+<span class="category-text">
+Travel &amp; Transport
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=News"
+>
+
+<span class="category-icon">📰</span>
+
+<span class="category-text">
+News
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Sports"
+>
+
+<span class="category-icon">⚽</span>
+
+<span class="category-text">
+Sports
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Health-Fitness"
+>
+
+<span class="category-icon">🏃</span>
+
+<span class="category-text">
+Health &amp; Fitness
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Tools-Utilities"
+>
+
+<span class="category-icon">🛠️</span>
+
+<span class="category-text">
+Tools &amp; Utilities
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=File-Management"
+>
+
+<span class="category-icon">📁</span>
+
+<span class="category-text">
+File Management
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Security"
+>
+
+<span class="category-icon">🔐</span>
+
+<span class="category-text">
+Security
+</span>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     5. SOFTWARE
+     ====================================================== -->
+
+<section class="section">
+
+<h2>
+💻 All Softwares and Virtual DJ Software
+</h2>
+
+<div class="category-grid">
+
+
+<a
+class="category-card"
+href="library.html?folder=Virtual-DJ-Software"
+>
+
+<span class="category-icon">🎧</span>
+
+<span class="category-text">
+Virtual DJ Software
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Windows-Software"
+>
+
+<span class="category-icon">🪟</span>
+
+<span class="category-text">
+Windows Software
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Software-Video-Editing"
+>
+
+<span class="category-icon">🎬</span>
+
+<span class="category-text">
+Video Editing
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Audio-Editing"
+>
+
+<span class="category-icon">🎚️</span>
+
+<span class="category-text">
+Audio Editing
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Photo-Editing"
+>
+
+<span class="category-icon">🖼️</span>
+
+<span class="category-text">
+Photo Editing
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Graphics-Design"
+>
+
+<span class="category-icon">🎨</span>
+
+<span class="category-text">
+Graphics &amp; Design
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Mac-Software"
+>
+
+<span class="category-icon">🍎</span>
+
+<span class="category-text">
+Mac Software
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Linux-Software"
+>
+
+<span class="category-icon">🐧</span>
+
+<span class="category-text">
+Linux Software
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Android-Software"
+>
+
+<span class="category-icon">🤖</span>
+
+<span class="category-text">
+Android Software
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Office-Productivity"
+>
+
+<span class="category-icon">📊</span>
+
+<span class="category-text">
+Office &amp; Productivity
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Internet-Browsers"
+>
+
+<span class="category-icon">🌐</span>
+
+<span class="category-text">
+Internet &amp; Browsers
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Security-Antivirus"
+>
+
+<span class="category-icon">🛡️</span>
+
+<span class="category-text">
+Security &amp; Antivirus
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Software-File-Management"
+>
+
+<span class="category-icon">📂</span>
+
+<span class="category-text">
+File Management
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Media-Players"
+>
+
+<span class="category-icon">▶️</span>
+
+<span class="category-text">
+Media Players
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Download-Managers"
+>
+
+<span class="category-icon">⬇️</span>
+
+<span class="category-text">
+Download Managers
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Programming-Development"
+>
+
+<span class="category-icon">💻</span>
+
+<span class="category-text">
+Programming &amp; Development
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Utilities-Tools"
+>
+
+<span class="category-icon">🔧</span>
+
+<span class="category-text">
+Utilities &amp; Tools
+</span>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     6. DJ MIXES
+     ====================================================== -->
+
+<section class="section">
+
+<h2>
+🎧 DJ Mixes
+</h2>
+
+
+<a
+class="feature-card"
+href="library.html?folder=DJ-Mixes"
+>
+
+<span class="feature-icon">
+🎧
+</span>
+
+<span>
+
+<span class="feature-title">
+DJ Mixes
+</span>
+
+<span class="feature-subtitle">
+Mixtapes • Mappings • Sound Effects • Virtual DJ
+</span>
+
+</span>
+
+</a>
+
+</section>
+
+
+<!-- ======================================================
+     OLD IS GOLD
+     ====================================================== -->
+
+<section class="section">
+
+<h2>
+🏆 Old Is Gold
+</h2>
+
+<div class="category-grid">
+
+
+<a
+class="category-card"
+href="library.html?folder=Old-is-Gold-Ugandan"
+>
+
+<span class="category-icon">🇺🇬</span>
+
+<span class="category-text">
+Ugandan Music
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Old-is-Gold-Amapiano"
+>
+
+<span class="category-icon">🎵</span>
+
+<span class="category-text">
+Amapiano
+</span>
+
+</a>
+
+
+<a
+class="category-card"
+href="library.html?folder=Old-is-Gold-South-African"
+>
+
+<span class="category-icon">🇿🇦</span>
+
+<span class="category-text">
+South African Music
+</span>
+
+</a>
+
+
+</div>
+
+</section>
 
 
 <!-- ======================================================
@@ -1133,7 +2064,6 @@ alt="X"
 
 
 </div>
-
 
 </body>
 
