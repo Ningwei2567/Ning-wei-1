@@ -35,6 +35,10 @@ background:#f5f5f7;
 color:#111;
 }
 
+body.viewer-open{
+overflow:hidden;
+}
+
 a,
 button{
 font-family:inherit;
@@ -622,12 +626,9 @@ object-fit:cover;
 }
 
 
-/*
+/* =========================================================
    VIDEO THUMBNAIL
-
-   No controls.
-   No visible play/download buttons.
-*/
+   ========================================================= */
 
 .media-video{
 width:100%;
@@ -644,7 +645,42 @@ pointer-events:none;
 }
 
 .media-video-card{
-cursor:default;
+cursor:pointer;
+position:relative;
+}
+
+.video-play-icon{
+position:absolute;
+
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+width:45px;
+height:45px;
+
+border-radius:50%;
+
+background:rgba(0,0,0,.72);
+
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:20px;
+
+pointer-events:none;
+
+z-index:2;
+}
+
+.video-play-icon::after{
+content:"▶";
+
+margin-left:3px;
 }
 
 
@@ -713,6 +749,254 @@ font-weight:700;
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
+}
+
+
+/* =========================================================
+   FULL SCREEN MEDIA VIEWER
+   ========================================================= */
+
+.media-viewer{
+position:fixed;
+
+inset:0;
+
+width:100%;
+height:100%;
+
+background:#000;
+
+z-index:99999;
+
+display:none;
+
+overflow:hidden;
+}
+
+.media-viewer.open{
+display:block;
+}
+
+.viewer-stage{
+position:absolute;
+
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
+touch-action:none;
+}
+
+.viewer-photo{
+max-width:100%;
+max-height:100%;
+
+width:auto;
+height:auto;
+
+object-fit:contain;
+
+display:none;
+
+user-select:none;
+
+-webkit-user-drag:none;
+}
+
+.viewer-video{
+width:100%;
+height:100%;
+
+object-fit:contain;
+
+background:#000;
+
+display:none;
+}
+
+.viewer-top{
+position:absolute;
+
+left:0;
+right:0;
+top:0;
+
+height:65px;
+
+display:flex;
+align-items:center;
+
+justify-content:space-between;
+
+padding:
+env(safe-area-inset-top)
+12px
+0
+12px;
+
+z-index:20;
+
+background:
+linear-gradient(
+to bottom,
+rgba(0,0,0,.75),
+rgba(0,0,0,0)
+);
+}
+
+.viewer-close,
+.viewer-prev,
+.viewer-next{
+border:0;
+
+color:#fff;
+
+background:rgba(0,0,0,.58);
+
+width:42px;
+height:42px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:22px;
+
+cursor:pointer;
+}
+
+.viewer-counter{
+color:#fff;
+
+font-size:13px;
+
+font-weight:700;
+
+background:rgba(0,0,0,.5);
+
+padding:8px 12px;
+
+border-radius:20px;
+}
+
+.viewer-bottom{
+position:absolute;
+
+left:0;
+right:0;
+bottom:0;
+
+padding:
+12px
+14px
+calc(14px + env(safe-area-inset-bottom))
+14px;
+
+z-index:20;
+
+background:
+linear-gradient(
+to top,
+rgba(0,0,0,.85),
+rgba(0,0,0,0)
+);
+}
+
+.viewer-title{
+color:#fff;
+
+font-size:16px;
+
+font-weight:800;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.viewer-meta{
+color:#ddd;
+
+font-size:12px;
+
+margin-top:5px;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.viewer-download{
+display:inline-flex;
+
+align-items:center;
+justify-content:center;
+
+margin-top:9px;
+
+padding:8px 13px;
+
+border-radius:8px;
+
+background:#fff;
+
+color:#111;
+
+text-decoration:none;
+
+font-size:12px;
+
+font-weight:800;
+}
+
+.viewer-arrow{
+position:absolute;
+
+top:50%;
+
+transform:translateY(-50%);
+
+z-index:15;
+}
+
+.viewer-arrow.prev{
+left:10px;
+}
+
+.viewer-arrow.next{
+right:10px;
+}
+
+.viewer-hint{
+position:absolute;
+
+left:50%;
+
+bottom:85px;
+
+transform:translateX(-50%);
+
+z-index:16;
+
+color:#fff;
+
+font-size:11px;
+
+background:rgba(0,0,0,.45);
+
+padding:6px 10px;
+
+border-radius:20px;
+
+opacity:.85;
+
+pointer-events:none;
 }
 
 
@@ -959,6 +1243,14 @@ font-size:10px;
 
 .media-date{
 font-size:8px;
+}
+
+.viewer-arrow{
+display:none;
+}
+
+.viewer-hint{
+bottom:92px;
 }
 
 }
@@ -1385,6 +1677,125 @@ aria-label="TikTok"
 </div>
 
 
+<!-- ======================================================
+     FULL SCREEN PHOTO / VIDEO VIEWER
+     ====================================================== -->
+
+<div
+id="mediaViewer"
+class="media-viewer"
+aria-hidden="true"
+>
+
+<div class="viewer-top">
+
+<button
+id="viewerClose"
+class="viewer-close"
+type="button"
+aria-label="Close viewer"
+>
+×
+</button>
+
+
+<div
+id="viewerCounter"
+class="viewer-counter"
+>
+1 / 1
+</div>
+
+
+<div style="width:42px;height:42px;"></div>
+
+</div>
+
+
+<div
+id="viewerStage"
+class="viewer-stage"
+>
+
+<button
+id="viewerPrev"
+class="viewer-arrow prev"
+type="button"
+aria-label="Previous"
+>
+‹
+</button>
+
+
+<img
+id="viewerPhoto"
+class="viewer-photo"
+alt=""
+draggable="false"
+>
+
+
+<video
+id="viewerVideo"
+class="viewer-video"
+controls
+playsinline
+preload="metadata"
+>
+</video>
+
+
+<button
+id="viewerNext"
+class="viewer-arrow next"
+type="button"
+aria-label="Next"
+>
+›
+</button>
+
+</div>
+
+
+<div
+class="viewer-hint"
+>
+Swipe up/down or left/right for next media
+</div>
+
+
+<div class="viewer-bottom">
+
+<div
+id="viewerTitle"
+class="viewer-title"
+>
+Media
+</div>
+
+
+<div
+id="viewerMeta"
+class="viewer-meta"
+>
+</div>
+
+
+<a
+id="viewerDownload"
+class="viewer-download"
+href="#"
+download
+>
+⬇ Download
+</a>
+
+</div>
+
+</div>
+
+
+
 <script>
 
 /* =========================================================
@@ -1404,7 +1815,7 @@ const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYnRrc3l6aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
 supabase.createClient(
@@ -1591,6 +2002,59 @@ document.getElementById("pageTitle");
 
 const pageDescription =
 document.getElementById("pageDescription");
+
+
+/* =========================================================
+   VIEWER ELEMENTS
+   ========================================================= */
+
+const mediaViewer =
+document.getElementById("mediaViewer");
+
+const viewerStage =
+document.getElementById("viewerStage");
+
+const viewerPhoto =
+document.getElementById("viewerPhoto");
+
+const viewerVideo =
+document.getElementById("viewerVideo");
+
+const viewerTitle =
+document.getElementById("viewerTitle");
+
+const viewerMeta =
+document.getElementById("viewerMeta");
+
+const viewerCounter =
+document.getElementById("viewerCounter");
+
+const viewerDownload =
+document.getElementById("viewerDownload");
+
+const viewerClose =
+document.getElementById("viewerClose");
+
+const viewerPrev =
+document.getElementById("viewerPrev");
+
+const viewerNext =
+document.getElementById("viewerNext");
+
+
+/* =========================================================
+   VIEWER STATE
+   ========================================================= */
+
+let viewerItems = [];
+
+let viewerIndex = 0;
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+let touchStartTime = 0;
 
 
 /* =========================================================
@@ -2682,9 +3146,9 @@ error
 }
 
 
-/* =========================================================
+/* =======================================================
    NORMALIZE SUPABASE ITEMS
-   ========================================================= */
+   ======================================================= */
 
 const normalizedSupabase =
 supabaseMedia
@@ -3003,7 +3467,7 @@ type === "video"
 ){
 
 openURL =
-playerURL(item);
+"#";
 
 }
 else if(item.url){
@@ -3069,24 +3533,36 @@ escapeHTML(date)
 
 <div class="file-actions">
 
+${
+type === "photo" || type === "video"
+?
+`
+
+<button
+class="file-button"
+type="button"
+data-open-media="true"
+>
+
+View
+
+</button>
+
+`
+:
+`
+
 <a
 class="file-button"
 href="${escapeHTML(openURL)}"
 >
 
-${
-type === "photo"
-?
-"View"
-:
-type === "video"
-?
-"Open"
-:
-"Open"
-}
+Open
 
 </a>
+
+`
+}
 
 
 ${
@@ -3134,11 +3610,20 @@ return html;
 
 function renderMediaGrid(items){
 
+const mediaItems =
+items.filter(
+item=>
+item.type === "photo" ||
+item.type === "video"
+);
+
+
 let html =
 '<div class="media-grid">';
 
 
-items.forEach(item=>{
+mediaItems.forEach(
+(item,index)=>{
 
 const url =
 item.url || "";
@@ -3154,20 +3639,19 @@ if(
 item.type === "photo"
 ){
 
-const openURL =
-playerURL(item);
-
 html += `
 
-<a
+<div
 class="media-card"
-href="${escapeHTML(openURL)}"
+data-viewer-index="${index}"
 data-search="${escapeHTML(
 (
 item.name + " " +
 item.artistName
 ).toLowerCase()
 )}"
+role="button"
+tabindex="0"
 >
 
 <img
@@ -3234,16 +3718,12 @@ ${escapeHTML(date)}
 ""
 }
 
-</a>
+</div>
 
 `;
 
 }
 
-
-/* =======================================================
-   VIDEO THUMBNAIL
-   ======================================================= */
 
 else if(
 item.type === "video"
@@ -3256,25 +3736,19 @@ item.mime
 );
 
 
-/*
-   IMPORTANT:
-
-   There are NO controls here.
-   There are NO Open/Download buttons.
-
-   The video is only used visually as a thumbnail.
-*/
-
 html += `
 
 <div
 class="media-video-card"
+data-viewer-index="${index}"
 data-search="${escapeHTML(
 (
 item.name + " " +
 item.artistName
 ).toLowerCase()
 )}"
+role="button"
+tabindex="0"
 >
 
 <video
@@ -3309,6 +3783,9 @@ src="${escapeHTML(url)}"
 Your browser does not support this video format.
 
 </video>
+
+
+<div class="video-play-icon"></div>
 
 
 ${
@@ -3626,16 +4103,26 @@ applySearch(filtered);
 
 if(filtered.length){
 
+viewerItems =
+filtered.filter(
+item=>
+item.type === "photo"
+);
+
 library.innerHTML =
 renderMediaGrid(filtered);
 
 }
 else{
 
+viewerItems = [];
+
 library.innerHTML =
 '<div class="status">No photos found.</div>';
 
 }
+
+refreshMediaUI();
 
 return;
 
@@ -3663,16 +4150,26 @@ applySearch(filtered);
 
 if(filtered.length){
 
+viewerItems =
+filtered.filter(
+item=>
+item.type === "video"
+);
+
 library.innerHTML =
 renderMediaGrid(filtered);
 
 }
 else{
 
+viewerItems = [];
+
 library.innerHTML =
 '<div class="status">No videos found.</div>';
 
 }
+
+refreshMediaUI();
 
 return;
 
@@ -3730,6 +4227,8 @@ library.innerHTML =
 
 }
 
+refreshMediaUI();
+
 return;
 
 }
@@ -3780,6 +4279,8 @@ library.innerHTML =
 '<div class="status">No files found.</div>';
 
 }
+
+refreshMediaUI();
 
 }
 
@@ -3846,6 +4347,8 @@ new Date(a.date)
 
 if(!recent.length){
 
+viewerItems = [];
+
 library.innerHTML =
 '<div class="status">Choose a category above.</div>';
 
@@ -3858,32 +4361,22 @@ let html =
 '<div class="page-title"><h2>Recently Uploaded</h2></div>';
 
 
-const photos =
+const mediaRecent =
 recent.filter(
 item=>
-item.type === "photo"
-);
-
-
-const videos =
-recent.filter(
-item=>
+item.type === "photo" ||
 item.type === "video"
 );
 
 
-if(photos.length){
+viewerItems =
+mediaRecent;
+
+
+if(mediaRecent.length){
 
 html +=
-renderMediaGrid(photos);
-
-}
-
-
-if(videos.length){
-
-html +=
-renderMediaGrid(videos);
+renderMediaGrid(mediaRecent);
 
 }
 
@@ -3906,6 +4399,8 @@ renderFileRows(other);
 
 library.innerHTML =
 html;
+
+refreshMediaUI();
 
 }
 
@@ -4019,9 +4514,12 @@ item.type === "video"
 
 
 if(
-photos.length &&
-categoryParam === "photos"
+categoryParam === "photos" &&
+photos.length
 ){
+
+viewerItems =
+photos;
 
 html +=
 renderMediaGrid(photos);
@@ -4029,9 +4527,12 @@ renderMediaGrid(photos);
 }
 
 else if(
-videos.length &&
-categoryParam === "videos"
+categoryParam === "videos" &&
+videos.length
 ){
+
+viewerItems =
+videos;
 
 html +=
 renderMediaGrid(videos);
@@ -4039,6 +4540,8 @@ renderMediaGrid(videos);
 }
 
 else{
+
+viewerItems = [];
 
 html +=
 renderFileRows(direct);
@@ -4053,6 +4556,8 @@ if(
 !direct.length
 ){
 
+viewerItems = [];
+
 html +=
 '<div class="status">This folder is empty.</div>';
 
@@ -4061,6 +4566,8 @@ html +=
 
 library.innerHTML =
 html;
+
+refreshMediaUI();
 
 }
 
@@ -4083,12 +4590,6 @@ row.addEventListener(
 "click",
 event=>{
 
-/*
-   Don't toggle the row when the user
-   is already interacting with the audio
-   controls or download button.
-*/
-
 if(
 event.target.closest(
 ".audio-panel"
@@ -4105,10 +4606,6 @@ row.classList.contains(
 "selected"
 );
 
-
-/*
-   Close all other audio rows.
-*/
 
 rows.forEach(other=>{
 
@@ -4164,10 +4661,6 @@ player.load();
 );
 
 
-/*
-   Keyboard accessibility.
-*/
-
 row.addEventListener(
 "keydown",
 event=>{
@@ -4204,13 +4697,6 @@ document.querySelectorAll(
 
 videos.forEach(video=>{
 
-/*
-   The video is never given controls.
-
-   It only loads enough information to
-   display the first available frame.
-*/
-
 video.controls =
 false;
 
@@ -4219,12 +4705,6 @@ true;
 
 video.playsInline =
 true;
-
-
-/*
-   If there is no poster image, keep the
-   first frame as the visual preview.
-*/
 
 video.addEventListener(
 "loadeddata",
@@ -4251,6 +4731,640 @@ once:true
 
 
 /* =========================================================
+   MEDIA CARD EVENTS
+   ========================================================= */
+
+function activateMediaCards(){
+
+const cards =
+document.querySelectorAll(
+"[data-viewer-index]"
+);
+
+
+cards.forEach(card=>{
+
+card.addEventListener(
+"click",
+event=>{
+
+event.preventDefault();
+
+const index =
+Number(
+card.dataset.viewerIndex
+);
+
+if(
+Number.isInteger(index)
+){
+
+openViewer(index);
+
+}
+
+});
+
+
+card.addEventListener(
+"keydown",
+event=>{
+
+if(
+event.key === "Enter" ||
+event.key === " "
+){
+
+event.preventDefault();
+
+const index =
+Number(
+card.dataset.viewerIndex
+);
+
+if(
+Number.isInteger(index)
+){
+
+openViewer(index);
+
+}
+
+}
+
+});
+
+});
+
+}
+
+
+/* =========================================================
+   OPEN VIEWER
+   ========================================================= */
+
+function openViewer(index){
+
+if(
+!viewerItems.length
+){
+
+return;
+
+}
+
+
+if(index < 0){
+
+index =
+viewerItems.length - 1;
+
+}
+
+
+if(
+index >= viewerItems.length
+){
+
+index = 0;
+
+}
+
+
+viewerIndex =
+index;
+
+
+mediaViewer.classList.add(
+"open"
+);
+
+mediaViewer.setAttribute(
+"aria-hidden",
+"false"
+);
+
+document.body.classList.add(
+"viewer-open"
+);
+
+showViewerItem();
+
+}
+
+
+/* =========================================================
+   SHOW VIEWER ITEM
+   ========================================================= */
+
+function showViewerItem(){
+
+const item =
+viewerItems[viewerIndex];
+
+
+if(!item){
+
+return;
+
+}
+
+
+const type =
+item.type;
+
+const title =
+cleanName(item.name) ||
+"Media";
+
+const date =
+formatDate(item.date);
+
+
+viewerCounter.textContent =
+(
+viewerIndex + 1
+) +
+" / " +
+viewerItems.length;
+
+
+viewerTitle.textContent =
+title;
+
+
+let meta = "";
+
+
+if(item.artistName){
+
+meta +=
+item.artistName;
+
+}
+
+
+if(date){
+
+if(meta){
+
+meta +=
+" • ";
+
+}
+
+meta +=
+"Uploaded: " +
+date;
+
+}
+
+
+viewerMeta.textContent =
+meta;
+
+
+const downloadURL =
+originalDownloadURL(item);
+
+
+if(downloadURL){
+
+viewerDownload.href =
+downloadURL;
+
+viewerDownload.download =
+item.name || "download";
+
+viewerDownload.style.display =
+"inline-flex";
+
+}
+else{
+
+viewerDownload.style.display =
+"none";
+
+}
+
+
+viewerPhoto.style.display =
+"none";
+
+viewerVideo.style.display =
+"none";
+
+
+viewerVideo.pause();
+
+viewerVideo.removeAttribute(
+"src"
+);
+
+viewerVideo.innerHTML =
+"";
+
+
+if(type === "photo"){
+
+viewerPhoto.src =
+item.url || "";
+
+viewerPhoto.alt =
+title;
+
+viewerPhoto.style.display =
+"block";
+
+}
+
+
+else if(type === "video"){
+
+const videoMime =
+videoMimeType(
+item.name,
+item.mime
+);
+
+
+if(videoMime){
+
+const source =
+document.createElement(
+"source"
+);
+
+source.src =
+item.url || "";
+
+source.type =
+videoMime;
+
+viewerVideo.appendChild(
+source
+);
+
+}
+else{
+
+viewerVideo.src =
+item.url || "";
+
+}
+
+
+viewerVideo.style.display =
+"block";
+
+viewerVideo.load();
+
+}
+
+
+else{
+
+closeViewer();
+
+return;
+
+}
+
+}
+
+
+/* =========================================================
+   CLOSE VIEWER
+   ========================================================= */
+
+function closeViewer(){
+
+viewerVideo.pause();
+
+viewerVideo.removeAttribute(
+"src"
+);
+
+viewerVideo.innerHTML =
+"";
+
+viewerPhoto.removeAttribute(
+"src"
+);
+
+mediaViewer.classList.remove(
+"open"
+);
+
+mediaViewer.setAttribute(
+"aria-hidden",
+"true"
+);
+
+document.body.classList.remove(
+"viewer-open"
+);
+
+}
+
+
+/* =========================================================
+   NEXT MEDIA
+   ========================================================= */
+
+function nextViewer(){
+
+if(
+!viewerItems.length
+){
+
+return;
+
+}
+
+
+viewerIndex++;
+
+if(
+viewerIndex >= viewerItems.length
+){
+
+viewerIndex = 0;
+
+}
+
+showViewerItem();
+
+}
+
+
+/* =========================================================
+   PREVIOUS MEDIA
+   ========================================================= */
+
+function previousViewer(){
+
+if(
+!viewerItems.length
+){
+
+return;
+
+}
+
+
+viewerIndex--;
+
+if(
+viewerIndex < 0
+){
+
+viewerIndex =
+viewerItems.length - 1;
+
+}
+
+showViewerItem();
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+viewerClose.addEventListener(
+"click",
+event=>{
+
+event.stopPropagation();
+
+closeViewer();
+
+});
+
+
+viewerNext.addEventListener(
+"click",
+event=>{
+
+event.stopPropagation();
+
+nextViewer();
+
+});
+
+
+viewerPrev.addEventListener(
+"click",
+event=>{
+
+event.stopPropagation();
+
+previousViewer();
+
+});
+
+
+/* =========================================================
+   TAP OUTSIDE
+   ========================================================= */
+
+viewerStage.addEventListener(
+"click",
+event=>{
+
+if(
+event.target === viewerStage
+){
+
+closeViewer();
+
+}
+
+});
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+"keydown",
+event=>{
+
+if(
+!mediaViewer.classList.contains(
+"open"
+)
+){
+
+return;
+
+}
+
+
+if(
+event.key === "Escape"
+){
+
+closeViewer();
+
+}
+
+
+else if(
+event.key === "ArrowDown" ||
+event.key === "ArrowRight"
+){
+
+nextViewer();
+
+}
+
+
+else if(
+event.key === "ArrowUp" ||
+event.key === "ArrowLeft"
+){
+
+previousViewer();
+
+}
+
+});
+
+
+/* =========================================================
+   TOUCH / SWIPE
+   ========================================================= */
+
+viewerStage.addEventListener(
+"touchstart",
+event=>{
+
+if(
+!mediaViewer.classList.contains(
+"open"
+)
+){
+
+return;
+
+}
+
+
+const touch =
+event.changedTouches[0];
+
+touchStartX =
+touch.clientX;
+
+touchStartY =
+touch.clientY;
+
+touchStartTime =
+Date.now();
+
+},
+{
+passive:true
+}
+);
+
+
+viewerStage.addEventListener(
+"touchend",
+event=>{
+
+if(
+!mediaViewer.classList.contains(
+"open"
+)
+){
+
+return;
+
+}
+
+
+const touch =
+event.changedTouches[0];
+
+const endX =
+touch.clientX;
+
+const endY =
+touch.clientY;
+
+const deltaX =
+endX - touchStartX;
+
+const deltaY =
+endY - touchStartY;
+
+const elapsed =
+Date.now() -
+touchStartTime;
+
+
+/*
+   Ignore tiny taps.
+*/
+
+if(
+Math.abs(deltaX) < 40 &&
+Math.abs(deltaY) < 40
+){
+
+return;
+
+}
+
+
+/*
+   A quick or normal swipe:
+   horizontal OR vertical.
+*/
+
+const horizontal =
+Math.abs(deltaX) >
+Math.abs(deltaY);
+
+
+if(horizontal){
+
+if(deltaX < 0){
+
+nextViewer();
+
+}
+else{
+
+previousViewer();
+
+}
+
+}
+else{
+
+if(deltaY < 0){
+
+nextViewer();
+
+}
+else{
+
+previousViewer();
+
+}
+
+}
+
+});
+
+
+/* =========================================================
    REFRESH INTERACTIVE MEDIA
    ========================================================= */
 
@@ -4259,6 +5373,8 @@ function refreshMediaUI(){
 activateAudioRows();
 
 prepareVideoThumbnails();
+
+activateMediaCards();
 
 }
 
