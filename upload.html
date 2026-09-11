@@ -329,6 +329,38 @@ color:#555;
 }
 
 /* =========================================================
+   LARGE BATCH INFORMATION
+   ========================================================= */
+
+.batch-info{
+display:none;
+margin-top:10px;
+padding:10px 12px;
+border-radius:9px;
+background:#f5fbfd;
+border:1px solid #d8eef5;
+font-size:12px;
+line-height:1.45;
+color:#47707e;
+}
+
+.batch-info strong{
+color:#087da8;
+}
+
+.batch-summary{
+display:none;
+margin-top:10px;
+padding:10px 12px;
+border-radius:9px;
+background:#f7f7f7;
+border:1px solid #e2e2e2;
+font-size:12px;
+line-height:1.5;
+color:#555;
+}
+
+/* =========================================================
    STATUS
    ========================================================= */
 
@@ -539,6 +571,7 @@ No photo selected
 <div class="upload-instruction">
 Upload your music here. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
+You can select many songs at once.
 </div>
 
 <label for="songFiles">
@@ -607,6 +640,7 @@ class="file-count"
 <div class="upload-instruction">
 Upload your photos or images. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
+You can select many photos at once.
 </div>
 
 <label for="imageFiles">
@@ -648,8 +682,10 @@ class="file-count"
 </h3>
 
 <div class="upload-instruction">
-Upload your video files. Make sure each file has a title.
-The filename of each selected file will be used as its title/name.
+Upload your music videos, clips and other video files.
+Make sure each file has a title. The filename of each
+selected file will be used as its title/name.
+You can select many videos at once.
 </div>
 
 <label for="videoFiles">
@@ -718,6 +754,7 @@ class="file-count"
 <div class="upload-instruction">
 Upload your apps/APK files. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
+You can select many apps at once.
 </div>
 
 <label for="appFiles">
@@ -786,6 +823,7 @@ class="file-count"
 <div class="upload-instruction">
 Upload your software files. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
+You can select many software files at once.
 </div>
 
 <label for="softwareFiles">
@@ -852,8 +890,9 @@ class="file-count"
 </h3>
 
 <div class="upload-instruction">
-Upload your DJ mixes and related audio files. Make sure each file has a title.
-The filename of each selected file will be used as its title/name.
+Upload your DJ mixes and related audio files. Make sure each
+file has a title. The filename of each selected file will be
+used as its title/name. You can select many mixes at once.
 </div>
 
 <label for="mixFiles">
@@ -927,6 +966,31 @@ Description
 id="description"
 placeholder="Tell us about the content you are uploading..."
 ></textarea>
+
+
+<!-- ======================================================
+     LARGE BATCH INFORMATION
+     ====================================================== -->
+
+<div
+id="batchInfo"
+class="batch-info"
+>
+<strong>Large batch ready.</strong>
+The uploader uses a controlled upload queue so thousands
+of selected files can be processed without opening thousands
+of simultaneous upload connections.
+</div>
+
+
+<!-- ======================================================
+     BATCH SUMMARY
+     ====================================================== -->
+
+<div
+id="batchSummary"
+class="batch-summary"
+></div>
 
 
 <!-- ======================================================
@@ -1015,6 +1079,29 @@ SUPABASE_KEY
 
 
 /* =========================================================
+   LARGE BATCH SETTINGS
+   =========================================================
+
+   This does NOT limit how many files the user can select.
+
+   The browser can select thousands of files through the
+   multiple file input.
+
+   UPLOAD_CONCURRENCY controls how many uploads are running
+   at the same time.
+
+   A controlled number is safer than trying to send 2,000+
+   requests simultaneously.
+   ========================================================= */
+
+const UPLOAD_CONCURRENCY = 5;
+
+const UPLOAD_RETRIES = 3;
+
+const RETRY_DELAY = 1500;
+
+
+/* =========================================================
    FILE DISPLAY
    ========================================================= */
 
@@ -1058,6 +1145,8 @@ if(count){
 count.textContent = "";
 }
 
+updateBatchInformation();
+
 return;
 
 }
@@ -1093,6 +1182,8 @@ files.length +
 " selected";
 
 }
+
+updateBatchInformation();
 
 }
 
@@ -1210,16 +1301,23 @@ input.files || []
 }
 
 
+/* =========================================================
+   CLEAN FILE NAME
+   ========================================================= */
+
 function cleanFileName(name){
 
 return String(name || "")
-.replace(
-/[^a-zA-Z0-9._-]/g,
-"-"
-);
+.replace(/[^a-zA-Z0-9._-]/g,"-")
+.replace(/-+/g,"-")
+.replace(/^-|-$/g,"");
 
 }
 
+
+/* =========================================================
+   TITLE FROM FILE
+   ========================================================= */
 
 function titleFromFile(file){
 
@@ -1234,6 +1332,192 @@ return file.name
 
 }
 
+
+/* =========================================================
+   SAFE UNIQUE STORAGE NAME
+   ========================================================= */
+
+function createStorageFileName(file){
+
+const safeName =
+cleanFileName(file.name);
+
+const randomPart =
+Math.random()
+.toString(36)
+.substring(2,10);
+
+return (
+Date.now() +
+"-" +
+randomPart +
+"-" +
+safeName
+);
+
+}
+
+
+/* =========================================================
+   FORMAT FILE SIZE
+   ========================================================= */
+
+function formatFileSize(bytes){
+
+if(!bytes){
+return "0 B";
+}
+
+const units =
+[
+"B",
+"KB",
+"MB",
+"GB",
+"TB"
+];
+
+const index =
+Math.floor(
+Math.log(bytes) /
+Math.log(1024)
+);
+
+const safeIndex =
+Math.min(
+index,
+units.length - 1
+);
+
+return (
+bytes /
+Math.pow(1024,safeIndex)
+).toFixed(
+safeIndex === 0 ? 0 : 2
+) +
+" " +
+units[safeIndex];
+
+}
+
+
+/* =========================================================
+   GET ALL SELECTED FILES
+   ========================================================= */
+
+function getAllSelectedFiles(){
+
+return [
+
+...getFiles("songFiles"),
+
+...getFiles("songCovers"),
+
+...getFiles("imageFiles"),
+
+...getFiles("videoFiles"),
+
+...getFiles("videoThumbnails"),
+
+...getFiles("appFiles"),
+
+...getFiles("appIcons"),
+
+...getFiles("softwareFiles"),
+
+...getFiles("softwareImages"),
+
+...getFiles("mixFiles"),
+
+...getFiles("mixCovers"),
+
+...getFiles("artistPhoto")
+
+];
+
+}
+
+
+/* =========================================================
+   UPDATE LARGE BATCH INFORMATION
+   ========================================================= */
+
+function updateBatchInformation(){
+
+const allFiles =
+getAllSelectedFiles();
+
+const batchInfo =
+document.getElementById(
+"batchInfo"
+);
+
+const batchSummary =
+document.getElementById(
+"batchSummary"
+);
+
+if(!allFiles.length){
+
+if(batchInfo){
+batchInfo.style.display = "none";
+}
+
+if(batchSummary){
+batchSummary.style.display = "none";
+batchSummary.innerHTML = "";
+}
+
+return;
+
+}
+
+if(batchInfo){
+
+batchInfo.style.display =
+allFiles.length >= 100
+? "block"
+: "none";
+
+}
+
+if(batchSummary){
+
+let totalSize = 0;
+
+for(
+const file of allFiles
+){
+
+totalSize +=
+file.size || 0;
+
+}
+
+batchSummary.style.display =
+"block";
+
+batchSummary.innerHTML =
+"<strong>" +
+allFiles.length.toLocaleString() +
+"</strong> file" +
+(
+allFiles.length === 1
+? ""
+: "s"
+) +
+" selected • approximately " +
+formatFileSize(totalSize) +
+" total.";
+
+}
+
+}
+
+
+/* =========================================================
+   SET PROGRESS
+   ========================================================= */
 
 function setProgress(
 current,
@@ -1256,6 +1540,10 @@ document.getElementById(
 "progressText"
 );
 
+if(!wrap){
+return;
+}
+
 wrap.style.display =
 "block";
 
@@ -1266,8 +1554,14 @@ total > 0
 )
 : 0;
 
+if(fill){
+
 fill.style.width =
 percent + "%";
+
+}
+
+if(text){
 
 text.textContent =
 message ||
@@ -1281,9 +1575,25 @@ total +
 
 }
 
+}
+
 
 /* =========================================================
-   UPLOAD ONE FILE
+   DELAY
+   ========================================================= */
+
+function wait(ms){
+
+return new Promise(
+resolve =>
+setTimeout(resolve,ms)
+);
+
+}
+
+
+/* =========================================================
+   UPLOAD ONE FILE WITH RETRIES
    ========================================================= */
 
 async function uploadFile(
@@ -1295,17 +1605,18 @@ if(!file){
 return null;
 }
 
-const safeName =
-cleanFileName(file.name);
-
 const filename =
-Date.now() +
-"-" +
-Math.random()
-.toString(36)
-.substring(2,10) +
-"-" +
-safeName;
+createStorageFileName(file);
+
+let lastError = null;
+
+for(
+let attempt = 1;
+attempt <= UPLOAD_RETRIES;
+attempt++
+){
+
+try{
 
 const result =
 await db.storage
@@ -1325,9 +1636,6 @@ file.type ||
 if(result.error){
 
 throw new Error(
-"Could not upload " +
-file.name +
-": " +
 result.error.message
 );
 
@@ -1352,11 +1660,60 @@ bucket:bucket
 
 };
 
+}catch(error){
+
+lastError =
+error;
+
+if(
+attempt <
+UPLOAD_RETRIES
+){
+
+await wait(
+RETRY_DELAY * attempt
+);
+
+}
+
+}
+
+}
+
+throw new Error(
+"Could not upload " +
+file.name +
+": " +
+(
+lastError
+? lastError.message
+: "Unknown upload error"
+)
+);
+
 }
 
 
 /* =========================================================
-   UPLOAD MANY FILES
+   LARGE BATCH CONCURRENT UPLOAD ENGINE
+   =========================================================
+
+   IMPORTANT:
+
+   The user may select 2,000+ files.
+
+   We do NOT create 2,000 simultaneous network requests.
+
+   Instead:
+
+   - all selected files stay in the browser FileList
+   - only a small number are uploaded simultaneously
+   - completed files are removed from the active queue
+   - the next files automatically enter the queue
+   - progress is updated after every completed file
+   - failed files are recorded without stopping the entire batch
+
+   This is much safer for very large batches.
    ========================================================= */
 
 async function uploadFiles(
@@ -1366,53 +1723,126 @@ label,
 progress
 ){
 
-const results = [];
+const results =
+new Array(files.length);
 
-for(
-let i = 0;
-i < files.length;
-i++
-){
+if(!files.length){
+return results;
+}
+
+let nextIndex = 0;
+
+
+/* ---------------------------------------------------------
+   WORKER
+   --------------------------------------------------------- */
+
+async function worker(){
+
+while(true){
+
+const index =
+nextIndex++;
+
+if(index >= files.length){
+return;
+}
 
 const file =
-files[i];
+files[index];
+
+let result = null;
+
+try{
 
 setProgress(
 progress.current,
 progress.total,
 label +
-": " +
-(i + 1) +
+": preparing " +
+(
+index + 1
+) +
 " of " +
 files.length +
 " — " +
 file.name
 );
 
-try{
-
-const result =
+result =
 await uploadFile(
 bucket,
 file
 );
 
-results.push(result);
-
-progress.current++;
+results[index] =
+result;
 
 }catch(error){
 
 progress.failed.push({
+
 file:file.name,
-error:error.message
+
+error:error.message,
+
+bucket:bucket
+
 });
+
+results[index] =
+null;
+
+}finally{
 
 progress.current++;
 
+setProgress(
+progress.current,
+progress.total,
+label +
+": " +
+progress.current +
+" of " +
+progress.total +
+" — " +
+file.name
+);
+
 }
 
 }
+
+}
+
+
+/* ---------------------------------------------------------
+   CREATE CONTROLLED WORKERS
+   --------------------------------------------------------- */
+
+const workerCount =
+Math.min(
+UPLOAD_CONCURRENCY,
+files.length
+);
+
+const workers = [];
+
+for(
+let i = 0;
+i < workerCount;
+i++
+){
+
+workers.push(
+worker()
+);
+
+}
+
+await Promise.all(
+workers
+);
 
 return results;
 
@@ -1423,7 +1853,9 @@ return results;
    ARTIST
    ========================================================= */
 
-async function createArtist(){
+async function createArtist(
+progress
+){
 
 const name =
 document.getElementById(
@@ -1452,9 +1884,10 @@ let photoURL = null;
 if(photo){
 
 setProgress(
-0,
-1,
-"Uploading artist photo..."
+progress.current,
+progress.total,
+"Uploading artist photo — " +
+photo.name
 );
 
 try{
@@ -1468,12 +1901,21 @@ photo
 photoURL =
 uploaded.url;
 
+progress.current++;
+
 }catch(error){
 
-console.error(
-"Artist photo upload failed:",
-error
-);
+progress.failed.push({
+
+file:photo.name,
+
+error:error.message,
+
+bucket:"artist-photos"
+
+});
+
+progress.current++;
 
 }
 
@@ -1502,12 +1944,10 @@ photo:photoURL
 
 if(result.error){
 
-console.error(
-"Artist database error:",
-result.error
+throw new Error(
+"Artist database error: " +
+result.error.message
 );
-
-return null;
 
 }
 
@@ -1562,38 +2002,49 @@ result.error.message
 
 
 /* =========================================================
-   MAIN FILE COUNT
+   SAVE DESCRIPTION
    ========================================================= */
 
-function getAllSelectedFiles(){
+function getDescription(){
 
-return [
+const element =
+document.getElementById(
+"description"
+);
 
-...getFiles("songFiles"),
+return element
+? element.value.trim()
+: "";
 
-...getFiles("songCovers"),
+}
 
-...getFiles("imageFiles"),
 
-...getFiles("videoFiles"),
+/* =========================================================
+   UPDATE STATUS
+   ========================================================= */
 
-...getFiles("videoThumbnails"),
+function setStatus(
+message,
+className
+){
 
-...getFiles("appFiles"),
+const status =
+document.getElementById(
+"status"
+);
 
-...getFiles("appIcons"),
+if(!status){
+return;
+}
 
-...getFiles("softwareFiles"),
+status.style.display =
+"block";
 
-...getFiles("softwareImages"),
+status.className =
+className || "";
 
-...getFiles("mixFiles"),
-
-...getFiles("mixCovers"),
-
-...getFiles("artistPhoto")
-
-];
+status.innerHTML =
+message;
 
 }
 
@@ -1618,14 +2069,58 @@ try{
 
 button.disabled = true;
 
-status.style.display =
-"block";
+setStatus(
+"Preparing everything...",
+"status-loading"
+);
 
-status.className =
-"status-loading";
 
-status.innerHTML =
-"Preparing everything...";
+/* ---------------------------------------------------------
+   GET FILES
+   --------------------------------------------------------- */
+
+const songs =
+getFiles("songFiles");
+
+const covers =
+getFiles("songCovers");
+
+const images =
+getFiles("imageFiles");
+
+const videos =
+getFiles("videoFiles");
+
+const videoThumbnails =
+getFiles("videoThumbnails");
+
+const apps =
+getFiles("appFiles");
+
+const appIcons =
+getFiles("appIcons");
+
+const software =
+getFiles("softwareFiles");
+
+const softwareImages =
+getFiles("softwareImages");
+
+const mixes =
+getFiles("mixFiles");
+
+const mixCovers =
+getFiles("mixCovers");
+
+const artistPhoto =
+getFiles("artistPhoto")[0];
+
+
+/* ---------------------------------------------------------
+   MAIN FILE COUNT
+
+   Artist photo is included because it is also uploaded.
+   --------------------------------------------------------- */
 
 const allFiles =
 getAllSelectedFiles();
@@ -1637,6 +2132,11 @@ throw new Error(
 );
 
 }
+
+
+/* ---------------------------------------------------------
+   PROGRESS OBJECT
+   --------------------------------------------------------- */
 
 const progress = {
 
@@ -1650,6 +2150,22 @@ failed:[]
 
 
 /* ---------------------------------------------------------
+   LARGE BATCH NOTICE
+   --------------------------------------------------------- */
+
+if(allFiles.length >= 100){
+
+setStatus(
+"Preparing a large batch of " +
+allFiles.length.toLocaleString() +
+" files. Uploads will be processed safely in controlled batches.",
+"status-loading"
+);
+
+}
+
+
+/* ---------------------------------------------------------
    ARTIST
    --------------------------------------------------------- */
 
@@ -1660,16 +2176,15 @@ document.getElementById(
 "artistName"
 ).value.trim();
 
-const artistPhoto =
-getFiles("artistPhoto")[0];
-
 if(
 artistName ||
 artistPhoto
 ){
 
 artist =
-await createArtist();
+await createArtist(
+progress
+);
 
 }
 
@@ -1678,12 +2193,6 @@ await createArtist();
    SONGS
    --------------------------------------------------------- */
 
-const songs =
-getFiles("songFiles");
-
-const covers =
-getFiles("songCovers");
-
 let songResults = [];
 
 let coverResults = [];
@@ -1691,8 +2200,10 @@ let coverResults = [];
 
 if(songs.length){
 
-status.innerHTML =
-"Uploading songs...";
+setStatus(
+"Uploading songs...",
+"status-loading"
+);
 
 songResults =
 await uploadFiles(
@@ -1711,8 +2222,10 @@ progress
 
 if(covers.length){
 
-status.innerHTML =
-"Uploading song covers...";
+setStatus(
+"Uploading song covers...",
+"status-loading"
+);
 
 coverResults =
 await uploadFiles(
@@ -1727,6 +2240,14 @@ progress
 
 /* ---------------------------------------------------------
    SAVE SONG RECORDS
+   ---------------------------------------------------------
+
+   The existing behavior is preserved.
+
+   If a cover exists in the same position as the song,
+   that cover is associated with that song.
+
+   If there is no matching cover, cover_url remains null.
    --------------------------------------------------------- */
 
 for(
@@ -1737,6 +2258,10 @@ i++
 
 const songResult =
 songResults[i];
+
+if(!songResult){
+continue;
+}
 
 const coverResult =
 coverResults[i] || null;
@@ -1758,11 +2283,22 @@ progress.failed.push({
 
 file:songs[i].name,
 
-error:error.message
+error:error.message,
+
+type:"database"
 
 });
 
 }
+
+setProgress(
+progress.current,
+progress.total,
+"Saving song information: " +
+(i + 1) +
+" of " +
+songResults.length
+);
 
 }
 
@@ -1771,13 +2307,12 @@ error:error.message
    PHOTOS
    --------------------------------------------------------- */
 
-const images =
-getFiles("imageFiles");
-
 if(images.length){
 
-status.innerHTML =
-"Uploading photos/images...";
+setStatus(
+"Uploading photos/images...",
+"status-loading"
+);
 
 await uploadFiles(
 "images",
@@ -1793,13 +2328,12 @@ progress
    VIDEOS
    --------------------------------------------------------- */
 
-const videos =
-getFiles("videoFiles");
-
 if(videos.length){
 
-status.innerHTML =
-"Uploading videos...";
+setStatus(
+"Uploading videos...",
+"status-loading"
+);
 
 await uploadFiles(
 "videos",
@@ -1815,13 +2349,12 @@ progress
    VIDEO THUMBNAILS
    --------------------------------------------------------- */
 
-const videoThumbnails =
-getFiles("videoThumbnails");
-
 if(videoThumbnails.length){
 
-status.innerHTML =
-"Uploading video thumbnails...";
+setStatus(
+"Uploading video thumbnails...",
+"status-loading"
+);
 
 await uploadFiles(
 "video-thumbnails",
@@ -1837,13 +2370,12 @@ progress
    APPS
    --------------------------------------------------------- */
 
-const apps =
-getFiles("appFiles");
-
 if(apps.length){
 
-status.innerHTML =
-"Uploading apps/APKs...";
+setStatus(
+"Uploading apps/APKs...",
+"status-loading"
+);
 
 await uploadFiles(
 "apps",
@@ -1859,13 +2391,12 @@ progress
    APP ICONS
    --------------------------------------------------------- */
 
-const appIcons =
-getFiles("appIcons");
-
 if(appIcons.length){
 
-status.innerHTML =
-"Uploading app icons...";
+setStatus(
+"Uploading app icons...",
+"status-loading"
+);
 
 await uploadFiles(
 "app-icons",
@@ -1881,13 +2412,12 @@ progress
    SOFTWARE
    --------------------------------------------------------- */
 
-const software =
-getFiles("softwareFiles");
-
 if(software.length){
 
-status.innerHTML =
-"Uploading software...";
+setStatus(
+"Uploading software...",
+"status-loading"
+);
 
 await uploadFiles(
 "software",
@@ -1903,13 +2433,12 @@ progress
    SOFTWARE IMAGES
    --------------------------------------------------------- */
 
-const softwareImages =
-getFiles("softwareImages");
-
 if(softwareImages.length){
 
-status.innerHTML =
-"Uploading software images...";
+setStatus(
+"Uploading software images...",
+"status-loading"
+);
 
 await uploadFiles(
 "software-images",
@@ -1925,13 +2454,12 @@ progress
    DJ MIXES
    --------------------------------------------------------- */
 
-const mixes =
-getFiles("mixFiles");
-
 if(mixes.length){
 
-status.innerHTML =
-"Uploading DJ mixes...";
+setStatus(
+"Uploading DJ mixes...",
+"status-loading"
+);
 
 await uploadFiles(
 "dj-mixes",
@@ -1947,13 +2475,12 @@ progress
    DJ MIX COVERS
    --------------------------------------------------------- */
 
-const mixCovers =
-getFiles("mixCovers");
-
 if(mixCovers.length){
 
-status.innerHTML =
-"Uploading DJ mix covers...";
+setStatus(
+"Uploading DJ mix covers...",
+"status-loading"
+);
 
 await uploadFiles(
 "mix-covers",
@@ -1970,9 +2497,7 @@ progress
    --------------------------------------------------------- */
 
 const description =
-document.getElementById(
-"description"
-).value.trim();
+getDescription();
 
 console.log(
 "Upload description:",
@@ -1992,77 +2517,146 @@ progress.total,
 
 button.disabled = false;
 
+
+/* ---------------------------------------------------------
+   FAILED FILES
+   --------------------------------------------------------- */
+
 if(progress.failed.length){
 
-status.className =
-"status-error";
-
-const failedNames =
-progress.failed
-.slice(0,10)
-.map(item =>
-item.file
-)
-.join(", ");
-
-status.innerHTML =
+setStatus(
 "⚠️ Upload finished with " +
-progress.failed.length +
+progress.failed.length.toLocaleString() +
 " problem(s). " +
 "Successfully processed " +
 (
 progress.total -
 progress.failed.length
-) +
+).toLocaleString() +
 " of " +
-progress.total +
+progress.total.toLocaleString() +
 " selected file(s)." +
 "<br><br>" +
 "Problem files: " +
-failedNames +
+progress.failed
+.slice(0,10)
+.map(item =>
+item.file
+)
+.join(", ") +
 (
 progress.failed.length > 10
 ? " and more..."
 : ""
+),
+"status-error"
 );
 
 }else{
 
-status.className =
-"status-success";
-
-status.innerHTML =
+setStatus(
 "✅ Everything uploaded successfully! " +
-progress.total +
+progress.total.toLocaleString() +
 " selected file" +
 (
 progress.total === 1
 ? ""
 : "s"
 ) +
-" processed.";
+" processed.",
+"status-success"
+);
+
+}
+
+
+/* ---------------------------------------------------------
+   CONSOLE SUMMARY
+   --------------------------------------------------------- */
+
+console.log(
+"Upload complete."
+);
+
+console.log(
+"Total files:",
+progress.total
+);
+
+console.log(
+"Failed files:",
+progress.failed.length
+);
+
+if(progress.failed.length){
+
+console.table(
+progress.failed
+);
 
 }
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Upload process error:",
+error
+);
 
-status.style.display =
-"block";
-
-status.className =
-"status-error";
-
-status.innerHTML =
+setStatus(
 "❌ Upload failed: " +
-error.message;
+(
+error &&
+error.message
+? error.message
+: String(error)
+),
+"status-error"
+);
 
 button.disabled = false;
 
 }
 
 }
+
+
+/* =========================================================
+   INITIAL BATCH INFORMATION
+   ========================================================= */
+
+updateBatchInformation();
+
+
+/* =========================================================
+   PREVENT ACCIDENTAL DOUBLE SUBMISSION
+   ========================================================= */
+
+window.addEventListener(
+"beforeunload",
+function(event){
+
+const button =
+document.getElementById(
+"uploadButton"
+);
+
+if(
+button &&
+button.disabled
+){
+
+event.preventDefault();
+
+event.returnValue =
+"An upload is currently running. Leaving this page may stop the upload.";
+
+return event.returnValue;
+
+}
+
+}
+);
 
 </script>
 
