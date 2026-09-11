@@ -974,7 +974,7 @@ const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6IkFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const supabaseClient =
 window.supabase.createClient(
@@ -1201,11 +1201,15 @@ function getCreator(){
 
 function showWarning(
   warningId,
-  message
+  message,
+  selectId
 ){
 
   const warning =
     document.getElementById(warningId);
+
+  const select =
+    document.getElementById(selectId);
 
   if(warning){
 
@@ -1226,9 +1230,24 @@ function showWarning(
     false
   );
 
+  /*
+     The browser alert makes the warning impossible
+     to miss. The category selector is then focused.
+  */
+
   alert(
     "⚠️ " + message
   );
+
+  if(select){
+
+    setTimeout(function(){
+
+      select.focus();
+
+    },100);
+
+  }
 
 }
 
@@ -1247,8 +1266,9 @@ function hideWarning(warningId){
 }
 
 
-/* Automatically remove category warning
-   after a category is chosen. */
+/* =====================================================
+   CATEGORY CHANGE
+   ===================================================== */
 
 document
   .getElementById("musicCategory")
@@ -1257,6 +1277,11 @@ document
     if(this.value){
 
       hideWarning("musicWarning");
+
+      setStatus(
+        "Music category selected: " +
+        this.value
+      );
 
     }
 
@@ -1271,6 +1296,11 @@ document
 
       hideWarning("appWarning");
 
+      setStatus(
+        "App category selected: " +
+        this.value
+      );
+
     }
 
   });
@@ -1283,6 +1313,11 @@ document
     if(this.value){
 
       hideWarning("softwareWarning");
+
+      setStatus(
+        "Software category selected: " +
+        this.value
+      );
 
     }
 
@@ -1298,16 +1333,15 @@ function requireCategory(
   const select =
     document.getElementById(selectId);
 
-  if(!select.value){
+  if(!select || !select.value){
 
     showWarning(
       warningId,
       "Please choose a " +
       typeName +
-      " Category first."
+      " Category first. Select a folder/category before uploading.",
+      selectId
     );
-
-    select.focus();
 
     return false;
 
@@ -1361,8 +1395,13 @@ function setStatus(
   success=false
 ){
 
+  const box =
+    document.getElementById("progressBox");
+
   const status =
     document.getElementById("status");
+
+  box.style.display="block";
 
   status.textContent=text;
 
@@ -1460,37 +1499,65 @@ async function uploadOne(
     "..."
   );
 
-  const result =
-    await supabaseClient
-      .storage
-      .from(bucket)
-      .upload(
-        path,
-        file,
-        {
-          cacheControl:"3600",
-          upsert:false
-        }
+  try{
+
+    const result =
+      await supabaseClient
+        .storage
+        .from(bucket)
+        .upload(
+          path,
+          file,
+          {
+            cacheControl:"3600",
+            upsert:false
+          }
+        );
+
+    if(result.error){
+
+      /*
+        Give the real Supabase message instead of
+        hiding it behind a generic error.
+      */
+
+      throw new Error(
+        "Storage upload failed: " +
+        result.error.message
       );
 
-  if(result.error){
+    }
+
+    const publicResult =
+      supabaseClient
+        .storage
+        .from(bucket)
+        .getPublicUrl(path);
+
+    if(
+      !publicResult ||
+      !publicResult.data ||
+      !publicResult.data.publicUrl
+    ){
+
+      throw new Error(
+        "File uploaded, but Supabase did not return a public URL."
+      );
+
+    }
+
+    return publicResult
+      .data
+      .publicUrl;
+
+  }catch(error){
 
     throw new Error(
-      "Storage upload failed: " +
-      result.error.message
+      error.message ||
+      "Storage upload failed."
     );
 
   }
-
-  const publicResult =
-    supabaseClient
-      .storage
-      .from(bucket)
-      .getPublicUrl(path);
-
-  return publicResult
-    .data
-    .publicUrl;
 
 }
 
@@ -1608,8 +1675,6 @@ async function uploadMusic(){
 
     }
 
-
-    /* CATEGORY MUST BE SELECTED FIRST */
 
     if(!requireCategory(
       "musicCategory",
@@ -2159,8 +2224,6 @@ async function uploadApps(){
     }
 
 
-    /* CATEGORY MUST BE SELECTED FIRST */
-
     if(!requireCategory(
       "appCategory",
       "appWarning",
@@ -2373,8 +2436,6 @@ async function uploadSoftware(){
 
     }
 
-
-    /* CATEGORY MUST BE SELECTED FIRST */
 
     if(!requireCategory(
       "softwareCategory",
