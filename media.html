@@ -1,373 +1,1437 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ning Wei Media Player</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Ning Wei Media</title>
 
 <style>
-
 *{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f5f7;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4faff;
+  color:#111;
 }
 
+/* =========================
+   HEADER
+========================= */
 
-.container{
-max-width:600px;
-margin:auto;
-padding-bottom:30px;
+.site-header{
+  position:relative;
+  height:125px;
+  min-height:125px;
+  max-height:125px;
+  overflow:hidden;
+  background:#dff4ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
 
-
-.header{
-
-height:125px;
-position:relative;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-text-align:center;
-
+.site-header img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:125px;
+  object-fit:cover;
+  object-position:50% 50%;
+  display:block;
+  filter:none;
+  opacity:1;
 }
 
-
-.header img{
-
-position:absolute;
-width:100%;
-height:125px;
-object-fit:cover;
-
+.site-header::before,
+.site-header::after{
+  display:none;
+  content:none;
 }
-
 
 .header-content{
-
-position:relative;
-z-index:2;
-text-shadow:0 2px 5px #000;
-
+  position:relative;
+  z-index:2;
+  padding:8px 12px;
+  color:white;
+  text-shadow:
+    0 2px 5px rgba(0,0,0,.8),
+    0 1px 2px rgba(0,0,0,.8);
 }
 
-
-.card{
-
-background:white;
-margin:15px;
-padding:15px;
-border-radius:15px;
-box-shadow:0 3px 10px #ddd;
-
+.header-content h1{
+  margin:0;
+  font-size:26px;
+  font-weight:800;
 }
 
+.header-content p{
+  margin:4px 0 0;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  width:100%;
+  max-width:850px;
+  margin:auto;
+  padding:15px;
+}
+
+.back{
+  display:inline-block;
+  margin-bottom:12px;
+  color:#0788d1;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.player-card{
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.10);
+}
+
+.status{
+  text-align:center;
+  padding:10px;
+  color:#555;
+  font-size:14px;
+}
+
+.error{
+  color:#c62828;
+  background:#fff1f1;
+  border-radius:8px;
+  padding:12px;
+  margin-top:10px;
+}
+
+/* =========================
+   SONG INFORMATION
+========================= */
+
+.song-meta{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
 
 .cover{
-
-width:100%;
-height:280px;
-object-fit:cover;
-border-radius:12px;
-
+  width:70px;
+  height:70px;
+  border-radius:10px;
+  object-fit:cover;
+  background:#e8f7ff;
+  flex-shrink:0;
 }
 
+.song-info{
+  min-width:0;
+}
+
+.song-title{
+  margin:0;
+  font-size:21px;
+  font-weight:800;
+  word-break:break-word;
+}
 
 .artist{
-
-display:flex;
-align-items:center;
-gap:12px;
-margin-top:15px;
-
+  margin:5px 0 0;
+  color:#666;
+  font-size:14px;
 }
 
+/* =========================
+   MEDIA
+========================= */
 
-.artist img{
-
-width:60px;
-height:60px;
-border-radius:50%;
-object-fit:cover;
-
+.media-title{
+  margin:0 0 14px;
+  font-size:21px;
+  font-weight:800;
+  word-break:break-word;
 }
 
-
-audio,video{
-
-width:100%;
-margin-top:15px;
-
+.audio-box{
+  width:100%;
 }
 
-
-button,a{
-
-display:inline-block;
-padding:12px 15px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-margin-top:15px;
-
+.audio-box audio{
+  width:100%;
 }
 
+.video-box{
+  width:100%;
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.video-box video{
+  width:100%;
+  max-height:70vh;
+  display:block;
+  background:#000;
+}
+
+.image-box{
+  width:100%;
+  background:#111;
+  border-radius:12px;
+  overflow:hidden;
+  text-align:center;
+  padding:0;
+}
+
+.image-box img{
+  width:100%;
+  max-height:75vh;
+  object-fit:contain;
+  display:block;
+  margin:auto;
+  cursor:zoom-in;
+  transition:transform .25s ease;
+}
+
+.image-box img.zoomed{
+  transform:scale(1.7);
+  cursor:zoom-out;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:15px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:10px 14px;
+  border-radius:9px;
+  text-decoration:none;
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+}
 
 .download{
-
-background:#000;
-color:white;
-
+  background:#0788d1;
+  color:white;
 }
-
 
 .share{
-
-background:#128c9e;
-color:white;
-
+  background:#222;
+  color:white;
 }
 
+/* =========================
+   FOOTER
+========================= */
 
+.footer{
+  text-align:center;
+  color:#777;
+  font-size:12px;
+  padding:25px 10px;
+}
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
 
-<div class="container">
+<header class="site-header">
 
+  <img
+    src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+    alt="Ning Wei"
+  >
 
-<header class="header">
-
-<img src="ning-wei.png">
-
-<div class="header-content">
-
-<h1>Ning Wei Media</h1>
-
-<p>Music • Videos • Photos</p>
-
-</div>
+  <div class="header-content">
+    <h1>Ning Wei Media</h1>
+    <p>Music • Videos • Photos • Apps • Software</p>
+  </div>
 
 </header>
 
 
+<!-- =========================
+     CONTENT
+========================= -->
 
-<div class="card">
+<main class="container">
 
+  <a class="back" href="javascript:history.back()">← Back</a>
 
-<img id="cover" class="cover">
+  <div class="player-card">
 
+    <div id="status" class="status">
+      Loading media...
+    </div>
 
+    <!-- SONG INFORMATION -->
+    <div id="songMeta" class="song-meta" style="display:none;">
 
-<div class="artist">
+      <img
+        id="cover"
+        class="cover"
+        src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+        alt="Cover"
+      >
 
+      <div class="song-info">
 
-<img id="artistPhoto">
+        <h2 id="songTitle" class="song-title">
+          Ning Wei Media
+        </h2>
 
+        <p id="artist" class="artist">
+          Ning Wei
+        </p>
 
-<h2 id="artistName">
-Loading...
-</h2>
+      </div>
 
-
-</div>
-
-
-
-<h1 id="songTitle">
-Loading...
-</h1>
-
-
-
-<audio id="audio" controls></audio>
-
-
-<video id="video" controls style="display:none"></video>
-
-
-
-<a id="download" class="download">
-
-⬇ Download
-
-</a>
+    </div>
 
 
-<a id="share" class="share">
-
-Share
-
-</a>
-
-
-
-</div>
+    <!-- DIRECT MEDIA TITLE -->
+    <h2
+      id="mediaTitle"
+      class="media-title"
+      style="display:none;"
+    ></h2>
 
 
-</div>
+    <!-- AUDIO -->
+    <div
+      id="audioBox"
+      class="audio-box"
+      style="display:none;"
+    >
+
+      <audio
+        id="audio"
+        controls
+        preload="metadata"
+      ></audio>
+
+    </div>
 
 
+    <!-- VIDEO -->
+    <div
+      id="videoBox"
+      class="video-box"
+      style="display:none;"
+    >
+
+      <video
+        id="video"
+        controls
+        playsinline
+        preload="metadata"
+      ></video>
+
+    </div>
+
+
+    <!-- IMAGE / PHOTO -->
+    <div
+      id="imageBox"
+      class="image-box"
+      style="display:none;"
+    >
+
+      <img
+        id="mediaImage"
+        alt="Photo"
+      >
+
+    </div>
+
+
+    <!-- BUTTONS -->
+    <div
+      id="actions"
+      class="actions"
+      style="display:none;"
+    >
+
+      <a
+        id="download"
+        class="btn download"
+        href="#"
+      >
+        ⬇ Download
+      </a>
+
+      <button
+        id="share"
+        class="btn share"
+        type="button"
+      >
+        ↗ Share
+      </button>
+
+    </div>
+
+
+    <div
+      id="error"
+      class="error"
+      style="display:none;"
+    ></div>
+
+  </div>
+
+</main>
+
+
+<footer class="footer">
+  © Ning Wei Media
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const BASE_URL =
+  "https://ningwei2567.github.io/Ning-wei-1/";
 
 const SUPABASE_URL =
-"https://btksyizkcpzubtextuce.supabase.co";
-
+  "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5enprY3B6dWJ0ZXh0dWNlIiwiaWF0IjoxNzg4OTMxNjI2LCJleHAiOjIxMDQ1MDc2MjZ9.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const statusBox =
+  document.getElementById("status");
+
+const errorBox =
+  document.getElementById("error");
+
+const songMeta =
+  document.getElementById("songMeta");
+
+const cover =
+  document.getElementById("cover");
+
+const songTitle =
+  document.getElementById("songTitle");
+
+const artist =
+  document.getElementById("artist");
+
+const mediaTitle =
+  document.getElementById("mediaTitle");
+
+const audioBox =
+  document.getElementById("audioBox");
+
+const audio =
+  document.getElementById("audio");
+
+const videoBox =
+  document.getElementById("videoBox");
+
+const video =
+  document.getElementById("video");
+
+const imageBox =
+  document.getElementById("imageBox");
+
+const mediaImage =
+  document.getElementById("mediaImage");
+
+const actions =
+  document.getElementById("actions");
+
+const download =
+  document.getElementById("download");
+
+const shareButton =
+  document.getElementById("share");
+
+
+/* =====================================================
+   URL PARAMETERS
+===================================================== */
 
 const params =
-new URLSearchParams(location.search);
-
+  new URLSearchParams(
+    window.location.search
+  );
 
 const id =
-params.get("id");
+  params.get("id");
+
+const path =
+  params.get("path");
+
+const directUrl =
+  params.get("url");
+
+const suppliedName =
+  params.get("name");
+
+const suppliedMime =
+  params.get("mime");
+
+const oldFolder =
+  params.get("folder");
+
+const oldFile =
+  params.get("file");
 
 
+/* =====================================================
+   HELPERS
+===================================================== */
 
-async function loadMedia(){
+function hideAllMedia(){
+
+  audioBox.style.display = "none";
+  videoBox.style.display = "none";
+  imageBox.style.display = "none";
+
+  audio.pause();
+  video.pause();
+
+  audio.removeAttribute("src");
+  video.removeAttribute("src");
+}
 
 
-if(!id){
+function showError(message){
 
-return;
+  statusBox.style.display = "none";
+
+  errorBox.textContent =
+    message;
+
+  errorBox.style.display =
+    "block";
+}
+
+
+function cleanName(filename){
+
+  if(!filename){
+    return "Ning Wei Media";
+  }
+
+  let name =
+    filename
+      .split("/")
+      .pop();
+
+  name =
+    name.replace(
+      /\.[^/.]+$/,
+      ""
+    );
+
+  name =
+    name
+      .replace(/[_-]+/g," ")
+      .trim();
+
+  return name ||
+    "Ning Wei Media";
+}
+
+
+function extensionOf(filename){
+
+  if(!filename){
+    return "";
+  }
+
+  const clean =
+    filename
+      .split("?")[0]
+      .split("#")[0];
+
+  const parts =
+    clean.split(".");
+
+  if(parts.length < 2){
+    return "";
+  }
+
+  return parts
+    .pop()
+    .toLowerCase();
+}
+
+
+function mediaType(filename,mime){
+
+  const m =
+    (mime || "").toLowerCase();
+
+  if(m.startsWith("image/")){
+    return "image";
+  }
+
+  if(m.startsWith("video/")){
+    return "video";
+  }
+
+  if(m.startsWith("audio/")){
+    return "audio";
+  }
+
+  const ext =
+    extensionOf(filename);
+
+  const imageExtensions = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "avif",
+    "bmp",
+    "svg"
+  ];
+
+  const videoExtensions = [
+    "mp4",
+    "webm",
+    "mov",
+    "m4v",
+    "3gp",
+    "3g2",
+    "ogv",
+    "avi",
+    "mkv"
+  ];
+
+  const audioExtensions = [
+    "mp3",
+    "wav",
+    "m4a",
+    "aac",
+    "ogg",
+    "oga",
+    "flac",
+    "wma",
+    "opus",
+    "aiff",
+    "aif"
+  ];
+
+  if(imageExtensions.includes(ext)){
+    return "image";
+  }
+
+  if(videoExtensions.includes(ext)){
+    return "video";
+  }
+
+  if(audioExtensions.includes(ext)){
+    return "audio";
+  }
+
+  return "";
+}
+
+
+function githubUrlFromPath(p){
+
+  if(!p){
+    return "";
+  }
+
+  p =
+    p.trim();
+
+  /*
+    If somebody accidentally gives a complete URL,
+    use it directly.
+  */
+
+  if(/^https?:\/\//i.test(p)){
+    return p;
+  }
+
+  /*
+    Remove leading slash.
+  */
+
+  p =
+    p.replace(/^\/+/,"");
+
+  /*
+    Remove ./ if present.
+  */
+
+  if(p.startsWith("./")){
+    p =
+      p.substring(2);
+  }
+
+  /*
+    Build the GitHub Pages URL.
+  */
+
+  try{
+
+    return new URL(
+      p,
+      BASE_URL
+    ).href;
+
+  }catch(e){
+
+    return (
+      BASE_URL +
+      p
+        .split("/")
+        .map(
+          part =>
+            encodeURIComponent(part)
+        )
+        .join("/")
+    );
+  }
+}
+
+
+function filenameFromPath(p){
+
+  if(!p){
+    return "";
+  }
+
+  try{
+
+    const u =
+      new URL(
+        p,
+        BASE_URL
+      );
+
+    const pathname =
+      u.pathname;
+
+    return pathname
+      .split("/")
+      .pop();
+
+  }catch(e){
+
+    return p
+      .split("/")
+      .pop();
+  }
+}
+
+
+function downloadLabel(filename,type){
+
+  const ext =
+    extensionOf(filename);
+
+  if(ext){
+    return "⬇ Download " +
+      ext.toUpperCase();
+  }
+
+  if(type === "image"){
+    return "⬇ Download Photo";
+  }
+
+  if(type === "video"){
+    return "⬇ Download Video";
+  }
+
+  if(type === "audio"){
+    return "⬇ Download Audio";
+  }
+
+  return "⬇ Download";
+}
+
+
+/* =====================================================
+   DIRECT MEDIA MODE
+   path=...
+   url=...
+===================================================== */
+
+function loadDirectMedia(){
+
+  let mediaUrl = "";
+  let filename = "";
+  let mime = suppliedMime || "";
+
+  /*
+    Priority:
+    url
+    path
+    old folder/file
+  */
+
+  if(directUrl){
+
+    mediaUrl =
+      directUrl;
+
+    filename =
+      suppliedName ||
+      filenameFromPath(
+        mediaUrl
+      );
+
+  }
+
+  else if(path){
+
+    mediaUrl =
+      githubUrlFromPath(
+        path
+      );
+
+    filename =
+      suppliedName ||
+      filenameFromPath(
+        path
+      );
+
+  }
+
+  else if(oldFile){
+
+    let folder =
+      oldFolder || "";
+
+    if(folder.startsWith("media/")){
+
+      mediaUrl =
+        githubUrlFromPath(
+          folder +
+          "/" +
+          oldFile
+        );
+
+    }else{
+
+      mediaUrl =
+        githubUrlFromPath(
+          "media/" +
+          folder +
+          "/" +
+          oldFile
+        );
+
+    }
+
+    filename =
+      suppliedName ||
+      oldFile;
+  }
+
+  else{
+
+    return false;
+  }
+
+
+  if(!mediaUrl){
+
+    showError(
+      "❌ No media file selected."
+    );
+
+    return true;
+  }
+
+
+  const type =
+    mediaType(
+      filename,
+      mime
+    );
+
+
+  if(!type){
+
+    showError(
+      "❌ Unsupported media format."
+    );
+
+    return true;
+  }
+
+
+  hideAllMedia();
+
+  songMeta.style.display =
+    "none";
+
+  mediaTitle.textContent =
+    cleanName(filename);
+
+  mediaTitle.style.display =
+    "block";
+
+
+  /* =====================
+     IMAGE
+  ===================== */
+
+  if(type === "image"){
+
+    imageBox.style.display =
+      "block";
+
+    mediaImage.src =
+      mediaUrl;
+
+    mediaImage.alt =
+      cleanName(filename);
+
+    mediaImage.onclick =
+      function(){
+
+        mediaImage.classList.toggle(
+          "zoomed"
+        );
+
+      };
+
+    mediaImage.onerror =
+      function(){
+
+        showError(
+          "❌ This photo could not be loaded."
+        );
+
+      };
+
+  }
+
+
+  /* =====================
+     VIDEO
+  ===================== */
+
+  if(type === "video"){
+
+    videoBox.style.display =
+      "block";
+
+    video.src =
+      mediaUrl;
+
+    video.onerror =
+      function(){
+
+        showError(
+          "❌ This video could not be played by your browser. The original file can still be downloaded."
+        );
+
+      };
+
+  }
+
+
+  /* =====================
+     AUDIO
+  ===================== */
+
+  if(type === "audio"){
+
+    audioBox.style.display =
+      "block";
+
+    audio.src =
+      mediaUrl;
+
+    audio.onerror =
+      function(){
+
+        showError(
+          "❌ This audio file could not be played by your browser. The original file can still be downloaded."
+        );
+
+      };
+
+  }
+
+
+  /* =====================
+     DOWNLOAD
+  ===================== */
+
+  download.href =
+    mediaUrl;
+
+  download.textContent =
+    downloadLabel(
+      filename,
+      type
+    );
+
+  download.setAttribute(
+    "download",
+    filename ||
+    "ning-wei-media"
+  );
+
+
+  /* =====================
+     SHARE
+  ===================== */
+
+  shareButton.onclick =
+    function(){
+
+      shareMedia(
+        mediaUrl,
+        cleanName(filename)
+      );
+
+    };
+
+
+  actions.style.display =
+    "flex";
+
+  statusBox.style.display =
+    "none";
+
+  document.title =
+    cleanName(filename) +
+    " - Ning Wei Media";
+
+
+  return true;
+}
+
+
+/* =====================================================
+   SUPABASE SONG MODE
+   id=...
+===================================================== */
+
+async function loadSupabaseSong(){
+
+  if(!id){
+    return;
+  }
+
+
+  try{
+
+    const result =
+      await db
+        .from("songs")
+        .select(
+          "title,song_url,cover_url,artists(name,photo)"
+        )
+        .eq(
+          "id",
+          id
+        )
+        .single();
+
+
+    const data =
+      result.data;
+
+    const error =
+      result.error;
+
+
+    if(error){
+
+      console.error(error);
+
+      showError(
+        "❌ The song could not be loaded."
+      );
+
+      return;
+    }
+
+
+    if(!data){
+
+      showError(
+        "❌ Song not found."
+      );
+
+      return;
+    }
+
+
+    hideAllMedia();
+
+    mediaTitle.style.display =
+      "none";
+
+
+    /* =====================
+       SONG META
+    ===================== */
+
+    songMeta.style.display =
+      "flex";
+
+
+    songTitle.textContent =
+      data.title ||
+      "Untitled Song";
+
+
+    const artistData =
+      data.artists;
+
+
+    if(Array.isArray(artistData)){
+
+      const firstArtist =
+        artistData[0];
+
+      if(firstArtist){
+
+        artist.textContent =
+          firstArtist.name ||
+          "Unknown Artist";
+
+        if(firstArtist.photo){
+
+          cover.src =
+            firstArtist.photo;
+
+        }
+
+      }
+
+    }
+
+    else if(artistData){
+
+      artist.textContent =
+        artistData.name ||
+        "Unknown Artist";
+
+      if(artistData.photo){
+
+        cover.src =
+          artistData.photo;
+
+      }
+
+    }
+
+    else{
+
+      artist.textContent =
+        "Ning Wei Media";
+
+    }
+
+
+    if(data.cover_url){
+
+      cover.src =
+        data.cover_url;
+
+    }
+
+
+    /* =====================
+       SONG TYPE
+    ===================== */
+
+    const songUrl =
+      data.song_url;
+
+    if(!songUrl){
+
+      showError(
+        "❌ No media URL was found for this song."
+      );
+
+      return;
+    }
+
+
+    const filename =
+      filenameFromPath(
+        songUrl
+      );
+
+
+    const type =
+      mediaType(
+        filename,
+        ""
+      );
+
+
+    if(type === "video"){
+
+      videoBox.style.display =
+        "block";
+
+      video.src =
+        songUrl;
+
+      video.onerror =
+        function(){
+
+          showError(
+            "❌ This video could not be played by your browser."
+          );
+
+        };
+
+    }
+
+    else if(type === "image"){
+
+      imageBox.style.display =
+        "block";
+
+      mediaImage.src =
+        songUrl;
+
+      mediaImage.onclick =
+        function(){
+
+          mediaImage.classList.toggle(
+            "zoomed"
+          );
+
+        };
+
+    }
+
+    else{
+
+      audioBox.style.display =
+        "block";
+
+      audio.src =
+        songUrl;
+
+      audio.onerror =
+        function(){
+
+          showError(
+            "❌ This audio file could not be played by your browser."
+          );
+
+        };
+
+    }
+
+
+    /* =====================
+       DOWNLOAD
+    ===================== */
+
+    download.href =
+      songUrl;
+
+    download.textContent =
+      downloadLabel(
+        filename,
+        type || "audio"
+      );
+
+    download.setAttribute(
+      "download",
+      filename ||
+      "ning-wei-song"
+    );
+
+
+    /* =====================
+       SHARE
+    ===================== */
+
+    shareButton.onclick =
+      function(){
+
+        shareMedia(
+          window.location.href,
+          data.title ||
+          "Ning Wei Media"
+        );
+
+      };
+
+
+    actions.style.display =
+      "flex";
+
+    statusBox.style.display =
+      "none";
+
+
+    document.title =
+      (data.title ||
+      "Ning Wei Media") +
+      " - Ning Wei Media";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showError(
+      "❌ Something went wrong while loading the media."
+    );
+
+  }
 
 }
 
 
+/* =====================================================
+   SHARE
+===================================================== */
 
-let {data,error}=await db
+async function shareMedia(
+  url,
+  title
+){
 
-.from("songs")
+  try{
 
-.select(`
+    if(
+      navigator.share
+    ){
 
-title,
-song_url,
-cover_url,
+      await navigator.share({
+        title:
+          title,
+        text:
+          "Ning Wei Media",
+        url:
+          url
+      });
 
-artists(
-name,
-photo
-)
-
-`)
-
-.eq("id",id)
-
-.single();
-
-
-
-if(error){
-
-console.log(error);
-return;
-
-}
+      return;
+    }
 
 
+    if(
+      navigator.clipboard
+    ){
 
-document.getElementById("songTitle").innerHTML=data.title;
+      await navigator.clipboard.writeText(
+        url
+      );
 
+      alert(
+        "Link copied."
+      );
 
-document.getElementById("artistName").innerHTML=
-data.artists.name;
-
-
-document.getElementById("cover").src=
-data.cover_url;
-
-
-document.getElementById("artistPhoto").src=
-data.artists.photo;
-
-
-
-let audio=
-document.getElementById("audio");
+      return;
+    }
 
 
-let video=
-document.getElementById("video");
+    prompt(
+      "Copy this link:",
+      url
+    );
 
+  }catch(error){
 
+    console.log(error);
 
-if(data.song_url.match(/\.(mp4|webm|mov)$/i)){
-
-
-video.src=data.song_url;
-
-video.style.display="block";
-
-audio.style.display="none";
-
-
-}
-
-else{
-
-
-audio.src=data.song_url;
+  }
 
 }
 
 
+/* =====================================================
+   START
+===================================================== */
 
-document.getElementById("download").href=
-data.song_url;
+async function start(){
+
+  /*
+    If id exists, use Supabase song mode.
+  */
+
+  if(id){
+
+    await loadSupabaseSong();
+
+    return;
+  }
 
 
+  /*
+    Otherwise use path/url/folder/file mode.
+  */
 
-document.getElementById("share").onclick=function(){
+  const loaded =
+    loadDirectMedia();
 
-navigator.share({
 
-title:data.title,
+  if(!loaded){
 
-url:location.href
+    showError(
+      "❌ No media file selected."
+    );
 
-});
-
-};
-
+  }
 
 }
 
 
-loadMedia();
-
+start();
 
 </script>
 
-
 </body>
-
 </html>
