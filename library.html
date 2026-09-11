@@ -462,6 +462,21 @@ color:#111;
 display:block;
 }
 
+.media-video-card{
+background:#fff;
+
+border-radius:9px;
+
+overflow:hidden;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.08);
+
+color:#111;
+
+display:block;
+}
+
 .media-preview{
 width:100%;
 
@@ -513,6 +528,44 @@ color:#777;
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
+}
+
+.media-actions{
+display:flex;
+
+gap:4px;
+
+padding:0 5px 6px;
+}
+
+.media-action{
+flex:1;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-height:28px;
+
+padding:4px 3px;
+
+border-radius:7px;
+
+background:#128c9e;
+
+color:#fff;
+
+text-decoration:none;
+
+font-size:9px;
+
+font-weight:700;
+
+text-align:center;
+}
+
+.media-action.download{
+background:#000;
 }
 
 /* =========================================================
@@ -787,6 +840,10 @@ font-size:10px;
 font-size:8px;
 }
 
+.media-action{
+font-size:8px;
+}
+
 }
 
 </style>
@@ -794,13 +851,10 @@ font-size:8px;
 </head>
 
 
-
 <body>
 
 
-
 <div class="container">
-
 
 
 <!-- ======================================================
@@ -827,7 +881,6 @@ Music • Videos • Photos • Apps • Software
 </header>
 
 
-
 <!-- ======================================================
      SEARCH
      ====================================================== -->
@@ -842,7 +895,6 @@ autocomplete="off"
 >
 
 </div>
-
 
 
 <!-- ======================================================
@@ -862,7 +914,6 @@ Browse music, videos, photos, apps and software.
 </div>
 
 
-
 <!-- ======================================================
      ADMIN UPLOAD
      ====================================================== -->
@@ -880,7 +931,6 @@ target="_blank"
 </a>
 
 </div>
-
 
 
 <!-- ======================================================
@@ -986,7 +1036,6 @@ DJ Mixes
 </section>
 
 
-
 <!-- ======================================================
      OLD IS GOLD
      ====================================================== -->
@@ -1050,7 +1099,6 @@ South African Music
 </section>
 
 
-
 <!-- ======================================================
      MAIN LIBRARY
      ====================================================== -->
@@ -1062,7 +1110,6 @@ Loading media...
 </div>
 
 </div>
-
 
 
 <!-- ======================================================
@@ -1159,7 +1206,6 @@ Instagram
 </section>
 
 
-
 <!-- ======================================================
      FOLLOW US
      ====================================================== -->
@@ -1214,14 +1260,13 @@ href="#"
 style="background:#000"
 aria-label="TikTok"
 >
-♪ 
+♪
 </a>
 
 
 </div>
 
 </section>
-
 
 
 <footer class="footer">
@@ -1231,9 +1276,7 @@ aria-label="TikTok"
 </footer>
 
 
-
 </div>
-
 
 
 <script>
@@ -1556,6 +1599,135 @@ match[1].toLowerCase()
 }
 
 
+/* =========================================================
+   ORIGINAL VIDEO MIME TYPES
+   ========================================================= */
+
+function videoMimeType(
+name,
+mime
+){
+
+const supplied =
+String(mime || "")
+.toLowerCase()
+.split(";")[0]
+.trim();
+
+if(
+supplied.startsWith("video/")
+){
+
+return supplied;
+
+}
+
+const ext =
+extension(name);
+
+const videoMimes = {
+
+mp4:"video/mp4",
+
+webm:"video/webm",
+
+mov:"video/quicktime",
+
+m4v:"video/mp4",
+
+"3gp":"video/3gpp",
+
+"3g2":"video/3gpp2",
+
+mpg:"video/mpeg",
+
+mpeg:"video/mpeg",
+
+mpe:"video/mpeg",
+
+ogv:"video/ogg",
+
+avi:"video/x-msvideo",
+
+mkv:"video/x-matroska"
+
+};
+
+return videoMimes[ext] || "";
+
+}
+
+
+/* =========================================================
+   GENERAL MIME TYPE
+   ========================================================= */
+
+function mediaMimeType(
+name,
+mime
+){
+
+const supplied =
+String(mime || "")
+.toLowerCase()
+.split(";")[0]
+.trim();
+
+if(
+supplied.startsWith("video/") ||
+supplied.startsWith("audio/") ||
+supplied.startsWith("image/")
+){
+
+return supplied;
+
+}
+
+const ext =
+extension(name);
+
+const mimes = {
+
+jpg:"image/jpeg",
+jpeg:"image/jpeg",
+png:"image/png",
+gif:"image/gif",
+webp:"image/webp",
+bmp:"image/bmp",
+avif:"image/avif",
+
+mp4:"video/mp4",
+webm:"video/webm",
+mov:"video/quicktime",
+m4v:"video/mp4",
+"3gp":"video/3gpp",
+"3g2":"video/3gpp2",
+mpg:"video/mpeg",
+mpeg:"video/mpeg",
+mpe:"video/mpeg",
+ogv:"video/ogg",
+avi:"video/x-msvideo",
+mkv:"video/x-matroska",
+
+mp3:"audio/mpeg",
+wav:"audio/wav",
+m4a:"audio/mp4",
+aac:"audio/aac",
+ogg:"audio/ogg",
+flac:"audio/flac",
+opus:"audio/opus"
+
+};
+
+return mimes[ext] || "";
+
+}
+
+
+/* =========================================================
+   DETECT MEDIA TYPE
+   ========================================================= */
+
 function detectType(name,mime){
 
 const ext =
@@ -1592,6 +1764,11 @@ type.startsWith("video/") ||
 "mov",
 "m4v",
 "3gp",
+"3g2",
+"mpg",
+"mpeg",
+"mpe",
+"ogv",
 "avi",
 "mkv"
 ].includes(ext)
@@ -1645,6 +1822,69 @@ return "file";
 }
 
 
+/* =========================================================
+   ORIGINAL DOWNLOAD URL
+   ========================================================= */
+
+function originalDownloadURL(item){
+
+const url =
+item.url || "";
+
+if(!url){
+return "";
+}
+
+
+/*
+   For Supabase public storage we can request
+   attachment/download behavior without changing
+   the actual file or converting it.
+*/
+
+if(
+item.source === "supabase" &&
+url.includes(
+"/storage/v1/object/public/"
+)
+){
+
+try{
+
+const downloadURL =
+new URL(url);
+
+downloadURL.searchParams.set(
+"download",
+item.name || "download"
+);
+
+return downloadURL.toString();
+
+}
+catch(error){
+
+return url;
+
+}
+
+}
+
+
+/*
+   GitHub and all other sources keep their
+   exact original URL.
+*/
+
+return url;
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+   ========================================================= */
+
 function formatDate(value){
 
 if(!value){
@@ -1688,7 +1928,10 @@ const name =
 item.name || "Media";
 
 const mime =
-item.mime || "";
+mediaMimeType(
+item.name,
+item.mime
+);
 
 const artist =
 item.artistName || "";
@@ -1737,7 +1980,7 @@ return result;
 
 
 /* =========================================================
-   SUBMIT / SUPABASE FILE EXTRACTION
+   SUPABASE FILE EXTRACTION
    ========================================================= */
 
 function normalizeSupabaseFile(
@@ -1941,14 +2184,18 @@ submission
 );
 
 if(normalized){
+
 result.push(normalized);
+
 }
 else{
+
 collectSubmissionFiles(
 item,
 submission,
 result
 );
+
 }
 
 });
@@ -2229,53 +2476,69 @@ extension(name);
 
 let mime = "";
 
+
+/* =======================================================
+   CORRECT ORIGINAL MIME TYPES
+   ======================================================= */
+
 if(
 category === "photos"
 ){
 
+const imageMimes = {
+
+jpg:"image/jpeg",
+jpeg:"image/jpeg",
+png:"image/png",
+gif:"image/gif",
+webp:"image/webp",
+bmp:"image/bmp",
+avif:"image/avif"
+
+};
+
 mime =
-"image/" +
-(
-ext === "jpg"
-?
-"jpeg"
-:
-ext
-);
+imageMimes[ext] ||
+"";
 
 }
+
 
 if(
 category === "videos"
 ){
 
 mime =
-"video/" +
-(
-ext === "3gp"
-?
-"3gpp"
-:
-ext
+videoMimeType(
+name,
+""
 );
 
 }
+
 
 if(
 category === "songs"
 ){
 
+const audioMimes = {
+
+mp3:"audio/mpeg",
+wav:"audio/wav",
+m4a:"audio/mp4",
+aac:"audio/aac",
+ogg:"audio/ogg",
+flac:"audio/flac",
+opus:"audio/opus"
+
+};
+
 mime =
-"audio/" +
-(
-ext === "mp3"
-?
-"mpeg"
-:
-ext
-);
+audioMimes[ext] ||
+"";
 
 }
+
 
 return {
 
@@ -2381,15 +2644,21 @@ item.mime
 
 
 if(type === "photo"){
+
 category = "photos";
+
 }
 
 else if(type === "video"){
+
 category = "videos";
+
 }
 
 else if(type === "audio"){
+
 category = "songs";
+
 }
 
 else if(
@@ -2503,6 +2772,7 @@ if(
 ){
 
 return;
+
 }
 
 const relative =
@@ -2555,25 +2825,6 @@ folderPath,
 title
 ){
 
-const folderItems =
-items.filter(
-item=>{
-
-if(!item.path){
-return false;
-}
-
-return (
-item.path === folderPath + "/" +
-item.name
-);
-
-}
-);
-
-
-/* items directly in folder */
-
 const direct =
 items.filter(
 item=>{
@@ -2593,8 +2844,6 @@ return parent === folderPath;
 }
 );
 
-
-/* subfolders */
 
 const folders =
 getFolders(
@@ -2756,8 +3005,8 @@ item.url;
 }
 
 
-let downloadURL =
-item.url || openURL;
+const downloadURL =
+originalDownloadURL(item);
 
 
 html += `
@@ -2840,7 +3089,7 @@ downloadURL
 <a
 class="file-button file-download"
 href="${escapeHTML(downloadURL)}"
-download
+download="${escapeHTML(item.name || "download")}"
 >
 
 ⬇
@@ -2888,10 +3137,13 @@ items.forEach(
 item=>{
 
 const url =
-item.url;
+item.url || "";
 
 const openURL =
 playerURL(item);
+
+const downloadURL =
+originalDownloadURL(item);
 
 const date =
 formatDate(
@@ -2997,11 +3249,17 @@ else if(
 item.type === "video"
 ){
 
+const videoMime =
+videoMimeType(
+item.name,
+item.mime
+);
+
+
 html += `
 
-<a
-class="media-card"
-href="${escapeHTML(openURL)}"
+<div
+class="media-video-card"
 data-search="${escapeHTML(
 (
 item.name + " " +
@@ -3012,11 +3270,35 @@ item.artistName
 
 <video
 class="media-video"
-src="${escapeHTML(url)}"
-muted
+controls
 playsinline
 preload="metadata"
-></video>
+>
+
+${
+videoMime
+?
+`
+
+<source
+src="${escapeHTML(url)}"
+type="${escapeHTML(videoMime)}"
+>
+
+`
+:
+`
+
+<source
+src="${escapeHTML(url)}"
+>
+
+`
+}
+
+Your browser may not support this video format.
+
+</video>
 
 
 ${
@@ -3075,7 +3357,42 @@ date
 }
 
 
+<div class="media-actions">
+
+<a
+class="media-action"
+href="${escapeHTML(openURL)}"
+>
+
+▶ Open
+
 </a>
+
+
+${
+downloadURL
+?
+`
+
+<a
+class="media-action download"
+href="${escapeHTML(downloadURL)}"
+download="${escapeHTML(item.name || "video")}"
+>
+
+⬇ Download
+
+</a>
+
+`
+:
+""
+}
+
+</div>
+
+
+</div>
 
 `;
 
@@ -3123,6 +3440,10 @@ item.cover ||
 
 const play =
 playerURL(item);
+
+
+const downloadURL =
+originalDownloadURL(item);
 
 
 html += `
@@ -3216,14 +3537,14 @@ href="${escapeHTML(play)}"
 
 
 ${
-item.url
+downloadURL
 ?
 `
 
 <a
 class="download"
-href="${escapeHTML(item.url)}"
-download
+href="${escapeHTML(downloadURL)}"
+download="${escapeHTML(item.name || "song")}"
 >
 
 ⬇ Download
@@ -3286,6 +3607,10 @@ pageDescription.textContent =
 const base =
 CATEGORY_PATHS[category];
 
+
+/* =======================================================
+   SONG CATEGORY
+   ======================================================= */
 
 if(
 category === "songs" &&
@@ -3356,6 +3681,10 @@ return;
 }
 
 
+/* =======================================================
+   DJ MIX CATEGORY
+   ======================================================= */
+
 if(
 category === "dj-mixes" &&
 !folderParam
@@ -3404,6 +3733,10 @@ return;
 
 }
 
+
+/* =======================================================
+   OLD IS GOLD CATEGORY
+   ======================================================= */
 
 if(
 category === "old-is-gold" &&
@@ -3454,9 +3787,9 @@ return;
 }
 
 
-/* =========================================================
+/* =======================================================
    DIRECT CATEGORY MEDIA
-   ========================================================= */
+   ======================================================= */
 
 if(
 category === "photos" ||
@@ -3514,9 +3847,9 @@ return;
 }
 
 
-/* =========================================================
-   SONGS — DISPLAY FILES
-   ========================================================= */
+/* =======================================================
+   SONGS / DJ MIXES — DISPLAY FILES
+   ======================================================= */
 
 if(
 category === "songs" ||
@@ -3600,9 +3933,9 @@ return;
 }
 
 
-/* =========================================================
+/* =======================================================
    APPS / SOFTWARE / GENERAL
-   ========================================================= */
+   ======================================================= */
 
 let filtered =
 items.filter(
@@ -4106,7 +4439,6 @@ allMedia
 start();
 
 </script>
-
 
 
 </body>
