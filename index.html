@@ -108,6 +108,111 @@ font-size:15px;
 
 
 /* =========================================================
+   SEARCH + UPLOAD
+   ========================================================= */
+
+.search-upload{
+
+padding:14px 18px 4px;
+
+}
+
+.search-box{
+
+display:flex;
+
+width:100%;
+
+background:#fff;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+padding:5px;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.07);
+
+}
+
+.search-box input{
+
+flex:1;
+
+min-width:0;
+
+border:0;
+
+outline:none;
+
+padding:12px;
+
+font-size:14px;
+
+background:transparent;
+
+}
+
+.search-box button{
+
+border:0;
+
+border-radius:9px;
+
+padding:0 15px;
+
+background:#111;
+
+color:#fff;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+.upload-button{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+width:100%;
+
+min-height:56px;
+
+margin-top:10px;
+
+padding:12px 15px;
+
+border-radius:12px;
+
+background:#087ff5;
+
+color:#fff;
+
+text-decoration:none;
+
+font-size:16px;
+
+font-weight:800;
+
+box-shadow:
+0 3px 9px rgba(0,0,0,.12);
+
+}
+
+.upload-button:active{
+
+transform:scale(.98);
+
+}
+
+
+/* =========================================================
    SECTION HEADINGS
    ========================================================= */
 
@@ -399,6 +504,21 @@ font-size:13px;
 
 }
 
+.search-upload{
+
+padding-left:18px;
+padding-right:18px;
+
+}
+
+.upload-button{
+
+font-size:15px;
+
+min-height:54px;
+
+}
+
 .section h2,
 .trending h2,
 .social h2{
@@ -524,6 +644,46 @@ Music • Videos • Photos • Apps • Software
 </div>
 
 </header>
+
+
+<!-- ======================================================
+     SEARCH + UPLOAD
+     ====================================================== -->
+
+<section class="search-upload">
+
+
+<form
+class="search-box"
+action="search.html"
+method="get"
+>
+
+<input
+type="search"
+name="q"
+placeholder="Search Ning Wei Media..."
+autocomplete="off"
+>
+
+<button type="submit">
+Search
+</button>
+
+</form>
+
+
+<a
+class="upload-button"
+href="upload.html"
+>
+
+🎵 Upload Your Music From Here
+
+</a>
+
+
+</section>
 
 
 <!-- ======================================================
