@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>Ning Wei Media</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4faff;
-  color:#111;
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#f4faff;
+color:#111;
 }
 
 /* =========================
@@ -23,56 +30,74 @@ body{
 ========================= */
 
 .site-header{
-  position:relative;
-  height:125px;
-  min-height:125px;
-  max-height:125px;
-  overflow:hidden;
-  background:#dff4ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+position:relative;
+
+height:125px;
+min-height:125px;
+max-height:125px;
+
+overflow:hidden;
+
+background:#dff4ff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-align:center;
 }
 
 .site-header img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:125px;
-  object-fit:cover;
-  object-position:50% 50%;
-  display:block;
-  filter:none;
-  opacity:1;
+position:absolute;
+
+inset:0;
+
+width:100%;
+height:125px;
+
+object-fit:cover;
+object-position:50% 50%;
+
+display:block;
+
+filter:none;
+opacity:1;
 }
 
 .site-header::before,
 .site-header::after{
-  display:none;
-  content:none;
+display:none;
+content:none;
 }
 
 .header-content{
-  position:relative;
-  z-index:2;
-  padding:8px 12px;
-  color:white;
-  text-shadow:
-    0 2px 5px rgba(0,0,0,.8),
-    0 1px 2px rgba(0,0,0,.8);
+position:relative;
+
+z-index:2;
+
+padding:8px 12px;
+
+color:white;
+
+text-shadow:
+0 2px 5px rgba(0,0,0,.8),
+0 1px 2px rgba(0,0,0,.8);
 }
 
 .header-content h1{
-  margin:0;
-  font-size:26px;
-  font-weight:800;
+margin:0;
+
+font-size:26px;
+
+font-weight:800;
 }
 
 .header-content p{
-  margin:4px 0 0;
-  font-size:12px;
-  font-weight:600;
+margin:4px 0 0;
+
+font-size:12px;
+
+font-weight:600;
 }
 
 /* =========================
@@ -80,40 +105,58 @@ body{
 ========================= */
 
 .container{
-  width:100%;
-  max-width:850px;
-  margin:auto;
-  padding:15px;
+width:100%;
+
+max-width:850px;
+
+margin:auto;
+
+padding:15px;
 }
 
 .back{
-  display:inline-block;
-  margin-bottom:12px;
-  color:#0788d1;
-  text-decoration:none;
-  font-weight:bold;
+display:inline-block;
+
+margin-bottom:12px;
+
+color:#0788d1;
+
+text-decoration:none;
+
+font-weight:bold;
 }
 
 .player-card{
-  background:white;
-  border-radius:14px;
-  padding:16px;
-  box-shadow:0 4px 18px rgba(0,0,0,.10);
+background:white;
+
+border-radius:14px;
+
+padding:16px;
+
+box-shadow:
+0 4px 18px rgba(0,0,0,.10);
 }
 
 .status{
-  text-align:center;
-  padding:10px;
-  color:#555;
-  font-size:14px;
+text-align:center;
+
+padding:10px;
+
+color:#555;
+
+font-size:14px;
 }
 
 .error{
-  color:#c62828;
-  background:#fff1f1;
-  border-radius:8px;
-  padding:12px;
-  margin-top:10px;
+color:#c62828;
+
+background:#fff1f1;
+
+border-radius:8px;
+
+padding:12px;
+
+margin-top:10px;
 }
 
 /* =========================
@@ -121,36 +164,48 @@ body{
 ========================= */
 
 .song-meta{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:15px;
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-bottom:15px;
 }
 
 .cover{
-  width:70px;
-  height:70px;
-  border-radius:10px;
-  object-fit:cover;
-  background:#e8f7ff;
-  flex-shrink:0;
+width:70px;
+height:70px;
+
+border-radius:10px;
+
+object-fit:cover;
+
+background:#e8f7ff;
+
+flex-shrink:0;
 }
 
 .song-info{
-  min-width:0;
+min-width:0;
 }
 
 .song-title{
-  margin:0;
-  font-size:21px;
-  font-weight:800;
-  word-break:break-word;
+margin:0;
+
+font-size:21px;
+
+font-weight:800;
+
+word-break:break-word;
 }
 
 .artist{
-  margin:5px 0 0;
-  color:#666;
-  font-size:14px;
+margin:5px 0 0;
+
+color:#666;
+
+font-size:14px;
 }
 
 /* =========================
@@ -158,56 +213,92 @@ body{
 ========================= */
 
 .media-title{
-  margin:0 0 14px;
-  font-size:21px;
-  font-weight:800;
-  word-break:break-word;
+margin:0 0 14px;
+
+font-size:21px;
+
+font-weight:800;
+
+word-break:break-word;
 }
 
 .audio-box{
-  width:100%;
+width:100%;
 }
 
 .audio-box audio{
-  width:100%;
+width:100%;
 }
 
 .video-box{
-  width:100%;
-  background:#000;
-  border-radius:12px;
-  overflow:hidden;
+width:100%;
+
+background:#000;
+
+border-radius:12px;
+
+overflow:hidden;
 }
 
 .video-box video{
-  width:100%;
-  max-height:70vh;
-  display:block;
-  background:#000;
+width:100%;
+
+max-height:70vh;
+
+display:block;
+
+background:#000;
 }
 
 .image-box{
-  width:100%;
-  background:#111;
-  border-radius:12px;
-  overflow:hidden;
-  text-align:center;
-  padding:0;
+width:100%;
+
+background:#111;
+
+border-radius:12px;
+
+overflow:hidden;
+
+text-align:center;
+
+padding:0;
 }
 
 .image-box img{
-  width:100%;
-  max-height:75vh;
-  object-fit:contain;
-  display:block;
-  margin:auto;
-  cursor:zoom-in;
-  transition:transform .25s ease;
+width:100%;
+
+max-height:75vh;
+
+object-fit:contain;
+
+display:block;
+
+margin:auto;
+
+cursor:zoom-in;
+
+transition:
+transform .25s ease;
 }
 
 .image-box img.zoomed{
-  transform:scale(1.7);
-  cursor:zoom-out;
+transform:scale(1.7);
+
+cursor:zoom-out;
+}
+
+/* =========================
+   VIDEO FORMAT MESSAGE
+========================= */
+
+.video-format-note{
+margin-top:9px;
+
+font-size:12px;
+
+color:#777;
+
+line-height:1.4;
 }
 
 /* =========================
@@ -215,34 +306,49 @@ body{
 ========================= */
 
 .actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:15px;
+display:flex;
+
+flex-wrap:wrap;
+
+gap:9px;
+
+margin-top:15px;
 }
 
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:42px;
-  padding:10px 14px;
-  border-radius:9px;
-  text-decoration:none;
-  border:0;
-  cursor:pointer;
-  font-weight:700;
-  font-size:14px;
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+min-height:42px;
+
+padding:10px 14px;
+
+border-radius:9px;
+
+text-decoration:none;
+
+border:0;
+
+cursor:pointer;
+
+font-weight:700;
+
+font-size:14px;
 }
 
 .download{
-  background:#0788d1;
-  color:white;
+background:#0788d1;
+
+color:white;
 }
 
 .share{
-  background:#222;
-  color:white;
+background:#222;
+
+color:white;
 }
 
 /* =========================
@@ -250,15 +356,22 @@ body{
 ========================= */
 
 .footer{
-  text-align:center;
-  color:#777;
-  font-size:12px;
-  padding:25px 10px;
+text-align:center;
+
+color:#777;
+
+font-size:12px;
+
+padding:25px 10px;
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 
 <!-- =========================
      HEADER
@@ -266,15 +379,22 @@ body{
 
 <header class="site-header">
 
-  <img
-    src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
-    alt="Ning Wei"
-  >
+<img
+src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+alt="Ning Wei"
+>
 
-  <div class="header-content">
-    <h1>Ning Wei Media</h1>
-    <p>Music • Videos • Photos • Apps • Software</p>
-  </div>
+<div class="header-content">
+
+<h1>
+Ning Wei Media
+</h1>
+
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
+
+</div>
 
 </header>
 
@@ -285,138 +405,190 @@ body{
 
 <main class="container">
 
-  <a class="back" href="javascript:history.back()">← Back</a>
-
-  <div class="player-card">
-
-    <div id="status" class="status">
-      Loading media...
-    </div>
-
-    <!-- SONG INFORMATION -->
-    <div id="songMeta" class="song-meta" style="display:none;">
-
-      <img
-        id="cover"
-        class="cover"
-        src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
-        alt="Cover"
-      >
-
-      <div class="song-info">
-
-        <h2 id="songTitle" class="song-title">
-          Ning Wei Media
-        </h2>
-
-        <p id="artist" class="artist">
-          Ning Wei
-        </p>
-
-      </div>
-
-    </div>
+<a
+class="back"
+href="javascript:history.back()"
+>
+← Back
+</a>
 
 
-    <!-- DIRECT MEDIA TITLE -->
-    <h2
-      id="mediaTitle"
-      class="media-title"
-      style="display:none;"
-    ></h2>
+<div class="player-card">
 
 
-    <!-- AUDIO -->
-    <div
-      id="audioBox"
-      class="audio-box"
-      style="display:none;"
-    >
-
-      <audio
-        id="audio"
-        controls
-        preload="metadata"
-      ></audio>
-
-    </div>
+<div
+id="status"
+class="status"
+>
+Loading media...
+</div>
 
 
-    <!-- VIDEO -->
-    <div
-      id="videoBox"
-      class="video-box"
-      style="display:none;"
-    >
+<!-- SONG INFORMATION -->
 
-      <video
-        id="video"
-        controls
-        playsinline
-        preload="metadata"
-      ></video>
+<div
+id="songMeta"
+class="song-meta"
+style="display:none;"
+>
 
-    </div>
+<img
+id="cover"
+class="cover"
+src="https://ningwei2567.github.io/Ning-wei-1/ning-wei.png"
+alt="Cover"
+>
 
+<div class="song-info">
 
-    <!-- IMAGE / PHOTO -->
-    <div
-      id="imageBox"
-      class="image-box"
-      style="display:none;"
-    >
+<h2
+id="songTitle"
+class="song-title"
+>
+Ning Wei Media
+</h2>
 
-      <img
-        id="mediaImage"
-        alt="Photo"
-      >
+<p
+id="artist"
+class="artist"
+>
+Ning Wei
+</p>
 
-    </div>
+</div>
 
-
-    <!-- BUTTONS -->
-    <div
-      id="actions"
-      class="actions"
-      style="display:none;"
-    >
-
-      <a
-        id="download"
-        class="btn download"
-        href="#"
-      >
-        ⬇ Download
-      </a>
-
-      <button
-        id="share"
-        class="btn share"
-        type="button"
-      >
-        ↗ Share
-      </button>
-
-    </div>
+</div>
 
 
-    <div
-      id="error"
-      class="error"
-      style="display:none;"
-    ></div>
+<!-- DIRECT MEDIA TITLE -->
 
-  </div>
+<h2
+id="mediaTitle"
+class="media-title"
+style="display:none;"
+></h2>
+
+
+<!-- AUDIO -->
+
+<div
+id="audioBox"
+class="audio-box"
+style="display:none;"
+>
+
+<audio
+id="audio"
+controls
+preload="metadata"
+></audio>
+
+</div>
+
+
+<!-- VIDEO -->
+
+<div
+id="videoBox"
+class="video-box"
+style="display:none;"
+>
+
+<video
+id="video"
+controls
+playsinline
+preload="metadata"
+>
+
+<source
+id="videoSource"
+src=""
+type=""
+>
+
+Your browser does not support HTML5 video.
+
+</video>
+
+</div>
+
+
+<div
+id="videoFormatNote"
+class="video-format-note"
+style="display:none;"
+>
+If this video format is not supported by your browser,
+you can still download the original file below.
+</div>
+
+
+<!-- IMAGE / PHOTO -->
+
+<div
+id="imageBox"
+class="image-box"
+style="display:none;"
+>
+
+<img
+id="mediaImage"
+alt="Photo"
+>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div
+id="actions"
+class="actions"
+style="display:none;"
+>
+
+<a
+id="download"
+class="btn download"
+href="#"
+>
+⬇ Download
+</a>
+
+
+<button
+id="share"
+class="btn share"
+type="button"
+>
+↗ Share
+</button>
+
+</div>
+
+
+<div
+id="error"
+class="error"
+style="display:none;"
+></div>
+
+
+</div>
 
 </main>
 
 
 <footer class="footer">
-  © Ning Wei Media
+
+© Ning Wei Media
+
 </footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -425,19 +597,19 @@ body{
 ===================================================== */
 
 const BASE_URL =
-  "https://ningwei2567.github.io/Ning-wei-1/";
+"https://ningwei2567.github.io/Ning-wei-1/";
 
 const SUPABASE_URL =
-  "https://btksyizkcpzubtextuce.supabase.co";
+"https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5enprY3B6dWJ0ZXh0dWNlIiwiaWF0IjoxNzg4OTMxNjI2LCJleHAiOjIxMDQ1MDc2MjZ9.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5enprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
 /* =====================================================
@@ -445,52 +617,60 @@ const db =
 ===================================================== */
 
 const statusBox =
-  document.getElementById("status");
+document.getElementById("status");
 
 const errorBox =
-  document.getElementById("error");
+document.getElementById("error");
 
 const songMeta =
-  document.getElementById("songMeta");
+document.getElementById("songMeta");
 
 const cover =
-  document.getElementById("cover");
+document.getElementById("cover");
 
 const songTitle =
-  document.getElementById("songTitle");
+document.getElementById("songTitle");
 
 const artist =
-  document.getElementById("artist");
+document.getElementById("artist");
 
 const mediaTitle =
-  document.getElementById("mediaTitle");
+document.getElementById("mediaTitle");
 
 const audioBox =
-  document.getElementById("audioBox");
+document.getElementById("audioBox");
 
 const audio =
-  document.getElementById("audio");
+document.getElementById("audio");
 
 const videoBox =
-  document.getElementById("videoBox");
+document.getElementById("videoBox");
 
 const video =
-  document.getElementById("video");
+document.getElementById("video");
+
+const videoSource =
+document.getElementById("videoSource");
+
+const videoFormatNote =
+document.getElementById(
+"videoFormatNote"
+);
 
 const imageBox =
-  document.getElementById("imageBox");
+document.getElementById("imageBox");
 
 const mediaImage =
-  document.getElementById("mediaImage");
+document.getElementById("mediaImage");
 
 const actions =
-  document.getElementById("actions");
+document.getElementById("actions");
 
 const download =
-  document.getElementById("download");
+document.getElementById("download");
 
 const shareButton =
-  document.getElementById("share");
+document.getElementById("share");
 
 
 /* =====================================================
@@ -498,30 +678,30 @@ const shareButton =
 ===================================================== */
 
 const params =
-  new URLSearchParams(
-    window.location.search
-  );
+new URLSearchParams(
+window.location.search
+);
 
 const id =
-  params.get("id");
+params.get("id");
 
 const path =
-  params.get("path");
+params.get("path");
 
 const directUrl =
-  params.get("url");
+params.get("url");
 
 const suppliedName =
-  params.get("name");
+params.get("name");
 
 const suppliedMime =
-  params.get("mime");
+params.get("mime");
 
 const oldFolder =
-  params.get("folder");
+params.get("folder");
 
 const oldFile =
-  params.get("file");
+params.get("file");
 
 
 /* =====================================================
@@ -530,806 +710,1336 @@ const oldFile =
 
 function hideAllMedia(){
 
-  audioBox.style.display = "none";
-  videoBox.style.display = "none";
-  imageBox.style.display = "none";
+audioBox.style.display =
+"none";
 
-  audio.pause();
-  video.pause();
+videoBox.style.display =
+"none";
 
-  audio.removeAttribute("src");
-  video.removeAttribute("src");
+imageBox.style.display =
+"none";
+
+videoFormatNote.style.display =
+"none";
+
+audio.pause();
+
+video.pause();
+
+audio.removeAttribute(
+"src"
+);
+
+video.removeAttribute(
+"src"
+);
+
+videoSource.removeAttribute(
+"src"
+);
+
+videoSource.removeAttribute(
+"type"
+);
+
+video.load();
+
 }
 
 
 function showError(message){
 
-  statusBox.style.display = "none";
+statusBox.style.display =
+"none";
 
-  errorBox.textContent =
-    message;
+errorBox.textContent =
+message;
 
-  errorBox.style.display =
-    "block";
+errorBox.style.display =
+"block";
+
 }
 
 
 function cleanName(filename){
 
-  if(!filename){
-    return "Ning Wei Media";
-  }
+if(!filename){
 
-  let name =
-    filename
-      .split("/")
-      .pop();
+return "Ning Wei Media";
 
-  name =
-    name.replace(
-      /\.[^/.]+$/,
-      ""
-    );
+}
 
-  name =
-    name
-      .replace(/[_-]+/g," ")
-      .trim();
+let name =
+filename
+.split("/")
+.pop();
 
-  return name ||
-    "Ning Wei Media";
+name =
+name.replace(
+/\.[^/.]+$/,
+""
+);
+
+name =
+name
+.replace(
+/[_-]+/g,
+" "
+)
+.trim();
+
+return name ||
+"Ning Wei Media";
+
 }
 
 
 function extensionOf(filename){
 
-  if(!filename){
-    return "";
-  }
+if(!filename){
 
-  const clean =
-    filename
-      .split("?")[0]
-      .split("#")[0];
+return "";
+}
 
-  const parts =
-    clean.split(".");
+const clean =
+filename
+.split("?")[0]
+.split("#")[0];
 
-  if(parts.length < 2){
-    return "";
-  }
+const parts =
+clean.split(".");
 
-  return parts
-    .pop()
-    .toLowerCase();
+if(parts.length < 2){
+
+return "";
+
+}
+
+return parts
+.pop()
+.toLowerCase();
+
 }
 
 
-function mediaType(filename,mime){
+/* =====================================================
+   MEDIA TYPE
+===================================================== */
 
-  const m =
-    (mime || "").toLowerCase();
+function mediaType(
+filename,
+mime
+){
 
-  if(m.startsWith("image/")){
-    return "image";
-  }
+const m =
+(mime || "")
+.toLowerCase()
+.split(";")[0]
+.trim();
 
-  if(m.startsWith("video/")){
-    return "video";
-  }
 
-  if(m.startsWith("audio/")){
-    return "audio";
-  }
+/* MIME TYPE FIRST */
 
-  const ext =
-    extensionOf(filename);
+if(
+m.startsWith("image/")
+){
 
-  const imageExtensions = [
-    "jpg",
-    "jpeg",
-    "png",
-    "gif",
-    "webp",
-    "avif",
-    "bmp",
-    "svg"
-  ];
+return "image";
 
-  const videoExtensions = [
-    "mp4",
-    "webm",
-    "mov",
-    "m4v",
-    "3gp",
-    "3g2",
-    "ogv",
-    "avi",
-    "mkv"
-  ];
-
-  const audioExtensions = [
-    "mp3",
-    "wav",
-    "m4a",
-    "aac",
-    "ogg",
-    "oga",
-    "flac",
-    "wma",
-    "opus",
-    "aiff",
-    "aif"
-  ];
-
-  if(imageExtensions.includes(ext)){
-    return "image";
-  }
-
-  if(videoExtensions.includes(ext)){
-    return "video";
-  }
-
-  if(audioExtensions.includes(ext)){
-    return "audio";
-  }
-
-  return "";
 }
 
+if(
+m.startsWith("video/")
+){
+
+return "video";
+
+}
+
+if(
+m.startsWith("audio/")
+){
+
+return "audio";
+
+}
+
+
+/* EXTENSION */
+
+const ext =
+extensionOf(filename);
+
+
+const imageExtensions = [
+
+"jpg",
+"jpeg",
+"png",
+"gif",
+"webp",
+"avif",
+"bmp",
+"svg"
+
+];
+
+
+const videoExtensions = [
+
+"mp4",
+"webm",
+"mov",
+"m4v",
+"3gp",
+"3g2",
+"mpg",
+"mpeg",
+"mpe",
+"ogv",
+"avi",
+"mkv"
+
+];
+
+
+const audioExtensions = [
+
+"mp3",
+"wav",
+"m4a",
+"aac",
+"ogg",
+"oga",
+"flac",
+"wma",
+"opus",
+"aiff",
+"aif"
+
+];
+
+
+if(
+imageExtensions.includes(ext)
+){
+
+return "image";
+
+}
+
+
+if(
+videoExtensions.includes(ext)
+){
+
+return "video";
+
+}
+
+
+if(
+audioExtensions.includes(ext)
+){
+
+return "audio";
+
+}
+
+
+return "";
+
+}
+
+
+/* =====================================================
+   VIDEO MIME TYPE
+===================================================== */
+
+function videoMimeType(
+filename,
+mime
+){
+
+const supplied =
+(mime || "")
+.toLowerCase()
+.split(";")[0]
+.trim();
+
+
+/*
+   If the supplied MIME type is already
+   a proper video MIME type, use it.
+*/
+
+if(
+supplied.startsWith("video/")
+){
+
+return supplied;
+
+}
+
+
+const ext =
+extensionOf(filename);
+
+
+const videoMimes = {
+
+mp4:
+"video/mp4",
+
+webm:
+"video/webm",
+
+mov:
+"video/quicktime",
+
+m4v:
+"video/mp4",
+
+"3gp":
+"video/3gpp",
+
+"3g2":
+"video/3gpp2",
+
+mpg:
+"video/mpeg",
+
+mpeg:
+"video/mpeg",
+
+mpe:
+"video/mpeg",
+
+ogv:
+"video/ogg",
+
+avi:
+"video/x-msvideo",
+
+mkv:
+"video/x-matroska"
+
+};
+
+
+return videoMimes[ext] || "";
+
+}
+
+
+/* =====================================================
+   AUDIO MIME TYPE
+===================================================== */
+
+function audioMimeType(
+filename,
+mime
+){
+
+const supplied =
+(mime || "")
+.toLowerCase()
+.split(";")[0]
+.trim();
+
+
+if(
+supplied.startsWith("audio/")
+){
+
+return supplied;
+
+}
+
+
+const ext =
+extensionOf(filename);
+
+
+const audioMimes = {
+
+mp3:
+"audio/mpeg",
+
+wav:
+"audio/wav",
+
+m4a:
+"audio/mp4",
+
+aac:
+"audio/aac",
+
+ogg:
+"audio/ogg",
+
+oga:
+"audio/ogg",
+
+flac:
+"audio/flac",
+
+opus:
+"audio/opus"
+
+};
+
+
+return audioMimes[ext] || "";
+
+}
+
+
+/* =====================================================
+   IMAGE MIME TYPE
+===================================================== */
+
+function imageMimeType(
+filename,
+mime
+){
+
+const supplied =
+(mime || "")
+.toLowerCase()
+.split(";")[0]
+.trim();
+
+
+if(
+supplied.startsWith("image/")
+){
+
+return supplied;
+
+}
+
+
+const ext =
+extensionOf(filename);
+
+
+const imageMimes = {
+
+jpg:
+"image/jpeg",
+
+jpeg:
+"image/jpeg",
+
+png:
+"image/png",
+
+gif:
+"image/gif",
+
+webp:
+"image/webp",
+
+avif:
+"image/avif",
+
+bmp:
+"image/bmp",
+
+svg:
+"image/svg+xml"
+
+};
+
+
+return imageMimes[ext] || "";
+
+}
+
+
+/* =====================================================
+   GITHUB URL
+===================================================== */
 
 function githubUrlFromPath(p){
 
-  if(!p){
-    return "";
-  }
+if(!p){
 
-  p =
-    p.trim();
+return "";
 
-  /*
-    If somebody accidentally gives a complete URL,
-    use it directly.
-  */
-
-  if(/^https?:\/\//i.test(p)){
-    return p;
-  }
-
-  /*
-    Remove leading slash.
-  */
-
-  p =
-    p.replace(/^\/+/,"");
-
-  /*
-    Remove ./ if present.
-  */
-
-  if(p.startsWith("./")){
-    p =
-      p.substring(2);
-  }
-
-  /*
-    Build the GitHub Pages URL.
-  */
-
-  try{
-
-    return new URL(
-      p,
-      BASE_URL
-    ).href;
-
-  }catch(e){
-
-    return (
-      BASE_URL +
-      p
-        .split("/")
-        .map(
-          part =>
-            encodeURIComponent(part)
-        )
-        .join("/")
-    );
-  }
 }
 
+p =
+p.trim();
+
+
+if(
+/^https?:\/\//i.test(p)
+){
+
+return p;
+
+}
+
+
+p =
+p.replace(
+/^\/+/,
+""
+);
+
+
+if(
+p.startsWith("./")
+){
+
+p =
+p.substring(2);
+
+}
+
+
+try{
+
+return new URL(
+p,
+BASE_URL
+).href;
+
+}
+
+catch(e){
+
+return (
+BASE_URL +
+p
+.split("/")
+.map(
+part =>
+encodeURIComponent(part)
+)
+.join("/")
+);
+
+}
+
+}
+
+
+/* =====================================================
+   FILENAME FROM PATH
+===================================================== */
 
 function filenameFromPath(p){
 
-  if(!p){
-    return "";
-  }
+if(!p){
 
-  try{
+return "";
 
-    const u =
-      new URL(
-        p,
-        BASE_URL
-      );
+}
 
-    const pathname =
-      u.pathname;
+try{
 
-    return pathname
-      .split("/")
-      .pop();
+const u =
+new URL(
+p,
+BASE_URL
+);
 
-  }catch(e){
+const pathname =
+u.pathname;
 
-    return p
-      .split("/")
-      .pop();
-  }
+return pathname
+.split("/")
+.pop();
+
+}
+
+catch(e){
+
+return p
+.split("/")
+.pop();
+
+}
+
 }
 
 
-function downloadLabel(filename,type){
+/* =====================================================
+   DOWNLOAD LABEL
+===================================================== */
 
-  const ext =
-    extensionOf(filename);
+function downloadLabel(
+filename,
+type
+){
 
-  if(ext){
-    return "⬇ Download " +
-      ext.toUpperCase();
-  }
+const ext =
+extensionOf(filename);
 
-  if(type === "image"){
-    return "⬇ Download Photo";
-  }
+if(ext){
 
-  if(type === "video"){
-    return "⬇ Download Video";
-  }
+return "⬇ Download " +
+ext.toUpperCase();
 
-  if(type === "audio"){
-    return "⬇ Download Audio";
-  }
+}
 
-  return "⬇ Download";
+if(
+type === "image"
+){
+
+return "⬇ Download Photo";
+
+}
+
+if(
+type === "video"
+){
+
+return "⬇ Download Video";
+
+}
+
+if(
+type === "audio"
+){
+
+return "⬇ Download Audio";
+
+}
+
+return "⬇ Download";
+
+}
+
+
+/* =====================================================
+   SET VIDEO SOURCE
+===================================================== */
+
+function setVideoSource(
+mediaUrl,
+filename,
+mime
+){
+
+const type =
+videoMimeType(
+filename,
+mime
+);
+
+
+/*
+   Put the original URL directly
+   into the HTML5 video source.
+*/
+
+videoSource.src =
+mediaUrl;
+
+
+if(type){
+
+videoSource.type =
+type;
+
+}
+
+else{
+
+videoSource.removeAttribute(
+"type"
+);
+
+}
+
+
+video.load();
+
 }
 
 
 /* =====================================================
    DIRECT MEDIA MODE
-   path=...
-   url=...
 ===================================================== */
 
 function loadDirectMedia(){
 
-  let mediaUrl = "";
-  let filename = "";
-  let mime = suppliedMime || "";
+let mediaUrl = "";
 
-  /*
-    Priority:
-    url
-    path
-    old folder/file
-  */
+let filename = "";
 
-  if(directUrl){
+let mime =
+suppliedMime || "";
 
-    mediaUrl =
-      directUrl;
 
-    filename =
-      suppliedName ||
-      filenameFromPath(
-        mediaUrl
-      );
+/*
+   Priority:
 
-  }
+   1. url
+   2. path
+   3. old folder/file
+*/
 
-  else if(path){
 
-    mediaUrl =
-      githubUrlFromPath(
-        path
-      );
+if(directUrl){
 
-    filename =
-      suppliedName ||
-      filenameFromPath(
-        path
-      );
+mediaUrl =
+directUrl;
 
-  }
+filename =
+suppliedName ||
+filenameFromPath(
+mediaUrl
+);
 
-  else if(oldFile){
+}
 
-    let folder =
-      oldFolder || "";
+else if(path){
 
-    if(folder.startsWith("media/")){
+mediaUrl =
+githubUrlFromPath(
+path
+);
 
-      mediaUrl =
-        githubUrlFromPath(
-          folder +
-          "/" +
-          oldFile
-        );
+filename =
+suppliedName ||
+filenameFromPath(
+path
+);
 
-    }else{
+}
 
-      mediaUrl =
-        githubUrlFromPath(
-          "media/" +
-          folder +
-          "/" +
-          oldFile
-        );
+else if(oldFile){
 
-    }
+let folder =
+oldFolder || "";
 
-    filename =
-      suppliedName ||
-      oldFile;
-  }
 
-  else{
+if(
+folder.startsWith(
+"media/"
+)
+){
 
-    return false;
-  }
+mediaUrl =
+githubUrlFromPath(
+folder +
+"/" +
+oldFile
+);
 
+}
 
-  if(!mediaUrl){
+else{
 
-    showError(
-      "❌ No media file selected."
-    );
+mediaUrl =
+githubUrlFromPath(
+"media/" +
+folder +
+"/" +
+oldFile
+);
 
-    return true;
-  }
+}
 
 
-  const type =
-    mediaType(
-      filename,
-      mime
-    );
+filename =
+suppliedName ||
+oldFile;
 
+}
 
-  if(!type){
+else{
 
-    showError(
-      "❌ Unsupported media format."
-    );
+return false;
 
-    return true;
-  }
+}
 
 
-  hideAllMedia();
+if(!mediaUrl){
 
-  songMeta.style.display =
-    "none";
+showError(
+"❌ No media file selected."
+);
 
-  mediaTitle.textContent =
-    cleanName(filename);
+return true;
 
-  mediaTitle.style.display =
-    "block";
+}
 
 
-  /* =====================
-     IMAGE
-  ===================== */
+const type =
+mediaType(
+filename,
+mime
+);
 
-  if(type === "image"){
 
-    imageBox.style.display =
-      "block";
+if(!type){
 
-    mediaImage.src =
-      mediaUrl;
+showError(
+"❌ Unsupported media format."
+);
 
-    mediaImage.alt =
-      cleanName(filename);
+return true;
 
-    mediaImage.onclick =
-      function(){
+}
 
-        mediaImage.classList.toggle(
-          "zoomed"
-        );
 
-      };
+hideAllMedia();
 
-    mediaImage.onerror =
-      function(){
+errorBox.style.display =
+"none";
 
-        showError(
-          "❌ This photo could not be loaded."
-        );
+songMeta.style.display =
+"none";
 
-      };
 
-  }
+mediaTitle.textContent =
+cleanName(filename);
 
+mediaTitle.style.display =
+"block";
 
-  /* =====================
-     VIDEO
-  ===================== */
 
-  if(type === "video"){
+/* =====================
+   IMAGE
+===================== */
 
-    videoBox.style.display =
-      "block";
+if(
+type === "image"
+){
 
-    video.src =
-      mediaUrl;
+imageBox.style.display =
+"block";
 
-    video.onerror =
-      function(){
+mediaImage.src =
+mediaUrl;
 
-        showError(
-          "❌ This video could not be played by your browser. The original file can still be downloaded."
-        );
+mediaImage.alt =
+cleanName(filename);
 
-      };
+mediaImage.onclick =
+function(){
 
-  }
+mediaImage.classList.toggle(
+"zoomed"
+);
 
+};
 
-  /* =====================
-     AUDIO
-  ===================== */
 
-  if(type === "audio"){
+mediaImage.onerror =
+function(){
 
-    audioBox.style.display =
-      "block";
+showError(
+"❌ This photo could not be loaded."
+);
 
-    audio.src =
-      mediaUrl;
+};
 
-    audio.onerror =
-      function(){
+}
 
-        showError(
-          "❌ This audio file could not be played by your browser. The original file can still be downloaded."
-        );
 
-      };
+/* =====================
+   VIDEO
+===================== */
 
-  }
+if(
+type === "video"
+){
 
+videoBox.style.display =
+"block";
 
-  /* =====================
-     DOWNLOAD
-  ===================== */
 
-  download.href =
-    mediaUrl;
+setVideoSource(
+mediaUrl,
+filename,
+mime
+);
 
-  download.textContent =
-    downloadLabel(
-      filename,
-      type
-    );
 
-  download.setAttribute(
-    "download",
-    filename ||
-    "ning-wei-media"
-  );
+/*
+   This message stays available
+   for formats that a particular
+   browser cannot decode.
+*/
 
+videoFormatNote.style.display =
+"block";
 
-  /* =====================
-     SHARE
-  ===================== */
 
-  shareButton.onclick =
-    function(){
+video.onerror =
+function(){
 
-      shareMedia(
-        mediaUrl,
-        cleanName(filename)
-      );
+showError(
+"❌ This video format cannot be played by your browser. The original file is still available for download."
+);
 
-    };
+};
 
+}
 
-  actions.style.display =
-    "flex";
 
-  statusBox.style.display =
-    "none";
+/* =====================
+   AUDIO
+===================== */
 
-  document.title =
-    cleanName(filename) +
-    " - Ning Wei Media";
+if(
+type === "audio"
+){
 
+audioBox.style.display =
+"block";
 
-  return true;
+
+const audioMime =
+audioMimeType(
+filename,
+mime
+);
+
+
+if(audioMime){
+
+audio.setAttribute(
+"type",
+audioMime
+);
+
+}
+
+
+audio.src =
+mediaUrl;
+
+audio.load();
+
+
+audio.onerror =
+function(){
+
+showError(
+"❌ This audio file could not be played by your browser. The original file can still be downloaded."
+);
+
+};
+
+}
+
+
+/* =====================
+   DOWNLOAD
+===================== */
+
+
+/*
+   IMPORTANT:
+
+   This is the ORIGINAL URL.
+
+   No conversion.
+   No compression.
+   No re-encoding.
+*/
+
+download.href =
+mediaUrl;
+
+download.textContent =
+downloadLabel(
+filename,
+type
+);
+
+
+download.setAttribute(
+"download",
+filename ||
+"ning-wei-media"
+);
+
+
+/* =====================
+   SHARE
+===================== */
+
+shareButton.onclick =
+function(){
+
+shareMedia(
+mediaUrl,
+cleanName(filename)
+);
+
+};
+
+
+actions.style.display =
+"flex";
+
+statusBox.style.display =
+"none";
+
+document.title =
+cleanName(filename) +
+" - Ning Wei Media";
+
+
+return true;
+
 }
 
 
 /* =====================================================
    SUPABASE SONG MODE
-   id=...
 ===================================================== */
 
 async function loadSupabaseSong(){
 
-  if(!id){
-    return;
-  }
+if(!id){
 
+return;
 
-  try{
+}
 
-    const result =
-      await db
-        .from("songs")
-        .select(
-          "title,song_url,cover_url,artists(name,photo)"
-        )
-        .eq(
-          "id",
-          id
-        )
-        .single();
 
+try{
 
-    const data =
-      result.data;
+const result =
+await db
+.from("songs")
+.select(
+"title,song_url,cover_url,artists(name,photo)"
+)
+.eq(
+"id",
+id
+)
+.single();
 
-    const error =
-      result.error;
 
+const data =
+result.data;
 
-    if(error){
+const error =
+result.error;
 
-      console.error(error);
 
-      showError(
-        "❌ The song could not be loaded."
-      );
+if(error){
 
-      return;
-    }
+console.error(error);
 
+showError(
+"❌ The song could not be loaded."
+);
 
-    if(!data){
+return;
 
-      showError(
-        "❌ Song not found."
-      );
+}
 
-      return;
-    }
 
+if(!data){
 
-    hideAllMedia();
+showError(
+"❌ Song not found."
+);
 
-    mediaTitle.style.display =
-      "none";
+return;
 
+}
 
-    /* =====================
-       SONG META
-    ===================== */
 
-    songMeta.style.display =
-      "flex";
+hideAllMedia();
 
+mediaTitle.style.display =
+"none";
 
-    songTitle.textContent =
-      data.title ||
-      "Untitled Song";
 
+/* =====================
+   SONG META
+===================== */
 
-    const artistData =
-      data.artists;
+songMeta.style.display =
+"flex";
 
 
-    if(Array.isArray(artistData)){
+songTitle.textContent =
+data.title ||
+"Untitled Song";
 
-      const firstArtist =
-        artistData[0];
 
-      if(firstArtist){
+const artistData =
+data.artists;
 
-        artist.textContent =
-          firstArtist.name ||
-          "Unknown Artist";
 
-        if(firstArtist.photo){
+if(
+Array.isArray(
+artistData
+)
+){
 
-          cover.src =
-            firstArtist.photo;
+const firstArtist =
+artistData[0];
 
-        }
 
-      }
+if(firstArtist){
 
-    }
+artist.textContent =
+firstArtist.name ||
+"Unknown Artist";
 
-    else if(artistData){
 
-      artist.textContent =
-        artistData.name ||
-        "Unknown Artist";
+if(firstArtist.photo){
 
-      if(artistData.photo){
+cover.src =
+firstArtist.photo;
 
-        cover.src =
-          artistData.photo;
+}
 
-      }
+}
 
-    }
+}
 
-    else{
+else if(artistData){
 
-      artist.textContent =
-        "Ning Wei Media";
+artist.textContent =
+artistData.name ||
+"Unknown Artist";
 
-    }
 
+if(artistData.photo){
 
-    if(data.cover_url){
+cover.src =
+artistData.photo;
 
-      cover.src =
-        data.cover_url;
+}
 
-    }
+}
 
+else{
 
-    /* =====================
-       SONG TYPE
-    ===================== */
+artist.textContent =
+"Ning Wei Media";
 
-    const songUrl =
-      data.song_url;
+}
 
-    if(!songUrl){
 
-      showError(
-        "❌ No media URL was found for this song."
-      );
+if(data.cover_url){
 
-      return;
-    }
+cover.src =
+data.cover_url;
 
+}
 
-    const filename =
-      filenameFromPath(
-        songUrl
-      );
 
+/* =====================
+   SONG TYPE
+===================== */
 
-    const type =
-      mediaType(
-        filename,
-        ""
-      );
+const songUrl =
+data.song_url;
 
 
-    if(type === "video"){
+if(!songUrl){
 
-      videoBox.style.display =
-        "block";
+showError(
+"❌ No media URL was found for this song."
+);
 
-      video.src =
-        songUrl;
+return;
 
-      video.onerror =
-        function(){
+}
 
-          showError(
-            "❌ This video could not be played by your browser."
-          );
 
-        };
+const filename =
+filenameFromPath(
+songUrl
+);
 
-    }
 
-    else if(type === "image"){
+const type =
+mediaType(
+filename,
+""
+);
 
-      imageBox.style.display =
-        "block";
 
-      mediaImage.src =
-        songUrl;
+/* =====================
+   VIDEO SONG
+===================== */
 
-      mediaImage.onclick =
-        function(){
+if(
+type === "video"
+){
 
-          mediaImage.classList.toggle(
-            "zoomed"
-          );
+videoBox.style.display =
+"block";
 
-        };
 
-    }
+setVideoSource(
+songUrl,
+filename,
+""
+);
 
-    else{
 
-      audioBox.style.display =
-        "block";
+videoFormatNote.style.display =
+"block";
 
-      audio.src =
-        songUrl;
 
-      audio.onerror =
-        function(){
+video.onerror =
+function(){
 
-          showError(
-            "❌ This audio file could not be played by your browser."
-          );
+showError(
+"❌ This video format cannot be played by your browser. The original file can still be downloaded."
+);
 
-        };
+};
 
-    }
+}
 
 
-    /* =====================
-       DOWNLOAD
-    ===================== */
+/* =====================
+   IMAGE SONG
+===================== */
 
-    download.href =
-      songUrl;
+else if(
+type === "image"
+){
 
-    download.textContent =
-      downloadLabel(
-        filename,
-        type || "audio"
-      );
+imageBox.style.display =
+"block";
 
-    download.setAttribute(
-      "download",
-      filename ||
-      "ning-wei-song"
-    );
 
+mediaImage.src =
+songUrl;
 
-    /* =====================
-       SHARE
-    ===================== */
 
-    shareButton.onclick =
-      function(){
+mediaImage.onclick =
+function(){
 
-        shareMedia(
-          window.location.href,
-          data.title ||
-          "Ning Wei Media"
-        );
+mediaImage.classList.toggle(
+"zoomed"
+);
 
-      };
+};
 
+}
 
-    actions.style.display =
-      "flex";
 
-    statusBox.style.display =
-      "none";
+/* =====================
+   AUDIO SONG
+===================== */
 
+else{
 
-    document.title =
-      (data.title ||
-      "Ning Wei Media") +
-      " - Ning Wei Media";
+audioBox.style.display =
+"block";
 
 
-  }catch(error){
+const audioMime =
+audioMimeType(
+filename,
+""
+);
 
-    console.error(error);
 
-    showError(
-      "❌ Something went wrong while loading the media."
-    );
+if(audioMime){
 
-  }
+audio.setAttribute(
+"type",
+audioMime
+);
+
+}
+
+
+audio.src =
+songUrl;
+
+audio.load();
+
+
+audio.onerror =
+function(){
+
+showError(
+"❌ This audio file could not be played by your browser."
+);
+
+};
+
+}
+
+
+/* =====================
+   DOWNLOAD
+===================== */
+
+download.href =
+songUrl;
+
+download.textContent =
+downloadLabel(
+filename,
+type || "audio"
+);
+
+
+download.setAttribute(
+"download",
+filename ||
+"ning-wei-song"
+);
+
+
+/* =====================
+   SHARE
+===================== */
+
+shareButton.onclick =
+function(){
+
+shareMedia(
+window.location.href,
+data.title ||
+"Ning Wei Media"
+);
+
+};
+
+
+actions.style.display =
+"flex";
+
+statusBox.style.display =
+"none";
+
+
+document.title =
+(
+data.title ||
+"Ning Wei Media"
+) +
+" - Ning Wei Media";
+
+
+}
+
+catch(error){
+
+console.error(error);
+
+showError(
+"❌ Something went wrong while loading the media."
+);
+
+}
 
 }
 
@@ -1339,55 +2049,63 @@ async function loadSupabaseSong(){
 ===================================================== */
 
 async function shareMedia(
-  url,
-  title
+url,
+title
 ){
 
-  try{
+try{
 
-    if(
-      navigator.share
-    ){
+if(
+navigator.share
+){
 
-      await navigator.share({
-        title:
-          title,
-        text:
-          "Ning Wei Media",
-        url:
-          url
-      });
+await navigator.share({
 
-      return;
-    }
+title:
+title,
 
+text:
+"Ning Wei Media",
 
-    if(
-      navigator.clipboard
-    ){
+url:
+url
 
-      await navigator.clipboard.writeText(
-        url
-      );
+});
 
-      alert(
-        "Link copied."
-      );
+return;
 
-      return;
-    }
+}
 
 
-    prompt(
-      "Copy this link:",
-      url
-    );
+if(
+navigator.clipboard
+){
 
-  }catch(error){
+await navigator.clipboard.writeText(
+url
+);
 
-    console.log(error);
+alert(
+"Link copied."
+);
 
-  }
+return;
+
+}
+
+
+prompt(
+"Copy this link:",
+url
+);
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
 
 }
 
@@ -1398,33 +2116,36 @@ async function shareMedia(
 
 async function start(){
 
-  /*
-    If id exists, use Supabase song mode.
-  */
+/*
+   If id exists,
+   use Supabase song mode.
+*/
 
-  if(id){
+if(id){
 
-    await loadSupabaseSong();
+await loadSupabaseSong();
 
-    return;
-  }
+return;
 
-
-  /*
-    Otherwise use path/url/folder/file mode.
-  */
-
-  const loaded =
-    loadDirectMedia();
+}
 
 
-  if(!loaded){
+/*
+   Otherwise use
+   path / url / folder / file mode.
+*/
 
-    showError(
-      "❌ No media file selected."
-    );
+const loaded =
+loadDirectMedia();
 
-  }
+
+if(!loaded){
+
+showError(
+"❌ No media file selected."
+);
+
+}
 
 }
 
@@ -1433,5 +2154,7 @@ start();
 
 </script>
 
+
 </body>
+
 </html>
