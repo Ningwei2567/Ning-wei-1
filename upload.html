@@ -230,6 +230,24 @@ select:focus{
   margin-top:5px;
 }
 
+/* WARNING */
+
+.validation-warning{
+  display:none;
+  margin-top:12px;
+  padding:12px;
+  border-radius:9px;
+  background:#fff4d6;
+  border-left:4px solid #e5a400;
+  color:#795500;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.validation-warning.show{
+  display:block;
+}
+
 /* STATUS */
 
 .progress-box{
@@ -361,7 +379,6 @@ footer{
       required
     >
 
-
     <label for="creatorEmail">
       Email *
     </label>
@@ -373,7 +390,6 @@ footer{
       autocomplete="email"
       required
     >
-
 
     <label for="creatorPhoto">
       Profile Photo
@@ -388,9 +404,6 @@ footer{
     <div id="creatorPhotoName" class="file-name">
       No profile photo selected
     </div>
-
-
-    <!-- SAME LINE: PHOTO LEFT + NAME RIGHT -->
 
     <div class="creator-preview">
 
@@ -421,51 +434,27 @@ footer{
 
     <div class="type-grid">
 
-      <button
-        type="button"
-        class="type-button"
-        data-type="music"
-      >
+      <button type="button" class="type-button" data-type="music">
         🎵 Music
       </button>
 
-      <button
-        type="button"
-        class="type-button"
-        data-type="photos"
-      >
+      <button type="button" class="type-button" data-type="photos">
         🖼️ Photos
       </button>
 
-      <button
-        type="button"
-        class="type-button"
-        data-type="videos"
-      >
+      <button type="button" class="type-button" data-type="videos">
         🎬 Videos
       </button>
 
-      <button
-        type="button"
-        class="type-button"
-        data-type="apps"
-      >
+      <button type="button" class="type-button" data-type="apps">
         📱 Apps
       </button>
 
-      <button
-        type="button"
-        class="type-button"
-        data-type="software"
-      >
+      <button type="button" class="type-button" data-type="software">
         💻 Software
       </button>
 
-      <button
-        type="button"
-        class="type-button"
-        data-type="mixes"
-      >
+      <button type="button" class="type-button" data-type="mixes">
         🎧 DJ Mixes
       </button>
 
@@ -476,10 +465,7 @@ footer{
 
   <!-- MUSIC -->
 
-  <section
-    id="musicSection"
-    class="card upload-section"
-  >
+  <section id="musicSection" class="card upload-section">
 
     <h3>🎵 Upload Music</h3>
 
@@ -493,7 +479,6 @@ footer{
       placeholder="Example: Joy"
     >
 
-
     <label for="songArtist">
       Singer / Artist
     </label>
@@ -503,7 +488,6 @@ footer{
       type="text"
       placeholder="Example: Burna Boy"
     >
-
 
     <label for="musicCategory">
       Music Category *
@@ -533,6 +517,9 @@ footer{
 
     </select>
 
+    <div id="musicWarning" class="validation-warning">
+      ⚠️ Please choose a Music Category first.
+    </div>
 
     <label for="songFiles">
       Music File *
@@ -549,7 +536,6 @@ footer{
       No music selected
     </div>
 
-
     <label for="songCover">
       Cover Photo
     </label>
@@ -560,7 +546,6 @@ footer{
       accept="image/*"
     >
 
-
     <label for="musicDescription">
       Description
     </label>
@@ -569,7 +554,6 @@ footer{
       id="musicDescription"
       placeholder="Tell people about this song..."
     ></textarea>
-
 
     <button
       type="button"
@@ -584,10 +568,7 @@ footer{
 
   <!-- PHOTOS -->
 
-  <section
-    id="photosSection"
-    class="card upload-section"
-  >
+  <section id="photosSection" class="card upload-section">
 
     <h3>🖼️ Upload Photos</h3>
 
@@ -606,7 +587,6 @@ footer{
       No photos selected
     </div>
 
-
     <label for="photoDescription">
       Description
     </label>
@@ -615,7 +595,6 @@ footer{
       id="photoDescription"
       placeholder="Describe these photos..."
     ></textarea>
-
 
     <button
       type="button"
@@ -630,10 +609,7 @@ footer{
 
   <!-- VIDEOS -->
 
-  <section
-    id="videosSection"
-    class="card upload-section"
-  >
+  <section id="videosSection" class="card upload-section">
 
     <h3>🎬 Upload Videos</h3>
 
@@ -646,7 +622,6 @@ footer{
       type="text"
       placeholder="Enter video title"
     >
-
 
     <label for="videoFiles">
       Video Files *
@@ -663,7 +638,6 @@ footer{
       No videos selected
     </div>
 
-
     <label for="videoThumbnail">
       Thumbnail
     </label>
@@ -674,7 +648,6 @@ footer{
       accept="image/*"
     >
 
-
     <label for="videoDescription">
       Description
     </label>
@@ -683,7 +656,6 @@ footer{
       id="videoDescription"
       placeholder="Describe this video..."
     ></textarea>
-
 
     <button
       type="button"
@@ -698,10 +670,7 @@ footer{
 
   <!-- APPS -->
 
-  <section
-    id="appsSection"
-    class="card upload-section"
-  >
+  <section id="appsSection" class="card upload-section">
 
     <h3>📱 Upload App</h3>
 
@@ -714,7 +683,6 @@ footer{
       type="text"
       placeholder="Enter app name"
     >
-
 
     <label for="appCategory">
       App Category *
@@ -750,6 +718,9 @@ footer{
 
     </select>
 
+    <div id="appWarning" class="validation-warning">
+      ⚠️ Please choose an App Category first.
+    </div>
 
     <label for="appFiles">
       APK / App File *
@@ -766,7 +737,6 @@ footer{
       No app selected
     </div>
 
-
     <label for="appIcon">
       App Icon
     </label>
@@ -777,7 +747,6 @@ footer{
       accept="image/*"
     >
 
-
     <label for="appDescription">
       Description
     </label>
@@ -786,7 +755,6 @@ footer{
       id="appDescription"
       placeholder="Describe this app..."
     ></textarea>
-
 
     <button
       type="button"
@@ -801,10 +769,7 @@ footer{
 
   <!-- SOFTWARE -->
 
-  <section
-    id="softwareSection"
-    class="card upload-section"
-  >
+  <section id="softwareSection" class="card upload-section">
 
     <h3>💻 Upload Software</h3>
 
@@ -817,7 +782,6 @@ footer{
       type="text"
       placeholder="Enter software name"
     >
-
 
     <label for="softwareCategory">
       Software Category *
@@ -849,6 +813,9 @@ footer{
 
     </select>
 
+    <div id="softwareWarning" class="validation-warning">
+      ⚠️ Please choose a Software Category first.
+    </div>
 
     <label for="softwareFiles">
       Software File *
@@ -865,7 +832,6 @@ footer{
       No software selected
     </div>
 
-
     <label for="softwareImage">
       Software Image / Logo
     </label>
@@ -876,7 +842,6 @@ footer{
       accept="image/*"
     >
 
-
     <label for="softwareDescription">
       Description
     </label>
@@ -885,7 +850,6 @@ footer{
       id="softwareDescription"
       placeholder="Describe this software..."
     ></textarea>
-
 
     <button
       type="button"
@@ -900,10 +864,7 @@ footer{
 
   <!-- DJ MIXES -->
 
-  <section
-    id="mixesSection"
-    class="card upload-section"
-  >
+  <section id="mixesSection" class="card upload-section">
 
     <h3>🎧 Upload DJ Mix</h3>
 
@@ -916,7 +877,6 @@ footer{
       type="text"
       placeholder="Enter DJ mix title"
     >
-
 
     <label for="mixFiles">
       DJ Mix File *
@@ -933,7 +893,6 @@ footer{
       No DJ mix selected
     </div>
 
-
     <label for="mixCover">
       Mix Cover
     </label>
@@ -944,7 +903,6 @@ footer{
       accept="image/*"
     >
 
-
     <label for="mixDescription">
       Description
     </label>
@@ -953,7 +911,6 @@ footer{
       id="mixDescription"
       placeholder="Describe this DJ mix..."
     ></textarea>
-
 
     <button
       type="button"
@@ -1017,7 +974,7 @@ const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6IkFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const supabaseClient =
 window.supabase.createClient(
@@ -1058,7 +1015,7 @@ creatorPhoto.addEventListener("change",function(){
 
   if(!file)return;
 
-  const url=
+  const url =
     URL.createObjectURL(file);
 
   creatorPreview.src=url;
@@ -1104,8 +1061,9 @@ typeButtons.forEach(button=>{
       .classList.add("active");
 
     window.scrollTo({
-      top:sections[this.dataset.type]
-        .offsetTop-20,
+      top:
+        sections[this.dataset.type]
+          .offsetTop-20,
       behavior:"smooth"
     });
 
@@ -1123,10 +1081,10 @@ function watchFileInput(
   displayId
 ){
 
-  const input=
+  const input =
     document.getElementById(inputId);
 
-  const display=
+  const display =
     document.getElementById(displayId);
 
   if(!input || !display)return;
@@ -1135,7 +1093,7 @@ function watchFileInput(
 
     if(!this.files.length){
 
-      display.textContent=
+      display.textContent =
         "No file selected";
 
       return;
@@ -1143,13 +1101,13 @@ function watchFileInput(
 
     if(this.files.length===1){
 
-      display.textContent=
+      display.textContent =
         this.files[0].name;
 
     }else{
 
-      display.textContent=
-        this.files.length+
+      display.textContent =
+        this.files.length +
         " files selected";
 
     }
@@ -1159,35 +1117,12 @@ function watchFileInput(
 }
 
 
-watchFileInput(
-  "songFiles",
-  "songFilesName"
-);
-
-watchFileInput(
-  "photoFiles",
-  "photoFilesName"
-);
-
-watchFileInput(
-  "videoFiles",
-  "videoFilesName"
-);
-
-watchFileInput(
-  "appFiles",
-  "appFilesName"
-);
-
-watchFileInput(
-  "softwareFiles",
-  "softwareFilesName"
-);
-
-watchFileInput(
-  "mixFiles",
-  "mixFilesName"
-);
+watchFileInput("songFiles","songFilesName");
+watchFileInput("photoFiles","photoFilesName");
+watchFileInput("videoFiles","videoFilesName");
+watchFileInput("appFiles","appFilesName");
+watchFileInput("softwareFiles","softwareFilesName");
+watchFileInput("mixFiles","mixFilesName");
 
 
 /* =====================================================
@@ -1238,7 +1173,7 @@ function getCreator(){
   if(!name){
 
     throw new Error(
-      "Please enter your name."
+      "Please enter your name first."
     );
 
   }
@@ -1246,19 +1181,148 @@ function getCreator(){
   if(!email){
 
     throw new Error(
-      "Please enter your email."
+      "Please enter your email first."
     );
 
   }
 
   return {
-    name,
-    email,
+    name:name,
+    email:email,
     folder:safeName(name)
   };
 
 }
 
+
+/* =====================================================
+   WARNING / VALIDATION
+   ===================================================== */
+
+function showWarning(
+  warningId,
+  message
+){
+
+  const warning =
+    document.getElementById(warningId);
+
+  if(warning){
+
+    warning.textContent =
+      "⚠️ " + message;
+
+    warning.classList.add("show");
+
+    warning.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+  }
+
+  setStatus(
+    "⚠️ " + message,
+    false
+  );
+
+  alert(
+    "⚠️ " + message
+  );
+
+}
+
+
+function hideWarning(warningId){
+
+  const warning =
+    document.getElementById(warningId);
+
+  if(warning){
+
+    warning.classList.remove("show");
+
+  }
+
+}
+
+
+/* Automatically remove category warning
+   after a category is chosen. */
+
+document
+  .getElementById("musicCategory")
+  .addEventListener("change",function(){
+
+    if(this.value){
+
+      hideWarning("musicWarning");
+
+    }
+
+  });
+
+
+document
+  .getElementById("appCategory")
+  .addEventListener("change",function(){
+
+    if(this.value){
+
+      hideWarning("appWarning");
+
+    }
+
+  });
+
+
+document
+  .getElementById("softwareCategory")
+  .addEventListener("change",function(){
+
+    if(this.value){
+
+      hideWarning("softwareWarning");
+
+    }
+
+  });
+
+
+function requireCategory(
+  selectId,
+  warningId,
+  typeName
+){
+
+  const select =
+    document.getElementById(selectId);
+
+  if(!select.value){
+
+    showWarning(
+      warningId,
+      "Please choose a " +
+      typeName +
+      " Category first."
+    );
+
+    select.focus();
+
+    return false;
+
+  }
+
+  hideWarning(warningId);
+
+  return true;
+
+}
+
+
+/* =====================================================
+   PROGRESS
+   ===================================================== */
 
 function setProgress(
   current,
@@ -1267,28 +1331,24 @@ function setProgress(
 ){
 
   const box =
-    document.getElementById(
-      "progressBox"
-    );
+    document.getElementById("progressBox");
 
   const bar =
-    document.getElementById(
-      "progressBar"
-    );
+    document.getElementById("progressBar");
 
   const status =
-    document.getElementById(
-      "status"
-    );
+    document.getElementById("status");
 
   box.style.display="block";
 
   bar.style.width =
     total
       ? Math.round(
-          current/total*100
-        )+"%"
+          current / total * 100
+        ) + "%"
       : "0%";
+
+  status.className="status";
 
   status.textContent =
     text || "Uploading...";
@@ -1302,9 +1362,7 @@ function setStatus(
 ){
 
   const status =
-    document.getElementById(
-      "status"
-    );
+    document.getElementById("status");
 
   status.textContent=text;
 
@@ -1316,6 +1374,45 @@ function setStatus(
 }
 
 
+/* =====================================================
+   BUTTON LOCK
+   ===================================================== */
+
+function lockButton(button){
+
+  if(!button)return;
+
+  button.disabled=true;
+
+  button.dataset.originalText =
+    button.textContent;
+
+  button.textContent =
+    "⏳ Uploading...";
+
+}
+
+
+function unlockButton(button){
+
+  if(!button)return;
+
+  button.disabled=false;
+
+  if(button.dataset.originalText){
+
+    button.textContent =
+      button.dataset.originalText;
+
+  }
+
+}
+
+
+/* =====================================================
+   PATH
+   ===================================================== */
+
 function makePath(
   folder,
   creator,
@@ -1323,21 +1420,25 @@ function makePath(
 ){
 
   return (
-    folder+
-    "/"+
-    safeName(creator)+
-    "/"+
-    Date.now()+
-    "-"+
+    folder +
+    "/" +
+    safeName(creator) +
+    "/" +
+    Date.now() +
+    "-" +
     Math.random()
       .toString(36)
-      .slice(2,9)+
-    "-"+
+      .slice(2,9) +
+    "-" +
     fileSafeName(file.name)
   );
 
 }
 
+
+/* =====================================================
+   UPLOAD ONE FILE
+   ===================================================== */
 
 async function uploadOne(
   bucket,
@@ -1345,7 +1446,21 @@ async function uploadOne(
   file
 ){
 
-  const {error} =
+  if(!file){
+
+    throw new Error(
+      "No file was selected."
+    );
+
+  }
+
+  setStatus(
+    "Uploading " +
+    file.name +
+    "..."
+  );
+
+  const result =
     await supabaseClient
       .storage
       .from(bucket)
@@ -1358,16 +1473,22 @@ async function uploadOne(
         }
       );
 
-  if(error){
+  if(result.error){
 
-    throw error;
+    throw new Error(
+      "Storage upload failed: " +
+      result.error.message
+    );
 
   }
 
-  return supabaseClient
-    .storage
-    .from(bucket)
-    .getPublicUrl(path)
+  const publicResult =
+    supabaseClient
+      .storage
+      .from(bucket)
+      .getPublicUrl(path);
+
+  return publicResult
     .data
     .publicUrl;
 
@@ -1384,7 +1505,7 @@ async function saveSubmission(
   data
 ){
 
-  const {error} =
+  const result =
     await supabaseClient
       .from("artist_submissions")
       .insert({
@@ -1400,16 +1521,18 @@ async function saveSubmission(
           type:type,
 
           content:data
-
         },
 
         status:"approved"
 
       });
 
-  if(error){
+  if(result.error){
 
-    throw error;
+    throw new Error(
+      "The file uploaded, but the database record could not be saved: " +
+      result.error.message
+    );
 
   }
 
@@ -1417,12 +1540,12 @@ async function saveSubmission(
 
 
 /* =====================================================
-   COMMON VALIDATION
+   CREATOR CHECK
    ===================================================== */
 
 function checkCreator(){
 
-  getCreator();
+  return getCreator();
 
 }
 
@@ -1433,12 +1556,15 @@ function checkCreator(){
 
 async function uploadMusic(){
 
+  const button =
+    document.querySelector(
+      "#musicSection .upload-button"
+    );
+
   try{
 
-    checkCreator();
-
     const creator =
-      getCreator();
+      checkCreator();
 
     const title =
       document
@@ -1473,32 +1599,54 @@ async function uploadMusic(){
         .value
         .trim();
 
-    if(!title)
+
+    if(!title){
+
       throw new Error(
         "Please enter the song title."
       );
 
-    if(!category)
-      throw new Error(
-        "Please select a music category."
-      );
+    }
 
-    if(!files.length)
+
+    /* CATEGORY MUST BE SELECTED FIRST */
+
+    if(!requireCategory(
+      "musicCategory",
+      "musicWarning",
+      "Music"
+    )){
+
+      return;
+
+    }
+
+
+    if(!files.length){
+
       throw new Error(
         "Please select a music file."
       );
 
+    }
+
+
+    lockButton(button);
 
     setProgress(
       0,
       files.length,
-      "Uploading music..."
+      "Preparing music upload..."
     );
 
 
     let coverURL=null;
 
     if(cover){
+
+      setStatus(
+        "Uploading cover photo..."
+      );
 
       const coverPath =
         makePath(
@@ -1509,7 +1657,7 @@ async function uploadMusic(){
 
       coverURL =
         await uploadOne(
-          "artist-uploads",
+          BUCKET,
           coverPath,
           cover
         );
@@ -1518,6 +1666,7 @@ async function uploadMusic(){
 
 
     const uploaded=[];
+
 
     for(
       let i=0;
@@ -1542,35 +1691,49 @@ async function uploadMusic(){
         );
 
       uploaded.push({
+
         title:title,
+
         artist:artist,
+
         category:category,
+
         file_url:url,
+
         cover_url:coverURL,
+
         original_name:file.name,
+
         creator_name:creator.name
+
       });
+
 
       setProgress(
         i+1,
         files.length,
-        "Uploading music "+
-        (i+1)+
-        " of "+
+        "Uploading music " +
+        (i+1) +
+        " of " +
         files.length
       );
 
     }
 
 
+    setStatus(
+      "Saving music information..."
+    );
+
+
     await saveSubmission(
       creator,
       "music",
       {
-        title,
-        artist,
-        category,
-        description,
+        title:title,
+        artist:artist,
+        category:category,
+        description:description,
         uploads:uploaded
       }
     );
@@ -1582,6 +1745,7 @@ async function uploadMusic(){
       "Music upload complete."
     );
 
+
     setStatus(
       "✅ Music uploaded successfully.",
       true
@@ -1591,11 +1755,16 @@ async function uploadMusic(){
   }catch(error){
 
     setStatus(
-      "❌ "+(
+      "❌ " +
+      (
         error.message ||
         "Music upload failed."
       )
     );
+
+  }finally{
+
+    unlockButton(button);
 
   }
 
@@ -1608,12 +1777,15 @@ async function uploadMusic(){
 
 async function uploadPhotos(){
 
+  const button =
+    document.querySelector(
+      "#photosSection .upload-button"
+    );
+
   try{
 
-    checkCreator();
-
     const creator =
-      getCreator();
+      checkCreator();
 
     const files =
       document
@@ -1626,20 +1798,27 @@ async function uploadPhotos(){
         .value
         .trim();
 
-    if(!files.length)
+
+    if(!files.length){
+
       throw new Error(
         "Please select photos."
       );
 
+    }
+
+
+    lockButton(button);
 
     setProgress(
       0,
       files.length,
-      "Uploading photos..."
+      "Preparing photo upload..."
     );
 
 
     const uploaded=[];
+
 
     for(
       let i=0;
@@ -1663,31 +1842,49 @@ async function uploadPhotos(){
           file
         );
 
+
       uploaded.push({
+
         file_url:url,
+
         original_name:file.name,
+
         creator_name:creator.name
+
       });
+
 
       setProgress(
         i+1,
         files.length,
-        "Uploading photo "+
-        (i+1)+
-        " of "+
+        "Uploading photo " +
+        (i+1) +
+        " of " +
         files.length
       );
 
     }
 
 
+    setStatus(
+      "Saving photo information..."
+    );
+
+
     await saveSubmission(
       creator,
       "photos",
       {
-        description,
+        description:description,
         uploads:uploaded
       }
+    );
+
+
+    setProgress(
+      files.length,
+      files.length,
+      "Photo upload complete."
     );
 
 
@@ -1700,11 +1897,16 @@ async function uploadPhotos(){
   }catch(error){
 
     setStatus(
-      "❌ "+(
+      "❌ " +
+      (
         error.message ||
         "Photo upload failed."
       )
     );
+
+  }finally{
+
+    unlockButton(button);
 
   }
 
@@ -1717,12 +1919,15 @@ async function uploadPhotos(){
 
 async function uploadVideos(){
 
+  const button =
+    document.querySelector(
+      "#videosSection .upload-button"
+    );
+
   try{
 
-    checkCreator();
-
     const creator =
-      getCreator();
+      checkCreator();
 
     const title =
       document
@@ -1746,20 +1951,35 @@ async function uploadVideos(){
         .value
         .trim();
 
-    if(!title)
+
+    if(!title){
+
       throw new Error(
         "Please enter the video title."
       );
 
-    if(!files.length)
+    }
+
+
+    if(!files.length){
+
       throw new Error(
         "Please select a video."
       );
 
+    }
+
+
+    lockButton(button);
 
     let thumbnailURL=null;
 
+
     if(thumbnail){
+
+      setStatus(
+        "Uploading video thumbnail..."
+      );
 
       const path =
         makePath(
@@ -1781,11 +2001,12 @@ async function uploadVideos(){
     setProgress(
       0,
       files.length,
-      "Uploading videos..."
+      "Preparing video upload..."
     );
 
 
     const uploaded=[];
+
 
     for(
       let i=0;
@@ -1809,34 +2030,54 @@ async function uploadVideos(){
           file
         );
 
+
       uploaded.push({
+
         title:title,
+
         file_url:url,
+
         thumbnail_url:thumbnailURL,
+
         original_name:file.name,
+
         creator_name:creator.name
+
       });
+
 
       setProgress(
         i+1,
         files.length,
-        "Uploading video "+
-        (i+1)+
-        " of "+
+        "Uploading video " +
+        (i+1) +
+        " of " +
         files.length
       );
 
     }
 
 
+    setStatus(
+      "Saving video information..."
+    );
+
+
     await saveSubmission(
       creator,
       "videos",
       {
-        title,
-        description,
+        title:title,
+        description:description,
         uploads:uploaded
       }
+    );
+
+
+    setProgress(
+      files.length,
+      files.length,
+      "Video upload complete."
     );
 
 
@@ -1849,11 +2090,16 @@ async function uploadVideos(){
   }catch(error){
 
     setStatus(
-      "❌ "+(
+      "❌ " +
+      (
         error.message ||
         "Video upload failed."
       )
     );
+
+  }finally{
+
+    unlockButton(button);
 
   }
 
@@ -1866,12 +2112,15 @@ async function uploadVideos(){
 
 async function uploadApps(){
 
+  const button =
+    document.querySelector(
+      "#appsSection .upload-button"
+    );
+
   try{
 
-    checkCreator();
-
     const creator =
-      getCreator();
+      checkCreator();
 
     const name =
       document
@@ -1900,25 +2149,49 @@ async function uploadApps(){
         .value
         .trim();
 
-    if(!name)
+
+    if(!name){
+
       throw new Error(
         "Please enter the app name."
       );
 
-    if(!category)
-      throw new Error(
-        "Please select an app category."
-      );
+    }
 
-    if(!files.length)
+
+    /* CATEGORY MUST BE SELECTED FIRST */
+
+    if(!requireCategory(
+      "appCategory",
+      "appWarning",
+      "App"
+    )){
+
+      return;
+
+    }
+
+
+    if(!files.length){
+
       throw new Error(
         "Please select an app file."
       );
 
+    }
+
+
+    lockButton(button);
+
 
     let iconURL=null;
 
+
     if(icon){
+
+      setStatus(
+        "Uploading app icon..."
+      );
 
       const path =
         makePath(
@@ -1940,11 +2213,12 @@ async function uploadApps(){
     setProgress(
       0,
       files.length,
-      "Uploading app..."
+      "Preparing app upload..."
     );
 
 
     const uploaded=[];
+
 
     for(
       let i=0;
@@ -1968,36 +2242,57 @@ async function uploadApps(){
           file
         );
 
+
       uploaded.push({
+
         app_name:name,
+
         category:category,
+
         file_url:url,
+
         icon_url:iconURL,
+
         original_name:file.name,
+
         creator_name:creator.name
+
       });
+
 
       setProgress(
         i+1,
         files.length,
-        "Uploading app "+
-        (i+1)+
-        " of "+
+        "Uploading app " +
+        (i+1) +
+        " of " +
         files.length
       );
 
     }
 
 
+    setStatus(
+      "Saving app information..."
+    );
+
+
     await saveSubmission(
       creator,
       "apps",
       {
-        name,
-        category,
-        description,
+        name:name,
+        category:category,
+        description:description,
         uploads:uploaded
       }
+    );
+
+
+    setProgress(
+      files.length,
+      files.length,
+      "App upload complete."
     );
 
 
@@ -2010,11 +2305,16 @@ async function uploadApps(){
   }catch(error){
 
     setStatus(
-      "❌ "+(
+      "❌ " +
+      (
         error.message ||
         "App upload failed."
       )
     );
+
+  }finally{
+
+    unlockButton(button);
 
   }
 
@@ -2027,12 +2327,15 @@ async function uploadApps(){
 
 async function uploadSoftware(){
 
+  const button =
+    document.querySelector(
+      "#softwareSection .upload-button"
+    );
+
   try{
 
-    checkCreator();
-
     const creator =
-      getCreator();
+      checkCreator();
 
     const name =
       document
@@ -2061,25 +2364,49 @@ async function uploadSoftware(){
         .value
         .trim();
 
-    if(!name)
+
+    if(!name){
+
       throw new Error(
         "Please enter the software name."
       );
 
-    if(!category)
-      throw new Error(
-        "Please select a software category."
-      );
+    }
 
-    if(!files.length)
+
+    /* CATEGORY MUST BE SELECTED FIRST */
+
+    if(!requireCategory(
+      "softwareCategory",
+      "softwareWarning",
+      "Software"
+    )){
+
+      return;
+
+    }
+
+
+    if(!files.length){
+
       throw new Error(
         "Please select a software file."
       );
 
+    }
+
+
+    lockButton(button);
+
 
     let imageURL=null;
 
+
     if(image){
+
+      setStatus(
+        "Uploading software image..."
+      );
 
       const path =
         makePath(
@@ -2101,11 +2428,12 @@ async function uploadSoftware(){
     setProgress(
       0,
       files.length,
-      "Uploading software..."
+      "Preparing software upload..."
     );
 
 
     const uploaded=[];
+
 
     for(
       let i=0;
@@ -2129,36 +2457,57 @@ async function uploadSoftware(){
           file
         );
 
+
       uploaded.push({
+
         software_name:name,
+
         category:category,
+
         file_url:url,
+
         image_url:imageURL,
+
         original_name:file.name,
+
         creator_name:creator.name
+
       });
+
 
       setProgress(
         i+1,
         files.length,
-        "Uploading software "+
-        (i+1)+
-        " of "+
+        "Uploading software " +
+        (i+1) +
+        " of " +
         files.length
       );
 
     }
 
 
+    setStatus(
+      "Saving software information..."
+    );
+
+
     await saveSubmission(
       creator,
       "software",
       {
-        name,
-        category,
-        description,
+        name:name,
+        category:category,
+        description:description,
         uploads:uploaded
       }
+    );
+
+
+    setProgress(
+      files.length,
+      files.length,
+      "Software upload complete."
     );
 
 
@@ -2171,11 +2520,16 @@ async function uploadSoftware(){
   }catch(error){
 
     setStatus(
-      "❌ "+(
+      "❌ " +
+      (
         error.message ||
         "Software upload failed."
       )
     );
+
+  }finally{
+
+    unlockButton(button);
 
   }
 
@@ -2188,12 +2542,15 @@ async function uploadSoftware(){
 
 async function uploadMixes(){
 
+  const button =
+    document.querySelector(
+      "#mixesSection .upload-button"
+    );
+
   try{
 
-    checkCreator();
-
     const creator =
-      getCreator();
+      checkCreator();
 
     const title =
       document
@@ -2217,20 +2574,36 @@ async function uploadMixes(){
         .value
         .trim();
 
-    if(!title)
+
+    if(!title){
+
       throw new Error(
         "Please enter the DJ mix title."
       );
 
-    if(!files.length)
+    }
+
+
+    if(!files.length){
+
       throw new Error(
         "Please select a DJ mix."
       );
 
+    }
+
+
+    lockButton(button);
+
 
     let coverURL=null;
 
+
     if(cover){
+
+      setStatus(
+        "Uploading DJ mix cover..."
+      );
 
       const path =
         makePath(
@@ -2252,11 +2625,12 @@ async function uploadMixes(){
     setProgress(
       0,
       files.length,
-      "Uploading DJ mix..."
+      "Preparing DJ mix upload..."
     );
 
 
     const uploaded=[];
+
 
     for(
       let i=0;
@@ -2280,34 +2654,54 @@ async function uploadMixes(){
           file
         );
 
+
       uploaded.push({
+
         title:title,
+
         file_url:url,
+
         cover_url:coverURL,
+
         original_name:file.name,
+
         creator_name:creator.name
+
       });
+
 
       setProgress(
         i+1,
         files.length,
-        "Uploading DJ mix "+
-        (i+1)+
-        " of "+
+        "Uploading DJ mix " +
+        (i+1) +
+        " of " +
         files.length
       );
 
     }
 
 
+    setStatus(
+      "Saving DJ mix information..."
+    );
+
+
     await saveSubmission(
       creator,
       "dj-mixes",
       {
-        title,
-        description,
+        title:title,
+        description:description,
         uploads:uploaded
       }
+    );
+
+
+    setProgress(
+      files.length,
+      files.length,
+      "DJ mix upload complete."
     );
 
 
@@ -2320,11 +2714,16 @@ async function uploadMixes(){
   }catch(error){
 
     setStatus(
-      "❌ "+(
+      "❌ " +
+      (
         error.message ||
         "DJ mix upload failed."
       )
     );
+
+  }finally{
+
+    unlockButton(button);
 
   }
 
