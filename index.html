@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ning Wei Media</title>
-
-<style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Ning Wei Media</title><style>
 
 *{
 box-sizing:border-box;
@@ -1631,694 +1622,403 @@ height:22px;
 
 }
 
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-<!-- ======================================================
+</style></head><body><div class="container"><!-- ======================================================
      HEADER
-     ====================================================== -->
-
-<header class="header">
-
-<img
+     ====================================================== --><header class="header"><img
 src="ning-wei.png"
 alt="Ning Wei Media"
->
 
-<div class="header-content">
+«»
 
-<h1>Ning Wei Media</h1>
-
-<p>
+<div class="header-content"><h1>Ning Wei Media</h1><p>
 Music • Videos • Photos • Apps • Software
-</p>
-
-</div>
-
-</header>
-
-
-<!-- ======================================================
+</p></div></header><!-- ======================================================
      SEARCH + UPLOAD
-     ====================================================== -->
-
-<section class="search-upload">
-
-<form
+     ====================================================== --><section class="search-upload"><form
 class="search-box"
 id="searchForm"
->
-
-<input
+><input
 type="search"
 id="searchInput"
 name="q"
 placeholder="Search Ning Wei Media..."
 autocomplete="off"
->
+
+«»
 
 <button type="submit">
 Search
-</button>
-
-</form>
-
-
-<a
+</button></form><a
 class="upload-button"
 href="upload.html"
->
+
+«»
 
 <span>
 🎵 Upload Your Music From Here
-</span>
-
-<span class="upload-button-description">
+</span><span class="upload-button-description">
 Artists • DJs • Producers
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
+</span></a></section><!-- ======================================================
      HOME CONTENT
-     ====================================================== -->
-
-<main
+     ====================================================== --><main
 id="homeContent"
 class="home-content"
->
-
-
-<!-- ======================================================
+><!-- ======================================================
      1. TOP MUSIC
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
+     ====================================================== --><section class="section"><h2>
 🎵 All Top Music Charts
-</h2>
-
-<div
+</h2><div
 class="category-grid"
 id="musicPreview"
-></div>
-
-<div class="more-wrap">
-
-<button
+></div><div class="more-wrap"><button
 class="more-button"
 type="button"
 onclick="showDirectory('music')"
->
+
+«»
 
 More Music Categories
 
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</button></div></section><!-- ======================================================
      2. TRENDING VIDEOS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
+     ====================================================== --><section class="section"><h2>
 🎬 Trending Videos
-</h2>
-
-<div
+</h2><div
 id="homeVideos"
 class="home-media-grid"
->
-
-<div class="loading">
+><div class="loading">
 Loading videos...
-</div>
-
-</div>
-
-<div class="more-wrap">
-
-<button
+</div></div><div class="more-wrap"><button
 class="more-button"
 type="button"
 onclick="showCategory('Trending Videos','videos','')"
->
+
+«»
 
 More Videos
 
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</button></div></section><!-- ======================================================
      3. TRENDING PHOTOS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
+     ====================================================== --><section class="section"><h2>
 📸 Trending Photos &amp; Jokes
-</h2>
-
-<div
+</h2><div
 id="homePhotos"
 class="home-media-grid"
->
-
-<div class="loading">
+><div class="loading">
 Loading photos...
-</div>
-
-</div>
-
-<div class="more-wrap">
-
-<button
+</div></div><div class="more-wrap"><button
 class="more-button"
 type="button"
 onclick="showCategory('Trending Photos & Jokes','photos','')"
->
+
+«»
 
 More Photos
 
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</button></div></section><!-- ======================================================
      4. APPS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
+     ====================================================== --><section class="section"><h2>
 📱 Premium Unlocked Apps and Free Unlimited Internet
-</h2>
-
-<div
+</h2><div
 class="category-grid"
 id="appsPreview"
-></div>
-
-<div class="more-wrap">
-
-<button
+></div><div class="more-wrap"><button
 class="more-button"
 type="button"
 onclick="showDirectory('apps')"
->
+
+«»
 
 More Apps Categories
 
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</button></div></section><!-- ======================================================
      5. SOFTWARE
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
+     ====================================================== --><section class="section"><h2>
 💻 All Softwares and Virtual DJ Software
-</h2>
-
-<div
+</h2><div
 class="category-grid"
 id="softwarePreview"
-></div>
-
-<div class="more-wrap">
-
-<button
+></div><div class="more-wrap"><button
 class="more-button"
 type="button"
 onclick="showDirectory('software')"
->
+
+«»
 
 More Software Categories
 
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</button></div></section><!-- ======================================================
      6. DJ MIXES
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
+     ====================================================== --><section class="section"><h2>
 🎧 DJ Mixes
-</h2>
-
-<div
+</h2><div
 id="homeDj"
 class="home-media-grid"
->
-
-<div class="loading">
+><div class="loading">
 Loading DJ mixes...
-</div>
-
-</div>
-
-<div class="more-wrap">
-
-<button
+</div></div><div class="more-wrap"><button
 class="more-button"
 type="button"
 onclick="showCategory('DJ Mixes','audio','DJ-Mixes')"
->
+
+«»
 
 More DJ Mixes
 
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</button></div></section><!-- ======================================================
      TRENDING APPS
-     ====================================================== -->
-
-<section class="trending">
-
-<h2>
+     ====================================================== --><section class="trending"><h2>
 Trending Apps
-</h2>
-
-
-<div class="apps">
-
-
-<div
+</h2><div class="apps"><div
 class="app"
 onclick="showCategory('YouTube','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/youtube/FF0000"
 alt="YouTube"
->
+
+«»
 
 <span class="app-name">
 YouTube
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('WhatsApp','apps','Messaging')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/whatsapp/25D366"
 alt="WhatsApp"
->
+
+«»
 
 <span class="app-name">
 WhatsApp
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('Facebook','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/facebook/1877F2"
 alt="Facebook"
->
+
+«»
 
 <span class="app-name">
 Facebook
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('Instagram','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/instagram/E4405F"
 alt="Instagram"
->
+
+«»
 
 <span class="app-name">
 Instagram
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('X','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/x/000000"
 alt="X"
->
+
+«»
 
 <span class="app-name">
 X
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('TikTok','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/tiktok/000000"
 alt="TikTok"
->
+
+«»
 
 <span class="app-name">
 TikTok
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('Telegram','apps','Messaging')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/telegram/26A5E4"
 alt="Telegram"
->
+
+«»
 
 <span class="app-name">
 Telegram
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('Pinterest','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/pinterest/BD081C"
 alt="Pinterest"
->
+
+«»
 
 <span class="app-name">
 Pinterest
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('Snapchat','apps','Social-Media')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/snapchat/FFFC00"
 alt="Snapchat"
->
+
+«»
 
 <span class="app-name">
 Snapchat
-</span>
-
-</div>
-
-
-<div
+</span></div><div
 class="app"
 onclick="showCategory('Spotify','apps','Music-Audio')"
->
-
-<img
+><img
 class="app-logo"
 src="https://cdn.simpleicons.org/spotify/1DB954"
 alt="Spotify"
->
+
+«»
 
 <span class="app-name">
 Spotify
-</span>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
+</span></div></div></section><!-- ======================================================
      FOLLOW US
-     ====================================================== -->
-
-<section class="social">
-
-<h2>
+     ====================================================== --><section class="social"><h2>
 Follow Us
-</h2>
-
-
-<div class="social-list">
-
-
-<a
+</h2><div class="social-list"><a
 href="#"
 aria-label="Instagram"
->
+
+«»
 
 <img
 src="https://cdn.simpleicons.org/instagram/FFFFFF"
 alt="Instagram"
->
 
-</a>
+«»
 
-
-<a
+</a><a
 href="#"
 aria-label="Facebook"
->
+
+«»
 
 <img
 src="https://cdn.simpleicons.org/facebook/FFFFFF"
 alt="Facebook"
->
 
-</a>
+«»
 
-
-<a
+</a><a
 href="#"
 aria-label="WhatsApp"
->
+
+«»
 
 <img
 src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
 alt="WhatsApp"
->
 
-</a>
+«»
 
-
-<a
+</a><a
 href="#"
 aria-label="YouTube"
->
+
+«»
 
 <img
 src="https://cdn.simpleicons.org/youtube/FFFFFF"
 alt="YouTube"
->
 
-</a>
+«»
 
-
-<a
+</a><a
 href="#"
 aria-label="X"
->
+
+«»
 
 <img
 src="https://cdn.simpleicons.org/x/FFFFFF"
 alt="X"
->
 
-</a>
+«»
 
-
-</div>
-
-</section>
-
-
-</main>
-
-
-<!-- ======================================================
+</a></div></section></main><!-- ======================================================
      INTERNAL CATEGORY VIEW
-     ====================================================== -->
-
-<section
+     ====================================================== --><section
 id="internalView"
 class="internal-view"
->
-
-<div class="view-top">
-
-<button
+><div class="view-top"><button
 class="back-button"
 type="button"
 onclick="goHome()"
->
+
+«»
 
 ← Home
 
-</button>
-
-<h2
+</button><h2
 id="internalTitle"
 class="view-title"
 >
 Category
-</h2>
-
-</div>
-
-
-<a
+</h2></div><a
 id="categoryUploadBtn"
 class="category-upload"
 href="upload.html"
->
+
+«»
 
 ⬆ Upload Direct Here
 
-</a>
-
-
-<div
+</a><div
 id="internalDescription"
 class="category-description"
 >
 Loading category...
-</div>
-
-
-<div
+</div><div
 id="internalContent"
-></div>
-
-</section>
-
-
-<!-- ======================================================
+></div></section><!-- ======================================================
      PROFILE VIEW
-     ====================================================== -->
-
-<section
+     ====================================================== --><section
 id="profileView"
 class="profile-view"
->
-
-<div class="view-top">
-
-<button
+><div class="view-top"><button
 class="back-button"
 type="button"
 onclick="closeProfile()"
->
+
+«»
 
 ← Back
 
-</button>
-
-<h2
+</button><h2
 class="view-title"
 >
 Uploader Profile
-</h2>
-
-</div>
-
-
-<div
+</h2></div><div
 id="profileHeader"
 class="profile-header"
 >
-</div>
-
-
-<div
+</div><div
 class="profile-tabs"
->
-
-<button
+><button
 id="profilePhotosTab"
 class="profile-tab active"
 onclick="setProfileTab('photos')"
->
+
+«»
+
 Photos
 </button>
 
@@ -2326,217 +2026,134 @@ Photos
 id="profileVideosTab"
 class="profile-tab"
 onclick="setProfileTab('videos')"
->
+
+«»
+
 Videos
 </button>
 
-</div>
-
-
-<div
+</div><div
 id="profileContent"
-></div>
-
-</section>
-
-
-<!-- ======================================================
+></div></section><!-- ======================================================
      FOOTER
-     ====================================================== -->
+     ====================================================== --><footer class="footer">© Ning Wei Media
 
-<footer class="footer">
-
-© Ning Wei Media
-
-</footer>
-
-
-</div>
-
-
-<!-- ======================================================
+</footer></div><!-- ======================================================
      MEDIA VIEWER
-     ====================================================== -->
-
-<div
+     ====================================================== --><div
 id="viewer"
 class="viewer"
->
-
-<div class="viewer-inner">
-
-
-<div class="viewer-top">
-
-<button
+><div class="viewer-inner"><div class="viewer-top"><button
 class="viewer-close"
 type="button"
 onclick="closeViewer()"
->
+
+«»
 
 ✕ Close
 
-</button>
-
-<div
+</button><div
 id="viewerCounter"
 class="viewer-counter"
 >
-</div>
-
-</div>
-
-
-<div id="viewerMedia"></div>
-
-
-<div
+</div></div><div id="viewerMedia"></div><div
 class="viewer-details"
->
-
-
-<div
+><div
 id="viewerFileName"
 class="viewer-file-name"
 >
-</div>
-
-
-<div
+</div><div
 id="viewerDate"
 class="viewer-date"
 >
-</div>
-
-
-<div
+</div><div
 class="uploader"
->
-
-
-<img
+><img
 id="viewerUploaderPhoto"
 class="uploader-photo"
 src=""
 alt="Uploader"
->
 
+«»
 
-<div>
-
-<div
+<div><div
 id="viewerUploaderName"
 class="uploader-name"
 >
 Uploader
-</div>
-
-</div>
-
-
-<button
+</div></div><button
 id="viewerProfileButton"
 class="profile-button"
 type="button"
 onclick="openCurrentProfile()"
->
+
+«»
 
 Profile
 
-</button>
-
-
-</div>
-
-
-<div
+</button></div><div
 class="viewer-actions"
->
-
-
-<button
+><button
 id="viewerDownload"
 class="viewer-action"
 type="button"
->
+
+«»
+
 ⬇ Download
 </button>
-
 
 <button
 id="viewerShare"
 class="viewer-action"
 type="button"
->
+
+«»
+
 ↗ Share
 </button>
 
-
-</div>
-
-
-<div class="comments">
-
-<div class="comments-title">
+</div><div class="comments"><div class="comments-title">
 Comments
-</div>
-
-
-<div class="comment-form">
-
-<input
+</div><div class="comment-form"><input
 id="commentInput"
 type="text"
 placeholder="Write a comment..."
 maxlength="500"
->
+
+«»
 
 <button
 type="button"
 onclick="addComment()"
->
+
+«»
+
 Post
 </button>
 
-</div>
-
-
-<div
+</div><div
 id="commentList"
 class="comment-list"
-></div>
-
-
-</div>
-
-
-<div class="viewer-navigation">
-
-<button
+></div></div><div class="viewer-navigation"><button
 type="button"
 onclick="previousViewerItem()"
->
+
+«»
+
 ↑ Previous
 </button>
 
 <button
 type="button"
 onclick="nextViewerItem()"
->
+
+«»
+
 ↓ Next
 </button>
 
-</div>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-<script>
+</div></div></div></div><script>
 
 /* =========================================================
    CONFIGURATION
@@ -3105,7 +2722,6 @@ return [];
 
 }
 
-
 }
 
 
@@ -3180,9 +2796,8 @@ document.getElementById("softwarePreview");
 
 
 /*
-  Exactly four visible music categories.
-  Amapiano and all other categories remain available
-  through More Music Categories.
+  Exactly six visible music categories:
+  2 across × 3 down.
 */
 
 const visibleMusic = [
@@ -3201,6 +2816,14 @@ item => item.folder === "Old-School-R-B"
 
 MUSIC_CATEGORIES.find(
 item => item.folder === "Western-Music"
+),
+
+MUSIC_CATEGORIES.find(
+item => item.folder === "Amapiano-Music"
+),
+
+MUSIC_CATEGORIES.find(
+item => item.folder === "Dancehall-Music"
 )
 
 ].filter(Boolean);
@@ -3213,7 +2836,8 @@ visibleMusic
 
 
 /*
-  Exactly four visible app categories.
+  Exactly six visible app categories:
+  2 across × 3 down.
 */
 
 const visibleApps = [
@@ -3232,6 +2856,14 @@ item => item.folder === "Music-Audio"
 
 APP_CATEGORIES.find(
 item => item.folder === "Photo-Camera"
+),
+
+APP_CATEGORIES.find(
+item => item.folder === "Free-Unlimited-Internet-VPNs"
+),
+
+APP_CATEGORIES.find(
+item => item.folder === "Messaging"
 )
 
 ].filter(Boolean);
@@ -3244,7 +2876,8 @@ visibleApps
 
 
 /*
-  Exactly four visible software categories.
+  Exactly six visible software categories:
+  2 across × 3 down.
 */
 
 const visibleSoftware = [
@@ -3263,6 +2896,14 @@ item => item.folder === "Software-Video-Editing"
 
 SOFTWARE_CATEGORIES.find(
 item => item.folder === "Audio-Editing"
+),
+
+SOFTWARE_CATEGORIES.find(
+item => item.folder === "Photo-Editing"
+),
+
+SOFTWARE_CATEGORIES.find(
+item => item.folder === "Graphics-Design"
 )
 
 ].filter(Boolean);
@@ -3598,7 +3239,7 @@ return "app";
 }
 
 if(
-/\.(exe|msi|dmg|deb|rpm|zip)$/i.test(lower)
+ /\.(exe|msi|dmg|deb|rpm|zip)$/i.test(lower)
 ){
 
 return "software";
@@ -3688,7 +3329,7 @@ return;
 const items =
 ALL_ITEMS
 .filter(isVideo)
-.slice(0,16);
+.slice(0,8);
 
 if(!items.length){
 
@@ -3730,7 +3371,7 @@ return;
 const items =
 ALL_ITEMS
 .filter(isPhoto)
-.slice(0,16);
+.slice(0,8);
 
 if(!items.length){
 
@@ -5300,9 +4941,4 @@ loadGitHubMedia();
 
 loadSupabaseSubmissions();
 
-</script>
-
-
-</body>
-
-</html>
+</script></body></html>
