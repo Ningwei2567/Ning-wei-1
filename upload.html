@@ -35,7 +35,7 @@ padding:0 0 30px;
    ========================================================= */
 
 .header{
-height:150px;
+height:125px;
 position:relative;
 overflow:hidden;
 display:flex;
@@ -51,18 +51,13 @@ position:absolute;
 left:0;
 top:0;
 width:100%;
-height:150px;
+height:125px;
 object-fit:cover;
-object-position:center;
+object-position:center top;
 }
 
 .header-overlay{
-position:absolute;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.35);
+display:none;
 }
 
 .header-content{
@@ -120,7 +115,7 @@ color:#666;
 }
 
 /* =========================================================
-   FREE DISCLAIMER
+   DISCLAIMER
    ========================================================= */
 
 .disclaimer{
@@ -136,7 +131,7 @@ line-height:1.45;
 }
 
 /* =========================================================
-   GENERAL FORM
+   FORM
    ========================================================= */
 
 .form-card{
@@ -191,7 +186,7 @@ resize:vertical;
 }
 
 /* =========================================================
-   COMPACT UPLOAD BOXES
+   UPLOAD BOXES
    ========================================================= */
 
 .upload-box{
@@ -329,7 +324,7 @@ color:#555;
 }
 
 /* =========================================================
-   LARGE BATCH INFORMATION
+   BATCH INFORMATION
    ========================================================= */
 
 .batch-info{
@@ -439,7 +434,7 @@ color:#721c24;
 }
 
 /* =========================================================
-   BACK BUTTON
+   BACK
    ========================================================= */
 
 .back-button{
@@ -461,11 +456,11 @@ font-weight:700;
 @media(max-width:420px){
 
 .header{
-height:140px;
+height:125px;
 }
 
 .header img{
-height:140px;
+height:125px;
 }
 
 .header h1{
@@ -603,7 +598,9 @@ No photo selected
 
 <div class="upload-instruction">
 Upload your music here. Make sure each file has a title.
+<br>
 The filename of each selected file will be used as its title/name.
+<br>
 You can select many songs at once.
 </div>
 
@@ -668,7 +665,9 @@ class="file-count"
 
 <div class="upload-instruction">
 Upload your photos or images. Make sure each file has a title.
+<br>
 The filename of each selected file will be used as its title/name.
+<br>
 You can select many photos at once.
 </div>
 
@@ -708,8 +707,11 @@ class="file-count"
 
 <div class="upload-instruction">
 Upload your music videos, clips and other video files.
-Make sure each file has a title. The filename of each
-selected file will be used as its title/name.
+<br>
+Make sure each file has a title.
+<br>
+The filename of each selected file will be used as its title/name.
+<br>
 You can select many videos at once.
 </div>
 
@@ -774,7 +776,9 @@ class="file-count"
 
 <div class="upload-instruction">
 Upload your apps/APK files. Make sure each file has a title.
+<br>
 The filename of each selected file will be used as its title/name.
+<br>
 You can select many apps at once.
 </div>
 
@@ -839,7 +843,9 @@ class="file-count"
 
 <div class="upload-instruction">
 Upload your software files. Make sure each file has a title.
+<br>
 The filename of each selected file will be used as its title/name.
+<br>
 You can select many software files at once.
 </div>
 
@@ -903,9 +909,13 @@ class="file-count"
 </h3>
 
 <div class="upload-instruction">
-Upload your DJ mixes and related audio files. Make sure each
-file has a title. The filename of each selected file will be
-used as its title/name. You can select many mixes at once.
+Upload your DJ mixes and related audio files.
+<br>
+Make sure each file has a title.
+<br>
+The filename of each selected file will be used as its title/name.
+<br>
+You can select many mixes at once.
 </div>
 
 <label for="mixFiles">
@@ -981,10 +991,15 @@ placeholder="Tell us about the content you are uploading..."
 id="batchInfo"
 class="batch-info"
 >
-<strong>Large batch ready.</strong>
+
+<strong>
+Large batch ready.
+</strong>
+
 The uploader uses a controlled upload queue so thousands
 of selected files can be processed without opening thousands
 of simultaneous upload connections.
+
 </div>
 
 
@@ -999,7 +1014,9 @@ id="progressWrap"
 class="progress-wrap"
 >
 
-<div class="progress-bar">
+<div
+class="progress-bar"
+>
 
 <div
 id="progressFill"
@@ -1064,7 +1081,7 @@ const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtzc3lpemtjcHp1YnRleHR1Y2UiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4ODkzMTYyNiwiZXhwIjoyMTA0NTA3NjIyfQ.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
 supabase.createClient(
@@ -1085,40 +1102,103 @@ const RETRY_DELAY = 1500;
 
 
 /* =========================================================
-   SUPABASE STORAGE FOLDER MAP
+   STORAGE LOCATIONS
+   =========================================================
+   
    IMPORTANT:
-   These are FOLDERS inside the existing artist-uploads bucket.
-   They are NOT separate buckets.
+   
+   We are NOT creating or calling separate nonexistent
+   buckets for Apps, Software, DJ Mixes, Photos, etc.
+   
+   The existing bucket "artist-uploads" contains the
+   category folders as Storage paths.
+   
+   Existing buckets:
+   
+   songs
+   covers
+   artist-photos
+   artist-uploads
+   
+   Existing-folder paths created by uploads:
+   
+   artist-uploads/photos/
+   artist-uploads/videos/
+   artist-uploads/video-thumbnails/
+   artist-uploads/apps/
+   artist-uploads/app-icons/
+   artist-uploads/software/
+   artist-uploads/software-images/
+   artist-uploads/dj-mixes/
+   artist-uploads/dj-mix-covers/
+   
+   Supabase Storage treats these as folder paths.
+   A folder becomes visible when a file is uploaded
+   into that path.
+   
    ========================================================= */
 
-const STORAGE_FOLDERS = {
+const STORAGE_LOCATIONS = {
 
-photos:
-"photos",
+songs:{
+bucket:"songs",
+folder:""
+},
 
-videos:
-"videos",
+songCovers:{
+bucket:"covers",
+folder:""
+},
 
-videoThumbnails:
-"video-thumbnails",
+artistPhoto:{
+bucket:"artist-photos",
+folder:""
+},
 
-apps:
-"apps",
+photos:{
+bucket:"artist-uploads",
+folder:"photos"
+},
 
-appIcons:
-"app-icons",
+videos:{
+bucket:"artist-uploads",
+folder:"videos"
+},
 
-software:
-"software",
+videoThumbnails:{
+bucket:"artist-uploads",
+folder:"video-thumbnails"
+},
 
-softwareImages:
-"software-images",
+apps:{
+bucket:"artist-uploads",
+folder:"apps"
+},
 
-djMixes:
-"dj-mixes",
+appIcons:{
+bucket:"artist-uploads",
+folder:"app-icons"
+},
 
-djMixCovers:
-"dj-mix-covers"
+software:{
+bucket:"artist-uploads",
+folder:"software"
+},
+
+softwareImages:{
+bucket:"artist-uploads",
+folder:"software-images"
+},
+
+djMixes:{
+bucket:"artist-uploads",
+folder:"dj-mixes"
+},
+
+djMixCovers:{
+bucket:"artist-uploads",
+folder:"dj-mix-covers"
+}
 
 };
 
@@ -1135,14 +1215,20 @@ emptyText
 ){
 
 const input =
-document.getElementById(inputId);
+document.getElementById(
+inputId
+);
 
 const name =
-document.getElementById(nameId);
+document.getElementById(
+nameId
+);
 
 const count =
 countId
-? document.getElementById(countId)
+? document.getElementById(
+countId
+)
 : null;
 
 if(!input){
@@ -1154,17 +1240,25 @@ input.addEventListener(
 function(){
 
 const files =
-Array.from(this.files || []);
+Array.from(
+this.files || []
+);
 
 if(!files.length){
 
 if(name){
+
 name.textContent =
-emptyText || "No files selected";
+emptyText ||
+"No files selected";
+
 }
 
 if(count){
-count.textContent = "";
+
+count.textContent =
+"";
+
 }
 
 updateBatchInformation();
@@ -1176,7 +1270,10 @@ return;
 if(name){
 
 const names =
-files.map(file => file.name);
+files.map(
+file =>
+file.name
+);
 
 if(names.length <= 20){
 
@@ -1186,9 +1283,15 @@ names.join(", ");
 }else{
 
 name.textContent =
-names.slice(0,20).join(", ") +
+names.slice(
+0,
+20
+).join(", ") +
 " ... and " +
-(names.length - 20) +
+(
+names.length -
+20
+) +
 " more file(s)";
 
 }
@@ -1200,7 +1303,11 @@ if(count){
 count.textContent =
 files.length +
 " file" +
-(files.length === 1 ? "" : "s") +
+(
+files.length === 1
+? ""
+: "s"
+) +
 " selected";
 
 }
@@ -1310,7 +1417,9 @@ watchMultipleFiles(
 function getFiles(id){
 
 const input =
-document.getElementById(id);
+document.getElementById(
+id
+);
 
 if(!input){
 return [];
@@ -1329,10 +1438,47 @@ input.files || []
 
 function cleanFileName(name){
 
-return String(name || "")
-.replace(/[^a-zA-Z0-9._-]/g,"-")
-.replace(/-+/g,"-")
-.replace(/^-|-$/g,"");
+return String(
+name || ""
+)
+.replace(
+/[^a-zA-Z0-9._-]/g,
+"-"
+)
+.replace(
+/-+/g,
+"-"
+)
+.replace(
+/^-|-$/g,
+""
+);
+
+}
+
+
+/* =========================================================
+   CLEAN FOLDER NAME
+   ========================================================= */
+
+function cleanFolderName(name){
+
+return String(
+name || ""
+)
+.trim()
+.replace(
+/[^a-zA-Z0-9._-]/g,
+"-"
+)
+.replace(
+/-+/g,
+"-"
+)
+.replace(
+/^-|-$/g,
+""
+);
 
 }
 
@@ -1348,8 +1494,14 @@ return "";
 }
 
 return file.name
-.replace(/\.[^/.]+$/,"")
-.replace(/[_-]+/g," ")
+.replace(
+/\.[^/.]+$/,
+""
+)
+.replace(
+/[_-]+/g,
+" "
+)
 .trim();
 
 }
@@ -1362,12 +1514,17 @@ return file.name
 function createStorageFileName(file){
 
 const safeName =
-cleanFileName(file.name);
+cleanFileName(
+file.name
+);
 
 const randomPart =
 Math.random()
 .toString(36)
-.substring(2,10);
+.substring(
+2,
+10
+);
 
 return (
 Date.now() +
@@ -1386,33 +1543,118 @@ safeName
 
 function createStoragePath(
 folder,
-file
+file,
+artistName
 ){
 
+const safeFolder =
+cleanFolderName(
+folder
+);
+
+const safeArtist =
+cleanFolderName(
+artistName
+);
+
 const filename =
-createStorageFileName(file);
+createStorageFileName(
+file
+);
 
-if(!folder){
 
-return filename;
+/*
+   We put the artist name inside the category folder.
 
-}
+   Example:
+
+   artist-uploads/photos/Ning-Wei/file.jpg
+
+   artist-uploads/apps/Ning-Wei/app.apk
+
+   artist-uploads/software/Ning-Wei/program.zip
+
+   artist-uploads/dj-mixes/Ning-Wei/mix.m4a
+
+   This keeps thousands of uploads organised.
+*/
+
+if(
+safeFolder &&
+safeArtist
+){
 
 return (
-String(folder)
-.replace(/^\/+|\/+$/g,"") +
+safeFolder +
+"/" +
+safeArtist +
 "/" +
 filename
 );
 
 }
 
+if(
+safeFolder
+){
+
+return (
+safeFolder +
+"/" +
+filename
+);
+
+}
+
+if(
+safeArtist
+){
+
+return (
+safeArtist +
+"/" +
+filename
+);
+
+}
+
+return filename;
+
+}
+
 
 /* =========================================================
-   FORMAT FILE SIZE
+   PUBLIC STORAGE URL
    ========================================================= */
 
-function formatFileSize(bytes){
+function publicStorageURL(
+bucket,
+path
+){
+
+return (
+SUPABASE_URL +
+"/storage/v1/object/public/" +
+bucket +
+"/" +
+path
+.split("/")
+.map(
+encodeURIComponent
+)
+.join("/")
+);
+
+}
+
+
+/* =========================================================
+   FILE SIZE
+   ========================================================= */
+
+function formatFileSize(
+bytes
+){
 
 if(!bytes){
 return "0 B";
@@ -1441,9 +1683,14 @@ units.length - 1
 
 return (
 bytes /
-Math.pow(1024,safeIndex)
+Math.pow(
+1024,
+safeIndex
+)
 ).toFixed(
-safeIndex === 0 ? 0 : 2
+safeIndex === 0
+? 0
+: 2
 ) +
 " " +
 units[safeIndex];
@@ -1452,36 +1699,60 @@ units[safeIndex];
 
 
 /* =========================================================
-   GET ALL SELECTED FILES
+   ALL SELECTED FILES
    ========================================================= */
 
 function getAllSelectedFiles(){
 
 return [
 
-...getFiles("songFiles"),
+...getFiles(
+"songFiles"
+),
 
-...getFiles("songCovers"),
+...getFiles(
+"songCovers"
+),
 
-...getFiles("imageFiles"),
+...getFiles(
+"imageFiles"
+),
 
-...getFiles("videoFiles"),
+...getFiles(
+"videoFiles"
+),
 
-...getFiles("videoThumbnails"),
+...getFiles(
+"videoThumbnails"
+),
 
-...getFiles("appFiles"),
+...getFiles(
+"appFiles"
+),
 
-...getFiles("appIcons"),
+...getFiles(
+"appIcons"
+),
 
-...getFiles("softwareFiles"),
+...getFiles(
+"softwareFiles"
+),
 
-...getFiles("softwareImages"),
+...getFiles(
+"softwareImages"
+),
 
-...getFiles("mixFiles"),
+...getFiles(
+"mixFiles"
+),
 
-...getFiles("mixCovers"),
+...getFiles(
+"mixCovers"
+),
 
-...getFiles("artistPhoto")
+...getFiles(
+"artistPhoto"
+)
 
 ];
 
@@ -1489,7 +1760,7 @@ return [
 
 
 /* =========================================================
-   UPDATE BATCH INFORMATION
+   BATCH INFORMATION
    ========================================================= */
 
 function updateBatchInformation(){
@@ -1507,15 +1778,25 @@ document.getElementById(
 "batchSummary"
 );
 
-if(!allFiles.length){
+if(
+!allFiles.length
+){
 
 if(batchInfo){
-batchInfo.style.display = "none";
+
+batchInfo.style.display =
+"none";
+
 }
 
 if(batchSummary){
-batchSummary.style.display = "none";
-batchSummary.innerHTML = "";
+
+batchSummary.style.display =
+"none";
+
+batchSummary.innerHTML =
+"";
+
 }
 
 return;
@@ -1533,7 +1814,8 @@ allFiles.length >= 100
 
 if(batchSummary){
 
-let totalSize = 0;
+let totalSize =
+0;
 
 for(
 const file of allFiles
@@ -1557,7 +1839,9 @@ allFiles.length === 1
 : "s"
 ) +
 " selected • approximately " +
-formatFileSize(totalSize) +
+formatFileSize(
+totalSize
+) +
 " total.";
 
 }
@@ -1566,7 +1850,7 @@ formatFileSize(totalSize) +
 
 
 /* =========================================================
-   SET PROGRESS
+   PROGRESS
    ========================================================= */
 
 function setProgress(
@@ -1600,14 +1884,16 @@ wrap.style.display =
 const percent =
 total > 0
 ? Math.round(
-(current / total) * 100
+(current / total) *
+100
 )
 : 0;
 
 if(fill){
 
 fill.style.width =
-percent + "%";
+percent +
+"%";
 
 }
 
@@ -1629,14 +1915,19 @@ total +
 
 
 /* =========================================================
-   DELAY
+   WAIT
    ========================================================= */
 
-function wait(ms){
+function wait(
+ms
+){
 
 return new Promise(
 resolve =>
-setTimeout(resolve,ms)
+setTimeout(
+resolve,
+ms
+)
 );
 
 }
@@ -1646,35 +1937,72 @@ setTimeout(resolve,ms)
    EXPLAIN SUPABASE ERRORS
    ========================================================= */
 
-function explainUploadError(error){
+function explainUploadError(
+error
+){
 
 const message =
 error &&
 error.message
-? String(error.message)
-: String(error || "Unknown error");
+? String(
+error.message
+)
+: String(
+error ||
+"Unknown error"
+);
 
 const lower =
 message.toLowerCase();
 
+
 if(
-lower.includes("bucket not found") ||
-lower.includes("not found")
+lower.includes(
+"invalid api key"
+) ||
+lower.includes(
+"apikey"
+)
 ){
 
 return (
-"Bucket does not exist or cannot be found. " +
-"Check that the Supabase Storage bucket exists."
+"Supabase rejected the API key. " +
+"Check that the Supabase URL and anon key belong to the same project."
 );
 
 }
 
+
 if(
-lower.includes("row-level security") ||
-lower.includes("rls") ||
-lower.includes("policy") ||
-lower.includes("permission denied") ||
-lower.includes("not allowed")
+lower.includes(
+"bucket not found"
+)
+){
+
+return (
+"Bucket does not exist. " +
+"Check the existing Supabase Storage buckets."
+);
+
+}
+
+
+if(
+lower.includes(
+"row-level security"
+) ||
+lower.includes(
+"rls"
+) ||
+lower.includes(
+"policy"
+) ||
+lower.includes(
+"permission denied"
+) ||
+lower.includes(
+"not allowed"
+)
 ){
 
 return (
@@ -1684,11 +2012,17 @@ return (
 
 }
 
+
 if(
-lower.includes("payload too large") ||
-lower.includes("file too large") ||
-lower.includes("maximum") ||
-lower.includes("size")
+lower.includes(
+"payload too large"
+) ||
+lower.includes(
+"file too large"
+) ||
+lower.includes(
+"maximum"
+)
 ){
 
 return (
@@ -1697,10 +2031,17 @@ return (
 
 }
 
+
 if(
-lower.includes("invalid mime") ||
-lower.includes("mime") ||
-lower.includes("content type")
+lower.includes(
+"invalid mime"
+) ||
+lower.includes(
+"mime"
+) ||
+lower.includes(
+"content type"
+)
 ){
 
 return (
@@ -1709,11 +2050,20 @@ return (
 
 }
 
+
 if(
-lower.includes("network") ||
-lower.includes("fetch") ||
-lower.includes("failed to fetch") ||
-lower.includes("timeout")
+lower.includes(
+"network"
+) ||
+lower.includes(
+"fetch"
+) ||
+lower.includes(
+"failed to fetch"
+) ||
+lower.includes(
+"timeout"
+)
 ){
 
 return (
@@ -1722,32 +2072,39 @@ return (
 
 }
 
+
 return message;
 
 }
 
 
 /* =========================================================
-   UPLOAD ONE FILE WITH DETAILED ERRORS
+   UPLOAD ONE FILE
    ========================================================= */
 
 async function uploadFile(
 bucket,
+folder,
 file,
-folder
+artistName
 ){
 
 if(!file){
+
 return null;
+
 }
 
-const storagePath =
+const path =
 createStoragePath(
 folder,
-file
+file,
+artistName
 );
 
-let lastError = null;
+let lastError =
+null;
+
 
 for(
 let attempt = 1;
@@ -1759,20 +2116,31 @@ try{
 
 const result =
 await db.storage
-.from(bucket)
+.from(
+bucket
+)
 .upload(
-storagePath,
+path,
 file,
 {
-cacheControl:"3600",
-upsert:false,
+
+cacheControl:
+"3600",
+
+upsert:
+false,
+
 contentType:
 file.type ||
 "application/octet-stream"
+
 }
 );
 
-if(result.error){
+
+if(
+result.error
+){
 
 const detailedError =
 new Error(
@@ -1793,50 +2161,81 @@ throw detailedError;
 
 }
 
+
 return {
 
 url:
-SUPABASE_URL +
-"/storage/v1/object/public/" +
-bucket +
-"/" +
-storagePath,
+publicStorageURL(
+bucket,
+path
+),
 
-filename:storagePath,
+path:
+path,
 
-originalName:file.name,
+filename:
+path,
 
-title:titleFromFile(file),
+originalName:
+file.name,
 
-bucket:bucket,
+title:
+titleFromFile(
+file
+),
 
-folder:folder || "",
+bucket:
+bucket,
 
-path:storagePath
+folder:
+folder
 
 };
 
-}catch(error){
+}catch(
+error
+){
 
 lastError =
 error;
 
+
 console.error(
 "Upload attempt failed:",
 {
-file:file.name,
-bucket:bucket,
-folder:folder || "",
-path:storagePath,
-attempt:attempt,
-error:error,
-message:error && error.message,
-status:error && (
+
+file:
+file.name,
+
+bucket:
+bucket,
+
+folder:
+folder,
+
+path:
+path,
+
+attempt:
+attempt,
+
+error:
+error,
+
+message:
+error &&
+error.message,
+
+status:
+error &&
+(
 error.status ||
 error.statusCode
 )
+
 }
 );
+
 
 if(
 attempt <
@@ -1844,7 +2243,8 @@ UPLOAD_RETRIES
 ){
 
 await wait(
-RETRY_DELAY * attempt
+RETRY_DELAY *
+attempt
 );
 
 }
@@ -1853,19 +2253,27 @@ RETRY_DELAY * attempt
 
 }
 
+
 const finalMessage =
-explainUploadError(lastError);
+explainUploadError(
+lastError
+);
+
 
 const finalError =
 new Error(
 finalMessage
 );
 
+
 finalError.originalMessage =
 lastError &&
 lastError.message
 ? lastError.message
-: String(lastError);
+: String(
+lastError
+);
+
 
 finalError.status =
 lastError &&
@@ -1879,6 +2287,7 @@ lastError.statusCode
 )
 : "";
 
+
 throw finalError;
 
 }
@@ -1890,20 +2299,29 @@ throw finalError;
 
 async function uploadFiles(
 bucket,
+folder,
 files,
 label,
 progress,
-folder
+artistName
 ){
 
 const results =
-new Array(files.length);
+new Array(
+files.length
+);
 
-if(!files.length){
+if(
+!files.length
+){
+
 return results;
+
 }
 
-let nextIndex = 0;
+let nextIndex =
+0;
+
 
 async function worker(){
 
@@ -1912,14 +2330,23 @@ while(true){
 const index =
 nextIndex++;
 
-if(index >= files.length){
+
+if(
+index >= files.length
+){
+
 return;
+
 }
+
 
 const file =
 files[index];
 
-let result = null;
+
+let result =
+null;
+
 
 try{
 
@@ -1937,33 +2364,46 @@ files.length +
 file.name
 );
 
+
 result =
 await uploadFile(
 bucket,
+folder,
 file,
-folder
+artistName
 );
+
 
 results[index] =
 result;
 
-}catch(error){
+
+}catch(
+error
+){
 
 const detailedError =
 error &&
 error.message
 ? error.message
-: String(error);
+: String(
+error
+);
+
 
 progress.failed.push({
 
-file:file.name,
+file:
+file.name,
 
-error:detailedError,
+error:
+detailedError,
 
-bucket:bucket,
+bucket:
+bucket,
 
-folder:folder || "",
+folder:
+folder,
 
 status:
 error &&
@@ -1985,22 +2425,35 @@ error.originalMessage
 
 });
 
+
 results[index] =
 null;
+
 
 console.error(
 "FAILED FILE",
 {
-file:file.name,
-bucket:bucket,
-folder:folder || "",
-error:detailedError
+
+file:
+file.name,
+
+bucket:
+bucket,
+
+folder:
+folder,
+
+error:
+detailedError
+
 }
 );
+
 
 }finally{
 
 progress.current++;
+
 
 setProgress(
 progress.current,
@@ -2019,13 +2472,17 @@ progress.total +
 
 }
 
+
 const workerCount =
 Math.min(
 UPLOAD_CONCURRENCY,
 files.length
 );
 
-const workers = [];
+
+const workers =
+[];
+
 
 for(
 let i = 0;
@@ -2039,9 +2496,11 @@ worker()
 
 }
 
+
 await Promise.all(
 workers
 );
+
 
 return results;
 
@@ -2049,7 +2508,7 @@ return results;
 
 
 /* =========================================================
-   ARTIST
+   CREATE ARTIST
    ========================================================= */
 
 async function createArtist(
@@ -2061,13 +2520,18 @@ document.getElementById(
 "artistName"
 ).value.trim();
 
+
 const email =
 document.getElementById(
 "artistEmail"
 ).value.trim();
 
+
 const photo =
-getFiles("artistPhoto")[0];
+getFiles(
+"artistPhoto"
+)[0];
+
 
 if(
 !name &&
@@ -2078,7 +2542,10 @@ return null;
 
 }
 
-let photoURL = null;
+
+let photoURL =
+null;
+
 
 if(photo){
 
@@ -2089,34 +2556,47 @@ progress.total,
 photo.name
 );
 
+
 try{
 
 const uploaded =
 await uploadFile(
-"artist-photos",
+STORAGE_LOCATIONS.artistPhoto.bucket,
+STORAGE_LOCATIONS.artistPhoto.folder,
 photo,
-"uploads"
+name
 );
+
 
 photoURL =
 uploaded.url;
 
+
 progress.current++;
 
-}catch(error){
+
+}catch(
+error
+){
 
 progress.failed.push({
 
-file:photo.name,
+file:
+photo.name,
 
 error:
-error && error.message
+error &&
+error.message
 ? error.message
-: String(error),
+: String(
+error
+),
 
-bucket:"artist-photos",
+bucket:
+STORAGE_LOCATIONS.artistPhoto.bucket,
 
-folder:"uploads",
+folder:
+STORAGE_LOCATIONS.artistPhoto.folder,
 
 status:
 error &&
@@ -2132,34 +2612,47 @@ error.statusCode
 
 });
 
+
 progress.current++;
 
 }
 
 }
 
-if(!name){
+
+if(
+!name
+){
 
 return null;
 
 }
 
+
 const result =
 await db
-.from("artists")
+.from(
+"artists"
+)
 .insert({
 
-name:name,
+name:
+name,
 
-email:email,
+email:
+email,
 
-photo:photoURL
+photo:
+photoURL
 
 })
 .select()
 .single();
 
-if(result.error){
+
+if(
+result.error
+){
 
 throw new Error(
 "Artist database error: " +
@@ -2167,6 +2660,7 @@ result.error.message
 );
 
 }
+
 
 return result.data;
 
@@ -2184,20 +2678,32 @@ songURL,
 coverURL
 ){
 
-if(!songURL){
+if(
+!songURL
+){
+
 return;
+
 }
+
 
 const result =
 await db
-.from("songs")
+.from(
+"songs"
+)
 .insert({
 
-title:titleFromFile(file),
+title:
+titleFromFile(
+file
+),
 
-song_url:songURL,
+song_url:
+songURL,
 
-cover_url:coverURL,
+cover_url:
+coverURL,
 
 artist_id:
 artist
@@ -2206,7 +2712,10 @@ artist
 
 });
 
-if(result.error){
+
+if(
+result.error
+){
 
 throw new Error(
 "Song database error: " +
@@ -2251,14 +2760,20 @@ document.getElementById(
 );
 
 if(!status){
+
 return;
+
 }
+
 
 status.style.display =
 "block";
 
+
 status.className =
-className || "";
+className ||
+"";
+
 
 status.innerHTML =
 message;
@@ -2267,7 +2782,7 @@ message;
 
 
 /* =========================================================
-   SHOW DETAILED FAILURES
+   FAILURE DETAILS
    ========================================================= */
 
 function showFailureDetails(
@@ -2279,11 +2794,17 @@ document.getElementById(
 "failureDetails"
 );
 
+
 if(!box){
+
 return;
+
 }
 
-if(!failed.length){
+
+if(
+!failed.length
+){
 
 box.style.display =
 "none";
@@ -2295,21 +2816,30 @@ return;
 
 }
 
+
 let html =
 "<h4>Detailed upload problems</h4>";
+
 
 failed.forEach(
 (item,index) => {
 
+
 html +=
 '<div class="failure-item">';
 
+
 html +=
 '<div class="failure-file">' +
-(index + 1) +
+(
+index + 1
+) +
 ". " +
-escapeHtml(item.file) +
+escapeHtml(
+item.file
+) +
 "</div>";
+
 
 html +=
 '<div class="failure-error">' +
@@ -2319,29 +2849,52 @@ item.error ||
 ) +
 "</div>";
 
-if(item.bucket){
+
+if(
+item.bucket
+){
 
 html +=
 '<div class="failure-bucket">' +
 "Bucket: " +
-escapeHtml(item.bucket) +
-(
-item.folder
-? " • Folder: " +
-escapeHtml(item.folder)
-: ""
-) +
-(
-item.status
-? " • Status: " +
 escapeHtml(
-String(item.status)
+item.bucket
+);
+
+
+if(
+item.folder
+){
+
+html +=
+" • Folder: " +
+escapeHtml(
+item.folder
+);
+
+}
+
+
+if(
+item.status
+){
+
+html +=
+" • Status: " +
+escapeHtml(
+String(
+item.status
 )
-: ""
-) +
+);
+
+}
+
+
+html +=
 "</div>";
 
 }
+
 
 html +=
 "</div>";
@@ -2349,8 +2902,10 @@ html +=
 }
 );
 
+
 box.innerHTML =
 html;
+
 
 box.style.display =
 "block";
@@ -2362,14 +2917,34 @@ box.style.display =
    ESCAPE HTML
    ========================================================= */
 
-function escapeHtml(value){
+function escapeHtml(
+value
+){
 
-return String(value || "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+return String(
+value ||
+""
+)
+.replace(
+/&/g,
+"&amp;"
+)
+.replace(
+/</g,
+"&lt;"
+)
+.replace(
+/>/g,
+"&gt;"
+)
+.replace(
+/"/g,
+"&quot;"
+)
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
@@ -2385,11 +2960,17 @@ document.getElementById(
 "uploadButton"
 );
 
+
 try{
 
-button.disabled = true;
+button.disabled =
+true;
 
-showFailureDetails([]);
+
+showFailureDetails(
+[]
+);
+
 
 setStatus(
 "Preparing everything...",
@@ -2402,40 +2983,81 @@ setStatus(
    --------------------------------------------------------- */
 
 const songs =
-getFiles("songFiles");
+getFiles(
+"songFiles"
+);
+
 
 const covers =
-getFiles("songCovers");
+getFiles(
+"songCovers"
+);
+
 
 const images =
-getFiles("imageFiles");
+getFiles(
+"imageFiles"
+);
+
 
 const videos =
-getFiles("videoFiles");
+getFiles(
+"videoFiles"
+);
+
 
 const videoThumbnails =
-getFiles("videoThumbnails");
+getFiles(
+"videoThumbnails"
+);
+
 
 const apps =
-getFiles("appFiles");
+getFiles(
+"appFiles"
+);
+
 
 const appIcons =
-getFiles("appIcons");
+getFiles(
+"appIcons"
+);
+
 
 const software =
-getFiles("softwareFiles");
+getFiles(
+"softwareFiles"
+);
+
 
 const softwareImages =
-getFiles("softwareImages");
+getFiles(
+"softwareImages"
+);
+
 
 const mixes =
-getFiles("mixFiles");
+getFiles(
+"mixFiles"
+);
+
 
 const mixCovers =
-getFiles("mixCovers");
+getFiles(
+"mixCovers"
+);
+
 
 const artistPhoto =
-getFiles("artistPhoto")[0];
+getFiles(
+"artistPhoto"
+)[0];
+
+
+const artistName =
+document.getElementById(
+"artistName"
+).value.trim();
 
 
 /* ---------------------------------------------------------
@@ -2445,7 +3067,10 @@ getFiles("artistPhoto")[0];
 const allFiles =
 getAllSelectedFiles();
 
-if(!allFiles.length){
+
+if(
+!allFiles.length
+){
 
 throw new Error(
 "Please choose at least one file to upload."
@@ -2460,11 +3085,14 @@ throw new Error(
 
 const progress = {
 
-current:0,
+current:
+0,
 
-total:allFiles.length,
+total:
+allFiles.length,
 
-failed:[]
+failed:
+[]
 
 };
 
@@ -2473,7 +3101,9 @@ failed:[]
    LARGE BATCH
    --------------------------------------------------------- */
 
-if(allFiles.length >= 100){
+if(
+allFiles.length >= 100
+){
 
 setStatus(
 "Preparing a large batch of " +
@@ -2489,12 +3119,9 @@ allFiles.length.toLocaleString() +
    ARTIST
    --------------------------------------------------------- */
 
-let artist = null;
+let artist =
+null;
 
-const artistName =
-document.getElementById(
-"artistName"
-).value.trim();
 
 if(
 artistName ||
@@ -2511,27 +3138,34 @@ progress
 
 /* ---------------------------------------------------------
    SONGS
-   Existing songs bucket.
+   Existing bucket: songs
    --------------------------------------------------------- */
 
-let songResults = [];
+let songResults =
+[];
 
-let coverResults = [];
+let coverResults =
+[];
 
-if(songs.length){
+
+if(
+songs.length
+){
 
 setStatus(
-"Uploading songs...",
+"Uploading songs to songs bucket...",
 "status-loading"
 );
 
+
 songResults =
 await uploadFiles(
-"songs",
+STORAGE_LOCATIONS.songs.bucket,
+STORAGE_LOCATIONS.songs.folder,
 songs,
 "Songs",
 progress,
-"uploads"
+artistName
 );
 
 }
@@ -2539,23 +3173,27 @@ progress,
 
 /* ---------------------------------------------------------
    SONG COVERS
-   Existing covers bucket.
+   Existing bucket: covers
    --------------------------------------------------------- */
 
-if(covers.length){
+if(
+covers.length
+){
 
 setStatus(
-"Uploading song covers...",
+"Uploading song covers to covers bucket...",
 "status-loading"
 );
 
+
 coverResults =
 await uploadFiles(
-"covers",
+STORAGE_LOCATIONS.songCovers.bucket,
+STORAGE_LOCATIONS.songCovers.folder,
 covers,
 "Song covers",
 progress,
-"uploads"
+artistName
 );
 
 }
@@ -2574,12 +3212,20 @@ i++
 const songResult =
 songResults[i];
 
-if(!songResult){
+
+if(
+!songResult
+){
+
 continue;
+
 }
 
+
 const coverResult =
-coverResults[i] || null;
+coverResults[i] ||
+null;
+
 
 try{
 
@@ -2592,29 +3238,40 @@ coverResult
 : null
 );
 
-}catch(error){
+
+}catch(
+error
+){
 
 progress.failed.push({
 
-file:songs[i].name,
+file:
+songs[i].name,
 
-error:error.message,
+error:
+error.message,
 
-bucket:"songs database",
+bucket:
+"songs database",
 
-folder:"",
+folder:
+"database",
 
-status:"database"
+status:
+"database"
 
 });
 
 }
 
+
 setProgress(
 progress.current,
 progress.total,
 "Saving song information: " +
-(i + 1) +
+(
+i + 1
+) +
 " of " +
 songResults.length
 );
@@ -2624,25 +3281,26 @@ songResults.length
 
 /* ---------------------------------------------------------
    PHOTOS
-   Existing bucket:
-   artist-uploads
-   Folder:
-   photos
+   artist-uploads/photos/
    --------------------------------------------------------- */
 
-if(images.length){
+if(
+images.length
+){
 
 setStatus(
-"Uploading photos/images...",
+"Uploading photos to artist-uploads/photos/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.photos.bucket,
+STORAGE_LOCATIONS.photos.folder,
 images,
 "Photos",
 progress,
-STORAGE_FOLDERS.photos
+artistName
 );
 
 }
@@ -2650,25 +3308,26 @@ STORAGE_FOLDERS.photos
 
 /* ---------------------------------------------------------
    VIDEOS
-   Existing bucket:
-   artist-uploads
-   Folder:
-   videos
+   artist-uploads/videos/
    --------------------------------------------------------- */
 
-if(videos.length){
+if(
+videos.length
+){
 
 setStatus(
-"Uploading videos...",
+"Uploading videos to artist-uploads/videos/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.videos.bucket,
+STORAGE_LOCATIONS.videos.folder,
 videos,
 "Videos",
 progress,
-STORAGE_FOLDERS.videos
+artistName
 );
 
 }
@@ -2676,25 +3335,26 @@ STORAGE_FOLDERS.videos
 
 /* ---------------------------------------------------------
    VIDEO THUMBNAILS
-   Existing bucket:
-   artist-uploads
-   Folder:
-   video-thumbnails
+   artist-uploads/video-thumbnails/
    --------------------------------------------------------- */
 
-if(videoThumbnails.length){
+if(
+videoThumbnails.length
+){
 
 setStatus(
-"Uploading video thumbnails...",
+"Uploading video thumbnails to artist-uploads/video-thumbnails/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.videoThumbnails.bucket,
+STORAGE_LOCATIONS.videoThumbnails.folder,
 videoThumbnails,
 "Video thumbnails",
 progress,
-STORAGE_FOLDERS.videoThumbnails
+artistName
 );
 
 }
@@ -2702,25 +3362,26 @@ STORAGE_FOLDERS.videoThumbnails
 
 /* ---------------------------------------------------------
    APPS
-   Existing bucket:
-   artist-uploads
-   Folder:
-   apps
+   artist-uploads/apps/
    --------------------------------------------------------- */
 
-if(apps.length){
+if(
+apps.length
+){
 
 setStatus(
-"Uploading apps/APKs...",
+"Uploading apps/APKs to artist-uploads/apps/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.apps.bucket,
+STORAGE_LOCATIONS.apps.folder,
 apps,
 "Apps",
 progress,
-STORAGE_FOLDERS.apps
+artistName
 );
 
 }
@@ -2728,25 +3389,26 @@ STORAGE_FOLDERS.apps
 
 /* ---------------------------------------------------------
    APP ICONS
-   Existing bucket:
-   artist-uploads
-   Folder:
-   app-icons
+   artist-uploads/app-icons/
    --------------------------------------------------------- */
 
-if(appIcons.length){
+if(
+appIcons.length
+){
 
 setStatus(
-"Uploading app icons...",
+"Uploading app icons to artist-uploads/app-icons/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.appIcons.bucket,
+STORAGE_LOCATIONS.appIcons.folder,
 appIcons,
 "App icons",
 progress,
-STORAGE_FOLDERS.appIcons
+artistName
 );
 
 }
@@ -2754,25 +3416,26 @@ STORAGE_FOLDERS.appIcons
 
 /* ---------------------------------------------------------
    SOFTWARE
-   Existing bucket:
-   artist-uploads
-   Folder:
-   software
+   artist-uploads/software/
    --------------------------------------------------------- */
 
-if(software.length){
+if(
+software.length
+){
 
 setStatus(
-"Uploading software...",
+"Uploading software to artist-uploads/software/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.software.bucket,
+STORAGE_LOCATIONS.software.folder,
 software,
 "Software",
 progress,
-STORAGE_FOLDERS.software
+artistName
 );
 
 }
@@ -2780,25 +3443,26 @@ STORAGE_FOLDERS.software
 
 /* ---------------------------------------------------------
    SOFTWARE IMAGES
-   Existing bucket:
-   artist-uploads
-   Folder:
-   software-images
+   artist-uploads/software-images/
    --------------------------------------------------------- */
 
-if(softwareImages.length){
+if(
+softwareImages.length
+){
 
 setStatus(
-"Uploading software images...",
+"Uploading software images to artist-uploads/software-images/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.softwareImages.bucket,
+STORAGE_LOCATIONS.softwareImages.folder,
 softwareImages,
 "Software images",
 progress,
-STORAGE_FOLDERS.softwareImages
+artistName
 );
 
 }
@@ -2806,25 +3470,26 @@ STORAGE_FOLDERS.softwareImages
 
 /* ---------------------------------------------------------
    DJ MIXES
-   Existing bucket:
-   artist-uploads
-   Folder:
-   dj-mixes
+   artist-uploads/dj-mixes/
    --------------------------------------------------------- */
 
-if(mixes.length){
+if(
+mixes.length
+){
 
 setStatus(
-"Uploading DJ mixes...",
+"Uploading DJ mixes to artist-uploads/dj-mixes/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.djMixes.bucket,
+STORAGE_LOCATIONS.djMixes.folder,
 mixes,
 "DJ mixes",
 progress,
-STORAGE_FOLDERS.djMixes
+artistName
 );
 
 }
@@ -2832,25 +3497,26 @@ STORAGE_FOLDERS.djMixes
 
 /* ---------------------------------------------------------
    DJ MIX COVERS
-   Existing bucket:
-   artist-uploads
-   Folder:
-   dj-mix-covers
+   artist-uploads/dj-mix-covers/
    --------------------------------------------------------- */
 
-if(mixCovers.length){
+if(
+mixCovers.length
+){
 
 setStatus(
-"Uploading DJ mix covers...",
+"Uploading DJ mix covers to artist-uploads/dj-mix-covers/...",
 "status-loading"
 );
 
+
 await uploadFiles(
-"artist-uploads",
+STORAGE_LOCATIONS.djMixCovers.bucket,
+STORAGE_LOCATIONS.djMixCovers.folder,
 mixCovers,
 "DJ mix covers",
 progress,
-STORAGE_FOLDERS.djMixCovers
+artistName
 );
 
 }
@@ -2862,6 +3528,7 @@ STORAGE_FOLDERS.djMixCovers
 
 const description =
 getDescription();
+
 
 console.log(
 "Upload description:",
@@ -2879,37 +3546,42 @@ progress.total,
 "Upload process complete."
 );
 
-button.disabled = false;
+
+button.disabled =
+false;
 
 
 /* ---------------------------------------------------------
    SHOW RESULT
    --------------------------------------------------------- */
 
-if(progress.failed.length){
+if(
+progress.failed.length
+){
 
 const successCount =
 progress.total -
 progress.failed.length;
 
+
 setStatus(
 "⚠️ Upload finished with " +
 progress.failed.length.toLocaleString() +
-" problem(s). " +
-"Successfully processed " +
+" problem(s). Successfully processed " +
 successCount.toLocaleString() +
 " of " +
 progress.total.toLocaleString() +
-" selected file(s). " +
-"See the detailed error list below.",
+" selected file(s). See the detailed error list below.",
 "status-error"
 );
+
 
 showFailureDetails(
 progress.failed
 );
 
 }else{
+
 
 setStatus(
 "✅ Everything uploaded successfully! " +
@@ -2924,7 +3596,10 @@ progress.total === 1
 "status-success"
 );
 
-showFailureDetails([]);
+
+showFailureDetails(
+[]
+);
 
 }
 
@@ -2937,17 +3612,22 @@ console.log(
 "Upload complete."
 );
 
+
 console.log(
 "Total files:",
 progress.total
 );
+
 
 console.log(
 "Failed files:",
 progress.failed.length
 );
 
-if(progress.failed.length){
+
+if(
+progress.failed.length
+){
 
 console.table(
 progress.failed
@@ -2955,12 +3635,16 @@ progress.failed
 
 }
 
-}catch(error){
+
+}catch(
+error
+){
 
 console.error(
 "Upload process error:",
 error
 );
+
 
 setStatus(
 "❌ Upload failed: " +
@@ -2968,12 +3652,16 @@ setStatus(
 error &&
 error.message
 ? error.message
-: String(error)
+: String(
+error
+)
 ),
 "status-error"
 );
 
-button.disabled = false;
+
+button.disabled =
+false;
 
 }
 
@@ -3000,6 +3688,7 @@ document.getElementById(
 "uploadButton"
 );
 
+
 if(
 button &&
 button.disabled
@@ -3007,8 +3696,10 @@ button.disabled
 
 event.preventDefault();
 
+
 event.returnValue =
 "An upload is currently running. Leaving this page may stop the upload.";
+
 
 return event.returnValue;
 
