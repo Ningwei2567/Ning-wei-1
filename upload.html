@@ -519,29 +519,29 @@ Upload Music • Videos • Photos • Apps • Software • Mixes
 <section class="intro">
 
 <h2 id="pageTitle">
-Upload Your Music
+Upload Your Content
 </h2>
 
 <p id="pageDescription">
-For new artists, singers, producers, and DJs.
+For new artists, singers, producers, creators, software developers, and DJs.
 </p>
 
 <div class="disclaimer">
-It's free, don't be scammed. Upload your music directly to Ning Wei Media.
+It's free, don't be scammed. Upload your content directly to Ning Wei Media.
 </div>
 
 <div
 id="directUploadInfo"
 class="direct-upload-info"
 >
-⬆️ Direct upload is active for this section. Your files will go directly into the correct Ning Wei Media folder without requiring a category.
+⬆️ Direct upload is active for this section. Your files will go directly into the correct Ning Wei Media folder.
 </div>
 
 <div
 id="categoryRequiredInfo"
 class="category-required"
 >
-📁 Please choose the category where this content belongs before uploading.
+📁 Please choose the category where this Music, App, or Software content belongs before uploading.
 </div>
 
 </section>
@@ -549,8 +549,6 @@ class="category-required"
 
 <!-- =====================================================
      CATEGORY SELECTOR
-     Used by Music, Apps and Software.
-     Photos, Videos and DJ Mixes do not require a category.
      ===================================================== -->
 
 <section
@@ -648,7 +646,7 @@ The filename of each selected file will be used as its title/name.
 You can select many songs at once.
 <br>
 <strong>
-Music files are uploaded into the selected music category.
+Music files are uploaded into the selected Music category.
 </strong>
 </div>
 
@@ -674,8 +672,7 @@ No songs selected
 <div
 id="songFilesCount"
 class="file-count"
->
-</div>
+></div>
 
 <label for="songCovers">
 Song Covers / Artwork (Optional)
@@ -699,8 +696,7 @@ No covers selected
 <div
 id="songCoversCount"
 class="file-count"
->
-</div>
+></div>
 
 </section>
 
@@ -712,7 +708,7 @@ class="file-count"
 </h3>
 
 <div class="upload-instruction">
-Upload your photos or images. Make sure each file has a title.
+Upload your photos or images.
 <br>
 The filename of each selected file will be used as its title/name.
 <br>
@@ -745,8 +741,7 @@ No photos selected
 <div
 id="imageFilesCount"
 class="file-count"
->
-</div>
+></div>
 
 </section>
 
@@ -759,8 +754,6 @@ class="file-count"
 
 <div class="upload-instruction">
 Upload your music videos, clips and other video files.
-<br>
-Make sure each file has a title.
 <br>
 The filename of each selected file will be used as its title/name.
 <br>
@@ -793,8 +786,7 @@ No videos selected
 <div
 id="videoFilesCount"
 class="file-count"
->
-</div>
+></div>
 
 <label for="videoThumbnails">
 Video Thumbnails (Optional)
@@ -818,8 +810,7 @@ No thumbnails selected
 <div
 id="videoThumbnailsCount"
 class="file-count"
->
-</div>
+></div>
 
 </section>
 
@@ -831,7 +822,7 @@ class="file-count"
 </h3>
 
 <div class="upload-instruction">
-Upload your apps/APK files. Make sure each file has a title.
+Upload your apps/APK files.
 <br>
 The filename of each selected file will be used as its title/name.
 <br>
@@ -864,8 +855,7 @@ No apps selected
 <div
 id="appFilesCount"
 class="file-count"
->
-</div>
+></div>
 
 <label for="appIcons">
 App Icons (Optional)
@@ -889,8 +879,7 @@ No icons selected
 <div
 id="appIconsCount"
 class="file-count"
->
-</div>
+></div>
 
 </section>
 
@@ -902,7 +891,7 @@ class="file-count"
 </h3>
 
 <div class="upload-instruction">
-Upload your software files. Make sure each file has a title.
+Upload your software files.
 <br>
 The filename of each selected file will be used as its title/name.
 <br>
@@ -935,8 +924,7 @@ No software selected
 <div
 id="softwareFilesCount"
 class="file-count"
->
-</div>
+></div>
 
 <label for="softwareImages">
 Software Images / Logos (Optional)
@@ -960,8 +948,7 @@ No images selected
 <div
 id="softwareImagesCount"
 class="file-count"
->
-</div>
+></div>
 
 </section>
 
@@ -974,8 +961,6 @@ class="file-count"
 
 <div class="upload-instruction">
 Upload your DJ mixes and related audio files.
-<br>
-Make sure each file has a title.
 <br>
 The filename of each selected file will be used as its title/name.
 <br>
@@ -1008,8 +993,7 @@ No DJ mixes selected
 <div
 id="mixFilesCount"
 class="file-count"
->
-</div>
+></div>
 
 <label for="mixCovers">
 DJ Mix Covers (Optional)
@@ -1033,8 +1017,7 @@ No covers selected
 <div
 id="mixCoversCount"
 class="file-count"
->
-</div>
+></div>
 
 </section>
 
@@ -1054,7 +1037,6 @@ id="description"
 placeholder="Tell us about the content you are uploading..."
 ></textarea>
 
-
 <div
 id="batchInfo"
 class="batch-info"
@@ -1070,12 +1052,10 @@ of simultaneous upload connections.
 
 </div>
 
-
 <div
 id="batchSummary"
 class="batch-summary"
 ></div>
-
 
 <div
 id="progressWrap"
@@ -1100,7 +1080,6 @@ Preparing upload...
 
 </div>
 
-
 <button
 id="uploadButton"
 class="submit-button"
@@ -1110,18 +1089,15 @@ onclick="uploadEverything()"
 Upload Everything
 </button>
 
-
 <div
 id="status"
 style="display:none;"
 ></div>
 
-
 <div
 id="failureDetails"
 class="failure-details"
 ></div>
-
 
 <a
 class="back-button"
@@ -1166,7 +1142,7 @@ const RETRY_DELAY = 1500;
 
 
 /* =========================================================
-   FULL MUSIC CATEGORIES
+   MUSIC CATEGORIES
    ========================================================= */
 
 const MUSIC_CATEGORIES = [
@@ -1259,7 +1235,7 @@ icon:"🎹"
 
 
 /* =========================================================
-   FULL APP CATEGORIES
+   APP CATEGORIES
    ========================================================= */
 
 const APP_CATEGORIES = [
@@ -1394,7 +1370,7 @@ icon:"🔐"
 
 
 /* =========================================================
-   FULL SOFTWARE CATEGORIES
+   SOFTWARE CATEGORIES
    ========================================================= */
 
 const SOFTWARE_CATEGORIES = [
@@ -1506,31 +1482,6 @@ icon:"🛠️"
 
 /* =========================================================
    STORAGE LOCATIONS
-   =========================================================
-
-   MUSIC:
-   songs/category/Artist/file
-   covers/category/Artist/file
-
-   PHOTOS:
-   artist-uploads/photos/Artist/file
-
-   VIDEOS:
-   artist-uploads/videos/Artist/file
-   artist-uploads/video-thumbnails/Artist/file
-
-   APPS:
-   artist-uploads/apps/category/Artist/file
-   artist-uploads/app-icons/category/Artist/file
-
-   SOFTWARE:
-   artist-uploads/software/category/Artist/file
-   artist-uploads/software-images/category/Artist/file
-
-   DJ MIXES:
-   artist-uploads/dj-mixes/Artist/file
-   artist-uploads/dj-mix-covers/Artist/file
-
    ========================================================= */
 
 const STORAGE_LOCATIONS = {
@@ -1609,20 +1560,36 @@ category:""
 
 
 /* =========================================================
-   URL CATEGORY
+   URL PARAMETERS
    ========================================================= */
 
-function getUrlCategory(){
+function getUrlParams(){
 
-const params =
-new URLSearchParams(
+return new URLSearchParams(
 window.location.search
 );
 
+}
+
+
+function getUrlCategory(){
+
 return (
-params.get("category") ||
+getUrlParams()
+.get("category") ||
 ""
 ).trim();
+
+}
+
+
+function getUrlType(){
+
+return (
+getUrlParams()
+.get("type") ||
+""
+).trim().toLowerCase();
 
 }
 
@@ -1702,8 +1669,87 @@ return "";
 
 
 /* =========================================================
-   DISPLAY CATEGORY SELECTOR
+   DIRECT UPLOAD TYPE
    ========================================================= */
+
+function getDirectUploadType(){
+
+const type =
+getUrlType();
+
+if(
+type === "photo" ||
+type === "photos" ||
+type === "image" ||
+type === "images"
+){
+
+return "photos";
+
+}
+
+if(
+type === "video" ||
+type === "videos"
+){
+
+return "videos";
+
+}
+
+if(
+type === "dj" ||
+type === "djmix" ||
+type === "dj-mix" ||
+type === "dj-mixes" ||
+type === "mix" ||
+type === "mixes"
+){
+
+return "dj-mixes";
+
+}
+
+return "";
+
+}
+
+
+/* =========================================================
+   CATEGORY SELECTOR
+   ========================================================= */
+
+function addCategoryOptions(
+selector,
+categories
+){
+
+categories.forEach(
+category => {
+
+const option =
+document.createElement(
+"option"
+);
+
+option.value =
+category.value;
+
+option.textContent =
+category.icon +
+" " +
+category.label;
+
+selector.appendChild(
+option
+);
+
+}
+);
+
+
+}
+
 
 function setupCategorySelector(){
 
@@ -1739,16 +1785,46 @@ return;
 selector.innerHTML =
 '<option value="">-- Select a category --</option>';
 
-
 const requestedCategory =
 getUrlCategory();
-
 
 const requestedType =
 getCategoryType(
 requestedCategory
 );
 
+const directType =
+getDirectUploadType();
+
+
+/*
+   Direct Photos / Videos / DJ Mixes.
+*/
+
+if(
+directType
+){
+
+UPLOAD_MODE.type =
+directType;
+
+UPLOAD_MODE.category =
+"";
+
+card.style.display =
+"none";
+
+categoryRequiredInfo.style.display =
+"none";
+
+return;
+
+}
+
+
+/*
+   Category URL points to Music.
+*/
 
 if(
 requestedType === "music"
@@ -1757,30 +1833,15 @@ requestedType === "music"
 UPLOAD_MODE.type =
 "music";
 
+UPLOAD_MODE.category =
+requestedCategory;
+
 heading.textContent =
 "🎵 Choose Music Category";
 
-MUSIC_CATEGORIES.forEach(
-category => {
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value =
-category.value;
-
-option.textContent =
-category.icon +
-" " +
-category.label;
-
-selector.appendChild(
-option
-);
-
-}
+addCategoryOptions(
+selector,
+MUSIC_CATEGORIES
 );
 
 card.style.display =
@@ -1798,6 +1859,10 @@ return;
 
 }
 
+
+/*
+   Category URL points to Apps.
+*/
 
 if(
 requestedType === "apps"
@@ -1806,30 +1871,15 @@ requestedType === "apps"
 UPLOAD_MODE.type =
 "apps";
 
+UPLOAD_MODE.category =
+requestedCategory;
+
 heading.textContent =
 "📱 Choose App Category";
 
-APP_CATEGORIES.forEach(
-category => {
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value =
-category.value;
-
-option.textContent =
-category.icon +
-" " +
-category.label;
-
-selector.appendChild(
-option
-);
-
-}
+addCategoryOptions(
+selector,
+APP_CATEGORIES
 );
 
 card.style.display =
@@ -1848,6 +1898,10 @@ return;
 }
 
 
+/*
+   Category URL points to Software.
+*/
+
 if(
 requestedType === "software"
 ){
@@ -1855,30 +1909,15 @@ requestedType === "software"
 UPLOAD_MODE.type =
 "software";
 
+UPLOAD_MODE.category =
+requestedCategory;
+
 heading.textContent =
 "💻 Choose Software Category";
 
-SOFTWARE_CATEGORIES.forEach(
-category => {
-
-const option =
-document.createElement(
-"option"
-);
-
-option.value =
-category.value;
-
-option.textContent =
-category.icon +
-" " +
-category.label;
-
-selector.appendChild(
-option
-);
-
-}
+addCategoryOptions(
+selector,
+SOFTWARE_CATEGORIES
 );
 
 card.style.display =
@@ -1900,43 +1939,23 @@ return;
 /*
    No category in URL.
 
-   The upload page still contains all sections.
-   The uploader can select a category manually if
-   Music, Apps or Software files are being uploaded.
+   All Music, Apps and Software categories are available.
 */
-
-card.style.display =
-"block";
 
 heading.textContent =
 "📁 Choose Category For Music, Apps or Software";
 
+addCategoryOptions(
+selector,
 [
 ...MUSIC_CATEGORIES,
 ...APP_CATEGORIES,
 ...SOFTWARE_CATEGORIES
-].forEach(
-category => {
-
-const option =
-document.createElement(
-"option"
+]
 );
 
-option.value =
-category.value;
-
-option.textContent =
-category.icon +
-" " +
-category.label;
-
-selector.appendChild(
-option
-);
-
-}
-);
+card.style.display =
+"block";
 
 categoryRequiredInfo.style.display =
 "block";
@@ -2050,7 +2069,7 @@ category.label;
 
 
 /* =========================================================
-   UPDATE URL
+   UPDATE URL CATEGORY
    ========================================================= */
 
 function updateUrlCategory(){
@@ -2096,10 +2115,13 @@ function applyPageMode(){
 const requestedCategory =
 getUrlCategory();
 
-const type =
+const categoryType =
 getCategoryType(
 requestedCategory
 );
+
+const directType =
+getDirectUploadType();
 
 const pageTitle =
 document.getElementById(
@@ -2121,9 +2143,8 @@ document.getElementById(
 "categoryRequiredInfo"
 );
 
-
 if(
-type === "music"
+categoryType === "music"
 ){
 
 pageTitle.textContent =
@@ -2144,7 +2165,7 @@ return;
 
 
 if(
-type === "apps"
+categoryType === "apps"
 ){
 
 pageTitle.textContent =
@@ -2165,7 +2186,7 @@ return;
 
 
 if(
-type === "software"
+categoryType === "software"
 ){
 
 pageTitle.textContent =
@@ -2186,25 +2207,95 @@ return;
 
 
 /*
-   Direct folders.
-
-   These do not need categories:
-   Photos
-   Videos
-   DJ Mixes
+   Direct Photos.
 */
 
+if(
+directType === "photos"
+){
+
 pageTitle.textContent =
-"Upload Your Music";
+"Upload Photos Directly Here";
 
 pageDescription.textContent =
-"For new artists, singers, producers, and DJs.";
+"Upload photos and images directly to the Photos folder.";
 
 directInfo.style.display =
 "block";
 
 categoryInfo.style.display =
 "none";
+
+return;
+
+}
+
+
+/*
+   Direct Videos.
+*/
+
+if(
+directType === "videos"
+){
+
+pageTitle.textContent =
+"Upload Videos Directly Here";
+
+pageDescription.textContent =
+"Upload videos directly to the Videos folder.";
+
+directInfo.style.display =
+"block";
+
+categoryInfo.style.display =
+"none";
+
+return;
+
+}
+
+
+/*
+   Direct DJ Mixes.
+*/
+
+if(
+directType === "dj-mixes"
+){
+
+pageTitle.textContent =
+"Upload DJ Mixes Directly Here";
+
+pageDescription.textContent =
+"Upload DJ mixes directly to the DJ Mixes folder.";
+
+directInfo.style.display =
+"block";
+
+categoryInfo.style.display =
+"none";
+
+return;
+
+}
+
+
+/*
+   Normal upload page.
+*/
+
+pageTitle.textContent =
+"Upload Your Content";
+
+pageDescription.textContent =
+"For new artists, singers, producers, creators, software developers, and DJs.";
+
+directInfo.style.display =
+"none";
+
+categoryInfo.style.display =
+"block";
 
 }
 
@@ -2420,7 +2511,9 @@ watchMultipleFiles(
    HELPERS
    ========================================================= */
 
-function getFiles(id){
+function getFiles(
+id
+){
 
 const input =
 document.getElementById(
@@ -2442,7 +2535,9 @@ input.files || []
    CLEAN FILE NAME
    ========================================================= */
 
-function cleanFileName(name){
+function cleanFileName(
+name
+){
 
 return String(
 name || ""
@@ -2467,7 +2562,9 @@ name || ""
    CLEAN FOLDER NAME
    ========================================================= */
 
-function cleanFolderName(name){
+function cleanFolderName(
+name
+){
 
 return String(
 name || ""
@@ -2493,7 +2590,9 @@ name || ""
    TITLE FROM FILE
    ========================================================= */
 
-function titleFromFile(file){
+function titleFromFile(
+file
+){
 
 if(!file){
 return "";
@@ -2517,7 +2616,9 @@ return file.name
    STORAGE FILE NAME
    ========================================================= */
 
-function createStorageFileName(file){
+function createStorageFileName(
+file
+){
 
 const safeName =
 cleanFileName(
@@ -2545,24 +2646,6 @@ safeName
 
 /* =========================================================
    STORAGE PATH
-   =========================================================
-
-   categoryFolder is optional.
-
-   MUSIC:
-   categoryFolder/Artist/file
-
-   APPS:
-   apps/category/Artist/file
-
-   SOFTWARE:
-   software/category/Artist/file
-
-   DIRECT:
-   photos/Artist/file
-   videos/Artist/file
-   dj-mixes/Artist/file
-
    ========================================================= */
 
 function createStoragePath(
@@ -2593,9 +2676,15 @@ file
 );
 
 
-/* ---------------------------------------------------------
+/*
    CATEGORY + ARTIST
-   --------------------------------------------------------- */
+
+   Example:
+
+   songs/Top-Ugandan-Music/Artist/file
+   apps/Social-Media/Artist/file
+   software/Windows-Software/Artist/file
+*/
 
 if(
 safeFolder &&
@@ -2616,9 +2705,9 @@ filename
 }
 
 
-/* ---------------------------------------------------------
+/*
    CATEGORY WITHOUT ARTIST
-   --------------------------------------------------------- */
+*/
 
 if(
 safeFolder &&
@@ -2636,9 +2725,15 @@ filename
 }
 
 
-/* ---------------------------------------------------------
+/*
    DIRECT FOLDER + ARTIST
-   --------------------------------------------------------- */
+
+   Example:
+
+   photos/Artist/file
+   videos/Artist/file
+   dj-mixes/Artist/file
+*/
 
 if(
 safeFolder &&
@@ -2656,9 +2751,9 @@ filename
 }
 
 
-/* ---------------------------------------------------------
+/*
    DIRECT FOLDER
-   --------------------------------------------------------- */
+*/
 
 if(
 safeFolder
@@ -2673,9 +2768,9 @@ filename
 }
 
 
-/* ---------------------------------------------------------
+/*
    ARTIST ONLY
-   --------------------------------------------------------- */
+*/
 
 if(
 safeArtist
@@ -3267,12 +3362,10 @@ explainUploadError(
 lastError
 );
 
-
 const finalError =
 new Error(
 finalMessage
 );
-
 
 finalError.originalMessage =
 lastError &&
@@ -3281,7 +3374,6 @@ lastError.message
 : String(
 lastError
 );
-
 
 finalError.status =
 lastError &&
@@ -3294,7 +3386,6 @@ lastError.status ||
 lastError.statusCode
 )
 : "";
-
 
 throw finalError;
 
@@ -3352,7 +3443,6 @@ return;
 const file =
 files[index];
 
-
 let result =
 null;
 
@@ -3383,10 +3473,8 @@ artistName,
 categoryFolder
 );
 
-
 results[index] =
 result;
-
 
 }catch(
 error
@@ -3495,7 +3583,6 @@ UPLOAD_CONCURRENCY,
 files.length
 );
 
-
 const workers =
 [];
 
@@ -3536,12 +3623,10 @@ document.getElementById(
 "artistName"
 ).value.trim();
 
-
 const email =
 document.getElementById(
 "artistEmail"
 ).value.trim();
-
 
 const photo =
 getFiles(
@@ -3584,10 +3669,8 @@ name,
 ""
 );
 
-
 photoURL =
 uploaded.url;
-
 
 progress.current++;
 
@@ -3628,7 +3711,6 @@ error.statusCode
 : ""
 
 });
-
 
 progress.current++;
 
@@ -4002,32 +4084,35 @@ getFiles(
 "softwareImages"
 );
 
-
 const needsMusicCategory =
 songs.length ||
 covers.length;
-
 
 const needsAppCategory =
 apps.length ||
 appIcons.length;
 
-
 const needsSoftwareCategory =
 software.length ||
 softwareImages.length;
 
-
-const category =
+const selector =
 document.getElementById(
 "contentCategory"
-).value;
+);
 
+const category =
+selector
+? selector.value
+: "";
+
+
+/*
+   Music.
+*/
 
 if(
-needsMusicCategory ||
-needsAppCategory ||
-needsSoftwareCategory
+needsMusicCategory
 ){
 
 if(
@@ -4037,16 +4122,12 @@ if(
 return {
 valid:false,
 message:
-"Please choose a category for your Music, Apps or Software upload before continuing."
+"Please choose a Music category before uploading Music files."
 };
 
 }
 
-}
-
-
 if(
-needsMusicCategory &&
 getCategoryType(category) !== "music"
 ){
 
@@ -4058,9 +4139,30 @@ message:
 
 }
 
+}
+
+
+/*
+   Apps.
+*/
 
 if(
-needsAppCategory &&
+needsAppCategory
+){
+
+if(
+!category
+){
+
+return {
+valid:false,
+message:
+"Please choose an Apps category before uploading APK/App files."
+};
+
+}
+
+if(
 getCategoryType(category) !== "apps"
 ){
 
@@ -4072,9 +4174,30 @@ message:
 
 }
 
+}
+
+
+/*
+   Software.
+*/
 
 if(
-needsSoftwareCategory &&
+needsSoftwareCategory
+){
+
+if(
+!category
+){
+
+return {
+valid:false,
+message:
+"Please choose a Software category before uploading Software files."
+};
+
+}
+
+if(
 getCategoryType(category) !== "software"
 ){
 
@@ -4083,6 +4206,138 @@ valid:false,
 message:
 "Software files require a Software category. Please choose a Software category."
 };
+
+}
+
+}
+
+
+return {
+valid:true
+};
+
+}
+
+
+/* =========================================================
+   VALIDATE DIRECT MODE
+   ========================================================= */
+
+function validateDirectMode(){
+
+const directType =
+getDirectUploadType();
+
+if(
+!directType
+){
+
+return {
+valid:true
+};
+
+}
+
+
+/*
+   Photos direct mode.
+*/
+
+if(
+directType === "photos"
+){
+
+const hasWrongType =
+getFiles("songFiles").length ||
+getFiles("songCovers").length ||
+getFiles("videoFiles").length ||
+getFiles("videoThumbnails").length ||
+getFiles("appFiles").length ||
+getFiles("appIcons").length ||
+getFiles("softwareFiles").length ||
+getFiles("softwareImages").length ||
+getFiles("mixFiles").length ||
+getFiles("mixCovers").length;
+
+if(
+hasWrongType
+){
+
+return {
+valid:false,
+message:
+"This page is in direct Photos upload mode. Please upload Photos only."
+};
+
+}
+
+}
+
+
+/*
+   Videos direct mode.
+*/
+
+if(
+directType === "videos"
+){
+
+const hasWrongType =
+getFiles("songFiles").length ||
+getFiles("songCovers").length ||
+getFiles("imageFiles").length ||
+getFiles("appFiles").length ||
+getFiles("appIcons").length ||
+getFiles("softwareFiles").length ||
+getFiles("softwareImages").length ||
+getFiles("mixFiles").length ||
+getFiles("mixCovers").length;
+
+if(
+hasWrongType
+){
+
+return {
+valid:false,
+message:
+"This page is in direct Videos upload mode. Please upload Videos only."
+};
+
+}
+
+}
+
+
+/*
+   DJ Mixes direct mode.
+*/
+
+if(
+directType === "dj-mixes"
+){
+
+const hasWrongType =
+getFiles("songFiles").length ||
+getFiles("songCovers").length ||
+getFiles("imageFiles").length ||
+getFiles("videoFiles").length ||
+getFiles("videoThumbnails").length ||
+getFiles("appFiles").length ||
+getFiles("appIcons").length ||
+getFiles("softwareFiles").length ||
+getFiles("softwareImages").length;
+
+if(
+hasWrongType
+){
+
+return {
+valid:false,
+message:
+"This page is in direct DJ Mix upload mode. Please upload DJ Mixes only."
+};
+
+}
 
 }
 
@@ -4176,7 +4431,6 @@ document.getElementById(
 "contentCategory"
 ).value.trim();
 
-
 const categoryObject =
 findCategory(
 category
@@ -4184,7 +4438,26 @@ category
 
 
 /* ---------------------------------------------------------
-   VALIDATE CATEGORY
+   DIRECT MODE VALIDATION
+   --------------------------------------------------------- */
+
+const directValidation =
+validateDirectMode();
+
+
+if(
+!directValidation.valid
+){
+
+throw new Error(
+directValidation.message
+);
+
+}
+
+
+/* ---------------------------------------------------------
+   CATEGORY VALIDATION
    --------------------------------------------------------- */
 
 const categoryValidation =
@@ -4279,12 +4552,6 @@ progress
    MUSIC
    ========================================================= */
 
-
-/* ---------------------------------------------------------
-   SONGS
-   songs/category/Artist/file
-   --------------------------------------------------------- */
-
 let songResults =
 [];
 
@@ -4324,7 +4591,6 @@ category
 
 /* ---------------------------------------------------------
    SONG COVERS
-   covers/category/Artist/file
    --------------------------------------------------------- */
 
 if(
@@ -4442,7 +4708,6 @@ songResults.length
 
 /* =========================================================
    PHOTOS
-   Direct:
    artist-uploads/photos/Artist/file
    ========================================================= */
 
@@ -4471,7 +4736,6 @@ artistName,
 
 /* =========================================================
    VIDEOS
-   Direct:
    artist-uploads/videos/Artist/file
    ========================================================= */
 
@@ -4500,7 +4764,6 @@ artistName,
 
 /* =========================================================
    VIDEO THUMBNAILS
-   Direct:
    artist-uploads/video-thumbnails/Artist/file
    ========================================================= */
 
@@ -4665,7 +4928,6 @@ category
 
 /* =========================================================
    DJ MIXES
-   DIRECT:
    artist-uploads/dj-mixes/Artist/file
    ========================================================= */
 
@@ -4694,7 +4956,6 @@ artistName,
 
 /* =========================================================
    DJ MIX COVERS
-   DIRECT:
    artist-uploads/dj-mix-covers/Artist/file
    ========================================================= */
 
