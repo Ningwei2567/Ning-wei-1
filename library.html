@@ -4,7 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>Ning Wei Media Library</title>
 
@@ -12,122 +16,777 @@
 
 <style>
 
+/* =========================================================
+   NING WEI MEDIA — MASTER LIBRARY
+   ========================================================= */
+
 *{
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
-font-family:Arial,sans-serif;
+font-family:Arial,Helvetica,sans-serif;
 background:#f5f5f7;
+color:#111;
+}
+
+a{
+-webkit-tap-highlight-color:transparent;
+}
+
+button,
+a{
+font-family:inherit;
 }
 
 .container{
+width:100%;
 max-width:600px;
-margin:auto;
+margin:0 auto;
+min-height:100vh;
 }
 
+/* =========================================================
+   MASTER HEADER
+   ========================================================= */
+
 .header{
-height:125px;
+height:125px !important;
+min-height:125px !important;
+max-height:125px !important;
+
 position:relative;
 overflow:hidden;
+
 display:flex;
 align-items:center;
 justify-content:center;
-color:white;
+
 text-align:center;
+color:#fff;
+
+background:#000;
 }
 
 .header img{
 position:absolute;
+
+left:0;
+top:0;
+
 width:100%;
 height:125px;
+
 object-fit:cover;
+object-position:50% 50%;
+
+filter:none !important;
+opacity:1 !important;
+
+z-index:0;
 }
 
-.header div{
+.header::before,
+.header::after{
+display:none !important;
+content:none !important;
+}
+
+.header-content{
 position:relative;
 z-index:2;
-text-shadow:0 2px 5px #000;
+
+padding:5px 10px;
+
+text-shadow:
+0 2px 5px rgba(0,0,0,.9),
+0 1px 2px rgba(0,0,0,.9);
 }
 
-.song-card{
-background:white;
-margin:15px;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 3px 10px #ddd;
+.header h1{
+margin:0;
+
+font-size:25px;
+line-height:1.05;
+
+font-weight:800;
 }
 
-.cover{
+.header p{
+margin:7px 0 0;
+
+font-size:13px;
+font-weight:600;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-box{
+padding:12px 15px 5px;
+}
+
+.search-box input{
 width:100%;
-height:260px;
-object-fit:cover;
+
+height:44px;
+
+border:1px solid #ddd;
+border-radius:12px;
+
+background:#fff;
+
+padding:0 15px;
+
+font-size:15px;
+
+outline:none;
+
+box-shadow:
+0 2px 8px rgba(0,0,0,.06);
 }
 
-.info{
-padding:15px;
+.search-box input:focus{
+border-color:#128c9e;
 }
 
-.artist{
-display:flex;
-align-items:center;
-gap:12px;
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.page-title{
+padding:10px 15px 3px;
 }
 
-.artist img{
-width:60px;
-height:60px;
-border-radius:50%;
-object-fit:cover;
+.page-title h2{
+margin:0;
+font-size:20px;
 }
 
-.title{
-margin:15px 0 8px;
-}
-
-.date{
+.page-title p{
+margin:5px 0 0;
 font-size:13px;
 color:#777;
-margin:0 0 15px;
 }
 
-.play{
-display:inline-block;
-background:#128c9e;
-color:white;
-padding:12px 18px;
-border-radius:10px;
+/* =========================================================
+   ADMIN UPLOAD
+   ========================================================= */
+
+.owner-upload{
+margin:10px 15px;
+
+background:#fff;
+
+border-radius:12px;
+
+padding:10px;
+
+box-shadow:
+0 2px 8px rgba(0,0,0,.08);
+}
+
+.owner-upload a{
+display:block;
+
+background:#111;
+color:#fff;
+
 text-decoration:none;
-font-weight:bold;
-margin-right:6px;
-}
-
-.download{
-display:inline-block;
-background:#000;
-color:white;
-padding:12px 18px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-}
-
-.empty{
-background:white;
-margin:15px;
-padding:25px;
-border-radius:15px;
 text-align:center;
+
+padding:11px 10px;
+
+border-radius:9px;
+
+font-size:14px;
+font-weight:700;
+}
+
+/* =========================================================
+   CATEGORY MENU
+   ========================================================= */
+
+.category-section{
+padding:7px 15px 3px;
+}
+
+.category-section h3{
+margin:5px 0 8px;
+font-size:17px;
+}
+
+.category-list{
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.category-row{
+display:flex;
+align-items:center;
+
+min-height:44px;
+
+padding:6px 10px;
+
+background:#fff;
+
+border-radius:10px;
+
+text-decoration:none;
+color:#111;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.06);
+}
+
+.number{
+width:28px;
+height:28px;
+
+min-width:28px;
+
+border-radius:50%;
+
+background:#000;
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:13px;
+font-weight:800;
+
+margin-right:10px;
+}
+
+.category-name{
+font-size:14px;
+font-weight:700;
+}
+
+/* =========================================================
+   OLD IS GOLD
+   ========================================================= */
+
+.old-gold{
+padding:10px 15px 3px;
+}
+
+.old-gold h3{
+margin:0 0 8px;
+font-size:17px;
+}
+
+/* =========================================================
+   LOADING / EMPTY / ERROR
+   ========================================================= */
+
+.status{
+margin:15px;
+
+padding:20px;
+
+background:#fff;
+
+border-radius:12px;
+
+text-align:center;
+
+font-size:14px;
+
 color:#777;
+
+box-shadow:
+0 2px 8px rgba(0,0,0,.06);
 }
 
 .error{
-background:#fff0f0;
-color:#b00000;
 margin:15px;
+
 padding:15px;
+
+background:#fff0f0;
+
 border-radius:12px;
+
+color:#a00000;
+
+font-size:14px;
+}
+
+/* =========================================================
+   FILE ROW
+   ========================================================= */
+
+.file-list{
+padding:8px 15px 15px;
+
+display:flex;
+flex-direction:column;
+
+gap:6px;
+}
+
+.file-row{
+display:flex;
+align-items:center;
+
+background:#fff;
+
+border-radius:10px;
+
+padding:7px 8px;
+
+min-height:46px;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.06);
+}
+
+.file-number{
+width:27px;
+height:27px;
+
+min-width:27px;
+
+border-radius:50%;
+
+background:#000;
+color:#fff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:12px;
+font-weight:800;
+
+margin-right:9px;
+}
+
+.file-main{
+min-width:0;
+flex:1;
+}
+
+.file-name{
+font-size:13px;
+font-weight:700;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.file-meta{
+font-size:11px;
+color:#777;
+
+margin-top:3px;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.file-actions{
+display:flex;
+gap:5px;
+
+margin-left:6px;
+}
+
+.file-button{
+display:flex;
+align-items:center;
+justify-content:center;
+
+min-width:38px;
+height:34px;
+
+padding:0 7px;
+
+border-radius:8px;
+
+text-decoration:none;
+
+font-size:12px;
+font-weight:700;
+
+background:#128c9e;
+color:#fff;
+}
+
+.file-download{
+background:#000;
+}
+
+/* =========================================================
+   PHOTO / VIDEO GRID
+   ========================================================= */
+
+.media-grid{
+padding:8px 10px 15px;
+
+display:grid;
+
+grid-template-columns:
+repeat(4,minmax(0,1fr));
+
+gap:7px;
+}
+
+.media-card{
+background:#fff;
+
+border-radius:9px;
+
+overflow:hidden;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.08);
+
+text-decoration:none;
+
+color:#111;
+
+display:block;
+}
+
+.media-preview{
+width:100%;
+
+aspect-ratio:1/1;
+
+display:block;
+
+background:#111;
+
+object-fit:cover;
+}
+
+.media-video{
+width:100%;
+
+aspect-ratio:1/1;
+
+display:block;
+
+background:#111;
+
+object-fit:cover;
+}
+
+.media-title{
+padding:6px 5px 2px;
+
+font-size:11px;
+font-weight:700;
+
+line-height:1.2;
+
+height:30px;
+
+overflow:hidden;
+
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+}
+
+.media-date{
+padding:0 5px 6px;
+
+font-size:9px;
+
+color:#777;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+/* =========================================================
+   ARTIST INFORMATION
+   ========================================================= */
+
+.artist-line{
+display:flex;
+align-items:center;
+
+gap:7px;
+
+padding:6px 5px 0;
+}
+
+.artist-photo{
+width:24px;
+height:24px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+background:#ddd;
+}
+
+.artist-name{
+font-size:10px;
+font-weight:700;
+
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+/* =========================================================
+   ARTIST SONG CARD
+   ========================================================= */
+
+.song-card{
+margin:10px 15px;
+
+background:#fff;
+
+border-radius:14px;
+
+overflow:hidden;
+
+box-shadow:
+0 3px 10px rgba(0,0,0,.09);
+}
+
+.song-cover{
+width:100%;
+height:220px;
+
+object-fit:cover;
+
+display:block;
+
+background:#111;
+}
+
+.song-info{
+padding:12px;
+}
+
+.song-title{
+margin:0 0 7px;
+
+font-size:18px;
+}
+
+.song-artist{
+display:flex;
+align-items:center;
+
+gap:8px;
+
+margin-bottom:7px;
+}
+
+.song-artist img{
+width:35px;
+height:35px;
+
+border-radius:50%;
+
+object-fit:cover;
+}
+
+.song-artist span{
+font-size:13px;
+font-weight:700;
+}
+
+.song-date{
+font-size:11px;
+color:#777;
+
+margin-bottom:10px;
+}
+
+.song-actions{
+display:flex;
+gap:7px;
+}
+
+.song-actions a{
+flex:1;
+
+text-align:center;
+
+padding:10px 5px;
+
+border-radius:9px;
+
+font-size:12px;
+
+font-weight:700;
+
+text-decoration:none;
+
+color:#fff;
+
+background:#128c9e;
+}
+
+.song-actions a.download{
+background:#000;
+}
+
+/* =========================================================
+   TRENDING APPS
+   ========================================================= */
+
+.trending{
+padding:10px 15px;
+}
+
+.trending h3{
+margin:0 0 9px;
+font-size:17px;
+}
+
+.apps{
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:8px;
+}
+
+.app{
+background:#fff;
+
+border-radius:11px;
+
+padding:9px 5px;
+
+text-align:center;
+
+text-decoration:none;
+
+color:#111;
+
+box-shadow:
+0 2px 7px rgba(0,0,0,.07);
+}
+
+.app-icon{
+width:40px;
+height:40px;
+
+margin:0 auto 5px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:19px;
+
+font-weight:800;
+
+color:#fff;
+}
+
+.app-name{
+font-size:10px;
+font-weight:700;
+}
+
+/* =========================================================
+   SOCIAL
+   ========================================================= */
+
+.social{
+padding:10px 15px 18px;
+}
+
+.social h3{
+margin:0 0 9px;
+font-size:17px;
+}
+
+.social-list{
+display:flex;
+justify-content:center;
+gap:12px;
+}
+
+.social a{
+width:40px;
+height:40px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+font-size:17px;
+font-weight:800;
+
+color:#fff;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+padding:15px;
+
+text-align:center;
+
+font-size:11px;
+
+color:#777;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:420px){
+
+.header h1{
+font-size:22px;
+}
+
+.header p{
+font-size:11px;
+}
+
+.media-grid{
+gap:5px;
+padding-left:7px;
+padding-right:7px;
+}
+
+.media-title{
+font-size:10px;
+}
+
+.media-date{
+font-size:8px;
+}
+
 }
 
 </style>
@@ -135,28 +794,442 @@ border-radius:12px;
 </head>
 
 
+
 <body>
+
 
 
 <div class="container">
 
 
+
+<!-- ======================================================
+     HEADER
+     ====================================================== -->
+
 <header class="header">
 
-<img src="ning-wei.png" alt="Ning Wei">
+<img
+src="ning-wei.png"
+alt="Ning Wei"
+>
 
-<div>
+<div class="header-content">
 
 <h1>Ning Wei Media</h1>
 
-<p>Music Library</p>
+<p>
+Music • Videos • Photos • Apps • Software
+</p>
 
 </div>
 
 </header>
 
 
-<div id="library"></div>
+
+<!-- ======================================================
+     SEARCH
+     ====================================================== -->
+
+<div class="search-box">
+
+<input
+id="searchInput"
+type="search"
+placeholder="Search songs, videos, photos, apps..."
+autocomplete="off"
+>
+
+</div>
+
+
+
+<!-- ======================================================
+     PAGE TITLE
+     ====================================================== -->
+
+<div class="page-title">
+
+<h2 id="pageTitle">
+Media Library
+</h2>
+
+<p id="pageDescription">
+Browse music, videos, photos, apps and software.
+</p>
+
+</div>
+
+
+
+<!-- ======================================================
+     ADMIN UPLOAD
+     ====================================================== -->
+
+<div class="owner-upload">
+
+<a
+id="ownerUpload"
+href="#"
+target="_blank"
+>
+
+📤 Upload Directly Here
+
+</a>
+
+</div>
+
+
+
+<!-- ======================================================
+     CATEGORY MENU
+     ====================================================== -->
+
+<section
+class="category-section"
+id="categoryMenu"
+>
+
+<h3>
+Categories
+</h3>
+
+<div class="category-list">
+
+<a
+class="category-row"
+href="library.html?category=songs"
+>
+
+<span class="number">1</span>
+
+<span class="category-name">
+Songs
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=videos"
+>
+
+<span class="number">2</span>
+
+<span class="category-name">
+Videos
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=photos"
+>
+
+<span class="number">3</span>
+
+<span class="category-name">
+Photos
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=apps"
+>
+
+<span class="number">4</span>
+
+<span class="category-name">
+Apps
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=software"
+>
+
+<span class="number">5</span>
+
+<span class="category-name">
+Software
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=dj-mixes"
+>
+
+<span class="number">6</span>
+
+<span class="category-name">
+DJ Mixes
+</span>
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- ======================================================
+     OLD IS GOLD
+     ====================================================== -->
+
+<section
+class="old-gold"
+id="oldGold"
+>
+
+<h3>
+Old Is Gold
+</h3>
+
+<div class="category-list">
+
+
+<a
+class="category-row"
+href="library.html?category=old-is-gold&folder=Ugandan"
+>
+
+<span class="number">1</span>
+
+<span class="category-name">
+Ugandan Music
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=old-is-gold&folder=Amapiano"
+>
+
+<span class="number">2</span>
+
+<span class="category-name">
+Amapiano
+</span>
+
+</a>
+
+
+<a
+class="category-row"
+href="library.html?category=old-is-gold&folder=South-African-Music"
+>
+
+<span class="number">3</span>
+
+<span class="category-name">
+South African Music
+</span>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ======================================================
+     MAIN LIBRARY
+     ====================================================== -->
+
+<div id="library">
+
+<div class="status">
+Loading media...
+</div>
+
+</div>
+
+
+
+<!-- ======================================================
+     TRENDING APPS
+     ====================================================== -->
+
+<section class="trending">
+
+<h3>
+Trending Apps
+</h3>
+
+<div class="apps">
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<div
+class="app-icon"
+style="background:#ff0000"
+>
+▶
+</div>
+
+<div class="app-name">
+YouTube
+</div>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<div
+class="app-icon"
+style="background:#25D366"
+>
+☎
+</div>
+
+<div class="app-name">
+WhatsApp
+</div>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<div
+class="app-icon"
+style="background:#1877F2"
+>
+f
+</div>
+
+<div class="app-name">
+Facebook
+</div>
+
+</a>
+
+
+<a
+class="app"
+href="library.html?category=apps"
+>
+
+<div
+class="app-icon"
+style="background:#E1306C"
+>
+◎
+</div>
+
+<div class="app-name">
+Instagram
+</div>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ======================================================
+     FOLLOW US
+     ====================================================== -->
+
+<section class="social">
+
+<h3>
+Follow Us
+</h3>
+
+<div class="social-list">
+
+
+<a
+href="#"
+style="background:#E1306C"
+aria-label="Instagram"
+>
+◎
+</a>
+
+
+<a
+href="#"
+style="background:#1877F2"
+aria-label="Facebook"
+>
+f
+</a>
+
+
+<a
+href="#"
+style="background:#25D366"
+aria-label="WhatsApp"
+>
+☎
+</a>
+
+
+<a
+href="#"
+style="background:#ff0000"
+aria-label="YouTube"
+>
+▶
+</a>
+
+
+<a
+href="#"
+style="background:#000"
+aria-label="TikTok"
+>
+♪ 
+</a>
+
+
+</div>
+
+</section>
+
+
+
+<footer class="footer">
+
+© Ning Wei Media
+
+</footer>
+
 
 
 </div>
@@ -165,14 +1238,24 @@ border-radius:12px;
 
 <script>
 
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
+const OWNER =
+"Ningwei2567";
+
+const REPO =
+"Ning-wei-1";
+
+const BRANCH =
+"main";
 
 const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
-
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYnRrc3l6aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
 supabase.createClient(
@@ -181,17 +1264,403 @@ SUPABASE_KEY
 );
 
 
+/* =========================================================
+   URL PARAMETERS
+   ========================================================= */
 
-function formatUploadDate(dateValue){
+const params =
+new URLSearchParams(
+window.location.search
+);
 
-if(!dateValue){
-return "Upload date unavailable";
+const categoryParam =
+(params.get("category") || "")
+.toLowerCase();
+
+const folderParam =
+params.get("folder") || "";
+
+
+/* =========================================================
+   CATEGORY PATHS
+   ========================================================= */
+
+const CATEGORY_PATHS = {
+
+songs:
+"media/songs",
+
+videos:
+"media/videos",
+
+photos:
+"media/photos",
+
+apps:
+"media/apps",
+
+software:
+"media/software",
+
+"dj-mixes":
+"media/songs/DJ-Mixes",
+
+"old-is-gold":
+"media/songs/Old-is-Gold"
+
+};
+
+
+/* =========================================================
+   CATEGORY NAMES
+   ========================================================= */
+
+const CATEGORY_NAMES = {
+
+songs:
+"Songs",
+
+videos:
+"Videos",
+
+photos:
+"Photos",
+
+apps:
+"Apps",
+
+software:
+"Software",
+
+"dj-mixes":
+"DJ Mixes",
+
+"old-is-gold":
+"Old Is Gold"
+
+};
+
+
+/* =========================================================
+   ESTABLISHED SONG SUBCATEGORIES
+   ========================================================= */
+
+const SONG_FOLDERS = [
+
+{
+name:"Ugandan Music",
+path:"media/songs/Ugandan"
+},
+
+{
+name:"African Music",
+path:"media/songs/African"
+},
+
+{
+name:"International Music",
+path:"media/songs/International"
 }
 
-const date = new Date(dateValue);
+];
 
-if(isNaN(date.getTime())){
-return "Upload date unavailable";
+
+/* =========================================================
+   DJ MIX SUBCATEGORIES
+   ========================================================= */
+
+const DJ_FOLDERS = [
+
+{
+name:"Mixtapes - Nonstop",
+path:"media/songs/DJ-Mixes/Mixtapes-Nonstop"
+},
+
+{
+name:"Mappings",
+path:"media/songs/DJ-Mixes/Mappings"
+},
+
+{
+name:"Sound Effects",
+path:"media/songs/DJ-Mixes/Sound-Effects"
+},
+
+{
+name:"Virtual DJ Skins",
+path:"media/songs/DJ-Mixes/Virtual-DJ-Skins"
+}
+
+];
+
+
+/* =========================================================
+   OLD IS GOLD SUBCATEGORIES
+   ========================================================= */
+
+const OLD_GOLD_FOLDERS = [
+
+{
+name:"Ugandan Music",
+path:"media/songs/Old-is-Gold/Ugandan"
+},
+
+{
+name:"Amapiano",
+path:"media/songs/Old-is-Gold/Amapiano"
+},
+
+{
+name:"South African Music",
+path:"media/songs/Old-is-Gold/South-African-Music"
+}
+
+];
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const library =
+document.getElementById("library");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const ownerUpload =
+document.getElementById("ownerUpload");
+
+const categoryMenu =
+document.getElementById("categoryMenu");
+
+const oldGold =
+document.getElementById("oldGold");
+
+const pageTitle =
+document.getElementById("pageTitle");
+
+const pageDescription =
+document.getElementById("pageDescription");
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function encodePath(path){
+
+return path
+.split("/")
+.map(encodeURIComponent)
+.join("/");
+
+}
+
+
+function githubRaw(path){
+
+return (
+"https://raw.githubusercontent.com/" +
+OWNER +
+"/" +
+REPO +
+"/" +
+BRANCH +
+"/" +
+encodePath(path)
+);
+
+}
+
+
+function githubUpload(path){
+
+return (
+"https://github.com/" +
+OWNER +
+"/" +
+REPO +
+"/upload/" +
+BRANCH +
+"/" +
+encodePath(path)
+);
+
+}
+
+
+function cleanName(name){
+
+let value =
+String(name || "")
+.trim();
+
+value =
+value.replace(/\.[^/.]+$/,"");
+
+value =
+value.replace(/[_-]+/g," ");
+
+value =
+value.replace(/\s+/g," ");
+
+return value.trim();
+
+}
+
+
+function shortTitle(name){
+
+const cleaned =
+cleanName(name);
+
+if(!cleaned){
+return "Media";
+}
+
+const words =
+cleaned.split(" ");
+
+return words
+.slice(0,3)
+.join(" ");
+
+}
+
+
+function extension(name){
+
+const match =
+String(name || "")
+.match(/\.([^.]+)$/);
+
+return match
+?
+match[1].toLowerCase()
+:
+"";
+
+}
+
+
+function detectType(name,mime){
+
+const ext =
+extension(name);
+
+const type =
+String(mime || "")
+.toLowerCase();
+
+
+if(
+type.startsWith("image/") ||
+[
+"jpg",
+"jpeg",
+"png",
+"gif",
+"webp",
+"bmp",
+"avif"
+].includes(ext)
+){
+
+return "photo";
+
+}
+
+
+if(
+type.startsWith("video/") ||
+[
+"mp4",
+"webm",
+"mov",
+"m4v",
+"3gp",
+"avi",
+"mkv"
+].includes(ext)
+){
+
+return "video";
+
+}
+
+
+if(
+type.startsWith("audio/") ||
+[
+"mp3",
+"wav",
+"m4a",
+"aac",
+"ogg",
+"flac",
+"opus"
+].includes(ext)
+){
+
+return "audio";
+
+}
+
+
+if(
+[
+"apk",
+"xapk",
+"zip",
+"rar",
+"7z",
+"exe",
+"msi",
+"dmg",
+"deb",
+"rpm"
+].includes(ext)
+){
+
+return "download";
+
+}
+
+
+return "file";
+
+}
+
+
+function formatDate(value){
+
+if(!value){
+return "";
+}
+
+const date =
+new Date(value);
+
+if(
+Number.isNaN(
+date.getTime()
+)
+){
+
+return "";
 }
 
 return date.toLocaleDateString(
@@ -206,162 +1675,1539 @@ year:"numeric"
 }
 
 
+/* =========================================================
+   MEDIA PLAYER URL
+   ========================================================= */
 
-async function loadLibrary(){
+function playerURL(item){
 
+const url =
+item.url || "";
 
-const library =
-document.getElementById("library");
+const name =
+item.name || "Media";
 
-
-library.innerHTML =
-'<div class="empty">Loading music...</div>';
-
-
-
-let {data,error}=await db
-
-.from("songs")
-
-.select(`
-
-id,
-title,
-song_url,
-cover_url,
-created_at,
-
-artists(
-name,
-photo
-
-)
-
-`)
-
-.order("created_at",{ascending:false});
-
-
-
-if(error){
-
-console.error(error);
-
-library.innerHTML = `
-
-<div class="error">
-
-Unable to load the music library.
-
-<br><br>
-
-${error.message}
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-
-if(!data || data.length === 0){
-
-library.innerHTML = `
-
-<div class="empty">
-
-No uploaded music found.
-
-</div>
-
-`;
-
-return;
-
-}
-
-
-
-let html="";
-
-
-
-data.forEach(song=>{
-
+const mime =
+item.mime || "";
 
 const artist =
-song.artists || {};
+item.artistName || "";
+
+const artistPhoto =
+item.artistPhoto || "";
+
+const cover =
+item.cover || "";
+
+let result =
+"media.html?url=" +
+encodeURIComponent(url) +
+"&name=" +
+encodeURIComponent(name) +
+"&mime=" +
+encodeURIComponent(mime);
+
+if(artist){
+
+result +=
+"&artist=" +
+encodeURIComponent(artist);
+
+}
+
+if(artistPhoto){
+
+result +=
+"&artistPhoto=" +
+encodeURIComponent(artistPhoto);
+
+}
+
+if(cover){
+
+result +=
+"&cover=" +
+encodeURIComponent(cover);
+
+}
+
+return result;
+
+}
+
+
+/* =========================================================
+   SUBMIT / SUPABASE FILE EXTRACTION
+   ========================================================= */
+
+function normalizeSupabaseFile(
+raw,
+submission
+){
+
+if(!raw){
+return null;
+}
+
+if(
+typeof raw === "string"
+){
+
+const name =
+raw.split("/").pop() ||
+"Media";
+
+return {
+
+name:name,
+
+url:raw,
+
+mime:"",
+
+artistName:
+submission.artist_name || "",
+
+artistPhoto:
+"",
+
+cover:"",
+
+date:
+submission.created_at || "",
+
+source:"supabase"
+
+};
+
+}
+
+
+if(typeof raw !== "object"){
+return null;
+}
+
+
+const name =
+raw.name ||
+raw.filename ||
+raw.file_name ||
+raw.title ||
+(
+raw.path
+?
+String(raw.path).split("/").pop()
+:
+"Media"
+);
+
+
+let url =
+raw.url ||
+raw.publicUrl ||
+raw.public_url ||
+raw.download_url ||
+raw.downloadUrl ||
+raw.src ||
+raw.file_url ||
+raw.song_url ||
+raw.video_url ||
+raw.photo_url ||
+raw.path ||
+"";
+
+
+const bucket =
+raw.bucket ||
+raw.bucket_name ||
+raw.storage_bucket ||
+"";
+
+
+const path =
+raw.path ||
+raw.storage_path ||
+raw.file_path ||
+"";
+
+
+if(
+url &&
+!/^https?:\/\//i.test(url)
+){
+
+if(
+bucket &&
+path
+){
+
+url =
+SUPABASE_URL +
+"/storage/v1/object/public/" +
+encodeURIComponent(bucket) +
+"/" +
+path
+.split("/")
+.map(encodeURIComponent)
+.join("/");
+
+}
+
+}
 
 
 const artistName =
-artist.name || "Unknown Artist";
+raw.artist_name ||
+raw.artistName ||
+raw.artist ||
+submission.artist_name ||
+"";
 
 
 const artistPhoto =
-artist.photo || "default-user.png";
+raw.artist_photo ||
+raw.artistPhoto ||
+raw.artist_photo_url ||
+"";
 
 
 const cover =
-song.cover_url || "default-cover.jpg";
+raw.cover_url ||
+raw.cover ||
+raw.coverUrl ||
+"";
 
+
+const mime =
+raw.mime ||
+raw.mime_type ||
+raw.type ||
+"";
+
+
+return {
+
+name:name,
+
+url:url,
+
+mime:mime,
+
+artistName:artistName,
+
+artistPhoto:artistPhoto,
+
+cover:cover,
+
+date:
+raw.created_at ||
+raw.uploaded_at ||
+raw.uploadDate ||
+submission.created_at ||
+"",
+
+source:"supabase"
+
+};
+
+}
+
+
+/* =========================================================
+   RECURSIVE SUPABASE FILE EXTRACTION
+   ========================================================= */
+
+function collectSubmissionFiles(
+value,
+submission,
+result=[]
+){
+
+if(!value){
+return result;
+}
+
+
+if(
+Array.isArray(value)
+){
+
+value.forEach(item=>{
+
+const normalized =
+normalizeSupabaseFile(
+item,
+submission
+);
+
+if(normalized){
+result.push(normalized);
+}
+else{
+collectSubmissionFiles(
+item,
+submission,
+result
+);
+}
+
+});
+
+return result;
+
+}
+
+
+if(
+typeof value === "object"
+){
+
+const possibleFile =
+normalizeSupabaseFile(
+value,
+submission
+);
+
+if(
+possibleFile &&
+possibleFile.url
+){
+
+result.push(
+possibleFile
+);
+
+return result;
+
+}
+
+
+Object.keys(value)
+.forEach(key=>{
+
+const child =
+value[key];
+
+if(
+child &&
+typeof child === "object"
+){
+
+collectSubmissionFiles(
+child,
+submission,
+result
+);
+
+}
+
+});
+
+}
+
+return result;
+
+}
+
+
+/* =========================================================
+   LOAD SUPABASE ARTIST SUBMISSIONS
+   ========================================================= */
+
+async function loadSupabaseMedia(){
+
+const response =
+await db
+.from("artist_submissions")
+.select(
+"id,artist_name,files,created_at,status"
+)
+.eq(
+"status",
+"approved"
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+if(response.error){
+
+console.error(
+"Supabase:",
+response.error
+);
+
+return [];
+
+}
+
+const rows =
+response.data || [];
+
+const result = [];
+
+
+rows.forEach(
+submission=>{
+
+const files =
+collectSubmissionFiles(
+submission.files,
+submission
+);
+
+files.forEach(
+file=>{
+
+result.push(file);
+
+});
+
+});
+
+
+return result;
+
+}
+
+
+/* =========================================================
+   LOAD GITHUB TREE
+   ========================================================= */
+
+async function loadGitHubTree(){
+
+const url =
+"https://api.github.com/repos/" +
+OWNER +
+"/" +
+REPO +
+"/git/trees/" +
+BRANCH +
+"?recursive=1";
+
+
+const response =
+await fetch(url);
+
+
+if(!response.ok){
+
+throw new Error(
+"GitHub tree request failed: " +
+response.status
+);
+
+}
+
+
+const json =
+await response.json();
+
+
+return json.tree || [];
+
+}
+
+
+/* =========================================================
+   DETERMINE CATEGORY
+   ========================================================= */
+
+function categoryFromPath(
+path
+){
+
+const lower =
+String(path)
+.toLowerCase();
+
+
+if(
+lower.includes("media/songs")
+){
+
+return "songs";
+
+}
+
+
+if(
+lower.includes("media/videos")
+){
+
+return "videos";
+
+}
+
+
+if(
+lower.includes("media/photos")
+){
+
+return "photos";
+
+}
+
+
+if(
+lower.includes("media/apps")
+){
+
+return "apps";
+
+}
+
+
+if(
+lower.includes("media/software")
+){
+
+return "software";
+
+}
+
+
+return "";
+
+}
+
+
+/* =========================================================
+   FILTER CATEGORY
+   ========================================================= */
+
+function matchesCategory(
+item,
+category
+){
+
+if(!category){
+return true;
+}
+
+return item.category === category;
+
+}
+
+
+/* =========================================================
+   CONVERT GITHUB TREE ITEM
+   ========================================================= */
+
+function githubItem(
+treeItem
+){
+
+const path =
+treeItem.path || "";
+
+if(
+!path ||
+treeItem.type !== "blob"
+){
+
+return null;
+
+}
+
+const category =
+categoryFromPath(path);
+
+if(!category){
+return null;
+}
+
+const name =
+path.split("/").pop();
+
+const ext =
+extension(name);
+
+let mime = "";
+
+if(
+category === "photos"
+){
+
+mime =
+"image/" +
+(
+ext === "jpg"
+?
+"jpeg"
+:
+ext
+);
+
+}
+
+if(
+category === "videos"
+){
+
+mime =
+"video/" +
+(
+ext === "3gp"
+?
+"3gpp"
+:
+ext
+);
+
+}
+
+if(
+category === "songs"
+){
+
+mime =
+"audio/" +
+(
+ext === "mp3"
+?
+"mpeg"
+:
+ext
+);
+
+}
+
+return {
+
+name:name,
+
+path:path,
+
+url:githubRaw(path),
+
+mime:mime,
+
+category:category,
+
+type:detectType(
+name,
+mime
+),
+
+artistName:"",
+
+artistPhoto:"",
+
+cover:"",
+
+date:"",
+
+source:"github",
+
+sha:treeItem.sha || ""
+
+};
+
+}
+
+
+/* =========================================================
+   LOAD ALL MEDIA
+   ========================================================= */
+
+async function loadAllMedia(){
+
+library.innerHTML =
+'<div class="status">Loading media library...</div>';
+
+
+let github = [];
+
+try{
+
+const tree =
+await loadGitHubTree();
+
+github =
+tree
+.map(githubItem)
+.filter(Boolean);
+
+}
+catch(error){
+
+console.error(
+"GitHub:",
+error
+);
+
+}
+
+
+let supabaseMedia = [];
+
+try{
+
+supabaseMedia =
+await loadSupabaseMedia();
+
+}
+catch(error){
+
+console.error(
+"Artist uploads:",
+error
+);
+
+}
+
+
+/* =========================================================
+   CONVERT SUPABASE ITEMS
+   ========================================================= */
+
+const normalizedSupabase =
+supabaseMedia
+.map(item=>{
+
+let category = "";
+
+
+const type =
+detectType(
+item.name,
+item.mime
+);
+
+
+if(type === "photo"){
+category = "photos";
+}
+
+else if(type === "video"){
+category = "videos";
+}
+
+else if(type === "audio"){
+category = "songs";
+}
+
+else if(
+[
+"apk"
+].includes(
+extension(item.name)
+)
+){
+
+category = "apps";
+
+}
+
+else{
+
+category = "software";
+
+}
+
+
+return {
+
+...item,
+
+category:category,
+
+type:type,
+
+path:"",
+
+sha:""
+
+};
+
+});
+
+
+return [
+...github,
+...normalizedSupabase
+];
+
+}
+
+
+/* =========================================================
+   FOLDER HELPERS
+   ========================================================= */
+
+function relativeFolder(
+path,
+base
+){
+
+if(
+!path.startsWith(base)
+){
+
+return "";
+
+}
+
+let value =
+path.slice(
+base.length
+);
+
+if(
+value.startsWith("/")
+){
+
+value =
+value.slice(1);
+
+}
+
+const parts =
+value.split("/");
+
+if(parts.length <= 1){
+return "";
+}
+
+parts.pop();
+
+return parts.join("/");
+
+}
+
+
+/* =========================================================
+   FIND DIRECT FOLDERS
+   ========================================================= */
+
+function getFolders(
+items,
+base
+){
+
+const folders =
+new Map();
+
+
+items.forEach(
+item=>{
+
+if(
+!item.path ||
+!item.path.startsWith(base + "/")
+){
+
+return;
+}
+
+const relative =
+item.path.slice(
+(base + "/").length
+);
+
+const first =
+relative.split("/")[0];
+
+if(
+first &&
+first !== item.name
+){
+
+folders.set(
+first,
+base + "/" + first
+);
+
+}
+
+});
+
+
+return Array.from(
+folders.entries()
+)
+.map(
+([name,path])=>({
+name,
+path
+})
+)
+.sort(
+(a,b)=>
+a.name.localeCompare(b.name)
+);
+
+}
+
+
+/* =========================================================
+   FOLDER PAGE
+   ========================================================= */
+
+function renderFolder(
+items,
+folderPath,
+title
+){
+
+const folderItems =
+items.filter(
+item=>{
+
+if(!item.path){
+return false;
+}
+
+return (
+item.path === folderPath + "/" +
+item.name
+);
+
+}
+);
+
+
+/* items directly in folder */
+
+const direct =
+items.filter(
+item=>{
+
+if(!item.path){
+return false;
+}
+
+const parent =
+item.path
+.split("/")
+.slice(0,-1)
+.join("/");
+
+return parent === folderPath;
+
+}
+);
+
+
+/* subfolders */
+
+const folders =
+getFolders(
+items,
+folderPath
+);
+
+
+let html = "";
+
+
+if(folders.length){
+
+html +=
+'<div class="file-list">';
+
+let n = 1;
+
+folders.forEach(
+folder=>{
+
+html += `
+
+<a
+class="category-row"
+href="library.html?category=${encodeURIComponent(categoryParam)}&folder=${encodeURIComponent(folder.path)}"
+>
+
+<span class="number">
+${n}
+</span>
+
+<span class="category-name">
+📁 ${escapeHTML(
+cleanName(folder.name)
+)}
+</span>
+
+</a>
+
+`;
+
+n++;
+
+});
+
+html +=
+"</div>";
+
+}
+
+
+if(
+direct.length
+){
+
+const mediaItems =
+direct.filter(
+item=>
+item.type === "photo" ||
+item.type === "video"
+);
+
+
+if(
+mediaItems.length &&
+(
+categoryParam === "photos" ||
+categoryParam === "videos"
+)
+){
+
+html +=
+renderMediaGrid(
+mediaItems
+);
+
+}
+else{
+
+html +=
+renderFileRows(
+direct
+);
+
+}
+
+}
+
+
+if(
+!folders.length &&
+!direct.length
+){
+
+html +=
+'<div class="status">This folder is empty.</div>';
+
+}
+
+
+library.innerHTML =
+html;
+
+}
+
+
+/* =========================================================
+   FILE ROWS
+   ========================================================= */
+
+function renderFileRows(
+items
+){
+
+let html =
+'<div class="file-list">';
+
+let number = 1;
+
+
+items.forEach(
+item=>{
+
+const date =
+formatDate(
+item.date
+);
 
 const title =
-song.title || "Untitled";
+cleanName(
+item.name
+);
+
+const type =
+item.type;
 
 
-const uploadDate =
-formatUploadDate(song.created_at);
+let openURL = "#";
 
+
+if(
+type === "photo" ||
+type === "video" ||
+type === "audio"
+){
+
+openURL =
+playerURL(item);
+
+}
+else if(
+item.url
+){
+
+openURL =
+item.url;
+
+}
+
+
+let downloadURL =
+item.url || openURL;
 
 
 html += `
 
-<div class="song-card">
-
-
-<img
-class="cover"
-src="${cover}"
-alt="${title}"
-onerror="this.src='default-cover.jpg'"
+<div
+class="file-row"
+data-search="${escapeHTML(
+(
+title + " " +
+item.artistName + " " +
+item.category
+).toLowerCase()
+)}"
 >
 
-
-<div class="info">
-
-
-<div class="artist">
+<span class="file-number">
+${number}
+</span>
 
 
-<img
-src="${artistPhoto}"
-alt="${artistName}"
-onerror="this.src='default-user.png'"
->
+<div class="file-main">
 
+<div class="file-name">
 
-<h3>${artistName}</h3>
-
+${escapeHTML(title)}
 
 </div>
 
 
-<h2 class="title">
-${title}
-</h2>
+<div class="file-meta">
+
+${item.artistName
+?
+escapeHTML(item.artistName) + " • "
+:
+""}
+
+${date
+?
+"📅 Uploaded: " +
+escapeHTML(date)
+:
+""
+}
+
+</div>
+
+</div>
 
 
-<p class="date">
-📅 Uploaded: ${uploadDate}
-</p>
+<div class="file-actions">
 
 
 <a
-class="play"
-href="media.html?id=${encodeURIComponent(song.id)}"
+class="file-button"
+href="${escapeHTML(openURL)}"
+>
+
+${
+type === "photo"
+?
+"View"
+:
+type === "video" ||
+type === "audio"
+?
+"Play"
+:
+"Open"
+}
+
+</a>
+
+
+${
+downloadURL
+?
+`
+
+<a
+class="file-button file-download"
+href="${escapeHTML(downloadURL)}"
+download
+>
+
+⬇
+
+</a>
+
+`
+:
+""
+}
+
+
+</div>
+
+</div>
+
+`;
+
+number++;
+
+});
+
+
+html +=
+"</div>";
+
+return html;
+
+}
+
+
+/* =========================================================
+   PHOTO / VIDEO GRID
+   ========================================================= */
+
+function renderMediaGrid(
+items
+){
+
+let html =
+'<div class="media-grid">';
+
+
+items.forEach(
+item=>{
+
+const url =
+item.url;
+
+const openURL =
+playerURL(item);
+
+const date =
+formatDate(
+item.date
+);
+
+const title =
+shortTitle(
+item.name
+);
+
+
+if(
+item.type === "photo"
+){
+
+html += `
+
+<a
+class="media-card"
+href="${escapeHTML(openURL)}"
+data-search="${escapeHTML(
+(
+item.name + " " +
+item.artistName
+).toLowerCase()
+)}"
+>
+
+<img
+class="media-preview"
+src="${escapeHTML(url)}"
+alt="${escapeHTML(title)}"
+loading="lazy"
+onerror="this.style.display='none'"
+>
+
+
+${
+item.artistName
+?
+`
+
+<div class="artist-line">
+
+${
+item.artistPhoto
+?
+`
+
+<img
+class="artist-photo"
+src="${escapeHTML(item.artistPhoto)}"
+alt=""
+onerror="this.style.display='none'"
+>
+
+`
+:
+""
+}
+
+<span class="artist-name">
+${escapeHTML(item.artistName)}
+</span>
+
+</div>
+
+`
+:
+""
+}
+
+
+<div class="media-title">
+${escapeHTML(title)}
+</div>
+
+
+${
+date
+?
+`
+
+<div class="media-date">
+📅 ${escapeHTML(date)}
+</div>
+
+`
+:
+""
+}
+
+
+</a>
+
+`;
+
+}
+
+
+else if(
+item.type === "video"
+){
+
+html += `
+
+<a
+class="media-card"
+href="${escapeHTML(openURL)}"
+data-search="${escapeHTML(
+(
+item.name + " " +
+item.artistName
+).toLowerCase()
+)}"
+>
+
+<video
+class="media-video"
+src="${escapeHTML(url)}"
+muted
+playsinline
+preload="metadata"
+></video>
+
+
+${
+item.artistName
+?
+`
+
+<div class="artist-line">
+
+${
+item.artistPhoto
+?
+`
+
+<img
+class="artist-photo"
+src="${escapeHTML(item.artistPhoto)}"
+alt=""
+onerror="this.style.display='none'"
+>
+
+`
+:
+""
+}
+
+<span class="artist-name">
+${escapeHTML(item.artistName)}
+</span>
+
+</div>
+
+`
+:
+""
+}
+
+
+<div class="media-title">
+${escapeHTML(title)}
+</div>
+
+
+${
+date
+?
+`
+
+<div class="media-date">
+📅 ${escapeHTML(date)}
+</div>
+
+`
+:
+""
+}
+
+
+</a>
+
+`;
+
+}
+
+});
+
+
+html +=
+"</div>";
+
+return html;
+
+}
+
+
+/* =========================================================
+   SONG GRID / CARDS
+   ========================================================= */
+
+function renderSongCards(
+items
+){
+
+let html = "";
+
+
+items.forEach(
+item=>{
+
+const date =
+formatDate(
+item.date
+);
+
+const title =
+item.name ||
+"Untitled";
+
+
+const cover =
+item.cover ||
+"ning-wei.png";
+
+
+const play =
+playerURL(item);
+
+
+html += `
+
+<div
+class="song-card"
+data-search="${escapeHTML(
+(
+title + " " +
+item.artistName
+).toLowerCase()
+)}"
+>
+
+<img
+class="song-cover"
+src="${escapeHTML(cover)}"
+alt="${escapeHTML(title)}"
+onerror="this.src='ning-wei.png'"
+>
+
+
+<div class="song-info">
+
+<h2 class="song-title">
+${escapeHTML(
+cleanName(title)
+)}
+</h2>
+
+
+${
+item.artistName
+?
+`
+
+<div class="song-artist">
+
+${
+item.artistPhoto
+?
+`
+
+<img
+src="${escapeHTML(item.artistPhoto)}"
+alt=""
+onerror="this.style.display='none'"
+>
+
+`
+:
+""
+}
+
+<span>
+${escapeHTML(item.artistName)}
+</span>
+
+</div>
+
+`
+:
+""
+}
+
+
+${
+date
+?
+`
+
+<div class="song-date">
+📅 Uploaded: ${escapeHTML(date)}
+</div>
+
+`
+:
+""
+}
+
+
+<div class="song-actions">
+
+<a
+href="${escapeHTML(play)}"
 >
 
 ▶ Play
@@ -369,41 +3215,898 @@ href="media.html?id=${encodeURIComponent(song.id)}"
 </a>
 
 
+${
+item.url
+?
+`
+
 <a
 class="download"
-href="${song.song_url || '#'}"
-${song.song_url ? 'download' : ''}
+href="${escapeHTML(item.url)}"
+download
 >
 
 ⬇ Download
 
 </a>
 
+`
+:
+""
+}
 
 </div>
 
+</div>
 
 </div>
 
 `;
 
-
-
 });
 
 
-
-library.innerHTML=html;
-
+return html;
 
 }
 
 
+/* =========================================================
+   CATEGORY DISPLAY
+   ========================================================= */
 
-loadLibrary();
+function renderCategory(
+items
+){
 
+categoryMenu.style.display =
+"none";
+
+oldGold.style.display =
+"none";
+
+
+const category =
+categoryParam;
+
+
+const categoryTitle =
+CATEGORY_NAMES[category] ||
+"Media Library";
+
+
+pageTitle.textContent =
+categoryTitle;
+
+
+pageDescription.textContent =
+"Browse uploaded media.";
+
+
+const base =
+CATEGORY_PATHS[category];
+
+
+if(
+category === "songs" &&
+!folderParam
+){
+
+let html =
+'<div class="file-list">';
+
+let n = 1;
+
+
+SONG_FOLDERS.forEach(
+folder=>{
+
+html += `
+
+<a
+class="category-row"
+href="library.html?category=songs&folder=${encodeURIComponent(folder.path)}"
+>
+
+<span class="number">
+${n}
+</span>
+
+<span class="category-name">
+${escapeHTML(folder.name)}
+</span>
+
+</a>
+
+`;
+
+n++;
+
+});
+
+
+html += `
+
+<a
+class="category-row"
+href="library.html?category=dj-mixes"
+>
+
+<span class="number">
+${n}
+</span>
+
+<span class="category-name">
+DJ Mixes
+</span>
+
+</a>
+
+`;
+
+
+html +=
+"</div>";
+
+library.innerHTML =
+html;
+
+return;
+
+}
+
+
+if(
+category === "dj-mixes" &&
+!folderParam
+){
+
+let html =
+'<div class="file-list">';
+
+let n = 1;
+
+
+DJ_FOLDERS.forEach(
+folder=>{
+
+html += `
+
+<a
+class="category-row"
+href="library.html?category=dj-mixes&folder=${encodeURIComponent(folder.path)}"
+>
+
+<span class="number">
+${n}
+</span>
+
+<span class="category-name">
+${escapeHTML(folder.name)}
+</span>
+
+</a>
+
+`;
+
+n++;
+
+});
+
+
+html +=
+"</div>";
+
+library.innerHTML =
+html;
+
+return;
+
+}
+
+
+if(
+category === "old-is-gold" &&
+!folderParam
+){
+
+let html =
+'<div class="file-list">';
+
+let n = 1;
+
+
+OLD_GOLD_FOLDERS.forEach(
+folder=>{
+
+html += `
+
+<a
+class="category-row"
+href="library.html?category=old-is-gold&folder=${encodeURIComponent(folder.path)}"
+>
+
+<span class="number">
+${n}
+</span>
+
+<span class="category-name">
+${escapeHTML(folder.name)}
+</span>
+
+</a>
+
+`;
+
+n++;
+
+});
+
+
+html +=
+"</div>";
+
+library.innerHTML =
+html;
+
+return;
+
+}
+
+
+/* =========================================================
+   DIRECT CATEGORY MEDIA
+   ========================================================= */
+
+if(
+category === "photos" ||
+category === "videos"
+){
+
+const filtered =
+items.filter(
+item=>
+item.category === category
+);
+
+
+const search =
+searchInput.value
+.trim()
+.toLowerCase();
+
+
+const searched =
+search
+?
+filtered.filter(
+item=>
+(
+item.name + " " +
+item.artistName
+)
+.toLowerCase()
+.includes(search)
+)
+:
+filtered;
+
+
+if(
+searched.length
+){
+
+library.innerHTML =
+renderMediaGrid(
+searched
+);
+
+}
+else{
+
+library.innerHTML =
+'<div class="status">No media found.</div>';
+
+}
+
+return;
+
+}
+
+
+/* =========================================================
+   SONGS — DISPLAY FILES
+   ========================================================= */
+
+if(
+category === "songs" ||
+category === "dj-mixes"
+){
+
+let filtered =
+items.filter(
+item=>
+item.category === "songs"
+);
+
+
+if(folderParam){
+
+filtered =
+filtered.filter(
+item=>{
+
+if(
+!item.path
+){
+
+return false;
+
+}
+
+return (
+item.path.startsWith(
+folderParam + "/"
+)
+);
+
+}
+);
+
+}
+
+
+const search =
+searchInput.value
+.trim()
+.toLowerCase();
+
+
+if(search){
+
+filtered =
+filtered.filter(
+item=>
+(
+item.name + " " +
+item.artistName
+)
+.toLowerCase()
+.includes(search)
+);
+
+}
+
+
+if(
+filtered.length
+){
+
+library.innerHTML =
+renderFileRows(
+filtered
+);
+
+}
+else{
+
+library.innerHTML =
+'<div class="status">No songs found.</div>';
+
+}
+
+return;
+
+}
+
+
+/* =========================================================
+   APPS / SOFTWARE / GENERAL
+   ========================================================= */
+
+let filtered =
+items.filter(
+item=>
+item.category === category
+);
+
+
+if(folderParam){
+
+filtered =
+filtered.filter(
+item=>{
+
+if(!item.path){
+return false;
+}
+
+return (
+item.path.startsWith(
+folderParam + "/"
+)
+);
+
+}
+);
+
+}
+
+
+const search =
+searchInput.value
+.trim()
+.toLowerCase();
+
+
+if(search){
+
+filtered =
+filtered.filter(
+item=>
+(
+item.name + " " +
+item.artistName
+)
+.toLowerCase()
+.includes(search)
+);
+
+}
+
+
+if(
+filtered.length
+){
+
+library.innerHTML =
+renderFileRows(
+filtered
+);
+
+}
+else{
+
+library.innerHTML =
+'<div class="status">No files found.</div>';
+
+}
+
+}
+
+
+/* =========================================================
+   ROOT LIBRARY
+   ========================================================= */
+
+function renderRoot(
+items
+){
+
+categoryMenu.style.display =
+"block";
+
+oldGold.style.display =
+"block";
+
+pageTitle.textContent =
+"Media Library";
+
+pageDescription.textContent =
+"Music • Videos • Photos • Apps • Software";
+
+
+/* newest uploads preview */
+
+const recent =
+items
+.filter(
+item=>item.date
+)
+.sort(
+(a,b)=>
+new Date(b.date) -
+new Date(a.date)
+)
+.slice(0,8);
+
+
+if(!recent.length){
+
+library.innerHTML =
+'<div class="status">Choose a category above.</div>';
+
+return;
+
+}
+
+
+let html =
+'<div class="page-title"><h2>Recently Uploaded</h2></div>';
+
+
+const photos =
+recent.filter(
+item=>item.type === "photo"
+);
+
+const videos =
+recent.filter(
+item=>item.type === "video"
+);
+
+
+if(
+photos.length
+){
+
+html +=
+renderMediaGrid(
+photos
+);
+
+}
+
+
+if(
+videos.length
+){
+
+html +=
+renderMediaGrid(
+videos
+);
+
+}
+
+
+const other =
+recent.filter(
+item=>
+item.type !== "photo" &&
+item.type !== "video"
+);
+
+
+if(
+other.length
+){
+
+html +=
+renderFileRows(
+other
+);
+
+}
+
+
+library.innerHTML =
+html;
+
+}
+
+
+/* =========================================================
+   DIRECT FOLDER HANDLING
+   ========================================================= */
+
+function renderDirectFolder(
+items
+){
+
+categoryMenu.style.display =
+"none";
+
+oldGold.style.display =
+"none";
+
+
+pageTitle.textContent =
+cleanName(
+folderParam.split("/").pop()
+) || "Folder";
+
+
+pageDescription.textContent =
+"Files in this folder.";
+
+
+const direct =
+items.filter(
+item=>{
+
+if(!item.path){
+return false;
+}
+
+const parent =
+item.path
+.split("/")
+.slice(0,-1)
+.join("/");
+
+return parent === folderParam;
+
+}
+);
+
+
+const folders =
+getFolders(
+items,
+folderParam
+);
+
+
+let html = "";
+
+
+if(folders.length){
+
+html +=
+'<div class="file-list">';
+
+let n = 1;
+
+
+folders.forEach(
+folder=>{
+
+html += `
+
+<a
+class="category-row"
+href="library.html?category=${encodeURIComponent(categoryParam)}&folder=${encodeURIComponent(folder.path)}"
+>
+
+<span class="number">
+${n}
+</span>
+
+<span class="category-name">
+📁 ${escapeHTML(cleanName(folder.name))}
+</span>
+
+</a>
+
+`;
+
+n++;
+
+});
+
+
+html +=
+"</div>";
+
+}
+
+
+if(
+direct.length
+){
+
+const photos =
+direct.filter(
+item=>item.type === "photo"
+);
+
+const videos =
+direct.filter(
+item=>item.type === "video"
+);
+
+
+if(
+photos.length &&
+categoryParam === "photos"
+){
+
+html +=
+renderMediaGrid(
+photos
+);
+
+}
+
+
+else if(
+videos.length &&
+categoryParam === "videos"
+){
+
+html +=
+renderMediaGrid(
+videos
+);
+
+}
+
+
+else{
+
+html +=
+renderFileRows(
+direct
+);
+
+}
+
+}
+
+
+if(
+!folders.length &&
+!direct.length
+){
+
+html +=
+'<div class="status">This folder is empty.</div>';
+
+}
+
+
+library.innerHTML =
+html;
+
+}
+
+
+/* =========================================================
+   MAIN RENDER
+   ========================================================= */
+
+let allMedia = [];
+
+
+async function start(){
+
+try{
+
+allMedia =
+await loadAllMedia();
+
+
+/* =======================================================
+   ADMIN UPLOAD TARGET
+   ======================================================= */
+
+let uploadFolder = "";
+
+
+if(folderParam){
+
+uploadFolder =
+folderParam;
+
+}
+
+else if(
+categoryParam &&
+CATEGORY_PATHS[categoryParam]
+){
+
+uploadFolder =
+CATEGORY_PATHS[categoryParam];
+
+}
+
+
+if(uploadFolder){
+
+ownerUpload.href =
+githubUpload(uploadFolder);
+
+}
+else{
+
+ownerUpload.href =
+githubUpload("");
+
+}
+
+
+/* =======================================================
+   DISPLAY
+   ======================================================= */
+
+if(folderParam){
+
+renderDirectFolder(
+allMedia
+);
+
+}
+
+else if(categoryParam){
+
+renderCategory(
+allMedia
+);
+
+}
+
+else{
+
+renderRoot(
+allMedia
+);
+
+}
+
+
+}
+catch(error){
+
+console.error(error);
+
+library.innerHTML = `
+
+<div class="error">
+
+Unable to load the media library.
+
+<br><br>
+
+${escapeHTML(
+error.message
+)}
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+searchInput.addEventListener(
+"input",
+()=>{
+
+if(
+folderParam
+){
+
+renderDirectFolder(
+allMedia
+);
+
+}
+else if(
+categoryParam
+){
+
+renderCategory(
+allMedia
+);
+
+}
+else{
+
+renderRoot(
+allMedia
+);
+
+}
+
+}
+);
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+start();
 
 </script>
+
 
 
 </body>
