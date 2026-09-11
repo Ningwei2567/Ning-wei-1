@@ -361,6 +361,55 @@ color:#555;
 }
 
 /* =========================================================
+   FAILURE DETAILS
+   ========================================================= */
+
+.failure-details{
+display:none;
+margin-top:12px;
+padding:12px;
+border-radius:10px;
+background:#fff5f5;
+border:1px solid #f0b7b7;
+font-size:12px;
+line-height:1.5;
+color:#721c24;
+}
+
+.failure-details h4{
+margin:0 0 10px;
+font-size:14px;
+color:#9b2029;
+}
+
+.failure-item{
+padding:9px 0;
+border-top:1px solid #efcccc;
+word-break:break-word;
+}
+
+.failure-item:first-child{
+border-top:0;
+padding-top:0;
+}
+
+.failure-file{
+font-weight:800;
+color:#721c24;
+}
+
+.failure-error{
+margin-top:3px;
+color:#8a4045;
+}
+
+.failure-bucket{
+margin-top:3px;
+font-size:11px;
+color:#666;
+}
+
+/* =========================================================
    STATUS
    ========================================================= */
 
@@ -985,6 +1034,12 @@ style="display:none;"
 ></div>
 
 
+<div
+id="failureDetails"
+class="failure-details"
+></div>
+
+
 <a
 class="back-button"
 href="index.html"
@@ -1008,14 +1063,8 @@ href="index.html"
 const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
-/*
-   IMPORTANT:
-   This is the corrected public ANON key supplied for
-   project btksyizkcpzubtextuce.
-*/
-
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtzc3lpemtjcHp1YnRleHR1Y2UiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4ODkzMTYyNiwiZXhwIjoyMTA0NTA3NjIyfQ.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
 supabase.createClient(
@@ -1025,7 +1074,7 @@ SUPABASE_KEY
 
 
 /* =========================================================
-   LARGE BATCH SETTINGS
+   UPLOAD SETTINGS
    ========================================================= */
 
 const UPLOAD_CONCURRENCY = 5;
@@ -1268,7 +1317,7 @@ return file.name
 
 
 /* =========================================================
-   SAFE UNIQUE STORAGE NAME
+   STORAGE FILE NAME
    ========================================================= */
 
 function createStorageFileName(file){
@@ -1373,7 +1422,7 @@ return [
 
 
 /* =========================================================
-   UPDATE LARGE BATCH INFORMATION
+   UPDATE BATCH INFORMATION
    ========================================================= */
 
 function updateBatchInformation(){
@@ -1527,7 +1576,92 @@ setTimeout(resolve,ms)
 
 
 /* =========================================================
-   UPLOAD ONE FILE WITH RETRIES
+   EXPLAIN SUPABASE ERRORS
+   ========================================================= */
+
+function explainUploadError(error){
+
+const message =
+error &&
+error.message
+? String(error.message)
+: String(error || "Unknown error");
+
+const lower =
+message.toLowerCase();
+
+if(
+lower.includes("bucket not found") ||
+lower.includes("not found")
+){
+
+return (
+"Bucket does not exist or cannot be found. " +
+"Check that the Supabase Storage bucket exists."
+);
+
+}
+
+if(
+lower.includes("row-level security") ||
+lower.includes("rls") ||
+lower.includes("policy") ||
+lower.includes("permission denied") ||
+lower.includes("not allowed")
+){
+
+return (
+"Supabase Storage permission/RLS policy rejected this upload. " +
+"Check the Storage policies for the bucket."
+);
+
+}
+
+if(
+lower.includes("payload too large") ||
+lower.includes("file too large") ||
+lower.includes("maximum") ||
+lower.includes("size")
+){
+
+return (
+"File may be larger than the allowed Storage/file-size limit."
+);
+
+}
+
+if(
+lower.includes("invalid mime") ||
+lower.includes("mime") ||
+lower.includes("content type")
+){
+
+return (
+"Supabase rejected the file content type/MIME type."
+);
+
+}
+
+if(
+lower.includes("network") ||
+lower.includes("fetch") ||
+lower.includes("failed to fetch") ||
+lower.includes("timeout")
+){
+
+return (
+"Network connection problem while uploading this file."
+);
+
+}
+
+return message;
+
+}
+
+
+/* =========================================================
+   UPLOAD ONE FILE WITH DETAILED ERRORS
    ========================================================= */
 
 async function uploadFile(
@@ -1569,9 +1703,22 @@ file.type ||
 
 if(result.error){
 
-throw new Error(
-result.error.message
+const detailedError =
+new Error(
+result.error.message ||
+"Supabase Storage upload failed."
 );
+
+detailedError.status =
+result.error.status ||
+result.error.statusCode ||
+"";
+
+detailedError.name =
+result.error.name ||
+"SupabaseStorageError";
+
+throw detailedError;
 
 }
 
@@ -1599,6 +1746,21 @@ bucket:bucket
 lastError =
 error;
 
+console.error(
+"Upload attempt failed:",
+{
+file:file.name,
+bucket:bucket,
+attempt:attempt,
+error:error,
+message:error && error.message,
+status:error && (
+error.status ||
+error.statusCode
+)
+}
+);
+
 if(
 attempt <
 UPLOAD_RETRIES
@@ -1614,22 +1776,39 @@ RETRY_DELAY * attempt
 
 }
 
-throw new Error(
-"Could not upload " +
-file.name +
-": " +
-(
-lastError
-? lastError.message
-: "Unknown upload error"
-)
+const finalMessage =
+explainUploadError(lastError);
+
+const finalError =
+new Error(
+finalMessage
 );
+
+finalError.originalMessage =
+lastError &&
+lastError.message
+? lastError.message
+: String(lastError);
+
+finalError.status =
+lastError &&
+(
+lastError.status ||
+lastError.statusCode
+)
+? (
+lastError.status ||
+lastError.statusCode
+)
+: "";
+
+throw finalError;
 
 }
 
 
 /* =========================================================
-   LARGE BATCH CONCURRENT UPLOAD ENGINE
+   LARGE BATCH UPLOAD ENGINE
    ========================================================= */
 
 async function uploadFiles(
@@ -1670,7 +1849,7 @@ setProgress(
 progress.current,
 progress.total,
 label +
-": preparing " +
+": uploading " +
 (
 index + 1
 ) +
@@ -1691,18 +1870,51 @@ result;
 
 }catch(error){
 
+const detailedError =
+error &&
+error.message
+? error.message
+: String(error);
+
 progress.failed.push({
 
 file:file.name,
 
-error:error.message,
+error:detailedError,
 
-bucket:bucket
+bucket:bucket,
+
+status:
+error &&
+(
+error.status ||
+error.statusCode
+)
+? (
+error.status ||
+error.statusCode
+)
+: "",
+
+originalError:
+error &&
+error.originalMessage
+? error.originalMessage
+: detailedError
 
 });
 
 results[index] =
 null;
+
+console.error(
+"FAILED FILE",
+{
+file:file.name,
+bucket:bucket,
+error:detailedError
+}
+);
 
 }finally{
 
@@ -1716,8 +1928,7 @@ label +
 progress.current +
 " of " +
 progress.total +
-" — " +
-file.name
+" completed"
 );
 
 }
@@ -1815,9 +2026,24 @@ progress.failed.push({
 
 file:photo.name,
 
-error:error.message,
+error:
+error && error.message
+? error.message
+: String(error),
 
-bucket:"artist-photos"
+bucket:"artist-photos",
+
+status:
+error &&
+(
+error.status ||
+error.statusCode
+)
+? (
+error.status ||
+error.statusCode
+)
+: ""
 
 });
 
@@ -1908,7 +2134,7 @@ result.error.message
 
 
 /* =========================================================
-   SAVE DESCRIPTION
+   DESCRIPTION
    ========================================================= */
 
 function getDescription(){
@@ -1926,7 +2152,7 @@ return element
 
 
 /* =========================================================
-   UPDATE STATUS
+   STATUS
    ========================================================= */
 
 function setStatus(
@@ -1956,6 +2182,108 @@ message;
 
 
 /* =========================================================
+   SHOW DETAILED FAILURES
+   ========================================================= */
+
+function showFailureDetails(
+failed
+){
+
+const box =
+document.getElementById(
+"failureDetails"
+);
+
+if(!box){
+return;
+}
+
+if(!failed.length){
+
+box.style.display =
+"none";
+
+box.innerHTML =
+"";
+
+return;
+
+}
+
+let html =
+"<h4>Detailed upload problems</h4>";
+
+failed.forEach(
+(item,index) => {
+
+html +=
+'<div class="failure-item">';
+
+html +=
+'<div class="failure-file">' +
+(index + 1) +
+". " +
+escapeHtml(item.file) +
+"</div>";
+
+html +=
+'<div class="failure-error">' +
+escapeHtml(
+item.error ||
+"Unknown error"
+) +
+"</div>";
+
+if(item.bucket){
+
+html +=
+'<div class="failure-bucket">' +
+"Bucket: " +
+escapeHtml(item.bucket) +
+(
+item.status
+? " • Status: " +
+escapeHtml(
+String(item.status)
+)
+: ""
+) +
+"</div>";
+
+}
+
+html +=
+"</div>";
+
+}
+);
+
+box.innerHTML =
+html;
+
+box.style.display =
+"block";
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value){
+
+return String(value || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
    MAIN UPLOAD
    ========================================================= */
 
@@ -1969,6 +2297,8 @@ document.getElementById(
 try{
 
 button.disabled = true;
+
+showFailureDetails([]);
 
 setStatus(
 "Preparing everything...",
@@ -2018,7 +2348,7 @@ getFiles("artistPhoto")[0];
 
 
 /* ---------------------------------------------------------
-   MAIN FILE COUNT
+   ALL FILES
    --------------------------------------------------------- */
 
 const allFiles =
@@ -2034,7 +2364,7 @@ throw new Error(
 
 
 /* ---------------------------------------------------------
-   PROGRESS OBJECT
+   PROGRESS
    --------------------------------------------------------- */
 
 const progress = {
@@ -2049,7 +2379,7 @@ failed:[]
 
 
 /* ---------------------------------------------------------
-   LARGE BATCH NOTICE
+   LARGE BATCH
    --------------------------------------------------------- */
 
 if(allFiles.length >= 100){
@@ -2175,7 +2505,9 @@ file:songs[i].name,
 
 error:error.message,
 
-type:"database"
+bucket:"songs database",
+
+status:"database"
 
 });
 
@@ -2396,7 +2728,7 @@ description
 
 
 /* ---------------------------------------------------------
-   FINISHED
+   COMPLETE
    --------------------------------------------------------- */
 
 setProgress(
@@ -2409,37 +2741,30 @@ button.disabled = false;
 
 
 /* ---------------------------------------------------------
-   FAILED FILES
+   SHOW RESULT
    --------------------------------------------------------- */
 
 if(progress.failed.length){
+
+const successCount =
+progress.total -
+progress.failed.length;
 
 setStatus(
 "⚠️ Upload finished with " +
 progress.failed.length.toLocaleString() +
 " problem(s). " +
 "Successfully processed " +
-(
-progress.total -
-progress.failed.length
-).toLocaleString() +
+successCount.toLocaleString() +
 " of " +
 progress.total.toLocaleString() +
-" selected file(s)." +
-"<br><br>" +
-"Problem files: " +
-progress.failed
-.slice(0,10)
-.map(item =>
-item.file
-)
-.join(", ") +
-(
-progress.failed.length > 10
-? " and more..."
-: ""
-),
+" selected file(s). " +
+"See the detailed error list below.",
 "status-error"
+);
+
+showFailureDetails(
+progress.failed
 );
 
 }else{
@@ -2457,11 +2782,13 @@ progress.total === 1
 "status-success"
 );
 
+showFailureDetails([]);
+
 }
 
 
 /* ---------------------------------------------------------
-   CONSOLE SUMMARY
+   CONSOLE
    --------------------------------------------------------- */
 
 console.log(
@@ -2519,7 +2846,7 @@ updateBatchInformation();
 
 
 /* =========================================================
-   PREVENT ACCIDENTAL DOUBLE SUBMISSION
+   PREVENT ACCIDENTAL EXIT
    ========================================================= */
 
 window.addEventListener(
