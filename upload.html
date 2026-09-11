@@ -155,6 +155,14 @@ select:focus{
   border-color:#1688c5;
 }
 
+/* REQUIRED CATEGORY HIGHLIGHT */
+
+.category-required{
+  border:2px solid #e5a400 !important;
+  background:#fffaf0 !important;
+  box-shadow:0 0 0 3px rgba(229,164,0,.12);
+}
+
 /* TYPE BUTTONS */
 
 .type-grid{
@@ -443,7 +451,7 @@ footer{
       </button>
 
       <button type="button" class="type-button" data-type="videos">
-        🎬 Your Videos 
+        🎬 Your Videos
       </button>
 
       <button type="button" class="type-button" data-type="apps">
@@ -518,7 +526,7 @@ footer{
     </select>
 
     <div id="musicWarning" class="validation-warning">
-      ⚠️ Please choose a Music Your Category first.
+      ⚠️ Please choose a Music Category first.
     </div>
 
     <label for="songFiles">
@@ -992,6 +1000,9 @@ const BUCKET = "artist-uploads";
 const creatorName =
 document.getElementById("creatorName");
 
+const creatorEmail =
+document.getElementById("creatorEmail");
+
 const creatorPreviewName =
 document.getElementById("creatorPreviewName");
 
@@ -1000,6 +1011,7 @@ document.getElementById("creatorPhoto");
 
 const creatorPreview =
 document.getElementById("creatorPreview");
+
 
 creatorName.addEventListener("input",function(){
 
@@ -1035,13 +1047,27 @@ const typeButtons =
 document.querySelectorAll(".type-button");
 
 const sections = {
-  music:document.getElementById("musicSection"),
-  photos:document.getElementById("photosSection"),
-  videos:document.getElementById("videosSection"),
-  apps:document.getElementById("appsSection"),
-  software:document.getElementById("softwareSection"),
-  mixes:document.getElementById("mixesSection")
+
+  music:
+    document.getElementById("musicSection"),
+
+  photos:
+    document.getElementById("photosSection"),
+
+  videos:
+    document.getElementById("videosSection"),
+
+  apps:
+    document.getElementById("appsSection"),
+
+  software:
+    document.getElementById("softwareSection"),
+
+  mixes:
+    document.getElementById("mixesSection")
+
 };
+
 
 typeButtons.forEach(button=>{
 
@@ -1057,13 +1083,13 @@ typeButtons.forEach(button=>{
       section.classList.remove("active");
     });
 
-    sections[this.dataset.type]
-      .classList.add("active");
+    const section =
+      sections[this.dataset.type];
+
+    section.classList.add("active");
 
     window.scrollTo({
-      top:
-        sections[this.dataset.type]
-          .offsetTop-20,
+      top:section.offsetTop-20,
       behavior:"smooth"
     });
 
@@ -1097,6 +1123,7 @@ function watchFileInput(
         "No file selected";
 
       return;
+
     }
 
     if(this.files.length===1){
@@ -1117,12 +1144,35 @@ function watchFileInput(
 }
 
 
-watchFileInput("songFiles","songFilesName");
-watchFileInput("photoFiles","photoFilesName");
-watchFileInput("videoFiles","videoFilesName");
-watchFileInput("appFiles","appFilesName");
-watchFileInput("softwareFiles","softwareFilesName");
-watchFileInput("mixFiles","mixFilesName");
+watchFileInput(
+  "songFiles",
+  "songFilesName"
+);
+
+watchFileInput(
+  "photoFiles",
+  "photoFilesName"
+);
+
+watchFileInput(
+  "videoFiles",
+  "videoFilesName"
+);
+
+watchFileInput(
+  "appFiles",
+  "appFilesName"
+);
+
+watchFileInput(
+  "softwareFiles",
+  "softwareFilesName"
+);
+
+watchFileInput(
+  "mixFiles",
+  "mixFilesName"
+);
 
 
 /* =====================================================
@@ -1156,6 +1206,15 @@ function fileSafeName(name){
 }
 
 
+function normalizeEmail(email){
+
+  return String(email || "")
+    .trim()
+    .toLowerCase();
+
+}
+
+
 function getCreator(){
 
   const name =
@@ -1165,10 +1224,11 @@ function getCreator(){
       .trim();
 
   const email =
-    document
-      .getElementById("creatorEmail")
-      .value
-      .trim();
+    normalizeEmail(
+      document
+        .getElementById("creatorEmail")
+        .value
+    );
 
   if(!name){
 
@@ -1211,6 +1271,14 @@ function showWarning(
   const select =
     document.getElementById(selectId);
 
+  if(select){
+
+    select.classList.add(
+      "category-required"
+    );
+
+  }
+
   if(warning){
 
     warning.textContent =
@@ -1230,15 +1298,6 @@ function showWarning(
     false
   );
 
-  /*
-     The browser alert makes the warning impossible
-     to miss. The category selector is then focused.
-  */
-
-  alert(
-    "⚠️ " + message
-  );
-
   if(select){
 
     setTimeout(function(){
@@ -1252,14 +1311,28 @@ function showWarning(
 }
 
 
-function hideWarning(warningId){
+function hideWarning(
+  warningId,
+  selectId
+){
 
   const warning =
     document.getElementById(warningId);
 
+  const select =
+    document.getElementById(selectId);
+
   if(warning){
 
     warning.classList.remove("show");
+
+  }
+
+  if(select){
+
+    select.classList.remove(
+      "category-required"
+    );
 
   }
 
@@ -1276,7 +1349,10 @@ document
 
     if(this.value){
 
-      hideWarning("musicWarning");
+      hideWarning(
+        "musicWarning",
+        "musicCategory"
+      );
 
       setStatus(
         "Music category selected: " +
@@ -1294,7 +1370,10 @@ document
 
     if(this.value){
 
-      hideWarning("appWarning");
+      hideWarning(
+        "appWarning",
+        "appCategory"
+      );
 
       setStatus(
         "App category selected: " +
@@ -1312,7 +1391,10 @@ document
 
     if(this.value){
 
-      hideWarning("softwareWarning");
+      hideWarning(
+        "softwareWarning",
+        "softwareCategory"
+      );
 
       setStatus(
         "Software category selected: " +
@@ -1339,7 +1421,7 @@ function requireCategory(
       warningId,
       "Please choose a " +
       typeName +
-      " Category first. Select a folder/category before uploading.",
+      " Category first.",
       selectId
     );
 
@@ -1347,7 +1429,10 @@ function requireCategory(
 
   }
 
-  hideWarning(warningId);
+  hideWarning(
+    warningId,
+    selectId
+  );
 
   return true;
 
@@ -1499,75 +1584,257 @@ async function uploadOne(
     "..."
   );
 
-  try{
-
-    const result =
-      await supabaseClient
-        .storage
-        .from(bucket)
-        .upload(
-          path,
-          file,
-          {
-            cacheControl:"3600",
-            upsert:false
-          }
-        );
-
-    if(result.error){
-
-      /*
-        Give the real Supabase message instead of
-        hiding it behind a generic error.
-      */
-
-      throw new Error(
-        "Storage upload failed: " +
-        result.error.message
+  const result =
+    await supabaseClient
+      .storage
+      .from(bucket)
+      .upload(
+        path,
+        file,
+        {
+          cacheControl:"3600",
+          upsert:false
+        }
       );
 
-    }
-
-    const publicResult =
-      supabaseClient
-        .storage
-        .from(bucket)
-        .getPublicUrl(path);
-
-    if(
-      !publicResult ||
-      !publicResult.data ||
-      !publicResult.data.publicUrl
-    ){
-
-      throw new Error(
-        "File uploaded, but Supabase did not return a public URL."
-      );
-
-    }
-
-    return publicResult
-      .data
-      .publicUrl;
-
-  }catch(error){
+  if(result.error){
 
     throw new Error(
-      error.message ||
-      "Storage upload failed."
+      "Storage upload failed: " +
+      result.error.message
     );
 
   }
+
+  const publicResult =
+    supabaseClient
+      .storage
+      .from(bucket)
+      .getPublicUrl(path);
+
+  if(
+    !publicResult ||
+    !publicResult.data ||
+    !publicResult.data.publicUrl
+  ){
+
+    throw new Error(
+      "File uploaded, but Supabase did not return a public URL."
+    );
+
+  }
+
+  return publicResult
+    .data
+    .publicUrl;
 
 }
 
 
 /* =====================================================
-   SAVE SUBMISSION
+   FIND OR CREATE PERMANENT CREATOR
+   ===================================================== */
+
+async function getOrCreateCreator(
+  creator
+){
+
+  const email =
+    normalizeEmail(creator.email);
+
+  /*
+     First find the existing creator by email.
+     Email is the permanent creator identifier.
+  */
+
+  const existing =
+    await supabaseClient
+      .from("creators")
+      .select(
+        "id,name,email,profile_photo"
+      )
+      .eq("email",email)
+      .maybeSingle();
+
+  if(existing.error){
+
+    throw new Error(
+      "Could not check creator account: " +
+      existing.error.message
+    );
+
+  }
+
+
+  let creatorRecord =
+    existing.data;
+
+
+  /*
+     If creator already exists, keep the same ID.
+     Name may be updated later.
+  */
+
+  if(creatorRecord){
+
+    let profilePhotoURL =
+      creatorRecord.profile_photo || null;
+
+
+    const selectedPhoto =
+      document
+        .getElementById("creatorPhoto")
+        .files[0];
+
+
+    if(selectedPhoto){
+
+      setStatus(
+        "Uploading creator profile photo..."
+      );
+
+      const photoPath =
+        makePath(
+          "creator-profile-photos",
+          email,
+          selectedPhoto
+        );
+
+      profilePhotoURL =
+        await uploadOne(
+          BUCKET,
+          photoPath,
+          selectedPhoto
+        );
+
+    }
+
+
+    const updateData = {
+      name:creator.name
+    };
+
+
+    if(profilePhotoURL){
+
+      updateData.profile_photo =
+        profilePhotoURL;
+
+    }
+
+
+    const updated =
+      await supabaseClient
+        .from("creators")
+        .update(updateData)
+        .eq("id",creatorRecord.id)
+        .select(
+          "id,name,email,profile_photo"
+        )
+        .single();
+
+
+    if(updated.error){
+
+      throw new Error(
+        "Could not update creator account: " +
+        updated.error.message
+      );
+
+    }
+
+
+    return updated.data;
+
+  }
+
+
+  /*
+     No creator with this email exists.
+     Create a new permanent creator.
+  */
+
+  let profilePhotoURL=null;
+
+
+  const selectedPhoto =
+    document
+      .getElementById("creatorPhoto")
+      .files[0];
+
+
+  if(selectedPhoto){
+
+    setStatus(
+      "Uploading creator profile photo..."
+    );
+
+    const photoPath =
+      makePath(
+        "creator-profile-photos",
+        email,
+        selectedPhoto
+      );
+
+    profilePhotoURL =
+      await uploadOne(
+        BUCKET,
+        photoPath,
+        selectedPhoto
+      );
+
+  }
+
+
+  const insertData = {
+
+    name:creator.name,
+
+    email:email
+
+  };
+
+
+  if(profilePhotoURL){
+
+    insertData.profile_photo =
+      profilePhotoURL;
+
+  }
+
+
+  const created =
+    await supabaseClient
+      .from("creators")
+      .insert(insertData)
+      .select(
+        "id,name,email,profile_photo"
+      )
+      .single();
+
+
+  if(created.error){
+
+    throw new Error(
+      "Could not create creator account: " +
+      created.error.message
+    );
+
+  }
+
+
+  return created.data;
+
+}
+
+
+/* =====================================================
+   SAVE ONE MEDIA SUBMISSION
    ===================================================== */
 
 async function saveSubmission(
   creator,
+  creatorRecord,
   type,
   data
 ){
@@ -1577,22 +1844,38 @@ async function saveSubmission(
       .from("artist_submissions")
       .insert({
 
-        artist_name:creator.name,
+        artist_name:
+          creatorRecord.name,
+
+        artist_email:
+          creatorRecord.email,
+
+        creator_id:
+          creatorRecord.id,
 
         files:{
+
           creator:{
-            name:creator.name,
-            email:creator.email
+            id:creatorRecord.id,
+
+            name:creatorRecord.name,
+
+            email:creatorRecord.email,
+
+            profile_photo:
+              creatorRecord.profile_photo || null
           },
 
           type:type,
 
           content:data
+
         },
 
         status:"approved"
 
       });
+
 
   if(result.error){
 
@@ -1602,17 +1885,6 @@ async function saveSubmission(
     );
 
   }
-
-}
-
-
-/* =====================================================
-   CREATOR CHECK
-   ===================================================== */
-
-function checkCreator(){
-
-  return getCreator();
 
 }
 
@@ -1698,14 +1970,20 @@ async function uploadMusic(){
 
     lockButton(button);
 
-    setProgress(
-      0,
-      files.length,
-      "Preparing music upload..."
-    );
+
+    /*
+       Find/create the permanent creator
+       before saving media.
+    */
+
+    const creatorRecord =
+      await getOrCreateCreator(
+        creator
+      );
 
 
     let coverURL=null;
+
 
     if(cover){
 
@@ -1730,7 +2008,11 @@ async function uploadMusic(){
     }
 
 
-    const uploaded=[];
+    setProgress(
+      0,
+      files.length,
+      "Preparing music upload..."
+    );
 
 
     for(
@@ -1741,12 +2023,14 @@ async function uploadMusic(){
 
       const file=files[i];
 
+
       const path =
         makePath(
           "music",
           creator.name,
           file
         );
+
 
       const url =
         await uploadOne(
@@ -1755,53 +2039,47 @@ async function uploadMusic(){
           file
         );
 
-      uploaded.push({
 
-        title:title,
+      /*
+         ONE DATABASE ROW PER MUSIC FILE.
 
-        artist:artist,
+         Supabase automatically creates
+         posted_at for this individual item.
+      */
 
-        category:category,
+      await saveSubmission(
+        creator,
+        creatorRecord,
+        "music",
+        {
+          title:title,
 
-        file_url:url,
+          artist:artist,
 
-        cover_url:coverURL,
+          category:category,
 
-        original_name:file.name,
+          description:description,
 
-        creator_name:creator.name
+          file_url:url,
 
-      });
+          cover_url:coverURL,
+
+          original_name:file.name
+
+        }
+      );
 
 
       setProgress(
         i+1,
         files.length,
-        "Uploading music " +
+        "Saving music " +
         (i+1) +
         " of " +
         files.length
       );
 
     }
-
-
-    setStatus(
-      "Saving music information..."
-    );
-
-
-    await saveSubmission(
-      creator,
-      "music",
-      {
-        title:title,
-        artist:artist,
-        category:category,
-        description:description,
-        uploads:uploaded
-      }
-    );
 
 
     setProgress(
@@ -1875,14 +2153,18 @@ async function uploadPhotos(){
 
     lockButton(button);
 
+
+    const creatorRecord =
+      await getOrCreateCreator(
+        creator
+      );
+
+
     setProgress(
       0,
       files.length,
       "Preparing photo upload..."
     );
-
-
-    const uploaded=[];
 
 
     for(
@@ -1893,12 +2175,14 @@ async function uploadPhotos(){
 
       const file=files[i];
 
+
       const path =
         makePath(
           "photos",
           creator.name,
           file
         );
+
 
       const url =
         await uploadOne(
@@ -1908,42 +2192,31 @@ async function uploadPhotos(){
         );
 
 
-      uploaded.push({
+      await saveSubmission(
+        creator,
+        creatorRecord,
+        "photos",
+        {
+          description:description,
 
-        file_url:url,
+          file_url:url,
 
-        original_name:file.name,
+          original_name:file.name
 
-        creator_name:creator.name
-
-      });
+        }
+      );
 
 
       setProgress(
         i+1,
         files.length,
-        "Uploading photo " +
+        "Saving photo " +
         (i+1) +
         " of " +
         files.length
       );
 
     }
-
-
-    setStatus(
-      "Saving photo information..."
-    );
-
-
-    await saveSubmission(
-      creator,
-      "photos",
-      {
-        description:description,
-        uploads:uploaded
-      }
-    );
 
 
     setProgress(
@@ -2037,6 +2310,13 @@ async function uploadVideos(){
 
     lockButton(button);
 
+
+    const creatorRecord =
+      await getOrCreateCreator(
+        creator
+      );
+
+
     let thumbnailURL=null;
 
 
@@ -2070,9 +2350,6 @@ async function uploadVideos(){
     );
 
 
-    const uploaded=[];
-
-
     for(
       let i=0;
       i<files.length;
@@ -2081,12 +2358,14 @@ async function uploadVideos(){
 
       const file=files[i];
 
+
       const path =
         makePath(
           "videos",
           creator.name,
           file
         );
+
 
       const url =
         await uploadOne(
@@ -2096,47 +2375,36 @@ async function uploadVideos(){
         );
 
 
-      uploaded.push({
+      await saveSubmission(
+        creator,
+        creatorRecord,
+        "videos",
+        {
+          title:title,
 
-        title:title,
+          description:description,
 
-        file_url:url,
+          file_url:url,
 
-        thumbnail_url:thumbnailURL,
+          thumbnail_url:
+            thumbnailURL,
 
-        original_name:file.name,
+          original_name:file.name
 
-        creator_name:creator.name
-
-      });
+        }
+      );
 
 
       setProgress(
         i+1,
         files.length,
-        "Uploading video " +
+        "Saving video " +
         (i+1) +
         " of " +
         files.length
       );
 
     }
-
-
-    setStatus(
-      "Saving video information..."
-    );
-
-
-    await saveSubmission(
-      creator,
-      "videos",
-      {
-        title:title,
-        description:description,
-        uploads:uploaded
-      }
-    );
 
 
     setProgress(
@@ -2247,6 +2515,12 @@ async function uploadApps(){
     lockButton(button);
 
 
+    const creatorRecord =
+      await getOrCreateCreator(
+        creator
+      );
+
+
     let iconURL=null;
 
 
@@ -2280,9 +2554,6 @@ async function uploadApps(){
     );
 
 
-    const uploaded=[];
-
-
     for(
       let i=0;
       i<files.length;
@@ -2291,12 +2562,14 @@ async function uploadApps(){
 
       const file=files[i];
 
+
       const path =
         makePath(
           "apps",
           creator.name,
           file
         );
+
 
       const url =
         await uploadOne(
@@ -2306,50 +2579,37 @@ async function uploadApps(){
         );
 
 
-      uploaded.push({
+      await saveSubmission(
+        creator,
+        creatorRecord,
+        "apps",
+        {
+          name:name,
 
-        app_name:name,
+          category:category,
 
-        category:category,
+          description:description,
 
-        file_url:url,
+          file_url:url,
 
-        icon_url:iconURL,
+          icon_url:iconURL,
 
-        original_name:file.name,
+          original_name:file.name
 
-        creator_name:creator.name
-
-      });
+        }
+      );
 
 
       setProgress(
         i+1,
         files.length,
-        "Uploading app " +
+        "Saving app " +
         (i+1) +
         " of " +
         files.length
       );
 
     }
-
-
-    setStatus(
-      "Saving app information..."
-    );
-
-
-    await saveSubmission(
-      creator,
-      "apps",
-      {
-        name:name,
-        category:category,
-        description:description,
-        uploads:uploaded
-      }
-    );
 
 
     setProgress(
@@ -2460,6 +2720,12 @@ async function uploadSoftware(){
     lockButton(button);
 
 
+    const creatorRecord =
+      await getOrCreateCreator(
+        creator
+      );
+
+
     let imageURL=null;
 
 
@@ -2493,9 +2759,6 @@ async function uploadSoftware(){
     );
 
 
-    const uploaded=[];
-
-
     for(
       let i=0;
       i<files.length;
@@ -2504,12 +2767,14 @@ async function uploadSoftware(){
 
       const file=files[i];
 
+
       const path =
         makePath(
           "software",
           creator.name,
           file
         );
+
 
       const url =
         await uploadOne(
@@ -2519,50 +2784,37 @@ async function uploadSoftware(){
         );
 
 
-      uploaded.push({
+      await saveSubmission(
+        creator,
+        creatorRecord,
+        "software",
+        {
+          name:name,
 
-        software_name:name,
+          category:category,
 
-        category:category,
+          description:description,
 
-        file_url:url,
+          file_url:url,
 
-        image_url:imageURL,
+          image_url:imageURL,
 
-        original_name:file.name,
+          original_name:file.name
 
-        creator_name:creator.name
-
-      });
+        }
+      );
 
 
       setProgress(
         i+1,
         files.length,
-        "Uploading software " +
+        "Saving software " +
         (i+1) +
         " of " +
         files.length
       );
 
     }
-
-
-    setStatus(
-      "Saving software information..."
-    );
-
-
-    await saveSubmission(
-      creator,
-      "software",
-      {
-        name:name,
-        category:category,
-        description:description,
-        uploads:uploaded
-      }
-    );
 
 
     setProgress(
@@ -2657,6 +2909,12 @@ async function uploadMixes(){
     lockButton(button);
 
 
+    const creatorRecord =
+      await getOrCreateCreator(
+        creator
+      );
+
+
     let coverURL=null;
 
 
@@ -2690,9 +2948,6 @@ async function uploadMixes(){
     );
 
 
-    const uploaded=[];
-
-
     for(
       let i=0;
       i<files.length;
@@ -2701,12 +2956,14 @@ async function uploadMixes(){
 
       const file=files[i];
 
+
       const path =
         makePath(
           "dj-mixes",
           creator.name,
           file
         );
+
 
       const url =
         await uploadOne(
@@ -2716,47 +2973,35 @@ async function uploadMixes(){
         );
 
 
-      uploaded.push({
+      await saveSubmission(
+        creator,
+        creatorRecord,
+        "dj-mixes",
+        {
+          title:title,
 
-        title:title,
+          description:description,
 
-        file_url:url,
+          file_url:url,
 
-        cover_url:coverURL,
+          cover_url:coverURL,
 
-        original_name:file.name,
+          original_name:file.name
 
-        creator_name:creator.name
-
-      });
+        }
+      );
 
 
       setProgress(
         i+1,
         files.length,
-        "Uploading DJ mix " +
+        "Saving DJ mix " +
         (i+1) +
         " of " +
         files.length
       );
 
     }
-
-
-    setStatus(
-      "Saving DJ mix information..."
-    );
-
-
-    await saveSubmission(
-      creator,
-      "dj-mixes",
-      {
-        title:title,
-        description:description,
-        uploads:uploaded
-      }
-    );
 
 
     setProgress(
@@ -2787,6 +3032,17 @@ async function uploadMixes(){
     unlockButton(button);
 
   }
+
+}
+
+
+/* =====================================================
+   CREATOR CHECK
+   ===================================================== */
+
+function checkCreator(){
+
+  return getCreator();
 
 }
 
