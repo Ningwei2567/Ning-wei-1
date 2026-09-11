@@ -165,5 +165,46 @@ main {
     border-radius: 22px;
 
     padding: 10px 17px;
+/* =========================================================
+   FIX: REMOVE HUGE SPACE BETWEEN HEADER AND SEARCH
+   ========================================================= */
+
+.hero-header {
+    height: 125px !important;
+    min-height: 125px !important;
+    max-height: 125px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.container,
+.page-container,
+.main-container {
+    min-height: 0 !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.search-container {
+    margin-top: 0 !important;
+    padding-top: 10px !important;
+}
+
+.search-box {
+    margin-top: 0 !important;
+}
+
+/* Remove empty/flexible space before search */
+main,
+main > section,
+.content,
+.page-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    min-height: 0 !important;
+}
+
+   
 
    
