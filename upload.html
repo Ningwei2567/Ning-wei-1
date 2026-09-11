@@ -30,10 +30,6 @@ margin:auto;
 padding:0 0 30px;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
-
 .header{
 height:125px;
 position:relative;
@@ -80,17 +76,9 @@ margin:8px 0 0;
 font-size:15px;
 }
 
-/* =========================================================
-   MAIN
-   ========================================================= */
-
 .main{
 padding:0 15px;
 }
-
-/* =========================================================
-   INTRO
-   ========================================================= */
 
 .intro{
 background:#fff;
@@ -114,10 +102,6 @@ line-height:1.5;
 color:#666;
 }
 
-/* =========================================================
-   DISCLAIMER
-   ========================================================= */
-
 .disclaimer{
 margin-top:12px;
 padding:12px 14px;
@@ -130,9 +114,31 @@ font-weight:700;
 line-height:1.45;
 }
 
-/* =========================================================
-   FORM
-   ========================================================= */
+.direct-upload-info{
+display:none;
+margin-top:12px;
+padding:12px 14px;
+border-radius:10px;
+background:#eefbf2;
+border:1px solid #b9e5c5;
+color:#21713a;
+font-size:13px;
+font-weight:700;
+line-height:1.45;
+}
+
+.category-required{
+display:none;
+margin-top:12px;
+padding:12px 14px;
+border-radius:10px;
+background:#fff7e8;
+border:1px solid #f1d19a;
+color:#805b16;
+font-size:13px;
+font-weight:700;
+line-height:1.45;
+}
 
 .form-card{
 background:#fff;
@@ -185,9 +191,27 @@ min-height:90px;
 resize:vertical;
 }
 
-/* =========================================================
-   UPLOAD BOXES
-   ========================================================= */
+.category-card{
+display:none;
+}
+
+.category-card label{
+margin-top:0;
+}
+
+.category-select{
+font-weight:700;
+border:2px solid #55bfe8;
+background:#f7fdff;
+}
+
+.selected-category{
+display:none;
+margin-top:8px;
+font-size:12px;
+font-weight:700;
+color:#087da8;
+}
 
 .upload-box{
 border:1px solid #d9e5ea;
@@ -239,10 +263,6 @@ font-weight:700;
 color:#1595bd;
 }
 
-/* =========================================================
-   CATEGORY BORDERS
-   ========================================================= */
-
 .music-box{
 border-color:#b8dfe5;
 }
@@ -267,10 +287,6 @@ border-color:#c8e5c8;
 border-color:#ffe0ad;
 }
 
-/* =========================================================
-   SUBMIT
-   ========================================================= */
-
 .submit-button{
 background:#55bfe8;
 color:#fff;
@@ -291,10 +307,6 @@ background:#3caedb;
 opacity:.6;
 cursor:not-allowed;
 }
-
-/* =========================================================
-   PROGRESS
-   ========================================================= */
 
 .progress-wrap{
 display:none;
@@ -323,10 +335,6 @@ font-weight:700;
 color:#555;
 }
 
-/* =========================================================
-   BATCH INFORMATION
-   ========================================================= */
-
 .batch-info{
 display:none;
 margin-top:10px;
@@ -354,10 +362,6 @@ font-size:12px;
 line-height:1.5;
 color:#555;
 }
-
-/* =========================================================
-   FAILURE DETAILS
-   ========================================================= */
 
 .failure-details{
 display:none;
@@ -404,10 +408,6 @@ font-size:11px;
 color:#666;
 }
 
-/* =========================================================
-   STATUS
-   ========================================================= */
-
 #status{
 margin-top:15px;
 padding:12px;
@@ -433,10 +433,6 @@ background:#f8d7da;
 color:#721c24;
 }
 
-/* =========================================================
-   BACK
-   ========================================================= */
-
 .back-button{
 display:block;
 text-align:center;
@@ -448,10 +444,6 @@ border-radius:10px;
 margin-top:15px;
 font-weight:700;
 }
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
 
 @media(max-width:420px){
 
@@ -526,17 +518,69 @@ Upload Music • Videos • Photos • Apps • Software • Mixes
 
 <section class="intro">
 
-<h2>
+<h2 id="pageTitle">
 Upload Your Music
 </h2>
 
-<p>
+<p id="pageDescription">
 For new artists, singers, producers, and DJs.
 </p>
 
 <div class="disclaimer">
 It's free, don't be scammed. Upload your music directly to Ning Wei Media.
 </div>
+
+<div
+id="directUploadInfo"
+class="direct-upload-info"
+>
+⬆️ Direct upload is active for this section. Your files will go directly into the correct Ning Wei Media folder without requiring a category.
+</div>
+
+<div
+id="categoryRequiredInfo"
+class="category-required"
+>
+📁 Please choose the category where this content belongs before uploading.
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CATEGORY SELECTOR
+     Used by Music, Apps and Software.
+     Photos, Videos and DJ Mixes do not require a category.
+     ===================================================== -->
+
+<section
+id="categoryCard"
+class="form-card category-card"
+>
+
+<h3 id="categoryHeading">
+📁 Choose Category
+</h3>
+
+<label for="contentCategory">
+Category
+</label>
+
+<select
+id="contentCategory"
+class="category-select"
+>
+
+<option value="">
+-- Select a category --
+</option>
+
+</select>
+
+<div
+id="selectedCategoryText"
+class="selected-category"
+></div>
 
 </section>
 
@@ -602,6 +646,10 @@ Upload your music here. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
 <br>
 You can select many songs at once.
+<br>
+<strong>
+Music files are uploaded into the selected music category.
+</strong>
 </div>
 
 <label for="songFiles">
@@ -669,6 +717,10 @@ Upload your photos or images. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
 <br>
 You can select many photos at once.
+<br>
+<strong>
+Photos are uploaded directly to the Photos folder.
+</strong>
 </div>
 
 <label for="imageFiles">
@@ -713,6 +765,10 @@ Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
 <br>
 You can select many videos at once.
+<br>
+<strong>
+Videos are uploaded directly to the Videos folder.
+</strong>
 </div>
 
 <label for="videoFiles">
@@ -780,6 +836,10 @@ Upload your apps/APK files. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
 <br>
 You can select many apps at once.
+<br>
+<strong>
+Apps are uploaded into the selected Apps category.
+</strong>
 </div>
 
 <label for="appFiles">
@@ -847,6 +907,10 @@ Upload your software files. Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
 <br>
 You can select many software files at once.
+<br>
+<strong>
+Software is uploaded into the selected Software category.
+</strong>
 </div>
 
 <label for="softwareFiles">
@@ -916,6 +980,10 @@ Make sure each file has a title.
 The filename of each selected file will be used as its title/name.
 <br>
 You can select many mixes at once.
+<br>
+<strong>
+DJ mixes are uploaded directly to the DJ Mixes folder.
+</strong>
 </div>
 
 <label for="mixFiles">
@@ -1014,9 +1082,7 @@ id="progressWrap"
 class="progress-wrap"
 >
 
-<div
-class="progress-bar"
->
+<div class="progress-bar">
 
 <div
 id="progressFill"
@@ -1095,47 +1161,376 @@ SUPABASE_KEY
    ========================================================= */
 
 const UPLOAD_CONCURRENCY = 5;
-
 const UPLOAD_RETRIES = 3;
-
 const RETRY_DELAY = 1500;
+
+
+/* =========================================================
+   FULL MUSIC CATEGORIES
+   ========================================================= */
+
+const MUSIC_CATEGORIES = [
+
+{
+value:"Top-Ugandan-Music",
+label:"Top Ugandan Music",
+icon:"🇺🇬"
+},
+
+{
+value:"Amapiano-Music",
+label:"Amapiano Music",
+icon:"🎹"
+},
+
+{
+value:"Afrobeat-Music",
+label:"Afrobeat Music",
+icon:"🔥"
+},
+
+{
+value:"Dancehall-Music",
+label:"Dancehall Music",
+icon:"🔥"
+},
+
+{
+value:"Old-School-R&B",
+label:"Old School R&B",
+icon:"🎙️"
+},
+
+{
+value:"Reggae",
+label:"Reggae",
+icon:"🌿"
+},
+
+{
+value:"Old-South-African-Music",
+label:"Old South African Music",
+icon:"🇿🇦"
+},
+
+{
+value:"Western-Music",
+label:"Western Music",
+icon:"🌎"
+},
+
+{
+value:"Love-Songs",
+label:"Love Songs",
+icon:"❤️"
+},
+
+{
+value:"Oldies-Kikadde-Music",
+label:"Oldies Kikadde Music",
+icon:"🎶"
+},
+
+{
+value:"Kadongo-Kamu",
+label:"Kadongo Kamu",
+icon:"🎸"
+},
+
+{
+value:"High-School-Music",
+label:"High School Music",
+icon:"🎒"
+},
+
+{
+value:"Lingala-Music",
+label:"Lingala Music",
+icon:"🪘"
+},
+
+{
+value:"Instrumental",
+label:"Instrumental",
+icon:"🎹"
+}
+
+];
+
+
+/* =========================================================
+   FULL APP CATEGORIES
+   ========================================================= */
+
+const APP_CATEGORIES = [
+
+{
+value:"Premium-Unlocked-Apps",
+label:"Premium Unlocked Apps",
+icon:"⭐"
+},
+
+{
+value:"Free-Unlimited-Internet-VPNs",
+label:"Free Unlimited Internet / VPNs",
+icon:"🌐"
+},
+
+{
+value:"Social-Media",
+label:"Social Media",
+icon:"📱"
+},
+
+{
+value:"Messaging",
+label:"Messaging",
+icon:"💬"
+},
+
+{
+value:"Music-Audio",
+label:"Music & Audio",
+icon:"🎵"
+},
+
+{
+value:"Video-Streaming",
+label:"Video Streaming",
+icon:"🎬"
+},
+
+{
+value:"Photo-Camera",
+label:"Photo & Camera",
+icon:"📷"
+},
+
+{
+value:"Video-Editing",
+label:"Video Editing",
+icon:"🎞️"
+},
+
+{
+value:"Music-DJ",
+label:"Music & DJ",
+icon:"🎧"
+},
+
+{
+value:"Games",
+label:"Games",
+icon:"🎮"
+},
+
+{
+value:"Education",
+label:"Education",
+icon:"🎓"
+},
+
+{
+value:"Business-Work",
+label:"Business & Work",
+icon:"💼"
+},
+
+{
+value:"Finance-Banking",
+label:"Finance & Banking",
+icon:"💳"
+},
+
+{
+value:"Shopping",
+label:"Shopping",
+icon:"🛒"
+},
+
+{
+value:"Travel-Transport",
+label:"Travel & Transport",
+icon:"✈️"
+},
+
+{
+value:"News",
+label:"News",
+icon:"📰"
+},
+
+{
+value:"Sports",
+label:"Sports",
+icon:"⚽"
+},
+
+{
+value:"Health-Fitness",
+label:"Health & Fitness",
+icon:"💪"
+},
+
+{
+value:"Tools-Utilities",
+label:"Tools & Utilities",
+icon:"🛠️"
+},
+
+{
+value:"File-Management",
+label:"File Management",
+icon:"📁"
+},
+
+{
+value:"Security",
+label:"Security",
+icon:"🔐"
+}
+
+];
+
+
+/* =========================================================
+   FULL SOFTWARE CATEGORIES
+   ========================================================= */
+
+const SOFTWARE_CATEGORIES = [
+
+{
+value:"Virtual-DJ-Software",
+label:"Virtual DJ Software",
+icon:"🎧"
+},
+
+{
+value:"Windows-Software",
+label:"Windows Software",
+icon:"🪟"
+},
+
+{
+value:"Video-Editing-Software",
+label:"Video Editing",
+icon:"🎬"
+},
+
+{
+value:"Audio-Editing",
+label:"Audio Editing",
+icon:"🎚️"
+},
+
+{
+value:"Photo-Editing",
+label:"Photo Editing",
+icon:"🖼️"
+},
+
+{
+value:"Graphics-Design",
+label:"Graphics Design",
+icon:"🎨"
+},
+
+{
+value:"Mac-Software",
+label:"Mac Software",
+icon:"🍎"
+},
+
+{
+value:"Linux-Software",
+label:"Linux Software",
+icon:"🐧"
+},
+
+{
+value:"Android-Software",
+label:"Android Software",
+icon:"🤖"
+},
+
+{
+value:"Office-Productivity",
+label:"Office & Productivity",
+icon:"📄"
+},
+
+{
+value:"Internet-Browsers",
+label:"Internet Browsers",
+icon:"🌐"
+},
+
+{
+value:"Security-Antivirus",
+label:"Security & Antivirus",
+icon:"🛡️"
+},
+
+{
+value:"Software-File-Management",
+label:"Software File Management",
+icon:"📁"
+},
+
+{
+value:"Media-Players",
+label:"Media Players",
+icon:"▶️"
+},
+
+{
+value:"Download-Managers",
+label:"Download Managers",
+icon:"⬇️"
+},
+
+{
+value:"Programming-Development",
+label:"Programming & Development",
+icon:"💻"
+},
+
+{
+value:"Utilities-Tools",
+label:"Utilities & Tools",
+icon:"🛠️"
+}
+
+];
 
 
 /* =========================================================
    STORAGE LOCATIONS
    =========================================================
-   
-   IMPORTANT:
-   
-   We are NOT creating or calling separate nonexistent
-   buckets for Apps, Software, DJ Mixes, Photos, etc.
-   
-   The existing bucket "artist-uploads" contains the
-   category folders as Storage paths.
-   
-   Existing buckets:
-   
-   songs
-   covers
-   artist-photos
-   artist-uploads
-   
-   Existing-folder paths created by uploads:
-   
-   artist-uploads/photos/
-   artist-uploads/videos/
-   artist-uploads/video-thumbnails/
-   artist-uploads/apps/
-   artist-uploads/app-icons/
-   artist-uploads/software/
-   artist-uploads/software-images/
-   artist-uploads/dj-mixes/
-   artist-uploads/dj-mix-covers/
-   
-   Supabase Storage treats these as folder paths.
-   A folder becomes visible when a file is uploaded
-   into that path.
-   
+
+   MUSIC:
+   songs/category/Artist/file
+   covers/category/Artist/file
+
+   PHOTOS:
+   artist-uploads/photos/Artist/file
+
+   VIDEOS:
+   artist-uploads/videos/Artist/file
+   artist-uploads/video-thumbnails/Artist/file
+
+   APPS:
+   artist-uploads/apps/category/Artist/file
+   artist-uploads/app-icons/category/Artist/file
+
+   SOFTWARE:
+   artist-uploads/software/category/Artist/file
+   artist-uploads/software-images/category/Artist/file
+
+   DJ MIXES:
+   artist-uploads/dj-mixes/Artist/file
+   artist-uploads/dj-mix-covers/Artist/file
+
    ========================================================= */
 
 const STORAGE_LOCATIONS = {
@@ -1201,6 +1596,617 @@ folder:"dj-mix-covers"
 }
 
 };
+
+
+/* =========================================================
+   CURRENT UPLOAD MODE
+   ========================================================= */
+
+let UPLOAD_MODE = {
+type:"",
+category:""
+};
+
+
+/* =========================================================
+   URL CATEGORY
+   ========================================================= */
+
+function getUrlCategory(){
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+return (
+params.get("category") ||
+""
+).trim();
+
+}
+
+
+/* =========================================================
+   FIND CATEGORY
+   ========================================================= */
+
+function findCategory(
+value
+){
+
+const allCategories = [
+
+...MUSIC_CATEGORIES,
+...APP_CATEGORIES,
+...SOFTWARE_CATEGORIES
+
+];
+
+return allCategories.find(
+category =>
+category.value.toLowerCase() ===
+String(value || "").toLowerCase()
+);
+
+}
+
+
+/* =========================================================
+   DETERMINE CATEGORY TYPE
+   ========================================================= */
+
+function getCategoryType(
+value
+){
+
+if(
+MUSIC_CATEGORIES.some(
+item =>
+item.value.toLowerCase() ===
+String(value || "").toLowerCase()
+)
+){
+
+return "music";
+
+}
+
+if(
+APP_CATEGORIES.some(
+item =>
+item.value.toLowerCase() ===
+String(value || "").toLowerCase()
+)
+){
+
+return "apps";
+
+}
+
+if(
+SOFTWARE_CATEGORIES.some(
+item =>
+item.value.toLowerCase() ===
+String(value || "").toLowerCase()
+)
+){
+
+return "software";
+
+}
+
+return "";
+
+}
+
+
+/* =========================================================
+   DISPLAY CATEGORY SELECTOR
+   ========================================================= */
+
+function setupCategorySelector(){
+
+const selector =
+document.getElementById(
+"contentCategory"
+);
+
+const card =
+document.getElementById(
+"categoryCard"
+);
+
+const heading =
+document.getElementById(
+"categoryHeading"
+);
+
+const categoryRequiredInfo =
+document.getElementById(
+"categoryRequiredInfo"
+);
+
+if(
+!selector ||
+!card
+){
+
+return;
+
+}
+
+selector.innerHTML =
+'<option value="">-- Select a category --</option>';
+
+
+const requestedCategory =
+getUrlCategory();
+
+
+const requestedType =
+getCategoryType(
+requestedCategory
+);
+
+
+if(
+requestedType === "music"
+){
+
+UPLOAD_MODE.type =
+"music";
+
+heading.textContent =
+"🎵 Choose Music Category";
+
+MUSIC_CATEGORIES.forEach(
+category => {
+
+const option =
+document.createElement(
+"option"
+);
+
+option.value =
+category.value;
+
+option.textContent =
+category.icon +
+" " +
+category.label;
+
+selector.appendChild(
+option
+);
+
+}
+);
+
+card.style.display =
+"block";
+
+categoryRequiredInfo.style.display =
+"block";
+
+selector.value =
+requestedCategory;
+
+updateSelectedCategory();
+
+return;
+
+}
+
+
+if(
+requestedType === "apps"
+){
+
+UPLOAD_MODE.type =
+"apps";
+
+heading.textContent =
+"📱 Choose App Category";
+
+APP_CATEGORIES.forEach(
+category => {
+
+const option =
+document.createElement(
+"option"
+);
+
+option.value =
+category.value;
+
+option.textContent =
+category.icon +
+" " +
+category.label;
+
+selector.appendChild(
+option
+);
+
+}
+);
+
+card.style.display =
+"block";
+
+categoryRequiredInfo.style.display =
+"block";
+
+selector.value =
+requestedCategory;
+
+updateSelectedCategory();
+
+return;
+
+}
+
+
+if(
+requestedType === "software"
+){
+
+UPLOAD_MODE.type =
+"software";
+
+heading.textContent =
+"💻 Choose Software Category";
+
+SOFTWARE_CATEGORIES.forEach(
+category => {
+
+const option =
+document.createElement(
+"option"
+);
+
+option.value =
+category.value;
+
+option.textContent =
+category.icon +
+" " +
+category.label;
+
+selector.appendChild(
+option
+);
+
+}
+);
+
+card.style.display =
+"block";
+
+categoryRequiredInfo.style.display =
+"block";
+
+selector.value =
+requestedCategory;
+
+updateSelectedCategory();
+
+return;
+
+}
+
+
+/*
+   No category in URL.
+
+   The upload page still contains all sections.
+   The uploader can select a category manually if
+   Music, Apps or Software files are being uploaded.
+*/
+
+card.style.display =
+"block";
+
+heading.textContent =
+"📁 Choose Category For Music, Apps or Software";
+
+[
+...MUSIC_CATEGORIES,
+...APP_CATEGORIES,
+...SOFTWARE_CATEGORIES
+].forEach(
+category => {
+
+const option =
+document.createElement(
+"option"
+);
+
+option.value =
+category.value;
+
+option.textContent =
+category.icon +
+" " +
+category.label;
+
+selector.appendChild(
+option
+);
+
+}
+);
+
+categoryRequiredInfo.style.display =
+"block";
+
+}
+
+
+/* =========================================================
+   CATEGORY CHANGE
+   ========================================================= */
+
+document
+.getElementById(
+"contentCategory"
+)
+.addEventListener(
+"change",
+function(){
+
+const category =
+this.value;
+
+UPLOAD_MODE.category =
+category;
+
+const type =
+getCategoryType(
+category
+);
+
+if(
+type
+){
+
+UPLOAD_MODE.type =
+type;
+
+}
+
+updateSelectedCategory();
+
+updateUrlCategory();
+
+}
+);
+
+
+/* =========================================================
+   UPDATE SELECTED CATEGORY
+   ========================================================= */
+
+function updateSelectedCategory(){
+
+const selector =
+document.getElementById(
+"contentCategory"
+);
+
+const display =
+document.getElementById(
+"selectedCategoryText"
+);
+
+if(
+!selector ||
+!display
+){
+
+return;
+
+}
+
+const category =
+findCategory(
+selector.value
+);
+
+if(
+!category
+){
+
+display.style.display =
+"none";
+
+display.textContent =
+"";
+
+UPLOAD_MODE.category =
+"";
+
+return;
+
+}
+
+UPLOAD_MODE.category =
+category.value;
+
+UPLOAD_MODE.type =
+getCategoryType(
+category.value
+);
+
+display.style.display =
+"block";
+
+display.textContent =
+"Selected folder: " +
+category.label;
+
+}
+
+
+/* =========================================================
+   UPDATE URL
+   ========================================================= */
+
+function updateUrlCategory(){
+
+const category =
+UPLOAD_MODE.category;
+
+const url =
+new URL(
+window.location.href
+);
+
+if(category){
+
+url.searchParams.set(
+"category",
+category
+);
+
+}else{
+
+url.searchParams.delete(
+"category"
+);
+
+}
+
+window.history.replaceState(
+{},
+"",
+url
+);
+
+}
+
+
+/* =========================================================
+   APPLY PAGE MODE
+   ========================================================= */
+
+function applyPageMode(){
+
+const requestedCategory =
+getUrlCategory();
+
+const type =
+getCategoryType(
+requestedCategory
+);
+
+const pageTitle =
+document.getElementById(
+"pageTitle"
+);
+
+const pageDescription =
+document.getElementById(
+"pageDescription"
+);
+
+const directInfo =
+document.getElementById(
+"directUploadInfo"
+);
+
+const categoryInfo =
+document.getElementById(
+"categoryRequiredInfo"
+);
+
+
+if(
+type === "music"
+){
+
+pageTitle.textContent =
+"Upload Music Directly Here";
+
+pageDescription.textContent =
+"Upload music directly to the selected music category.";
+
+directInfo.style.display =
+"none";
+
+categoryInfo.style.display =
+"block";
+
+return;
+
+}
+
+
+if(
+type === "apps"
+){
+
+pageTitle.textContent =
+"Upload Apps Directly Here";
+
+pageDescription.textContent =
+"Upload apps/APKs directly to the selected Apps category.";
+
+directInfo.style.display =
+"none";
+
+categoryInfo.style.display =
+"block";
+
+return;
+
+}
+
+
+if(
+type === "software"
+){
+
+pageTitle.textContent =
+"Upload Software Directly Here";
+
+pageDescription.textContent =
+"Upload software directly to the selected Software category.";
+
+directInfo.style.display =
+"none";
+
+categoryInfo.style.display =
+"block";
+
+return;
+
+}
+
+
+/*
+   Direct folders.
+
+   These do not need categories:
+   Photos
+   Videos
+   DJ Mixes
+*/
+
+pageTitle.textContent =
+"Upload Your Music";
+
+pageDescription.textContent =
+"For new artists, singers, producers, and DJs.";
+
+directInfo.style.display =
+"block";
+
+categoryInfo.style.display =
+"none";
+
+}
 
 
 /* =========================================================
@@ -1539,12 +2545,31 @@ safeName
 
 /* =========================================================
    STORAGE PATH
+   =========================================================
+
+   categoryFolder is optional.
+
+   MUSIC:
+   categoryFolder/Artist/file
+
+   APPS:
+   apps/category/Artist/file
+
+   SOFTWARE:
+   software/category/Artist/file
+
+   DIRECT:
+   photos/Artist/file
+   videos/Artist/file
+   dj-mixes/Artist/file
+
    ========================================================= */
 
 function createStoragePath(
 folder,
 file,
-artistName
+artistName,
+categoryFolder
 ){
 
 const safeFolder =
@@ -1557,27 +2582,63 @@ cleanFolderName(
 artistName
 );
 
+const safeCategory =
+cleanFolderName(
+categoryFolder
+);
+
 const filename =
 createStorageFileName(
 file
 );
 
 
-/*
-   We put the artist name inside the category folder.
+/* ---------------------------------------------------------
+   CATEGORY + ARTIST
+   --------------------------------------------------------- */
 
-   Example:
+if(
+safeFolder &&
+safeCategory &&
+safeArtist
+){
 
-   artist-uploads/photos/Ning-Wei/file.jpg
+return (
+safeFolder +
+"/" +
+safeCategory +
+"/" +
+safeArtist +
+"/" +
+filename
+);
 
-   artist-uploads/apps/Ning-Wei/app.apk
+}
 
-   artist-uploads/software/Ning-Wei/program.zip
 
-   artist-uploads/dj-mixes/Ning-Wei/mix.m4a
+/* ---------------------------------------------------------
+   CATEGORY WITHOUT ARTIST
+   --------------------------------------------------------- */
 
-   This keeps thousands of uploads organised.
-*/
+if(
+safeFolder &&
+safeCategory
+){
+
+return (
+safeFolder +
+"/" +
+safeCategory +
+"/" +
+filename
+);
+
+}
+
+
+/* ---------------------------------------------------------
+   DIRECT FOLDER + ARTIST
+   --------------------------------------------------------- */
 
 if(
 safeFolder &&
@@ -1594,6 +2655,11 @@ filename
 
 }
 
+
+/* ---------------------------------------------------------
+   DIRECT FOLDER
+   --------------------------------------------------------- */
+
 if(
 safeFolder
 ){
@@ -1605,6 +2671,11 @@ filename
 );
 
 }
+
+
+/* ---------------------------------------------------------
+   ARTIST ONLY
+   --------------------------------------------------------- */
 
 if(
 safeArtist
@@ -1706,53 +2777,18 @@ function getAllSelectedFiles(){
 
 return [
 
-...getFiles(
-"songFiles"
-),
-
-...getFiles(
-"songCovers"
-),
-
-...getFiles(
-"imageFiles"
-),
-
-...getFiles(
-"videoFiles"
-),
-
-...getFiles(
-"videoThumbnails"
-),
-
-...getFiles(
-"appFiles"
-),
-
-...getFiles(
-"appIcons"
-),
-
-...getFiles(
-"softwareFiles"
-),
-
-...getFiles(
-"softwareImages"
-),
-
-...getFiles(
-"mixFiles"
-),
-
-...getFiles(
-"mixCovers"
-),
-
-...getFiles(
-"artistPhoto"
-)
+...getFiles("songFiles"),
+...getFiles("songCovers"),
+...getFiles("imageFiles"),
+...getFiles("videoFiles"),
+...getFiles("videoThumbnails"),
+...getFiles("appFiles"),
+...getFiles("appIcons"),
+...getFiles("softwareFiles"),
+...getFiles("softwareImages"),
+...getFiles("mixFiles"),
+...getFiles("mixCovers"),
+...getFiles("artistPhoto")
 
 ];
 
@@ -1957,12 +2993,8 @@ message.toLowerCase();
 
 
 if(
-lower.includes(
-"invalid api key"
-) ||
-lower.includes(
-"apikey"
-)
+lower.includes("invalid api key") ||
+lower.includes("apikey")
 ){
 
 return (
@@ -1974,9 +3006,7 @@ return (
 
 
 if(
-lower.includes(
-"bucket not found"
-)
+lower.includes("bucket not found")
 ){
 
 return (
@@ -1988,21 +3018,11 @@ return (
 
 
 if(
-lower.includes(
-"row-level security"
-) ||
-lower.includes(
-"rls"
-) ||
-lower.includes(
-"policy"
-) ||
-lower.includes(
-"permission denied"
-) ||
-lower.includes(
-"not allowed"
-)
+lower.includes("row-level security") ||
+lower.includes("rls") ||
+lower.includes("policy") ||
+lower.includes("permission denied") ||
+lower.includes("not allowed")
 ){
 
 return (
@@ -2014,15 +3034,9 @@ return (
 
 
 if(
-lower.includes(
-"payload too large"
-) ||
-lower.includes(
-"file too large"
-) ||
-lower.includes(
-"maximum"
-)
+lower.includes("payload too large") ||
+lower.includes("file too large") ||
+lower.includes("maximum")
 ){
 
 return (
@@ -2033,15 +3047,9 @@ return (
 
 
 if(
-lower.includes(
-"invalid mime"
-) ||
-lower.includes(
-"mime"
-) ||
-lower.includes(
-"content type"
-)
+lower.includes("invalid mime") ||
+lower.includes("mime") ||
+lower.includes("content type")
 ){
 
 return (
@@ -2052,18 +3060,10 @@ return (
 
 
 if(
-lower.includes(
-"network"
-) ||
-lower.includes(
-"fetch"
-) ||
-lower.includes(
-"failed to fetch"
-) ||
-lower.includes(
-"timeout"
-)
+lower.includes("network") ||
+lower.includes("fetch") ||
+lower.includes("failed to fetch") ||
+lower.includes("timeout")
 ){
 
 return (
@@ -2086,7 +3086,8 @@ async function uploadFile(
 bucket,
 folder,
 file,
-artistName
+artistName,
+categoryFolder
 ){
 
 if(!file){
@@ -2099,7 +3100,8 @@ const path =
 createStoragePath(
 folder,
 file,
-artistName
+artistName,
+categoryFolder
 );
 
 let lastError =
@@ -2188,7 +3190,10 @@ bucket:
 bucket,
 
 folder:
-folder
+folder,
+
+category:
+categoryFolder || ""
 
 };
 
@@ -2212,6 +3217,9 @@ bucket,
 
 folder:
 folder,
+
+category:
+categoryFolder,
 
 path:
 path,
@@ -2303,7 +3311,8 @@ folder,
 files,
 label,
 progress,
-artistName
+artistName,
+categoryFolder
 ){
 
 const results =
@@ -2370,7 +3379,8 @@ await uploadFile(
 bucket,
 folder,
 file,
-artistName
+artistName,
+categoryFolder
 );
 
 
@@ -2404,6 +3414,9 @@ bucket,
 
 folder:
 folder,
+
+category:
+categoryFolder || "",
 
 status:
 error &&
@@ -2442,6 +3455,9 @@ bucket,
 
 folder:
 folder,
+
+category:
+categoryFolder,
 
 error:
 detailedError
@@ -2564,7 +3580,8 @@ await uploadFile(
 STORAGE_LOCATIONS.artistPhoto.bucket,
 STORAGE_LOCATIONS.artistPhoto.folder,
 photo,
-name
+name,
+""
 );
 
 
@@ -2765,15 +3782,12 @@ return;
 
 }
 
-
 status.style.display =
 "block";
-
 
 status.className =
 className ||
 "";
-
 
 status.innerHTML =
 message;
@@ -2824,10 +3838,8 @@ let html =
 failed.forEach(
 (item,index) => {
 
-
 html +=
 '<div class="failure-item">';
-
 
 html +=
 '<div class="failure-file">' +
@@ -2840,7 +3852,6 @@ item.file
 ) +
 "</div>";
 
-
 html +=
 '<div class="failure-error">' +
 escapeHtml(
@@ -2848,7 +3859,6 @@ item.error ||
 "Unknown error"
 ) +
 "</div>";
-
 
 if(
 item.bucket
@@ -2860,7 +3870,6 @@ html +=
 escapeHtml(
 item.bucket
 );
-
 
 if(
 item.folder
@@ -2874,6 +3883,17 @@ item.folder
 
 }
 
+if(
+item.category
+){
+
+html +=
+" • Category: " +
+escapeHtml(
+item.category
+);
+
+}
 
 if(
 item.status
@@ -2889,12 +3909,10 @@ item.status
 
 }
 
-
 html +=
 "</div>";
 
 }
-
 
 html +=
 "</div>";
@@ -2905,7 +3923,6 @@ html +=
 
 box.innerHTML =
 html;
-
 
 box.style.display =
 "block";
@@ -2950,6 +3967,134 @@ value ||
 
 
 /* =========================================================
+   VALIDATE CATEGORY
+   ========================================================= */
+
+function validateCategoryBeforeUpload(){
+
+const songs =
+getFiles(
+"songFiles"
+);
+
+const apps =
+getFiles(
+"appFiles"
+);
+
+const software =
+getFiles(
+"softwareFiles"
+);
+
+const covers =
+getFiles(
+"songCovers"
+);
+
+const appIcons =
+getFiles(
+"appIcons"
+);
+
+const softwareImages =
+getFiles(
+"softwareImages"
+);
+
+
+const needsMusicCategory =
+songs.length ||
+covers.length;
+
+
+const needsAppCategory =
+apps.length ||
+appIcons.length;
+
+
+const needsSoftwareCategory =
+software.length ||
+softwareImages.length;
+
+
+const category =
+document.getElementById(
+"contentCategory"
+).value;
+
+
+if(
+needsMusicCategory ||
+needsAppCategory ||
+needsSoftwareCategory
+){
+
+if(
+!category
+){
+
+return {
+valid:false,
+message:
+"Please choose a category for your Music, Apps or Software upload before continuing."
+};
+
+}
+
+}
+
+
+if(
+needsMusicCategory &&
+getCategoryType(category) !== "music"
+){
+
+return {
+valid:false,
+message:
+"Music files require a Music category. Please choose a Music category."
+};
+
+}
+
+
+if(
+needsAppCategory &&
+getCategoryType(category) !== "apps"
+){
+
+return {
+valid:false,
+message:
+"Apps/APKs require an Apps category. Please choose an Apps category."
+};
+
+}
+
+
+if(
+needsSoftwareCategory &&
+getCategoryType(category) !== "software"
+){
+
+return {
+valid:false,
+message:
+"Software files require a Software category. Please choose a Software category."
+};
+
+}
+
+
+return {
+valid:true
+};
+
+}
+
+
+/* =========================================================
    MAIN UPLOAD
    ========================================================= */
 
@@ -2966,11 +4111,9 @@ try{
 button.disabled =
 true;
 
-
 showFailureDetails(
 []
 );
-
 
 setStatus(
 "Preparing everything...",
@@ -2983,81 +4126,80 @@ setStatus(
    --------------------------------------------------------- */
 
 const songs =
-getFiles(
-"songFiles"
-);
-
+getFiles("songFiles");
 
 const covers =
-getFiles(
-"songCovers"
-);
-
+getFiles("songCovers");
 
 const images =
-getFiles(
-"imageFiles"
-);
-
+getFiles("imageFiles");
 
 const videos =
-getFiles(
-"videoFiles"
-);
-
+getFiles("videoFiles");
 
 const videoThumbnails =
-getFiles(
-"videoThumbnails"
-);
-
+getFiles("videoThumbnails");
 
 const apps =
-getFiles(
-"appFiles"
-);
-
+getFiles("appFiles");
 
 const appIcons =
-getFiles(
-"appIcons"
-);
-
+getFiles("appIcons");
 
 const software =
-getFiles(
-"softwareFiles"
-);
-
+getFiles("softwareFiles");
 
 const softwareImages =
-getFiles(
-"softwareImages"
-);
-
+getFiles("softwareImages");
 
 const mixes =
-getFiles(
-"mixFiles"
-);
-
+getFiles("mixFiles");
 
 const mixCovers =
-getFiles(
-"mixCovers"
-);
-
+getFiles("mixCovers");
 
 const artistPhoto =
-getFiles(
-"artistPhoto"
-)[0];
-
+getFiles("artistPhoto")[0];
 
 const artistName =
 document.getElementById(
 "artistName"
 ).value.trim();
+
+
+/* ---------------------------------------------------------
+   CATEGORY
+   --------------------------------------------------------- */
+
+const category =
+document.getElementById(
+"contentCategory"
+).value.trim();
+
+
+const categoryObject =
+findCategory(
+category
+);
+
+
+/* ---------------------------------------------------------
+   VALIDATE CATEGORY
+   --------------------------------------------------------- */
+
+const categoryValidation =
+validateCategoryBeforeUpload();
+
+
+if(
+!categoryValidation.valid
+){
+
+throw new Error(
+categoryValidation.message
+);
+
+}
 
 
 /* ---------------------------------------------------------
@@ -3085,14 +4227,11 @@ throw new Error(
 
 const progress = {
 
-current:
-0,
+current:0,
 
-total:
-allFiles.length,
+total:allFiles.length,
 
-failed:
-[]
+failed:[]
 
 };
 
@@ -3136,9 +4275,14 @@ progress
 }
 
 
+/* =========================================================
+   MUSIC
+   ========================================================= */
+
+
 /* ---------------------------------------------------------
    SONGS
-   Existing bucket: songs
+   songs/category/Artist/file
    --------------------------------------------------------- */
 
 let songResults =
@@ -3153,7 +4297,13 @@ songs.length
 ){
 
 setStatus(
-"Uploading songs to songs bucket...",
+"Uploading songs into " +
+(
+categoryObject
+? categoryObject.label
+: category
+) +
+"...",
 "status-loading"
 );
 
@@ -3165,7 +4315,8 @@ STORAGE_LOCATIONS.songs.folder,
 songs,
 "Songs",
 progress,
-artistName
+artistName,
+category
 );
 
 }
@@ -3173,7 +4324,7 @@ artistName
 
 /* ---------------------------------------------------------
    SONG COVERS
-   Existing bucket: covers
+   covers/category/Artist/file
    --------------------------------------------------------- */
 
 if(
@@ -3181,7 +4332,13 @@ covers.length
 ){
 
 setStatus(
-"Uploading song covers to covers bucket...",
+"Uploading song covers into " +
+(
+categoryObject
+? categoryObject.label
+: category
+) +
+"...",
 "status-loading"
 );
 
@@ -3193,7 +4350,8 @@ STORAGE_LOCATIONS.songCovers.folder,
 covers,
 "Song covers",
 progress,
-artistName
+artistName,
+category
 );
 
 }
@@ -3257,6 +4415,9 @@ bucket:
 folder:
 "database",
 
+category:
+category,
+
 status:
 "database"
 
@@ -3279,17 +4440,18 @@ songResults.length
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    PHOTOS
-   artist-uploads/photos/
-   --------------------------------------------------------- */
+   Direct:
+   artist-uploads/photos/Artist/file
+   ========================================================= */
 
 if(
 images.length
 ){
 
 setStatus(
-"Uploading photos to artist-uploads/photos/...",
+"Uploading photos directly to artist-uploads/photos/...",
 "status-loading"
 );
 
@@ -3300,23 +4462,25 @@ STORAGE_LOCATIONS.photos.folder,
 images,
 "Photos",
 progress,
-artistName
+artistName,
+""
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    VIDEOS
-   artist-uploads/videos/
-   --------------------------------------------------------- */
+   Direct:
+   artist-uploads/videos/Artist/file
+   ========================================================= */
 
 if(
 videos.length
 ){
 
 setStatus(
-"Uploading videos to artist-uploads/videos/...",
+"Uploading videos directly to artist-uploads/videos/...",
 "status-loading"
 );
 
@@ -3327,23 +4491,25 @@ STORAGE_LOCATIONS.videos.folder,
 videos,
 "Videos",
 progress,
-artistName
+artistName,
+""
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    VIDEO THUMBNAILS
-   artist-uploads/video-thumbnails/
-   --------------------------------------------------------- */
+   Direct:
+   artist-uploads/video-thumbnails/Artist/file
+   ========================================================= */
 
 if(
 videoThumbnails.length
 ){
 
 setStatus(
-"Uploading video thumbnails to artist-uploads/video-thumbnails/...",
+"Uploading video thumbnails directly to artist-uploads/video-thumbnails/...",
 "status-loading"
 );
 
@@ -3354,23 +4520,30 @@ STORAGE_LOCATIONS.videoThumbnails.folder,
 videoThumbnails,
 "Video thumbnails",
 progress,
-artistName
+artistName,
+""
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    APPS
-   artist-uploads/apps/
-   --------------------------------------------------------- */
+   artist-uploads/apps/category/Artist/file
+   ========================================================= */
 
 if(
 apps.length
 ){
 
 setStatus(
-"Uploading apps/APKs to artist-uploads/apps/...",
+"Uploading apps/APKs into " +
+(
+categoryObject
+? categoryObject.label
+: category
+) +
+"...",
 "status-loading"
 );
 
@@ -3381,23 +4554,30 @@ STORAGE_LOCATIONS.apps.folder,
 apps,
 "Apps",
 progress,
-artistName
+artistName,
+category
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    APP ICONS
-   artist-uploads/app-icons/
-   --------------------------------------------------------- */
+   artist-uploads/app-icons/category/Artist/file
+   ========================================================= */
 
 if(
 appIcons.length
 ){
 
 setStatus(
-"Uploading app icons to artist-uploads/app-icons/...",
+"Uploading app icons into " +
+(
+categoryObject
+? categoryObject.label
+: category
+) +
+"...",
 "status-loading"
 );
 
@@ -3408,23 +4588,30 @@ STORAGE_LOCATIONS.appIcons.folder,
 appIcons,
 "App icons",
 progress,
-artistName
+artistName,
+category
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    SOFTWARE
-   artist-uploads/software/
-   --------------------------------------------------------- */
+   artist-uploads/software/category/Artist/file
+   ========================================================= */
 
 if(
 software.length
 ){
 
 setStatus(
-"Uploading software to artist-uploads/software/...",
+"Uploading software into " +
+(
+categoryObject
+? categoryObject.label
+: category
+) +
+"...",
 "status-loading"
 );
 
@@ -3435,23 +4622,30 @@ STORAGE_LOCATIONS.software.folder,
 software,
 "Software",
 progress,
-artistName
+artistName,
+category
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    SOFTWARE IMAGES
-   artist-uploads/software-images/
-   --------------------------------------------------------- */
+   artist-uploads/software-images/category/Artist/file
+   ========================================================= */
 
 if(
 softwareImages.length
 ){
 
 setStatus(
-"Uploading software images to artist-uploads/software-images/...",
+"Uploading software images into " +
+(
+categoryObject
+? categoryObject.label
+: category
+) +
+"...",
 "status-loading"
 );
 
@@ -3462,23 +4656,25 @@ STORAGE_LOCATIONS.softwareImages.folder,
 softwareImages,
 "Software images",
 progress,
-artistName
+artistName,
+category
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    DJ MIXES
-   artist-uploads/dj-mixes/
-   --------------------------------------------------------- */
+   DIRECT:
+   artist-uploads/dj-mixes/Artist/file
+   ========================================================= */
 
 if(
 mixes.length
 ){
 
 setStatus(
-"Uploading DJ mixes to artist-uploads/dj-mixes/...",
+"Uploading DJ mixes directly to artist-uploads/dj-mixes/...",
 "status-loading"
 );
 
@@ -3489,23 +4685,25 @@ STORAGE_LOCATIONS.djMixes.folder,
 mixes,
 "DJ mixes",
 progress,
-artistName
+artistName,
+""
 );
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    DJ MIX COVERS
-   artist-uploads/dj-mix-covers/
-   --------------------------------------------------------- */
+   DIRECT:
+   artist-uploads/dj-mix-covers/Artist/file
+   ========================================================= */
 
 if(
 mixCovers.length
 ){
 
 setStatus(
-"Uploading DJ mix covers to artist-uploads/dj-mix-covers/...",
+"Uploading DJ mix covers directly to artist-uploads/dj-mix-covers/...",
 "status-loading"
 );
 
@@ -3516,7 +4714,8 @@ STORAGE_LOCATIONS.djMixCovers.folder,
 mixCovers,
 "DJ mix covers",
 progress,
-artistName
+artistName,
+""
 );
 
 }
@@ -3552,7 +4751,7 @@ false;
 
 
 /* ---------------------------------------------------------
-   SHOW RESULT
+   RESULT
    --------------------------------------------------------- */
 
 if(
@@ -3582,7 +4781,6 @@ progress.failed
 
 }else{
 
-
 setStatus(
 "✅ Everything uploaded successfully! " +
 progress.total.toLocaleString() +
@@ -3604,20 +4802,14 @@ showFailureDetails(
 }
 
 
-/* ---------------------------------------------------------
-   CONSOLE
-   --------------------------------------------------------- */
-
 console.log(
 "Upload complete."
 );
-
 
 console.log(
 "Total files:",
 progress.total
 );
-
 
 console.log(
 "Failed files:",
@@ -3652,9 +4844,7 @@ setStatus(
 error &&
 error.message
 ? error.message
-: String(
-error
-)
+: String(error)
 ),
 "status-error"
 );
@@ -3669,8 +4859,12 @@ false;
 
 
 /* =========================================================
-   INITIAL BATCH INFORMATION
+   INITIALIZATION
    ========================================================= */
+
+setupCategorySelector();
+
+applyPageMode();
 
 updateBatchInformation();
 
@@ -3696,10 +4890,8 @@ button.disabled
 
 event.preventDefault();
 
-
 event.returnValue =
 "An upload is currently running. Leaving this page may stop the upload.";
-
 
 return event.returnValue;
 
