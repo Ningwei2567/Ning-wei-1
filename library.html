@@ -289,6 +289,25 @@ a{
   border-color:#00e5ff;
 }
 
+.category-page{
+  margin-top:20px;
+}
+
+.category-page-header{
+  margin-bottom:25px;
+}
+
+.category-page-title{
+  font-size:clamp(28px,4vw,42px);
+  font-weight:900;
+  margin:0;
+}
+
+.category-page-subtitle{
+  color:#888;
+  margin-top:8px;
+}
+
 .footer{
   border-top:1px solid #222;
   padding:30px 15px;
@@ -307,6 +326,7 @@ a{
 }
 
 @media(max-width:600px){
+
   .header{
     padding:13px 12px;
   }
@@ -394,7 +414,9 @@ a{
     </div>
 
     <div class="header-buttons">
-      <button class="header-btn" onclick="location.href='upload.html'">
+      <button
+        class="header-btn"
+        onclick="location.href='upload.html'">
         Upload
       </button>
     </div>
@@ -404,616 +426,883 @@ a{
 
 <main class="container">
 
-  <section class="hero">
-    <h1>Ning Wei Media</h1>
-    <p>
-      Music, videos, photos, apps, software and DJ mixes —
-      all in one place.
-    </p>
-  </section>
+  <!-- =====================================================
+       NORMAL LIBRARY HOMEPAGE
+       ===================================================== -->
 
-  <div class="search-box">
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search music, videos, apps, software..."
-      autocomplete="off">
+  <div id="libraryHome">
+
+    <section class="hero">
+      <h1>Ning Wei Media</h1>
+
+      <p>
+        Music, videos, photos, apps, software and DJ mixes —
+        all in one place.
+      </p>
+    </section>
+
+    <div class="search-box">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search music, videos, apps, software..."
+        autocomplete="off">
+    </div>
+
+
+    <!-- =====================================================
+         1. ALL TOP MUSIC CHARTS
+         ===================================================== -->
+
+    <section class="section">
+
+      <h2 class="section-title">
+        🎵 All Top Music Charts
+      </h2>
+
+      <p class="section-subtitle">
+        Explore music by category
+      </p>
+
+      <div class="category-grid" id="musicCategories">
+
+        <a class="category-card"
+           href="library.html?category=Top-Ugandan-Music">
+          <div class="category-icon">🇺🇬</div>
+          <div class="category-info">
+            <div class="category-name">
+              Top Ugandan Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Amapiano-Music">
+          <div class="category-icon">🎹</div>
+          <div class="category-info">
+            <div class="category-name">
+              Amapiano Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Afrobeat-Music">
+          <div class="category-icon">🥁</div>
+          <div class="category-info">
+            <div class="category-name">
+              Afrobeat Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Dancehall-Music">
+          <div class="category-icon">🔥</div>
+          <div class="category-info">
+            <div class="category-name">
+              Dancehall Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=R%26B-Music">
+          <div class="category-icon">🎤</div>
+          <div class="category-info">
+            <div class="category-name">
+              R&amp;B Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Reggae">
+          <div class="category-icon">🌴</div>
+          <div class="category-info">
+            <div class="category-name">
+              Reggae
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Old-School-R-B">
+          <div class="category-icon">📻</div>
+          <div class="category-info">
+            <div class="category-name">
+              Old School R&amp;B
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Old-South-African-Music">
+          <div class="category-icon">🇿🇦</div>
+          <div class="category-info">
+            <div class="category-name">
+              Old South African Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Western-Music">
+          <div class="category-icon">🌎</div>
+          <div class="category-info">
+            <div class="category-name">
+              Western Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Love-Songs">
+          <div class="category-icon">❤️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Love Songs
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Oldies-Kikadde-Music">
+          <div class="category-icon">🎶</div>
+          <div class="category-info">
+            <div class="category-name">
+              Oldies / Kikadde Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Kadongo-Kamu">
+          <div class="category-icon">🪕</div>
+          <div class="category-info">
+            <div class="category-name">
+              Kadongo Kamu
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=High-School-Music">
+          <div class="category-icon">🎓</div>
+          <div class="category-info">
+            <div class="category-name">
+              High School Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Lingala-Music">
+          <div class="category-icon">🎺</div>
+          <div class="category-info">
+            <div class="category-name">
+              Lingala Music
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Instrumental">
+          <div class="category-icon">🎼</div>
+          <div class="category-info">
+            <div class="category-name">
+              Instrumental
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         2. TRENDING VIDEOS
+         ===================================================== -->
+
+    <section class="section">
+
+      <h2 class="section-title">
+        🎬 Trending Videos
+      </h2>
+
+      <p class="section-subtitle">
+        Latest trending videos
+      </p>
+
+      <div id="videosGrid" class="media-grid">
+        <div class="loading">
+          Loading videos...
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         3. TRENDING PHOTOS & JOKES
+         ===================================================== -->
+
+    <section class="section">
+
+      <h2 class="section-title">
+        📸 Trending Photos &amp; Jokes
+      </h2>
+
+      <p class="section-subtitle">
+        Latest photos, memes and jokes
+      </p>
+
+      <div id="photosGrid" class="media-grid">
+        <div class="loading">
+          Loading photos...
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         4. APPS
+         ===================================================== -->
+
+    <section class="section">
+
+      <h2 class="section-title">
+        📱 Premium Unlocked Apps and Free Unlimited Internet
+      </h2>
+
+      <p class="section-subtitle">
+        Browse apps by category
+      </p>
+
+      <div class="category-grid">
+
+        <a class="category-card"
+           href="library.html?category=Premium-Unlocked-Apps">
+          <div class="category-icon">🔓</div>
+          <div class="category-info">
+            <div class="category-name">
+              Premium Unlocked Apps
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Free-Unlimited-Internet-VPNs">
+          <div class="category-icon">🌐</div>
+          <div class="category-info">
+            <div class="category-name">
+              Free Unlimited Internet VPNs
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Social-Media">
+          <div class="category-icon">📱</div>
+          <div class="category-info">
+            <div class="category-name">
+              Social Media
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Messaging">
+          <div class="category-icon">💬</div>
+          <div class="category-info">
+            <div class="category-name">
+              Messaging
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Music-Audio">
+          <div class="category-icon">🎵</div>
+          <div class="category-info">
+            <div class="category-name">
+              Music &amp; Audio
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Video-Streaming">
+          <div class="category-icon">▶️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Video &amp; Streaming
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Photo-Camera">
+          <div class="category-icon">📷</div>
+          <div class="category-info">
+            <div class="category-name">
+              Photo &amp; Camera
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Video-Editing">
+          <div class="category-icon">🎞️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Video Editing
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Music-DJ">
+          <div class="category-icon">🎧</div>
+          <div class="category-info">
+            <div class="category-name">
+              Music &amp; DJ
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Games">
+          <div class="category-icon">🎮</div>
+          <div class="category-info">
+            <div class="category-name">
+              Games
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Education">
+          <div class="category-icon">📚</div>
+          <div class="category-info">
+            <div class="category-name">
+              Education
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Business-Work">
+          <div class="category-icon">💼</div>
+          <div class="category-info">
+            <div class="category-name">
+              Business &amp; Work
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Finance-Banking">
+          <div class="category-icon">💳</div>
+          <div class="category-info">
+            <div class="category-name">
+              Finance &amp; Banking
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Shopping">
+          <div class="category-icon">🛒</div>
+          <div class="category-info">
+            <div class="category-name">
+              Shopping
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Travel-Transport">
+          <div class="category-icon">✈️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Travel &amp; Transport
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=News">
+          <div class="category-icon">📰</div>
+          <div class="category-info">
+            <div class="category-name">
+              News
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Sports">
+          <div class="category-icon">⚽</div>
+          <div class="category-info">
+            <div class="category-name">
+              Sports
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Health-Fitness">
+          <div class="category-icon">💪</div>
+          <div class="category-info">
+            <div class="category-name">
+              Health &amp; Fitness
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Tools-Utilities">
+          <div class="category-icon">🛠️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Tools &amp; Utilities
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=File-Management">
+          <div class="category-icon">📁</div>
+          <div class="category-info">
+            <div class="category-name">
+              File Management
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Security">
+          <div class="category-icon">🛡️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Security
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         5. SOFTWARE
+         ===================================================== -->
+
+    <section class="section">
+
+      <h2 class="section-title">
+        💻 All Softwares and Virtual DJ Software
+      </h2>
+
+      <p class="section-subtitle">
+        Browse software by category
+      </p>
+
+      <div class="category-grid">
+
+        <a class="category-card"
+           href="library.html?category=Virtual-DJ-Software">
+          <div class="category-icon">🎧</div>
+          <div class="category-info">
+            <div class="category-name">
+              Virtual DJ Software
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Windows-Software">
+          <div class="category-icon">🪟</div>
+          <div class="category-info">
+            <div class="category-name">
+              Windows Software
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Video-Editing-Software">
+          <div class="category-icon">🎬</div>
+          <div class="category-info">
+            <div class="category-name">
+              Video Editing
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Audio-Editing">
+          <div class="category-icon">🎚️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Audio Editing
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Photo-Editing">
+          <div class="category-icon">🖼️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Photo Editing
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Graphics-Design">
+          <div class="category-icon">🎨</div>
+          <div class="category-info">
+            <div class="category-name">
+              Graphics &amp; Design
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Mac-Software">
+          <div class="category-icon">🍎</div>
+          <div class="category-info">
+            <div class="category-name">
+              Mac Software
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Linux-Software">
+          <div class="category-icon">🐧</div>
+          <div class="category-info">
+            <div class="category-name">
+              Linux Software
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Android-Software">
+          <div class="category-icon">🤖</div>
+          <div class="category-info">
+            <div class="category-name">
+              Android Software
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Office-Productivity">
+          <div class="category-icon">📊</div>
+          <div class="category-info">
+            <div class="category-name">
+              Office &amp; Productivity
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Internet-Browsers">
+          <div class="category-icon">🌐</div>
+          <div class="category-info">
+            <div class="category-name">
+              Internet &amp; Browsers
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Security-Antivirus">
+          <div class="category-icon">🔐</div>
+          <div class="category-info">
+            <div class="category-name">
+              Security &amp; Antivirus
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Software-File-Management">
+          <div class="category-icon">📂</div>
+          <div class="category-info">
+            <div class="category-name">
+              File Management
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Media-Players">
+          <div class="category-icon">▶️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Media Players
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Download-Managers">
+          <div class="category-icon">⬇️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Download Managers
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Programming-Development">
+          <div class="category-icon">💻</div>
+          <div class="category-info">
+            <div class="category-name">
+              Programming &amp; Development
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+        <a class="category-card"
+           href="library.html?category=Utilities-Tools">
+          <div class="category-icon">⚙️</div>
+          <div class="category-info">
+            <div class="category-name">
+              Utilities &amp; Tools
+            </div>
+            <div class="category-count">
+              Open category
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         6. DJ MIXES
+         ===================================================== -->
+
+    <section class="section">
+
+      <h2 class="section-title">
+        🎧 DJ Mixes
+      </h2>
+
+      <p class="section-subtitle">
+        Latest DJ mixes
+      </p>
+
+      <div id="djGrid" class="audio-list">
+        <div class="loading">
+          Loading DJ mixes...
+        </div>
+      </div>
+
+    </section>
+
   </div>
 
 
   <!-- =====================================================
-       1. ALL TOP MUSIC CHARTS
+       CATEGORY CONTENT PAGE
+       This replaces the library homepage when ?category=
+       is present.
        ===================================================== -->
 
-  <section class="section">
+  <div
+    id="categoryPage"
+    class="category-page hidden">
 
-    <h2 class="section-title">🎵 All Top Music Charts</h2>
+    <div class="category-page-header">
 
-    <p class="section-subtitle">
-      Explore music by category
-    </p>
+      <h1
+        id="categoryPageTitle"
+        class="category-page-title">
+      </h1>
 
-    <div class="category-grid" id="musicCategories">
-
-      <a class="category-card"
-         href="library.html?category=Top-Ugandan-Music">
-        <div class="category-icon">🇺🇬</div>
-        <div class="category-info">
-          <div class="category-name">Top Ugandan Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Amapiano-Music">
-        <div class="category-icon">🎹</div>
-        <div class="category-info">
-          <div class="category-name">Amapiano Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Afrobeat-Music">
-        <div class="category-icon">🥁</div>
-        <div class="category-info">
-          <div class="category-name">Afrobeat Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Dancehall-Music">
-        <div class="category-icon">🔥</div>
-        <div class="category-info">
-          <div class="category-name">Dancehall Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=R&B-Music">
-        <div class="category-icon">🎤</div>
-        <div class="category-info">
-          <div class="category-name">R&amp;B Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Reggae">
-        <div class="category-icon">🌴</div>
-        <div class="category-info">
-          <div class="category-name">Reggae</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Old-School-R&B">
-        <div class="category-icon">📻</div>
-        <div class="category-info">
-          <div class="category-name">Old School R&amp;B</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Old-South-African-Music">
-        <div class="category-icon">🇿🇦</div>
-        <div class="category-info">
-          <div class="category-name">Old South African Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Western-Music">
-        <div class="category-icon">🌎</div>
-        <div class="category-info">
-          <div class="category-name">Western Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Love-Songs">
-        <div class="category-icon">❤️</div>
-        <div class="category-info">
-          <div class="category-name">Love Songs</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Oldies-Kikadde-Music">
-        <div class="category-icon">🎶</div>
-        <div class="category-info">
-          <div class="category-name">Oldies / Kikadde Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Kadongo-Kamu">
-        <div class="category-icon">🪕</div>
-        <div class="category-info">
-          <div class="category-name">Kadongo Kamu</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=High-School-Music">
-        <div class="category-icon">🎓</div>
-        <div class="category-info">
-          <div class="category-name">High School Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Lingala-Music">
-        <div class="category-icon">🎺</div>
-        <div class="category-info">
-          <div class="category-name">Lingala Music</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Instrumental">
-        <div class="category-icon">🎼</div>
-        <div class="category-info">
-          <div class="category-name">Instrumental</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
+      <div
+        id="categoryPageSubtitle"
+        class="category-page-subtitle">
+      </div>
 
     </div>
 
-  </section>
-
-
-  <!-- =====================================================
-       2. TRENDING VIDEOS
-       ===================================================== -->
-
-  <section class="section">
-
-    <h2 class="section-title">🎬 Trending Videos</h2>
-
-    <p class="section-subtitle">
-      Latest trending videos
-    </p>
-
-    <div id="videosGrid" class="media-grid">
-      <div class="loading">Loading videos...</div>
+    <div
+      id="categoryResults"
+      class="audio-list">
     </div>
 
-  </section>
-
-
-  <!-- =====================================================
-       3. TRENDING PHOTOS & JOKES
-       ===================================================== -->
-
-  <section class="section">
-
-    <h2 class="section-title">📸 Trending Photos &amp; Jokes</h2>
-
-    <p class="section-subtitle">
-      Latest photos, memes and jokes
-    </p>
-
-    <div id="photosGrid" class="media-grid">
-      <div class="loading">Loading photos...</div>
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       4. PREMIUM UNLOCKED APPS / FREE INTERNET
-       ===================================================== -->
-
-  <section class="section">
-
-    <h2 class="section-title">
-      📱 Premium Unlocked Apps and Free Unlimited Internet
-    </h2>
-
-    <p class="section-subtitle">
-      Browse apps by category
-    </p>
-
-    <div class="category-grid">
-
-      <a class="category-card"
-         href="library.html?category=Premium-Unlocked-Apps">
-        <div class="category-icon">🔓</div>
-        <div class="category-info">
-          <div class="category-name">Premium Unlocked Apps</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Free-Unlimited-Internet-VPNs">
-        <div class="category-icon">🌐</div>
-        <div class="category-info">
-          <div class="category-name">Free Unlimited Internet VPNs</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Social-Media">
-        <div class="category-icon">📱</div>
-        <div class="category-info">
-          <div class="category-name">Social Media</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Messaging">
-        <div class="category-icon">💬</div>
-        <div class="category-info">
-          <div class="category-name">Messaging</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Music-Audio">
-        <div class="category-icon">🎵</div>
-        <div class="category-info">
-          <div class="category-name">Music &amp; Audio</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Video-Streaming">
-        <div class="category-icon">▶️</div>
-        <div class="category-info">
-          <div class="category-name">Video &amp; Streaming</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Photo-Camera">
-        <div class="category-icon">📷</div>
-        <div class="category-info">
-          <div class="category-name">Photo &amp; Camera</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Video-Editing">
-        <div class="category-icon">🎞️</div>
-        <div class="category-info">
-          <div class="category-name">Video Editing</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Music-DJ">
-        <div class="category-icon">🎧</div>
-        <div class="category-info">
-          <div class="category-name">Music &amp; DJ</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Games">
-        <div class="category-icon">🎮</div>
-        <div class="category-info">
-          <div class="category-name">Games</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Education">
-        <div class="category-icon">📚</div>
-        <div class="category-info">
-          <div class="category-name">Education</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Business-Work">
-        <div class="category-icon">💼</div>
-        <div class="category-info">
-          <div class="category-name">Business &amp; Work</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Finance-Banking">
-        <div class="category-icon">💳</div>
-        <div class="category-info">
-          <div class="category-name">Finance &amp; Banking</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Shopping">
-        <div class="category-icon">🛒</div>
-        <div class="category-info">
-          <div class="category-name">Shopping</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Travel-Transport">
-        <div class="category-icon">✈️</div>
-        <div class="category-info">
-          <div class="category-name">Travel &amp; Transport</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=News">
-        <div class="category-icon">📰</div>
-        <div class="category-info">
-          <div class="category-name">News</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Sports">
-        <div class="category-icon">⚽</div>
-        <div class="category-info">
-          <div class="category-name">Sports</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Health-Fitness">
-        <div class="category-icon">💪</div>
-        <div class="category-info">
-          <div class="category-name">Health &amp; Fitness</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Tools-Utilities">
-        <div class="category-icon">🛠️</div>
-        <div class="category-info">
-          <div class="category-name">Tools &amp; Utilities</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=File-Management">
-        <div class="category-icon">📁</div>
-        <div class="category-info">
-          <div class="category-name">File Management</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Security">
-        <div class="category-icon">🛡️</div>
-        <div class="category-info">
-          <div class="category-name">Security</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       5. SOFTWARE
-       ===================================================== -->
-
-  <section class="section">
-
-    <h2 class="section-title">
-      💻 All Softwares and Virtual DJ Software
-    </h2>
-
-    <p class="section-subtitle">
-      Browse software by category
-    </p>
-
-    <div class="category-grid">
-
-      <a class="category-card"
-         href="library.html?category=Virtual-DJ-Software">
-        <div class="category-icon">🎧</div>
-        <div class="category-info">
-          <div class="category-name">Virtual DJ Software</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Windows-Software">
-        <div class="category-icon">🪟</div>
-        <div class="category-info">
-          <div class="category-name">Windows Software</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Video-Editing-Software">
-        <div class="category-icon">🎬</div>
-        <div class="category-info">
-          <div class="category-name">Video Editing</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Audio-Editing">
-        <div class="category-icon">🎚️</div>
-        <div class="category-info">
-          <div class="category-name">Audio Editing</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Photo-Editing">
-        <div class="category-icon">🖼️</div>
-        <div class="category-info">
-          <div class="category-name">Photo Editing</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Graphics-Design">
-        <div class="category-icon">🎨</div>
-        <div class="category-info">
-          <div class="category-name">Graphics &amp; Design</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Mac-Software">
-        <div class="category-icon">🍎</div>
-        <div class="category-info">
-          <div class="category-name">Mac Software</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Linux-Software">
-        <div class="category-icon">🐧</div>
-        <div class="category-info">
-          <div class="category-name">Linux Software</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Android-Software">
-        <div class="category-icon">🤖</div>
-        <div class="category-info">
-          <div class="category-name">Android Software</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Office-Productivity">
-        <div class="category-icon">📊</div>
-        <div class="category-info">
-          <div class="category-name">Office &amp; Productivity</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Internet-Browsers">
-        <div class="category-icon">🌐</div>
-        <div class="category-info">
-          <div class="category-name">Internet &amp; Browsers</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Security-Antivirus">
-        <div class="category-icon">🔐</div>
-        <div class="category-info">
-          <div class="category-name">Security &amp; Antivirus</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Software-File-Management">
-        <div class="category-icon">📂</div>
-        <div class="category-info">
-          <div class="category-name">File Management</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Media-Players">
-        <div class="category-icon">▶️</div>
-        <div class="category-info">
-          <div class="category-name">Media Players</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Download-Managers">
-        <div class="category-icon">⬇️</div>
-        <div class="category-info">
-          <div class="category-name">Download Managers</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Programming-Development">
-        <div class="category-icon">💻</div>
-        <div class="category-info">
-          <div class="category-name">Programming &amp; Development</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-      <a class="category-card"
-         href="library.html?category=Utilities-Tools">
-        <div class="category-icon">⚙️</div>
-        <div class="category-info">
-          <div class="category-name">Utilities &amp; Tools</div>
-          <div class="category-count">Open category</div>
-        </div>
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       6. DJ MIXES
-       ===================================================== -->
-
-  <section class="section">
-
-    <h2 class="section-title">🎧 DJ Mixes</h2>
-
-    <p class="section-subtitle">
-      Latest DJ mixes
-    </p>
-
-    <div id="djGrid" class="audio-list">
-      <div class="loading">Loading DJ mixes...</div>
-    </div>
-
-  </section>
+  </div>
 
 </main>
 
@@ -1023,15 +1312,29 @@ a{
 
 
 <script>
+
 const SUPABASE_URL =
   "https://btksyizkcpzubtextuce.supabase.co";
 
+/*
+ * IMPORTANT:
+ * Keep your real Supabase anon key here.
+ * The placeholder below is intentionally not a replacement
+ * for the key already used by your existing project.
+ */
 const SUPABASE_ANON_KEY =
   "YOUR_SUPABASE_ANON_KEY";
 
-const GITHUB_OWNER = "Ningwei2567";
-const GITHUB_REPO = "Ning-wei-1";
-const GITHUB_BRANCH = "main";
+
+const GITHUB_OWNER =
+  "Ningwei2567";
+
+const GITHUB_REPO =
+  "Ning-wei-1";
+
+const GITHUB_BRANCH =
+  "main";
+
 
 const RAW_BASE =
   "https://raw.githubusercontent.com/" +
@@ -1039,6 +1342,10 @@ const RAW_BASE =
   GITHUB_REPO + "/" +
   GITHUB_BRANCH + "/";
 
+
+/* =========================================================
+   CATEGORY DEFINITIONS
+   ========================================================= */
 
 const MUSIC_CATEGORIES = [
   "Top-Ugandan-Music",
@@ -1105,7 +1412,12 @@ const SOFTWARE_CATEGORIES = [
 ];
 
 
+/* =========================================================
+   PATH / FILE HELPERS
+   ========================================================= */
+
 function encodePath(path){
+
   return path
     .split("/")
     .map(part => encodeURIComponent(part))
@@ -1114,11 +1426,14 @@ function encodePath(path){
 
 
 function rawGithub(path){
-  return RAW_BASE + encodePath(path);
+
+  return RAW_BASE +
+    encodePath(path);
 }
 
 
 function cleanName(name){
+
   return String(name || "")
     .replace(/\.[^/.]+$/,"")
     .replace(/[_-]+/g," ")
@@ -1128,15 +1443,20 @@ function cleanName(name){
 
 
 function fileExtension(name){
-  const match = String(name || "")
-    .toLowerCase()
-    .match(/\.([a-z0-9]+)$/);
 
-  return match ? match[1] : "";
+  const match =
+    String(name || "")
+      .toLowerCase()
+      .match(/\.([a-z0-9]+)$/);
+
+  return match
+    ? match[1]
+    : "";
 }
 
 
 function isVideo(name){
+
   return [
     "mp4",
     "webm",
@@ -1150,11 +1470,14 @@ function isVideo(name){
     "ogv",
     "avi",
     "mkv"
-  ].includes(fileExtension(name));
+  ].includes(
+    fileExtension(name)
+  );
 }
 
 
 function isAudio(name){
+
   return [
     "mp3",
     "wav",
@@ -1167,11 +1490,14 @@ function isAudio(name){
     "opus",
     "aiff",
     "aif"
-  ].includes(fileExtension(name));
+  ].includes(
+    fileExtension(name)
+  );
 }
 
 
 function isImage(name){
+
   return [
     "jpg",
     "jpeg",
@@ -1180,11 +1506,22 @@ function isImage(name){
     "webp",
     "bmp",
     "svg"
-  ].includes(fileExtension(name));
+  ].includes(
+    fileExtension(name)
+  );
 }
 
 
-function mediaPage(url,name,mime=""){
+/* =========================================================
+   MEDIA PAGE
+   ========================================================= */
+
+function mediaPage(
+  url,
+  name,
+  mime=""
+){
+
   return "media.html?url=" +
     encodeURIComponent(url) +
     "&name=" +
@@ -1194,12 +1531,24 @@ function mediaPage(url,name,mime=""){
 }
 
 
+/* =========================================================
+   DATE
+   ========================================================= */
+
 function formatDate(value){
-  if(!value) return "";
 
-  const date = new Date(value);
+  if(!value){
+    return "";
+  }
 
-  if(Number.isNaN(date.getTime())){
+  const date =
+    new Date(value);
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
     return "";
   }
 
@@ -1207,113 +1556,237 @@ function formatDate(value){
 }
 
 
+/* =========================================================
+   MEDIA CARD
+   ========================================================= */
+
 function createMediaCard(item){
-  const card = document.createElement("a");
 
-  card.className = "media-card";
+  const card =
+    document.createElement("a");
 
-  card.href = mediaPage(
-    item.url,
-    item.name,
-    item.mime || ""
-  );
+  card.className =
+    "media-card";
 
-  const thumb = document.createElement("div");
-  thumb.className = "media-thumb";
+  card.href =
+    mediaPage(
+      item.url,
+      item.name,
+      item.mime || ""
+    );
+
+
+  const thumb =
+    document.createElement("div");
+
+  thumb.className =
+    "media-thumb";
+
+
+  /*
+   * PHOTOS
+   */
 
   if(item.type === "photo"){
 
-    const img = document.createElement("img");
+    const img =
+      document.createElement("img");
 
-    img.src = item.url;
-    img.alt = cleanName(item.name);
-    img.loading = "lazy";
+    img.src =
+      item.url;
+
+    img.alt =
+      cleanName(item.name);
+
+    img.loading =
+      "lazy";
 
     thumb.appendChild(img);
 
-  }else{
+  }
 
-    const img = document.createElement("img");
+
+  /*
+   * VIDEOS
+   *
+   * If there is a thumbnail, use it.
+   * If there is NO thumbnail, use the video itself
+   * as the visual fallback.
+   */
+
+  else if(item.type === "video"){
 
     if(item.thumbnail){
-      img.src = item.thumbnail;
-    }else{
+
+      const img =
+        document.createElement("img");
+
       img.src =
-        "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(`
-          <svg xmlns="http://www.w3.org/2000/svg"
-               width="800"
-               height="450"
-               viewBox="0 0 800 450">
-            <rect width="800" height="450" fill="#181818"/>
-            <text x="400"
-                  y="225"
-                  text-anchor="middle"
-                  dominant-baseline="middle"
-                  fill="#777"
-                  font-size="34"
-                  font-family="Arial">
-              🎬
-            </text>
-          </svg>
-        `);
+        item.thumbnail;
+
+      img.alt =
+        cleanName(item.name);
+
+      img.loading =
+        "lazy";
+
+      thumb.appendChild(img);
+
+    }else{
+
+      const video =
+        document.createElement("video");
+
+      video.src =
+        item.url;
+
+      video.muted =
+        true;
+
+      video.playsInline =
+        true;
+
+      video.preload =
+        "metadata";
+
+      video.controls =
+        false;
+
+      thumb.appendChild(video);
+
     }
 
-    img.alt = cleanName(item.name);
-    img.loading = "lazy";
+  }
+
+
+  /*
+   * OTHER MEDIA
+   */
+
+  else{
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="800"
+             height="450"
+             viewBox="0 0 800 450">
+          <rect width="800"
+                height="450"
+                fill="#181818"/>
+          <text x="400"
+                y="225"
+                text-anchor="middle"
+                dominant-baseline="middle"
+                fill="#777"
+                font-size="34"
+                font-family="Arial">
+            MEDIA
+          </text>
+        </svg>
+      `);
+
+    img.alt =
+      cleanName(item.name);
 
     thumb.appendChild(img);
   }
 
-  const body = document.createElement("div");
-  body.className = "media-body";
 
-  const title = document.createElement("div");
-  title.className = "media-title";
-  title.textContent = cleanName(item.name);
+  const body =
+    document.createElement("div");
 
-  const date = document.createElement("div");
-  date.className = "media-date";
-  date.textContent = formatDate(item.date);
+  body.className =
+    "media-body";
+
+
+  const title =
+    document.createElement("div");
+
+  title.className =
+    "media-title";
+
+  title.textContent =
+    cleanName(item.name);
+
+
+  const date =
+    document.createElement("div");
+
+  date.className =
+    "media-date";
+
+  date.textContent =
+    formatDate(item.date);
+
 
   body.appendChild(title);
   body.appendChild(date);
 
+
   card.appendChild(thumb);
   card.appendChild(body);
+
 
   return card;
 }
 
 
+/* =========================================================
+   AUDIO ROW
+   ========================================================= */
+
 function createAudioRow(item){
 
-  const row = document.createElement("a");
+  const row =
+    document.createElement("a");
 
-  row.className = "audio-row";
+  row.className =
+    "audio-row";
 
-  row.href = mediaPage(
-    item.url,
-    item.name,
-    item.mime || ""
-  );
+  row.href =
+    mediaPage(
+      item.url,
+      item.name,
+      item.mime || ""
+    );
 
-  const name = document.createElement("div");
 
-  name.className = "audio-name";
-  name.textContent = cleanName(item.name);
+  const name =
+    document.createElement("div");
 
-  const date = document.createElement("div");
+  name.className =
+    "audio-name";
 
-  date.className = "audio-date";
-  date.textContent = formatDate(item.date);
+  name.textContent =
+    cleanName(item.name);
+
+
+  const date =
+    document.createElement("div");
+
+  date.className =
+    "audio-date";
+
+  date.textContent =
+    formatDate(item.date);
+
 
   row.appendChild(name);
   row.appendChild(date);
 
+
   return row;
 }
 
+
+/* =========================================================
+   GITHUB TREE
+   ========================================================= */
 
 async function loadGithubTree(){
 
@@ -1325,24 +1798,36 @@ async function loadGithubTree(){
     GITHUB_BRANCH +
     "?recursive=1";
 
-  const response = await fetch(api);
+
+  const response =
+    await fetch(api);
+
 
   if(!response.ok){
+
     throw new Error(
       "GitHub tree request failed: " +
       response.status
     );
   }
 
-  const data = await response.json();
+
+  const data =
+    await response.json();
+
 
   return data.tree || [];
 }
 
 
+/* =========================================================
+   GITHUB MEDIA
+   ========================================================= */
+
 function githubItems(tree){
 
   const result = [];
+
 
   for(const file of tree){
 
@@ -1350,103 +1835,174 @@ function githubItems(tree){
       continue;
     }
 
-    const path = file.path;
+
+    const path =
+      file.path;
+
 
     if(!path.startsWith("media/")){
       continue;
     }
 
+
     const name =
-      path.split("/").pop();
+      path
+        .split("/")
+        .pop();
+
 
     const url =
       rawGithub(path);
 
-    if(path.startsWith("media/videos/") &&
-       isVideo(name)){
+
+    /*
+     * VIDEOS
+     */
+
+    if(
+      path.startsWith("media/videos/") &&
+      isVideo(name)
+    ){
 
       result.push({
+
         type:"video",
-        name,
-        url,
+
+        name:name,
+
+        url:url,
+
         mime:"",
+
         date:null,
-        path
+
+        path:path,
+
+        thumbnail:""
+
       });
 
       continue;
     }
 
 
-    if(path.startsWith("media/photos/") &&
-       isImage(name)){
+    /*
+     * PHOTOS
+     */
+
+    if(
+      path.startsWith("media/photos/") &&
+      isImage(name)
+    ){
 
       result.push({
+
         type:"photo",
-        name,
-        url,
+
+        name:name,
+
+        url:url,
+
         mime:"",
+
         date:null,
-        path
+
+        path:path
+
       });
 
       continue;
     }
 
 
-    if(path.startsWith("media/songs/") &&
-       isAudio(name)){
+    /*
+     * AUDIO
+     */
+
+    if(
+      path.startsWith("media/songs/") &&
+      isAudio(name)
+    ){
 
       result.push({
+
         type:"audio",
-        name,
-        url,
+
+        name:name,
+
+        url:url,
+
         mime:"",
+
         date:null,
-        path
+
+        path:path
+
       });
 
       continue;
     }
   }
+
 
   return result;
 }
 
 
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
 async function loadSupabaseItems(){
 
   if(
     !SUPABASE_ANON_KEY ||
-    SUPABASE_ANON_KEY === "YOUR_SUPABASE_ANON_KEY"
+    SUPABASE_ANON_KEY ===
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8"
   ){
+
     return [];
   }
+
 
   const url =
     SUPABASE_URL +
     "/rest/v1/artist_submissions" +
     "?select=*";
 
-  const response = await fetch(url,{
-    headers:{
-      apikey:SUPABASE_ANON_KEY,
-      Authorization:
-        "Bearer " + SUPABASE_ANON_KEY
-    }
-  });
+
+  const response =
+    await fetch(
+      url,
+      {
+        headers:{
+          apikey:
+            SUPABASE_ANON_KEY,
+
+          Authorization:
+            "Bearer " +
+            SUPABASE_ANON_KEY
+        }
+      }
+    );
+
 
   if(!response.ok){
     return [];
   }
 
-  const rows = await response.json();
+
+  const rows =
+    await response.json();
+
 
   if(!Array.isArray(rows)){
     return [];
   }
 
+
   const result = [];
+
 
   for(const row of rows){
 
@@ -1456,15 +2012,18 @@ async function loadSupabaseItems(){
       row.public_url ||
       row.storage_url;
 
+
     if(!raw){
       continue;
     }
+
 
     const name =
       row.file_name ||
       row.filename ||
       row.name ||
       "Media";
+
 
     let type =
       String(
@@ -1473,41 +2032,66 @@ async function loadSupabaseItems(){
         ""
       ).toLowerCase();
 
+
     if(!type){
 
       if(isVideo(name)){
         type = "video";
+
       }else if(isImage(name)){
         type = "photo";
+
       }else if(isAudio(name)){
         type = "audio";
       }
     }
 
+
     result.push({
-      type,
-      name,
+
+      type:type,
+
+      name:name,
+
       url:raw,
-      mime:row.mime_type || "",
+
+      mime:
+        row.mime_type ||
+        "",
+
       date:
         row.created_at ||
         row.uploaded_at ||
         row.date ||
         null,
+
       path:
         row.path ||
         row.file_path ||
+        "",
+
+      thumbnail:
+        row.thumbnail_url ||
+        row.thumbnail ||
         ""
+
     });
   }
+
 
   return result;
 }
 
 
+/* =========================================================
+   REMOVE DUPLICATES
+   ========================================================= */
+
 function removeDuplicates(items){
 
-  const seen = new Set();
+  const seen =
+    new Set();
+
 
   return items.filter(item => {
 
@@ -1516,9 +2100,11 @@ function removeDuplicates(items){
       "|" +
       String(item.name || "");
 
+
     if(seen.has(key)){
       return false;
     }
+
 
     seen.add(key);
 
@@ -1527,26 +2113,39 @@ function removeDuplicates(items){
 }
 
 
+/* =========================================================
+   CATEGORY PATH
+   ========================================================= */
+
 function categoryFromPath(path){
 
   if(!path){
     return "";
   }
 
+
   const parts =
     path.split("/");
+
 
   if(parts.length < 3){
     return "";
   }
 
-  if(parts[0] !== "media"){
+
+  if(
+    parts[0] !== "media"
+  ){
     return "";
   }
 
-  if(parts[1] !== "songs"){
+
+  if(
+    parts[1] !== "songs"
+  ){
     return "";
   }
+
 
   return parts[2] || "";
 }
@@ -1558,8 +2157,10 @@ function appCategoryFromPath(path){
     return "";
   }
 
+
   const parts =
     path.split("/");
+
 
   if(
     parts[0] !== "media" ||
@@ -1567,6 +2168,7 @@ function appCategoryFromPath(path){
   ){
     return "";
   }
+
 
   return parts[2] || "";
 }
@@ -1578,8 +2180,10 @@ function softwareCategoryFromPath(path){
     return "";
   }
 
+
   const parts =
     path.split("/");
+
 
   if(
     parts[0] !== "media" ||
@@ -1588,40 +2192,106 @@ function softwareCategoryFromPath(path){
     return "";
   }
 
+
   return parts[2] || "";
 }
 
 
-function matchesRequestedCategory(item,category){
+/* =========================================================
+   CATEGORY MATCHING
+   ========================================================= */
+
+function matchesRequestedCategory(
+  item,
+  category
+){
 
   if(!category){
-    return true;
+    return false;
   }
+
 
   const songCategory =
-    categoryFromPath(item.path);
+    categoryFromPath(
+      item.path
+    );
 
-  if(songCategory === category){
+  if(
+    songCategory === category
+  ){
     return true;
   }
+
 
   const appCategory =
-    appCategoryFromPath(item.path);
+    appCategoryFromPath(
+      item.path
+    );
 
-  if(appCategory === category){
+  if(
+    appCategory === category
+  ){
     return true;
   }
+
 
   const softwareCategory =
-    softwareCategoryFromPath(item.path);
+    softwareCategoryFromPath(
+      item.path
+    );
 
-  if(softwareCategory === category){
+  if(
+    softwareCategory === category
+  ){
     return true;
   }
+
+
+  /*
+   * Support Supabase paths that may
+   * contain the category deeper in
+   * the path.
+   */
+
+  const normalizedPath =
+    String(item.path || "")
+      .replace(/\\/g,"/");
+
+
+  if(
+    normalizedPath.includes(
+      "/songs/" + category + "/"
+    )
+  ){
+    return true;
+  }
+
+
+  if(
+    normalizedPath.includes(
+      "/apps/" + category + "/"
+    )
+  ){
+    return true;
+  }
+
+
+  if(
+    normalizedPath.includes(
+      "/software/" + category + "/"
+    )
+  ){
+    return true;
+  }
+
 
   return false;
 }
 
+
+/* =========================================================
+   LOAD ALL LIBRARY MEDIA
+   ========================================================= */
 
 async function loadLibrary(){
 
@@ -1629,40 +2299,64 @@ async function loadLibrary(){
     githubTree,
     supabaseItems
   ] = await Promise.all([
-    loadGithubTree().catch(() => []),
-    loadSupabaseItems().catch(() => [])
+
+    loadGithubTree()
+      .catch(() => []),
+
+    loadSupabaseItems()
+      .catch(() => [])
+
   ]);
 
+
   const github =
-    githubItems(githubTree);
+    githubItems(
+      githubTree
+    );
+
 
   return removeDuplicates([
+
     ...github,
+
     ...supabaseItems
+
   ]);
 }
 
 
-function renderGrid(element,items){
+/* =========================================================
+   RENDER MEDIA GRID
+   ========================================================= */
+
+function renderGrid(
+  element,
+  items
+){
 
   element.innerHTML = "";
+
 
   if(!items.length){
 
     const empty =
       document.createElement("div");
 
-    empty.className = "empty";
+    empty.className =
+      "empty";
 
     empty.textContent =
       "No content available yet.";
+
 
     element.appendChild(empty);
 
     return;
   }
 
+
   for(const item of items){
+
     element.appendChild(
       createMediaCard(item)
     );
@@ -1670,24 +2364,35 @@ function renderGrid(element,items){
 }
 
 
-function renderAudio(element,items){
+/* =========================================================
+   RENDER AUDIO
+   ========================================================= */
+
+function renderAudio(
+  element,
+  items
+){
 
   element.innerHTML = "";
+
 
   if(!items.length){
 
     const empty =
       document.createElement("div");
 
-    empty.className = "empty";
+    empty.className =
+      "empty";
 
     empty.textContent =
       "No DJ mixes available yet.";
+
 
     element.appendChild(empty);
 
     return;
   }
+
 
   for(const item of items){
 
@@ -1698,64 +2403,226 @@ function renderAudio(element,items){
 }
 
 
-function showCategory(category,items){
+/* =========================================================
+   CATEGORY DISPLAY NAME
+   ========================================================= */
 
-  document
-    .querySelectorAll(
-      ".section"
-    )
-    .forEach(section => {
-      section.classList.add("hidden");
-    });
+function categoryDisplayName(
+  category
+){
 
+  const special = {
 
-  const resultSection =
-    document.createElement("section");
+    "Top-Ugandan-Music":
+      "Top Ugandan Music",
 
-  resultSection.className =
-    "section category-result";
+    "Amapiano-Music":
+      "Amapiano Music",
 
+    "Afrobeat-Music":
+      "Afrobeat Music",
 
-  const heading =
-    document.createElement("h2");
+    "Dancehall-Music":
+      "Dancehall Music",
 
-  heading.className =
-    "section-title";
+    "R&B-Music":
+      "R&B Music",
 
-  heading.textContent =
-    category
-      .replace(/-/g," ");
+    "Old-School-R&B":
+      "Old School R&B",
 
+    "Old-South-African-Music":
+      "Old South African Music",
 
-  const back =
-    document.createElement("button");
+    "Oldies-Kikadde-Music":
+      "Oldies / Kikadde Music",
 
-  back.className =
-    "header-btn";
+    "Kadongo-Kamu":
+      "Kadongo Kamu",
 
-  back.textContent =
-    "← Back to Library";
+    "High-School-Music":
+      "High School Music",
 
-  back.style.marginBottom =
-    "20px";
+    "Lingala-Music":
+      "Lingala Music",
 
-  back.onclick = () => {
-    history.pushState(
-      {},
-      "",
-      "library.html"
-    );
+    "Free-Unlimited-Internet-VPNs":
+      "Free Unlimited Internet VPNs",
 
-    location.reload();
+    "Premium-Unlocked-Apps":
+      "Premium Unlocked Apps",
+
+    "Virtual-DJ-Software":
+      "Virtual DJ Software",
+
+    "Video-Editing-Software":
+      "Video Editing",
+
+    "Graphics-Design":
+      "Graphics & Design",
+
+    "Office-Productivity":
+      "Office & Productivity",
+
+    "Internet-Browsers":
+      "Internet & Browsers",
+
+    "Security-Antivirus":
+      "Security & Antivirus",
+
+    "Software-File-Management":
+      "File Management",
+
+    "Media-Players":
+      "Media Players",
+
+    "Download-Managers":
+      "Download Managers",
+
+    "Programming-Development":
+      "Programming & Development",
+
+    "Utilities-Tools":
+      "Utilities & Tools",
+
+    "Music-Audio":
+      "Music & Audio",
+
+    "Video-Streaming":
+      "Video & Streaming",
+
+    "Photo-Camera":
+      "Photo & Camera",
+
+    "Video-Editing":
+      "Video Editing",
+
+    "Music-DJ":
+      "Music & DJ",
+
+    "Business-Work":
+      "Business & Work",
+
+    "Finance-Banking":
+      "Finance & Banking",
+
+    "Travel-Transport":
+      "Travel & Transport",
+
+    "Health-Fitness":
+      "Health & Fitness",
+
+    "Tools-Utilities":
+      "Tools & Utilities",
+
+    "File-Management":
+      "File Management"
+
   };
 
 
-  const grid =
-    document.createElement("div");
+  if(
+    special[category]
+  ){
+    return special[category];
+  }
 
-  grid.className =
-    "audio-list";
 
+  return String(category || "")
+    .replace(/-/g," ");
+}
+
+
+/* =========================================================
+   SHOW CATEGORY PAGE
+   ========================================================= */
+
+function showCategory(
+  category,
+  items
+){
+
+  /*
+   * IMPORTANT:
+   * Hide the ENTIRE library homepage.
+   * We do not append another homepage.
+   */
+
+  const home =
+    document.getElementById(
+      "libraryHome"
+    );
+
+  const categoryPage =
+    document.getElementById(
+      "categoryPage"
+    );
+
+
+  if(home){
+    home.classList.add(
+      "hidden"
+    );
+  }
+
+
+  if(categoryPage){
+    categoryPage.classList.remove(
+      "hidden"
+    );
+  }
+
+
+  /*
+   * Set category title.
+   */
+
+  const title =
+    document.getElementById(
+      "categoryPageTitle"
+    );
+
+
+  const subtitle =
+    document.getElementById(
+      "categoryPageSubtitle"
+    );
+
+
+  if(title){
+
+    title.textContent =
+      categoryDisplayName(
+        category
+      );
+  }
+
+
+  if(subtitle){
+
+    subtitle.textContent =
+      "Uploaded media in this category";
+  }
+
+
+  const results =
+    document.getElementById(
+      "categoryResults"
+    );
+
+
+  if(!results){
+    return;
+  }
+
+
+  results.innerHTML = "";
+
+
+  /*
+   * Find ONLY the files belonging
+   * to the selected category.
+   */
 
   const matching =
     items.filter(item =>
@@ -1777,38 +2644,129 @@ function showCategory(category,items){
     empty.textContent =
       "This category is empty.";
 
-    grid.appendChild(empty);
+
+    results.appendChild(
+      empty
+    );
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+    return;
+  }
+
+
+  /*
+   * Audio categories use the
+   * simple title/date rows.
+   */
+
+  const audioItems =
+    matching.filter(
+      item =>
+        item.type === "audio"
+    );
+
+
+  const visualItems =
+    matching.filter(
+      item =>
+        item.type === "video" ||
+        item.type === "photo"
+    );
+
+
+  /*
+   * If the category contains
+   * visual media, show it as
+   * a 4-column media grid.
+   */
+
+  if(visualItems.length){
+
+    results.className =
+      "media-grid";
+
+
+    for(
+      const item of visualItems
+    ){
+
+      results.appendChild(
+        createMediaCard(item)
+      );
+    }
+
+
+    /*
+     * Audio can also appear below
+     * visual content if both exist.
+     */
+
+    if(audioItems.length){
+
+      const audioHeading =
+        document.createElement("h3");
+
+      audioHeading.textContent =
+        "Audio";
+
+      audioHeading.style.margin =
+        "30px 0 15px";
+
+      categoryPage.appendChild(
+        audioHeading
+      );
+
+
+      const audioList =
+        document.createElement("div");
+
+      audioList.className =
+        "audio-list";
+
+
+      for(
+        const item of audioItems
+      ){
+
+        audioList.appendChild(
+          createAudioRow(item)
+        );
+      }
+
+
+      categoryPage.appendChild(
+        audioList
+      );
+    }
 
   }else{
 
-    for(const item of matching){
+    /*
+     * Music / audio-only category.
+     */
 
-      if(item.type === "audio"){
+    results.className =
+      "audio-list";
 
-        grid.appendChild(
-          createAudioRow(item)
-        );
 
-      }else{
+    for(
+      const item of matching
+    ){
 
-        grid.className =
-          "media-grid";
-
-        grid.appendChild(
-          createMediaCard(item)
-        );
-      }
+      results.appendChild(
+        createAudioRow(item)
+      );
     }
   }
 
 
-  resultSection.appendChild(back);
-  resultSection.appendChild(heading);
-  resultSection.appendChild(grid);
-
-  document
-    .querySelector("main")
-    .appendChild(resultSection);
+  /*
+   * Start at top of category page.
+   */
 
   window.scrollTo({
     top:0,
@@ -1817,16 +2775,24 @@ function showCategory(category,items){
 }
 
 
-function setupSearch(items){
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function setupSearch(
+  items
+){
 
   const input =
     document.getElementById(
       "searchInput"
     );
 
+
   if(!input){
     return;
   }
+
 
   input.addEventListener(
     "input",
@@ -1837,15 +2803,17 @@ function setupSearch(items){
           .trim()
           .toLowerCase();
 
+
       document
         .querySelectorAll(
-          ".category-card"
+          "#libraryHome .category-card"
         )
         .forEach(card => {
 
           const text =
             card.textContent
               .toLowerCase();
+
 
           card.style.display =
             !query ||
@@ -1856,6 +2824,42 @@ function setupSearch(items){
 
 
       if(!query){
+
+        const videos =
+          document.getElementById(
+            "videosGrid"
+          );
+
+        const photos =
+          document.getElementById(
+            "photosGrid"
+          );
+
+
+        if(videos){
+
+          renderGrid(
+            videos,
+            items.filter(
+              item =>
+                item.type === "video"
+            )
+          );
+        }
+
+
+        if(photos){
+
+          renderGrid(
+            photos,
+            items.filter(
+              item =>
+                item.type === "photo"
+            )
+          );
+        }
+
+
         return;
       }
 
@@ -1870,12 +2874,15 @@ function setupSearch(items){
 
       const videoMatches =
         matched.filter(
-          item => item.type === "video"
+          item =>
+            item.type === "video"
         );
+
 
       const photoMatches =
         matched.filter(
-          item => item.type === "photo"
+          item =>
+            item.type === "photo"
         );
 
 
@@ -1884,6 +2891,7 @@ function setupSearch(items){
           "videosGrid"
         );
 
+
       const photos =
         document.getElementById(
           "photosGrid"
@@ -1891,6 +2899,7 @@ function setupSearch(items){
 
 
       if(videos){
+
         renderGrid(
           videos,
           videoMatches
@@ -1899,22 +2908,29 @@ function setupSearch(items){
 
 
       if(photos){
+
         renderGrid(
           photos,
           photoMatches
         );
       }
+
     }
   );
 }
 
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
 
 async function init(){
 
   document.getElementById(
     "year"
   ).textContent =
-    new Date().getFullYear();
+    new Date()
+      .getFullYear();
 
 
   try{
@@ -1922,6 +2938,46 @@ async function init(){
     const items =
       await loadLibrary();
 
+
+    /*
+     * Check whether this URL is
+     * a category page.
+     */
+
+    const params =
+      new URLSearchParams(
+        location.search
+      );
+
+
+    const category =
+      params.get(
+        "category"
+      );
+
+
+    /*
+     * CATEGORY PAGE
+     *
+     * If ?category= exists,
+     * DO NOT render the library
+     * homepage.
+     */
+
+    if(category){
+
+      showCategory(
+        category,
+        items
+      );
+
+      return;
+    }
+
+
+    /*
+     * NORMAL HOMEPAGE
+     */
 
     const videos =
       items.filter(
@@ -1941,8 +2997,10 @@ async function init(){
       items.filter(item => {
 
         const path =
-          String(item.path || "")
-            .toLowerCase();
+          String(
+            item.path || ""
+          ).toLowerCase();
+
 
         return (
           item.type === "audio" &&
@@ -1955,6 +3013,7 @@ async function init(){
             )
           )
         );
+
       });
 
 
@@ -1982,50 +3041,68 @@ async function init(){
     );
 
 
-    setupSearch(items);
-
-
-    const params =
-      new URLSearchParams(
-        location.search
-      );
-
-    const category =
-      params.get("category");
-
-
-    if(category){
-
-      showCategory(
-        category,
-        items
-      );
-    }
+    setupSearch(
+      items
+    );
 
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
-    document.getElementById(
-      "videosGrid"
-    ).innerHTML =
-      '<div class="empty">Unable to load videos.</div>';
 
-    document.getElementById(
-      "photosGrid"
-    ).innerHTML =
-      '<div class="empty">Unable to load photos.</div>';
+    const videos =
+      document.getElementById(
+        "videosGrid"
+      );
 
-    document.getElementById(
-      "djGrid"
-    ).innerHTML =
-      '<div class="empty">Unable to load DJ mixes.</div>';
+
+    const photos =
+      document.getElementById(
+        "photosGrid"
+      );
+
+
+    const dj =
+      document.getElementById(
+        "djGrid"
+      );
+
+
+    if(videos){
+
+      videos.innerHTML =
+        '<div class="empty">' +
+        'Unable to load videos.' +
+        '</div>';
+    }
+
+
+    if(photos){
+
+      photos.innerHTML =
+        '<div class="empty">' +
+        'Unable to load photos.' +
+        '</div>';
+    }
+
+
+    if(dj){
+
+      dj.innerHTML =
+        '<div class="empty">' +
+        'Unable to load DJ mixes.' +
+        '</div>';
+    }
+
   }
 }
 
 
 init();
+
 </script>
 
 </body>
