@@ -454,10 +454,6 @@ font-size:16px;
 
 <div class="container">
 
-<!-- ======================================================
-     HEADER
-     ====================================================== -->
-
 <header class="header">
 
 <img
@@ -484,10 +480,6 @@ Upload Music • Videos • Photos • Apps • Software • Mixes
 
 <main class="main">
 
-<!-- ======================================================
-     INTRO
-     ====================================================== -->
-
 <section class="intro">
 
 <h2>
@@ -504,10 +496,6 @@ It's free, don't be scammed. Upload your music directly to Ning Wei Media.
 
 </section>
 
-
-<!-- ======================================================
-     YOUR INFORMATION
-     ====================================================== -->
 
 <section class="form-card">
 
@@ -557,10 +545,6 @@ No photo selected
 
 </section>
 
-
-<!-- ======================================================
-     SONGS / MUSIC
-     ====================================================== -->
 
 <section class="form-card upload-box music-box">
 
@@ -627,10 +611,6 @@ class="file-count"
 </section>
 
 
-<!-- ======================================================
-     PHOTOS
-     ====================================================== -->
-
 <section class="form-card upload-box image-box">
 
 <h3>
@@ -670,10 +650,6 @@ class="file-count"
 
 </section>
 
-
-<!-- ======================================================
-     VIDEOS
-     ====================================================== -->
 
 <section class="form-card upload-box video-box">
 
@@ -741,10 +717,6 @@ class="file-count"
 </section>
 
 
-<!-- ======================================================
-     APPS
-     ====================================================== -->
-
 <section class="form-card upload-box app-box">
 
 <h3>
@@ -809,10 +781,6 @@ class="file-count"
 
 </section>
 
-
-<!-- ======================================================
-     SOFTWARE
-     ====================================================== -->
 
 <section class="form-card upload-box software-box">
 
@@ -879,10 +847,6 @@ class="file-count"
 </section>
 
 
-<!-- ======================================================
-     DJ MIXES
-     ====================================================== -->
-
 <section class="form-card upload-box mix-box">
 
 <h3>
@@ -948,10 +912,6 @@ class="file-count"
 </section>
 
 
-<!-- ======================================================
-     DESCRIPTION
-     ====================================================== -->
-
 <section class="form-card">
 
 <h3>
@@ -968,10 +928,6 @@ placeholder="Tell us about the content you are uploading..."
 ></textarea>
 
 
-<!-- ======================================================
-     LARGE BATCH INFORMATION
-     ====================================================== -->
-
 <div
 id="batchInfo"
 class="batch-info"
@@ -983,19 +939,11 @@ of simultaneous upload connections.
 </div>
 
 
-<!-- ======================================================
-     BATCH SUMMARY
-     ====================================================== -->
-
 <div
 id="batchSummary"
 class="batch-summary"
 ></div>
 
-
-<!-- ======================================================
-     PROGRESS
-     ====================================================== -->
 
 <div
 id="progressWrap"
@@ -1021,10 +969,6 @@ Preparing upload...
 </div>
 
 
-<!-- ======================================================
-     UPLOAD EVERYTHING
-     ====================================================== -->
-
 <button
 id="uploadButton"
 class="submit-button"
@@ -1034,10 +978,6 @@ onclick="uploadEverything()"
 Upload Everything
 </button>
 
-
-<!-- ======================================================
-     STATUS
-     ====================================================== -->
 
 <div
 id="status"
@@ -1068,8 +1008,14 @@ href="index.html"
 const SUPABASE_URL =
 "https://btksyizkcpzubtextuce.supabase.co";
 
+/*
+   IMPORTANT:
+   This is the corrected public ANON key supplied for
+   project btksyizkcpzubtextuce.
+*/
+
 const SUPABASE_KEY =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtzc3lpemtjcHp1YnRleHR1Y2UiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4ODkzMTYyNiwiZXhwIjoyMTA0NTA3NjIyfQ.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const db =
 supabase.createClient(
@@ -1080,18 +1026,6 @@ SUPABASE_KEY
 
 /* =========================================================
    LARGE BATCH SETTINGS
-   =========================================================
-
-   This does NOT limit how many files the user can select.
-
-   The browser can select thousands of files through the
-   multiple file input.
-
-   UPLOAD_CONCURRENCY controls how many uploads are running
-   at the same time.
-
-   A controlled number is safer than trying to send 2,000+
-   requests simultaneously.
    ========================================================= */
 
 const UPLOAD_CONCURRENCY = 5;
@@ -1696,24 +1630,6 @@ lastError
 
 /* =========================================================
    LARGE BATCH CONCURRENT UPLOAD ENGINE
-   =========================================================
-
-   IMPORTANT:
-
-   The user may select 2,000+ files.
-
-   We do NOT create 2,000 simultaneous network requests.
-
-   Instead:
-
-   - all selected files stay in the browser FileList
-   - only a small number are uploaded simultaneously
-   - completed files are removed from the active queue
-   - the next files automatically enter the queue
-   - progress is updated after every completed file
-   - failed files are recorded without stopping the entire batch
-
-   This is much safer for very large batches.
    ========================================================= */
 
 async function uploadFiles(
@@ -1731,11 +1647,6 @@ return results;
 }
 
 let nextIndex = 0;
-
-
-/* ---------------------------------------------------------
-   WORKER
-   --------------------------------------------------------- */
 
 async function worker(){
 
@@ -1814,11 +1725,6 @@ file.name
 }
 
 }
-
-
-/* ---------------------------------------------------------
-   CREATE CONTROLLED WORKERS
-   --------------------------------------------------------- */
 
 const workerCount =
 Math.min(
@@ -2060,11 +1966,6 @@ document.getElementById(
 "uploadButton"
 );
 
-const status =
-document.getElementById(
-"status"
-);
-
 try{
 
 button.disabled = true;
@@ -2118,8 +2019,6 @@ getFiles("artistPhoto")[0];
 
 /* ---------------------------------------------------------
    MAIN FILE COUNT
-
-   Artist photo is included because it is also uploaded.
    --------------------------------------------------------- */
 
 const allFiles =
@@ -2197,7 +2096,6 @@ let songResults = [];
 
 let coverResults = [];
 
-
 if(songs.length){
 
 setStatus(
@@ -2240,14 +2138,6 @@ progress
 
 /* ---------------------------------------------------------
    SAVE SONG RECORDS
-   ---------------------------------------------------------
-
-   The existing behavior is preserved.
-
-   If a cover exists in the same position as the song,
-   that cover is associated with that song.
-
-   If there is no matching cover, cover_url remains null.
    --------------------------------------------------------- */
 
 for(
