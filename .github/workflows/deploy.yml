@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
   workflow_dispatch:
 
 permissions:
@@ -12,7 +13,9 @@ permissions:
   id-token: write
 
 jobs:
+
   deploy:
+
     runs-on: ubuntu-latest
 
     environment:
@@ -20,6 +23,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v6
 
