@@ -18,6 +18,10 @@ content="width=device-width, initial-scale=1.0"
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
@@ -114,18 +118,6 @@ margin:auto;
 padding:15px;
 }
 
-.back{
-display:inline-block;
-
-margin-bottom:12px;
-
-color:#0788d1;
-
-text-decoration:none;
-
-font-weight:bold;
-}
-
 .player-card{
 background:white;
 
@@ -157,6 +149,32 @@ border-radius:8px;
 padding:12px;
 
 margin-top:10px;
+}
+
+/* =========================
+   MEDIA INFORMATION
+========================= */
+
+.media-information{
+margin-bottom:16px;
+}
+
+.media-name{
+margin:0;
+
+font-size:22px;
+
+font-weight:800;
+
+word-break:break-word;
+}
+
+.media-date{
+margin:7px 0 0;
+
+color:#777;
+
+font-size:13px;
 }
 
 /* =========================
@@ -352,6 +370,161 @@ color:white;
 }
 
 /* =========================
+   VERTICAL MEDIA NAVIGATION
+========================= */
+
+.vertical-navigation{
+margin-top:25px;
+
+display:none;
+}
+
+.navigation-title{
+font-size:18px;
+
+font-weight:800;
+
+margin:0 0 10px;
+}
+
+.navigation-help{
+font-size:12px;
+
+color:#777;
+
+margin-bottom:12px;
+}
+
+.navigation-buttons{
+display:flex;
+
+gap:9px;
+}
+
+.nav-btn{
+flex:1;
+
+border:1px solid #ddd;
+
+background:#f7fbff;
+
+color:#0788d1;
+
+border-radius:10px;
+
+padding:11px;
+
+font-size:13px;
+
+font-weight:800;
+
+cursor:pointer;
+}
+
+.nav-btn:active{
+transform:scale(.98);
+}
+
+/* =========================
+   SIMILAR MEDIA
+========================= */
+
+.similar-section{
+margin-top:30px;
+
+display:none;
+}
+
+.similar-title{
+font-size:21px;
+
+font-weight:900;
+
+margin:0 0 14px;
+}
+
+.similar-grid{
+display:grid;
+
+grid-template-columns:
+repeat(2,minmax(0,1fr));
+
+gap:10px;
+}
+
+.similar-card{
+display:block;
+
+background:#fff;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+overflow:hidden;
+
+text-decoration:none;
+
+color:#111;
+
+box-shadow:
+0 2px 8px rgba(0,0,0,.06);
+
+transition:
+transform .2s ease,
+border-color .2s ease;
+}
+
+.similar-card:hover{
+transform:translateY(-2px);
+
+border-color:#0788d1;
+}
+
+.similar-thumb{
+width:100%;
+
+aspect-ratio:16/10;
+
+background:#111;
+
+overflow:hidden;
+}
+
+.similar-thumb img,
+.similar-thumb video{
+width:100%;
+
+height:100%;
+
+display:block;
+
+object-fit:cover;
+}
+
+.similar-name{
+padding:9px;
+
+font-size:13px;
+
+font-weight:700;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+}
+
+.similar-date{
+padding:0 9px 9px;
+
+font-size:10px;
+
+color:#777;
+}
+
+/* =========================
    DOWNLOAD POPUP
 ========================= */
 
@@ -465,6 +638,31 @@ font-size:12px;
 padding:25px 10px;
 }
 
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+.container{
+padding:12px;
+}
+
+.player-card{
+padding:13px;
+}
+
+.similar-grid{
+grid-template-columns:
+repeat(2,minmax(0,1fr));
+}
+
+.media-name{
+font-size:19px;
+}
+
+}
+
 </style>
 
 </head>
@@ -505,13 +703,6 @@ Music • Videos • Photos • Apps • Software
 
 <main class="container">
 
-<a
-class="back"
-href="javascript:history.back()"
->
-← Back
-</a>
-
 
 <div class="player-card">
 
@@ -524,7 +715,35 @@ Loading media...
 </div>
 
 
-<!-- SONG INFORMATION -->
+<!-- =========================
+     MEDIA INFORMATION
+========================= -->
+
+<div
+id="mediaInformation"
+class="media-information"
+style="display:none;"
+>
+
+<h2
+id="mediaName"
+class="media-name"
+>
+Ning Wei Media
+</h2>
+
+<div
+id="mediaDate"
+class="media-date"
+>
+</div>
+
+</div>
+
+
+<!-- =========================
+     SONG INFORMATION
+========================= -->
 
 <div
 id="songMeta"
@@ -560,7 +779,9 @@ Ning Wei
 </div>
 
 
-<!-- DIRECT MEDIA TITLE -->
+<!-- =========================
+     DIRECT MEDIA TITLE
+========================= -->
 
 <h2
 id="mediaTitle"
@@ -569,7 +790,9 @@ style="display:none;"
 ></h2>
 
 
-<!-- AUDIO -->
+<!-- =========================
+     AUDIO
+========================= -->
 
 <div
 id="audioBox"
@@ -586,7 +809,9 @@ preload="metadata"
 </div>
 
 
-<!-- VIDEO -->
+<!-- =========================
+     VIDEO
+========================= -->
 
 <div
 id="videoBox"
@@ -624,7 +849,9 @@ you can still download the original file below.
 </div>
 
 
-<!-- IMAGE / PHOTO -->
+<!-- =========================
+     IMAGE / PHOTO
+========================= -->
 
 <div
 id="imageBox"
@@ -640,7 +867,9 @@ alt="Photo"
 </div>
 
 
-<!-- BUTTONS -->
+<!-- =========================
+     BUTTONS
+========================= -->
 
 <div
 id="actions"
@@ -673,6 +902,71 @@ id="error"
 class="error"
 style="display:none;"
 ></div>
+
+
+<!-- =========================
+     VERTICAL NAVIGATION
+========================= -->
+
+<div
+id="verticalNavigation"
+class="vertical-navigation"
+>
+
+<h3 class="navigation-title">
+Browse Media
+</h3>
+
+<div class="navigation-help">
+Swipe or scroll up for the next item and down for the previous item.
+</div>
+
+<div class="navigation-buttons">
+
+<button
+id="previousButton"
+class="nav-btn"
+type="button"
+>
+↑ Previous
+</button>
+
+<button
+id="nextButton"
+class="nav-btn"
+type="button"
+>
+↓ Next
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     SIMILAR MEDIA
+========================= -->
+
+<section
+id="similarSection"
+class="similar-section"
+>
+
+<h2
+id="similarTitle"
+class="similar-title"
+>
+Similar Media
+</h2>
+
+<div
+id="similarGrid"
+class="similar-grid"
+>
+</div>
+
+</section>
 
 
 </div>
@@ -759,6 +1053,21 @@ document.getElementById("status");
 const errorBox =
 document.getElementById("error");
 
+const mediaInformation =
+document.getElementById(
+"mediaInformation"
+);
+
+const mediaName =
+document.getElementById(
+"mediaName"
+);
+
+const mediaDate =
+document.getElementById(
+"mediaDate"
+);
+
 const songMeta =
 document.getElementById("songMeta");
 
@@ -811,6 +1120,46 @@ document.getElementById("share");
 
 
 /* =====================================================
+   NAVIGATION ELEMENTS
+===================================================== */
+
+const verticalNavigation =
+document.getElementById(
+"verticalNavigation"
+);
+
+const previousButton =
+document.getElementById(
+"previousButton"
+);
+
+const nextButton =
+document.getElementById(
+"nextButton"
+);
+
+
+/* =====================================================
+   SIMILAR MEDIA ELEMENTS
+===================================================== */
+
+const similarSection =
+document.getElementById(
+"similarSection"
+);
+
+const similarTitle =
+document.getElementById(
+"similarTitle"
+);
+
+const similarGrid =
+document.getElementById(
+"similarGrid"
+);
+
+
+/* =====================================================
    DOWNLOAD POPUP ELEMENTS
 ===================================================== */
 
@@ -830,6 +1179,31 @@ document.getElementById(
 );
 
 let downloadPopupTimer = null;
+
+
+/* =====================================================
+   CURRENT MEDIA
+===================================================== */
+
+let currentMedia = {
+
+url:"",
+name:"",
+mime:"",
+type:"",
+date:"",
+path:""
+
+};
+
+
+/* =====================================================
+   MEDIA COLLECTION
+===================================================== */
+
+let mediaCollection = [];
+
+let currentMediaIndex = -1;
 
 
 /* =====================================================
@@ -896,26 +1270,14 @@ const filename =
 download.getAttribute(
 "download"
 ) ||
-download.textContent.trim() ||
 "Ning Wei Media";
 
-
-/*
-   Show immediately when
-   the download is requested.
-*/
 
 showDownloadPopup(
 filename,
 false
 );
 
-
-/*
-   Give the browser time to
-   start the download, then
-   change the message.
-*/
 
 setTimeout(
 function(){
@@ -1077,6 +1439,37 @@ return "";
 return parts
 .pop()
 .toLowerCase();
+
+}
+
+
+function formatDate(value){
+
+if(!value){
+
+return "";
+}
+
+const date =
+new Date(value);
+
+if(
+Number.isNaN(
+date.getTime()
+)
+){
+
+return "";
+}
+
+return date.toLocaleDateString(
+undefined,
+{
+year:"numeric",
+month:"short",
+day:"numeric"
+}
+);
 
 }
 
@@ -1607,6 +2000,1500 @@ video.load();
 
 
 /* =====================================================
+   UPDATE MEDIA INFORMATION
+===================================================== */
+
+function updateMediaInformation(
+name,
+date
+){
+
+mediaInformation.style.display =
+"block";
+
+
+mediaName.textContent =
+cleanName(name);
+
+
+if(date){
+
+mediaDate.textContent =
+"Uploaded: " +
+formatDate(date);
+
+}
+else{
+
+mediaDate.textContent =
+"";
+
+}
+
+}
+
+
+/* =====================================================
+   SET CURRENT MEDIA
+===================================================== */
+
+function setCurrentMedia(
+item
+){
+
+currentMedia = {
+
+url:item.url || "",
+
+name:item.name || "",
+
+mime:item.mime || "",
+
+type:item.type || mediaType(
+item.name || "",
+item.mime || ""
+),
+
+date:item.date || "",
+
+path:item.path || ""
+
+};
+
+}
+
+
+/* =====================================================
+   RENDER CURRENT MEDIA
+===================================================== */
+
+function renderMedia(
+item
+){
+
+if(!item || !item.url){
+
+return;
+}
+
+
+setCurrentMedia(
+item
+);
+
+
+hideAllMedia();
+
+errorBox.style.display =
+"none";
+
+
+songMeta.style.display =
+"none";
+
+
+mediaTitle.style.display =
+"none";
+
+
+updateMediaInformation(
+item.name,
+item.date
+);
+
+
+const type =
+currentMedia.type;
+
+
+/* =====================
+   IMAGE
+===================== */
+
+if(
+type === "image"
+){
+
+imageBox.style.display =
+"block";
+
+mediaImage.src =
+item.url;
+
+mediaImage.alt =
+cleanName(item.name);
+
+mediaImage.classList.remove(
+"zoomed"
+);
+
+mediaImage.onclick =
+function(){
+
+mediaImage.classList.toggle(
+"zoomed"
+);
+
+};
+
+
+mediaImage.onerror =
+function(){
+
+showError(
+"❌ This photo could not be loaded."
+);
+
+};
+
+}
+
+
+/* =====================
+   VIDEO
+===================== */
+
+else if(
+type === "video"
+){
+
+videoBox.style.display =
+"block";
+
+
+setVideoSource(
+item.url,
+item.name,
+item.mime
+);
+
+
+videoFormatNote.style.display =
+"block";
+
+
+video.onerror =
+function(){
+
+showError(
+"❌ This video format cannot be played by your browser. The original file is still available for download."
+);
+
+};
+
+}
+
+
+/* =====================
+   AUDIO
+===================== */
+
+else if(
+type === "audio"
+){
+
+audioBox.style.display =
+"block";
+
+
+const audioMime =
+audioMimeType(
+item.name,
+item.mime
+);
+
+
+if(audioMime){
+
+audio.setAttribute(
+"type",
+audioMime
+);
+
+}
+
+
+audio.src =
+item.url;
+
+audio.load();
+
+
+audio.onerror =
+function(){
+
+showError(
+"❌ This audio file could not be played by your browser. The original file can still be downloaded."
+);
+
+};
+
+}
+
+
+else{
+
+showError(
+"❌ Unsupported media format."
+);
+
+return;
+
+}
+
+
+/* =====================
+   DOWNLOAD
+===================== */
+
+download.href =
+item.url;
+
+download.textContent =
+downloadLabel(
+item.name,
+type
+);
+
+
+/*
+ * Keep the ORIGINAL filename.
+ */
+
+download.setAttribute(
+"download",
+item.name ||
+"ning-wei-media"
+);
+
+
+/* =====================
+   SHARE
+===================== */
+
+shareButton.onclick =
+function(){
+
+shareMedia(
+window.location.href,
+cleanName(item.name)
+);
+
+};
+
+
+actions.style.display =
+"flex";
+
+statusBox.style.display =
+"none";
+
+
+document.title =
+cleanName(item.name) +
+" - Ning Wei Media";
+
+
+/* =====================
+   NAVIGATION
+===================== */
+
+if(
+mediaCollection.length > 1
+){
+
+verticalNavigation.style.display =
+"block";
+
+}
+else{
+
+verticalNavigation.style.display =
+"none";
+
+}
+
+
+updateNavigationButtons();
+
+
+/* =====================
+   SIMILAR MEDIA
+===================== */
+
+renderSimilarMedia(
+item
+);
+
+}
+
+
+/* =====================================================
+   NAVIGATION BUTTONS
+===================================================== */
+
+function updateNavigationButtons(){
+
+if(
+currentMediaIndex <= 0
+){
+
+previousButton.disabled =
+true;
+
+previousButton.style.opacity =
+".45";
+
+}
+else{
+
+previousButton.disabled =
+false;
+
+previousButton.style.opacity =
+"1";
+
+}
+
+
+if(
+currentMediaIndex >=
+mediaCollection.length - 1
+){
+
+nextButton.disabled =
+true;
+
+nextButton.style.opacity =
+".45";
+
+}
+else{
+
+nextButton.disabled =
+false;
+
+nextButton.style.opacity =
+"1";
+
+}
+
+}
+
+
+/* =====================================================
+   SHOW PREVIOUS
+===================================================== */
+
+function showPreviousMedia(){
+
+if(
+currentMediaIndex <= 0
+){
+
+return;
+
+}
+
+
+currentMediaIndex--;
+
+renderMedia(
+mediaCollection[
+currentMediaIndex
+]
+);
+
+scrollToMedia();
+
+}
+
+
+/* =====================================================
+   SHOW NEXT
+===================================================== */
+
+function showNextMedia(){
+
+if(
+currentMediaIndex >=
+mediaCollection.length - 1
+){
+
+return;
+
+}
+
+
+currentMediaIndex++;
+
+renderMedia(
+mediaCollection[
+currentMediaIndex
+]
+);
+
+scrollToMedia();
+
+}
+
+
+/* =====================================================
+   SCROLL TO MEDIA
+===================================================== */
+
+function scrollToMedia(){
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+previousButton.addEventListener(
+"click",
+showPreviousMedia
+);
+
+
+nextButton.addEventListener(
+"click",
+showNextMedia
+);
+
+
+/* =====================================================
+   TOUCH SWIPE
+===================================================== */
+
+let touchStartY = 0;
+
+let touchEndY = 0;
+
+
+document.addEventListener(
+"touchstart",
+function(event){
+
+if(
+event.touches &&
+event.touches.length
+){
+
+touchStartY =
+event.touches[0].clientY;
+
+}
+
+},
+{
+passive:true
+}
+);
+
+
+document.addEventListener(
+"touchend",
+function(event){
+
+if(
+!event.changedTouches ||
+!event.changedTouches.length
+){
+
+return;
+
+}
+
+
+touchEndY =
+event.changedTouches[0].clientY;
+
+
+handleSwipe();
+
+},
+{
+passive:true
+}
+);
+
+
+function handleSwipe(){
+
+const distance =
+touchStartY -
+touchEndY;
+
+
+/*
+ * Ignore very small movements.
+ */
+
+if(
+Math.abs(distance) < 60
+){
+
+return;
+
+}
+
+
+/*
+ * Swipe UP = NEXT
+ */
+
+if(distance > 0){
+
+showNextMedia();
+
+}
+
+
+/*
+ * Swipe DOWN = PREVIOUS
+ */
+
+else{
+
+showPreviousMedia();
+
+}
+
+}
+
+
+/* =====================================================
+   MOUSE WHEEL / DESKTOP SCROLL
+===================================================== */
+
+let wheelLocked = false;
+
+
+document.addEventListener(
+"wheel",
+function(event){
+
+/*
+ * Only activate vertical media
+ * navigation when there is more
+ * than one media item.
+ */
+
+if(
+mediaCollection.length <= 1
+){
+
+return;
+
+}
+
+
+/*
+ * Prevent rapid multiple changes.
+ */
+
+if(wheelLocked){
+
+return;
+
+}
+
+
+if(
+Math.abs(event.deltaY) < 25
+){
+
+return;
+
+}
+
+
+wheelLocked = true;
+
+
+if(event.deltaY > 0){
+
+showNextMedia();
+
+}
+else{
+
+showPreviousMedia();
+
+}
+
+
+setTimeout(
+function(){
+
+wheelLocked = false;
+
+},
+500
+);
+
+},
+{
+passive:true
+}
+);
+
+
+/* =====================================================
+   KEYBOARD NAVIGATION
+===================================================== */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+if(
+event.key === "ArrowDown"
+){
+
+showNextMedia();
+
+}
+
+if(
+event.key === "ArrowUp"
+){
+
+showPreviousMedia();
+
+}
+
+}
+);
+
+
+/* =====================================================
+   SIMILAR MEDIA CARD
+===================================================== */
+
+function createSimilarCard(
+item
+){
+
+const card =
+document.createElement("a");
+
+
+card.className =
+"similar-card";
+
+
+card.href =
+mediaPageUrl(
+item
+);
+
+
+const thumb =
+document.createElement("div");
+
+
+thumb.className =
+"similar-thumb";
+
+
+/*
+ * PHOTO
+ */
+
+if(
+item.type === "image"
+){
+
+const img =
+document.createElement("img");
+
+img.src =
+item.url;
+
+img.alt =
+cleanName(item.name);
+
+img.loading =
+"lazy";
+
+thumb.appendChild(
+img
+);
+
+}
+
+
+/*
+ * VIDEO
+ *
+ * If there is no thumbnail,
+ * the actual video is shown.
+ */
+
+else if(
+item.type === "video"
+){
+
+if(item.thumbnail){
+
+const img =
+document.createElement("img");
+
+img.src =
+item.thumbnail;
+
+img.alt =
+cleanName(item.name);
+
+img.loading =
+"lazy";
+
+thumb.appendChild(
+img
+);
+
+}
+else{
+
+const vid =
+document.createElement("video");
+
+vid.src =
+item.url;
+
+vid.muted =
+true;
+
+vid.playsInline =
+true;
+
+vid.autoplay =
+true;
+
+vid.loop =
+true;
+
+vid.controls =
+false;
+
+vid.preload =
+"metadata";
+
+thumb.appendChild(
+vid
+);
+
+}
+
+}
+
+
+const name =
+document.createElement("div");
+
+name.className =
+"similar-name";
+
+name.textContent =
+cleanName(item.name);
+
+
+const date =
+document.createElement("div");
+
+date.className =
+"similar-date";
+
+if(item.date){
+
+date.textContent =
+"Uploaded: " +
+formatDate(item.date);
+
+}
+
+
+card.appendChild(
+thumb
+);
+
+card.appendChild(
+name
+);
+
+card.appendChild(
+date
+);
+
+
+return card;
+}
+
+
+/* =====================================================
+   MEDIA PAGE URL
+===================================================== */
+
+function mediaPageUrl(
+item
+){
+
+return (
+"media.html?url=" +
+encodeURIComponent(
+item.url
+) +
+"&name=" +
+encodeURIComponent(
+item.name || ""
+) +
+"&mime=" +
+encodeURIComponent(
+item.mime || ""
+) +
+"&date=" +
+encodeURIComponent(
+item.date || ""
+) +
+"&path=" +
+encodeURIComponent(
+item.path || ""
+)
+);
+
+}
+
+
+/* =====================================================
+   RENDER SIMILAR MEDIA
+===================================================== */
+
+function renderSimilarMedia(
+item
+){
+
+similarGrid.innerHTML =
+"";
+
+
+if(
+item.type !== "video" &&
+item.type !== "image"
+){
+
+similarSection.style.display =
+"none";
+
+return;
+
+}
+
+
+const similar =
+mediaCollection
+.filter(
+candidate => {
+
+if(
+candidate === item
+){
+
+return false;
+
+}
+
+
+if(
+candidate.type !==
+item.type
+){
+
+return false;
+
+}
+
+
+/*
+ * Prefer media from the
+ * same folder/category.
+ */
+
+if(
+item.path &&
+candidate.path
+){
+
+const itemFolder =
+item.path
+.split("/")
+.slice(0,-1)
+.join("/");
+
+
+const candidateFolder =
+candidate.path
+.split("/")
+.slice(0,-1)
+.join("/");
+
+
+if(
+itemFolder ===
+candidateFolder
+){
+
+return true;
+
+}
+
+}
+
+
+/*
+ * Otherwise keep same media type.
+ */
+
+return true;
+
+}
+)
+.slice(0,8);
+
+
+if(!similar.length){
+
+similarSection.style.display =
+"none";
+
+return;
+
+}
+
+
+if(
+item.type === "video"
+){
+
+similarTitle.textContent =
+"Similar Videos";
+
+}
+else{
+
+similarTitle.textContent =
+"Similar Photos";
+
+}
+
+
+for(
+const candidate of similar
+){
+
+similarGrid.appendChild(
+createSimilarCard(
+candidate
+)
+);
+
+}
+
+
+similarSection.style.display =
+"block";
+
+}
+
+
+/* =====================================================
+   BUILD GITHUB MEDIA COLLECTION
+===================================================== */
+
+async function loadGithubMedia(){
+
+try{
+
+const response =
+await fetch(
+"https://api.github.com/repos/" +
+"Ningwei2567/Ning-wei-1/git/trees/main?recursive=1"
+);
+
+
+if(!response.ok){
+
+return [];
+
+}
+
+
+const data =
+await response.json();
+
+
+const tree =
+data.tree || [];
+
+
+const result = [];
+
+
+for(
+const file of tree
+){
+
+if(
+file.type !== "blob"
+){
+
+continue;
+
+}
+
+
+const filePath =
+file.path;
+
+
+if(
+!filePath.startsWith(
+"media/"
+)
+){
+
+continue;
+
+}
+
+
+const filename =
+filePath
+.split("/")
+.pop();
+
+
+const url =
+githubUrlFromPath(
+filePath
+);
+
+
+const type =
+mediaType(
+filename,
+""
+);
+
+
+/* =====================
+   VIDEOS
+===================== */
+
+if(
+type === "video" &&
+filePath.startsWith(
+"media/videos/"
+)
+){
+
+/*
+ * Only real video files.
+ */
+
+result.push({
+
+type:"video",
+
+name:filename,
+
+url:url,
+
+mime:"",
+
+date:"",
+
+path:filePath,
+
+thumbnail:""
+
+});
+
+continue;
+
+}
+
+
+/* =====================
+   PHOTOS
+===================== */
+
+if(
+type === "image" &&
+filePath.startsWith(
+"media/photos/"
+)
+){
+
+result.push({
+
+type:"image",
+
+name:filename,
+
+url:url,
+
+mime:
+imageMimeType(
+filename,
+""
+),
+
+date:"",
+
+path:filePath,
+
+thumbnail:""
+
+});
+
+}
+
+}
+
+
+return result;
+
+}
+catch(error){
+
+console.error(
+"GitHub media error:",
+error
+);
+
+return [];
+
+}
+
+}
+
+
+/* =====================================================
+   LOAD SUPABASE MEDIA
+===================================================== */
+
+async function loadSupabaseMedia(){
+
+try{
+
+const result =
+await db
+.from(
+"artist_submissions"
+)
+.select("*");
+
+
+if(result.error){
+
+console.error(
+result.error
+);
+
+return [];
+
+}
+
+
+const rows =
+result.data || [];
+
+
+const resultItems = [];
+
+
+for(
+const row of rows
+){
+
+const url =
+row.file_url ||
+row.url ||
+row.public_url ||
+row.storage_url;
+
+
+if(!url){
+
+continue;
+
+}
+
+
+const name =
+row.file_name ||
+row.filename ||
+row.name ||
+filenameFromPath(
+url
+) ||
+"Media";
+
+
+let type =
+String(
+row.type ||
+row.media_type ||
+""
+)
+.toLowerCase();
+
+
+if(
+type === "photo"
+){
+
+type =
+"image";
+
+}
+
+
+if(!type){
+
+type =
+mediaType(
+name,
+row.mime_type ||
+""
+);
+
+}
+
+
+if(
+type !== "image" &&
+type !== "video"
+){
+
+continue;
+
+}
+
+
+resultItems.push({
+
+type:type,
+
+name:name,
+
+url:url,
+
+mime:
+row.mime_type ||
+"",
+
+date:
+row.created_at ||
+row.uploaded_at ||
+row.date ||
+"",
+
+path:
+row.path ||
+row.file_path ||
+"",
+
+thumbnail:
+row.thumbnail_url ||
+row.thumbnail ||
+""
+
+});
+
+}
+
+
+return resultItems;
+
+}
+catch(error){
+
+console.error(
+"Supabase media error:",
+error
+);
+
+return [];
+
+}
+
+}
+
+
+/* =====================================================
+   REMOVE DUPLICATES
+===================================================== */
+
+function removeDuplicateMedia(
+items
+){
+
+const seen =
+new Set();
+
+
+return items.filter(
+item => {
+
+const key =
+String(
+item.url || ""
+);
+
+
+if(
+seen.has(key)
+){
+
+return false;
+
+}
+
+
+seen.add(key);
+
+return true;
+
+}
+);
+
+}
+
+
+/* =====================================================
+   FIND CURRENT MEDIA
+===================================================== */
+
+function findCurrentMediaIndex(){
+
+if(
+!currentMedia.url
+){
+
+return -1;
+
+}
+
+
+const index =
+mediaCollection.findIndex(
+item =>
+item.url ===
+currentMedia.url
+);
+
+
+return index;
+
+}
+
+
+/* =====================================================
+   LOAD RELATED MEDIA
+===================================================== */
+
+async function loadRelatedMedia(){
+
+try{
+
+const [
+githubItems,
+supabaseItems
+] =
+await Promise.all([
+
+loadGithubMedia(),
+
+loadSupabaseMedia()
+
+]);
+
+
+mediaCollection =
+removeDuplicateMedia([
+
+...githubItems,
+
+...supabaseItems
+
+]);
+
+
+currentMediaIndex =
+findCurrentMediaIndex();
+
+
+if(
+currentMediaIndex < 0 &&
+currentMedia.url
+){
+
+/*
+ * If the exact URL was not
+ * found in the collection,
+ * insert the currently opened
+ * media so navigation still
+ * works.
+ */
+
+mediaCollection.unshift(
+currentMedia
+);
+
+currentMediaIndex = 0;
+
+}
+
+
+if(
+currentMediaIndex >= 0
+){
+
+updateNavigationButtons();
+
+renderSimilarMedia(
+currentMedia
+);
+
+}
+
+
+}
+catch(error){
+
+console.error(
+"Related media error:",
+error
+);
+
+}
+
+}
+
+
+/* =====================================================
    DIRECT MEDIA MODE
 ===================================================== */
 
@@ -1618,6 +3505,11 @@ let filename = "";
 
 let mime =
 suppliedMime || "";
+
+
+const suppliedDate =
+params.get("date") ||
+"";
 
 
 if(directUrl){
@@ -1724,188 +3616,37 @@ return true;
 }
 
 
-hideAllMedia();
+const item = {
 
-errorBox.style.display =
-"none";
+type:type,
 
-songMeta.style.display =
-"none";
+name:filename,
 
+url:mediaUrl,
 
-mediaTitle.textContent =
-cleanName(filename);
+mime:mime,
 
-mediaTitle.style.display =
-"block";
+date:suppliedDate,
 
+path:path || "",
 
-/* =====================
-   IMAGE
-===================== */
-
-if(
-type === "image"
-){
-
-imageBox.style.display =
-"block";
-
-mediaImage.src =
-mediaUrl;
-
-mediaImage.alt =
-cleanName(filename);
-
-mediaImage.onclick =
-function(){
-
-mediaImage.classList.toggle(
-"zoomed"
-);
+thumbnail:""
 
 };
 
 
-mediaImage.onerror =
-function(){
-
-showError(
-"❌ This photo could not be loaded."
-);
-
-};
-
-}
-
-
-/* =====================
-   VIDEO
-===================== */
-
-if(
-type === "video"
-){
-
-videoBox.style.display =
-"block";
-
-
-setVideoSource(
-mediaUrl,
-filename,
-mime
+renderMedia(
+item
 );
 
 
-videoFormatNote.style.display =
-"block";
+/*
+ * Load similar/next/previous
+ * media after the main media
+ * is displayed.
+ */
 
-
-video.onerror =
-function(){
-
-showError(
-"❌ This video format cannot be played by your browser. The original file is still available for download."
-);
-
-};
-
-}
-
-
-/* =====================
-   AUDIO
-===================== */
-
-if(
-type === "audio"
-){
-
-audioBox.style.display =
-"block";
-
-
-const audioMime =
-audioMimeType(
-filename,
-mime
-);
-
-
-if(audioMime){
-
-audio.setAttribute(
-"type",
-audioMime
-);
-
-}
-
-
-audio.src =
-mediaUrl;
-
-audio.load();
-
-
-audio.onerror =
-function(){
-
-showError(
-"❌ This audio file could not be played by your browser. The original file can still be downloaded."
-);
-
-};
-
-}
-
-
-/* =====================
-   DOWNLOAD
-===================== */
-
-download.href =
-mediaUrl;
-
-download.textContent =
-downloadLabel(
-filename,
-type
-);
-
-
-download.setAttribute(
-"download",
-filename ||
-"ning-wei-media"
-);
-
-
-/* =====================
-   SHARE
-===================== */
-
-shareButton.onclick =
-function(){
-
-shareMedia(
-mediaUrl,
-cleanName(filename)
-);
-
-};
-
-
-actions.style.display =
-"flex";
-
-statusBox.style.display =
-"none";
-
-document.title =
-cleanName(filename) +
-" - Ning Wei Media";
+loadRelatedMedia();
 
 
 return true;
@@ -1932,7 +3673,7 @@ const result =
 await db
 .from("songs")
 .select(
-"title,song_url,cover_url,artists(name,photo)"
+"title,song_url,cover_url,created_at,artists(name,photo)"
 )
 .eq(
 "id",
@@ -1980,6 +3721,32 @@ mediaTitle.style.display =
 
 songMeta.style.display =
 "flex";
+
+
+mediaInformation.style.display =
+"block";
+
+
+mediaName.textContent =
+data.title ||
+"Untitled Song";
+
+
+if(data.created_at){
+
+mediaDate.textContent =
+"Uploaded: " +
+formatDate(
+data.created_at
+);
+
+}
+else{
+
+mediaDate.textContent =
+"";
+
+}
 
 
 songTitle.textContent =
