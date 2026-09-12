@@ -4,13 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Upload • Ning Wei Media</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111}
 
-/* HEADER - FIXED */
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f7;
+  color:#111;
+}
+
+/* HEADER */
 .header{
   position:relative;
   height:150px;
@@ -22,73 +29,292 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
   text-align:center;
   color:white;
 }
+
 .header img{
   position:absolute;
-  left:0;top:0;
+  left:0;
+  top:0;
   width:100%;
   height:150px;
   object-fit:cover;
   object-position:center 22%;
 }
+
 .header-content{
   position:relative;
   z-index:2;
   padding:8px 15px;
   text-shadow:0 2px 5px rgba(0,0,0,.9);
 }
-.header-content h1{margin:0;font-size:28px;font-weight:800}
-.header-content p{margin:6px 0 0;font-size:14px}
 
-.container{width:min(700px,94%);margin:18px auto}
-.card{background:white;border-radius:15px;padding:18px;margin-bottom:16px;box-shadow:0 3px 14px rgba(0,0,0,.08)}
-.card h2,.card h3{margin-top:0}
-.intro{text-align:center}
+.header-content h1{
+  margin:0;
+  font-size:28px;
+  font-weight:800;
+}
 
-.creator-preview{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px;background:#f7f7f7;border-radius:12px}
-.creator-photo{width:46px;height:46px;min-width:46px;border-radius:50%;object-fit:cover;border:2px solid #111;background:#eee}
-.creator-name{font-size:17px;font-weight:bold;color:#111}
+.header-content p{
+  margin:6px 0 0;
+  font-size:14px;
+}
 
-label{display:block;margin-top:13px;margin-bottom:6px;font-weight:bold;font-size:14px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;font-size:15px;background:white}
-textarea{min-height:100px;resize:vertical}
-input:focus,textarea:focus,select:focus{outline:none;border-color:#111}
+.container{
+  width:min(700px,94%);
+  margin:18px auto;
+}
 
-.category-required{border:2px solid #e5a400 !important;background:#fffaf0 !important}
+.card{
+  background:white;
+  border-radius:15px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 3px 14px rgba(0,0,0,.08);
+}
 
-.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-.type-button{border:0;border-radius:11px;padding:15px 10px;background:#f0f0f0;color:#111;font-weight:bold;font-size:15px;cursor:pointer}
-.type-button.active{background:#111;color:white}
+.card h2,
+.card h3{
+  margin-top:0;
+}
 
-.upload-section{display:none}
-.upload-section.active,.upload-section.open{display:block !important}
+.intro{
+  text-align:center;
+}
 
-.upload-button{width:100%;border:0;border-radius:10px;padding:14px;margin-top:18px;background:#111;color:white;font-size:16px;font-weight:bold;cursor:pointer}
-.upload-button:disabled{opacity:.55;cursor:not-allowed}
+.creator-preview{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:14px;
+  padding:10px;
+  background:#f7f7f7;
+  border-radius:12px;
+}
 
-.file-name{margin-top:6px;font-size:13px;color:#666}
-.validation-warning{display:none;margin-top:12px;padding:12px;border-radius:9px;background:#fff4d6;border-left:4px solid #e5a400;color:#795500;font-size:14px;font-weight:bold}
-.validation-warning.show{display:block}
+.creator-photo{
+  width:46px;
+  height:46px;
+  min-width:46px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #111;
+  background:#eee;
+}
 
-.progress-box{display:none;margin-top:16px}
-.progress{width:100%;height:10px;background:#eee;border-radius:20px;overflow:hidden}
-.progress-bar{height:100%;width:0;background:#111;transition:width .2s}
-.status{margin-top:10px;padding:12px;border-radius:9px;background:#f5f5f5;font-size:14px}
-.success{background:#e9f8ed;color:#176b2d}
-.error{background:#fff0f0;color:#a11}
+.creator-name{
+  font-size:17px;
+  font-weight:bold;
+  color:#111;
+}
 
-.back-button{display:block;text-align:center;text-decoration:none;margin-top:15px;padding:12px;background:#f0f0f0;color:#111;border-radius:9px;font-weight:bold}
-footer{text-align:center;padding:22px;color:#777;font-size:12px}
+label{
+  display:block;
+  margin-top:13px;
+  margin-bottom:6px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:15px;
+  background:white;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  outline:none;
+  border-color:#111;
+}
+
+.category-required{
+  border:2px solid #e5a400 !important;
+  background:#fffaf0 !important;
+}
+
+.type-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+.type-button{
+  border:0;
+  border-radius:11px;
+  padding:15px 10px;
+  background:#f0f0f0;
+  color:#111;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.type-button.active{
+  background:#111;
+  color:white;
+}
+
+.upload-section{
+  display:none;
+}
+
+.upload-section.active,
+.upload-section.open{
+  display:block !important;
+}
+
+.upload-button{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:14px;
+  margin-top:18px;
+  background:#111;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.upload-button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.file-name{
+  margin-top:6px;
+  font-size:13px;
+  color:#666;
+}
+
+.validation-warning{
+  display:none;
+  margin-top:12px;
+  padding:12px;
+  border-radius:9px;
+  background:#fff4d6;
+  border-left:4px solid #e5a400;
+  color:#795500;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.validation-warning.show{
+  display:block;
+}
+
+.input-error{
+  border:2px solid #d60000 !important;
+  background:#fff5f5 !important;
+}
+
+.file-error{
+  color:#b00000 !important;
+  font-weight:bold;
+}
+
+.progress-box{
+  display:none;
+  margin-top:16px;
+}
+
+.progress{
+  width:100%;
+  height:10px;
+  background:#eee;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:0;
+  background:#111;
+  transition:width .2s;
+}
+
+.status{
+  margin-top:10px;
+  padding:12px;
+  border-radius:9px;
+  background:#f5f5f5;
+  font-size:14px;
+  white-space:pre-line;
+}
+
+.success{
+  background:#e9f8ed;
+  color:#176b2d;
+}
+
+.error{
+  background:#fff0f0;
+  color:#a11;
+}
+
+.back-button{
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  margin-top:15px;
+  padding:12px;
+  background:#f0f0f0;
+  color:#111;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+footer{
+  text-align:center;
+  padding:22px;
+  color:#777;
+  font-size:12px;
+}
+
+.small-note{
+  font-size:12px;
+  color:#777;
+  margin-top:6px;
+}
+
+.required-note{
+  color:#a11;
+  font-size:12px;
+  margin-top:5px;
+}
 
 @media(max-width:500px){
-  .header{height:150px}
-  .header-content h1{font-size:26px}
+  .header{
+    height:150px;
+  }
+
+  .header-content h1{
+    font-size:26px;
+  }
+
+  .type-grid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media">
+
   <div class="header-content">
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
@@ -102,43 +328,169 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <p>Create your creator profile and choose what you want to upload.</p>
   </section>
 
-  <!-- CREATOR PROFILE -->
+  <!-- =========================================================
+       CREATOR PROFILE
+       ========================================================= -->
+
   <section class="card">
     <h3>👤 Your Creator Profile</h3>
+
     <label for="creatorName">Name *</label>
-    <input id="creatorName" type="text" placeholder="Enter your name" required>
+    <input
+      id="creatorName"
+      type="text"
+      placeholder="Enter your name"
+      autocomplete="name"
+    >
+
     <label for="creatorEmail">Email *</label>
-    <input id="creatorEmail" type="email" placeholder="Enter your email" required>
+    <input
+      id="creatorEmail"
+      type="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+    >
+
+    <label for="creatorPhone">Phone</label>
+    <input
+      id="creatorPhone"
+      type="tel"
+      placeholder="Optional phone number"
+    >
+
+    <label for="creatorBio">Biography</label>
+    <textarea
+      id="creatorBio"
+      placeholder="Tell people about yourself..."
+    ></textarea>
+
     <label for="creatorPhoto">Profile Photo</label>
-    <input id="creatorPhoto" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
-    <div id="creatorPhotoName" class="file-name">No profile photo selected</div>
+    <input
+      id="creatorPhoto"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+    >
+
+    <div id="creatorPhotoName" class="file-name">
+      No profile photo selected
+    </div>
+
     <div class="creator-preview">
-      <img id="creatorPreview" class="creator-photo" src="ning-wei.png" alt="Profile photo">
-      <span id="creatorPreviewName" class="creator-name">Your Name</span>
+      <img
+        id="creatorPreview"
+        class="creator-photo"
+        src="ning-wei.png"
+        alt="Profile photo"
+      >
+
+      <span
+        id="creatorPreviewName"
+        class="creator-name"
+      >
+        Your Name
+      </span>
+    </div>
+
+    <div class="small-note">
+      Your name and email are required before any upload can begin.
     </div>
   </section>
 
-  <!-- CHOOSE TYPE -->
+
+  <!-- =========================================================
+       CHOOSE TYPE
+       ========================================================= -->
+
   <section class="card">
     <h3>Choose What You Want to Upload</h3>
+
     <div class="type-grid">
-      <button type="button" class="type-button" data-type="music" onclick="openUploadSection('music')">🎵 Your Music</button>
-      <button type="button" class="type-button" data-type="photos" onclick="openUploadSection('photos')">🖼️ Your Photos</button>
-      <button type="button" class="type-button" data-type="videos" onclick="openUploadSection('videos')">🎬 Your Videos</button>
-      <button type="button" class="type-button" data-type="apps" onclick="openUploadSection('apps')">📱 Your Apps</button>
-      <button type="button" class="type-button" data-type="software" onclick="openUploadSection('software')">💻 Your Software</button>
-      <button type="button" class="type-button" data-type="mixes" onclick="openUploadSection('mixes')">🎧 Your DJ Mixes</button>
+
+      <button
+        type="button"
+        class="type-button"
+        data-type="music"
+        onclick="openUploadSection('music')"
+      >
+        🎵 Your Music
+      </button>
+
+      <button
+        type="button"
+        class="type-button"
+        data-type="photos"
+        onclick="openUploadSection('photos')"
+      >
+        🖼️ Your Photos
+      </button>
+
+      <button
+        type="button"
+        class="type-button"
+        data-type="videos"
+        onclick="openUploadSection('videos')"
+      >
+        🎬 Your Videos
+      </button>
+
+      <button
+        type="button"
+        class="type-button"
+        data-type="apps"
+        onclick="openUploadSection('apps')"
+      >
+        📱 Your Apps
+      </button>
+
+      <button
+        type="button"
+        class="type-button"
+        data-type="software"
+        onclick="openUploadSection('software')"
+      >
+        💻 Your Software
+      </button>
+
+      <button
+        type="button"
+        class="type-button"
+        data-type="mixes"
+        onclick="openUploadSection('mixes')"
+      >
+        🎧 Your DJ Mixes
+      </button>
+
     </div>
   </section>
 
-  <!-- MUSIC SECTION -->
-  <section id="musicSection" class="card upload-section">
+
+  <!-- =========================================================
+       MUSIC
+       ========================================================= -->
+
+  <section
+    id="musicSection"
+    class="card upload-section"
+  >
+
     <h3>🎵 Upload Your Music</h3>
+
     <label for="songTitle">Song Title *</label>
-    <input id="songTitle" type="text" placeholder="Example: Joy">
+    <input
+      id="songTitle"
+      type="text"
+      placeholder="Example: Joy"
+    >
+
     <label for="songArtist">Singer / Artist</label>
-    <input id="songArtist" type="text" placeholder="Example: Burna Boy">
+    <input
+      id="songArtist"
+      type="text"
+      placeholder="Example: Burna Boy"
+    >
+
     <label for="musicCategory">Music Category *</label>
+
     <select id="musicCategory">
       <option value="">Select Music Category</option>
       <option>Top Ugandan Music</option>
@@ -157,49 +509,177 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>Lingala Music</option>
       <option>Instrumental</option>
     </select>
-    <div id="musicWarning" class="validation-warning">⚠️ Please choose a Music Category first.</div>
+
+    <div
+      id="musicWarning"
+      class="validation-warning"
+    >
+      ⚠️ Please choose a Music Category first.
+    </div>
+
     <label for="songFiles">Music File *</label>
-    <input id="songFiles" type="file" accept=".mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
-    <div id="songFilesName" class="file-name">No music selected</div>
+
+    <input
+      id="songFiles"
+      type="file"
+      accept=".mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac"
+      multiple
+    >
+
+    <div id="songFilesName" class="file-name">
+      No music selected
+    </div>
+
     <label for="songCover">Cover Photo</label>
-    <input id="songCover" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+
+    <input
+      id="songCover"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+    >
+
     <label for="musicDescription">Description</label>
-    <textarea id="musicDescription" placeholder="Tell people about this song..."></textarea>
-    <button type="button" class="upload-button" onclick="uploadMusic()">📤 Upload Your Music</button>
+
+    <textarea
+      id="musicDescription"
+      placeholder="Tell people about this song..."
+    ></textarea>
+
+    <button
+      id="musicUploadButton"
+      type="button"
+      class="upload-button"
+      onclick="uploadMusic()"
+    >
+      📤 Upload Your Music
+    </button>
+
   </section>
 
-  <!-- PHOTOS SECTION -->
-  <section id="photosSection" class="card upload-section">
+
+  <!-- =========================================================
+       PHOTOS
+       ========================================================= -->
+
+  <section
+    id="photosSection"
+    class="card upload-section"
+  >
+
     <h3>🖼️ Upload Your Photos</h3>
+
     <label for="photoFiles">Photo Files *</label>
-    <input id="photoFiles" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp" multiple>
-    <div id="photoFilesName" class="file-name">No photos selected</div>
+
+    <input
+      id="photoFiles"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+      multiple
+    >
+
+    <div id="photoFilesName" class="file-name">
+      No photos selected
+    </div>
+
     <label for="photoDescription">Description</label>
-    <textarea id="photoDescription" placeholder="Describe these photos..."></textarea>
-    <button type="button" class="upload-button" onclick="uploadPhotos()">📤 Upload Your Photos</button>
+
+    <textarea
+      id="photoDescription"
+      placeholder="Describe these photos..."
+    ></textarea>
+
+    <button
+      id="photosUploadButton"
+      type="button"
+      class="upload-button"
+      onclick="uploadPhotos()"
+    >
+      📤 Upload Your Photos
+    </button>
+
   </section>
 
-  <!-- VIDEOS SECTION -->
-  <section id="videosSection" class="card upload-section">
+
+  <!-- =========================================================
+       VIDEOS
+       ========================================================= -->
+
+  <section
+    id="videosSection"
+    class="card upload-section"
+  >
+
     <h3>🎬 Upload Your Videos</h3>
+
     <label for="videoTitle">Video Title *</label>
-    <input id="videoTitle" type="text" placeholder="Enter video title">
+
+    <input
+      id="videoTitle"
+      type="text"
+      placeholder="Enter video title"
+    >
+
     <label for="videoFiles">Video Files *</label>
-    <input id="videoFiles" type="file" accept=".mp4,.webm,.mov,.m4v,.avi,.mkv" multiple>
-    <div id="videoFilesName" class="file-name">No videos selected</div>
+
+    <input
+      id="videoFiles"
+      type="file"
+      accept=".mp4,.webm,.mov,.m4v,.avi,.mkv"
+      multiple
+    >
+
+    <div id="videoFilesName" class="file-name">
+      No videos selected
+    </div>
+
     <label for="videoThumbnail">Thumbnail</label>
-    <input id="videoThumbnail" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+
+    <input
+      id="videoThumbnail"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+    >
+
     <label for="videoDescription">Description</label>
-    <textarea id="videoDescription" placeholder="Describe this video..."></textarea>
-    <button type="button" class="upload-button" onclick="uploadVideos()">📤 Upload Your Videos</button>
+
+    <textarea
+      id="videoDescription"
+      placeholder="Describe this video..."
+    ></textarea>
+
+    <button
+      id="videosUploadButton"
+      type="button"
+      class="upload-button"
+      onclick="uploadVideos()"
+    >
+      📤 Upload Your Videos
+    </button>
+
   </section>
 
-  <!-- APPS SECTION -->
-  <section id="appsSection" class="card upload-section">
+
+  <!-- =========================================================
+       APPS
+       ========================================================= -->
+
+  <section
+    id="appsSection"
+    class="card upload-section"
+  >
+
     <h3>📱 Upload App</h3>
+
     <label for="appName">App Name *</label>
-    <input id="appName" type="text" placeholder="Enter app name">
+
+    <input
+      id="appName"
+      type="text"
+      placeholder="Enter app name"
+    >
+
     <label for="appCategory">App Category *</label>
+
     <select id="appCategory">
       <option value="">Select Your App Category</option>
       <option>Premium Unlocked Apps</option>
@@ -224,23 +704,75 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>File Management</option>
       <option>Security</option>
     </select>
-    <div id="appWarning" class="validation-warning">⚠️ Please choose an App Category first.</div>
+
+    <div
+      id="appWarning"
+      class="validation-warning"
+    >
+      ⚠️ Please choose an App Category first.
+    </div>
+
     <label for="appFiles">APK / App File *</label>
-    <input id="appFiles" type="file" accept=".apk" multiple>
-    <div id="appFilesName" class="file-name">No app selected</div>
+
+    <input
+      id="appFiles"
+      type="file"
+      accept=".apk,.xapk,.apks,.ipa"
+      multiple
+    >
+
+    <div id="appFilesName" class="file-name">
+      No app selected
+    </div>
+
     <label for="appIcon">App Icon</label>
-    <input id="appIcon" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+
+    <input
+      id="appIcon"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+    >
+
     <label for="appDescription">Description</label>
-    <textarea id="appDescription" placeholder="Describe this app..."></textarea>
-    <button type="button" class="upload-button" onclick="uploadApps()">📤 Upload Your App</button>
+
+    <textarea
+      id="appDescription"
+      placeholder="Describe this app..."
+    ></textarea>
+
+    <button
+      id="appsUploadButton"
+      type="button"
+      class="upload-button"
+      onclick="uploadApps()"
+    >
+      📤 Upload Your App
+    </button>
+
   </section>
 
-  <!-- SOFTWARE SECTION -->
-  <section id="softwareSection" class="card upload-section">
+
+  <!-- =========================================================
+       SOFTWARE
+       ========================================================= -->
+
+  <section
+    id="softwareSection"
+    class="card upload-section"
+  >
+
     <h3>💻 Upload Software</h3>
+
     <label for="softwareName">Software Name *</label>
-    <input id="softwareName" type="text" placeholder="Enter software name">
+
+    <input
+      id="softwareName"
+      type="text"
+      placeholder="Enter software name"
+    >
+
     <label for="softwareCategory">Software Category *</label>
+
     <select id="softwareCategory">
       <option value="">Select Your Software Category</option>
       <option>Virtual DJ Software</option>
@@ -261,70 +793,2074 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>Programming & Development</option>
       <option>Utilities & Tools</option>
     </select>
-    <div id="softwareWarning" class="validation-warning">⚠️ Please choose a Software Category first.</div>
+
+    <div
+      id="softwareWarning"
+      class="validation-warning"
+    >
+      ⚠️ Please choose a Software Category first.
+    </div>
+
     <label for="softwareFiles">Software File *</label>
-    <input id="softwareFiles" type="file" accept=".zip,.rar" multiple>
-    <div id="softwareFilesName" class="file-name">No software selected</div>
+
+    <input
+      id="softwareFiles"
+      type="file"
+      accept=".zip,.rar,.7z,.exe,.msi,.dmg,.iso,.apk"
+      multiple
+    >
+
+    <div id="softwareFilesName" class="file-name">
+      No software selected
+    </div>
+
     <label for="softwareImage">Software Image / Logo</label>
-    <input id="softwareImage" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+
+    <input
+      id="softwareImage"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+    >
+
     <label for="softwareDescription">Description</label>
-    <textarea id="softwareDescription" placeholder="Describe this software..."></textarea>
-    <button type="button" class="upload-button" onclick="uploadSoftware()">📤 Upload Your Software</button>
+
+    <textarea
+      id="softwareDescription"
+      placeholder="Describe this software..."
+    ></textarea>
+
+    <button
+      id="softwareUploadButton"
+      type="button"
+      class="upload-button"
+      onclick="uploadSoftware()"
+    >
+      📤 Upload Your Software
+    </button>
+
   </section>
 
-  <!-- DJ MIXES SECTION -->
-  <section id="mixesSection" class="card upload-section">
+
+  <!-- =========================================================
+       DJ MIXES
+       ========================================================= -->
+
+  <section
+    id="mixesSection"
+    class="card upload-section"
+  >
+
     <h3>🎧 Upload DJ Mix</h3>
+
     <label for="mixTitle">Mix Title *</label>
-    <input id="mixTitle" type="text" placeholder="Enter DJ mix title">
+
+    <input
+      id="mixTitle"
+      type="text"
+      placeholder="Enter DJ mix title"
+    >
+
+    <label for="mixCategory">Mix Category *</label>
+
+    <select id="mixCategory">
+      <option value="">Select DJ Mix Category</option>
+      <option>Ugandan Gospel</option>
+      <option>Ugandan Oldies / Kikadde</option>
+      <option>Afrobeat Mix</option>
+      <option>Amapiano Mix</option>
+      <option>Dancehall Mix</option>
+      <option>Reggae Mix</option>
+      <option>R&B Mix</option>
+      <option>Old School Mix</option>
+      <option>Afro Vibes Mix</option>
+      <option>International Mix</option>
+      <option>Love Mix</option>
+      <option>Party Mix</option>
+      <option>Club Mix</option>
+      <option>Gospel Mix</option>
+      <option>Other</option>
+    </select>
+
+    <div
+      id="mixWarning"
+      class="validation-warning"
+    >
+      ⚠️ Please choose a DJ Mix Category first.
+    </div>
+
     <label for="mixFiles">DJ Mix File *</label>
-    <input id="mixFiles" type="file" accept=".mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
-    <div id="mixFilesName" class="file-name">No DJ mix selected</div>
+
+    <input
+      id="mixFiles"
+      type="file"
+      accept=".mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac"
+      multiple
+    >
+
+    <div id="mixFilesName" class="file-name">
+      No DJ mix selected
+    </div>
+
     <label for="mixCover">Mix Cover</label>
-    <input id="mixCover" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+
+    <input
+      id="mixCover"
+      type="file"
+      accept=".jpg,.jpeg,.png,.gif,.webp,.bmp"
+    >
+
     <label for="mixDescription">Description</label>
-    <textarea id="mixDescription" placeholder="Describe this DJ mix..."></textarea>
-    <button type="button" class="upload-button" onclick="uploadMixes()">📤 Upload Your DJ Mix</button>
+
+    <textarea
+      id="mixDescription"
+      placeholder="Describe this DJ mix..."
+    ></textarea>
+
+    <button
+      id="mixesUploadButton"
+      type="button"
+      class="upload-button"
+      onclick="uploadMixes()"
+    >
+      📤 Upload Your DJ Mix
+    </button>
+
   </section>
 
-  <section id="progressBox" class="card progress-box">
-    <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
-    <div id="status" class="status">Preparing upload...</div>
+
+  <!-- =========================================================
+       PROGRESS
+       ========================================================= -->
+
+  <section
+    id="progressBox"
+    class="card progress-box"
+  >
+
+    <div class="progress">
+      <div
+        id="progressBar"
+        class="progress-bar"
+      ></div>
+    </div>
+
+    <div
+      id="status"
+      class="status"
+    >
+      Preparing upload...
+    </div>
+
   </section>
 
-  <a href="index.html" class="back-button">← Back to Ning Wei Media</a>
+
+  <a
+    href="index.html"
+    class="back-button"
+  >
+    ← Back to Ning Wei Media
+  </a>
+
 </main>
 
-<footer>© Ning Wei Media</footer>
+<footer>
+  © Ning Wei Media
+</footer>
+
 
 <script>
-/* Basic working JavaScript for the type buttons */
-function openUploadSection(type) {
-  document.querySelectorAll('.upload-section').forEach(s => {
-    s.classList.remove('active', 'open');
-  });
-  document.querySelectorAll('.type-button').forEach(b => {
-    b.classList.toggle('active', b.dataset.type === type);
-  });
-  const section = document.getElementById(type + 'Section');
-  if (section) {
-    section.classList.add('active', 'open');
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+/* ============================================================
+   1. SUPABASE SETTINGS
+   ============================================================ */
+
+const SUPABASE_URL =
+  "https://btksyizkcpzubtextuce.supabase.co";
+
+/*
+   IMPORTANT:
+   Paste your CURRENT Supabase anon/public key here.
+
+   DO NOT put the service_role key here.
+*/
+const SUPABASE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+
+const STORAGE_BUCKET =
+  "artist-uploads";
+
+const SUBMISSIONS_TABLE =
+  "artist_submissions";
+
+/*
+   Artist uploads stay pending until approved.
+*/
+const DEFAULT_STATUS =
+  "pending";
+
+
+/* ============================================================
+   2. SUPABASE CLIENT
+   ============================================================ */
+
+const db =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* ============================================================
+   3. FILE RULES
+   ============================================================ */
+
+const FILE_RULES = {
+
+  music: [
+    "mp3",
+    "wav",
+    "m4a",
+    "aac",
+    "ogg",
+    "oga",
+    "opus",
+    "flac"
+  ],
+
+  photos: [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "bmp"
+  ],
+
+  videos: [
+    "mp4",
+    "webm",
+    "mov",
+    "m4v",
+    "avi",
+    "mkv"
+  ],
+
+  apps: [
+    "apk",
+    "xapk",
+    "apks",
+    "ipa"
+  ],
+
+  software: [
+    "zip",
+    "rar",
+    "7z",
+    "exe",
+    "msi",
+    "dmg",
+    "iso",
+    "apk"
+  ],
+
+  mixes: [
+    "mp3",
+    "wav",
+    "m4a",
+    "aac",
+    "ogg",
+    "oga",
+    "opus",
+    "flac"
+  ]
+
+};
+
+
+/* ============================================================
+   4. STORAGE FOLDERS
+   ============================================================ */
+
+const STORAGE_FOLDERS = {
+
+  music:
+    "music",
+
+  photos:
+    "photos",
+
+  videos:
+    "videos",
+
+  apps:
+    "apps",
+
+  software:
+    "software",
+
+  mixes:
+    "dj-mixes"
+
+};
+
+
+/* ============================================================
+   5. HELPERS
+   ============================================================ */
+
+function getExtension(filename){
+
+  const parts =
+    String(filename || "")
+      .split(".");
+
+  if(parts.length < 2){
+    return "";
   }
+
+  return parts
+    .pop()
+    .toLowerCase()
+    .trim();
 }
 
-/* Creator preview */
-document.getElementById('creatorName').addEventListener('input', function() {
-  document.getElementById('creatorPreviewName').textContent = this.value.trim() || 'Your Name';
+
+function safeName(name){
+
+  return String(name || "file")
+    .replace(/[^a-zA-Z0-9._-]/g,"_")
+    .replace(/_+/g,"_");
+}
+
+
+function uniqueName(name){
+
+  return Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .slice(2,8) +
+    "_" +
+    safeName(name);
+}
+
+
+function safeFolderName(name){
+
+  return String(name || "Creator")
+    .trim()
+    .replace(/[^a-zA-Z0-9._ -]/g,"_")
+    .replace(/\s+/g," ")
+    .replace(/_+/g,"_")
+    .replace(/\//g,"_")
+    .replace(/\\/g,"_");
+}
+
+
+function safeEmail(email){
+
+  return String(email || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9._@-]/g,"_");
+}
+
+
+function humanSize(bytes){
+
+  if(!bytes){
+    return "0 B";
+  }
+
+  const units =
+    ["B","KB","MB","GB"];
+
+  let i = 0;
+  let n = bytes;
+
+  while(
+    n >= 1024 &&
+    i < units.length - 1
+  ){
+    n /= 1024;
+    i++;
+  }
+
+  return n.toFixed(
+    n >= 10 || i === 0 ? 0 : 1
+  ) + " " + units[i];
+}
+
+
+function setProgress(value){
+
+  document
+    .getElementById("progressBar")
+    .style.width =
+    Math.max(
+      0,
+      Math.min(100,value)
+    ) + "%";
+}
+
+
+function showProgress(){
+
+  document
+    .getElementById("progressBox")
+    .style.display =
+    "block";
+
+}
+
+
+function setStatus(type,text){
+
+  const box =
+    document.getElementById("status");
+
+  box.className =
+    "status " + (type || "");
+
+  box.textContent =
+    text;
+}
+
+
+function resetStatus(){
+
+  setProgress(0);
+
+  setStatus(
+    "",
+    "Preparing upload..."
+  );
+
+}
+
+
+/* ============================================================
+   6. CREATOR PROFILE
+   ============================================================ */
+
+const creatorNameInput =
+  document.getElementById("creatorName");
+
+const creatorEmailInput =
+  document.getElementById("creatorEmail");
+
+const creatorPhoneInput =
+  document.getElementById("creatorPhone");
+
+const creatorBioInput =
+  document.getElementById("creatorBio");
+
+const creatorPhotoInput =
+  document.getElementById("creatorPhoto");
+
+
+creatorNameInput.addEventListener(
+  "input",
+  function(){
+
+    document
+      .getElementById("creatorPreviewName")
+      .textContent =
+      this.value.trim() ||
+      "Your Name";
+
+  }
+);
+
+
+creatorPhotoInput.addEventListener(
+  "change",
+  function(){
+
+    const file =
+      this.files[0];
+
+    if(!file){
+      return;
+    }
+
+    const allowed =
+      FILE_RULES.photos;
+
+    const ext =
+      getExtension(file.name);
+
+    if(!allowed.includes(ext)){
+
+      this.value = "";
+
+      document
+        .getElementById("creatorPhotoName")
+        .textContent =
+        "❌ Wrong profile photo type";
+
+      document
+        .getElementById("creatorPhotoName")
+        .classList.add("file-error");
+
+      return;
+    }
+
+    document
+      .getElementById("creatorPhotoName")
+      .textContent =
+      file.name;
+
+    document
+      .getElementById("creatorPhotoName")
+      .classList.remove("file-error");
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function(e){
+
+        document
+          .getElementById("creatorPreview")
+          .src =
+          e.target.result;
+
+      };
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* ============================================================
+   7. CREATOR VALIDATION
+   ============================================================ */
+
+function validateCreator(){
+
+  const name =
+    creatorNameInput.value.trim();
+
+  const email =
+    creatorEmailInput.value.trim();
+
+  creatorNameInput.classList.remove(
+    "input-error"
+  );
+
+  creatorEmailInput.classList.remove(
+    "input-error"
+  );
+
+  if(!name){
+
+    creatorNameInput.classList.add(
+      "input-error"
+    );
+
+    creatorNameInput.focus();
+
+    alert(
+      "Please enter your Creator Name."
+    );
+
+    return false;
+  }
+
+  if(!email){
+
+    creatorEmailInput.classList.add(
+      "input-error"
+    );
+
+    creatorEmailInput.focus();
+
+    alert(
+      "Please enter your Email."
+    );
+
+    return false;
+  }
+
+  const emailPattern =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if(!emailPattern.test(email)){
+
+    creatorEmailInput.classList.add(
+      "input-error"
+    );
+
+    creatorEmailInput.focus();
+
+    alert(
+      "Please enter a valid email address."
+    );
+
+    return false;
+  }
+
+  return true;
+}
+
+
+/* ============================================================
+   8. TYPE BUTTONS
+   ============================================================ */
+
+function openUploadSection(type){
+
+  document
+    .querySelectorAll(".upload-section")
+    .forEach(function(section){
+
+      section.classList.remove(
+        "active",
+        "open"
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".type-button")
+    .forEach(function(button){
+
+      button.classList.toggle(
+        "active",
+        button.dataset.type === type
+      );
+
+    });
+
+
+  const section =
+    document.getElementById(
+      type + "Section"
+    );
+
+  if(section){
+
+    section.classList.add(
+      "active",
+      "open"
+    );
+
+    section.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }
+
+}
+
+
+/* ============================================================
+   9. CATEGORY VALIDATION
+   ============================================================ */
+
+function requireCategory(
+  selectId,
+  warningId
+){
+
+  const select =
+    document.getElementById(selectId);
+
+  const warning =
+    document.getElementById(warningId);
+
+  if(!select.value){
+
+    select.classList.add(
+      "category-required"
+    );
+
+    warning.classList.add(
+      "show"
+    );
+
+    select.focus();
+
+    return false;
+  }
+
+  select.classList.remove(
+    "category-required"
+  );
+
+  warning.classList.remove(
+    "show"
+  );
+
+  return true;
+}
+
+
+[
+  ["musicCategory","musicWarning"],
+  ["appCategory","appWarning"],
+  ["softwareCategory","softwareWarning"],
+  ["mixCategory","mixWarning"]
+].forEach(function(pair){
+
+  const select =
+    document.getElementById(pair[0]);
+
+  select.addEventListener(
+    "change",
+    function(){
+
+      if(this.value){
+
+        this.classList.remove(
+          "category-required"
+        );
+
+        document
+          .getElementById(pair[1])
+          .classList.remove(
+            "show"
+          );
+
+      }
+
+    }
+  );
+
 });
-document.getElementById('creatorPhoto').addEventListener('change', function() {
-  const file = this.files[0];
-  if (!file) return;
-  document.getElementById('creatorPhotoName').textContent = file.name;
-  const reader = new FileReader();
-  reader.onload = e => document.getElementById('creatorPreview').src = e.target.result;
-  reader.readAsDataURL(file);
-});
+
+
+/* ============================================================
+   10. FILE INPUT DISPLAY + VALIDATION
+   ============================================================ */
+
+function attachFileValidation(
+  inputId,
+  displayId,
+  type
+){
+
+  const input =
+    document.getElementById(inputId);
+
+  const display =
+    document.getElementById(displayId);
+
+  input.addEventListener(
+    "change",
+    function(){
+
+      display.classList.remove(
+        "file-error"
+      );
+
+      if(!input.files.length){
+
+        display.textContent =
+          "No file selected.";
+
+        return;
+      }
+
+      const allowed =
+        FILE_RULES[type];
+
+      const files =
+        Array.prototype.slice.call(
+          input.files
+        );
+
+      const wrong =
+        files.filter(function(file){
+
+          return !allowed.includes(
+            getExtension(file.name)
+          );
+
+        });
+
+
+      if(wrong.length){
+
+        display.classList.add(
+          "file-error"
+        );
+
+        display.textContent =
+          "❌ Wrong type: " +
+          wrong.map(function(f){
+            return f.name;
+          }).join(", ") +
+          " — allowed: " +
+          allowed
+            .join(", ")
+            .toUpperCase();
+
+        input.value = "";
+
+        return;
+      }
+
+
+      const total =
+        files.reduce(
+          function(sum,file){
+            return sum + file.size;
+          },
+          0
+        );
+
+
+      display.textContent =
+        "Ready: " +
+        files.map(function(file){
+          return file.name;
+        }).join(", ") +
+        " (" +
+        files.length +
+        " file" +
+        (files.length > 1 ? "s" : "") +
+        ", " +
+        humanSize(total) +
+        ")";
+
+    }
+  );
+
+}
+
+
+attachFileValidation(
+  "songFiles",
+  "songFilesName",
+  "music"
+);
+
+attachFileValidation(
+  "photoFiles",
+  "photoFilesName",
+  "photos"
+);
+
+attachFileValidation(
+  "videoFiles",
+  "videoFilesName",
+  "videos"
+);
+
+attachFileValidation(
+  "appFiles",
+  "appFilesName",
+  "apps"
+);
+
+attachFileValidation(
+  "softwareFiles",
+  "softwareFilesName",
+  "software"
+);
+
+attachFileValidation(
+  "mixFiles",
+  "mixFilesName",
+  "mixes"
+);
+
+
+/* ============================================================
+   11. GENERIC FILE VALIDATION
+   ============================================================ */
+
+function validateFiles(
+  files,
+  type
+){
+
+  const allowed =
+    FILE_RULES[type];
+
+  const list =
+    Array.prototype.slice.call(
+      files || []
+    );
+
+  if(!list.length){
+
+    alert(
+      "Please choose a file first."
+    );
+
+    return false;
+  }
+
+
+  const wrong =
+    list.filter(function(file){
+
+      return !allowed.includes(
+        getExtension(file.name)
+      );
+
+    });
+
+
+  if(wrong.length){
+
+    alert(
+      "❌ Wrong file type:\n\n" +
+      wrong.map(function(file){
+        return file.name;
+      }).join("\n") +
+      "\n\nAllowed file types:\n" +
+      allowed.join(", ").toUpperCase()
+    );
+
+    return false;
+  }
+
+  return true;
+}
+
+
+/* ============================================================
+   12. UPLOAD FILE TO STORAGE
+   ============================================================ */
+
+async function uploadStorageFile(
+  file,
+  section,
+  creatorName,
+  specialFolder
+){
+
+  const creatorFolder =
+    safeFolderName(creatorName);
+
+  let folder =
+    STORAGE_FOLDERS[section] +
+    "/" +
+    creatorFolder +
+    "/";
+
+
+  if(specialFolder){
+
+    folder =
+      specialFolder +
+      "/" +
+      creatorFolder +
+      "/";
+
+  }
+
+
+  const path =
+    folder +
+    uniqueName(file.name);
+
+
+  const result =
+    await db.storage
+      .from(STORAGE_BUCKET)
+      .upload(
+        path,
+        file,
+        {
+          cacheControl:"3600",
+          upsert:false,
+          contentType:
+            file.type || undefined
+        }
+      );
+
+
+  if(result.error){
+
+    throw new Error(
+      file.name +
+      ": " +
+      result.error.message
+    );
+
+  }
+
+
+  const publicResult =
+    db.storage
+      .from(STORAGE_BUCKET)
+      .getPublicUrl(path);
+
+
+  return {
+
+    name:file.name,
+
+    original_name:file.name,
+
+    url:
+      publicResult.data.publicUrl,
+
+    path:path,
+
+    size:file.size,
+
+    type:
+      file.type || "",
+
+    category:
+      section
+
+  };
+
+}
+
+
+/* ============================================================
+   13. PROFILE PHOTO UPLOAD
+   ============================================================ */
+
+async function uploadProfilePhoto(
+  file,
+  email
+){
+
+  if(!file){
+    return null;
+  }
+
+
+  const emailFolder =
+    safeEmail(email);
+
+
+  const path =
+    "creator-profile-photos/" +
+    emailFolder +
+    "/" +
+    uniqueName(file.name);
+
+
+  const result =
+    await db.storage
+      .from(STORAGE_BUCKET)
+      .upload(
+        path,
+        file,
+        {
+          cacheControl:"3600",
+          upsert:false,
+          contentType:
+            file.type || undefined
+        }
+      );
+
+
+  if(result.error){
+
+    throw new Error(
+      "Profile photo: " +
+      result.error.message
+    );
+
+  }
+
+
+  const publicResult =
+    db.storage
+      .from(STORAGE_BUCKET)
+      .getPublicUrl(path);
+
+
+  return {
+
+    name:file.name,
+
+    original_name:file.name,
+
+    url:
+      publicResult.data.publicUrl,
+
+    path:path,
+
+    size:file.size,
+
+    type:
+      file.type || "",
+
+    category:
+      "creator-profile-photo"
+
+  };
+
+}
+
+
+/* ============================================================
+   14. SAVE SUBMISSION
+   ============================================================ */
+
+async function saveSubmission(
+  data
+){
+
+  const row = {
+
+    artist_name:
+      data.artist_name,
+
+    artist_email:
+      data.artist_email,
+
+    phone:
+      data.phone || null,
+
+    biography:
+      data.biography || null,
+
+    lyrics:
+      data.lyrics || null,
+
+    youtube_links:
+      data.youtube_links || null,
+
+    files:
+      data.files || [],
+
+    status:
+      DEFAULT_STATUS,
+
+    posted_at:
+      null
+
+  };
+
+
+  const result =
+    await db
+      .from(SUBMISSIONS_TABLE)
+      .insert([row]);
+
+
+  if(result.error){
+
+    throw new Error(
+      "Database: " +
+      result.error.message
+    );
+
+  }
+
+
+  return result;
+
+}
+
+
+/* ============================================================
+   15. BUTTON STATE
+   ============================================================ */
+
+function setButtonBusy(
+  buttonId,
+  busy
+){
+
+  const button =
+    document.getElementById(buttonId);
+
+  if(!button){
+    return;
+  }
+
+  button.disabled =
+    busy;
+
+}
+
+
+/* ============================================================
+   16. COMMON UPLOAD PROCESS
+   ============================================================ */
+
+async function performUpload(options){
+
+  if(!validateCreator()){
+
+    return;
+  }
+
+
+  if(!validateFiles(
+    options.files,
+    options.type
+  )){
+
+    return;
+  }
+
+
+  if(options.categoryRequired){
+
+    if(!requireCategory(
+      options.categoryId,
+      options.warningId
+    )){
+
+      return;
+    }
+
+  }
+
+
+  showProgress();
+
+  setProgress(5);
+
+  setStatus(
+    "",
+    "⏳ Preparing your upload..."
+  );
+
+
+  setButtonBusy(
+    options.buttonId,
+    true
+  );
+
+
+  try{
+
+    const creatorName =
+      creatorNameInput.value.trim();
+
+    const creatorEmail =
+      creatorEmailInput.value.trim();
+
+    const creatorPhone =
+      creatorPhoneInput.value.trim();
+
+    const creatorBio =
+      creatorBioInput.value.trim();
+
+
+    const files =
+      Array.prototype.slice.call(
+        options.files
+      );
+
+
+    const stored = [];
+
+
+    /* PROFILE PHOTO */
+
+    if(creatorPhotoInput.files.length){
+
+      setStatus(
+        "",
+        "⏳ Uploading creator profile photo..."
+      );
+
+      const profile =
+        await uploadProfilePhoto(
+          creatorPhotoInput.files[0],
+          creatorEmail
+        );
+
+      if(profile){
+
+        stored.push(profile);
+
+      }
+
+    }
+
+
+    setProgress(15);
+
+
+    /* MAIN FILES */
+
+    for(let i = 0; i < files.length; i++){
+
+      const file =
+        files[i];
+
+      setStatus(
+        "",
+        "⏳ Uploading file " +
+        (i + 1) +
+        " of " +
+        files.length +
+        ":\n" +
+        file.name
+      );
+
+
+      const uploaded =
+        await uploadStorageFile(
+          file,
+          options.type,
+          creatorName
+        );
+
+
+      stored.push(
+        uploaded
+      );
+
+
+      const percent =
+        15 +
+        Math.round(
+          ((i + 1) /
+          files.length) *
+          60
+        );
+
+      setProgress(percent);
+
+    }
+
+
+    /* COVER / ICON / THUMBNAIL */
+
+    if(options.extraFile){
+
+      setStatus(
+        "",
+        "⏳ Uploading cover / image..."
+      );
+
+
+      const extra =
+        await uploadStorageFile(
+          options.extraFile,
+          options.type,
+          creatorName,
+          options.extraFolder
+        );
+
+
+      stored.push(
+        extra
+      );
+
+    }
+
+
+    setProgress(85);
+
+
+    /* DATABASE */
+
+    setStatus(
+      "",
+      "⏳ Saving your submission..."
+    );
+
+
+    await saveSubmission({
+
+      artist_name:
+        creatorName,
+
+      artist_email:
+        creatorEmail,
+
+      phone:
+        creatorPhone,
+
+      biography:
+        creatorBio,
+
+      lyrics:
+        options.lyrics || null,
+
+      youtube_links:
+        options.youtubeLinks || null,
+
+      files:
+        stored
+
+    });
+
+
+    setProgress(100);
+
+
+    setStatus(
+      "success",
+      "✅ Upload successful!\n\n" +
+      "Your files have been uploaded to Ning Wei Media.\n\n" +
+      "Status: Pending approval"
+    );
+
+
+    options.reset();
+
+
+  }catch(error){
+
+    console.error(
+      "Upload error:",
+      error
+    );
+
+
+    setStatus(
+      "error",
+      "❌ Upload failed.\n\n" +
+      error.message +
+      "\n\n" +
+      "Check your Supabase anon/public key, " +
+      "Storage bucket, and upload policies."
+    );
+
+
+  }finally{
+
+    setButtonBusy(
+      options.buttonId,
+      false
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   17. MUSIC UPLOAD
+   ============================================================ */
+
+async function uploadMusic(){
+
+  const files =
+    document.getElementById(
+      "songFiles"
+    ).files;
+
+
+  const coverInput =
+    document.getElementById(
+      "songCover"
+    );
+
+
+  const title =
+    document.getElementById(
+      "songTitle"
+    ).value.trim();
+
+
+  const artist =
+    document.getElementById(
+      "songArtist"
+    ).value.trim();
+
+
+  const category =
+    document.getElementById(
+      "musicCategory"
+    ).value;
+
+
+  const description =
+    document.getElementById(
+      "musicDescription"
+    ).value.trim();
+
+
+  if(!title){
+
+    alert(
+      "Please enter the Song Title."
+    );
+
+    document
+      .getElementById("songTitle")
+      .focus();
+
+    return;
+  }
+
+
+  if(!category){
+
+    requireCategory(
+      "musicCategory",
+      "musicWarning"
+    );
+
+    return;
+  }
+
+
+  await performUpload({
+
+    type:"music",
+
+    files:files,
+
+    categoryRequired:true,
+
+    categoryId:"musicCategory",
+
+    warningId:"musicWarning",
+
+    buttonId:"musicUploadButton",
+
+    extraFile:
+      coverInput.files[0] || null,
+
+    extraFolder:
+      "music-covers",
+
+    lyrics:
+      description
+        ? "Song: " +
+          title +
+          "\nArtist: " +
+          artist +
+          "\n\n" +
+          description
+        : "Song: " +
+          title +
+          "\nArtist: " +
+          artist,
+
+    reset:function(){
+
+      document
+        .getElementById("songFiles")
+        .value = "";
+
+      document
+        .getElementById("songCover")
+        .value = "";
+
+      document
+        .getElementById("songFilesName")
+        .textContent =
+        "No music selected";
+
+    }
+
+  });
+
+}
+
+
+/* ============================================================
+   18. PHOTOS UPLOAD
+   ============================================================ */
+
+async function uploadPhotos(){
+
+  const files =
+    document.getElementById(
+      "photoFiles"
+    ).files;
+
+
+  const description =
+    document.getElementById(
+      "photoDescription"
+    ).value.trim();
+
+
+  await performUpload({
+
+    type:"photos",
+
+    files:files,
+
+    categoryRequired:false,
+
+    buttonId:"photosUploadButton",
+
+    lyrics:
+      description || null,
+
+    reset:function(){
+
+      document
+        .getElementById("photoFiles")
+        .value = "";
+
+      document
+        .getElementById("photoFilesName")
+        .textContent =
+        "No photos selected";
+
+    }
+
+  });
+
+}
+
+
+/* ============================================================
+   19. VIDEOS UPLOAD
+   ============================================================ */
+
+async function uploadVideos(){
+
+  const files =
+    document.getElementById(
+      "videoFiles"
+    ).files;
+
+
+  const title =
+    document.getElementById(
+      "videoTitle"
+    ).value.trim();
+
+
+  const thumbnailInput =
+    document.getElementById(
+      "videoThumbnail"
+    );
+
+
+  const description =
+    document.getElementById(
+      "videoDescription"
+    ).value.trim();
+
+
+  if(!title){
+
+    alert(
+      "Please enter the Video Title."
+    );
+
+    document
+      .getElementById("videoTitle")
+      .focus();
+
+    return;
+  }
+
+
+  await performUpload({
+
+    type:"videos",
+
+    files:files,
+
+    categoryRequired:false,
+
+    buttonId:"videosUploadButton",
+
+    extraFile:
+      thumbnailInput.files[0] || null,
+
+    extraFolder:
+      "videos",
+
+    lyrics:
+      "Video: " +
+      title +
+      (description
+        ? "\n\n" + description
+        : ""),
+
+    reset:function(){
+
+      document
+        .getElementById("videoFiles")
+        .value = "";
+
+      document
+        .getElementById("videoThumbnail")
+        .value = "";
+
+      document
+        .getElementById("videoFilesName")
+        .textContent =
+        "No videos selected";
+
+    }
+
+  });
+
+}
+
+
+/* ============================================================
+   20. APPS UPLOAD
+   ============================================================ */
+
+async function uploadApps(){
+
+  const files =
+    document.getElementById(
+      "appFiles"
+    ).files;
+
+
+  const name =
+    document.getElementById(
+      "appName"
+    ).value.trim();
+
+
+  const category =
+    document.getElementById(
+      "appCategory"
+    ).value;
+
+
+  const iconInput =
+    document.getElementById(
+      "appIcon"
+    );
+
+
+  const description =
+    document.getElementById(
+      "appDescription"
+    ).value.trim();
+
+
+  if(!name){
+
+    alert(
+      "Please enter the App Name."
+    );
+
+    document
+      .getElementById("appName")
+      .focus();
+
+    return;
+  }
+
+
+  if(!category){
+
+    requireCategory(
+      "appCategory",
+      "appWarning"
+    );
+
+    return;
+  }
+
+
+  await performUpload({
+
+    type:"apps",
+
+    files:files,
+
+    categoryRequired:true,
+
+    categoryId:"appCategory",
+
+    warningId:"appWarning",
+
+    buttonId:"appsUploadButton",
+
+    extraFile:
+      iconInput.files[0] || null,
+
+    extraFolder:
+      "app-icons",
+
+    lyrics:
+      "App: " +
+      name +
+      "\nCategory: " +
+      category +
+      (description
+        ? "\n\n" + description
+        : ""),
+
+    reset:function(){
+
+      document
+        .getElementById("appFiles")
+        .value = "";
+
+      document
+        .getElementById("appIcon")
+        .value = "";
+
+      document
+        .getElementById("appFilesName")
+        .textContent =
+        "No app selected";
+
+    }
+
+  });
+
+}
+
+
+/* ============================================================
+   21. SOFTWARE UPLOAD
+   ============================================================ */
+
+async function uploadSoftware(){
+
+  const files =
+    document.getElementById(
+      "softwareFiles"
+    ).files;
+
+
+  const name =
+    document.getElementById(
+      "softwareName"
+    ).value.trim();
+
+
+  const category =
+    document.getElementById(
+      "softwareCategory"
+    ).value;
+
+
+  const imageInput =
+    document.getElementById(
+      "softwareImage"
+    );
+
+
+  const description =
+    document.getElementById(
+      "softwareDescription"
+    ).value.trim();
+
+
+  if(!name){
+
+    alert(
+      "Please enter the Software Name."
+    );
+
+    document
+      .getElementById("softwareName")
+      .focus();
+
+    return;
+  }
+
+
+  if(!category){
+
+    requireCategory(
+      "softwareCategory",
+      "softwareWarning"
+    );
+
+    return;
+  }
+
+
+  await performUpload({
+
+    type:"software",
+
+    files:files,
+
+    categoryRequired:true,
+
+    categoryId:"softwareCategory",
+
+    warningId:"softwareWarning",
+
+    buttonId:"softwareUploadButton",
+
+    extraFile:
+      imageInput.files[0] || null,
+
+    extraFolder:
+      "software-images",
+
+    lyrics:
+      "Software: " +
+      name +
+      "\nCategory: " +
+      category +
+      (description
+        ? "\n\n" + description
+        : ""),
+
+    reset:function(){
+
+      document
+        .getElementById("softwareFiles")
+        .value = "";
+
+      document
+        .getElementById("softwareImage")
+        .value = "";
+
+      document
+        .getElementById("softwareFilesName")
+        .textContent =
+        "No software selected";
+
+    }
+
+  });
+
+}
+
+
+/* ============================================================
+   22. DJ MIX UPLOAD
+   ============================================================ */
+
+async function uploadMixes(){
+
+  const files =
+    document.getElementById(
+      "mixFiles"
+    ).files;
+
+
+  const title =
+    document.getElementById(
+      "mixTitle"
+    ).value.trim();
+
+
+  const category =
+    document.getElementById(
+      "mixCategory"
+    ).value;
+
+
+  const coverInput =
+    document.getElementById(
+      "mixCover"
+    );
+
+
+  const description =
+    document.getElementById(
+      "mixDescription"
+    ).value.trim();
+
+
+  if(!title){
+
+    alert(
+      "Please enter the DJ Mix Title."
+    );
+
+    document
+      .getElementById("mixTitle")
+      .focus();
+
+    return;
+  }
+
+
+  if(!category){
+
+    requireCategory(
+      "mixCategory",
+      "mixWarning"
+    );
+
+    return;
+  }
+
+
+  await performUpload({
+
+    type:"mixes",
+
+    files:files,
+
+    categoryRequired:true,
+
+    categoryId:"mixCategory",
+
+    warningId:"mixWarning",
+
+    buttonId:"mixesUploadButton",
+
+    extraFile:
+      coverInput.files[0] || null,
+
+    extraFolder:
+      "dj-mixes",
+
+    lyrics:
+      "DJ Mix: " +
+      title +
+      "\nCategory: " +
+      category +
+      (description
+        ? "\n\n" + description
+        : ""),
+
+    reset:function(){
+
+      document
+        .getElementById("mixFiles")
+        .value = "";
+
+      document
+        .getElementById("mixCover")
+        .value = "";
+
+      document
+        .getElementById("mixFilesName")
+        .textContent =
+        "No DJ mix selected";
+
+    }
+
+  });
+
+}
+
+
+/* ============================================================
+   23. CATEGORY SELECT CLEANUP
+   ============================================================ */
+
+document
+  .querySelectorAll("select")
+  .forEach(function(select){
+
+    select.addEventListener(
+      "change",
+      function(){
+
+        if(this.value){
+
+          this.classList.remove(
+            "category-required"
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* ============================================================
+   24. INITIAL STATE
+   ============================================================ */
+
+resetStatus();
+
 </script>
 
 </body>
