@@ -6,9 +6,7 @@
 <title>Ning Wei Media</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
   margin:0;
@@ -114,7 +112,7 @@ a{
 }
 
 /* ========== SECTIONS ========== */
-.section{padding:14px 16px 4px;}
+.section{padding:14px 16px 2px;}
 .section h2{
   margin:0 0 10px;
   font-size:20px;
@@ -122,77 +120,83 @@ a{
 }
 
 /* ========== GRIDS ========== */
-.grid-2{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-.grid-4{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-}
+.grid{display:grid;gap:8px;}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);gap:6px;}
 
-/* Smaller category cards */
-.category-card{
+/* ========== SLIM TILES (2 across) ========== */
+.tile{
   display:flex;
   align-items:center;
-  min-height:54px;
-  padding:8px;
+  gap:8px;
+  min-height:46px;          /* thinner than before */
+  padding:6px 8px;
   background:#fff;
   border:1px solid #e2e2e2;
-  border-radius:11px;
-  box-shadow:0 2px 6px rgba(0,0,0,.05);
-}
-.category-card:active{transform:scale(.97);}
-.category-icon{
-  width:34px;
-  height:34px;
-  min-width:34px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:9px;
-  background:#111;
-  color:#fff;
-  font-size:17px;
-  margin-right:8px;
-}
-.category-text{
+  border-radius:10px;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
   font-size:12px;
   font-weight:700;
-  line-height:1.2;
+  line-height:1.15;
 }
-
-/* Feature card (for Videos / Photos / DJ Mixes when single) */
-.feature-card{
-  display:flex;
-  align-items:center;
-  width:100%;
-  min-height:62px;
-  padding:10px;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:12px;
-  box-shadow:0 2px 7px rgba(0,0,0,.06);
-}
-.feature-icon{
-  width:42px;
-  height:42px;
-  min-width:42px;
+.tile:active{transform:scale(.97);}
+.tile .ic{
+  width:30px;
+  height:30px;
+  min-width:30px;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:10px;
-  background:#111;
+  border-radius:8px;
+  background:#111;          /* original dark icon box */
   color:#fff;
-  font-size:20px;
-  margin-right:10px;
+  font-size:15px;
 }
-.feature-title{font-size:14px;font-weight:800;}
-.feature-subtitle{font-size:10px;color:#777;margin-top:3px;}
 
-/* Trending Apps */
+/* ========== COMPACT TILES (4 across) ========== */
+.grid-4 .tile{
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  gap:5px;
+  min-height:76px;
+  padding:8px 3px;
+  font-size:10.5px;
+  word-break:break-word;
+}
+.grid-4 .tile .ic{
+  width:30px;
+  height:30px;
+  min-width:30px;
+  font-size:15px;
+}
+
+/* ========== "MORE" BUTTON (centered, thin) ========== */
+.more-wrap{
+  display:flex;
+  justify-content:center;
+  margin:10px 0 4px;
+}
+.more-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  color:#111;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.3px;
+  padding:7px 24px;
+  border-radius:20px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+  cursor:pointer;
+}
+.more-btn:active{transform:scale(.96);}
+
+/* Hide the extra tiles until "More" is tapped */
+.tile.is-hidden{display:none;}
+.section.open .tile.is-hidden{display:flex;}
+
+/* ========== TRENDING APPS ========== */
 .trending{padding:18px 16px 4px;}
 .trending h2{margin:0 0 10px;font-size:20px;font-weight:800;}
 .apps{
@@ -214,7 +218,7 @@ a{
 .app-logo{width:38px;height:38px;object-fit:contain;margin-bottom:5px;}
 .app-name{font-size:8px;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
 
-/* Social + Footer */
+/* ========== SOCIAL + FOOTER ========== */
 .social{padding:18px 16px 8px;}
 .social h2{margin:0 0 12px;font-size:20px;}
 .social-list{display:flex;justify-content:center;gap:12px;}
@@ -229,8 +233,9 @@ a{
 @media(max-width:420px){
   .header h1{font-size:25px;}
   .header p{font-size:13px;}
-  .category-text{font-size:11px;}
-  .category-icon{width:32px;height:32px;font-size:15px;}
+  .tile{font-size:11px;}
+  .tile .ic{width:28px;height:28px;min-width:28px;font-size:14px;}
+  .grid-4 .tile{font-size:9.5px;}
 }
 </style>
 </head>
@@ -238,16 +243,16 @@ a{
 
 <div class="container">
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 <header class="header">
-  <img src="ning-wei.png" alt="Ning Wei Media">
+  <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
   <div class="header-content">
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
 </header>
 
-<!-- SEARCH + UPLOAD -->
+<!-- ================= SEARCH + UPLOAD ================= -->
 <section class="search-upload">
   <form class="search-box" action="search.html" method="get">
     <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
@@ -260,276 +265,184 @@ a{
   </a>
 </section>
 
-<!-- 1. ALL TOP MUSIC CHARTS (2 columns) -->
-<section class="section">
+
+<!-- ============================================================
+     1. ALL TOP MUSIC CHARTS  —  3 down × 2 across (shows 6)
+     ============================================================ -->
+<section class="section" data-show="6">
   <h2>🎵 All Top Music Charts</h2>
-  <div class="grid-2">
-    <a class="category-card" href="library.html?folder=Top-Ugandan-Music">
-      <span class="category-icon">🇺🇬</span>
-      <span class="category-text">Top Ugandan Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Amapiano-Music">
-      <span class="category-icon">🎵</span>
-      <span class="category-text">Amapiano Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Afrobeat-Music">
-      <span class="category-icon">🔥</span>
-      <span class="category-text">Afrobeat Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Dancehall-Music">
-      <span class="category-icon">🎤</span>
-      <span class="category-text">Dancehall Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=R-B-Music">
-      <span class="category-icon">❤️</span>
-      <span class="category-text">R&B Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Reggae">
-      <span class="category-icon">🌴</span>
-      <span class="category-text">Reggae</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Old-School-R-B">
-      <span class="category-icon">📻</span>
-      <span class="category-text">Old School R&B</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Old-South-African-Music">
-      <span class="category-icon">🇿🇦</span>
-      <span class="category-text">Old South African Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Western-Music">
-      <span class="category-icon">🌎</span>
-      <span class="category-text">Western Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Love-Songs">
-      <span class="category-icon">💖</span>
-      <span class="category-text">Love Songs</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Oldies-Kikadde-Music">
-      <span class="category-icon">🎶</span>
-      <span class="category-text">Oldies / Kikadde Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Kadongo-Kamu">
-      <span class="category-icon">🎸</span>
-      <span class="category-text">Kadongo Kamu</span>
-    </a>
-    <a class="category-card" href="library.html?folder=High-School-Music">
-      <span class="category-icon">🏫</span>
-      <span class="category-text">High School Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Lingala-Music">
-      <span class="category-icon">🎼</span>
-      <span class="category-text">Lingala Music</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Instrumental">
-      <span class="category-icon">🎹</span>
-      <span class="category-text">Instrumental</span>
-    </a>
+  <div class="grid grid-2">
+
+    <a class="tile" href="library.html?folder=Top-Ugandan-Music"><span class="ic">🇺🇬</span><span>Top Ugandan Music</span></a>
+    <a class="tile" href="library.html?folder=Amapiano-Music"><span class="ic">🎵</span><span>Amapiano Music</span></a>
+    <a class="tile" href="library.html?folder=Afrobeat-Music"><span class="ic">🔥</span><span>Afrobeat Music</span></a>
+    <a class="tile" href="library.html?folder=Dancehall-Music"><span class="ic">🎤</span><span>Dancehall Music</span></a>
+    <a class="tile" href="library.html?folder=R-B-Music"><span class="ic">❤️</span><span>R&amp;B Music</span></a>
+    <a class="tile" href="library.html?folder=Reggae"><span class="ic">🌴</span><span>Reggae</span></a>
+
+    <!-- hidden until "More" is tapped -->
+    <a class="tile" href="library.html?folder=Old-School-R-B"><span class="ic">📻</span><span>Old School R&amp;B</span></a>
+    <a class="tile" href="library.html?folder=Old-South-African-Music"><span class="ic">🇿🇦</span><span>Old South African Music</span></a>
+    <a class="tile" href="library.html?folder=Western-Music"><span class="ic">🌎</span><span>Western Music</span></a>
+    <a class="tile" href="library.html?folder=Love-Songs"><span class="ic">💖</span><span>Love Songs</span></a>
+    <a class="tile" href="library.html?folder=Oldies-Kikadde-Music"><span class="ic">🎶</span><span>Oldies / Kikadde Music</span></a>
+    <a class="tile" href="library.html?folder=Kadongo-Kamu"><span class="ic">🎸</span><span>Kadongo Kamu</span></a>
+    <a class="tile" href="library.html?folder=High-School-Music"><span class="ic">🏫</span><span>High School Music</span></a>
+    <a class="tile" href="library.html?folder=Lingala-Music"><span class="ic">🎼</span><span>Lingala Music</span></a>
+    <a class="tile" href="library.html?folder=Instrumental"><span class="ic">🎹</span><span>Instrumental</span></a>
+
   </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- 2. TRENDING VIDEOS (currently single card - later we can make 4 columns when you have real videos) -->
-<section class="section">
+
+<!-- ============================================================
+     2. TRENDING VIDEOS  —  2 down × 4 across (shows 8)
+     NOTE: only "Trending-Videos" exists in your repo so far.
+     Replace the extra placeholders below with your real video
+     folders (keep the same folder= slug you use in library.html).
+     ============================================================ -->
+<section class="section" data-show="8">
   <h2>🎬 Trending Videos</h2>
-  <a class="feature-card" href="library.html?folder=Trending-Videos">
-    <span class="feature-icon">🎬</span>
-    <span>
-      <span class="feature-title">Trending Videos</span>
-      <span class="feature-subtitle">Latest trending videos</span>
-    </span>
-  </a>
+  <div class="grid grid-4">
+
+    <a class="tile" href="library.html?folder=Trending-Videos"><span class="ic">🎬</span><span>Trending Videos</span></a>
+    <a class="tile" href="library.html?folder=Latest-Videos"><span class="ic">🎥</span><span>Latest Uploads</span></a>
+    <a class="tile" href="library.html?folder=Music-Videos"><span class="ic">🎵</span><span>Music Videos</span></a>
+    <a class="tile" href="library.html?folder=Comedy-Videos"><span class="ic">😂</span><span>Comedy</span></a>
+    <a class="tile" href="library.html?folder=Sports-Videos"><span class="ic">⚽</span><span>Sports</span></a>
+    <a class="tile" href="library.html?folder=Live-Shows"><span class="ic">🎤</span><span>Live Shows</span></a>
+    <a class="tile" href="library.html?folder=Dance-Videos"><span class="ic">🕺</span><span>Dance</span></a>
+    <a class="tile" href="library.html?folder=Movies"><span class="ic">📺</span><span>Movies</span></a>
+
+    <!-- hidden until "More" is tapped -->
+    <a class="tile" href="library.html?folder=Gospel-Videos"><span class="ic">🙏</span><span>Gospel</span></a>
+    <a class="tile" href="library.html?folder=Education-Videos"><span class="ic">🎓</span><span>Education</span></a>
+    <a class="tile" href="library.html?folder=Car-Videos"><span class="ic">🚗</span><span>Cars</span></a>
+    <a class="tile" href="library.html?folder=Cooking-Videos"><span class="ic">🍲</span><span>Cooking</span></a>
+
+  </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- 3. TRENDING PHOTOS (currently single card) -->
-<section class="section">
-  <h2>📸 Trending Photos & Jokes</h2>
-  <a class="feature-card" href="library.html?folder=Trending-Photos-Jokes">
-    <span class="feature-icon">📸</span>
-    <span>
-      <span class="feature-title">Trending Photos & Jokes</span>
-      <span class="feature-subtitle">Latest photos, jokes and pictures</span>
-    </span>
-  </a>
+
+<!-- ============================================================
+     3. TRENDING PHOTOS & JOKES  —  2 down × 4 across (shows 8)
+     NOTE: only "Trending-Photos-Jokes" exists in your repo so far.
+     Replace the extra placeholders with your real photo folders.
+     ============================================================ -->
+<section class="section" data-show="8">
+  <h2>📸 Trending Photos &amp; Jokes</h2>
+  <div class="grid grid-4">
+
+    <a class="tile" href="library.html?folder=Trending-Photos-Jokes"><span class="ic">📸</span><span>Trending Photos</span></a>
+    <a class="tile" href="library.html?folder=Funny-Jokes"><span class="ic">😂</span><span>Funny Jokes</span></a>
+    <a class="tile" href="library.html?folder=Wallpapers"><span class="ic">🖼️</span><span>Wallpapers</span></a>
+    <a class="tile" href="library.html?folder=Selfies"><span class="ic">🤳</span><span>Selfies</span></a>
+    <a class="tile" href="library.html?folder=Event-Photos"><span class="ic">🎉</span><span>Events</span></a>
+    <a class="tile" href="library.html?folder=Nature-Photos"><span class="ic">🏞️</span><span>Nature</span></a>
+    <a class="tile" href="library.html?folder=Cars-Bikes"><span class="ic">🚗</span><span>Cars &amp; Bikes</span></a>
+    <a class="tile" href="library.html?folder=Love-Photos"><span class="ic">💕</span><span>Love</span></a>
+
+    <!-- hidden until "More" is tapped -->
+    <a class="tile" href="library.html?folder=Sports-Photos"><span class="ic">⚽</span><span>Sports</span></a>
+    <a class="tile" href="library.html?folder=Gospel-Photos"><span class="ic">🙏</span><span>Gospel</span></a>
+    <a class="tile" href="library.html?folder=Birthday-Photos"><span class="ic">🎂</span><span>Birthday</span></a>
+    <a class="tile" href="library.html?folder=Travel-Photos"><span class="ic">🌍</span><span>Travel</span></a>
+
+  </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- 4. APPS (2 columns) -->
-<section class="section">
+
+<!-- ============================================================
+     4. APPS  —  3 down × 2 across (shows 6)
+     ============================================================ -->
+<section class="section" data-show="6">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
-  <div class="grid-2">
-    <a class="category-card" href="library.html?folder=Premium-Unlocked-Apps">
-      <span class="category-icon">📱</span>
-      <span class="category-text">Premium Unlocked Apps</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Free-Unlimited-Internet-VPNs">
-      <span class="category-icon">🌐</span>
-      <span class="category-text">Free Unlimited Internet VPNs</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Social-Media">
-      <span class="category-icon">📲</span>
-      <span class="category-text">Social Media</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Messaging">
-      <span class="category-icon">💬</span>
-      <span class="category-text">Messaging</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Music-Audio">
-      <span class="category-icon">🎧</span>
-      <span class="category-text">Music & Audio</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Video-Streaming">
-      <span class="category-icon">▶️</span>
-      <span class="category-text">Video & Streaming</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Photo-Camera">
-      <span class="category-icon">📷</span>
-      <span class="category-text">Photo & Camera</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Video-Editing">
-      <span class="category-icon">🎞️</span>
-      <span class="category-text">Video Editing</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Music-DJ">
-      <span class="category-icon">🎚️</span>
-      <span class="category-text">Music & DJ</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Games">
-      <span class="category-icon">🎮</span>
-      <span class="category-text">Games</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Education">
-      <span class="category-icon">📚</span>
-      <span class="category-text">Education</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Business-Work">
-      <span class="category-icon">💼</span>
-      <span class="category-text">Business & Work</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Finance-Banking">
-      <span class="category-icon">💰</span>
-      <span class="category-text">Finance & Banking</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Shopping">
-      <span class="category-icon">🛒</span>
-      <span class="category-text">Shopping</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Travel-Transport">
-      <span class="category-icon">✈️</span>
-      <span class="category-text">Travel & Transport</span>
-    </a>
-    <a class="category-card" href="library.html?folder=News">
-      <span class="category-icon">📰</span>
-      <span class="category-text">News</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Sports">
-      <span class="category-icon">⚽</span>
-      <span class="category-text">Sports</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Health-Fitness">
-      <span class="category-icon">🏃</span>
-      <span class="category-text">Health & Fitness</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Tools-Utilities">
-      <span class="category-icon">🛠️</span>
-      <span class="category-text">Tools & Utilities</span>
-    </a>
-    <a class="category-card" href="library.html?folder=File-Management">
-      <span class="category-icon">📁</span>
-      <span class="category-text">File Management</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Security">
-      <span class="category-icon">🔐</span>
-      <span class="category-text">Security</span>
-    </a>
+  <div class="grid grid-2">
+
+    <a class="tile" href="library.html?folder=Premium-Unlocked-Apps"><span class="ic">📱</span><span>Premium Unlocked Apps</span></a>
+    <a class="tile" href="library.html?folder=Free-Unlimited-Internet-VPNs"><span class="ic">🌐</span><span>Free Unlimited Internet VPNs</span></a>
+    <a class="tile" href="library.html?folder=Social-Media"><span class="ic">📲</span><span>Social Media</span></a>
+    <a class="tile" href="library.html?folder=Messaging"><span class="ic">💬</span><span>Messaging</span></a>
+    <a class="tile" href="library.html?folder=Music-Audio"><span class="ic">🎧</span><span>Music &amp; Audio</span></a>
+    <a class="tile" href="library.html?folder=Video-Streaming"><span class="ic">▶️</span><span>Video &amp; Streaming</span></a>
+
+    <!-- hidden until "More" is tapped -->
+    <a class="tile" href="library.html?folder=Photo-Camera"><span class="ic">📷</span><span>Photo &amp; Camera</span></a>
+    <a class="tile" href="library.html?folder=Video-Editing"><span class="ic">🎞️</span><span>Video Editing</span></a>
+    <a class="tile" href="library.html?folder=Music-DJ"><span class="ic">🎚️</span><span>Music &amp; DJ</span></a>
+    <a class="tile" href="library.html?folder=Games"><span class="ic">🎮</span><span>Games</span></a>
+    <a class="tile" href="library.html?folder=Education"><span class="ic">📚</span><span>Education</span></a>
+    <a class="tile" href="library.html?folder=Business-Work"><span class="ic">💼</span><span>Business &amp; Work</span></a>
+    <a class="tile" href="library.html?folder=Finance-Banking"><span class="ic">💰</span><span>Finance &amp; Banking</span></a>
+    <a class="tile" href="library.html?folder=Shopping"><span class="ic">🛒</span><span>Shopping</span></a>
+    <a class="tile" href="library.html?folder=Travel-Transport"><span class="ic">✈️</span><span>Travel &amp; Transport</span></a>
+    <a class="tile" href="library.html?folder=News"><span class="ic">📰</span><span>News</span></a>
+    <a class="tile" href="library.html?folder=Sports"><span class="ic">⚽</span><span>Sports</span></a>
+    <a class="tile" href="library.html?folder=Health-Fitness"><span class="ic">🏃</span><span>Health &amp; Fitness</span></a>
+    <a class="tile" href="library.html?folder=Tools-Utilities"><span class="ic">🛠️</span><span>Tools &amp; Utilities</span></a>
+    <a class="tile" href="library.html?folder=File-Management"><span class="ic">📁</span><span>File Management</span></a>
+    <a class="tile" href="library.html?folder=Security"><span class="ic">🔐</span><span>Security</span></a>
+
   </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- 5. SOFTWARE (2 columns) -->
-<section class="section">
+
+<!-- ============================================================
+     5. SOFTWARE  —  3 down × 2 across (shows 6)
+     ============================================================ -->
+<section class="section" data-show="6">
   <h2>💻 Softwares and Virtual DJ Mappings</h2>
-  <div class="grid-2">
-    <a class="category-card" href="library.html?folder=Virtual-DJ-Software">
-      <span class="category-icon">🎧</span>
-      <span class="category-text">Virtual DJ Software</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Windows-Software">
-      <span class="category-icon">🪟</span>
-      <span class="category-text">Windows Software</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Software-Video-Editing">
-      <span class="category-icon">🎬</span>
-      <span class="category-text">Video Editing</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Audio-Editing">
-      <span class="category-icon">🎚️</span>
-      <span class="category-text">Audio Editing</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Photo-Editing">
-      <span class="category-icon">🖼️</span>
-      <span class="category-text">Photo Editing</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Graphics-Design">
-      <span class="category-icon">🎨</span>
-      <span class="category-text">Graphics & Design</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Mac-Software">
-      <span class="category-icon">🍎</span>
-      <span class="category-text">Mac Software</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Linux-Software">
-      <span class="category-icon">🐧</span>
-      <span class="category-text">Linux Software</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Android-Software">
-      <span class="category-icon">🤖</span>
-      <span class="category-text">Android Software</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Office-Productivity">
-      <span class="category-icon">📊</span>
-      <span class="category-text">Office & Productivity</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Internet-Browsers">
-      <span class="category-icon">🌐</span>
-      <span class="category-text">Internet & Browsers</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Security-Antivirus">
-      <span class="category-icon">🛡️</span>
-      <span class="category-text">Security & Antivirus</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Software-File-Management">
-      <span class="category-icon">📂</span>
-      <span class="category-text">File Management</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Media-Players">
-      <span class="category-icon">▶️</span>
-      <span class="category-text">Media Players</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Download-Managers">
-      <span class="category-icon">⬇️</span>
-      <span class="category-text">Download Managers</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Programming-Development">
-      <span class="category-icon">💻</span>
-      <span class="category-text">Programming & Development</span>
-    </a>
-    <a class="category-card" href="library.html?folder=Utilities-Tools">
-      <span class="category-icon">🔧</span>
-      <span class="category-text">Utilities & Tools</span>
-    </a>
+  <div class="grid grid-2">
+
+    <a class="tile" href="library.html?folder=Virtual-DJ-Software"><span class="ic">🎧</span><span>Virtual DJ Software</span></a>
+    <a class="tile" href="library.html?folder=Windows-Software"><span class="ic">🪟</span><span>Windows Software</span></a>
+    <a class="tile" href="library.html?folder=Software-Video-Editing"><span class="ic">🎬</span><span>Video Editing</span></a>
+    <a class="tile" href="library.html?folder=Audio-Editing"><span class="ic">🎚️</span><span>Audio Editing</span></a>
+    <a class="tile" href="library.html?folder=Photo-Editing"><span class="ic">🖼️</span><span>Photo Editing</span></a>
+    <a class="tile" href="library.html?folder=Graphics-Design"><span class="ic">🎨</span><span>Graphics &amp; Design</span></a>
+
+    <!-- hidden until "More" is tapped -->
+    <a class="tile" href="library.html?folder=Mac-Software"><span class="ic">🍎</span><span>Mac Software</span></a>
+    <a class="tile" href="library.html?folder=Linux-Software"><span class="ic">🐧</span><span>Linux Software</span></a>
+    <a class="tile" href="library.html?folder=Android-Software"><span class="ic">🤖</span><span>Android Software</span></a>
+    <a class="tile" href="library.html?folder=Office-Productivity"><span class="ic">📊</span><span>Office &amp; Productivity</span></a>
+    <a class="tile" href="library.html?folder=Internet-Browsers"><span class="ic">🌐</span><span>Internet &amp; Browsers</span></a>
+    <a class="tile" href="library.html?folder=Security-Antivirus"><span class="ic">🛡️</span><span>Security &amp; Antivirus</span></a>
+    <a class="tile" href="library.html?folder=Software-File-Management"><span class="ic">📂</span><span>File Management</span></a>
+    <a class="tile" href="library.html?folder=Media-Players"><span class="ic">▶️</span><span>Media Players</span></a>
+    <a class="tile" href="library.html?folder=Download-Managers"><span class="ic">⬇️</span><span>Download Managers</span></a>
+    <a class="tile" href="library.html?folder=Programming-Development"><span class="ic">💻</span><span>Programming &amp; Development</span></a>
+    <a class="tile" href="library.html?folder=Utilities-Tools"><span class="ic">🔧</span><span>Utilities &amp; Tools</span></a>
+
   </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- 6. DJ MIXES -->
-<section class="section">
+
+<!-- ============================================================
+     6. DJ MIXES  —  2 down × 2 across (shows 4)
+     NOTE: only "DJ-Mixes" exists in your repo so far.
+     Replace the extra placeholders with your real DJ folders.
+     ============================================================ -->
+<section class="section" data-show="4">
   <h2>🎧 DJ Mixes</h2>
-  <a class="feature-card" href="library.html?folder=DJ-Mixes">
-    <span class="feature-icon">🎧</span>
-    <span>
-      <span class="feature-title">DJ Mixes</span>
-      <span class="feature-subtitle">Mixtapes • Mappings • Sound Effects • Virtual DJ</span>
-    </span>
-  </a>
+  <div class="grid grid-2">
+
+    <a class="tile" href="library.html?folder=DJ-Mixes"><span class="ic">🎧</span><span>DJ Mixes</span></a>
+    <a class="tile" href="library.html?folder=Mixtapes"><span class="ic">📼</span><span>Mixtapes</span></a>
+    <a class="tile" href="library.html?folder=Sound-Effects"><span class="ic">🔊</span><span>Sound Effects</span></a>
+    <a class="tile" href="library.html?folder=Virtual-DJ-Mappings"><span class="ic">🎚️</span><span>Virtual DJ Mappings</span></a>
+
+  </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- TRENDING APPS -->
+
+<!-- ================= TRENDING APPS ================= -->
 <section class="trending">
   <h2>Trending Apps</h2>
   <div class="apps">
@@ -556,7 +469,7 @@ a{
   </div>
 </section>
 
-<!-- FOLLOW US -->
+<!-- ================= FOLLOW US ================= -->
 <section class="social">
   <h2>Follow Us</h2>
   <div class="social-list">
@@ -571,5 +484,45 @@ a{
 <footer class="footer">© Ning Wei Media</footer>
 
 </div>
+
+<script>
+/* =========================================================
+   "More / Less" logic
+   Each section has data-show="N"  -> how many tiles show first.
+   Any tile past N is hidden until the More button is tapped.
+   The More button is auto-hidden when a section has nothing
+   more to reveal.
+========================================================= */
+document.querySelectorAll('.section[data-show]').forEach(function(section){
+  var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
+  var grid  = section.querySelector('.grid');
+  var wrap  = section.querySelector('.more-wrap');
+  var btn   = section.querySelector('.more-btn');
+  if (!grid || !btn) return;
+
+  var tiles = Array.prototype.slice.call(grid.querySelectorAll('.tile'));
+
+  // Nothing extra to show -> hide the button (e.g. DJ Mixes)
+  if (tiles.length <= limit) {
+    if (wrap) wrap.style.display = 'none';
+    return;
+  }
+
+  // Hide the overflow tiles
+  tiles.forEach(function(tile, i){
+    if (i >= limit) tile.classList.add('is-hidden');
+  });
+
+  // Toggle open / closed
+  btn.addEventListener('click', function(){
+    var opened = section.classList.toggle('open');
+    btn.textContent = opened ? 'Less ▴' : 'More ▾';
+    if (!opened) {
+      section.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+</script>
+
 </body>
 </html>
