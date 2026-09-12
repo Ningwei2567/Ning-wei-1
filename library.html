@@ -8,17 +8,20 @@
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f5f7;
   color:#111;
 }
+
 a{
   color:inherit;
   text-decoration:none;
   -webkit-tap-highlight-color:transparent;
 }
+
 button,input,textarea{font:inherit}
 button,a{cursor:pointer}
 .hidden{display:none!important}
@@ -43,6 +46,7 @@ button,a{cursor:pointer}
   color:#fff;
   background:#000;
 }
+
 .header img{
   position:absolute;
   inset:0;
@@ -51,17 +55,30 @@ button,a{cursor:pointer}
   object-fit:cover;
   object-position:center 35%;
 }
+
 .header-content{
   position:relative;
   z-index:2;
   padding:8px 15px;
   text-shadow:0 2px 5px rgba(0,0,0,.9),0 1px 2px rgba(0,0,0,.9);
 }
-.header h1{margin:0;font-size:30px;font-weight:800}
-.header p{margin:8px 0 0;font-size:15px}
+
+.header h1{
+  margin:0;
+  font-size:30px;
+  font-weight:800;
+}
+
+.header p{
+  margin:8px 0 0;
+  font-size:15px;
+}
 
 /* SEARCH */
-.search-upload{padding:14px 18px 4px}
+.search-upload{
+  padding:14px 18px 4px;
+}
+
 .search-box{
   display:flex;
   width:100%;
@@ -71,6 +88,7 @@ button,a{cursor:pointer}
   padding:5px;
   box-shadow:0 2px 7px rgba(0,0,0,.07);
 }
+
 .search-box input{
   flex:1;
   min-width:0;
@@ -80,6 +98,7 @@ button,a{cursor:pointer}
   font-size:14px;
   background:transparent;
 }
+
 .search-box button{
   border:0;
   border-radius:9px;
@@ -88,6 +107,7 @@ button,a{cursor:pointer}
   color:#fff;
   font-weight:700;
 }
+
 .upload-button{
   display:flex;
   flex-direction:column;
@@ -105,6 +125,7 @@ button,a{cursor:pointer}
   line-height:1.2;
   box-shadow:0 3px 9px rgba(0,0,0,.12);
 }
+
 .upload-button-description{
   display:block;
   margin-top:5px;
@@ -113,7 +134,10 @@ button,a{cursor:pointer}
 }
 
 /* SECTIONS */
-.section{padding:16px 18px 5px}
+.section{
+  padding:16px 18px 5px;
+}
+
 .section h2{
   margin:0 0 10px;
   font-size:22px;
@@ -127,6 +151,7 @@ button,a{cursor:pointer}
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:8px;
 }
+
 .category-card{
   display:flex;
   align-items:center;
@@ -138,7 +163,11 @@ button,a{cursor:pointer}
   color:#111;
   box-shadow:0 2px 7px rgba(0,0,0,.06);
 }
-.category-card:active{transform:scale(.97)}
+
+.category-card:active{
+  transform:scale(.97);
+}
+
 .category-icon{
   width:40px;
   height:40px;
@@ -152,6 +181,7 @@ button,a{cursor:pointer}
   font-size:20px;
   margin-right:9px;
 }
+
 .category-text{
   font-size:13px;
   font-weight:700;
@@ -164,6 +194,7 @@ button,a{cursor:pointer}
   justify-content:center;
   padding:11px 0 2px;
 }
+
 .more-btn{
   border:0;
   border-radius:9px;
@@ -179,6 +210,7 @@ button,a{cursor:pointer}
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:6px;
 }
+
 .media-card{
   background:#fff;
   border:1px solid #ddd;
@@ -186,6 +218,7 @@ button,a{cursor:pointer}
   overflow:hidden;
   box-shadow:0 2px 6px rgba(0,0,0,.06);
 }
+
 .media-thumb{
   width:100%;
   aspect-ratio:1/1;
@@ -195,19 +228,23 @@ button,a{cursor:pointer}
   justify-content:center;
   overflow:hidden;
 }
+
 .media-thumb img,
 .media-thumb video{
   width:100%;
   height:100%;
   object-fit:cover;
 }
+
 .media-placeholder{
   font-size:25px;
   color:#777;
 }
+
 .media-body{
   padding:6px;
 }
+
 .media-title{
   font-size:9px;
   font-weight:800;
@@ -215,6 +252,7 @@ button,a{cursor:pointer}
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
 .media-meta{
   margin-top:3px;
   color:#777;
@@ -230,6 +268,7 @@ button,a{cursor:pointer}
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:8px;
 }
+
 .audio-row{
   display:flex;
   align-items:center;
@@ -241,6 +280,7 @@ button,a{cursor:pointer}
   padding:8px;
   box-shadow:0 2px 6px rgba(0,0,0,.06);
 }
+
 .audio-cover{
   width:45px;
   height:45px;
@@ -249,9 +289,11 @@ button,a{cursor:pointer}
   object-fit:cover;
   background:#111;
 }
+
 .audio-info{
   min-width:0;
 }
+
 .audio-title{
   font-size:11px;
   font-weight:800;
@@ -259,6 +301,7 @@ button,a{cursor:pointer}
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
 .audio-meta{
   font-size:8px;
   color:#777;
@@ -278,6 +321,7 @@ button,a{cursor:pointer}
   color:#111;
   box-shadow:0 2px 7px rgba(0,0,0,.06);
 }
+
 .feature-icon{
   width:45px;
   height:45px;
@@ -291,21 +335,36 @@ button,a{cursor:pointer}
   font-size:22px;
   margin-right:11px;
 }
-.feature-title{font-size:15px;font-weight:800}
-.feature-subtitle{display:block;font-size:10px;color:#777;margin-top:4px}
+
+.feature-title{
+  font-size:15px;
+  font-weight:800;
+}
+
+.feature-subtitle{
+  display:block;
+  font-size:10px;
+  color:#777;
+  margin-top:4px;
+}
 
 /* TRENDING APPS */
-.trending{padding:20px 18px 5px}
+.trending{
+  padding:20px 18px 5px;
+}
+
 .trending h2{
   margin:0 0 10px;
   font-size:24px;
   font-weight:800;
 }
+
 .apps{
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
   gap:8px;
 }
+
 .app{
   display:flex;
   flex-direction:column;
@@ -318,12 +377,14 @@ button,a{cursor:pointer}
   color:#111;
   box-shadow:0 2px 7px rgba(0,0,0,.07);
 }
+
 .app-logo{
   width:43px;
   height:43px;
   object-fit:contain;
   margin-bottom:6px;
 }
+
 .app-name{
   font-size:9px;
   font-weight:700;
@@ -338,12 +399,14 @@ button,a{cursor:pointer}
 #categoryView{
   padding:16px 18px 30px;
 }
+
 .category-view-top{
   display:flex;
   gap:7px;
   flex-wrap:wrap;
   margin-bottom:15px;
 }
+
 .view-button{
   border:0;
   border-radius:9px;
@@ -352,25 +415,62 @@ button,a{cursor:pointer}
   color:#fff;
   font-weight:800;
 }
+
 .view-button.light{
   background:#fff;
   color:#111;
   border:1px solid #ddd;
 }
+
+/* DIRECT ADMIN UPLOAD STATUS */
+.admin-upload-status{
+  display:none;
+  margin:10px 0 15px;
+  padding:12px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid #ddd;
+  font-size:12px;
+  line-height:1.4;
+}
+
+.admin-upload-status.show{
+  display:block;
+}
+
+.admin-upload-progress{
+  width:100%;
+  height:8px;
+  margin-top:8px;
+  border-radius:8px;
+  background:#e5e5e5;
+  overflow:hidden;
+}
+
+.admin-upload-progress-bar{
+  width:0%;
+  height:100%;
+  background:#55bfe8;
+  transition:width .2s ease;
+}
+
 #categoryView h2{
   margin:0 0 5px;
   font-size:24px;
 }
+
 .category-subtitle{
   color:#777;
   font-size:12px;
   margin-bottom:16px;
 }
+
 .audio-list{
   display:flex;
   flex-direction:column;
   gap:8px;
 }
+
 .empty{
   background:#fff;
   border:1px dashed #ccc;
@@ -388,6 +488,7 @@ button,a{cursor:pointer}
   z-index:5000;
   background:rgba(0,0,0,.95);
 }
+
 .viewer-close{
   position:fixed;
   right:12px;
@@ -401,12 +502,14 @@ button,a{cursor:pointer}
   color:#fff;
   font-size:26px;
 }
+
 .viewer-scroll{
   width:100%;
   height:100%;
   overflow-y:auto;
   scroll-snap-type:y mandatory;
 }
+
 .viewer-slide{
   min-height:100%;
   scroll-snap-align:start;
@@ -415,6 +518,7 @@ button,a{cursor:pointer}
   align-items:center;
   justify-content:center;
 }
+
 .viewer-card{
   width:min(580px,100%);
   max-height:calc(100vh - 75px);
@@ -424,6 +528,7 @@ button,a{cursor:pointer}
   border-radius:13px;
   padding:10px;
 }
+
 .viewer-media{
   width:100%;
   max-height:55vh;
@@ -432,23 +537,27 @@ button,a{cursor:pointer}
   border-radius:9px;
   display:block;
 }
+
 .viewer-title{
   font-size:17px;
   font-weight:900;
   margin-top:10px;
   word-break:break-word;
 }
+
 .viewer-meta{
   color:#999;
   font-size:11px;
   margin-top:6px;
 }
+
 .viewer-uploader{
   display:flex;
   align-items:center;
   gap:8px;
   margin-top:12px;
 }
+
 .uploader-photo{
   width:38px;
   height:38px;
@@ -456,6 +565,7 @@ button,a{cursor:pointer}
   object-fit:cover;
   background:#333;
 }
+
 .uploader-placeholder{
   width:38px;
   height:38px;
@@ -465,6 +575,7 @@ button,a{cursor:pointer}
   align-items:center;
   justify-content:center;
 }
+
 .uploader-link{
   border:0;
   background:none;
@@ -473,12 +584,14 @@ button,a{cursor:pointer}
   text-decoration:underline;
   font-weight:800;
 }
+
 .viewer-actions{
   display:flex;
   flex-wrap:wrap;
   gap:7px;
   margin-top:13px;
 }
+
 .viewer-action{
   border:1px solid #444;
   border-radius:8px;
@@ -487,19 +600,23 @@ button,a{cursor:pointer}
   padding:8px 12px;
   font-weight:800;
 }
+
 .comments{
   margin-top:15px;
   border-top:1px solid #333;
   padding-top:13px;
 }
+
 .comments h3{
   font-size:14px;
   margin:0 0 8px;
 }
+
 .comment-form{
   display:flex;
   gap:6px;
 }
+
 .comment-input{
   flex:1;
   min-width:0;
@@ -510,6 +627,7 @@ button,a{cursor:pointer}
   border-radius:8px;
   padding:8px;
 }
+
 .comment-add{
   border:0;
   border-radius:8px;
@@ -518,12 +636,14 @@ button,a{cursor:pointer}
   padding:8px 12px;
   font-weight:800;
 }
+
 .comment-list{
   display:flex;
   flex-direction:column;
   gap:6px;
   margin-top:9px;
 }
+
 .comment-item{
   background:#1a1a1a;
   border:1px solid #333;
@@ -531,6 +651,7 @@ button,a{cursor:pointer}
   padding:8px;
   font-size:11px;
 }
+
 .comment-date{
   display:block;
   color:#777;
@@ -546,6 +667,7 @@ button,a{cursor:pointer}
   background:rgba(0,0,0,.95);
   overflow:auto;
 }
+
 .profile-box{
   width:min(580px,calc(100% - 18px));
   margin:55px auto 15px;
@@ -555,6 +677,7 @@ button,a{cursor:pointer}
   padding:15px;
   position:relative;
 }
+
 .profile-photo{
   width:65px;
   height:65px;
@@ -562,16 +685,19 @@ button,a{cursor:pointer}
   object-fit:cover;
   background:#333;
 }
+
 .profile-name{
   font-size:22px;
   font-weight:900;
   margin-top:9px;
 }
+
 .profile-tabs{
   display:flex;
   gap:7px;
   margin:15px 0;
 }
+
 .profile-tab{
   border:1px solid #444;
   background:#222;
@@ -579,6 +705,7 @@ button,a{cursor:pointer}
   padding:8px 12px;
   border-radius:8px;
 }
+
 .profile-tab.active{
   background:#fff;
   color:#000;
@@ -588,16 +715,19 @@ button,a{cursor:pointer}
 .social{
   padding:20px 18px 10px;
 }
+
 .social h2{
   margin:0 0 12px;
   font-size:24px;
 }
+
 .social-list{
   display:flex;
   justify-content:center;
   align-items:center;
   gap:12px;
 }
+
 .social a{
   width:42px;
   height:42px;
@@ -608,11 +738,13 @@ button,a{cursor:pointer}
   background:#000;
   overflow:hidden;
 }
+
 .social img{
   width:25px;
   height:25px;
   object-fit:contain;
 }
+
 .footer{
   padding:20px 15px;
   text-align:center;
@@ -632,11 +764,24 @@ button,a{cursor:pointer}
 
 /* MOBILE */
 @media(max-width:420px){
+
   .header h1{font-size:27px}
   .header p{font-size:13px}
-  .section h2,.trending h2{font-size:21px}
-  .category-grid{gap:6px}
-  .category-card{min-height:58px;padding:8px}
+
+  .section h2,
+  .trending h2{
+    font-size:21px;
+  }
+
+  .category-grid{
+    gap:6px;
+  }
+
+  .category-card{
+    min-height:58px;
+    padding:8px;
+  }
+
   .category-icon{
     width:36px;
     height:36px;
@@ -644,17 +789,54 @@ button,a{cursor:pointer}
     font-size:18px;
     margin-right:7px;
   }
-  .category-text{font-size:11px}
-  .media-grid{gap:5px}
-  .media-title{font-size:8px}
-  .media-meta{font-size:7px}
-  .apps{gap:6px}
-  .app{min-height:80px;padding:7px 2px}
-  .app-logo{width:36px;height:36px}
-  .app-name{font-size:8px}
-  .social-list{gap:10px}
-  .social a{width:38px;height:38px}
-  .social img{width:22px;height:22px}
+
+  .category-text{
+    font-size:11px;
+  }
+
+  .media-grid{
+    gap:5px;
+  }
+
+  .media-title{
+    font-size:8px;
+  }
+
+  .media-meta{
+    font-size:7px;
+  }
+
+  .apps{
+    gap:6px;
+  }
+
+  .app{
+    min-height:80px;
+    padding:7px 2px;
+  }
+
+  .app-logo{
+    width:36px;
+    height:36px;
+  }
+
+  .app-name{
+    font-size:8px;
+  }
+
+  .social-list{
+    gap:10px;
+  }
+
+  .social a{
+    width:38px;
+    height:38px;
+  }
+
+  .social img{
+    width:22px;
+    height:22px;
+  }
 }
 </style>
 </head>
@@ -663,313 +845,518 @@ button,a{cursor:pointer}
 
 <div class="container">
 
-<!-- HEADER -->
 <header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media">
+
   <div class="header-content">
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
 </header>
 
-<!-- SEARCH + UPLOAD -->
+
 <section class="search-upload">
 
   <form class="search-box" id="searchForm">
+
     <input
       id="searchInput"
       type="search"
       placeholder="Search Ning Wei Media..."
       autocomplete="off"
     >
-    <button type="submit">Search</button>
+
+    <button type="submit">
+      Search
+    </button>
+
   </form>
 
-  <a class="upload-button" href="github-upload.html">
-    <span>🎵 Upload Your Music From Here</span>
+  <!-- IMPORTANT:
+       THIS IS THE ARTIST UPLOAD.
+       IT REMAINS SEPARATE FROM ADMIN DIRECT UPLOAD.
+  -->
+
+  <a
+    class="upload-button"
+    href="upload.html"
+  >
+
+    <span>
+      🎵 Upload Your Music From Here
+    </span>
+
     <span class="upload-button-description">
       Artists • DJs • Producers
     </span>
+
   </a>
 
 </section>
 
 
-<!-- ======================================================
-     REAL HOMEPAGE
-====================================================== -->
-
 <main id="homeView">
 
   <!-- MUSIC -->
-  <section class="section">
-    <h2>🎵 Top Music Charts</h2>
 
-    <div id="musicGrid" class="category-grid"></div>
+  <section class="section">
+
+    <h2>
+      🎵 Top Music Charts
+    </h2>
+
+    <div
+      id="musicGrid"
+      class="category-grid"
+    ></div>
 
     <div class="more-wrap">
-      <button class="more-btn" onclick="showDirectory('music')">
+
+      <button
+        class="more-btn"
+        onclick="showDirectory('music')"
+      >
         More
       </button>
+
     </div>
+
   </section>
 
 
   <!-- VIDEOS -->
-  <section class="section">
-    <h2>🎬 Trending Videos</h2>
 
-    <div id="videosGrid" class="media-grid">
-      <div class="loading">Loading videos...</div>
+  <section class="section">
+
+    <h2>
+      🎬 Trending Videos
+    </h2>
+
+    <div
+      id="videosGrid"
+      class="media-grid"
+    >
+
+      <div class="loading">
+        Loading videos...
+      </div>
+
     </div>
 
     <div class="more-wrap">
-      <button class="more-btn" onclick="showAllMedia('videos')">
+
+      <button
+        class="more-btn"
+        onclick="showAllMedia('videos')"
+      >
         More
       </button>
+
     </div>
+
   </section>
 
 
   <!-- PHOTOS -->
-  <section class="section">
-    <h2>📸 Trending Photos &amp; Jokes</h2>
 
-    <div id="photosGrid" class="media-grid">
-      <div class="loading">Loading photos...</div>
+  <section class="section">
+
+    <h2>
+      📸 Trending Photos &amp; Jokes
+    </h2>
+
+    <div
+      id="photosGrid"
+      class="media-grid"
+    >
+
+      <div class="loading">
+        Loading photos...
+      </div>
+
     </div>
 
     <div class="more-wrap">
-      <button class="more-btn" onclick="showAllMedia('photos')">
+
+      <button
+        class="more-btn"
+        onclick="showAllMedia('photos')"
+      >
         More
       </button>
+
     </div>
+
   </section>
 
 
   <!-- APPS -->
-  <section class="section">
-    <h2>📱 Apps</h2>
 
-    <div id="appsGrid" class="category-grid"></div>
+  <section class="section">
+
+    <h2>
+      📱 Apps
+    </h2>
+
+    <div
+      id="appsGrid"
+      class="category-grid"
+    ></div>
 
     <div class="more-wrap">
-      <button class="more-btn" onclick="showDirectory('apps')">
+
+      <button
+        class="more-btn"
+        onclick="showDirectory('apps')"
+      >
         More
       </button>
+
     </div>
+
   </section>
 
 
   <!-- SOFTWARE -->
-  <section class="section">
-    <h2>💻 Software</h2>
 
-    <div id="softwareGrid" class="category-grid"></div>
+  <section class="section">
+
+    <h2>
+      💻 Software
+    </h2>
+
+    <div
+      id="softwareGrid"
+      class="category-grid"
+    ></div>
 
     <div class="more-wrap">
-      <button class="more-btn" onclick="showDirectory('software')">
+
+      <button
+        class="more-btn"
+        onclick="showDirectory('software')"
+      >
         More
       </button>
+
     </div>
+
   </section>
 
 
   <!-- DJ MIXES -->
-  <section class="section">
-    <h2>🎧 DJ Mixes</h2>
 
-    <div id="djGrid" class="dj-grid">
-      <div class="loading">Loading DJ mixes...</div>
+  <section class="section">
+
+    <h2>
+      🎧 DJ Mixes
+    </h2>
+
+    <div
+      id="djGrid"
+      class="dj-grid"
+    >
+
+      <div class="loading">
+        Loading DJ mixes...
+      </div>
+
     </div>
 
     <div class="more-wrap">
-      <button class="more-btn" onclick="showAllDjMixes()">
+
+      <button
+        class="more-btn"
+        onclick="showAllDjMixes()"
+      >
         More
       </button>
+
     </div>
+
   </section>
 
 
   <!-- TRENDING APPS -->
+
   <section class="trending">
-    <h2>Trending Apps</h2>
+
+    <h2>
+      Trending Apps
+    </h2>
 
     <div class="apps">
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/youtube/FF0000"
-             alt="YouTube">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/youtube/FF0000"
+          alt="YouTube"
+        >
         <span class="app-name">YouTube</span>
       </a>
 
       <a class="app" href="library.html?folder=Messaging">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/whatsapp/25D366"
-             alt="WhatsApp">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/whatsapp/25D366"
+          alt="WhatsApp"
+        >
         <span class="app-name">WhatsApp</span>
       </a>
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/facebook/1877F2"
-             alt="Facebook">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/facebook/1877F2"
+          alt="Facebook"
+        >
         <span class="app-name">Facebook</span>
       </a>
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/instagram/E4405F"
-             alt="Instagram">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/instagram/E4405F"
+          alt="Instagram"
+        >
         <span class="app-name">Instagram</span>
       </a>
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/x/000000"
-             alt="X">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/x/000000"
+          alt="X"
+        >
         <span class="app-name">X</span>
       </a>
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/tiktok/000000"
-             alt="TikTok">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/tiktok/000000"
+          alt="TikTok"
+        >
         <span class="app-name">TikTok</span>
       </a>
 
       <a class="app" href="library.html?folder=Messaging">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/telegram/26A5E4"
-             alt="Telegram">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/telegram/26A5E4"
+          alt="Telegram"
+        >
         <span class="app-name">Telegram</span>
       </a>
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/pinterest/BD081C"
-             alt="Pinterest">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/pinterest/BD081C"
+          alt="Pinterest"
+        >
         <span class="app-name">Pinterest</span>
       </a>
 
       <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/snapchat/FFFC00"
-             alt="Snapchat">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/snapchat/FFFC00"
+          alt="Snapchat"
+        >
         <span class="app-name">Snapchat</span>
       </a>
 
       <a class="app" href="library.html?folder=Music-Audio">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/spotify/1DB954"
-             alt="Spotify">
+        <img
+          class="app-logo"
+          src="https://cdn.simpleicons.org/spotify/1DB954"
+          alt="Spotify"
+        >
         <span class="app-name">Spotify</span>
       </a>
 
     </div>
+
   </section>
 
 
   <!-- FOLLOW -->
+
   <section class="social">
-    <h2>Follow Us</h2>
+
+    <h2>
+      Follow Us
+    </h2>
 
     <div class="social-list">
 
       <a href="#" aria-label="Instagram">
-        <img src="https://cdn.simpleicons.org/instagram/FFFFFF"
-             alt="Instagram">
+        <img
+          src="https://cdn.simpleicons.org/instagram/FFFFFF"
+          alt="Instagram"
+        >
       </a>
 
       <a href="#" aria-label="Facebook">
-        <img src="https://cdn.simpleicons.org/facebook/FFFFFF"
-             alt="Facebook">
+        <img
+          src="https://cdn.simpleicons.org/facebook/FFFFFF"
+          alt="Facebook"
+        >
       </a>
 
       <a href="#" aria-label="WhatsApp">
-        <img src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
-             alt="WhatsApp">
+        <img
+          src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
+          alt="WhatsApp"
+        >
       </a>
 
       <a href="#" aria-label="YouTube">
-        <img src="https://cdn.simpleicons.org/youtube/FFFFFF"
-             alt="YouTube">
+        <img
+          src="https://cdn.simpleicons.org/youtube/FFFFFF"
+          alt="YouTube"
+        >
       </a>
 
       <a href="#" aria-label="X">
-        <img src="https://cdn.simpleicons.org/x/FFFFFF"
-             alt="X">
+        <img
+          src="https://cdn.simpleicons.org/x/FFFFFF"
+          alt="X"
+        >
       </a>
 
     </div>
+
   </section>
 
 </main>
 
 
-<!-- ======================================================
-     INTERNAL CATEGORY / MEDIA VIEW
-     THIS IS NOT ANOTHER HOMEPAGE
-====================================================== -->
+<!-- INTERNAL CATEGORY VIEW -->
 
-<section id="categoryView" class="hidden">
+<section
+  id="categoryView"
+  class="hidden"
+>
 
   <div class="category-view-top">
-    <button class="view-button" onclick="goHome()">
+
+    <button
+      class="view-button"
+      onclick="goHome()"
+    >
       ← Back Home
     </button>
 
-    <a
+    <!--
+      IMPORTANT:
+      This is NOT a link.
+      It opens the Android file picker directly.
+    -->
+
+    <button
       id="categoryUploadBtn"
       class="view-button"
-      href="github-upload.html"
+      type="button"
+      onclick="openAdminPicker()"
     >
-      ⬆ Upload Direct Here
-    </a>
+      📤 Upload Direct Here
+    </button>
+
   </div>
+
+
+  <div
+    id="adminUploadStatus"
+    class="admin-upload-status"
+  >
+
+    <div id="adminUploadText">
+      Preparing upload...
+    </div>
+
+    <div class="admin-upload-progress">
+
+      <div
+        id="adminUploadProgressBar"
+        class="admin-upload-progress-bar"
+      ></div>
+
+    </div>
+
+  </div>
+
 
   <h2 id="categoryTitle"></h2>
 
-  <div id="categorySubtitle" class="category-subtitle"></div>
+  <div
+    id="categorySubtitle"
+    class="category-subtitle"
+  ></div>
 
   <div id="categoryResults"></div>
 
 </section>
 
 
-<!-- ======================================================
-     MEDIA VIEWER
-====================================================== -->
+<!-- =====================================================
+     HIDDEN ADMIN FILE PICKER
+===================================================== -->
 
-<div id="mediaViewer" class="media-viewer hidden">
+<input
+  id="adminFileInput"
+  type="file"
+  multiple
+  hidden
+>
+
+
+<!-- MEDIA VIEWER -->
+
+<div
+  id="mediaViewer"
+  class="media-viewer hidden"
+>
 
   <button
     class="viewer-close"
     onclick="closeMediaViewer()"
-  >×</button>
+  >
+    ×
+  </button>
 
-  <div id="viewerScroll" class="viewer-scroll"></div>
+  <div
+    id="viewerScroll"
+    class="viewer-scroll"
+  ></div>
 
 </div>
 
 
-<!-- ======================================================
-     PROFILE VIEWER
-====================================================== -->
+<!-- PROFILE VIEWER -->
 
-<div id="profileViewer" class="profile-viewer hidden">
+<div
+  id="profileViewer"
+  class="profile-viewer hidden"
+>
 
   <div class="profile-box">
 
     <button
       class="viewer-close"
       onclick="closeProfileViewer()"
-    >×</button>
+    >
+      ×
+    </button>
 
     <div id="profilePhotoHolder"></div>
 
-    <div id="profileName" class="profile-name"></div>
+    <div
+      id="profileName"
+      class="profile-name"
+    ></div>
 
     <div class="category-subtitle">
       Uploaded media
@@ -995,7 +1382,10 @@ button,a{cursor:pointer}
 
     </div>
 
-    <div id="profileMediaGrid" class="media-grid"></div>
+    <div
+      id="profileMediaGrid"
+      class="media-grid"
+    ></div>
 
   </div>
 
@@ -1010,6 +1400,7 @@ button,a{cursor:pointer}
 
 
 <script>
+
 /* =========================================================
    CONFIG
 ========================================================= */
@@ -1018,7 +1409,7 @@ const SUPABASE_URL =
   "https://btksyizkcpzubtextuce.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  "YOUR_SUPABASE_ANON_KEY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwiaWF0IjoxNzg4OTMxNjI2LCJleHAiOjIxMDQ1MDc2MjN9.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const GITHUB_OWNER = "Ningwei2567";
 const GITHUB_REPO = "Ning-wei-1";
@@ -1097,6 +1488,7 @@ const SOFTWARE_CATEGORIES = [
 ];
 
 const DISPLAY_NAMES = {
+
   "Top-Ugandan-Music":"Top Ugandan Music",
   "Amapiano-Music":"Amapiano Music",
   "Afrobeat-Music":"Afrobeat Music",
@@ -1154,6 +1546,7 @@ const DISPLAY_NAMES = {
 };
 
 const CATEGORY_ICONS = {
+
   "Top-Ugandan-Music":"🇺🇬",
   "Amapiano-Music":"🎹",
   "Afrobeat-Music":"🔥",
@@ -1218,6 +1611,11 @@ const CATEGORY_ICONS = {
 let ALL_ITEMS = [];
 let CURRENT_PROFILE_ITEMS = [];
 
+let CURRENT_UPLOAD_CATEGORY = "";
+let CURRENT_UPLOAD_TYPE = "";
+let CURRENT_UPLOAD_BUCKET = "";
+let CURRENT_UPLOAD_FOLDER = "";
+
 
 /* =========================================================
    HELPERS
@@ -1234,14 +1632,21 @@ function cleanName(name){
 }
 
 function fileExtension(name){
+
   const match =
-    String(name || "").match(/\.([a-z0-9]+)$/i);
-  return match ? match[1].toLowerCase() : "";
+    String(name || "")
+      .match(/\.([a-z0-9]+)$/i);
+
+  return match
+    ? match[1].toLowerCase()
+    : "";
 }
 
 function isVideo(item){
+
   const type =
-    String(item?.type || item?.mime || "").toLowerCase();
+    String(item?.type || item?.mime || "")
+      .toLowerCase();
 
   const ext =
     fileExtension(
@@ -1252,12 +1657,22 @@ function isVideo(item){
     );
 
   return type.startsWith("video/") ||
-    ["mp4","webm","mov","m4v","avi","mkv","3gp"].includes(ext);
+    [
+      "mp4",
+      "webm",
+      "mov",
+      "m4v",
+      "avi",
+      "mkv",
+      "3gp"
+    ].includes(ext);
 }
 
 function isAudio(item){
+
   const type =
-    String(item?.type || item?.mime || "").toLowerCase();
+    String(item?.type || item?.mime || "")
+      .toLowerCase();
 
   const ext =
     fileExtension(
@@ -1268,12 +1683,21 @@ function isAudio(item){
     );
 
   return type.startsWith("audio/") ||
-    ["mp3","wav","m4a","aac","ogg","flac"].includes(ext);
+    [
+      "mp3",
+      "wav",
+      "m4a",
+      "aac",
+      "ogg",
+      "flac"
+    ].includes(ext);
 }
 
 function isImage(item){
+
   const type =
-    String(item?.type || item?.mime || "").toLowerCase();
+    String(item?.type || item?.mime || "")
+      .toLowerCase();
 
   const ext =
     fileExtension(
@@ -1284,10 +1708,19 @@ function isImage(item){
     );
 
   return type.startsWith("image/") ||
-    ["jpg","jpeg","png","gif","webp","bmp","avif"].includes(ext);
+    [
+      "jpg",
+      "jpeg",
+      "png",
+      "gif",
+      "webp",
+      "bmp",
+      "avif"
+    ].includes(ext);
 }
 
 function escapeHtml(value){
+
   return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -1297,6 +1730,7 @@ function escapeHtml(value){
 }
 
 function displayName(category){
+
   return DISPLAY_NAMES[category] ||
     String(category || "")
       .replace(/[-_]+/g," ")
@@ -1305,10 +1739,12 @@ function displayName(category){
 }
 
 function iconFor(category){
+
   return CATEGORY_ICONS[category] || "📁";
 }
 
 function formatDate(date){
+
   if(!date) return "Date unavailable";
 
   const d = new Date(date);
@@ -1325,6 +1761,7 @@ function formatDate(date){
 }
 
 function formatDateTime(date){
+
   const d = new Date(date);
 
   if(Number.isNaN(d.getTime())){
@@ -1335,6 +1772,7 @@ function formatDateTime(date){
 }
 
 function pathText(item){
+
   return [
     item?.path,
     item?.file_path,
@@ -1349,8 +1787,10 @@ function pathText(item){
 }
 
 function hasCategory(item,category){
+
   const wanted =
-    String(category || "").toLowerCase();
+    String(category || "")
+      .toLowerCase();
 
   if(!wanted) return false;
 
@@ -1372,6 +1812,680 @@ function hasCategory(item,category){
 
 
 /* =========================================================
+   ADMIN UPLOAD DESTINATION
+========================================================= */
+
+function getUploadDestination(category){
+
+  const clean =
+    String(category || "")
+      .trim();
+
+  if(!clean){
+    return null;
+  }
+
+  /*
+    MUSIC
+    -> Supabase bucket: songs
+    -> folder: category
+  */
+
+  if(MUSIC_CATEGORIES.includes(clean)){
+
+    return {
+      type:"audio",
+      bucket:"songs",
+      folder:clean
+    };
+  }
+
+  /*
+    APPS
+    -> artist-uploads/apps/category
+  */
+
+  if(APPS_CATEGORIES.includes(clean)){
+
+    return {
+      type:"app",
+      bucket:"artist-uploads",
+      folder:"apps/" + clean
+    };
+  }
+
+  /*
+    SOFTWARE
+    -> artist-uploads/software/category
+  */
+
+  if(SOFTWARE_CATEGORIES.includes(clean)){
+
+    return {
+      type:"software",
+      bucket:"artist-uploads",
+      folder:"software/" + clean
+    };
+  }
+
+  /*
+    These special folders are supported.
+  */
+
+  const lower =
+    clean.toLowerCase();
+
+  if(
+    lower === "trending-videos" ||
+    lower.includes("video")
+  ){
+
+    return {
+      type:"video",
+      bucket:"artist-uploads",
+      folder:"videos/" + clean
+    };
+  }
+
+  if(
+    lower === "trending-photos-jokes" ||
+    lower.includes("photo") ||
+    lower.includes("joke")
+  ){
+
+    return {
+      type:"image",
+      bucket:"artist-uploads",
+      folder:"photos/" + clean
+    };
+  }
+
+  if(
+    lower === "dj-mixes" ||
+    lower.includes("dj")
+  ){
+
+    return {
+      type:"audio",
+      bucket:"artist-uploads",
+      folder:"dj-mixes/" + clean
+    };
+  }
+
+  return null;
+}
+
+
+/* =========================================================
+   FILE TYPE CHECKING
+========================================================= */
+
+const AUDIO_EXTENSIONS = [
+  "mp3",
+  "wav",
+  "m4a",
+  "aac",
+  "ogg",
+  "flac",
+  "opus",
+  "wma"
+];
+
+const VIDEO_EXTENSIONS = [
+  "mp4",
+  "webm",
+  "mov",
+  "m4v",
+  "avi",
+  "mkv",
+  "3gp"
+];
+
+const IMAGE_EXTENSIONS = [
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "webp",
+  "bmp",
+  "avif"
+];
+
+const APP_EXTENSIONS = [
+  "apk",
+  "apks",
+  "xapk"
+];
+
+const SOFTWARE_EXTENSIONS = [
+  "exe",
+  "msi",
+  "dmg",
+  "pkg",
+  "deb",
+  "rpm",
+  "appimage",
+  "zip",
+  "rar",
+  "7z",
+  "tar",
+  "gz"
+];
+
+function fileMatchesUploadType(file,type){
+
+  const name =
+    String(file?.name || "")
+      .toLowerCase();
+
+  const ext =
+    fileExtension(name);
+
+  const mime =
+    String(file?.type || "")
+      .toLowerCase();
+
+  if(type === "audio"){
+
+    return mime.startsWith("audio/") ||
+      AUDIO_EXTENSIONS.includes(ext);
+  }
+
+  if(type === "video"){
+
+    return mime.startsWith("video/") ||
+      VIDEO_EXTENSIONS.includes(ext);
+  }
+
+  if(type === "image"){
+
+    return mime.startsWith("image/") ||
+      IMAGE_EXTENSIONS.includes(ext);
+  }
+
+  if(type === "app"){
+
+    return APP_EXTENSIONS.includes(ext) ||
+      mime.includes("android");
+  }
+
+  if(type === "software"){
+
+    return SOFTWARE_EXTENSIONS.includes(ext);
+  }
+
+  return false;
+}
+
+function acceptForType(type){
+
+  if(type === "audio"){
+    return "audio/*";
+  }
+
+  if(type === "video"){
+    return "video/*";
+  }
+
+  if(type === "image"){
+    return "image/*";
+  }
+
+  if(type === "app"){
+    return ".apk,.apks,.xapk,application/vnd.android.package-archive";
+  }
+
+  if(type === "software"){
+    return [
+      ".exe",
+      ".msi",
+      ".dmg",
+      ".pkg",
+      ".deb",
+      ".rpm",
+      ".appimage",
+      ".zip",
+      ".rar",
+      ".7z",
+      ".tar",
+      ".gz"
+    ].join(",");
+  }
+
+  return "";
+}
+
+
+/* =========================================================
+   DIRECT ADMIN FILE PICKER
+========================================================= */
+
+function openAdminPicker(){
+
+  const destination =
+    getUploadDestination(
+      CURRENT_UPLOAD_CATEGORY
+    );
+
+  if(!destination){
+
+    alert(
+      "Direct upload is not available for this page. Open a specific category first."
+    );
+
+    return;
+  }
+
+  CURRENT_UPLOAD_TYPE =
+    destination.type;
+
+  CURRENT_UPLOAD_BUCKET =
+    destination.bucket;
+
+  CURRENT_UPLOAD_FOLDER =
+    destination.folder;
+
+  const input =
+    document.getElementById(
+      "adminFileInput"
+    );
+
+  if(!input) return;
+
+  /*
+    MULTIPLE IS INTENTIONAL.
+    The admin can select 1, 100, 1,000,
+    or as many files as the phone allows.
+  */
+
+  input.multiple = true;
+
+  input.accept =
+    acceptForType(
+      destination.type
+    );
+
+  /*
+    IMPORTANT:
+    This opens the phone's file picker
+    DIRECTLY from the button.
+    There is NO github-upload.html.
+  */
+
+  input.click();
+}
+
+
+/* =========================================================
+   ADMIN UPLOAD STATUS
+========================================================= */
+
+function showAdminStatus(text){
+
+  const box =
+    document.getElementById(
+      "adminUploadStatus"
+    );
+
+  const label =
+    document.getElementById(
+      "adminUploadText"
+    );
+
+  if(label){
+    label.textContent = text;
+  }
+
+  if(box){
+    box.classList.add("show");
+  }
+}
+
+function hideAdminStatus(){
+
+  const box =
+    document.getElementById(
+      "adminUploadStatus"
+    );
+
+  if(box){
+    box.classList.remove("show");
+  }
+}
+
+function updateAdminProgress(percent){
+
+  const bar =
+    document.getElementById(
+      "adminUploadProgressBar"
+    );
+
+  if(bar){
+    bar.style.width =
+      Math.max(
+        0,
+        Math.min(
+          100,
+          percent
+        )
+      ) + "%";
+  }
+}
+
+
+/* =========================================================
+   UNIQUE STORAGE FILE NAME
+========================================================= */
+
+function makeStorageName(file){
+
+  const original =
+    String(file.name || "file");
+
+  const dot =
+    original.lastIndexOf(".");
+
+  const base =
+    dot > 0
+      ? original.slice(0,dot)
+      : original;
+
+  const ext =
+    dot > 0
+      ? original.slice(dot)
+      : "";
+
+  const safeBase =
+    base
+      .replace(/[^\w\s.-]/g,"")
+      .replace(/\s+/g,"-")
+      .replace(/-+/g,"-")
+      .slice(0,180);
+
+  return (
+    safeBase ||
+    "file"
+  ) +
+  "-" +
+  Date.now() +
+  "-" +
+  Math.random()
+    .toString(36)
+    .slice(2,8) +
+  ext;
+}
+
+
+/* =========================================================
+   UPLOAD ONE FILE
+========================================================= */
+
+async function uploadAdminFile(file){
+
+  const filename =
+    makeStorageName(file);
+
+  const storagePath =
+    CURRENT_UPLOAD_FOLDER +
+    "/" +
+    filename;
+
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/storage/v1/object/" +
+      encodeURIComponent(
+        CURRENT_UPLOAD_BUCKET
+      ) +
+      "/" +
+      storagePath
+        .split("/")
+        .map(encodeURIComponent)
+        .join("/"),
+      {
+        method:"POST",
+
+        headers:{
+          "Authorization":
+            "Bearer " +
+            SUPABASE_ANON_KEY,
+
+          "apikey":
+            SUPABASE_ANON_KEY,
+
+          "Content-Type":
+            file.type ||
+            "application/octet-stream",
+
+          "x-upsert":
+            "false"
+        },
+
+        body:file
+      }
+    );
+
+  if(!response.ok){
+
+    let message =
+      "Upload failed.";
+
+    try{
+
+      const data =
+        await response.json();
+
+      message =
+        data?.message ||
+        data?.error ||
+        message;
+
+    }catch{}
+
+    throw new Error(message);
+  }
+
+  return storagePath;
+}
+
+
+/* =========================================================
+   MULTIPLE ADMIN FILE UPLOAD
+========================================================= */
+
+async function handleAdminFiles(fileList){
+
+  const files =
+    Array.from(fileList || []);
+
+  if(!files.length){
+    return;
+  }
+
+  const destination =
+    getUploadDestination(
+      CURRENT_UPLOAD_CATEGORY
+    );
+
+  if(!destination){
+
+    alert(
+      "This category does not have a direct upload destination."
+    );
+
+    return;
+  }
+
+  /*
+    Validate EVERY selected file before
+    uploading anything.
+  */
+
+  const invalidFiles =
+    files.filter(file=>
+      !fileMatchesUploadType(
+        file,
+        destination.type
+      )
+    );
+
+  if(invalidFiles.length){
+
+    const examples =
+      invalidFiles
+        .slice(0,5)
+        .map(file=>file.name)
+        .join(", ");
+
+    alert(
+      "These files are not allowed in " +
+      displayName(CURRENT_UPLOAD_CATEGORY) +
+      ":\n\n" +
+      examples
+    );
+
+    return;
+  }
+
+  CURRENT_UPLOAD_TYPE =
+    destination.type;
+
+  CURRENT_UPLOAD_BUCKET =
+    destination.bucket;
+
+  CURRENT_UPLOAD_FOLDER =
+    destination.folder;
+
+  showAdminStatus(
+    "Uploading 0 of " +
+    files.length +
+    " files..."
+  );
+
+  updateAdminProgress(0);
+
+  let successful = 0;
+  let failed = 0;
+
+  /*
+    Files are uploaded one after another
+    so the phone/browser does not become
+    overloaded by hundreds of simultaneous
+    large uploads.
+  */
+
+  for(let i=0;i<files.length;i++){
+
+    const file =
+      files[i];
+
+    showAdminStatus(
+      "Uploading " +
+      (i + 1) +
+      " of " +
+      files.length +
+      ":\n" +
+      file.name
+    );
+
+    try{
+
+      await uploadAdminFile(file);
+
+      successful++;
+
+    }catch(error){
+
+      console.error(
+        "Admin upload failed:",
+        file.name,
+        error
+      );
+
+      failed++;
+    }
+
+    updateAdminProgress(
+      ((i + 1) / files.length) * 100
+    );
+  }
+
+  if(failed === 0){
+
+    showAdminStatus(
+      "✅ " +
+      successful +
+      " file" +
+      (successful === 1 ? "" : "s") +
+      " uploaded successfully."
+    );
+
+  }else{
+
+    showAdminStatus(
+      "Finished: " +
+      successful +
+      " uploaded, " +
+      failed +
+      " failed."
+    );
+  }
+
+  /*
+    Refresh the library after uploading.
+  */
+
+  await loadLibrary();
+
+  /*
+    Re-open the current category so the
+    new files appear immediately.
+  */
+
+  if(CURRENT_UPLOAD_CATEGORY){
+
+    showCategory(
+      CURRENT_UPLOAD_CATEGORY
+    );
+  }
+}
+
+
+/* =========================================================
+   FILE PICKER EVENT
+========================================================= */
+
+document
+  .getElementById("adminFileInput")
+  .addEventListener(
+    "change",
+    async function(){
+
+      const files =
+        this.files;
+
+      if(!files || !files.length){
+        return;
+      }
+
+      /*
+        Multiple files are intentionally
+        accepted here.
+      */
+
+      await handleAdminFiles(files);
+
+      /*
+        Clear the input so the same files
+        can be selected again later if needed.
+      */
+
+      this.value = "";
+    }
+  );
+
+
+/* =========================================================
    UPLOADER
 ========================================================= */
 
@@ -1384,6 +2498,7 @@ function getUploaderInfo(item){
       : null;
 
   return {
+
     id:String(
       item?.uploaderId ||
       item?.artist_id ||
@@ -1435,15 +2550,26 @@ function getUploaderInfo(item){
 
 function uploaderKey(item){
 
-  const u = getUploaderInfo(item);
+  const u =
+    getUploaderInfo(item);
 
-  if(u.id) return "id:" + u.id.toLowerCase();
+  if(u.id){
+    return "id:" +
+      u.id.toLowerCase();
+  }
 
-  if(u.email) return "email:" + u.email.toLowerCase();
+  if(u.email){
+    return "email:" +
+      u.email.toLowerCase();
+  }
 
   if(u.name){
+
     return "name:" +
-      u.name.trim().toLowerCase().replace(/\s+/g," ");
+      u.name
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g," ");
   }
 
   return "";
@@ -1465,14 +2591,20 @@ async function loadGithub(){
     "?recursive=1";
 
   const response =
-    await fetch(api,{
-      headers:{
-        "Accept":"application/vnd.github+json"
+    await fetch(
+      api,
+      {
+        headers:{
+          "Accept":
+            "application/vnd.github+json"
+        }
       }
-    });
+    );
 
   if(!response.ok){
-    throw new Error("GitHub request failed");
+    throw new Error(
+      "GitHub request failed"
+    );
   }
 
   const data =
@@ -1483,27 +2615,49 @@ async function loadGithub(){
   }
 
   return data.tree
-    .filter(node=>node.type === "blob")
+    .filter(
+      node=>node.type === "blob"
+    )
     .map(node=>{
 
       const path =
-        String(node.path || "").replace(/\\/g,"/");
+        String(node.path || "")
+          .replace(/\\/g,"/");
 
       const lower =
         path.toLowerCase();
 
       let type = "";
 
-      if(lower.startsWith("media/videos/")){
-        type = "video/mp4";
-      }else if(lower.startsWith("media/photos/")){
-        type = "image/jpeg";
-      }else if(
-        lower.startsWith("media/songs/") ||
-        lower.startsWith("media/dj-mixes/")
+      if(
+        lower.startsWith(
+          "media/videos/"
+        )
       ){
+
+        type = "video/mp4";
+
+      }else if(
+        lower.startsWith(
+          "media/photos/"
+        )
+      ){
+
+        type = "image/jpeg";
+
+      }else if(
+        lower.startsWith(
+          "media/songs/"
+        ) ||
+        lower.startsWith(
+          "media/dj-mixes/"
+        )
+      ){
+
         type = "audio/mpeg";
+
       }else{
+
         return null;
       }
 
@@ -1515,20 +2669,36 @@ async function loadGithub(){
           .join("/");
 
       return {
+
         id:"github:" + path,
+
         source:"github",
+
         path,
-        name:path.split("/").pop(),
+
+        name:
+          path.split("/").pop(),
+
         url,
+
         type,
+
         mime:type,
+
         date:"",
+
         thumbnail:"",
+
         uploaderId:"",
+
         uploaderName:"",
+
         uploaderPhoto:"",
+
         uploaderEmail:""
+
       };
+
     })
     .filter(Boolean);
 }
@@ -1542,10 +2712,9 @@ async function loadSupabase(){
 
   if(
     !SUPABASE_URL ||
-    !SUPABASE_ANON_KEY ||
-    SUPABASE_ANON_KEY ===
-      "YOUR_SUPABASE_ANON_KEY"
+    !SUPABASE_ANON_KEY
   ){
+
     return [];
   }
 
@@ -1557,147 +2726,180 @@ async function loadSupabase(){
         "/rest/v1/artist_submissions?select=*",
         {
           headers:{
-            "apikey":SUPABASE_ANON_KEY,
+            "apikey":
+              SUPABASE_ANON_KEY,
+
             "Authorization":
-              "Bearer " + SUPABASE_ANON_KEY
+              "Bearer " +
+              SUPABASE_ANON_KEY
           }
         }
       );
 
-    if(!response.ok) return [];
+    if(!response.ok){
+      return [];
+    }
 
     const rows =
       await response.json();
 
-    if(!Array.isArray(rows)) return [];
+    if(!Array.isArray(rows)){
+      return [];
+    }
 
-    return rows.map((row,index)=>{
+    return rows
+      .map((row,index)=>{
 
-      const artist =
-        row?.artist &&
-        typeof row.artist === "object"
-          ? row.artist
-          : null;
+        const artist =
+          row?.artist &&
+          typeof row.artist === "object"
+            ? row.artist
+            : null;
 
-      const url =
-        row.file_url ||
-        row.url ||
-        row.public_url ||
-        row.storage_url ||
-        "";
+        const url =
+          row.file_url ||
+          row.url ||
+          row.public_url ||
+          row.storage_url ||
+          "";
 
-      const name =
-        row.file_name ||
-        row.filename ||
-        row.name ||
-        "Media";
+        const name =
+          row.file_name ||
+          row.filename ||
+          row.name ||
+          "Media";
 
-      let type =
-        row.type ||
-        row.media_type ||
-        row.mime ||
-        "";
+        let type =
+          row.type ||
+          row.media_type ||
+          row.mime ||
+          "";
 
-      if(!type){
+        if(!type){
 
-        const ext =
-          fileExtension(name);
+          const ext =
+            fileExtension(name);
 
-        if(
-          ["mp4","webm","mov","m4v","avi","mkv","3gp"]
-            .includes(ext)
-        ){
-          type = "video/" + ext;
-        }else if(
-          ["jpg","jpeg","png","gif","webp","bmp","avif"]
-            .includes(ext)
-        ){
-          type =
-            "image/" +
-            (ext === "jpg" ? "jpeg" : ext);
-        }else if(
-          ["mp3","wav","m4a","aac","ogg","flac"]
-            .includes(ext)
-        ){
-          type = "audio/" + ext;
+          if(
+            VIDEO_EXTENSIONS
+              .includes(ext)
+          ){
+
+            type =
+              "video/" + ext;
+
+          }else if(
+            IMAGE_EXTENSIONS
+              .includes(ext)
+          ){
+
+            type =
+              "image/" +
+              (
+                ext === "jpg"
+                  ? "jpeg"
+                  : ext
+              );
+
+          }else if(
+            AUDIO_EXTENSIONS
+              .includes(ext)
+          ){
+
+            type =
+              "audio/" + ext;
+          }
         }
-      }
 
-      return {
-        id:"supabase:" + (row.id || index),
-        source:"supabase",
+        return {
 
-        path:
-          row.path ||
-          row.file_path ||
-          row.storage_path ||
-          "",
+          id:
+            "supabase:" +
+            (row.id || index),
 
-        name,
-        url,
-        type,
-        mime:type,
+          source:"supabase",
 
-        date:
-          row.created_at ||
-          row.uploaded_at ||
-          row.date ||
-          "",
+          path:
+            row.path ||
+            row.file_path ||
+            row.storage_path ||
+            "",
 
-        thumbnail:
-          row.thumbnail_url ||
-          row.thumbnail ||
-          row.cover_url ||
-          "",
+          name,
 
-        category:
-          row.category ||
-          row.category_name ||
-          "",
+          url,
 
-        uploaderId:
-          row.artist_id ||
-          row.uploader_id ||
-          row.profile_id ||
-          artist?.id ||
-          "",
+          type,
 
-        uploaderName:
-          row.artist_name ||
-          (
-            typeof row.artist === "string"
-              ? row.artist
-              : ""
-          ) ||
-          row.uploader_name ||
-          row.profile_name ||
-          row.uploaded_by ||
-          artist?.name ||
-          artist?.artist_name ||
-          artist?.display_name ||
-          "",
+          mime:type,
 
-        uploaderPhoto:
-          row.artist_photo ||
-          row.profile_photo ||
-          row.uploader_photo ||
-          artist?.photo ||
-          artist?.photo_url ||
-          artist?.profile_photo ||
-          "",
+          date:
+            row.created_at ||
+            row.uploaded_at ||
+            row.date ||
+            "",
 
-        uploaderEmail:
-          row.artist_email ||
-          row.uploader_email ||
-          artist?.email ||
-          ""
-      };
+          thumbnail:
+            row.thumbnail_url ||
+            row.thumbnail ||
+            row.cover_url ||
+            "",
 
-    }).filter(item=>item.url);
+          category:
+            row.category ||
+            row.category_name ||
+            "",
+
+          uploaderId:
+            row.artist_id ||
+            row.uploader_id ||
+            row.profile_id ||
+            artist?.id ||
+            "",
+
+          uploaderName:
+            row.artist_name ||
+            (
+              typeof row.artist === "string"
+                ? row.artist
+                : ""
+            ) ||
+            row.uploader_name ||
+            row.profile_name ||
+            row.uploaded_by ||
+            artist?.name ||
+            artist?.artist_name ||
+            artist?.display_name ||
+            "",
+
+          uploaderPhoto:
+            row.artist_photo ||
+            row.profile_photo ||
+            row.uploader_photo ||
+            artist?.photo ||
+            artist?.photo_url ||
+            artist?.profile_photo ||
+            "",
+
+          uploaderEmail:
+            row.artist_email ||
+            row.uploader_email ||
+            artist?.email ||
+            ""
+
+        };
+
+      })
+      .filter(
+        item=>item.url
+      );
 
   }catch(error){
 
-    console.error("Supabase:",error);
+    console.error(
+      "Supabase:",
+      error
+    );
 
     return [];
   }
@@ -1710,7 +2912,8 @@ async function loadSupabase(){
 
 function removeDuplicates(items){
 
-  const seen = new Set();
+  const seen =
+    new Set();
 
   return items.filter(item=>{
 
@@ -1720,9 +2923,14 @@ function removeDuplicates(items){
         item.path ||
         item.name ||
         ""
-      ).trim().toLowerCase();
+      )
+      .trim()
+      .toLowerCase();
 
-    if(!key || seen.has(key)){
+    if(
+      !key ||
+      seen.has(key)
+    ){
       return false;
     }
 
@@ -1743,20 +2951,32 @@ function createCategoryCard(category){
     document.createElement("button");
 
   button.type = "button";
-  button.className = "category-card";
+
+  button.className =
+    "category-card";
 
   button.innerHTML = `
+
     <span class="category-icon">
-      ${escapeHtml(iconFor(category))}
+      ${escapeHtml(
+        iconFor(category)
+      )}
     </span>
 
     <span class="category-text">
-      ${escapeHtml(displayName(category))}
+      ${escapeHtml(
+        displayName(category)
+      )}
     </span>
+
   `;
 
   button.onclick = ()=>{
-    showCategory(category);
+
+    showCategory(
+      category
+    );
+
   };
 
   return button;
@@ -1772,7 +2992,8 @@ function createMediaCard(item){
   const card =
     document.createElement("div");
 
-  card.className = "media-card";
+  card.className =
+    "media-card";
 
   const title =
     cleanName(item.name);
@@ -1782,33 +3003,43 @@ function createMediaCard(item){
   if(isImage(item)){
 
     visual = `
+
       <img
         src="${escapeHtml(item.url)}"
         alt="${escapeHtml(title)}"
         loading="lazy"
       >
+
     `;
 
   }else if(isVideo(item)){
 
     visual = `
+
       <video
         src="${escapeHtml(item.url)}"
-        ${item.thumbnail
-          ? `poster="${escapeHtml(item.thumbnail)}"`
-          : ""}
+        ${
+          item.thumbnail
+            ? `poster="${escapeHtml(
+                item.thumbnail
+              )}"`
+            : ""
+        }
         muted
         preload="metadata"
         playsinline
       ></video>
+
     `;
 
   }else{
 
     visual = `
+
       <div class="media-placeholder">
         🎵
       </div>
+
     `;
   }
 
@@ -1816,6 +3047,7 @@ function createMediaCard(item){
     getUploaderInfo(item);
 
   card.innerHTML = `
+
     <div class="media-thumb">
       ${visual}
     </div>
@@ -1827,33 +3059,56 @@ function createMediaCard(item){
       </div>
 
       <div class="media-meta">
-        ${escapeHtml(formatDate(item.date))}
+
+        ${escapeHtml(
+          formatDate(item.date)
+        )}
+
         ${
           uploader.name
-            ? " • " + escapeHtml(uploader.name)
+            ? " • " +
+              escapeHtml(
+                uploader.name
+              )
             : ""
         }
+
       </div>
 
     </div>
+
   `;
 
-  if(isImage(item) || isVideo(item)){
+  if(
+    isImage(item) ||
+    isVideo(item)
+  ){
 
     card.onclick = ()=>{
       openMediaViewer(item);
     };
 
-  }else if(isAudio(item)){
+  }else if(
+    isAudio(item)
+  ){
 
     card.onclick = ()=>{
+
       window.location.href =
         "media.html?url=" +
-        encodeURIComponent(item.url) +
+        encodeURIComponent(
+          item.url
+        ) +
         "&name=" +
-        encodeURIComponent(item.name || "") +
+        encodeURIComponent(
+          item.name || ""
+        ) +
         "&mime=" +
-        encodeURIComponent(item.mime || item.type || "");
+        encodeURIComponent(
+          item.mime ||
+          item.type ||
+          ""
+        );
     };
   }
 
@@ -1870,16 +3125,27 @@ function createAudioRow(item){
   const row =
     document.createElement("div");
 
-  row.className = "audio-row";
+  row.className =
+    "audio-row";
 
   row.onclick = ()=>{
+
     window.location.href =
       "media.html?url=" +
-      encodeURIComponent(item.url) +
+      encodeURIComponent(
+        item.url
+      ) +
       "&name=" +
-      encodeURIComponent(item.name || "") +
+      encodeURIComponent(
+        item.name || ""
+      ) +
       "&mime=" +
-      encodeURIComponent(item.mime || item.type || "");
+      encodeURIComponent(
+        item.mime ||
+        item.type ||
+        ""
+      );
+
   };
 
   const cover =
@@ -1889,38 +3155,63 @@ function createAudioRow(item){
 
     ${
       cover
+
         ? `
+
           <img
             class="audio-cover"
             src="${escapeHtml(cover)}"
             alt=""
           >
+
         `
+
         : `
-          <div class="audio-cover"
-               style="display:flex;align-items:center;justify-content:center;font-size:20px">
+
+          <div
+            class="audio-cover"
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:20px
+            "
+          >
             🎵
           </div>
+
         `
     }
 
     <div class="audio-info">
 
       <div class="audio-title">
-        ${escapeHtml(cleanName(item.name))}
+        ${escapeHtml(
+          cleanName(item.name)
+        )}
       </div>
 
       <div class="audio-meta">
-        ${escapeHtml(formatDate(item.date))}
+
+        ${escapeHtml(
+          formatDate(item.date)
+        )}
+
         ${
           getUploaderInfo(item).name
+
             ? " • " +
-              escapeHtml(getUploaderInfo(item).name)
+              escapeHtml(
+                getUploaderInfo(item).name
+              )
+
             : ""
         }
+
       </div>
 
     </div>
+
   `;
 
   return row;
@@ -1934,7 +3225,8 @@ function createAudioRow(item){
 function isDjMix(item){
 
   const text =
-    pathText(item).toLowerCase();
+    pathText(item)
+      .toLowerCase();
 
   return text.includes("dj-mix") ||
     text.includes("dj mix") ||
@@ -1949,13 +3241,19 @@ function isDjMix(item){
 function renderHome(){
 
   const music =
-    document.getElementById("musicGrid");
+    document.getElementById(
+      "musicGrid"
+    );
 
   const apps =
-    document.getElementById("appsGrid");
+    document.getElementById(
+      "appsGrid"
+    );
 
   const software =
-    document.getElementById("softwareGrid");
+    document.getElementById(
+      "softwareGrid"
+    );
 
   music.innerHTML = "";
   apps.innerHTML = "";
@@ -1967,9 +3265,13 @@ function renderHome(){
     "Old-School-R&B",
     "Western-Music"
   ].forEach(category=>{
+
     music.appendChild(
-      createCategoryCard(category)
+      createCategoryCard(
+        category
+      )
     );
+
   });
 
   [
@@ -1978,9 +3280,13 @@ function renderHome(){
     "Music-Audio",
     "Photo-Camera"
   ].forEach(category=>{
+
     apps.appendChild(
-      createCategoryCard(category)
+      createCategoryCard(
+        category
+      )
     );
+
   });
 
   [
@@ -1989,9 +3295,13 @@ function renderHome(){
     "Video-Editing-Software",
     "Audio-Editing"
   ].forEach(category=>{
+
     software.appendChild(
-      createCategoryCard(category)
+      createCategoryCard(
+        category
+      )
     );
+
   });
 
   renderMedia(
@@ -2016,32 +3326,45 @@ function renderMedia(
 ){
 
   const container =
-    document.getElementById(elementId);
+    document.getElementById(
+      elementId
+    );
 
   container.innerHTML = "";
 
   const selected =
-    items.slice(0,limit);
+    items.slice(
+      0,
+      limit
+    );
 
   if(!selected.length){
 
     container.innerHTML =
-      `<div class="loading">No media available yet.</div>`;
+      `
+        <div class="loading">
+          No media available yet.
+        </div>
+      `;
 
     return;
   }
 
   selected.forEach(item=>{
+
     container.appendChild(
       createMediaCard(item)
     );
+
   });
 }
 
 function renderDj(){
 
   const container =
-    document.getElementById("djGrid");
+    document.getElementById(
+      "djGrid"
+    );
 
   container.innerHTML = "";
 
@@ -2054,15 +3377,21 @@ function renderDj(){
   if(!items.length){
 
     container.innerHTML =
-      `<div class="loading">No DJ mixes available yet.</div>`;
+      `
+        <div class="loading">
+          No DJ mixes available yet.
+        </div>
+      `;
 
     return;
   }
 
   items.forEach(item=>{
+
     container.appendChild(
       createAudioRow(item)
     );
+
   });
 }
 
@@ -2074,45 +3403,97 @@ function renderDj(){
 function showCategory(category){
 
   document
-    .getElementById("homeView")
+    .getElementById(
+      "homeView"
+    )
     .classList.add("hidden");
 
   document
-    .getElementById("categoryView")
+    .getElementById(
+      "categoryView"
+    )
     .classList.remove("hidden");
 
   document
-    .getElementById("categoryTitle")
+    .getElementById(
+      "categoryTitle"
+    )
     .textContent =
       displayName(category);
 
   document
-    .getElementById("categorySubtitle")
+    .getElementById(
+      "categorySubtitle"
+    )
     .textContent =
-      "Browse " + displayName(category);
+      "Browse " +
+      displayName(category);
 
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "github-upload.html?category=" +
-      encodeURIComponent(category);
+  /*
+    SAVE EXACT CATEGORY FOR ADMIN UPLOAD.
+  */
+
+  CURRENT_UPLOAD_CATEGORY =
+    category;
+
+  const destination =
+    getUploadDestination(
+      category
+    );
+
+  const uploadButton =
+    document.getElementById(
+      "categoryUploadBtn"
+    );
+
+  if(destination){
+
+    uploadButton.disabled =
+      false;
+
+    uploadButton.style.opacity =
+      "1";
+
+    uploadButton.title =
+      "Select multiple " +
+      destination.type +
+      " files";
+
+  }else{
+
+    uploadButton.disabled =
+      true;
+
+    uploadButton.style.opacity =
+      ".45";
+
+    uploadButton.title =
+      "No direct upload destination";
+  }
 
   const container =
-    document.getElementById("categoryResults");
+    document.getElementById(
+      "categoryResults"
+    );
 
   container.innerHTML = "";
 
   const items =
     ALL_ITEMS.filter(item=>
-      hasCategory(item,category)
+      hasCategory(
+        item,
+        category
+      )
     );
 
   if(!items.length){
 
     container.innerHTML = `
+
       <div class="empty">
         No content found in this category yet.
       </div>
+
     `;
 
     window.scrollTo(0,0);
@@ -2125,7 +3506,8 @@ function showCategory(category){
 
   const visual =
     items.filter(item=>
-      isImage(item) || isVideo(item)
+      isImage(item) ||
+      isVideo(item)
     );
 
   if(audio.length){
@@ -2133,12 +3515,15 @@ function showCategory(category){
     const list =
       document.createElement("div");
 
-    list.className = "audio-list";
+    list.className =
+      "audio-list";
 
     audio.forEach(item=>{
+
       list.appendChild(
         createAudioRow(item)
       );
+
     });
 
     container.appendChild(list);
@@ -2151,7 +3536,8 @@ function showCategory(category){
       const gap =
         document.createElement("div");
 
-      gap.style.height = "15px";
+      gap.style.height =
+        "15px";
 
       container.appendChild(gap);
     }
@@ -2159,12 +3545,15 @@ function showCategory(category){
     const grid =
       document.createElement("div");
 
-    grid.className = "media-grid";
+    grid.className =
+      "media-grid";
 
     visual.forEach(item=>{
+
       grid.appendChild(
         createMediaCard(item)
       );
+
     });
 
     container.appendChild(grid);
@@ -2184,29 +3573,38 @@ function showCategory(category){
 function showDirectory(type){
 
   document
-    .getElementById("homeView")
+    .getElementById(
+      "homeView"
+    )
     .classList.add("hidden");
 
   document
-    .getElementById("categoryView")
+    .getElementById(
+      "categoryView"
+    )
     .classList.remove("hidden");
 
   let categories = [];
 
   if(type === "music"){
-    categories = MUSIC_CATEGORIES;
+    categories =
+      MUSIC_CATEGORIES;
   }
 
   if(type === "apps"){
-    categories = APPS_CATEGORIES;
+    categories =
+      APPS_CATEGORIES;
   }
 
   if(type === "software"){
-    categories = SOFTWARE_CATEGORIES;
+    categories =
+      SOFTWARE_CATEGORIES;
   }
 
   document
-    .getElementById("categoryTitle")
+    .getElementById(
+      "categoryTitle"
+    )
     .textContent =
       type === "music"
         ? "All Music"
@@ -2215,17 +3613,32 @@ function showDirectory(type){
           : "All Software";
 
   document
-    .getElementById("categorySubtitle")
+    .getElementById(
+      "categorySubtitle"
+    )
     .textContent =
       "Choose a category";
 
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "github-upload.html";
+  /*
+    There is no direct upload destination
+    for "All Music", "All Apps", etc.
+    The admin must open a real category.
+  */
+
+  CURRENT_UPLOAD_CATEGORY = "";
+
+  const uploadButton =
+    document.getElementById(
+      "categoryUploadBtn"
+    );
+
+  uploadButton.disabled = true;
+  uploadButton.style.opacity = ".45";
 
   const container =
-    document.getElementById("categoryResults");
+    document.getElementById(
+      "categoryResults"
+    );
 
   container.innerHTML = "";
 
@@ -2236,9 +3649,13 @@ function showDirectory(type){
     "category-grid";
 
   categories.forEach(category=>{
+
     grid.appendChild(
-      createCategoryCard(category)
+      createCategoryCard(
+        category
+      )
     );
+
   });
 
   container.appendChild(grid);
@@ -2257,11 +3674,15 @@ function showDirectory(type){
 function showAllMedia(type){
 
   document
-    .getElementById("homeView")
+    .getElementById(
+      "homeView"
+    )
     .classList.add("hidden");
 
   document
-    .getElementById("categoryView")
+    .getElementById(
+      "categoryView"
+    )
     .classList.remove("hidden");
 
   const title =
@@ -2275,30 +3696,51 @@ function showAllMedia(type){
       : ALL_ITEMS.filter(isImage);
 
   document
-    .getElementById("categoryTitle")
-    .textContent = title;
+    .getElementById(
+      "categoryTitle"
+    )
+    .textContent =
+      title;
 
   document
-    .getElementById("categorySubtitle")
+    .getElementById(
+      "categorySubtitle"
+    )
     .textContent =
       type === "videos"
         ? "Browse all videos"
         : "Browse all photos";
 
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "github-upload.html";
+  /*
+    No ambiguous upload destination here.
+    Admin must enter a specific category.
+  */
+
+  CURRENT_UPLOAD_CATEGORY = "";
+
+  const uploadButton =
+    document.getElementById(
+      "categoryUploadBtn"
+    );
+
+  uploadButton.disabled = true;
+  uploadButton.style.opacity = ".45";
 
   const container =
-    document.getElementById("categoryResults");
+    document.getElementById(
+      "categoryResults"
+    );
 
   container.innerHTML = "";
 
   if(!items.length){
 
     container.innerHTML =
-      `<div class="empty">No media available yet.</div>`;
+      `
+        <div class="empty">
+          No media available yet.
+        </div>
+      `;
 
     return;
   }
@@ -2306,12 +3748,15 @@ function showAllMedia(type){
   const grid =
     document.createElement("div");
 
-  grid.className = "media-grid";
+  grid.className =
+    "media-grid";
 
   items.forEach(item=>{
+
     grid.appendChild(
       createMediaCard(item)
     );
+
   });
 
   container.appendChild(grid);
@@ -2330,30 +3775,49 @@ function showAllMedia(type){
 function showAllDjMixes(){
 
   document
-    .getElementById("homeView")
+    .getElementById(
+      "homeView"
+    )
     .classList.add("hidden");
 
   document
-    .getElementById("categoryView")
+    .getElementById(
+      "categoryView"
+    )
     .classList.remove("hidden");
 
   document
-    .getElementById("categoryTitle")
+    .getElementById(
+      "categoryTitle"
+    )
     .textContent =
       "DJ Mixes";
 
   document
-    .getElementById("categorySubtitle")
+    .getElementById(
+      "categorySubtitle"
+    )
     .textContent =
       "All DJ mixes";
 
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "github-upload.html";
+  CURRENT_UPLOAD_CATEGORY =
+    "DJ-Mixes";
+
+  const uploadButton =
+    document.getElementById(
+      "categoryUploadBtn"
+    );
+
+  uploadButton.disabled =
+    false;
+
+  uploadButton.style.opacity =
+    "1";
 
   const container =
-    document.getElementById("categoryResults");
+    document.getElementById(
+      "categoryResults"
+    );
 
   container.innerHTML = "";
 
@@ -2365,7 +3829,11 @@ function showAllDjMixes(){
   if(!items.length){
 
     container.innerHTML =
-      `<div class="empty">No DJ mixes available yet.</div>`;
+      `
+        <div class="empty">
+          No DJ mixes available yet.
+        </div>
+      `;
 
     return;
   }
@@ -2377,9 +3845,11 @@ function showAllDjMixes(){
     "audio-list";
 
   items.forEach(item=>{
+
     list.appendChild(
       createAudioRow(item)
     );
+
   });
 
   container.appendChild(list);
@@ -2398,19 +3868,29 @@ function showAllDjMixes(){
 function goHome(){
 
   document
-    .getElementById("categoryView")
+    .getElementById(
+      "categoryView"
+    )
     .classList.add("hidden");
 
   document
-    .getElementById("homeView")
+    .getElementById(
+      "homeView"
+    )
     .classList.remove("hidden");
 
+  CURRENT_UPLOAD_CATEGORY = "";
+
   const search =
-    document.getElementById("searchInput");
+    document.getElementById(
+      "searchInput"
+    );
 
   if(search){
     search.value = "";
   }
+
+  hideAdminStatus();
 
   renderHome();
 
@@ -2428,10 +3908,14 @@ function goHome(){
 function openMediaViewer(selected){
 
   const viewer =
-    document.getElementById("mediaViewer");
+    document.getElementById(
+      "mediaViewer"
+    );
 
   const scroll =
-    document.getElementById("viewerScroll");
+    document.getElementById(
+      "viewerScroll"
+    );
 
   const type =
     isVideo(selected)
@@ -2445,7 +3929,9 @@ function openMediaViewer(selected){
         : isImage(item)
     );
 
-  if(!collection.length) return;
+  if(!collection.length){
+    return;
+  }
 
   const selectedIndex =
     Math.max(
@@ -2474,12 +3960,18 @@ function openMediaViewer(selected){
 
     scroll.appendChild(slide);
 
-    setupViewerSlide(slide,item);
+    setupViewerSlide(
+      slide,
+      item
+    );
   });
 
-  viewer.classList.remove("hidden");
+  viewer.classList.remove(
+    "hidden"
+  );
 
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow =
+    "hidden";
 
   requestAnimationFrame(()=>{
 
@@ -2510,6 +4002,7 @@ function viewerHtml(item){
   if(isVideo(item)){
 
     media = `
+
       <video
         class="viewer-media"
         controls
@@ -2517,29 +4010,42 @@ function viewerHtml(item){
         preload="metadata"
         ${
           item.thumbnail
-            ? `poster="${escapeHtml(item.thumbnail)}"`
+            ? `poster="${escapeHtml(
+                item.thumbnail
+              )}"`
             : ""
         }
       >
+
         <source
-          src="${escapeHtml(item.url)}"
+          src="${escapeHtml(
+            item.url
+          )}"
           type="${escapeHtml(
             item.mime ||
             item.type ||
             "video/mp4"
           )}"
         >
+
       </video>
+
     `;
 
   }else{
 
     media = `
+
       <img
         class="viewer-media"
-        src="${escapeHtml(item.url)}"
-        alt="${escapeHtml(title)}"
+        src="${escapeHtml(
+          item.url
+        )}"
+        alt="${escapeHtml(
+          title
+        )}"
       >
+
     `;
   }
 
@@ -2549,26 +4055,40 @@ function viewerHtml(item){
 
     const photo =
       uploader.photo
+
         ? `
+
           <img
             class="uploader-photo"
-            src="${escapeHtml(uploader.photo)}"
+            src="${escapeHtml(
+              uploader.photo
+            )}"
             alt=""
           >
+
         `
+
         : `
-          <div class="uploader-placeholder">
+
+          <div
+            class="uploader-placeholder"
+          >
             👤
           </div>
+
         `;
 
     uploaderHtml = `
+
       <div class="viewer-uploader">
 
         ${photo}
 
         <div>
-          <div style="font-size:9px;color:#777">
+
+          <div
+            style="font-size:9px;color:#777"
+          >
             Uploaded by
           </div>
 
@@ -2579,11 +4099,15 @@ function viewerHtml(item){
               uploaderKey(item)
             )}"
           >
-            ${escapeHtml(uploader.name)}
+            ${escapeHtml(
+              uploader.name
+            )}
           </button>
+
         </div>
 
       </div>
+
     `;
   }
 
@@ -2591,6 +4115,7 @@ function viewerHtml(item){
     getCommentKey(item);
 
   return `
+
     <div class="viewer-card">
 
       ${media}
@@ -2600,10 +4125,18 @@ function viewerHtml(item){
       </div>
 
       <div class="viewer-meta">
+
         Uploaded:
-        ${escapeHtml(formatDate(item.date))}
+        ${escapeHtml(
+          formatDate(item.date)
+        )}
+
         •
-        ${isVideo(item) ? "Video" : "Photo"}
+
+        ${isVideo(item)
+          ? "Video"
+          : "Photo"}
+
       </div>
 
       ${uploaderHtml}
@@ -2612,8 +4145,13 @@ function viewerHtml(item){
 
         <a
           class="viewer-action"
-          href="${escapeHtml(item.url)}"
-          download="${escapeHtml(item.name || title)}"
+          href="${escapeHtml(
+            item.url
+          )}"
+          download="${escapeHtml(
+            item.name ||
+            title
+          )}"
           target="_blank"
           rel="noopener"
         >
@@ -2623,8 +4161,12 @@ function viewerHtml(item){
         <button
           class="viewer-action"
           type="button"
-          data-share-url="${escapeHtml(item.url)}"
-          data-share-title="${escapeHtml(title)}"
+          data-share-url="${escapeHtml(
+            item.url
+          )}"
+          data-share-title="${escapeHtml(
+            title
+          )}"
         >
           ↗ Share
         </button>
@@ -2641,10 +4183,14 @@ function viewerHtml(item){
 
       <div
         class="comments"
-        data-comment-key="${escapeHtml(commentKey)}"
+        data-comment-key="${escapeHtml(
+          commentKey
+        )}"
       >
 
-        <h3>💬 Comments</h3>
+        <h3>
+          💬 Comments
+        </h3>
 
         <div class="comment-form">
 
@@ -2668,10 +4214,14 @@ function viewerHtml(item){
       </div>
 
     </div>
+
   `;
 }
 
-function setupViewerSlide(slide,item){
+function setupViewerSlide(
+  slide,
+  item
+){
 
   const share =
     slide.querySelector(
@@ -2686,6 +4236,7 @@ function setupViewerSlide(slide,item){
         share.dataset.shareUrl,
         share.dataset.shareTitle
       );
+
     };
   }
 
@@ -2701,11 +4252,14 @@ function setupViewerSlide(slide,item){
       openUploaderProfile(
         profile.dataset.profileKey
       );
+
     };
   }
 
   const comments =
-    slide.querySelector(".comments");
+    slide.querySelector(
+      ".comments"
+    );
 
   if(comments){
 
@@ -2718,10 +4272,14 @@ function setupViewerSlide(slide,item){
     );
 
     const add =
-      comments.querySelector(".comment-add");
+      comments.querySelector(
+        ".comment-add"
+      );
 
     const input =
-      comments.querySelector(".comment-input");
+      comments.querySelector(
+        ".comment-input"
+      );
 
     add.onclick = ()=>{
 
@@ -2730,6 +4288,7 @@ function setupViewerSlide(slide,item){
         input,
         comments
       );
+
     };
 
     input.addEventListener(
@@ -2757,10 +4316,13 @@ function setupViewerSlide(slide,item){
 function closeMediaViewer(){
 
   document
-    .getElementById("mediaViewer")
+    .getElementById(
+      "mediaViewer"
+    )
     .classList.add("hidden");
 
-  document.body.style.overflow = "";
+  document.body.style.overflow =
+    "";
 }
 
 
@@ -2768,15 +4330,24 @@ function closeMediaViewer(){
    SHARE
 ========================================================= */
 
-async function shareMedia(url,title){
+async function shareMedia(
+  url,
+  title
+){
 
   try{
 
     if(navigator.share){
 
       await navigator.share({
-        title:title || "Ning Wei Media",
-        text:title || "Ning Wei Media",
+        title:
+          title ||
+          "Ning Wei Media",
+
+        text:
+          title ||
+          "Ning Wei Media",
+
         url
       });
 
@@ -2785,9 +4356,13 @@ async function shareMedia(url,title){
 
     if(navigator.clipboard){
 
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(
+        url
+      );
 
-      alert("Media link copied.");
+      alert(
+        "Media link copied."
+      );
 
       return;
     }
@@ -2799,15 +4374,22 @@ async function shareMedia(url,title){
 
   }catch(error){
 
-    if(error?.name === "AbortError"){
+    if(
+      error?.name ===
+      "AbortError"
+    ){
       return;
     }
 
     try{
 
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(
+        url
+      );
 
-      alert("Media link copied.");
+      alert(
+        "Media link copied."
+      );
 
     }catch{
 
@@ -2843,10 +4425,14 @@ function readComments(key){
   try{
 
     const data =
-      localStorage.getItem(key);
+      localStorage.getItem(
+        key
+      );
 
     const parsed =
-      data ? JSON.parse(data) : [];
+      data
+        ? JSON.parse(data)
+        : [];
 
     return Array.isArray(parsed)
       ? parsed
@@ -2858,22 +4444,32 @@ function readComments(key){
   }
 }
 
-function saveComments(key,comments){
+function saveComments(
+  key,
+  comments
+){
 
   try{
 
     localStorage.setItem(
       key,
-      JSON.stringify(comments)
+      JSON.stringify(
+        comments
+      )
     );
 
   }catch{}
 }
 
-function loadCommentsInto(box,key){
+function loadCommentsInto(
+  box,
+  key
+){
 
   const list =
-    box.querySelector(".comment-list");
+    box.querySelector(
+      ".comment-list"
+    );
 
   const comments =
     readComments(key);
@@ -2883,50 +4479,78 @@ function loadCommentsInto(box,key){
   if(!comments.length){
 
     list.innerHTML =
-      `<div style="color:#777;font-size:10px">
-        No comments yet.
-      </div>`;
+      `
+        <div
+          style="color:#777;font-size:10px"
+        >
+          No comments yet.
+        </div>
+      `;
 
     return;
   }
 
-  comments.forEach(comment=>{
+  comments.forEach(
+    comment=>{
 
-    const element =
-      document.createElement("div");
+      const element =
+        document.createElement(
+          "div"
+        );
 
-    element.className =
-      "comment-item";
+      element.className =
+        "comment-item";
 
-    element.innerHTML = `
-      <div>
-        ${escapeHtml(comment.text)}
-      </div>
+      element.innerHTML = `
 
-      <span class="comment-date">
-        ${escapeHtml(
-          formatDateTime(comment.date)
-        )}
-      </span>
-    `;
+        <div>
+          ${escapeHtml(
+            comment.text
+          )}
+        </div>
 
-    list.appendChild(element);
-  });
+        <span class="comment-date">
+
+          ${escapeHtml(
+            formatDateTime(
+              comment.date
+            )
+          )}
+
+        </span>
+
+      `;
+
+      list.appendChild(
+        element
+      );
+
+    }
+  );
 }
 
-function addComment(key,input,box){
+function addComment(
+  key,
+  input,
+  box
+){
 
   const text =
-    String(input.value || "").trim();
+    String(
+      input.value || ""
+    ).trim();
 
-  if(!text) return;
+  if(!text){
+    return;
+  }
 
   const comments =
     readComments(key);
 
   comments.push({
     text,
-    date:new Date().toISOString()
+    date:
+      new Date().toISOString()
   });
 
   saveComments(
@@ -2956,7 +4580,9 @@ function openUploaderProfile(key){
       uploaderKey(item) === key
     );
 
-  if(!items.length) return;
+  if(!items.length){
+    return;
+  }
 
   CURRENT_PROFILE_ITEMS =
     items;
@@ -2970,9 +4596,12 @@ function openUploaderProfile(key){
     getUploaderInfo(first);
 
   document
-    .getElementById("profileName")
+    .getElementById(
+      "profileName"
+    )
     .textContent =
-      uploader.name || "Uploader";
+      uploader.name ||
+      "Uploader";
 
   const holder =
     document.getElementById(
@@ -2982,16 +4611,21 @@ function openUploaderProfile(key){
   if(uploader.photo){
 
     holder.innerHTML = `
+
       <img
         class="profile-photo"
-        src="${escapeHtml(uploader.photo)}"
+        src="${escapeHtml(
+          uploader.photo
+        )}"
         alt=""
       >
+
     `;
 
   }else{
 
     holder.innerHTML = `
+
       <div
         class="profile-photo"
         style="
@@ -3003,29 +4637,39 @@ function openUploaderProfile(key){
       >
         👤
       </div>
+
     `;
   }
 
   document
-    .getElementById("profileViewer")
+    .getElementById(
+      "profileViewer"
+    )
     .classList.remove("hidden");
 
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow =
+    "hidden";
 
-  showProfileMedia("photos");
+  showProfileMedia(
+    "photos"
+  );
 }
 
 function showProfileMedia(type){
 
   document
-    .getElementById("profilePhotosTab")
+    .getElementById(
+      "profilePhotosTab"
+    )
     .classList.toggle(
       "active",
       type === "photos"
     );
 
   document
-    .getElementById("profileVideosTab")
+    .getElementById(
+      "profileVideosTab"
+    )
     .classList.toggle(
       "active",
       type === "videos"
@@ -3048,27 +4692,35 @@ function showProfileMedia(type){
   if(!items.length){
 
     grid.innerHTML =
-      `<div class="loading">
-        No ${type} uploaded by this profile yet.
-      </div>`;
+      `
+        <div class="loading">
+          No ${type} uploaded by
+          this profile yet.
+        </div>
+      `;
 
     return;
   }
 
   items.forEach(item=>{
+
     grid.appendChild(
       createMediaCard(item)
     );
+
   });
 }
 
 function closeProfileViewer(){
 
   document
-    .getElementById("profileViewer")
+    .getElementById(
+      "profileViewer"
+    )
     .classList.add("hidden");
 
-  document.body.style.overflow = "";
+  document.body.style.overflow =
+    "";
 }
 
 
@@ -3091,30 +4743,50 @@ function searchSite(query){
   }
 
   document
-    .getElementById("homeView")
-    .classList.remove("hidden");
+    .getElementById(
+      "homeView"
+    )
+    .classList.remove(
+      "hidden"
+    );
 
   document
-    .getElementById("categoryView")
-    .classList.add("hidden");
+    .getElementById(
+      "categoryView"
+    )
+    .classList.add(
+      "hidden"
+    );
 
   const music =
-    document.getElementById("musicGrid");
+    document.getElementById(
+      "musicGrid"
+    );
 
   const apps =
-    document.getElementById("appsGrid");
+    document.getElementById(
+      "appsGrid"
+    );
 
   const software =
-    document.getElementById("softwareGrid");
+    document.getElementById(
+      "softwareGrid"
+    );
 
   const videos =
-    document.getElementById("videosGrid");
+    document.getElementById(
+      "videosGrid"
+    );
 
   const photos =
-    document.getElementById("photosGrid");
+    document.getElementById(
+      "photosGrid"
+    );
 
   const dj =
-    document.getElementById("djGrid");
+    document.getElementById(
+      "djGrid"
+    );
 
   music.innerHTML = "";
   apps.innerHTML = "";
@@ -3124,24 +4796,27 @@ function searchSite(query){
   dj.innerHTML = "";
 
   const matchingMusic =
-    MUSIC_CATEGORIES.filter(category=>
-      displayName(category)
-        .toLowerCase()
-        .includes(query)
+    MUSIC_CATEGORIES.filter(
+      category=>
+        displayName(category)
+          .toLowerCase()
+          .includes(query)
     );
 
   const matchingApps =
-    APPS_CATEGORIES.filter(category=>
-      displayName(category)
-        .toLowerCase()
-        .includes(query)
+    APPS_CATEGORIES.filter(
+      category=>
+        displayName(category)
+          .toLowerCase()
+          .includes(query)
     );
 
   const matchingSoftware =
-    SOFTWARE_CATEGORIES.filter(category=>
-      displayName(category)
-        .toLowerCase()
-        .includes(query)
+    SOFTWARE_CATEGORIES.filter(
+      category=>
+        displayName(category)
+          .toLowerCase()
+          .includes(query)
     );
 
   const matchingItems =
@@ -3166,25 +4841,37 @@ function searchSite(query){
   matchingMusic
     .slice(0,4)
     .forEach(category=>{
+
       music.appendChild(
-        createCategoryCard(category)
+        createCategoryCard(
+          category
+        )
       );
+
     });
 
   matchingApps
     .slice(0,4)
     .forEach(category=>{
+
       apps.appendChild(
-        createCategoryCard(category)
+        createCategoryCard(
+          category
+        )
       );
+
     });
 
   matchingSoftware
     .slice(0,4)
     .forEach(category=>{
+
       software.appendChild(
-        createCategoryCard(category)
+        createCategoryCard(
+          category
+        )
       );
+
     });
 
   const matchingVideos =
@@ -3206,49 +4893,61 @@ function searchSite(query){
   if(matchingVideos.length){
 
     matchingVideos.forEach(item=>{
+
       videos.appendChild(
         createMediaCard(item)
       );
+
     });
 
   }else{
 
     videos.innerHTML =
-      `<div class="loading">
-        No matching videos.
-      </div>`;
+      `
+        <div class="loading">
+          No matching videos.
+        </div>
+      `;
   }
 
   if(matchingPhotos.length){
 
     matchingPhotos.forEach(item=>{
+
       photos.appendChild(
         createMediaCard(item)
       );
+
     });
 
   }else{
 
     photos.innerHTML =
-      `<div class="loading">
-        No matching photos.
-      </div>`;
+      `
+        <div class="loading">
+          No matching photos.
+        </div>
+      `;
   }
 
   if(matchingDj.length){
 
     matchingDj.forEach(item=>{
+
       dj.appendChild(
         createAudioRow(item)
       );
+
     });
 
   }else{
 
     dj.innerHTML =
-      `<div class="loading">
-        No matching DJ mixes.
-      </div>`;
+      `
+        <div class="loading">
+          No matching DJ mixes.
+        </div>
+      `;
   }
 
   window.scrollTo({
@@ -3258,7 +4957,9 @@ function searchSite(query){
 }
 
 document
-  .getElementById("searchForm")
+  .getElementById(
+    "searchForm"
+  )
   .addEventListener(
     "submit",
     event=>{
@@ -3267,9 +4968,12 @@ document
 
       searchSite(
         document
-          .getElementById("searchInput")
+          .getElementById(
+            "searchInput"
+          )
           .value
       );
+
     }
   );
 
@@ -3286,8 +4990,13 @@ async function loadLibrary(){
       github,
       supabase
     ] = await Promise.all([
-      loadGithub().catch(()=>[]),
-      loadSupabase().catch(()=>[])
+
+      loadGithub()
+        .catch(()=>[]),
+
+      loadSupabase()
+        .catch(()=>[])
+
     ]);
 
     ALL_ITEMS =
@@ -3314,10 +5023,14 @@ async function loadLibrary(){
 document.addEventListener(
   "DOMContentLoaded",
   ()=>{
+
     renderHome();
+
     loadLibrary();
+
   }
 );
+
 </script>
 
 </body>
