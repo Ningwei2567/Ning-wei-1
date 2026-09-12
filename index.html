@@ -1,1528 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ning Wei Media</title>
 
 <style>
-
-*{
-box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html{
-scroll-behavior:smooth;
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f5f7;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
 }
 
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f5f5f7;
-color:#111;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-a{
--webkit-tap-highlight-color:transparent;
-font-family:inherit;
-text-decoration:none;
+/* HEADER */
+.hero {
+    width: 100%;
+    height: 270px;
+    background-image: url("ning-wei.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
 }
 
-.container{
-width:100%;
-max-width:600px;
-margin:auto;
-min-height:100vh;
-padding-bottom:25px;
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.20);
 }
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header{
-height:150px;
-position:relative;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-background:#000;
+.hero-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-shadow: 2px 2px 5px #000;
 }
 
-.header img{
-position:absolute;
-left:0;
-top:0;
-width:100%;
-height:150px;
-object-fit:cover;
-object-position:center 35%;
+.hero h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
 }
 
-.header-content{
-position:relative;
-z-index:2;
-padding:8px 15px;
-text-shadow:
-0 2px 5px rgba(0,0,0,.9),
-0 1px 2px rgba(0,0,0,.9);
+.hero p {
+    margin-top: 18px;
+    font-size: 23px;
 }
 
-.header h1{
-margin:0;
-font-size:30px;
-font-weight:800;
+/* MAIN */
+.container {
+    width: 100%;
+    max-width: 680px;
+    margin: auto;
+    padding: 25px 18px 40px;
 }
 
-.header p{
-margin:8px 0 0;
-font-size:15px;
+/* SEARCH */
+.search-box {
+    display: flex;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 9px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
 }
 
-
-/* =========================================================
-   SEARCH + UPLOAD
-   ========================================================= */
-
-.search-upload{
-padding:14px 18px 4px;
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 21px;
+    padding: 12px 15px;
+    min-width: 0;
 }
 
-.search-box{
-display:flex;
-width:100%;
-background:#fff;
-border:1px solid #ddd;
-border-radius:12px;
-padding:5px;
-box-shadow:0 2px 7px rgba(0,0,0,.07);
+.search-box button {
+    border: none;
+    background: #111;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 17px;
+    padding: 0 27px;
+    cursor: pointer;
 }
 
-.search-box input{
-flex:1;
-min-width:0;
-border:0;
-outline:none;
-padding:12px;
-font-size:14px;
-background:transparent;
+/* UPLOAD */
+.upload-button {
+    display: block;
+    background: #55b9df;
+    color: white;
+    text-align: center;
+    border-radius: 20px;
+    padding: 25px 15px;
+    margin-bottom: 34px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.12);
 }
 
-.search-box button{
-border:0;
-border-radius:9px;
-padding:0 15px;
-background:#111;
-color:#fff;
-font-weight:700;
-cursor:pointer;
+.upload-button .main-text {
+    display: block;
+    font-size: 27px;
+    font-weight: 800;
 }
 
-
-/* =========================================================
-   UPLOAD YOUR MUSIC
-   ========================================================= */
-
-.upload-button{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-width:100%;
-min-height:66px;
-margin-top:10px;
-padding:10px 15px;
-border-radius:12px;
-background:#55bfe8;
-color:#fff;
-font-size:16px;
-font-weight:800;
-line-height:1.2;
-box-shadow:0 3px 9px rgba(0,0,0,.12);
+.upload-button .sub-text {
+    display: block;
+    margin-top: 9px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.upload-button-description{
-display:block;
-margin-top:5px;
-font-size:11px;
-font-weight:600;
-line-height:1.2;
-opacity:.95;
+/* SECTION */
+.section {
+    margin-bottom: 38px;
 }
 
-.upload-button:active{
-transform:scale(.98);
+.section-title {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 17px 4px;
+    line-height: 1.15;
 }
 
-
-/* =========================================================
-   MAIN SECTIONS
-   ========================================================= */
-
-.section{
-padding:16px 18px 5px;
+/* MUSIC GRID */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
 }
 
-.section h2{
-margin:0 0 10px;
-font-size:22px;
-font-weight:800;
-line-height:1.2;
+.category-card {
+    min-height: 104px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.08);
+    transition: transform 0.15s ease;
 }
 
-
-/* =========================================================
-   CATEGORY GRID
-   ========================================================= */
-
-.category-grid{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:8px;
+.category-card:active {
+    transform: scale(0.97);
 }
 
-.category-card{
-display:flex;
-align-items:center;
-min-height:62px;
-padding:9px;
-background:#fff;
-border:1px solid #e2e2e2;
-border-radius:12px;
-color:#111;
-box-shadow:0 2px 7px rgba(0,0,0,.06);
-transition:
-transform .12s ease,
-box-shadow .12s ease;
+.category-icon {
+    width: 66px;
+    height: 66px;
+    min-width: 66px;
+    background: #111;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    margin-right: 12px;
 }
 
-.category-card:active{
-transform:scale(.97);
+.category-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
-.category-icon{
-width:40px;
-height:40px;
-min-width:40px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:10px;
-background:#111;
-color:#fff;
-font-size:20px;
-margin-right:9px;
+/* MORE BUTTON */
+.more-button {
+    display: block;
+    width: 155px;
+    margin: 20px auto 0;
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 15px 10px;
+    border-radius: 17px;
+    font-size: 22px;
+    font-weight: 800;
 }
 
-.category-text{
-font-size:13px;
-font-weight:700;
-line-height:1.2;
+/* MEDIA AREA */
+.media-box {
+    width: 100%;
+    min-height: 125px;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 22px;
+    text-align: center;
+    padding: 20px;
 }
 
-
-/* =========================================================
-   SINGLE FEATURE CATEGORY
-   ========================================================= */
-
-.feature-card{
-display:flex;
-align-items:center;
-width:100%;
-min-height:68px;
-padding:10px;
-background:#fff;
-border:1px solid #ddd;
-border-radius:12px;
-color:#111;
-box-shadow:0 2px 7px rgba(0,0,0,.06);
+/* FOLLOW */
+.follow {
+    margin-top: 35px;
+    text-align: center;
 }
 
-.feature-icon{
-width:45px;
-height:45px;
-min-width:45px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:11px;
-background:#111;
-color:#fff;
-font-size:22px;
-margin-right:11px;
+.follow h2 {
+    font-size: 27px;
 }
 
-.feature-title{
-font-size:15px;
-font-weight:800;
+.follow-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.feature-subtitle{
-font-size:10px;
-color:#777;
-margin-top:4px;
+.follow-links a {
+    background: #111;
+    color: white;
+    padding: 11px 16px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
-
-/* =========================================================
-   TRENDING APPS
-   ========================================================= */
-
-.trending{
-padding:20px 18px 5px;
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 25px 10px;
+    color: #777;
+    font-size: 15px;
 }
 
-.trending h2{
-margin:0 0 10px;
-font-size:24px;
-font-weight:800;
+/* MOBILE */
+@media (max-width: 500px) {
+
+    .hero {
+        height: 270px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 20px;
+    }
+
+    .container {
+        padding: 25px 16px 35px;
+    }
+
+    .search-box {
+        border-radius: 19px;
+    }
+
+    .search-box input {
+        font-size: 18px;
+        padding-left: 12px;
+    }
+
+    .search-box button {
+        font-size: 18px;
+        padding: 0 20px;
+    }
+
+    .upload-button .main-text {
+        font-size: 23px;
+    }
+
+    .upload-button .sub-text {
+        font-size: 17px;
+    }
+
+    .section-title {
+        font-size: 31px;
+    }
+
+    .category-grid {
+        gap: 11px;
+    }
+
+    .category-card {
+        min-height: 105px;
+        padding: 12px;
+    }
+
+    .category-icon {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+        font-size: 32px;
+    }
+
+    .category-name {
+        font-size: 17px;
+    }
 }
 
-.apps{
-display:grid;
-grid-template-columns:repeat(5,minmax(0,1fr));
-gap:8px;
+@media (max-width: 380px) {
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .category-icon {
+        width: 58px;
+        height: 58px;
+        min-width: 58px;
+        font-size: 29px;
+    }
+
+    .category-name {
+        font-size: 15px;
+    }
 }
-
-.app{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-min-height:86px;
-padding:8px 3px;
-background:#fff;
-border-radius:11px;
-text-decoration:none;
-color:#111;
-box-shadow:0 2px 7px rgba(0,0,0,.07);
-}
-
-.app-logo{
-width:43px;
-height:43px;
-object-fit:contain;
-display:block;
-margin-bottom:6px;
-}
-
-.app-name{
-font-size:9px;
-font-weight:700;
-text-align:center;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-width:100%;
-}
-
-
-/* =========================================================
-   FOLLOW US
-   ========================================================= */
-
-.social{
-padding:20px 18px 10px;
-}
-
-.social h2{
-margin:0 0 12px;
-font-size:24px;
-}
-
-.social-list{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-}
-
-.social a{
-width:42px;
-height:42px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#000;
-overflow:hidden;
-}
-
-.social img{
-width:25px;
-height:25px;
-object-fit:contain;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer{
-padding:20px 15px;
-text-align:center;
-font-size:12px;
-color:#777;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media(max-width:420px){
-
-.header{
-height:150px;
-}
-
-.header img{
-height:150px;
-}
-
-.header h1{
-font-size:27px;
-}
-
-.header p{
-font-size:13px;
-}
-
-.search-upload{
-padding-left:18px;
-padding-right:18px;
-}
-
-.upload-button{
-font-size:15px;
-min-height:64px;
-}
-
-.upload-button-description{
-font-size:10px;
-}
-
-.section h2,
-.trending h2,
-.social h2{
-font-size:21px;
-}
-
-.category-grid{
-gap:6px;
-}
-
-.category-card{
-min-height:58px;
-padding:8px;
-}
-
-.category-icon{
-width:36px;
-height:36px;
-min-width:36px;
-font-size:18px;
-margin-right:7px;
-}
-
-.category-text{
-font-size:11px;
-}
-
-.apps{
-grid-template-columns:repeat(5,minmax(0,1fr));
-gap:6px;
-}
-
-.app{
-min-height:80px;
-padding:7px 2px;
-}
-
-.app-logo{
-width:36px;
-height:36px;
-}
-
-.app-name{
-font-size:8px;
-}
-
-.social-list{
-gap:10px;
-}
-
-.social a{
-width:38px;
-height:38px;
-}
-
-.social img{
-width:22px;
-height:22px;
-}
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<div class="container">
-
-
-<!-- ======================================================
-     HEADER
-     ====================================================== -->
-
-<header class="header">
-
-<img
-src="ning-wei.png"
-alt="Ning Wei Media"
->
-
-<div class="header-content">
-
-<h1>Ning Wei Media</h1>
-
-<p>
-Music • Videos • Photos • Apps • Software
-</p>
-
-</div>
-
+<!-- HEADER -->
+<header class="hero">
+    <div class="hero-content">
+        <h1>Ning Wei Media</h1>
+        <p>Music • Videos • Photos • Apps • Software</p>
+    </div>
 </header>
 
 
-<!-- ======================================================
-     SEARCH + UPLOAD
-     ====================================================== -->
+<main class="container">
 
-<section class="search-upload">
+    <!-- SEARCH -->
+    <form class="search-box" action="search.html" method="GET">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search Ning Wei Media..."
+            aria-label="Search Ning Wei Media"
+        >
+        <button type="submit">Search</button>
+    </form>
 
-<form
-class="search-box"
-action="search.html"
-method="get"
->
 
-<input
-type="search"
-name="q"
-placeholder="Search Ning Wei Media..."
-autocomplete="off"
->
+    <!-- UPLOAD -->
+    <a href="upload.html" class="upload-button">
+        <span class="main-text">🎵 Upload Your Music From Here</span>
+        <span class="sub-text">Artists • DJs • Producers</span>
+    </a>
 
-<button type="submit">
-Search
-</button>
 
-</form>
+    <!-- TOP MUSIC CHARTS -->
+    <section class="section">
 
+        <h2 class="section-title">🎵 Top Music Charts</h2>
 
-<a
-class="upload-button"
-href="upload.html"
->
+        <div class="category-grid">
 
-<span>
-🎵 Upload Your Music From Here
-</span>
+            <a href="library.html?folder=Top-Ugandan-Music"
+               class="category-card">
+                <div class="category-icon">🇺🇬</div>
+                <div class="category-name">Top Ugandan Music</div>
+            </a>
 
-<span class="upload-button-description">
-Artists • DJs • Producers
-</span>
+            <a href="library.html?folder=Afrobeat-Music"
+               class="category-card">
+                <div class="category-icon">🔥</div>
+                <div class="category-name">Afrobeat Music</div>
+            </a>
 
-</a>
+            <a href="library.html?folder=Old-School-R-B"
+               class="category-card">
+                <div class="category-icon">🎙️</div>
+                <div class="category-name">Old School R&amp;B</div>
+            </a>
 
-</section>
+            <a href="library.html?folder=Western-Music"
+               class="category-card">
+                <div class="category-icon">🌍</div>
+                <div class="category-name">Western Music</div>
+            </a>
 
+        </div>
 
-<!-- ======================================================
-     1. ALL TOP MUSIC CHARTS
-     ====================================================== -->
+        <!-- MORE MUSIC -->
+        <a href="library.html?folder=Top-Music-Charts"
+           class="more-button">
+            More
+        </a>
 
-<section class="section">
+    </section>
 
-<h2>
-🎵 All Top Music Charts
-</h2>
 
-<div class="category-grid">
+    <!-- TRENDING VIDEOS -->
+    <section class="section">
 
+        <h2 class="section-title">🎬 Trending Videos</h2>
 
-<a class="category-card"
-href="library.html?folder=Top-Ugandan-Music">
+        <div class="media-box">
+            No media available yet.
+        </div>
 
-<span class="category-icon">🇺🇬</span>
+        <a href="library.html?folder=Trending-Videos"
+           class="more-button">
+            More
+        </a>
 
-<span class="category-text">
-Top Ugandan Music
-</span>
+    </section>
 
-</a>
 
+    <!-- TRENDING PHOTOS & JOKES -->
+    <section class="section">
 
-<a class="category-card"
-href="library.html?folder=Amapiano-Music">
+        <h2 class="section-title">📸 Trending Photos &amp; Jokes</h2>
 
-<span class="category-icon">🎵</span>
+        <div class="media-box">
+            No media available yet.
+        </div>
 
-<span class="category-text">
-Amapiano Music
-</span>
+        <a href="library.html?folder=Trending-Photos-Jokes"
+           class="more-button">
+            More
+        </a>
 
-</a>
+    </section>
 
 
-<a class="category-card"
-href="library.html?folder=Afrobeat-Music">
+    <!-- DJ MIXES -->
+    <section class="section">
 
-<span class="category-icon">🔥</span>
+        <h2 class="section-title">🎧 DJ Mixes</h2>
 
-<span class="category-text">
-Afrobeat Music
-</span>
+        <div class="media-box">
+            No media available yet.
+        </div>
 
-</a>
+        <a href="library.html?folder=DJ-Mixes"
+           class="more-button">
+            More
+        </a>
 
+    </section>
 
-<a class="category-card"
-href="library.html?folder=Dancehall-Music">
 
-<span class="category-icon">🎤</span>
+    <!-- FOLLOW US -->
+    <section class="follow">
 
-<span class="category-text">
-Dancehall Music
-</span>
+        <h2>Follow Us</h2>
 
-</a>
+        <div class="follow-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">WhatsApp</a>
+            <a href="#">YouTube</a>
+            <a href="#">X</a>
+        </div>
 
+    </section>
 
-<a class="category-card"
-href="library.html?folder=R-B-Music">
+</main>
 
-<span class="category-icon">❤️</span>
 
-<span class="category-text">
-R&amp;B Music
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Reggae">
-
-<span class="category-icon">🌴</span>
-
-<span class="category-text">
-Reggae
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Old-School-R-B">
-
-<span class="category-icon">📻</span>
-
-<span class="category-text">
-Old School R&amp;B
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Old-South-African-Music">
-
-<span class="category-icon">🇿🇦</span>
-
-<span class="category-text">
-Old South African Music
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Western-Music">
-
-<span class="category-icon">🌎</span>
-
-<span class="category-text">
-Western Music
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Love-Songs">
-
-<span class="category-icon">💖</span>
-
-<span class="category-text">
-Love Songs
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Oldies-Kikadde-Music">
-
-<span class="category-icon">🎶</span>
-
-<span class="category-text">
-Oldies / Kikadde Music
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Kadongo-Kamu">
-
-<span class="category-icon">🎸</span>
-
-<span class="category-text">
-Kadongo Kamu
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=High-School-Music">
-
-<span class="category-icon">🏫</span>
-
-<span class="category-text">
-High School Music
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Lingala-Music">
-
-<span class="category-icon">🎼</span>
-
-<span class="category-text">
-Lingala Music
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Instrumental">
-
-<span class="category-icon">🎹</span>
-
-<span class="category-text">
-Instrumental
-</span>
-
-</a>
-
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     2. TRENDING VIDEOS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-🎬 Trending Videos
-</h2>
-
-<a
-class="feature-card"
-href="library.html?folder=Trending-Videos"
->
-
-<span class="feature-icon">
-🎬
-</span>
-
-<span>
-
-<span class="feature-title">
-Trending Videos
-</span>
-
-<span class="feature-subtitle">
-Latest trending videos
-</span>
-
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
-     3. TRENDING PHOTOS & JOKES
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-📸 Trending Photos &amp; Jokes
-</h2>
-
-<a
-class="feature-card"
-href="library.html?folder=Trending-Photos-Jokes"
->
-
-<span class="feature-icon">
-📸
-</span>
-
-<span>
-
-<span class="feature-title">
-Trending Photos &amp; Jokes
-</span>
-
-<span class="feature-subtitle">
-Latest photos, jokes and pictures
-</span>
-
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
-     4. PREMIUM UNLOCKED APPS AND FREE UNLIMITED INTERNET
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-📱 Premium Unlocked Apps and Free Unlimited Internet
-</h2>
-
-<div class="category-grid">
-
-
-<a class="category-card"
-href="library.html?folder=Premium-Unlocked-Apps">
-
-<span class="category-icon">📱</span>
-
-<span class="category-text">
-Premium Unlocked Apps
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Free-Unlimited-Internet-VPNs">
-
-<span class="category-icon">🌐</span>
-
-<span class="category-text">
-Free Unlimited Internet VPNs
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Social-Media">
-
-<span class="category-icon">📲</span>
-
-<span class="category-text">
-Social Media
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Messaging">
-
-<span class="category-icon">💬</span>
-
-<span class="category-text">
-Messaging
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Music-Audio">
-
-<span class="category-icon">🎧</span>
-
-<span class="category-text">
-Music &amp; Audio
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Video-Streaming">
-
-<span class="category-icon">▶️</span>
-
-<span class="category-text">
-Video &amp; Streaming
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Photo-Camera">
-
-<span class="category-icon">📷</span>
-
-<span class="category-text">
-Photo &amp; Camera
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Video-Editing">
-
-<span class="category-icon">🎞️</span>
-
-<span class="category-text">
-Video Editing
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Music-DJ">
-
-<span class="category-icon">🎚️</span>
-
-<span class="category-text">
-Music &amp; DJ
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Games">
-
-<span class="category-icon">🎮</span>
-
-<span class="category-text">
-Games
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Education">
-
-<span class="category-icon">📚</span>
-
-<span class="category-text">
-Education
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Business-Work">
-
-<span class="category-icon">💼</span>
-
-<span class="category-text">
-Business &amp; Work
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Finance-Banking">
-
-<span class="category-icon">💰</span>
-
-<span class="category-text">
-Finance &amp; Banking
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Shopping">
-
-<span class="category-icon">🛒</span>
-
-<span class="category-text">
-Shopping
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Travel-Transport">
-
-<span class="category-icon">✈️</span>
-
-<span class="category-text">
-Travel &amp; Transport
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=News">
-
-<span class="category-icon">📰</span>
-
-<span class="category-text">
-News
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Sports">
-
-<span class="category-icon">⚽</span>
-
-<span class="category-text">
-Sports
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Health-Fitness">
-
-<span class="category-icon">🏃</span>
-
-<span class="category-text">
-Health &amp; Fitness
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Tools-Utilities">
-
-<span class="category-icon">🛠️</span>
-
-<span class="category-text">
-Tools &amp; Utilities
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=File-Management">
-
-<span class="category-icon">📁</span>
-
-<span class="category-text">
-File Management
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Security">
-
-<span class="category-icon">🔐</span>
-
-<span class="category-text">
-Security
-</span>
-
-</a>
-
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     5. SOFTWARES AND VIRTUAL DJ MAPPINGS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-💻 Softwares and Virtual DJ Mappings
-</h2>
-
-<div class="category-grid">
-
-
-<a class="category-card"
-href="library.html?folder=Virtual-DJ-Software">
-
-<span class="category-icon">🎧</span>
-
-<span class="category-text">
-Virtual DJ Software
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Windows-Software">
-
-<span class="category-icon">🪟</span>
-
-<span class="category-text">
-Windows Software
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Software-Video-Editing">
-
-<span class="category-icon">🎬</span>
-
-<span class="category-text">
-Video Editing
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Audio-Editing">
-
-<span class="category-icon">🎚️</span>
-
-<span class="category-text">
-Audio Editing
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Photo-Editing">
-
-<span class="category-icon">🖼️</span>
-
-<span class="category-text">
-Photo Editing
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Graphics-Design">
-
-<span class="category-icon">🎨</span>
-
-<span class="category-text">
-Graphics &amp; Design
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Mac-Software">
-
-<span class="category-icon">🍎</span>
-
-<span class="category-text">
-Mac Software
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Linux-Software">
-
-<span class="category-icon">🐧</span>
-
-<span class="category-text">
-Linux Software
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Android-Software">
-
-<span class="category-icon">🤖</span>
-
-<span class="category-text">
-Android Software
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Office-Productivity">
-
-<span class="category-icon">📊</span>
-
-<span class="category-text">
-Office &amp; Productivity
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Internet-Browsers">
-
-<span class="category-icon">🌐</span>
-
-<span class="category-text">
-Internet &amp; Browsers
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Security-Antivirus">
-
-<span class="category-icon">🛡️</span>
-
-<span class="category-text">
-Security &amp; Antivirus
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Software-File-Management">
-
-<span class="category-icon">📂</span>
-
-<span class="category-text">
-File Management
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Media-Players">
-
-<span class="category-icon">▶️</span>
-
-<span class="category-text">
-Media Players
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Download-Managers">
-
-<span class="category-icon">⬇️</span>
-
-<span class="category-text">
-Download Managers
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Programming-Development">
-
-<span class="category-icon">💻</span>
-
-<span class="category-text">
-Programming &amp; Development
-</span>
-
-</a>
-
-
-<a class="category-card"
-href="library.html?folder=Utilities-Tools">
-
-<span class="category-icon">🔧</span>
-
-<span class="category-text">
-Utilities &amp; Tools
-</span>
-
-</a>
-
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     6. DJ MIXES
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-🎧 DJ Mixes
-</h2>
-
-<a
-class="feature-card"
-href="library.html?folder=DJ-Mixes"
->
-
-<span class="feature-icon">
-🎧
-</span>
-
-<span>
-
-<span class="feature-title">
-DJ Mixes
-</span>
-
-<span class="feature-subtitle">
-Mixtapes • Mappings • Sound Effects • Virtual DJ
-</span>
-
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
-     TRENDING APPS
-     ====================================================== -->
-
-<section class="trending">
-
-<h2>
-Trending Apps
-</h2>
-
-<div class="apps">
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/youtube/FF0000"
-alt="YouTube">
-<span class="app-name">YouTube</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/whatsapp/25D366"
-alt="WhatsApp">
-<span class="app-name">WhatsApp</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/facebook/1877F2"
-alt="Facebook">
-<span class="app-name">Facebook</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/instagram/E4405F"
-alt="Instagram">
-<span class="app-name">Instagram</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/x/000000"
-alt="X">
-<span class="app-name">X</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/tiktok/000000"
-alt="TikTok">
-<span class="app-name">TikTok</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/telegram/26A5E4"
-alt="Telegram">
-<span class="app-name">Telegram</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/pinterest/BD081C"
-alt="Pinterest">
-<span class="app-name">Pinterest</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/snapchat/FFFC00"
-alt="Snapchat">
-<span class="app-name">Snapchat</span>
-</a>
-
-
-<a class="app" href="library.html?category=apps">
-<img class="app-logo"
-src="https://cdn.simpleicons.org/spotify/1DB954"
-alt="Spotify">
-<span class="app-name">Spotify</span>
-</a>
-
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     FOLLOW US
-     ====================================================== -->
-
-<section class="social">
-
-<h2>
-Follow Us
-</h2>
-
-<div class="social-list">
-
-
-<a href="#" aria-label="Instagram">
-
-<img
-src="https://cdn.simpleicons.org/instagram/FFFFFF"
-alt="Instagram">
-
-</a>
-
-
-<a href="#" aria-label="Facebook">
-
-<img
-src="https://cdn.simpleicons.org/facebook/FFFFFF"
-alt="Facebook">
-
-</a>
-
-
-<a href="#" aria-label="WhatsApp">
-
-<img
-src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
-alt="WhatsApp">
-
-</a>
-
-
-<a href="#" aria-label="YouTube">
-
-<img
-src="https://cdn.simpleicons.org/youtube/FFFFFF"
-alt="YouTube">
-
-</a>
-
-
-<a href="#" aria-label="X">
-
-<img
-src="https://cdn.simpleicons.org/x/FFFFFF"
-alt="X">
-
-</a>
-
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     FOOTER
-     ====================================================== -->
-
-<footer class="footer">
-
-© Ning Wei Media
-
+<footer>
+    © Ning Wei Media
 </footer>
 
-
-</div>
-
 </body>
-
 </html>
