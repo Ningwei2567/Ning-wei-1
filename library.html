@@ -3,3321 +3,384 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media</title>
+<title>Ning Wei Media - Library</title>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f5f5f7;
   color:#111;
+  line-height:1.4;
 }
-a{
-  color:inherit;
-  text-decoration:none;
-  -webkit-tap-highlight-color:transparent;
-}
-button,input,textarea{font:inherit}
-button,a{cursor:pointer}
-.hidden{display:none!important}
-
+a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
 .container{
-  width:100%;
   max-width:600px;
-  margin:auto;
+  margin:0 auto;
   min-height:100vh;
-  padding-bottom:25px;
+  padding-bottom:30px;
 }
 
-/* HEADER */
+/* Header */
 .header{
-  height:150px;
+  height:140px;
   position:relative;
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  color:#fff;
+  color:white;
   background:#000;
 }
 .header img{
   position:absolute;
   inset:0;
   width:100%;
-  height:150px;
+  height:140px;
   object-fit:cover;
   object-position:center 35%;
 }
 .header-content{
   position:relative;
   z-index:2;
-  padding:8px 15px;
-  text-shadow:0 2px 5px rgba(0,0,0,.9),0 1px 2px rgba(0,0,0,.9);
+  padding:10px 15px;
+  text-shadow:0 2px 5px rgba(0,0,0,.9);
 }
-.header h1{margin:0;font-size:30px;font-weight:800}
-.header p{margin:8px 0 0;font-size:15px}
+.header h1{font-size:26px;font-weight:800;margin:0}
+.header p{font-size:13px;margin-top:6px}
 
-/* SEARCH */
-.search-upload{padding:14px 18px 4px}
-.search-box{
+/* Top bar */
+.top-bar{
+  padding:14px 16px 8px;
   display:flex;
-  width:100%;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:5px;
-  box-shadow:0 2px 7px rgba(0,0,0,.07);
+  gap:10px;
+  flex-wrap:wrap;
 }
-.search-box input{
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:none;
-  padding:12px;
-  font-size:14px;
-  background:transparent;
-}
-.search-box button{
-  border:0;
-  border-radius:9px;
-  padding:0 15px;
-  background:#111;
-  color:#fff;
-  font-weight:700;
-}
-.upload-button{
-  display:flex;
-  flex-direction:column;
+.btn{
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:100%;
-  min-height:66px;
-  margin-top:10px;
-  padding:10px 15px;
-  border-radius:12px;
-  background:#55bfe8;
-  color:#fff;
-  font-size:16px;
-  font-weight:800;
-  line-height:1.2;
-  box-shadow:0 3px 9px rgba(0,0,0,.12);
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:700;
+  font-size:14px;
+  border:none;
+  cursor:pointer;
 }
-.upload-button-description{
-  display:block;
-  margin-top:5px;
-  font-size:11px;
-  font-weight:600;
+.btn-dark{
+  background:#111;
+  color:#fff;
+}
+.btn-light{
+  background:#fff;
+  color:#111;
+  border:1px solid #ddd;
 }
 
-/* SECTIONS */
-.section{padding:16px 18px 5px}
-.section h2{
-  margin:0 0 10px;
+/* Content */
+.content{
+  padding:10px 16px 30px;
+}
+.category-title{
   font-size:22px;
   font-weight:800;
-  line-height:1.2;
+  margin-bottom:4px;
+}
+.category-sub{
+  color:#666;
+  font-size:13px;
+  margin-bottom:18px;
 }
 
-/* CATEGORY GRID */
-.category-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
+/* List */
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-.category-card{
+.item{
   display:flex;
   align-items:center;
-  min-height:62px;
-  padding:9px;
+  gap:12px;
   background:#fff;
   border:1px solid #e2e2e2;
   border-radius:12px;
-  color:#111;
-  box-shadow:0 2px 7px rgba(0,0,0,.06);
+  padding:12px;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
 }
-.category-card:active{transform:scale(.97)}
-.category-icon{
-  width:40px;
-  height:40px;
-  min-width:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.item:active{transform:scale(0.98)}
+.cover{
+  width:52px;
+  height:52px;
+  min-width:52px;
   border-radius:10px;
   background:#111;
-  color:#fff;
-  font-size:20px;
-  margin-right:9px;
-}
-.category-text{
-  font-size:13px;
-  font-weight:700;
-  line-height:1.2;
-}
-
-/* MORE */
-.more-wrap{
-  display:flex;
-  justify-content:center;
-  padding:11px 0 2px;
-}
-.more-btn{
-  border:0;
-  border-radius:9px;
-  background:#111;
-  color:#fff;
-  padding:9px 24px;
-  font-weight:800;
-}
-
-/* MEDIA */
-.media-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:6px;
-}
-.media-card{
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:9px;
-  overflow:hidden;
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
-}
-.media-thumb{
-  width:100%;
-  aspect-ratio:1/1;
-  background:#ddd;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
-}
-.media-thumb img,
-.media-thumb video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.media-placeholder{
-  font-size:25px;
-  color:#777;
-}
-.media-body{
-  padding:6px;
-}
-.media-title{
-  font-size:9px;
-  font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.media-meta{
-  margin-top:3px;
-  color:#777;
-  font-size:8px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* DJ */
-.dj-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
-}
-.audio-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  min-width:0;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
-}
-.audio-cover{
-  width:45px;
-  height:45px;
-  min-width:45px;
-  border-radius:8px;
-  object-fit:cover;
-  background:#111;
-}
-.audio-info{
-  min-width:0;
-}
-.audio-title{
-  font-size:11px;
-  font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.audio-meta{
-  font-size:8px;
-  color:#777;
-  margin-top:3px;
-}
-
-/* FEATURE */
-.feature-card{
-  display:flex;
-  align-items:center;
-  width:100%;
-  min-height:68px;
-  padding:10px;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:12px;
-  color:#111;
-  box-shadow:0 2px 7px rgba(0,0,0,.06);
-}
-.feature-icon{
-  width:45px;
-  height:45px;
-  min-width:45px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:11px;
-  background:#111;
   color:#fff;
   font-size:22px;
-  margin-right:11px;
-}
-.feature-title{font-size:15px;font-weight:800}
-.feature-subtitle{display:block;font-size:10px;color:#777;margin-top:4px}
-
-/* TRENDING APPS */
-.trending{padding:20px 18px 5px}
-.trending h2{
-  margin:0 0 10px;
-  font-size:24px;
-  font-weight:800;
-}
-.apps{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:8px;
-}
-.app{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-height:86px;
-  padding:8px 3px;
-  background:#fff;
-  border-radius:11px;
-  color:#111;
-  box-shadow:0 2px 7px rgba(0,0,0,.07);
-}
-.app-logo{
-  width:43px;
-  height:43px;
-  object-fit:contain;
-  margin-bottom:6px;
-}
-.app-name{
-  font-size:9px;
-  font-weight:700;
-  text-align:center;
-  white-space:nowrap;
   overflow:hidden;
-  text-overflow:ellipsis;
-  width:100%;
 }
-
-/* INTERNAL CATEGORY VIEW */
-#categoryView{
-  padding:16px 18px 30px;
-}
-.category-view-top{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-.view-button{
-  border:0;
-  border-radius:9px;
-  padding:9px 13px;
-  background:#111;
-  color:#fff;
-  font-weight:800;
-}
-.view-button.light{
-  background:#fff;
-  color:#111;
-  border:1px solid #ddd;
-}
-#categoryView h2{
-  margin:0 0 5px;
-  font-size:24px;
-}
-.category-subtitle{
-  color:#777;
-  font-size:12px;
-  margin-bottom:16px;
-}
-.audio-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.empty{
-  background:#fff;
-  border:1px dashed #ccc;
-  border-radius:10px;
-  padding:25px 10px;
-  text-align:center;
-  color:#777;
-  font-size:13px;
-}
-
-/* MEDIA VIEWER */
-.media-viewer{
-  position:fixed;
-  inset:0;
-  z-index:5000;
-  background:rgba(0,0,0,.95);
-}
-.viewer-close{
-  position:fixed;
-  right:12px;
-  top:12px;
-  z-index:5100;
-  width:42px;
-  height:42px;
-  border:1px solid #555;
-  border-radius:50%;
-  background:#111;
-  color:#fff;
-  font-size:26px;
-}
-.viewer-scroll{
+.cover img{
   width:100%;
   height:100%;
-  overflow-y:auto;
-  scroll-snap-type:y mandatory;
-}
-.viewer-slide{
-  min-height:100%;
-  scroll-snap-align:start;
-  padding:58px 10px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.viewer-card{
-  width:min(580px,100%);
-  max-height:calc(100vh - 75px);
-  overflow:auto;
-  background:#111;
-  color:#fff;
-  border-radius:13px;
-  padding:10px;
-}
-.viewer-media{
-  width:100%;
-  max-height:55vh;
-  object-fit:contain;
-  background:#000;
-  border-radius:9px;
-  display:block;
-}
-.viewer-title{
-  font-size:17px;
-  font-weight:900;
-  margin-top:10px;
-  word-break:break-word;
-}
-.viewer-meta{
-  color:#999;
-  font-size:11px;
-  margin-top:6px;
-}
-.viewer-uploader{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:12px;
-}
-.uploader-photo{
-  width:38px;
-  height:38px;
-  border-radius:50%;
   object-fit:cover;
-  background:#333;
 }
-.uploader-placeholder{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#333;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.uploader-link{
-  border:0;
-  background:none;
-  color:#fff;
-  padding:0;
-  text-decoration:underline;
-  font-weight:800;
-}
-.viewer-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:13px;
-}
-.viewer-action{
-  border:1px solid #444;
-  border-radius:8px;
-  background:#222;
-  color:#fff;
-  padding:8px 12px;
-  font-weight:800;
-}
-.comments{
-  margin-top:15px;
-  border-top:1px solid #333;
-  padding-top:13px;
-}
-.comments h3{
-  font-size:14px;
-  margin:0 0 8px;
-}
-.comment-form{
-  display:flex;
-  gap:6px;
-}
-.comment-input{
+.info{
+  min-width:0;
   flex:1;
-  min-width:0;
-  resize:none;
-  border:1px solid #444;
-  background:#1a1a1a;
-  color:#fff;
-  border-radius:8px;
-  padding:8px;
 }
-.comment-add{
-  border:0;
-  border-radius:8px;
-  background:#fff;
-  color:#000;
-  padding:8px 12px;
-  font-weight:800;
-}
-.comment-list{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:9px;
-}
-.comment-item{
-  background:#1a1a1a;
-  border:1px solid #333;
-  border-radius:8px;
-  padding:8px;
-  font-size:11px;
-}
-.comment-date{
-  display:block;
-  color:#777;
-  font-size:9px;
-  margin-top:4px;
-}
-
-/* PROFILE */
-.profile-viewer{
-  position:fixed;
-  inset:0;
-  z-index:6000;
-  background:rgba(0,0,0,.95);
-  overflow:auto;
-}
-.profile-box{
-  width:min(580px,calc(100% - 18px));
-  margin:55px auto 15px;
-  background:#111;
-  color:#fff;
-  border-radius:13px;
-  padding:15px;
-  position:relative;
-}
-.profile-photo{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#333;
-}
-.profile-name{
-  font-size:22px;
-  font-weight:900;
-  margin-top:9px;
-}
-.profile-tabs{
-  display:flex;
-  gap:7px;
-  margin:15px 0;
-}
-.profile-tab{
-  border:1px solid #444;
-  background:#222;
-  color:#fff;
-  padding:8px 12px;
-  border-radius:8px;
-}
-.profile-tab.active{
-  background:#fff;
-  color:#000;
-}
-
-/* SOCIAL */
-.social{
-  padding:20px 18px 10px;
-}
-.social h2{
-  margin:0 0 12px;
-  font-size:24px;
-}
-.social-list{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-}
-.social a{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#000;
+.title{
+  font-size:14px;
+  font-weight:700;
+  white-space:nowrap;
   overflow:hidden;
+  text-overflow:ellipsis;
 }
-.social img{
-  width:25px;
-  height:25px;
-  object-fit:contain;
-}
-.footer{
-  padding:20px 15px;
-  text-align:center;
-  font-size:12px;
+.meta{
+  font-size:11px;
   color:#777;
+  margin-top:3px;
 }
 
-/* LOADING */
-.loading{
-  grid-column:1/-1;
+/* Empty & Loading */
+.status{
   text-align:center;
-  padding:25px;
+  padding:40px 20px;
   color:#777;
   background:#fff;
-  border-radius:10px;
+  border-radius:12px;
+  border:1px dashed #ccc;
+  font-size:14px;
 }
 
-/* MOBILE */
-@media(max-width:420px){
-  .header h1{font-size:27px}
-  .header p{font-size:13px}
-  .section h2,.trending h2{font-size:21px}
-  .category-grid{gap:6px}
-  .category-card{min-height:58px;padding:8px}
-  .category-icon{
-    width:36px;
-    height:36px;
-    min-width:36px;
-    font-size:18px;
-    margin-right:7px;
-  }
-  .category-text{font-size:11px}
-  .media-grid{gap:5px}
-  .media-title{font-size:8px}
-  .media-meta{font-size:7px}
-  .apps{gap:6px}
-  .app{min-height:80px;padding:7px 2px}
-  .app-logo{width:36px;height:36px}
-  .app-name{font-size:8px}
-  .social-list{gap:10px}
-  .social a{width:38px;height:38px}
-  .social img{width:22px;height:22px}
+/* Footer */
+.footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#888;
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-<!-- HEADER -->
-<header class="header">
-  <img src="ning-wei.png" alt="Ning Wei Media">
-  <div class="header-content">
-    <h1>Ning Wei Media</h1>
-    <p>Music • Videos • Photos • Apps • Software</p>
-  </div>
-</header>
-
-<!-- SEARCH + UPLOAD -->
-<section class="search-upload">
-
-  <form class="search-box" id="searchForm">
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search Ning Wei Media..."
-      autocomplete="off"
-    >
-    <button type="submit">Search</button>
-  </form>
-
-  <a class="upload-button" href="upload.html">
-    <span>🎵 Upload Your Music From Here</span>
-    <span class="upload-button-description">
-      Artists • DJs • Producers
-    </span>
-  </a>
-
-</section>
-
-
-<!-- ======================================================
-     REAL HOMEPAGE
-====================================================== -->
-
-<main id="homeView">
-
-  <!-- MUSIC -->
-  <section class="section">
-    <h2>🎵 Top Music Charts</h2>
-
-    <div id="musicGrid" class="category-grid"></div>
-
-    <div class="more-wrap">
-      <button class="more-btn" onclick="showDirectory('music')">
-        More
-      </button>
+  <!-- Header -->
+  <header class="header">
+    <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
+    <div class="header-content">
+      <h1>Ning Wei Media</h1>
+      <p>Music • Videos • Photos • Apps • Software</p>
     </div>
-  </section>
+  </header>
 
-
-  <!-- VIDEOS -->
-  <section class="section">
-    <h2>🎬 Trending Videos</h2>
-
-    <div id="videosGrid" class="media-grid">
-      <div class="loading">Loading videos...</div>
-    </div>
-
-    <div class="more-wrap">
-      <button class="more-btn" onclick="showAllMedia('videos')">
-        More
-      </button>
-    </div>
-  </section>
-
-
-  <!-- PHOTOS -->
-  <section class="section">
-    <h2>📸 Trending Photos &amp; Jokes</h2>
-
-    <div id="photosGrid" class="media-grid">
-      <div class="loading">Loading photos...</div>
-    </div>
-
-    <div class="more-wrap">
-      <button class="more-btn" onclick="showAllMedia('photos')">
-        More
-      </button>
-    </div>
-  </section>
-
-
-  <!-- APPS -->
-  <section class="section">
-    <h2>📱 Apps</h2>
-
-    <div id="appsGrid" class="category-grid"></div>
-
-    <div class="more-wrap">
-      <button class="more-btn" onclick="showDirectory('apps')">
-        More
-      </button>
-    </div>
-  </section>
-
-
-  <!-- SOFTWARE -->
-  <section class="section">
-    <h2>💻 Software</h2>
-
-    <div id="softwareGrid" class="category-grid"></div>
-
-    <div class="more-wrap">
-      <button class="more-btn" onclick="showDirectory('software')">
-        More
-      </button>
-    </div>
-  </section>
-
-
-  <!-- DJ MIXES -->
-  <section class="section">
-    <h2>🎧 DJ Mixes</h2>
-
-    <div id="djGrid" class="dj-grid">
-      <div class="loading">Loading DJ mixes...</div>
-    </div>
-
-    <div class="more-wrap">
-      <button class="more-btn" onclick="showAllDjMixes()">
-        More
-      </button>
-    </div>
-  </section>
-
-
-  <!-- TRENDING APPS -->
-  <section class="trending">
-    <h2>Trending Apps</h2>
-
-    <div class="apps">
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/youtube/FF0000"
-             alt="YouTube">
-        <span class="app-name">YouTube</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Messaging">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/whatsapp/25D366"
-             alt="WhatsApp">
-        <span class="app-name">WhatsApp</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/facebook/1877F2"
-             alt="Facebook">
-        <span class="app-name">Facebook</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/instagram/E4405F"
-             alt="Instagram">
-        <span class="app-name">Instagram</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/x/000000"
-             alt="X">
-        <span class="app-name">X</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/tiktok/000000"
-             alt="TikTok">
-        <span class="app-name">TikTok</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Messaging">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/telegram/26A5E4"
-             alt="Telegram">
-        <span class="app-name">Telegram</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/pinterest/BD081C"
-             alt="Pinterest">
-        <span class="app-name">Pinterest</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Social-Media">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/snapchat/FFFC00"
-             alt="Snapchat">
-        <span class="app-name">Snapchat</span>
-      </a>
-
-      <a class="app" href="library.html?folder=Music-Audio">
-        <img class="app-logo"
-             src="https://cdn.simpleicons.org/spotify/1DB954"
-             alt="Spotify">
-        <span class="app-name">Spotify</span>
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- FOLLOW -->
-  <section class="social">
-    <h2>Follow Us</h2>
-
-    <div class="social-list">
-
-      <a href="#" aria-label="Instagram">
-        <img src="https://cdn.simpleicons.org/instagram/FFFFFF"
-             alt="Instagram">
-      </a>
-
-      <a href="#" aria-label="Facebook">
-        <img src="https://cdn.simpleicons.org/facebook/FFFFFF"
-             alt="Facebook">
-      </a>
-
-      <a href="#" aria-label="WhatsApp">
-        <img src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
-             alt="WhatsApp">
-      </a>
-
-      <a href="#" aria-label="YouTube">
-        <img src="https://cdn.simpleicons.org/youtube/FFFFFF"
-             alt="YouTube">
-      </a>
-
-      <a href="#" aria-label="X">
-        <img src="https://cdn.simpleicons.org/x/FFFFFF"
-             alt="X">
-      </a>
-
-    </div>
-  </section>
-
-</main>
-
-
-<!-- ======================================================
-     INTERNAL CATEGORY / MEDIA VIEW
-     THIS IS NOT ANOTHER HOMEPAGE
-====================================================== -->
-
-<section id="categoryView" class="hidden">
-
-  <div class="category-view-top">
-    <button class="view-button" onclick="goHome()">
-      ← Back Home
-    </button>
-
-    <a
-      id="categoryUploadBtn"
-      class="view-button"
-      href="upload.html"
-    >
-      ⬆ Upload Direct Here
-    </a>
+  <!-- Top buttons -->
+  <div class="top-bar">
+    <a href="index.html" class="btn btn-dark">← Back Home</a>
+    <a href="upload.html" class="btn btn-light">⬆ Upload</a>
   </div>
 
-  <h2 id="categoryTitle"></h2>
+  <!-- Main content -->
+  <div class="content">
+    <h2 class="category-title" id="catTitle">Loading...</h2>
+    <div class="category-sub" id="catSub"></div>
 
-  <div id="categorySubtitle" class="category-subtitle"></div>
-
-  <div id="categoryResults"></div>
-
-</section>
-
-
-<!-- ======================================================
-     MEDIA VIEWER
-====================================================== -->
-
-<div id="mediaViewer" class="media-viewer hidden">
-
-  <button
-    class="viewer-close"
-    onclick="closeMediaViewer()"
-  >×</button>
-
-  <div id="viewerScroll" class="viewer-scroll"></div>
-
-</div>
-
-
-<!-- ======================================================
-     PROFILE VIEWER
-====================================================== -->
-
-<div id="profileViewer" class="profile-viewer hidden">
-
-  <div class="profile-box">
-
-    <button
-      class="viewer-close"
-      onclick="closeProfileViewer()"
-    >×</button>
-
-    <div id="profilePhotoHolder"></div>
-
-    <div id="profileName" class="profile-name"></div>
-
-    <div class="category-subtitle">
-      Uploaded media
+    <div id="list" class="list">
+      <div class="status">Loading media...</div>
     </div>
-
-    <div class="profile-tabs">
-
-      <button
-        id="profilePhotosTab"
-        class="profile-tab active"
-        onclick="showProfileMedia('photos')"
-      >
-        Photos
-      </button>
-
-      <button
-        id="profileVideosTab"
-        class="profile-tab"
-        onclick="showProfileMedia('videos')"
-      >
-        Videos
-      </button>
-
-    </div>
-
-    <div id="profileMediaGrid" class="media-grid"></div>
-
   </div>
 
+  <div class="footer">© Ning Wei Media</div>
 </div>
-
-
-<footer class="footer">
-  © Ning Wei Media
-</footer>
-
-</div>
-
 
 <script>
-/* =========================================================
+/* =========================
    CONFIG
-========================================================= */
-
-const SUPABASE_URL =
-  "https://btksyizkcpzubtextuce.supabase.co";
-
-const SUPABASE_ANON_KEY =
-  "YOUR_SUPABASE_ANON_KEY";
-
+========================= */
 const GITHUB_OWNER = "Ningwei2567";
-const GITHUB_REPO = "Ning-wei-1";
+const GITHUB_REPO  = "Ning-wei-1";
 const GITHUB_BRANCH = "main";
+const RAW_BASE = `https://raw.githubusercontent.com/\( {GITHUB_OWNER}/ \){GITHUB_REPO}/${GITHUB_BRANCH}/`;
 
-const RAW_BASE =
-  "https://raw.githubusercontent.com/" +
-  GITHUB_OWNER + "/" +
-  GITHUB_REPO + "/" +
-  GITHUB_BRANCH + "/";
-
-
-/* =========================================================
-   CATEGORIES
-========================================================= */
-
-const MUSIC_CATEGORIES = [
-  "Top-Ugandan-Music",
-  "Amapiano-Music",
-  "Afrobeat-Music",
-  "Dancehall-Music",
-  "Old-School-R&B",
-  "Reggae",
-  "Old-South-African-Music",
-  "Western-Music",
-  "Love-Songs",
-  "Oldies-Kikadde-Music",
-  "Kadongo-Kamu",
-  "High-School-Music",
-  "Lingala-Music",
-  "Instrumental"
-];
-
-const APPS_CATEGORIES = [
-  "Premium-Unlocked-Apps",
-  "Free-Unlimited-Internet-VPNs",
-  "Social-Media",
-  "Messaging",
-  "Music-Audio",
-  "Video-Streaming",
-  "Photo-Camera",
-  "Video-Editing",
-  "Music-DJ",
-  "Games",
-  "Education",
-  "Business-Work",
-  "Finance-Banking",
-  "Shopping",
-  "Travel-Transport",
-  "News",
-  "Sports",
-  "Health-Fitness",
-  "Tools-Utilities",
-  "File-Management",
-  "Security"
-];
-
-const SOFTWARE_CATEGORIES = [
-  "Virtual-DJ-Software",
-  "Windows-Software",
-  "Video-Editing-Software",
-  "Audio-Editing",
-  "Photo-Editing",
-  "Graphics-Design",
-  "Mac-Software",
-  "Linux-Software",
-  "Android-Software",
-  "Office-Productivity",
-  "Internet-Browsers",
-  "Security-Antivirus",
-  "Software-File-Management",
-  "Media-Players",
-  "Download-Managers",
-  "Programming-Development",
-  "Utilities-Tools"
-];
-
-const DISPLAY_NAMES = {
-  "Top-Ugandan-Music":"Top Ugandan Music",
-  "Amapiano-Music":"Amapiano Music",
-  "Afrobeat-Music":"Afrobeat Music",
-  "Dancehall-Music":"Dancehall Music",
-  "Old-School-R&B":"Old School R&B",
-  "Reggae":"Reggae",
-  "Old-South-African-Music":"Old South African Music",
-  "Western-Music":"Western Music",
-  "Love-Songs":"Love Songs",
-  "Oldies-Kikadde-Music":"Oldies Kikadde Music",
-  "Kadongo-Kamu":"Kadongo Kamu",
-  "High-School-Music":"High School Music",
-  "Lingala-Music":"Lingala Music",
-  "Instrumental":"Instrumental",
-
-  "Premium-Unlocked-Apps":"Premium Unlocked Apps",
-  "Free-Unlimited-Internet-VPNs":"Free Unlimited Internet VPNs",
-  "Social-Media":"Social Media",
-  "Messaging":"Messaging",
-  "Music-Audio":"Music & Audio",
-  "Video-Streaming":"Video Streaming",
-  "Photo-Camera":"Photo & Camera",
-  "Video-Editing":"Video Editing",
-  "Music-DJ":"Music & DJ",
-  "Games":"Games",
-  "Education":"Education",
-  "Business-Work":"Business & Work",
-  "Finance-Banking":"Finance & Banking",
-  "Shopping":"Shopping",
-  "Travel-Transport":"Travel & Transport",
-  "News":"News",
-  "Sports":"Sports",
-  "Health-Fitness":"Health & Fitness",
-  "Tools-Utilities":"Tools & Utilities",
-  "File-Management":"File Management",
-  "Security":"Security",
-
-  "Virtual-DJ-Software":"Virtual DJ Software",
-  "Windows-Software":"Windows Software",
-  "Video-Editing-Software":"Video Editing",
-  "Audio-Editing":"Audio Editing",
-  "Photo-Editing":"Photo Editing",
-  "Graphics-Design":"Graphics & Design",
-  "Mac-Software":"Mac Software",
-  "Linux-Software":"Linux Software",
-  "Android-Software":"Android Software",
-  "Office-Productivity":"Office & Productivity",
-  "Internet-Browsers":"Internet Browsers",
-  "Security-Antivirus":"Security & Antivirus",
-  "Software-File-Management":"Software File Management",
-  "Media-Players":"Media Players",
-  "Download-Managers":"Download Managers",
-  "Programming-Development":"Programming & Development",
-  "Utilities-Tools":"Utilities & Tools"
-};
-
-const CATEGORY_ICONS = {
-  "Top-Ugandan-Music":"🇺🇬",
-  "Amapiano-Music":"🎹",
-  "Afrobeat-Music":"🔥",
-  "Dancehall-Music":"🔥",
-  "Old-School-R&B":"🎙️",
-  "Reggae":"🌿",
-  "Old-South-African-Music":"🇿🇦",
-  "Western-Music":"🌎",
-  "Love-Songs":"❤️",
-  "Oldies-Kikadde-Music":"🎶",
-  "Kadongo-Kamu":"🎸",
-  "High-School-Music":"🎒",
-  "Lingala-Music":"🪘",
-  "Instrumental":"🎹",
-
-  "Premium-Unlocked-Apps":"💎",
-  "Free-Unlimited-Internet-VPNs":"🌐",
-  "Social-Media":"📱",
-  "Messaging":"💬",
-  "Music-Audio":"🎵",
-  "Video-Streaming":"🎬",
-  "Photo-Camera":"📷",
-  "Video-Editing":"🎞️",
-  "Music-DJ":"🎧",
-  "Games":"🎮",
-  "Education":"📚",
-  "Business-Work":"💼",
-  "Finance-Banking":"💰",
-  "Shopping":"🛒",
-  "Travel-Transport":"🚗",
-  "News":"📰",
-  "Sports":"⚽",
-  "Health-Fitness":"💪",
-  "Tools-Utilities":"🛠️",
-  "File-Management":"📁",
-  "Security":"🔐",
-
-  "Virtual-DJ-Software":"🎧",
-  "Windows-Software":"🪟",
-  "Video-Editing-Software":"🎬",
-  "Audio-Editing":"🎚️",
-  "Photo-Editing":"🖼️",
-  "Graphics-Design":"🎨",
-  "Mac-Software":"🍎",
-  "Linux-Software":"🐧",
-  "Android-Software":"🤖",
-  "Office-Productivity":"📊",
-  "Internet-Browsers":"🌐",
-  "Security-Antivirus":"🛡️",
-  "Software-File-Management":"📂",
-  "Media-Players":"▶️",
-  "Download-Managers":"⬇️",
-  "Programming-Development":"💻",
-  "Utilities-Tools":"🔧"
-};
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let ALL_ITEMS = [];
-let CURRENT_PROFILE_ITEMS = [];
-
-
-/* =========================================================
+/* =========================
    HELPERS
-========================================================= */
-
-function cleanName(name){
-  return String(name || "Media")
-    .split("/")
-    .pop()
-    .replace(/\.[^/.]+$/,"")
-    .replace(/[_-]+/g," ")
-    .replace(/\s+/g," ")
-    .trim() || "Media";
+========================= */
+function getFolder() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("folder") || "";
 }
 
-function fileExtension(name){
-  const match =
-    String(name || "").match(/\.([a-z0-9]+)$/i);
-  return match ? match[1].toLowerCase() : "";
+function cleanName(name) {
+  return String(name || "Untitled")
+    .split("/").pop()
+    .replace(/\.[^/.]+$/, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim() || "Untitled";
 }
 
-function isVideo(item){
-  const type =
-    String(item?.type || item?.mime || "").toLowerCase();
-
-  const ext =
-    fileExtension(
-      item?.name ||
-      item?.file_name ||
-      item?.url ||
-      ""
-    );
-
-  return type.startsWith("video/") ||
-    ["mp4","webm","mov","m4v","avi","mkv","3gp"].includes(ext);
-}
-
-function isAudio(item){
-  const type =
-    String(item?.type || item?.mime || "").toLowerCase();
-
-  const ext =
-    fileExtension(
-      item?.name ||
-      item?.file_name ||
-      item?.url ||
-      ""
-    );
-
-  return type.startsWith("audio/") ||
-    ["mp3","wav","m4a","aac","ogg","flac"].includes(ext);
-}
-
-function isImage(item){
-  const type =
-    String(item?.type || item?.mime || "").toLowerCase();
-
-  const ext =
-    fileExtension(
-      item?.name ||
-      item?.file_name ||
-      item?.url ||
-      ""
-    );
-
-  return type.startsWith("image/") ||
-    ["jpg","jpeg","png","gif","webp","bmp","avif"].includes(ext);
-}
-
-function escapeHtml(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-function displayName(category){
-  return DISPLAY_NAMES[category] ||
-    String(category || "")
-      .replace(/[-_]+/g," ")
-      .replace(/\s+/g," ")
-      .trim();
-}
-
-function iconFor(category){
-  return CATEGORY_ICONS[category] || "📁";
-}
-
-function formatDate(date){
-  if(!date) return "Date unavailable";
-
-  const d = new Date(date);
-
-  if(Number.isNaN(d.getTime())){
-    return String(date);
-  }
-
-  return d.toLocaleDateString(undefined,{
-    year:"numeric",
-    month:"short",
-    day:"numeric"
-  });
-}
-
-function formatDateTime(date){
-  const d = new Date(date);
-
-  if(Number.isNaN(d.getTime())){
-    return String(date || "");
-  }
-
-  return d.toLocaleString();
-}
-
-function pathText(item){
-  return [
-    item?.path,
-    item?.file_path,
-    item?.storage_path,
-    item?.url,
-    item?.name,
-    item?.category
-  ]
-  .filter(Boolean)
-  .join(" ")
-  .replace(/\\/g,"/");
-}
-
-function hasCategory(item,category){
-  const wanted =
-    String(category || "").toLowerCase();
-
-  if(!wanted) return false;
-
-  if(
-    item?.category &&
-    String(item.category).toLowerCase() === wanted
-  ){
-    return true;
-  }
-
-  const text =
-    pathText(item).toLowerCase();
-
-  return text.includes(wanted) ||
-    text.includes(
-      displayName(category).toLowerCase()
-    );
-}
-
-
-/* =========================================================
-   UPLOADER
-========================================================= */
-
-function getUploaderInfo(item){
-
-  const artist =
-    item?.artist &&
-    typeof item.artist === "object"
-      ? item.artist
-      : null;
-
-  return {
-    id:String(
-      item?.uploaderId ||
-      item?.artist_id ||
-      item?.uploader_id ||
-      item?.profile_id ||
-      artist?.id ||
-      ""
-    ),
-
-    name:String(
-      item?.uploaderName ||
-      item?.artist_name ||
-      item?.artistName ||
-      (
-        typeof item?.artist === "string"
-          ? item.artist
-          : ""
-      ) ||
-      item?.uploader_name ||
-      item?.profile_name ||
-      item?.uploaded_by ||
-      artist?.name ||
-      artist?.artist_name ||
-      artist?.display_name ||
-      ""
-    ),
-
-    photo:String(
-      item?.uploaderPhoto ||
-      item?.artist_photo ||
-      item?.artistPhoto ||
-      item?.profile_photo ||
-      item?.uploader_photo ||
-      artist?.photo ||
-      artist?.photo_url ||
-      artist?.profile_photo ||
-      ""
-    ),
-
-    email:String(
-      item?.uploaderEmail ||
-      item?.artist_email ||
-      item?.uploader_email ||
-      artist?.email ||
-      ""
-    )
+function niceFolderName(folder) {
+  const map = {
+    "Top-Ugandan-Music": "Top Ugandan Music",
+    "Amapiano-Music": "Amapiano Music",
+    "Afrobeat-Music": "Afrobeat Music",
+    "Dancehall-Music": "Dancehall Music",
+    "R-B-Music": "R&B Music",
+    "Reggae": "Reggae",
+    "Old-School-R-B": "Old School R&B",
+    "Old-South-African-Music": "Old South African Music",
+    "Western-Music": "Western Music",
+    "Love-Songs": "Love Songs",
+    "Oldies-Kikadde-Music": "Oldies / Kikadde Music",
+    "Kadongo-Kamu": "Kadongo Kamu",
+    "High-School-Music": "High School Music",
+    "Lingala-Music": "Lingala Music",
+    "Instrumental": "Instrumental",
+    "Trending-Videos": "Trending Videos",
+    "Trending-Photos-Jokes": "Trending Photos & Jokes",
+    "DJ-Mixes": "DJ Mixes",
+    "Premium-Unlocked-Apps": "Premium Unlocked Apps",
+    "Free-Unlimited-Internet-VPNs": "Free Unlimited Internet VPNs"
   };
+  return map[folder] || folder.replace(/[-_]/g, " ");
 }
 
-function uploaderKey(item){
-
-  const u = getUploaderInfo(item);
-
-  if(u.id) return "id:" + u.id.toLowerCase();
-
-  if(u.email) return "email:" + u.email.toLowerCase();
-
-  if(u.name){
-    return "name:" +
-      u.name.trim().toLowerCase().replace(/\s+/g," ");
-  }
-
-  return "";
+function isAudio(name) {
+  return /\.(mp3|m4a|wav|aac|ogg|flac)$/i.test(name);
+}
+function isVideo(name) {
+  return /\.(mp4|webm|mov|m4v|3gp|mkv)$/i.test(name);
+}
+function isImage(name) {
+  return /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(name);
 }
 
+/* =========================
+   LOAD FROM GITHUB
+========================= */
+async function loadFromGithub(folder) {
+  try {
+    const api = `https://api.github.com/repos/\( {GITHUB_OWNER}/ \){GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
+    const res = await fetch(api);
+    if (!res.ok) return [];
 
-/* =========================================================
-   GITHUB
-========================================================= */
+    const data = await res.json();
+    const tree = data.tree || [];
 
-async function loadGithub(){
+    const items = [];
 
-  const api =
-    "https://api.github.com/repos/" +
-    GITHUB_OWNER + "/" +
-    GITHUB_REPO +
-    "/git/trees/" +
-    GITHUB_BRANCH +
-    "?recursive=1";
+    for (const file of tree) {
+      if (file.type !== "blob") continue;
 
-  const response =
-    await fetch(api,{
-      headers:{
-        "Accept":"application/vnd.github+json"
-      }
-    });
+      const path = file.path;
+      const lower = path.toLowerCase();
 
-  if(!response.ok){
-    throw new Error("GitHub request failed");
-  }
+      // Check if this file belongs to the requested folder
+      let match = false;
 
-  const data =
-    await response.json();
-
-  if(!Array.isArray(data.tree)){
-    return [];
-  }
-
-  return data.tree
-    .filter(node=>node.type === "blob")
-    .map(node=>{
-
-      const path =
-        String(node.path || "").replace(/\\/g,"/");
-
-      const lower =
-        path.toLowerCase();
-
-      let type = "";
-
-      if(lower.startsWith("media/videos/")){
-        type = "video/mp4";
-      }else if(lower.startsWith("media/photos/")){
-        type = "image/jpeg";
-      }else if(
-        lower.startsWith("media/songs/") ||
-        lower.startsWith("media/dj-mixes/")
-      ){
-        type = "audio/mpeg";
-      }else{
-        return null;
-      }
-
-      const url =
-        RAW_BASE +
-        path
-          .split("/")
-          .map(encodeURIComponent)
-          .join("/");
-
-      return {
-        id:"github:" + path,
-        source:"github",
-        path,
-        name:path.split("/").pop(),
-        url,
-        type,
-        mime:type,
-        date:"",
-        thumbnail:"",
-        uploaderId:"",
-        uploaderName:"",
-        uploaderPhoto:"",
-        uploaderEmail:""
-      };
-    })
-    .filter(Boolean);
-}
-
-
-/* =========================================================
-   SUPABASE
-========================================================= */
-
-async function loadSupabase(){
-
-  if(
-    !SUPABASE_URL ||
-    !SUPABASE_ANON_KEY ||
-    SUPABASE_ANON_KEY ===
-      "YOUR_SUPABASE_ANON_KEY"
-  ){
-    return [];
-  }
-
-  try{
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/artist_submissions?select=*",
-        {
-          headers:{
-            "apikey":SUPABASE_ANON_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_ANON_KEY
-          }
-        }
-      );
-
-    if(!response.ok) return [];
-
-    const rows =
-      await response.json();
-
-    if(!Array.isArray(rows)) return [];
-
-    return rows.map((row,index)=>{
-
-      const artist =
-        row?.artist &&
-        typeof row.artist === "object"
-          ? row.artist
-          : null;
-
-      const url =
-        row.file_url ||
-        row.url ||
-        row.public_url ||
-        row.storage_url ||
-        "";
-
-      const name =
-        row.file_name ||
-        row.filename ||
-        row.name ||
-        "Media";
-
-      let type =
-        row.type ||
-        row.media_type ||
-        row.mime ||
-        "";
-
-      if(!type){
-
-        const ext =
-          fileExtension(name);
-
-        if(
-          ["mp4","webm","mov","m4v","avi","mkv","3gp"]
-            .includes(ext)
-        ){
-          type = "video/" + ext;
-        }else if(
-          ["jpg","jpeg","png","gif","webp","bmp","avif"]
-            .includes(ext)
-        ){
-          type =
-            "image/" +
-            (ext === "jpg" ? "jpeg" : ext);
-        }else if(
-          ["mp3","wav","m4a","aac","ogg","flac"]
-            .includes(ext)
-        ){
-          type = "audio/" + ext;
+      if (folder) {
+        // Common patterns people use
+        if (lower.includes(`/${folder.toLowerCase()}/`) ||
+            lower.includes(`/${folder.toLowerCase().replace(/-/g,"_")}/`) ||
+            lower.startsWith(`media/${folder.toLowerCase()}/`) ||
+            lower.startsWith(`songs/${folder.toLowerCase()}/`) ||
+            lower.startsWith(`music/${folder.toLowerCase()}/`)) {
+          match = true;
         }
       }
 
-      return {
-        id:"supabase:" + (row.id || index),
-        source:"supabase",
-
-        path:
-          row.path ||
-          row.file_path ||
-          row.storage_path ||
-          "",
-
-        name,
-        url,
-        type,
-        mime:type,
-
-        date:
-          row.created_at ||
-          row.uploaded_at ||
-          row.date ||
-          "",
-
-        thumbnail:
-          row.thumbnail_url ||
-          row.thumbnail ||
-          row.cover_url ||
-          "",
-
-        category:
-          row.category ||
-          row.category_name ||
-          "",
-
-        uploaderId:
-          row.artist_id ||
-          row.uploader_id ||
-          row.profile_id ||
-          artist?.id ||
-          "",
-
-        uploaderName:
-          row.artist_name ||
-          (
-            typeof row.artist === "string"
-              ? row.artist
-              : ""
-          ) ||
-          row.uploader_name ||
-          row.profile_name ||
-          row.uploaded_by ||
-          artist?.name ||
-          artist?.artist_name ||
-          artist?.display_name ||
-          "",
-
-        uploaderPhoto:
-          row.artist_photo ||
-          row.profile_photo ||
-          row.uploader_photo ||
-          artist?.photo ||
-          artist?.photo_url ||
-          artist?.profile_photo ||
-          "",
-
-        uploaderEmail:
-          row.artist_email ||
-          row.uploader_email ||
-          artist?.email ||
-          ""
-      };
-
-    }).filter(item=>item.url);
-
-  }catch(error){
-
-    console.error("Supabase:",error);
-
-    return [];
-  }
-}
-
-
-/* =========================================================
-   DUPLICATES
-========================================================= */
-
-function removeDuplicates(items){
-
-  const seen = new Set();
-
-  return items.filter(item=>{
-
-    const key =
-      String(
-        item.url ||
-        item.path ||
-        item.name ||
-        ""
-      ).trim().toLowerCase();
-
-    if(!key || seen.has(key)){
-      return false;
-    }
-
-    seen.add(key);
-
-    return true;
-  });
-}
-
-
-/* =========================================================
-   CATEGORY CARD
-========================================================= */
-
-function createCategoryCard(category){
-
-  const button =
-    document.createElement("button");
-
-  button.type = "button";
-  button.className = "category-card";
-
-  button.innerHTML = `
-    <span class="category-icon">
-      ${escapeHtml(iconFor(category))}
-    </span>
-
-    <span class="category-text">
-      ${escapeHtml(displayName(category))}
-    </span>
-  `;
-
-  button.onclick = ()=>{
-    showCategory(category);
-  };
-
-  return button;
-}
-
-
-/* =========================================================
-   MEDIA CARD
-========================================================= */
-
-function createMediaCard(item){
-
-  const card =
-    document.createElement("div");
-
-  card.className = "media-card";
-
-  const title =
-    cleanName(item.name);
-
-  let visual = "";
-
-  if(isImage(item)){
-
-    visual = `
-      <img
-        src="${escapeHtml(item.url)}"
-        alt="${escapeHtml(title)}"
-        loading="lazy"
-      >
-    `;
-
-  }else if(isVideo(item)){
-
-    visual = `
-      <video
-        src="${escapeHtml(item.url)}"
-        ${item.thumbnail
-          ? `poster="${escapeHtml(item.thumbnail)}"`
-          : ""}
-        muted
-        preload="metadata"
-        playsinline
-      ></video>
-    `;
-
-  }else{
-
-    visual = `
-      <div class="media-placeholder">
-        🎵
-      </div>
-    `;
-  }
-
-  const uploader =
-    getUploaderInfo(item);
-
-  card.innerHTML = `
-    <div class="media-thumb">
-      ${visual}
-    </div>
-
-    <div class="media-body">
-
-      <div class="media-title">
-        ${escapeHtml(title)}
-      </div>
-
-      <div class="media-meta">
-        ${escapeHtml(formatDate(item.date))}
-        ${
-          uploader.name
-            ? " • " + escapeHtml(uploader.name)
-            : ""
-        }
-      </div>
-
-    </div>
-  `;
-
-  if(isImage(item) || isVideo(item)){
-
-    card.onclick = ()=>{
-      openMediaViewer(item);
-    };
-
-  }else if(isAudio(item)){
-
-    card.onclick = ()=>{
-      window.location.href =
-        "media.html?url=" +
-        encodeURIComponent(item.url) +
-        "&name=" +
-        encodeURIComponent(item.name || "") +
-        "&mime=" +
-        encodeURIComponent(item.mime || item.type || "");
-    };
-  }
-
-  return card;
-}
-
-
-/* =========================================================
-   AUDIO ROW
-========================================================= */
-
-function createAudioRow(item){
-
-  const row =
-    document.createElement("div");
-
-  row.className = "audio-row";
-
-  row.onclick = ()=>{
-    window.location.href =
-      "media.html?url=" +
-      encodeURIComponent(item.url) +
-      "&name=" +
-      encodeURIComponent(item.name || "") +
-      "&mime=" +
-      encodeURIComponent(item.mime || item.type || "");
-  };
-
-  const cover =
-    item.thumbnail || "";
-
-  row.innerHTML = `
-
-    ${
-      cover
-        ? `
-          <img
-            class="audio-cover"
-            src="${escapeHtml(cover)}"
-            alt=""
-          >
-        `
-        : `
-          <div class="audio-cover"
-               style="display:flex;align-items:center;justify-content:center;font-size:20px">
-            🎵
-          </div>
-        `
-    }
-
-    <div class="audio-info">
-
-      <div class="audio-title">
-        ${escapeHtml(cleanName(item.name))}
-      </div>
-
-      <div class="audio-meta">
-        ${escapeHtml(formatDate(item.date))}
-        ${
-          getUploaderInfo(item).name
-            ? " • " +
-              escapeHtml(getUploaderInfo(item).name)
-            : ""
-        }
-      </div>
-
-    </div>
-  `;
-
-  return row;
-}
-
-
-/* =========================================================
-   DJ MIX
-========================================================= */
-
-function isDjMix(item){
-
-  const text =
-    pathText(item).toLowerCase();
-
-  return text.includes("dj-mix") ||
-    text.includes("dj mix") ||
-    text.includes("/dj-mixes/");
-}
-
-
-/* =========================================================
-   HOME PREVIEWS
-========================================================= */
-
-function renderHome(){
-
-  const music =
-    document.getElementById("musicGrid");
-
-  const apps =
-    document.getElementById("appsGrid");
-
-  const software =
-    document.getElementById("softwareGrid");
-
-  music.innerHTML = "";
-  apps.innerHTML = "";
-  software.innerHTML = "";
-
-  [
-    "Top-Ugandan-Music",
-    "Afrobeat-Music",
-    "Old-School-R&B",
-    "Western-Music"
-  ].forEach(category=>{
-    music.appendChild(
-      createCategoryCard(category)
-    );
-  });
-
-  [
-    "Premium-Unlocked-Apps",
-    "Social-Media",
-    "Music-Audio",
-    "Photo-Camera"
-  ].forEach(category=>{
-    apps.appendChild(
-      createCategoryCard(category)
-    );
-  });
-
-  [
-    "Virtual-DJ-Software",
-    "Windows-Software",
-    "Video-Editing-Software",
-    "Audio-Editing"
-  ].forEach(category=>{
-    software.appendChild(
-      createCategoryCard(category)
-    );
-  });
-
-  renderMedia(
-    "videosGrid",
-    ALL_ITEMS.filter(isVideo),
-    16
-  );
-
-  renderMedia(
-    "photosGrid",
-    ALL_ITEMS.filter(isImage),
-    16
-  );
-
-  renderDj();
-}
-
-function renderMedia(
-  elementId,
-  items,
-  limit
-){
-
-  const container =
-    document.getElementById(elementId);
-
-  container.innerHTML = "";
-
-  const selected =
-    items.slice(0,limit);
-
-  if(!selected.length){
-
-    container.innerHTML =
-      `<div class="loading">No media available yet.</div>`;
-
-    return;
-  }
-
-  selected.forEach(item=>{
-    container.appendChild(
-      createMediaCard(item)
-    );
-  });
-}
-
-function renderDj(){
-
-  const container =
-    document.getElementById("djGrid");
-
-  container.innerHTML = "";
-
-  const items =
-    ALL_ITEMS
-      .filter(isAudio)
-      .filter(isDjMix)
-      .slice(0,4);
-
-  if(!items.length){
-
-    container.innerHTML =
-      `<div class="loading">No DJ mixes available yet.</div>`;
-
-    return;
-  }
-
-  items.forEach(item=>{
-    container.appendChild(
-      createAudioRow(item)
-    );
-  });
-}
-
-
-/* =========================================================
-   SHOW CATEGORY
-========================================================= */
-
-function showCategory(category){
-
-  document
-    .getElementById("homeView")
-    .classList.add("hidden");
-
-  document
-    .getElementById("categoryView")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("categoryTitle")
-    .textContent =
-      displayName(category);
-
-  document
-    .getElementById("categorySubtitle")
-    .textContent =
-      "Browse " + displayName(category);
-
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "upload.html?category=" +
-      encodeURIComponent(category);
-
-  const container =
-    document.getElementById("categoryResults");
-
-  container.innerHTML = "";
-
-  const items =
-    ALL_ITEMS.filter(item=>
-      hasCategory(item,category)
-    );
-
-  if(!items.length){
-
-    container.innerHTML = `
-      <div class="empty">
-        No content found in this category yet.
-      </div>
-    `;
-
-    window.scrollTo(0,0);
-
-    return;
-  }
-
-  const audio =
-    items.filter(isAudio);
-
-  const visual =
-    items.filter(item=>
-      isImage(item) || isVideo(item)
-    );
-
-  if(audio.length){
-
-    const list =
-      document.createElement("div");
-
-    list.className = "audio-list";
-
-    audio.forEach(item=>{
-      list.appendChild(
-        createAudioRow(item)
-      );
-    });
-
-    container.appendChild(list);
-  }
-
-  if(visual.length){
-
-    if(audio.length){
-
-      const gap =
-        document.createElement("div");
-
-      gap.style.height = "15px";
-
-      container.appendChild(gap);
-    }
-
-    const grid =
-      document.createElement("div");
-
-    grid.className = "media-grid";
-
-    visual.forEach(item=>{
-      grid.appendChild(
-        createMediaCard(item)
-      );
-    });
-
-    container.appendChild(grid);
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-/* =========================================================
-   DIRECTORIES
-========================================================= */
-
-function showDirectory(type){
-
-  document
-    .getElementById("homeView")
-    .classList.add("hidden");
-
-  document
-    .getElementById("categoryView")
-    .classList.remove("hidden");
-
-  let categories = [];
-
-  if(type === "music"){
-    categories = MUSIC_CATEGORIES;
-  }
-
-  if(type === "apps"){
-    categories = APPS_CATEGORIES;
-  }
-
-  if(type === "software"){
-    categories = SOFTWARE_CATEGORIES;
-  }
-
-  document
-    .getElementById("categoryTitle")
-    .textContent =
-      type === "music"
-        ? "All Music"
-        : type === "apps"
-          ? "All Apps"
-          : "All Software";
-
-  document
-    .getElementById("categorySubtitle")
-    .textContent =
-      "Choose a category";
-
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "upload.html";
-
-  const container =
-    document.getElementById("categoryResults");
-
-  container.innerHTML = "";
-
-  const grid =
-    document.createElement("div");
-
-  grid.className =
-    "category-grid";
-
-  categories.forEach(category=>{
-    grid.appendChild(
-      createCategoryCard(category)
-    );
-  });
-
-  container.appendChild(grid);
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-/* =========================================================
-   ALL MEDIA
-========================================================= */
-
-function showAllMedia(type){
-
-  document
-    .getElementById("homeView")
-    .classList.add("hidden");
-
-  document
-    .getElementById("categoryView")
-    .classList.remove("hidden");
-
-  const title =
-    type === "videos"
-      ? "All Videos"
-      : "All Photos";
-
-  const items =
-    type === "videos"
-      ? ALL_ITEMS.filter(isVideo)
-      : ALL_ITEMS.filter(isImage);
-
-  document
-    .getElementById("categoryTitle")
-    .textContent = title;
-
-  document
-    .getElementById("categorySubtitle")
-    .textContent =
-      type === "videos"
-        ? "Browse all videos"
-        : "Browse all photos";
-
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "upload.html";
-
-  const container =
-    document.getElementById("categoryResults");
-
-  container.innerHTML = "";
-
-  if(!items.length){
-
-    container.innerHTML =
-      `<div class="empty">No media available yet.</div>`;
-
-    return;
-  }
-
-  const grid =
-    document.createElement("div");
-
-  grid.className = "media-grid";
-
-  items.forEach(item=>{
-    grid.appendChild(
-      createMediaCard(item)
-    );
-  });
-
-  container.appendChild(grid);
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-/* =========================================================
-   ALL DJ MIXES
-========================================================= */
-
-function showAllDjMixes(){
-
-  document
-    .getElementById("homeView")
-    .classList.add("hidden");
-
-  document
-    .getElementById("categoryView")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("categoryTitle")
-    .textContent =
-      "DJ Mixes";
-
-  document
-    .getElementById("categorySubtitle")
-    .textContent =
-      "All DJ mixes";
-
-  document
-    .getElementById("categoryUploadBtn")
-    .href =
-      "upload.html";
-
-  const container =
-    document.getElementById("categoryResults");
-
-  container.innerHTML = "";
-
-  const items =
-    ALL_ITEMS
-      .filter(isAudio)
-      .filter(isDjMix);
-
-  if(!items.length){
-
-    container.innerHTML =
-      `<div class="empty">No DJ mixes available yet.</div>`;
-
-    return;
-  }
-
-  const list =
-    document.createElement("div");
-
-  list.className =
-    "audio-list";
-
-  items.forEach(item=>{
-    list.appendChild(
-      createAudioRow(item)
-    );
-  });
-
-  container.appendChild(list);
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-function goHome(){
-
-  document
-    .getElementById("categoryView")
-    .classList.add("hidden");
-
-  document
-    .getElementById("homeView")
-    .classList.remove("hidden");
-
-  const search =
-    document.getElementById("searchInput");
-
-  if(search){
-    search.value = "";
-  }
-
-  renderHome();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-/* =========================================================
-   MEDIA VIEWER
-========================================================= */
-
-function openMediaViewer(selected){
-
-  const viewer =
-    document.getElementById("mediaViewer");
-
-  const scroll =
-    document.getElementById("viewerScroll");
-
-  const type =
-    isVideo(selected)
-      ? "video"
-      : "image";
-
-  const collection =
-    ALL_ITEMS.filter(item=>
-      type === "video"
-        ? isVideo(item)
-        : isImage(item)
-    );
-
-  if(!collection.length) return;
-
-  const selectedIndex =
-    Math.max(
-      0,
-      collection.findIndex(item=>
-        String(item.id) ===
-        String(selected.id)
-      )
-    );
-
-  scroll.innerHTML = "";
-
-  collection.forEach((item,index)=>{
-
-    const slide =
-      document.createElement("div");
-
-    slide.className =
-      "viewer-slide";
-
-    slide.dataset.index =
-      String(index);
-
-    slide.innerHTML =
-      viewerHtml(item);
-
-    scroll.appendChild(slide);
-
-    setupViewerSlide(slide,item);
-  });
-
-  viewer.classList.remove("hidden");
-
-  document.body.style.overflow = "hidden";
-
-  requestAnimationFrame(()=>{
-
-    const target =
-      scroll.querySelector(
-        `[data-index="${selectedIndex}"]`
-      );
-
-    if(target){
-
-      target.scrollIntoView({
-        block:"start"
+      if (!match && !folder) {
+        // if no folder, show everything under media/
+        if (lower.startsWith("media/")) match = true;
+      }
+
+      if (!match) continue;
+
+      const name = path.split("/").pop();
+      const url = RAW_BASE + path.split("/").map(encodeURIComponent).join("/");
+
+      items.push({
+        name: name,
+        path: path,
+        url: url
       });
     }
-  });
-}
 
-function viewerHtml(item){
-
-  const uploader =
-    getUploaderInfo(item);
-
-  const title =
-    cleanName(item.name);
-
-  let media = "";
-
-  if(isVideo(item)){
-
-    media = `
-      <video
-        class="viewer-media"
-        controls
-        playsinline
-        preload="metadata"
-        ${
-          item.thumbnail
-            ? `poster="${escapeHtml(item.thumbnail)}"`
-            : ""
-        }
-      >
-        <source
-          src="${escapeHtml(item.url)}"
-          type="${escapeHtml(
-            item.mime ||
-            item.type ||
-            "video/mp4"
-          )}"
-        >
-      </video>
-    `;
-
-  }else{
-
-    media = `
-      <img
-        class="viewer-media"
-        src="${escapeHtml(item.url)}"
-        alt="${escapeHtml(title)}"
-      >
-    `;
-  }
-
-  let uploaderHtml = "";
-
-  if(uploader.name){
-
-    const photo =
-      uploader.photo
-        ? `
-          <img
-            class="uploader-photo"
-            src="${escapeHtml(uploader.photo)}"
-            alt=""
-          >
-        `
-        : `
-          <div class="uploader-placeholder">
-            👤
-          </div>
-        `;
-
-    uploaderHtml = `
-      <div class="viewer-uploader">
-
-        ${photo}
-
-        <div>
-          <div style="font-size:9px;color:#777">
-            Uploaded by
-          </div>
-
-          <button
-            class="uploader-link"
-            type="button"
-            data-profile-key="${escapeHtml(
-              uploaderKey(item)
-            )}"
-          >
-            ${escapeHtml(uploader.name)}
-          </button>
-        </div>
-
-      </div>
-    `;
-  }
-
-  const commentKey =
-    getCommentKey(item);
-
-  return `
-    <div class="viewer-card">
-
-      ${media}
-
-      <div class="viewer-title">
-        ${escapeHtml(title)}
-      </div>
-
-      <div class="viewer-meta">
-        Uploaded:
-        ${escapeHtml(formatDate(item.date))}
-        •
-        ${isVideo(item) ? "Video" : "Photo"}
-      </div>
-
-      ${uploaderHtml}
-
-      <div class="viewer-actions">
-
-        <a
-          class="viewer-action"
-          href="${escapeHtml(item.url)}"
-          download="${escapeHtml(item.name || title)}"
-          target="_blank"
-          rel="noopener"
-        >
-          ⬇ Download
-        </a>
-
-        <button
-          class="viewer-action"
-          type="button"
-          data-share-url="${escapeHtml(item.url)}"
-          data-share-title="${escapeHtml(title)}"
-        >
-          ↗ Share
-        </button>
-
-        <button
-          class="viewer-action"
-          type="button"
-          onclick="closeMediaViewer()"
-        >
-          Close
-        </button>
-
-      </div>
-
-      <div
-        class="comments"
-        data-comment-key="${escapeHtml(commentKey)}"
-      >
-
-        <h3>💬 Comments</h3>
-
-        <div class="comment-form">
-
-          <textarea
-            class="comment-input"
-            rows="2"
-            placeholder="Write a comment..."
-          ></textarea>
-
-          <button
-            class="comment-add"
-            type="button"
-          >
-            Add
-          </button>
-
-        </div>
-
-        <div class="comment-list"></div>
-
-      </div>
-
-    </div>
-  `;
-}
-
-function setupViewerSlide(slide,item){
-
-  const share =
-    slide.querySelector(
-      "[data-share-url]"
-    );
-
-  if(share){
-
-    share.onclick = ()=>{
-
-      shareMedia(
-        share.dataset.shareUrl,
-        share.dataset.shareTitle
-      );
-    };
-  }
-
-  const profile =
-    slide.querySelector(
-      ".uploader-link"
-    );
-
-  if(profile){
-
-    profile.onclick = ()=>{
-
-      openUploaderProfile(
-        profile.dataset.profileKey
-      );
-    };
-  }
-
-  const comments =
-    slide.querySelector(".comments");
-
-  if(comments){
-
-    const key =
-      comments.dataset.commentKey;
-
-    loadCommentsInto(
-      comments,
-      key
-    );
-
-    const add =
-      comments.querySelector(".comment-add");
-
-    const input =
-      comments.querySelector(".comment-input");
-
-    add.onclick = ()=>{
-
-      addComment(
-        key,
-        input,
-        comments
-      );
-    };
-
-    input.addEventListener(
-      "keydown",
-      event=>{
-
-        if(
-          event.key === "Enter" &&
-          !event.shiftKey
-        ){
-
-          event.preventDefault();
-
-          addComment(
-            key,
-            input,
-            comments
-          );
-        }
-      }
-    );
-  }
-}
-
-function closeMediaViewer(){
-
-  document
-    .getElementById("mediaViewer")
-    .classList.add("hidden");
-
-  document.body.style.overflow = "";
-}
-
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-async function shareMedia(url,title){
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share({
-        title:title || "Ning Wei Media",
-        text:title || "Ning Wei Media",
-        url
-      });
-
-      return;
-    }
-
-    if(navigator.clipboard){
-
-      await navigator.clipboard.writeText(url);
-
-      alert("Media link copied.");
-
-      return;
-    }
-
-    window.prompt(
-      "Copy this media link:",
-      url
-    );
-
-  }catch(error){
-
-    if(error?.name === "AbortError"){
-      return;
-    }
-
-    try{
-
-      await navigator.clipboard.writeText(url);
-
-      alert("Media link copied.");
-
-    }catch{
-
-      window.prompt(
-        "Copy this media link:",
-        url
-      );
-    }
-  }
-}
-
-
-/* =========================================================
-   COMMENTS
-========================================================= */
-
-function getCommentKey(item){
-
-  return (
-    "ningwei-comments:" +
-    String(
-      item.id ||
-      item.url ||
-      item.path ||
-      item.name ||
-      ""
-    )
-  );
-}
-
-function readComments(key){
-
-  try{
-
-    const data =
-      localStorage.getItem(key);
-
-    const parsed =
-      data ? JSON.parse(data) : [];
-
-    return Array.isArray(parsed)
-      ? parsed
-      : [];
-
-  }catch{
-
+    return items;
+  } catch (err) {
+    console.error(err);
     return [];
   }
 }
 
-function saveComments(key,comments){
+/* =========================
+   RENDER
+========================= */
+function render(folder, items) {
+  const titleEl = document.getElementById("catTitle");
+  const subEl   = document.getElementById("catSub");
+  const listEl  = document.getElementById("list");
 
-  try{
+  const nice = niceFolderName(folder);
+  titleEl.textContent = nice || "Library";
+  subEl.textContent = items.length ? `\( {items.length} item \){items.length > 1 ? "s" : ""} found` : "";
 
-    localStorage.setItem(
-      key,
-      JSON.stringify(comments)
-    );
+  listEl.innerHTML = "";
 
-  }catch{}
-}
-
-function loadCommentsInto(box,key){
-
-  const list =
-    box.querySelector(".comment-list");
-
-  const comments =
-    readComments(key);
-
-  list.innerHTML = "";
-
-  if(!comments.length){
-
-    list.innerHTML =
-      `<div style="color:#777;font-size:10px">
-        No comments yet.
+  if (!items.length) {
+    listEl.innerHTML = `
+      <div class="status">
+        No media found in this category yet.<br><br>
+        You can upload new files from the Upload page.
       </div>`;
-
     return;
   }
 
-  comments.forEach(comment=>{
+  items.forEach(item => {
+    const div = document.createElement("a");
+    div.className = "item";
+    div.href = `media.html?url=\( {encodeURIComponent(item.url)}&name= \){encodeURIComponent(item.name)}`;
 
-    const element =
-      document.createElement("div");
+    let icon = "🎵";
+    if (isVideo(item.name)) icon = "🎬";
+    if (isImage(item.name)) icon = "🖼️";
 
-    element.className =
-      "comment-item";
-
-    element.innerHTML = `
-      <div>
-        ${escapeHtml(comment.text)}
-      </div>
-
-      <span class="comment-date">
-        ${escapeHtml(
-          formatDateTime(comment.date)
-        )}
-      </span>
-    `;
-
-    list.appendChild(element);
-  });
-}
-
-function addComment(key,input,box){
-
-  const text =
-    String(input.value || "").trim();
-
-  if(!text) return;
-
-  const comments =
-    readComments(key);
-
-  comments.push({
-    text,
-    date:new Date().toISOString()
-  });
-
-  saveComments(
-    key,
-    comments
-  );
-
-  input.value = "";
-
-  loadCommentsInto(
-    box,
-    key
-  );
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function openUploaderProfile(key){
-
-  if(!key) return;
-
-  const items =
-    ALL_ITEMS.filter(item=>
-      uploaderKey(item) === key
-    );
-
-  if(!items.length) return;
-
-  CURRENT_PROFILE_ITEMS =
-    items;
-
-  const first =
-    items.find(item=>
-      getUploaderInfo(item).name
-    ) || items[0];
-
-  const uploader =
-    getUploaderInfo(first);
-
-  document
-    .getElementById("profileName")
-    .textContent =
-      uploader.name || "Uploader";
-
-  const holder =
-    document.getElementById(
-      "profilePhotoHolder"
-    );
-
-  if(uploader.photo){
-
-    holder.innerHTML = `
-      <img
-        class="profile-photo"
-        src="${escapeHtml(uploader.photo)}"
-        alt=""
-      >
-    `;
-
-  }else{
-
-    holder.innerHTML = `
-      <div
-        class="profile-photo"
-        style="
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          font-size:28px;
-        "
-      >
-        👤
+    div.innerHTML = `
+      <div class="cover">${icon}</div>
+      <div class="info">
+        <div class="title">${cleanName(item.name)}</div>
+        <div class="meta">${item.path}</div>
       </div>
     `;
-  }
-
-  document
-    .getElementById("profileViewer")
-    .classList.remove("hidden");
-
-  document.body.style.overflow = "hidden";
-
-  showProfileMedia("photos");
-}
-
-function showProfileMedia(type){
-
-  document
-    .getElementById("profilePhotosTab")
-    .classList.toggle(
-      "active",
-      type === "photos"
-    );
-
-  document
-    .getElementById("profileVideosTab")
-    .classList.toggle(
-      "active",
-      type === "videos"
-    );
-
-  const grid =
-    document.getElementById(
-      "profileMediaGrid"
-    );
-
-  grid.innerHTML = "";
-
-  const items =
-    CURRENT_PROFILE_ITEMS.filter(
-      type === "photos"
-        ? isImage
-        : isVideo
-    );
-
-  if(!items.length){
-
-    grid.innerHTML =
-      `<div class="loading">
-        No ${type} uploaded by this profile yet.
-      </div>`;
-
-    return;
-  }
-
-  items.forEach(item=>{
-    grid.appendChild(
-      createMediaCard(item)
-    );
+    listEl.appendChild(div);
   });
 }
 
-function closeProfileViewer(){
+/* =========================
+   START
+========================= */
+async function start() {
+  const folder = getFolder();
 
-  document
-    .getElementById("profileViewer")
-    .classList.add("hidden");
-
-  document.body.style.overflow = "";
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function searchSite(query){
-
-  query =
-    String(query || "")
-      .trim()
-      .toLowerCase();
-
-  if(!query){
-
-    goHome();
-
+  if (!folder) {
+    document.getElementById("catTitle").textContent = "Library";
+    document.getElementById("list").innerHTML = `
+      <div class="status">
+        No category selected.<br>
+        Please go back and choose a music category.
+      </div>`;
     return;
   }
 
-  document
-    .getElementById("homeView")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("categoryView")
-    .classList.add("hidden");
-
-  const music =
-    document.getElementById("musicGrid");
-
-  const apps =
-    document.getElementById("appsGrid");
-
-  const software =
-    document.getElementById("softwareGrid");
-
-  const videos =
-    document.getElementById("videosGrid");
-
-  const photos =
-    document.getElementById("photosGrid");
-
-  const dj =
-    document.getElementById("djGrid");
-
-  music.innerHTML = "";
-  apps.innerHTML = "";
-  software.innerHTML = "";
-  videos.innerHTML = "";
-  photos.innerHTML = "";
-  dj.innerHTML = "";
-
-  const matchingMusic =
-    MUSIC_CATEGORIES.filter(category=>
-      displayName(category)
-        .toLowerCase()
-        .includes(query)
-    );
-
-  const matchingApps =
-    APPS_CATEGORIES.filter(category=>
-      displayName(category)
-        .toLowerCase()
-        .includes(query)
-    );
-
-  const matchingSoftware =
-    SOFTWARE_CATEGORIES.filter(category=>
-      displayName(category)
-        .toLowerCase()
-        .includes(query)
-    );
-
-  const matchingItems =
-    ALL_ITEMS.filter(item=>{
-
-      const uploader =
-        getUploaderInfo(item);
-
-      const text = [
-        item.name,
-        item.path,
-        item.category,
-        uploader.name
-      ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-      return text.includes(query);
-    });
-
-  matchingMusic
-    .slice(0,4)
-    .forEach(category=>{
-      music.appendChild(
-        createCategoryCard(category)
-      );
-    });
-
-  matchingApps
-    .slice(0,4)
-    .forEach(category=>{
-      apps.appendChild(
-        createCategoryCard(category)
-      );
-    });
-
-  matchingSoftware
-    .slice(0,4)
-    .forEach(category=>{
-      software.appendChild(
-        createCategoryCard(category)
-      );
-    });
-
-  const matchingVideos =
-    matchingItems
-      .filter(isVideo)
-      .slice(0,16);
-
-  const matchingPhotos =
-    matchingItems
-      .filter(isImage)
-      .slice(0,16);
-
-  const matchingDj =
-    matchingItems
-      .filter(isAudio)
-      .filter(isDjMix)
-      .slice(0,4);
-
-  if(matchingVideos.length){
-
-    matchingVideos.forEach(item=>{
-      videos.appendChild(
-        createMediaCard(item)
-      );
-    });
-
-  }else{
-
-    videos.innerHTML =
-      `<div class="loading">
-        No matching videos.
-      </div>`;
-  }
-
-  if(matchingPhotos.length){
-
-    matchingPhotos.forEach(item=>{
-      photos.appendChild(
-        createMediaCard(item)
-      );
-    });
-
-  }else{
-
-    photos.innerHTML =
-      `<div class="loading">
-        No matching photos.
-      </div>`;
-  }
-
-  if(matchingDj.length){
-
-    matchingDj.forEach(item=>{
-      dj.appendChild(
-        createAudioRow(item)
-      );
-    });
-
-  }else{
-
-    dj.innerHTML =
-      `<div class="loading">
-        No matching DJ mixes.
-      </div>`;
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  const items = await loadFromGithub(folder);
+  render(folder, items);
 }
 
-document
-  .getElementById("searchForm")
-  .addEventListener(
-    "submit",
-    event=>{
-
-      event.preventDefault();
-
-      searchSite(
-        document
-          .getElementById("searchInput")
-          .value
-      );
-    }
-  );
-
-
-/* =========================================================
-   LOAD EVERYTHING
-========================================================= */
-
-async function loadLibrary(){
-
-  try{
-
-    const [
-      github,
-      supabase
-    ] = await Promise.all([
-      loadGithub().catch(()=>[]),
-      loadSupabase().catch(()=>[])
-    ]);
-
-    ALL_ITEMS =
-      removeDuplicates([
-        ...github,
-        ...supabase
-      ]);
-
-    renderHome();
-
-  }catch(error){
-
-    console.error(error);
-
-    renderHome();
-  }
-}
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  ()=>{
-    renderHome();
-    loadLibrary();
-  }
-);
+start();
 </script>
 
 </body>
