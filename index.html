@@ -1,1343 +1,1673 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ning Wei Media</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-
 *{
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
+  box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f5f5f7;
-color:#111;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#eef9ff;
+  color:#123;
 }
 
-a{
--webkit-tap-highlight-color:transparent;
-font-family:inherit;
-text-decoration:none;
+header{
+  background:linear-gradient(135deg,#00aeea,#0077cc);
+  color:white;
+  padding:22px 15px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:30px;
+}
+
+header p{
+  margin:7px 0 0;
+  font-size:14px;
 }
 
 .container{
-width:100%;
-max-width:600px;
-margin:auto;
-min-height:100vh;
-padding-bottom:25px;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header{
-height:150px;
-position:relative;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-background:#000;
-}
-
-.header img{
-position:absolute;
-left:0;
-top:0;
-width:100%;
-height:150px;
-object-fit:cover;
-object-position:center 35%;
-}
-
-.header-content{
-position:relative;
-z-index:2;
-padding:8px 15px;
-text-shadow:
-0 2px 5px rgba(0,0,0,.9),
-0 1px 2px rgba(0,0,0,.9);
-}
-
-.header h1{
-margin:0;
-font-size:30px;
-font-weight:800;
-}
-
-.header p{
-margin:8px 0 0;
-font-size:15px;
-}
-
-/* =========================================================
-   SEARCH + UPLOAD
-   ========================================================= */
-
-.search-upload{
-padding:14px 18px 4px;
+  width:94%;
+  max-width:1100px;
+  margin:20px auto;
 }
 
 .search-box{
-display:flex;
-width:100%;
-background:#fff;
-border:1px solid #ddd;
-border-radius:12px;
-padding:5px;
-box-shadow:0 2px 7px rgba(0,0,0,.07);
+  display:flex;
+  gap:8px;
+  margin-bottom:20px;
 }
 
 .search-box input{
-flex:1;
-min-width:0;
-border:0;
-outline:none;
-padding:12px;
-font-size:14px;
-background:transparent;
+  flex:1;
+  padding:14px;
+  border:1px solid #b9dce9;
+  border-radius:10px;
+  font-size:16px;
 }
 
 .search-box button{
-border:0;
-border-radius:9px;
-padding:0 15px;
-background:#111;
-color:#fff;
-font-weight:700;
-cursor:pointer;
+  border:0;
+  border-radius:10px;
+  background:#008fd5;
+  color:white;
+  padding:0 18px;
+  font-weight:bold;
 }
 
 .upload-button{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-width:100%;
-min-height:66px;
-margin-top:10px;
-padding:10px 15px;
-border-radius:12px;
-background:#55bfe8;
-color:#fff;
-font-size:16px;
-font-weight:800;
-line-height:1.2;
-box-shadow:0 3px 9px rgba(0,0,0,.12);
+  display:block;
+  text-decoration:none;
+  background:linear-gradient(135deg,#00aeea,#0077cc);
+  color:white;
+  padding:18px;
+  border-radius:14px;
+  text-align:center;
+  margin-bottom:25px;
+  box-shadow:0 5px 15px rgba(0,120,190,.18);
+}
+
+.upload-button span:first-child{
+  display:block;
+  font-size:18px;
+  font-weight:bold;
 }
 
 .upload-button-description{
-display:block;
-margin-top:5px;
-font-size:11px;
-font-weight:600;
-line-height:1.2;
-opacity:.95;
+  display:block;
+  margin-top:6px;
+  font-size:13px;
+  opacity:.9;
 }
 
-/* =========================================================
-   SECTIONS
-   ========================================================= */
-
 .section{
-padding:16px 18px 5px;
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:20px;
+  box-shadow:0 3px 12px rgba(0,80,120,.08);
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
 }
 
 .section h2{
-margin:0 0 10px;
-font-size:22px;
-font-weight:800;
-line-height:1.2;
+  margin:0;
+  color:#0077b6;
+  font-size:21px;
 }
 
-/* =========================================================
-   CATEGORY GRID
-   ========================================================= */
-
-.category-grid{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:8px;
-}
-
-.category-card{
-display:flex;
-align-items:center;
-min-height:62px;
-padding:9px;
-background:#fff;
-border:1px solid #e2e2e2;
-border-radius:12px;
-color:#111;
-box-shadow:0 2px 7px rgba(0,0,0,.06);
-transition:transform .12s ease;
-}
-
-.category-card:active{
-transform:scale(.97);
-}
-
-.category-icon{
-width:40px;
-height:40px;
-min-width:40px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:10px;
-background:#111;
-color:#fff;
-font-size:20px;
-margin-right:9px;
-}
-
-.category-text{
-font-size:13px;
-font-weight:700;
-line-height:1.2;
-}
-
-/* =========================================================
-   MORE BUTTON
-   ========================================================= */
-
-.more-button{
-display:block;
-margin:16px auto 5px;
-padding:12px 34px;
-border:0;
-border-radius:12px;
-background:#111;
-color:#fff;
-font-size:17px;
-font-weight:800;
-cursor:pointer;
-}
-
-.more-button:active{
-transform:scale(.97);
-}
-
-/* =========================================================
-   HIDDEN CATEGORIES
-   ========================================================= */
-
-.more-categories{
-display:none;
-}
-
-.more-categories.show{
-display:block;
-}
-
-/* =========================================================
-   FEATURE CARD
-   ========================================================= */
-
-.feature-card{
-display:flex;
-align-items:center;
-width:100%;
-min-height:68px;
-padding:10px;
-background:#fff;
-border:1px solid #ddd;
-border-radius:12px;
-color:#111;
-box-shadow:0 2px 7px rgba(0,0,0,.06);
-}
-
-.feature-icon{
-width:45px;
-height:45px;
-min-width:45px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:11px;
-background:#111;
-color:#fff;
-font-size:22px;
-margin-right:11px;
-}
-
-.feature-title{
-font-size:15px;
-font-weight:800;
-}
-
-.feature-subtitle{
-display:block;
-font-size:10px;
-color:#777;
-margin-top:4px;
-}
-
-/* =========================================================
-   TRENDING APPS
-   ========================================================= */
-
-.trending{
-padding:20px 18px 5px;
-}
-
-.trending h2{
-margin:0 0 10px;
-font-size:24px;
-font-weight:800;
-}
-
-.apps{
-display:grid;
-grid-template-columns:repeat(5,minmax(0,1fr));
-gap:8px;
-}
-
-.app{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-min-height:86px;
-padding:8px 3px;
-background:#fff;
-border-radius:11px;
-text-decoration:none;
-color:#111;
-box-shadow:0 2px 7px rgba(0,0,0,.07);
-}
-
-.app-logo{
-width:43px;
-height:43px;
-object-fit:contain;
-display:block;
-margin-bottom:6px;
-}
-
-.app-name{
-font-size:9px;
-font-weight:700;
-text-align:center;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-width:100%;
-}
-
-/* =========================================================
-   FOLLOW US
-   ========================================================= */
-
-.social{
-padding:20px 18px 10px;
-}
-
-.social h2{
-margin:0 0 12px;
-font-size:24px;
-}
-
-.social-list{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-}
-
-.social a{
-width:42px;
-height:42px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#000;
-overflow:hidden;
-}
-
-.social img{
-width:25px;
-height:25px;
-object-fit:contain;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer{
-padding:20px 15px;
-text-align:center;
-font-size:12px;
-color:#777;
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media(max-width:420px){
-
-.header{
-height:150px;
-}
-
-.header img{
-height:150px;
-}
-
-.header h1{
-font-size:27px;
-}
-
-.header p{
-font-size:13px;
-}
-
-.section h2,
-.trending h2,
-.social h2{
-font-size:21px;
+.view-button{
+  display:inline-block;
+  border:0;
+  background:#008fd5;
+  color:white;
+  text-decoration:none;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
 }
 
 .category-grid{
-gap:6px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:10px;
 }
 
 .category-card{
-min-height:58px;
-padding:8px;
+  border:1px solid #ccebf5;
+  background:#f5fcff;
+  border-radius:12px;
+  padding:15px 10px;
+  text-align:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.category-card:hover{
+  background:#e5f7ff;
+  transform:translateY(-2px);
 }
 
 .category-icon{
-width:36px;
-height:36px;
-min-width:36px;
-font-size:18px;
-margin-right:7px;
+  font-size:28px;
+  margin-bottom:7px;
 }
 
-.category-text{
-font-size:11px;
+.category-name{
+  font-size:14px;
+  font-weight:bold;
 }
 
-.apps{
-grid-template-columns:repeat(5,minmax(0,1fr));
-gap:6px;
+.media-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:14px;
 }
 
-.app{
-min-height:80px;
-padding:7px 2px;
+.media-card{
+  border:1px solid #d7edf5;
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
 }
 
-.app-logo{
-width:36px;
-height:36px;
+.media-card img,
+.media-card video{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  display:block;
 }
 
-.app-name{
-font-size:8px;
+.media-info{
+  padding:10px;
 }
 
-.social-list{
-gap:10px;
+.media-title{
+  font-weight:bold;
+  font-size:14px;
+  word-break:break-word;
 }
 
-.social a{
-width:38px;
-height:38px;
+.media-category{
+  color:#6b8794;
+  font-size:12px;
+  margin-top:5px;
 }
 
-.social img{
-width:22px;
-height:22px;
+.download-button{
+  display:block;
+  text-align:center;
+  margin-top:9px;
+  padding:9px;
+  background:#008fd5;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
 }
 
+.category-view-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
 }
 
+.category-subtitle{
+  color:#607d8b;
+  margin-bottom:15px;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.empty{
+  text-align:center;
+  color:#78909c;
+  padding:25px 10px;
+}
+
+footer{
+  text-align:center;
+  padding:30px 15px;
+  color:#607d8b;
+  font-size:13px;
+}
+
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#607d8b;
+}
+
+@media(max-width:600px){
+  header h1{
+    font-size:25px;
+  }
+
+  .section-header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .category-view-top{
+    flex-direction:column;
+  }
+
+  .view-button{
+    text-align:center;
+  }
+}
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-
-<!-- ======================================================
-     HEADER
-     ====================================================== -->
-
-<header class="header">
-
-<img
-src="ning-wei.png"
-alt="Ning Wei Media"
->
-
-<div class="header-content">
-
-<h1>Ning Wei Media</h1>
-
-<p>
-Music • Videos • Photos • Apps • Software
-</p>
-
-</div>
-
+<header>
+  <h1>Ning Wei Media</h1>
+  <p>Music • Videos • Photos • Apps • Software</p>
 </header>
 
+<main class="container">
+
+  <form class="search-box" onsubmit="searchSite(event)">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search music, videos, photos, apps..."
+    >
+    <button type="submit">Search</button>
+  </form>
+
+  <!-- GENERAL MUSIC UPLOAD -->
+  <a class="upload-button" href="github-upload.html">
+    <span>🎵 Upload Your Music From Here</span>
+    <span class="upload-button-description">
+      Artists • DJs • Producers
+    </span>
+  </a>
+
+  <!-- HOME -->
+  <section id="homeView">
+
+    <!-- MUSIC -->
+    <div class="section">
+      <div class="section-header">
+        <h2>🎵 Music Categories</h2>
+        <button class="view-button" onclick="showDirectory('music')">
+          View All Music
+        </button>
+      </div>
+
+      <div id="musicCategories" class="category-grid"></div>
+    </div>
+
+    <!-- VIDEOS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>🎬 Trending Videos</h2>
+        <button class="view-button" onclick="showAllMedia('videos')">
+          View All
+        </button>
+      </div>
+
+      <div id="videos" class="media-grid">
+        <div class="loading">Loading videos...</div>
+      </div>
+    </div>
+
+    <!-- PHOTOS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>📸 Trending Photos & Jokes</h2>
+        <button class="view-button" onclick="showAllMedia('photos')">
+          View All
+        </button>
+      </div>
+
+      <div id="photos" class="media-grid">
+        <div class="loading">Loading photos...</div>
+      </div>
+    </div>
+
+    <!-- APPS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>📱 Apps</h2>
+        <button class="view-button" onclick="showDirectory('apps')">
+          View All Apps
+        </button>
+      </div>
+
+      <div id="appsCategories" class="category-grid"></div>
+    </div>
+
+    <!-- SOFTWARE -->
+    <div class="section">
+      <div class="section-header">
+        <h2>💻 Software</h2>
+        <button class="view-button" onclick="showDirectory('software')">
+          View All Software
+        </button>
+      </div>
+
+      <div id="softwareCategories" class="category-grid"></div>
+    </div>
+
+    <!-- DJ MIXES -->
+    <div class="section">
+      <div class="section-header">
+        <h2>🎧 DJ Mixes</h2>
+        <button class="view-button" onclick="showAllDjMixes()">
+          View All
+        </button>
+      </div>
+
+      <div id="djMixes" class="media-grid">
+        <div class="loading">Loading DJ mixes...</div>
+      </div>
+    </div>
+
+    <!-- TRENDING APPS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>🔥 Trending Apps</h2>
+      </div>
 
-<!-- ======================================================
-     SEARCH + UPLOAD
-     ====================================================== -->
+      <div id="trendingApps" class="empty">
+        Apps will appear here when uploaded.
+      </div>
+    </div>
 
-<section class="search-upload">
+    <!-- FOLLOW -->
+    <div class="section">
+      <div class="section-header">
+        <h2>📲 Follow Us</h2>
+      </div>
 
-<form
-class="search-box"
-action="search.html"
-method="get"
->
+      <div style="text-align:center;padding:10px;">
+        Stay connected with Ning Wei Media.
+      </div>
+    </div>
 
-<input
-type="search"
-name="q"
-placeholder="Search Ning Wei Media..."
-autocomplete="off"
->
+  </section>
 
-<button type="submit">
-Search
-</button>
+  <!-- CATEGORY VIEW -->
+  <section id="categoryView" class="hidden">
 
-</form>
+    <div class="category-view-top">
 
+      <button class="view-button" onclick="goHome()">
+        ← Back Home
+      </button>
 
-<a
-class="upload-button"
-href="upload.html"
->
+      <!-- IMPORTANT:
+           This button is changed automatically to the EXACT folder.
+      -->
+      <a
+        id="categoryUploadBtn"
+        class="view-button"
+        href="#"
+      >
+        ⬆ Upload Directly Here
+      </a>
 
-<span>
-🎵 Upload Your Music From Here
-</span>
+    </div>
 
-<span class="upload-button-description">
-Artists • DJs • Producers
-</span>
+    <h2 id="categoryTitle"></h2>
 
-</a>
+    <div id="categorySubtitle" class="category-subtitle"></div>
 
-</section>
+    <div id="categoryResults" class="media-grid"></div>
 
+  </section>
 
-<!-- ======================================================
-     TOP MUSIC
-     ====================================================== -->
+</main>
 
-<section class="section">
-
-<h2>
-🎵 Top Music Charts
-</h2>
-
-<div class="category-grid">
-
-<a
-class="category-card"
-href="library.html?folder=Top-Ugandan-Music"
->
-
-<span class="category-icon">🇺🇬</span>
-
-<span class="category-text">
-Top Ugandan Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Afrobeat-Music"
->
-
-<span class="category-icon">🔥</span>
-
-<span class="category-text">
-Afrobeat Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Old-School-R-B"
->
-
-<span class="category-icon">🎤</span>
-
-<span class="category-text">
-Old School R&amp;B
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Western-Music"
->
-
-<span class="category-icon">🌎</span>
-
-<span class="category-text">
-Western Music
-</span>
-
-</a>
-
-</div>
-
-
-<button
-class="more-button"
-type="button"
-onclick="toggleMusic()"
-id="musicMoreButton"
->
-
-More
-
-</button>
-
-
-<div
-class="more-categories"
-id="moreMusicCategories"
->
-
-<div class="category-grid">
-
-<a
-class="category-card"
-href="library.html?folder=Amapiano-Music"
->
-
-<span class="category-icon">🎵</span>
-
-<span class="category-text">
-Amapiano Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Dancehall-Music"
->
-
-<span class="category-icon">🎤</span>
-
-<span class="category-text">
-Dancehall Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=R-B-Music"
->
-
-<span class="category-icon">❤️</span>
-
-<span class="category-text">
-R&amp;B Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Reggae"
->
-
-<span class="category-icon">🌴</span>
-
-<span class="category-text">
-Reggae
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Old-South-African-Music"
->
-
-<span class="category-icon">🇿🇦</span>
-
-<span class="category-text">
-Old South African Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Love-Songs"
->
-
-<span class="category-icon">💖</span>
-
-<span class="category-text">
-Love Songs
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Oldies-Kikadde-Music"
->
-
-<span class="category-icon">🎶</span>
-
-<span class="category-text">
-Oldies / Kikadde Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Kadongo-Kamu"
->
-
-<span class="category-icon">🎸</span>
-
-<span class="category-text">
-Kadongo Kamu
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=High-School-Music"
->
-
-<span class="category-icon">🏫</span>
-
-<span class="category-text">
-High School Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Lingala-Music"
->
-
-<span class="category-icon">🎼</span>
-
-<span class="category-text">
-Lingala Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Instrumental"
->
-
-<span class="category-icon">🎹</span>
-
-<span class="category-text">
-Instrumental
-</span>
-
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     TRENDING VIDEOS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-🎬 Trending Videos
-</h2>
-
-<a
-class="feature-card"
-href="library.html?folder=Trending-Videos"
->
-
-<span class="feature-icon">
-🎬
-</span>
-
-<span>
-
-<span class="feature-title">
-Trending Videos
-</span>
-
-<span class="feature-subtitle">
-Latest trending videos
-</span>
-
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
-     TRENDING PHOTOS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-📸 Trending Photos &amp; Jokes
-</h2>
-
-<a
-class="feature-card"
-href="library.html?folder=Trending-Photos-Jokes"
->
-
-<span class="feature-icon">
-📸
-</span>
-
-<span>
-
-<span class="feature-title">
-Trending Photos &amp; Jokes
-</span>
-
-<span class="feature-subtitle">
-Latest photos, jokes and pictures
-</span>
-
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
-     APPS
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-📱 Apps
-</h2>
-
-<div class="category-grid">
-
-<a
-class="category-card"
-href="library.html?folder=Premium-Unlocked-Apps"
->
-
-<span class="category-icon">📱</span>
-
-<span class="category-text">
-Premium Unlocked Apps
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Free-Unlimited-Internet-VPNs"
->
-
-<span class="category-icon">🌐</span>
-
-<span class="category-text">
-Free Unlimited Internet VPNs
-</span>
-
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     SOFTWARE
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-💻 Software
-</h2>
-
-<div class="category-grid">
-
-<a
-class="category-card"
-href="library.html?folder=Virtual-DJ-Software"
->
-
-<span class="category-icon">🎧</span>
-
-<span class="category-text">
-Virtual DJ Software
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Windows-Software"
->
-
-<span class="category-icon">🪟</span>
-
-<span class="category-text">
-Windows Software
-</span>
-
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     DJ MIXES
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-🎧 DJ Mixes
-</h2>
-
-<a
-class="feature-card"
-href="library.html?folder=DJ-Mixes"
->
-
-<span class="feature-icon">
-🎧
-</span>
-
-<span>
-
-<span class="feature-title">
-DJ Mixes
-</span>
-
-<span class="feature-subtitle">
-Mixtapes • Mappings • Sound Effects • Virtual DJ
-</span>
-
-</span>
-
-</a>
-
-</section>
-
-
-<!-- ======================================================
-     OLD IS GOLD
-     ====================================================== -->
-
-<section class="section">
-
-<h2>
-🏆 Old Is Gold
-</h2>
-
-<div class="category-grid">
-
-<a
-class="category-card"
-href="library.html?folder=Old-is-Gold-Ugandan"
->
-
-<span class="category-icon">🇺🇬</span>
-
-<span class="category-text">
-Ugandan Music
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Old-is-Gold-Amapiano"
->
-
-<span class="category-icon">🎵</span>
-
-<span class="category-text">
-Amapiano
-</span>
-
-</a>
-
-
-<a
-class="category-card"
-href="library.html?folder=Old-is-Gold-South-African"
->
-
-<span class="category-icon">🇿🇦</span>
-
-<span class="category-text">
-South African Music
-</span>
-
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     TRENDING APPS
-     ====================================================== -->
-
-<section class="trending">
-
-<h2>
-Trending Apps
-</h2>
-
-<div class="apps">
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/youtube/FF0000"
-alt="YouTube"
->
-
-<span class="app-name">
-YouTube
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/whatsapp/25D366"
-alt="WhatsApp"
->
-
-<span class="app-name">
-WhatsApp
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/facebook/1877F2"
-alt="Facebook"
->
-
-<span class="app-name">
-Facebook
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/instagram/E4405F"
-alt="Instagram"
->
-
-<span class="app-name">
-Instagram
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/x/000000"
-alt="X"
->
-
-<span class="app-name">
-X
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/tiktok/000000"
-alt="TikTok"
->
-
-<span class="app-name">
-TikTok
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/telegram/26A5E4"
-alt="Telegram"
->
-
-<span class="app-name">
-Telegram
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/pinterest/BD081C"
-alt="Pinterest"
->
-
-<span class="app-name">
-Pinterest
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/snapchat/FFFC00"
-alt="Snapchat"
->
-
-<span class="app-name">
-Snapchat
-</span>
-
-</a>
-
-
-<a
-class="app"
-href="library.html?category=apps"
->
-
-<img
-class="app-logo"
-src="https://cdn.simpleicons.org/spotify/1DB954"
-alt="Spotify"
->
-
-<span class="app-name">
-Spotify
-</span>
-
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     FOLLOW US
-     ====================================================== -->
-
-<section class="social">
-
-<h2>
-Follow Us
-</h2>
-
-<div class="social-list">
-
-<a href="#" aria-label="Instagram">
-<img
-src="https://cdn.simpleicons.org/instagram/FFFFFF"
-alt="Instagram"
->
-</a>
-
-<a href="#" aria-label="Facebook">
-<img
-src="https://cdn.simpleicons.org/facebook/FFFFFF"
-alt="Facebook"
->
-</a>
-
-<a href="#" aria-label="WhatsApp">
-<img
-src="https://cdn.simpleicons.org/whatsapp/FFFFFF"
-alt="WhatsApp"
->
-</a>
-
-<a href="#" aria-label="YouTube">
-<img
-src="https://cdn.simpleicons.org/youtube/FFFFFF"
-alt="YouTube"
->
-</a>
-
-<a href="#" aria-label="X">
-<img
-src="https://cdn.simpleicons.org/x/FFFFFF"
-alt="X"
->
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ======================================================
-     FOOTER
-     ====================================================== -->
-
-<footer class="footer">
-
-© Ning Wei Media
-
+<footer>
+  © Ning Wei Media
 </footer>
-
-</div>
 
 
 <script>
 
-function toggleMusic(){
+/* =========================================================
+   SUPABASE
+   ========================================================= */
 
-const more = document.getElementById("moreMusicCategories");
+const SUPABASE_URL =
+  "https://btksyizkcpzubtextuce.supabase.co";
 
-const button = document.getElementById("musicMoreButton");
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoiYnRrc3lpemtjcHp1YnRleHR1Y2UiLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
-if(more.classList.contains("show")){
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
-more.classList.remove("show");
 
-button.textContent = "More";
+/* =========================================================
+   GITHUB
+   ========================================================= */
 
-}else{
+const GITHUB_OWNER = "Ningwei2567";
+const GITHUB_REPO = "Ning-wei-1";
+const GITHUB_BRANCH = "main";
 
-more.classList.add("show");
 
-button.textContent = "Less";
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
 
+const MUSIC_CATEGORIES = [
+  "Top-Ugandan-Music",
+  "Amapiano-Music",
+  "Afrobeat-Music",
+  "Dancehall-Music",
+  "Old-School-R&B",
+  "Reggae",
+  "Old-South-African-Music",
+  "Western-Music",
+  "Love-Songs",
+  "Oldies-Kikadde-Music",
+  "Kadongo-Kamu",
+  "High-School-Music",
+  "Lingala-Music",
+  "Instrumental"
+];
+
+const APPS_CATEGORIES = [
+  "Premium-Unlocked-Apps",
+  "Free-Unlimited-Internet-VPNs",
+  "Social-Media",
+  "Messaging",
+  "Music-Audio",
+  "Video-Streaming",
+  "Photo-Camera",
+  "Video-Editing",
+  "Music-DJ",
+  "Games",
+  "Education",
+  "Business-Work",
+  "Finance-Banking",
+  "Shopping",
+  "Travel-Transport",
+  "News",
+  "Sports",
+  "Health-Fitness",
+  "Tools-Utilities",
+  "File-Management",
+  "Security"
+];
+
+const SOFTWARE_CATEGORIES = [
+  "Virtual-DJ-Software",
+  "Windows-Software",
+  "Video-Editing-Software",
+  "Audio-Editing",
+  "Photo-Editing",
+  "Graphics-Design",
+  "Mac-Software",
+  "Linux-Software",
+  "Android-Software",
+  "Office-Productivity",
+  "Internet-Browsers",
+  "Security-Antivirus",
+  "Software-File-Management",
+  "Media-Players",
+  "Download-Managers",
+  "Programming-Development",
+  "Utilities-Tools"
+];
+
+
+/* =========================================================
+   DISPLAY NAMES
+   ========================================================= */
+
+const DISPLAY_NAMES = {
+
+  "Top-Ugandan-Music":"Top Ugandan Music",
+  "Amapiano-Music":"Amapiano Music",
+  "Afrobeat-Music":"Afrobeat Music",
+  "Dancehall-Music":"Dancehall Music",
+  "Old-School-R&B":"Old School R&B",
+  "Reggae":"Reggae",
+  "Old-South-African-Music":"Old South African Music",
+  "Western-Music":"Western Music",
+  "Love-Songs":"Love Songs",
+  "Oldies-Kikadde-Music":"Oldies Kikadde Music",
+  "Kadongo-Kamu":"Kadongo Kamu",
+  "High-School-Music":"High School Music",
+  "Lingala-Music":"Lingala Music",
+  "Instrumental":"Instrumental",
+
+  "Premium-Unlocked-Apps":"Premium Unlocked Apps",
+  "Free-Unlimited-Internet-VPNs":"Free Unlimited Internet VPNs",
+  "Social-Media":"Social Media",
+  "Messaging":"Messaging",
+  "Music-Audio":"Music & Audio",
+  "Video-Streaming":"Video Streaming",
+  "Photo-Camera":"Photo & Camera",
+  "Video-Editing":"Video Editing",
+  "Music-DJ":"Music & DJ",
+  "Games":"Games",
+  "Education":"Education",
+  "Business-Work":"Business & Work",
+  "Finance-Banking":"Finance & Banking",
+  "Shopping":"Shopping",
+  "Travel-Transport":"Travel & Transport",
+  "News":"News",
+  "Sports":"Sports",
+  "Health-Fitness":"Health & Fitness",
+  "Tools-Utilities":"Tools & Utilities",
+  "File-Management":"File Management",
+  "Security":"Security",
+
+  "Virtual-DJ-Software":"Virtual DJ Software",
+  "Windows-Software":"Windows Software",
+  "Video-Editing-Software":"Video Editing Software",
+  "Audio-Editing":"Audio Editing",
+  "Photo-Editing":"Photo Editing",
+  "Graphics-Design":"Graphics Design",
+  "Mac-Software":"Mac Software",
+  "Linux-Software":"Linux Software",
+  "Android-Software":"Android Software",
+  "Office-Productivity":"Office Productivity",
+  "Internet-Browsers":"Internet Browsers",
+  "Security-Antivirus":"Security & Antivirus",
+  "Software-File-Management":"Software File Management",
+  "Media-Players":"Media Players",
+  "Download-Managers":"Download Managers",
+  "Programming-Development":"Programming & Development",
+  "Utilities-Tools":"Utilities & Tools"
+};
+
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+const CATEGORY_ICONS = {
+
+  "Top-Ugandan-Music":"🇺🇬",
+  "Amapiano-Music":"🎹",
+  "Afrobeat-Music":"🥁",
+  "Dancehall-Music":"🔥",
+  "Old-School-R&B":"🎙️",
+  "Reggae":"🌴",
+  "Old-South-African-Music":"🎶",
+  "Western-Music":"🌎",
+  "Love-Songs":"❤️",
+  "Oldies-Kikadde-Music":"📻",
+  "Kadongo-Kamu":"🎸",
+  "High-School-Music":"🎒",
+  "Lingala-Music":"🎵",
+  "Instrumental":"🎼",
+
+  "Premium-Unlocked-Apps":"⭐",
+  "Free-Unlimited-Internet-VPNs":"🌐",
+  "Social-Media":"📱",
+  "Messaging":"💬",
+  "Music-Audio":"🎵",
+  "Video-Streaming":"▶️",
+  "Photo-Camera":"📷",
+  "Video-Editing":"🎬",
+  "Music-DJ":"🎧",
+  "Games":"🎮",
+  "Education":"📚",
+  "Business-Work":"💼",
+  "Finance-Banking":"💰",
+  "Shopping":"🛒",
+  "Travel-Transport":"🚗",
+  "News":"📰",
+  "Sports":"⚽",
+  "Health-Fitness":"💪",
+  "Tools-Utilities":"🛠️",
+  "File-Management":"📁",
+  "Security":"🔐",
+
+  "Virtual-DJ-Software":"🎧",
+  "Windows-Software":"🪟",
+  "Video-Editing-Software":"🎬",
+  "Audio-Editing":"🎙️",
+  "Photo-Editing":"🖼️",
+  "Graphics-Design":"🎨",
+  "Mac-Software":"🍎",
+  "Linux-Software":"🐧",
+  "Android-Software":"🤖",
+  "Office-Productivity":"📄",
+  "Internet-Browsers":"🌐",
+  "Security-Antivirus":"🛡️",
+  "Software-File-Management":"📂",
+  "Media-Players":"▶️",
+  "Download-Managers":"⬇️",
+  "Programming-Development":"💻",
+  "Utilities-Tools":"⚙️"
+};
+
+
+/* =========================================================
+   EXACT UPLOAD DESTINATION
+   =========================================================
+   THIS IS THE IMPORTANT PART.
+
+   Music:
+   media/songs/Amapiano-Music
+
+   Apps:
+   media/apps/Premium-Unlocked-Apps
+
+   Software:
+   media/software/Video-Editing-Software
+   ========================================================= */
+
+function categoryUploadPath(category){
+
+  if(MUSIC_CATEGORIES.includes(category)){
+    return "media/songs/" + category;
+  }
+
+  if(APPS_CATEGORIES.includes(category)){
+    return "media/apps/" + category;
+  }
+
+  if(SOFTWARE_CATEGORIES.includes(category)){
+    return "media/software/" + category;
+  }
+
+  return "";
 }
 
+
+/* =========================================================
+   BUILD CATEGORY CARDS
+   ========================================================= */
+
+function buildCategories(){
+
+  const musicBox =
+    document.getElementById("musicCategories");
+
+  const appsBox =
+    document.getElementById("appsCategories");
+
+  const softwareBox =
+    document.getElementById("softwareCategories");
+
+
+  musicBox.innerHTML =
+    MUSIC_CATEGORIES
+      .map(categoryCard)
+      .join("");
+
+  appsBox.innerHTML =
+    APPS_CATEGORIES
+      .map(categoryCard)
+      .join("");
+
+  softwareBox.innerHTML =
+    SOFTWARE_CATEGORIES
+      .map(categoryCard)
+      .join("");
 }
+
+
+function categoryCard(category){
+
+  const name =
+    DISPLAY_NAMES[category] || category;
+
+  const icon =
+    CATEGORY_ICONS[category] || "📁";
+
+  return `
+    <div
+      class="category-card"
+      onclick="showCategory('${escapeJs(category)}')"
+    >
+      <div class="category-icon">${icon}</div>
+      <div class="category-name">${escapeHtml(name)}</div>
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   SHOW CATEGORY
+   ========================================================= */
+
+async function showCategory(category){
+
+  document
+    .getElementById("homeView")
+    .classList.add("hidden");
+
+  document
+    .getElementById("categoryView")
+    .classList.remove("hidden");
+
+
+  const title =
+    DISPLAY_NAMES[category] || category;
+
+  document.getElementById("categoryTitle").textContent =
+    title;
+
+  document.getElementById("categorySubtitle").textContent =
+    "Files in " + title;
+
+
+  /*
+    EXACT FOLDER UPLOAD
+
+    Instead of:
+
+    github-upload.html?category=Amapiano-Music
+
+    we now send:
+
+    github-upload.html?path=media%2Fsongs%2FAmapiano-Music
+  */
+
+  const uploadBtn =
+    document.getElementById("categoryUploadBtn");
+
+  const uploadPath =
+    categoryUploadPath(category);
+
+
+  if(uploadPath){
+
+    uploadBtn.href =
+      "github-upload.html?path=" +
+      encodeURIComponent(uploadPath);
+
+    uploadBtn.classList.remove("hidden");
+
+  }else{
+
+    uploadBtn.href = "#";
+    uploadBtn.classList.add("hidden");
+
+  }
+
+
+  const results =
+    document.getElementById("categoryResults");
+
+  results.innerHTML =
+    `<div class="loading">Loading...</div>`;
+
+
+  const allItems =
+    await loadAllItems();
+
+  const filtered =
+    allItems.filter(item =>
+      hasCategory(item, category)
+    );
+
+
+  if(!filtered.length){
+
+    results.innerHTML = `
+      <div class="empty">
+        No files found in this category yet.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    filtered.map(mediaCard).join("");
+}
+
+
+/* =========================================================
+   DIRECTORY VIEW
+   ========================================================= */
+
+function showDirectory(type){
+
+  document
+    .getElementById("homeView")
+    .classList.add("hidden");
+
+  document
+    .getElementById("categoryView")
+    .classList.remove("hidden");
+
+
+  const uploadBtn =
+    document.getElementById("categoryUploadBtn");
+
+  /*
+    There is no single exact folder when viewing
+    ALL music/apps/software.
+
+    Therefore we hide the direct upload button.
+  */
+
+  uploadBtn.classList.add("hidden");
+
+
+  let categories = [];
+
+  if(type === "music"){
+    categories = MUSIC_CATEGORIES;
+  }
+
+  if(type === "apps"){
+    categories = APPS_CATEGORIES;
+  }
+
+  if(type === "software"){
+    categories = SOFTWARE_CATEGORIES;
+  }
+
+
+  document.getElementById("categoryTitle").textContent =
+    "All " +
+    type.charAt(0).toUpperCase() +
+    type.slice(1);
+
+
+  document.getElementById("categorySubtitle").textContent =
+    "Choose a category to open its folder and upload directly there.";
+
+
+  const results =
+    document.getElementById("categoryResults");
+
+
+  results.className = "category-grid";
+
+  results.innerHTML =
+    categories.map(categoryCard).join("");
+}
+
+
+/* =========================================================
+   ALL VIDEOS / PHOTOS
+   ========================================================= */
+
+async function showAllMedia(type){
+
+  document
+    .getElementById("homeView")
+    .classList.add("hidden");
+
+  document
+    .getElementById("categoryView")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("categoryUploadBtn")
+    .classList.add("hidden");
+
+
+  document.getElementById("categoryTitle").textContent =
+    type === "videos"
+      ? "All Videos"
+      : "All Photos";
+
+
+  document.getElementById("categorySubtitle").textContent =
+    "All uploaded " + type;
+
+
+  const results =
+    document.getElementById("categoryResults");
+
+  results.className = "media-grid";
+
+  results.innerHTML =
+    `<div class="loading">Loading...</div>`;
+
+
+  const items =
+    await loadAllItems();
+
+
+  const filtered =
+    items.filter(item => item.type === type);
+
+
+  if(!filtered.length){
+
+    results.innerHTML = `
+      <div class="empty">
+        No ${type} uploaded yet.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    filtered.map(mediaCard).join("");
+}
+
+
+/* =========================================================
+   ALL DJ MIXES
+   ========================================================= */
+
+async function showAllDjMixes(){
+
+  document
+    .getElementById("homeView")
+    .classList.add("hidden");
+
+  document
+    .getElementById("categoryView")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("categoryUploadBtn")
+    .classList.add("hidden");
+
+
+  document.getElementById("categoryTitle").textContent =
+    "All DJ Mixes";
+
+
+  document.getElementById("categorySubtitle").textContent =
+    "All uploaded DJ mixes";
+
+
+  const results =
+    document.getElementById("categoryResults");
+
+  results.className = "media-grid";
+
+  results.innerHTML =
+    `<div class="loading">Loading...</div>`;
+
+
+  const items =
+    await loadAllItems();
+
+
+  const filtered =
+    items.filter(item => item.type === "dj-mixes");
+
+
+  if(!filtered.length){
+
+    results.innerHTML = `
+      <div class="empty">
+        No DJ mixes uploaded yet.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    filtered.map(mediaCard).join("");
+}
+
+
+/* =========================================================
+   BACK HOME
+   ========================================================= */
+
+function goHome(){
+
+  document
+    .getElementById("categoryView")
+    .classList.add("hidden");
+
+  document
+    .getElementById("homeView")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("categoryUploadBtn")
+    .classList.remove("hidden");
+}
+
+
+/* =========================================================
+   LOAD EVERYTHING
+   ========================================================= */
+
+async function loadAllItems(){
+
+  const items = [];
+
+
+  /* -------------------------
+     GITHUB MEDIA
+     ------------------------- */
+
+  const githubFolders = [
+    {
+      folder:"media/videos",
+      type:"videos"
+    },
+    {
+      folder:"media/photos",
+      type:"photos"
+    },
+    {
+      folder:"media/songs",
+      type:"music"
+    },
+    {
+      folder:"media/dj-mixes",
+      type:"dj-mixes"
+    }
+  ];
+
+
+  for(const source of githubFolders){
+
+    try{
+
+      const url =
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${source.folder}?ref=${GITHUB_BRANCH}`;
+
+
+      const response =
+        await fetch(url);
+
+
+      if(!response.ok) continue;
+
+
+      const files =
+        await response.json();
+
+
+      if(!Array.isArray(files)) continue;
+
+
+      files
+        .filter(file => file.type === "file")
+        .forEach(file => {
+
+          items.push({
+
+            title:file.name,
+
+            name:file.name,
+
+            url:
+              `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${file.path}`,
+
+            path:file.path,
+
+            type:source.type,
+
+            category:file.path
+
+          });
+
+        });
+
+    }catch(error){
+
+      console.log(
+        "GitHub loading error:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* -------------------------
+     SUPABASE SUBMISSIONS
+     ------------------------- */
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("artist_submissions")
+        .select("*");
+
+
+    if(!error && Array.isArray(data)){
+
+      data.forEach(row => {
+
+        const item =
+          convertSupabaseItem(row);
+
+        if(item){
+          items.push(item);
+        }
+
+      });
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Supabase loading error:",
+      error
+    );
+
+  }
+
+
+  return items;
+}
+
+
+/* =========================================================
+   SUPABASE ITEM
+   ========================================================= */
+
+function convertSupabaseItem(row){
+
+  const url =
+    row.url ||
+    row.file_url ||
+    row.public_url ||
+    row.storage_url ||
+    row.media_url ||
+    "";
+
+
+  if(!url){
+    return null;
+  }
+
+
+  const path =
+    row.path ||
+    row.file_path ||
+    row.category ||
+    "";
+
+
+  const name =
+    row.title ||
+    row.name ||
+    row.file_name ||
+    "Untitled";
+
+
+  let type =
+    detectType(
+      row.file_type ||
+      row.mime_type ||
+      url
+    );
+
+
+  return {
+
+    title:name,
+
+    name:name,
+
+    url:url,
+
+    path:path,
+
+    type:type,
+
+    category:
+      row.category ||
+      path ||
+      ""
+
+  };
+}
+
+
+/* =========================================================
+   DETECT TYPE
+   ========================================================= */
+
+function detectType(value){
+
+  const text =
+    String(value || "")
+      .toLowerCase();
+
+
+  if(
+    text.includes("video") ||
+    /\.(mp4|webm|mov|mkv|avi)$/i.test(text)
+  ){
+    return "videos";
+  }
+
+
+  if(
+    text.includes("image") ||
+    /\.(jpg|jpeg|png|gif|webp)$/i.test(text)
+  ){
+    return "photos";
+  }
+
+
+  if(
+    /\.(apk|apks|xapk)$/i.test(text)
+  ){
+    return "apps";
+  }
+
+
+  if(
+    /\.(mp3|wav|m4a|aac|flac|ogg)$/i.test(text)
+  ){
+    return "music";
+  }
+
+
+  return "software";
+}
+
+
+/* =========================================================
+   CATEGORY MATCH
+   ========================================================= */
+
+function hasCategory(item, category){
+
+  const wanted =
+    String(category)
+      .toLowerCase();
+
+
+  const values = [
+
+    item.category,
+    item.path,
+    item.title,
+    item.name
+
+  ];
+
+
+  return values.some(value => {
+
+    if(!value) return false;
+
+    return String(value)
+      .toLowerCase()
+      .includes(wanted);
+
+  });
+}
+
+
+/* =========================================================
+   MEDIA CARD
+   ========================================================= */
+
+function mediaCard(item){
+
+  const safeTitle =
+    escapeHtml(
+      item.title ||
+      item.name ||
+      "Untitled"
+    );
+
+
+  let media = "";
+
+
+  if(item.type === "videos"){
+
+    media = `
+      <video
+        src="${escapeAttr(item.url)}"
+        controls
+        preload="metadata"
+      ></video>
+    `;
+
+  }else if(item.type === "photos"){
+
+    media = `
+      <img
+        src="${escapeAttr(item.url)}"
+        alt="${safeTitle}"
+        loading="lazy"
+      >
+    `;
+
+  }else{
+
+    media = `
+      <div style="
+        height:170px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#eaf8ff;
+        font-size:55px;
+      ">
+        ${item.type === "music" ? "🎵" : "📁"}
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div class="media-card">
+
+      ${media}
+
+      <div class="media-info">
+
+        <div class="media-title">
+          ${safeTitle}
+        </div>
+
+        <div class="media-category">
+          ${escapeHtml(
+            item.category ||
+            item.type ||
+            ""
+          )}
+        </div>
+
+        <a
+          class="download-button"
+          href="${escapeAttr(item.url)}"
+          download
+          target="_blank"
+          rel="noopener"
+        >
+          ⬇ Download
+        </a>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+async function searchSite(event){
+
+  event.preventDefault();
+
+
+  const query =
+    document.getElementById("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if(!query){
+    return;
+  }
+
+
+  document
+    .getElementById("homeView")
+    .classList.add("hidden");
+
+  document
+    .getElementById("categoryView")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("categoryUploadBtn")
+    .classList.add("hidden");
+
+
+  document.getElementById("categoryTitle").textContent =
+    "Search Results";
+
+
+  document.getElementById("categorySubtitle").textContent =
+    "Results for: " + query;
+
+
+  const results =
+    document.getElementById("categoryResults");
+
+  results.className = "media-grid";
+
+  results.innerHTML =
+    `<div class="loading">Searching...</div>`;
+
+
+  const items =
+    await loadAllItems();
+
+
+  const filtered =
+    items.filter(item => {
+
+      const text = [
+
+        item.title,
+        item.name,
+        item.category,
+        item.path,
+        item.type
+
+      ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+
+      return text.includes(query);
+
+    });
+
+
+  if(!filtered.length){
+
+    results.innerHTML = `
+      <div class="empty">
+        No results found for "${escapeHtml(query)}".
+      </div>
+    `;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    filtered.map(mediaCard).join("");
+}
+
+
+/* =========================================================
+   HOMEPAGE PREVIEW
+   ========================================================= */
+
+async function loadHomepage(){
+
+  const items =
+    await loadAllItems();
+
+
+  const videos =
+    items.filter(
+      item => item.type === "videos"
+    );
+
+
+  const photos =
+    items.filter(
+      item => item.type === "photos"
+    );
+
+
+  const music =
+    items.filter(
+      item => item.type === "music"
+    );
+
+
+  const djMixes =
+    items.filter(
+      item => item.type === "dj-mixes"
+    );
+
+
+  renderPreview(
+    "videos",
+    videos.slice(0,6)
+  );
+
+
+  renderPreview(
+    "photos",
+    photos.slice(0,6)
+  );
+
+
+  renderPreview(
+    "djMixes",
+    djMixes.slice(0,6)
+  );
+
+
+  const trendingApps =
+    items.filter(
+      item =>
+        item.type === "apps"
+    );
+
+
+  const appsBox =
+    document.getElementById(
+      "trendingApps"
+    );
+
+
+  if(trendingApps.length){
+
+    appsBox.className =
+      "media-grid";
+
+    appsBox.innerHTML =
+      trendingApps
+        .slice(0,6)
+        .map(mediaCard)
+        .join("");
+
+  }else{
+
+    appsBox.className =
+      "empty";
+
+    appsBox.innerHTML =
+      "Apps will appear here when uploaded.";
+
+  }
+}
+
+
+/* =========================================================
+   PREVIEW RENDER
+   ========================================================= */
+
+function renderPreview(id,items){
+
+  const box =
+    document.getElementById(id);
+
+
+  if(!items.length){
+
+    box.innerHTML =
+      `<div class="empty">Nothing uploaded yet.</div>`;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    items.map(mediaCard).join("");
+}
+
+
+/* =========================================================
+   ESCAPE HELPERS
+   ========================================================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function escapeAttr(value){
+
+  return escapeHtml(value);
+}
+
+
+function escapeJs(value){
+
+  return String(value)
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/"/g,"&quot;")
+    .replace(/\n/g,"\\n")
+    .replace(/\r/g,"\\r");
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+buildCategories();
+
+loadHomepage();
 
 </script>
 
 </body>
-
 </html>
+
+Now save this as "index.html" and replace the old "index.html" completely.
+
+The important change is that, for example, Amapiano Music now sends the upload page to:
+
+"media/songs/Amapiano-Music"
+
+and Premium Unlocked Apps sends it to:
+
+"media/apps/Premium-Unlocked-Apps"
+
+So the upload page can open the correct file type and destination automatically.
+
+Next: after replacing this file, we need to replace "github-upload.html" with the matching direct-upload version. That is what will make the phone file picker open immediately and upload the selected file into the exact folder.
