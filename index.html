@@ -112,7 +112,8 @@ a{
 }
 
 /* ========== SECTIONS ========== */
-.section{padding:14px 16px 2px;}
+/* tighter top/bottom so there is no wasted gap between sections */
+.section{padding:12px 16px 2px;}
 .section h2{
   margin:0 0 10px;
   font-size:20px;
@@ -171,21 +172,38 @@ a{
   font-size:15px;
 }
 
-/* ========== "MORE" BUTTON (centered, thin) ========== */
+/* ==========================================================
+   RESERVED EMPTY SLOTS  (Trending Videos / Trending Photos)
+   ----------------------------------------------------------
+   No folders here any more. These empty white spaces keep the
+   exact grid (4 across) ready, so when you upload a video or a
+   photo it drops STRAIGHT into the space — no folder needed.
+   The card style matches the other tiles / app cards.
+   ========================================================== */
+.slot{
+  display:block;
+  min-height:76px;
+  border-radius:10px;
+  background:#fff;
+  border:1px dashed #d8d8dd;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+
+/* ========== "MORE" BUTTON (centered, extra small & neat) ========== */
 .more-wrap{
   display:flex;
   justify-content:center;
-  margin:10px 0 4px;
+  margin:6px 0 0;           /* was 10px 0 4px — space squeezed */
 }
 .more-btn{
   border:1px solid #ddd;
   background:#fff;
   color:#111;
   font-family:inherit;
-  font-size:12px;
+  font-size:11px;
   font-weight:800;
   letter-spacing:.3px;
-  padding:7px 24px;
+  padding:4px 16px;
   border-radius:20px;
   box-shadow:0 1px 4px rgba(0,0,0,.06);
   cursor:pointer;
@@ -197,7 +215,7 @@ a{
 .section.open .tile.is-hidden{display:flex;}
 
 /* ========== TRENDING APPS ========== */
-.trending{padding:18px 16px 4px;}
+.trending{padding:14px 16px 4px;}
 .trending h2{margin:0 0 10px;font-size:20px;font-weight:800;}
 .apps{
   display:grid;
@@ -236,6 +254,7 @@ a{
   .tile{font-size:11px;}
   .tile .ic{width:28px;height:28px;min-width:28px;font-size:14px;}
   .grid-4 .tile{font-size:9.5px;}
+  .slot{min-height:70px;}
 }
 </style>
 </head>
@@ -268,6 +287,7 @@ a{
 
 <!-- ============================================================
      1. ALL TOP MUSIC CHARTS  —  3 down × 2 across (shows 6)
+     NOTE: "R&B Music" folder has been removed here.
      ============================================================ -->
 <section class="section" data-show="6">
   <h2>🎵 All Top Music Charts</h2>
@@ -277,7 +297,6 @@ a{
     <a class="tile" href="library.html?folder=Amapiano-Music"><span class="ic">🎵</span><span>Amapiano Music</span></a>
     <a class="tile" href="library.html?folder=Afrobeat-Music"><span class="ic">🔥</span><span>Afrobeat Music</span></a>
     <a class="tile" href="library.html?folder=Dancehall-Music"><span class="ic">🎤</span><span>Dancehall Music</span></a>
-    <a class="tile" href="library.html?folder=R-B-Music"><span class="ic">❤️</span><span>R&amp;B Music</span></a>
     <a class="tile" href="library.html?folder=Reggae"><span class="ic">🌴</span><span>Reggae</span></a>
 
     <!-- hidden until "More" is tapped -->
@@ -297,61 +316,49 @@ a{
 
 
 <!-- ============================================================
-     2. TRENDING VIDEOS  —  2 down × 4 across (shows 8)
-     NOTE: only "Trending-Videos" exists in your repo so far.
-     Replace the extra placeholders below with your real video
-     folders (keep the same folder= slug you use in library.html).
+     2. TRENDING VIDEOS  —  2 down × 4 across
+     NO FOLDERS inside. The empty spaces below are reserved for
+     the videos you will upload, so every video appears DIRECTLY
+     under this heading in the same neat grid as the apps.
      ============================================================ -->
-<section class="section" data-show="8">
+<section class="section">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4">
 
-    <a class="tile" href="library.html?folder=Trending-Videos"><span class="ic">🎬</span><span>Trending Videos</span></a>
-    <a class="tile" href="library.html?folder=Latest-Videos"><span class="ic">🎥</span><span>Latest Uploads</span></a>
-    <a class="tile" href="library.html?folder=Music-Videos"><span class="ic">🎵</span><span>Music Videos</span></a>
-    <a class="tile" href="library.html?folder=Comedy-Videos"><span class="ic">😂</span><span>Comedy</span></a>
-    <a class="tile" href="library.html?folder=Sports-Videos"><span class="ic">⚽</span><span>Sports</span></a>
-    <a class="tile" href="library.html?folder=Live-Shows"><span class="ic">🎤</span><span>Live Shows</span></a>
-    <a class="tile" href="library.html?folder=Dance-Videos"><span class="ic">🕺</span><span>Dance</span></a>
-    <a class="tile" href="library.html?folder=Movies"><span class="ic">📺</span><span>Movies</span></a>
-
-    <!-- hidden until "More" is tapped -->
-    <a class="tile" href="library.html?folder=Gospel-Videos"><span class="ic">🙏</span><span>Gospel</span></a>
-    <a class="tile" href="library.html?folder=Education-Videos"><span class="ic">🎓</span><span>Education</span></a>
-    <a class="tile" href="library.html?folder=Car-Videos"><span class="ic">🚗</span><span>Cars</span></a>
-    <a class="tile" href="library.html?folder=Cooking-Videos"><span class="ic">🍲</span><span>Cooking</span></a>
+    <!-- Reserved spaces (empty) — videos drop in here directly -->
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
 
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
 
 <!-- ============================================================
-     3. TRENDING PHOTOS & JOKES  —  2 down × 4 across (shows 8)
-     NOTE: only "Trending-Photos-Jokes" exists in your repo so far.
-     Replace the extra placeholders with your real photo folders.
+     3. TRENDING PHOTOS & JOKES  —  2 down × 4 across
+     NO FOLDERS inside either. Empty spaces reserved for the photos
+     you will upload, so a client just sees a photo and enters it.
      ============================================================ -->
-<section class="section" data-show="8">
+<section class="section">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4">
 
-    <a class="tile" href="library.html?folder=Trending-Photos-Jokes"><span class="ic">📸</span><span>Trending Photos</span></a>
-    <a class="tile" href="library.html?folder=Funny-Jokes"><span class="ic">😂</span><span>Funny Jokes</span></a>
-    <a class="tile" href="library.html?folder=Wallpapers"><span class="ic">🖼️</span><span>Wallpapers</span></a>
-    <a class="tile" href="library.html?folder=Selfies"><span class="ic">🤳</span><span>Selfies</span></a>
-    <a class="tile" href="library.html?folder=Event-Photos"><span class="ic">🎉</span><span>Events</span></a>
-    <a class="tile" href="library.html?folder=Nature-Photos"><span class="ic">🏞️</span><span>Nature</span></a>
-    <a class="tile" href="library.html?folder=Cars-Bikes"><span class="ic">🚗</span><span>Cars &amp; Bikes</span></a>
-    <a class="tile" href="library.html?folder=Love-Photos"><span class="ic">💕</span><span>Love</span></a>
-
-    <!-- hidden until "More" is tapped -->
-    <a class="tile" href="library.html?folder=Sports-Photos"><span class="ic">⚽</span><span>Sports</span></a>
-    <a class="tile" href="library.html?folder=Gospel-Photos"><span class="ic">🙏</span><span>Gospel</span></a>
-    <a class="tile" href="library.html?folder=Birthday-Photos"><span class="ic">🎂</span><span>Birthday</span></a>
-    <a class="tile" href="library.html?folder=Travel-Photos"><span class="ic">🌍</span><span>Travel</span></a>
+    <!-- Reserved spaces (empty) — photos drop in here directly -->
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
+    <span class="slot"></span>
 
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
 
@@ -425,8 +432,6 @@ a{
 
 <!-- ============================================================
      6. DJ MIXES  —  2 down × 2 across (shows 4)
-     NOTE: only "DJ-Mixes" exists in your repo so far.
-     Replace the extra placeholders with your real DJ folders.
      ============================================================ -->
 <section class="section" data-show="4">
   <h2>🎧 DJ Mixes</h2>
@@ -492,6 +497,8 @@ a{
    Any tile past N is hidden until the More button is tapped.
    The More button is auto-hidden when a section has nothing
    more to reveal.
+   NOTE: Trending Videos and Trending Photos have NO folders now,
+   so they have no data-show and no More button.
 ========================================================= */
 document.querySelectorAll('.section[data-show]').forEach(function(section){
   var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
