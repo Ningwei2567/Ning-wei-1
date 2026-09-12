@@ -1,650 +1,900 @@
 <!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GitHub Upload — Ning Wei Media</title><style>
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Ning Wei Media — Upload Media</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4faff;
-    color:#111;
+  margin:0;
+  background:#f5f5f7;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#111;
 }
 
-.container{
-    max-width:700px;
-    margin:40px auto;
-    padding:20px;
+.wrap{
+  max-width:600px;
+  margin:auto;
+  padding-bottom:30px;
+}
+
+.header{
+  height:125px;
+  position:relative;
+  overflow:hidden;
+  background:#000;
+  color:#fff;
+  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.header img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:125px;
+  object-fit:cover;
+  opacity:.8;
+}
+
+.header div{
+  position:relative;
+  z-index:2;
+  text-shadow:0 2px 6px #000;
+}
+
+.header h1{
+  margin:0;
+  font-size:27px;
+}
+
+.header p{
+  margin:7px 0;
+  font-size:13px;
 }
 
 .card{
-    background:#fff;
-    border-radius:18px;
-    padding:25px;
-    box-shadow:0 8px 30px rgba(0,0,0,.10);
-}
-
-h1{
-    margin-top:0;
-    font-size:28px;
+  background:#fff;
+  margin:12px 15px;
+  padding:16px;
+  border-radius:13px;
+  box-shadow:0 2px 8px #0000000d;
 }
 
 label{
-    display:block;
-    margin-top:18px;
-    margin-bottom:7px;
-    font-weight:bold;
+  display:block;
+  font-weight:700;
+  font-size:13px;
+  margin:12px 0 5px;
 }
 
 input,
+select,
+textarea,
 button{
-    width:100%;
-    padding:13px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    font-size:16px;
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font:inherit;
 }
 
 input[type="file"]{
-    background:#fafafa;
+  background:#fff;
 }
 
-button{
-    margin-top:22px;
-    border:0;
-    background:#111;
-    color:#fff;
-    cursor:pointer;
-    font-weight:bold;
+textarea{
+  min-height:80px;
+  resize:vertical;
 }
 
-button:hover{
-    opacity:.9;
+.help{
+  font-size:12px;
+  color:#666;
+  line-height:1.45;
+  margin-top:7px;
 }
 
-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
+.button{
+  margin-top:15px;
+  background:#55bfe8;
+  color:#fff;
+  border:0;
+  font-weight:800;
+  cursor:pointer;
 }
 
-.info{
-    background:#eef7ff;
-    padding:14px;
-    border-radius:10px;
-    margin:15px 0;
-    line-height:1.5;
+.button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
-.status{
-    margin-top:20px;
-    padding:14px;
-    border-radius:10px;
-    display:none;
-    white-space:pre-wrap;
-    word-break:break-word;
-}
-
-.status.show{
-    display:block;
-}
-
-.success{
-    background:#e9f9ee;
-    color:#126b2e;
-}
-
-.error{
-    background:#ffecec;
-    color:#a00000;
+.back{
+  display:block;
+  background:#111;
+  color:#fff;
+  text-align:center;
+  text-decoration:none;
+  padding:12px;
+  border-radius:9px;
+  margin-top:10px;
 }
 
 .progress{
-    margin-top:15px;
-    display:none;
+  margin-top:12px;
+  height:12px;
+  background:#ddd;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.progress-bar{
-    width:100%;
-    height:12px;
-    background:#ddd;
-    border-radius:20px;
-    overflow:hidden;
+.fill{
+  height:100%;
+  width:0;
+  background:#55bfe8;
+  transition:width .2s ease;
 }
 
-.progress-fill{
-    width:0%;
-    height:100%;
-    background:#111;
-    transition:width .2s;
+.status{
+  margin-top:10px;
+  font-size:13px;
+  font-weight:700;
+  line-height:1.45;
 }
 
-.small{
-    font-size:13px;
-    color:#666;
-    margin-top:7px;
+.success{
+  color:#157a2b;
 }
-</style></head><body><div class="container"><div class="card"><h1>📤 GitHub Upload</h1><div class="info">
-    <strong>Destination folder:</strong>
-    <span id="destination">media</span>
-</div><label for="token">GitHub Token</label>
+
+.error{
+  color:#a00000;
+}
+
+.selected{
+  margin-top:10px;
+  padding:10px;
+  background:#f3f3f3;
+  border-radius:9px;
+  font-size:12px;
+  color:#555;
+  word-break:break-word;
+}
+
+</style></head><body><div class="wrap"><header class="header"><img src="ning-wei.png" alt="Ning Wei Media"><div>
+<h1>Ning Wei Media</h1>
+<p>Upload your media directly here</p>
+</div></header><div class="card"><label>Artist / Creator Name</label>
 
 <input
-id="token"
-type="password"
-placeholder="Paste your GitHub token here"
-autocomplete="off"
+id="artistName"
+placeholder="Enter name"
+autocomplete="name"
 
 «»
 
-<div class="small">
-    Your token is used only during this upload and is not saved by this page.
-</div><label for="file">Choose File</label>
+<label>Email</label>
 
 <input
-id="file"
+id="email"
+type="email"
+placeholder="Enter email"
+autocomplete="email"
+
+«»
+
+<label>Upload Category</label>
+
+<select id="category"></select>
+
+<div class="help">
+Choose where you want the media to be placed.
+</div><label>Media Files</label>
+
+<input
+id="files"
 type="file"
+multiple
 
 «»
 
-<div id="fileInfo" class="small"></div><button id="uploadButton">
-    Upload to GitHub
-</button><div id="progress" class="progress"><div class="progress-bar">
-    <div id="progressFill" class="progress-fill"></div>
-</div>
+<div id="selected" class="selected">
+No files selected.
+</div><label>Description</label>
 
-</div><div id="status" class="status"></div></div></div><script>
+<textarea
+  id="description"
+  placeholder="Optional description"
+></textarea><button
+id="upload"
+class="button"
+type="button"
 
-/* =========================================================
-   GITHUB SETTINGS
-========================================================= */
+«»
 
-const GITHUB_OWNER = "Ningwei2567";
-const GITHUB_REPO = "Ning-wei-1";
-const GITHUB_BRANCH = "main";
+Upload Media
+</button>
+
+<div class="progress"><div
+  id="fill"
+  class="fill"
+></div></div><div
+  id="status"
+  class="status"
+></div><a
+class="back"
+href="library.html"
+
+«»
+
+← Back to Ning Wei Media
+</a>
+
+</div></div><script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://btksyizkcpzubtextuce.supabase.co";
+
+const SUPABASE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidGtz";
+
+const db =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-/* =========================================================
-   GET FOLDER FROM browser.html
-========================================================= */
+/* =====================================================
+   CATEGORY LIST
+===================================================== */
 
-const params = new URLSearchParams(window.location.search);
+const groups = {
 
-let currentPath = params.get("path") || "media";
+  "🎵 Music":[
 
-currentPath = decodeURIComponent(currentPath);
+    ["Top Ugandan Music","songs","Top-Ugandan-Music"],
 
-currentPath = currentPath
-    .replace(/^\/+/, "")
-    .replace(/\/+$/, "");
+    ["Amapiano Music","songs","Amapiano-Music"],
 
-if (!currentPath) {
-    currentPath = "media";
+    ["Afrobeat Music","songs","Afrobeat-Music"],
+
+    ["Dancehall Music","songs","Dancehall-Music"],
+
+    ["R&B Music","songs","R-B-Music"],
+
+    ["Reggae","songs","Reggae"],
+
+    ["Old School R&B","songs","Old-School-R-B"],
+
+    ["Old South African Music","songs","Old-South-African-Music"],
+
+    ["Western Music","songs","Western-Music"],
+
+    ["Love Songs","songs","Love-Songs"],
+
+    ["Oldies / Kikadde Music","songs","Oldies-Kikadde-Music"],
+
+    ["Kadongo Kamu","songs","Kadongo-Kamu"],
+
+    ["High School Music","songs","High-School-Music"],
+
+    ["Lingala Music","songs","Lingala-Music"],
+
+    ["Instrumental","songs","Instrumental"]
+
+  ],
+
+
+  "📱 Apps":[
+
+    ["Premium Unlocked Apps","apps","Premium-Unlocked-Apps"],
+
+    ["Free Unlimited Internet VPNs","apps","Free-Unlimited-Internet-VPNs"],
+
+    ["Social Media","apps","Social-Media"],
+
+    ["Messaging","apps","Messaging"],
+
+    ["Music & Audio","apps","Music-Audio"],
+
+    ["Business & Work","apps","Business-Work"],
+
+    ["Finance & Banking","apps","Finance-Banking"],
+
+    ["Shopping","apps","Shopping"],
+
+    ["Travel & Transport","apps","Travel-Transport"],
+
+    ["News","apps","News"],
+
+    ["Sports","apps","Sports"],
+
+    ["Health & Fitness","apps","Health-Fitness"],
+
+    ["Tools & Utilities","apps","Tools-Utilities"],
+
+    ["File Management","apps","File-Management"],
+
+    ["Security","apps","Security"]
+
+  ],
+
+
+  "💻 Software":[
+
+    ["Virtual DJ Software","software","Virtual-DJ-Software"],
+
+    ["Windows Software","software","Windows-Software"],
+
+    ["Video Editing","software","Video-Editing"],
+
+    ["Audio Editing","software","Audio-Editing"],
+
+    ["Photo Editing","software","Photo-Editing"],
+
+    ["Graphics & Design","software","Graphics-Design"],
+
+    ["Mac Software","software","Mac-Software"],
+
+    ["Linux Software","software","Linux-Software"],
+
+    ["Android Software","software","Android-Software"],
+
+    ["Office & Productivity","software","Office-Productivity"],
+
+    ["Internet & Browsers","software","Internet-Browsers"],
+
+    ["Security & Antivirus","software","Security-Antivirus"],
+
+    ["File Management","software","File-Management"],
+
+    ["Media Players","software","Media-Players"],
+
+    ["Download Managers","software","Download-Managers"],
+
+    ["Programming & Development","software","Programming-Development"],
+
+    ["Utilities & Tools","software","Utilities-Tools"]
+
+  ],
+
+
+  "📸 Photos":[
+
+    ["Trending Photos & Jokes","photos","Trending-Photos-Jokes"]
+
+  ],
+
+
+  "🎬 Videos":[
+
+    ["Trending Videos","videos","Trending-Videos"]
+
+  ],
+
+
+  "🎧 DJ Mixes":[
+
+    ["DJ Mixes","dj","DJ-Mixes"]
+
+  ]
+
+};
+
+
+/* =====================================================
+   BUILD CATEGORY MENU
+===================================================== */
+
+const categorySelect =
+  document.getElementById("category");
+
+for(
+  const [group,items]
+  of Object.entries(groups)
+){
+
+  const optgroup =
+    document.createElement("optgroup");
+
+  optgroup.label = group;
+
+  for(
+    const item
+    of items
+  ){
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      item[1] + "|" + item[2];
+
+    option.textContent =
+      item[0];
+
+    optgroup.appendChild(option);
+
+  }
+
+  categorySelect.appendChild(
+    optgroup
+  );
 }
 
-document.getElementById("destination").textContent = currentPath;
+
+/* =====================================================
+   READ CATEGORY FROM URL
+===================================================== */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const requestedCategory =
+  params.get("category");
+
+const requestedPath =
+  params.get("path");
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+if(requestedCategory){
 
-const tokenInput = document.getElementById("token");
-const fileInput = document.getElementById("file");
-const uploadButton = document.getElementById("uploadButton");
-const statusBox = document.getElementById("status");
-const progressBox = document.getElementById("progress");
-const progressFill = document.getElementById("progressFill");
-const fileInfo = document.getElementById("fileInfo");
+  const options =
+    [...categorySelect.options];
 
+  const found =
+    options.find(
+      option =>
+        option.textContent
+          .toLowerCase()
+          .includes(
+            requestedCategory
+              .toLowerCase()
+          )
+    );
 
-/* =========================================================
-   FILE INFORMATION
-========================================================= */
+  if(found){
 
-fileInput.addEventListener("change", function(){
+    categorySelect.value =
+      found.value;
 
-    const file = fileInput.files[0];
-
-    if (!file) {
-        fileInfo.textContent = "";
-        return;
-    }
-
-    const sizeMB = file.size / (1024 * 1024);
-
-    fileInfo.textContent =
-        file.name +
-        " — " +
-        sizeMB.toFixed(2) +
-        " MB";
-
-});
-
-
-/* =========================================================
-   STATUS MESSAGE
-========================================================= */
-
-function showStatus(message, type){
-
-    statusBox.textContent = message;
-
-    statusBox.className =
-        "status show " + type;
+  }
 
 }
 
 
-/* =========================================================
-   BASE64 CONVERSION
-========================================================= */
+/* =====================================================
+   HELPERS
+===================================================== */
 
-function fileToBase64(file){
+function clean(value){
 
-    return new Promise(function(resolve, reject){
-
-        const reader = new FileReader();
-
-        reader.onload = function(){
-
-            try{
-
-                const result = reader.result;
-
-                const base64 =
-                    result.split(",")[1];
-
-                resolve(base64);
-
-            }catch(error){
-
-                reject(error);
-
-            }
-
-        };
-
-        reader.onerror = function(){
-
-            reject(
-                new Error("Could not read the selected file.")
-            );
-
-        };
-
-        reader.readAsDataURL(file);
-
-    });
-
-}
-
-
-/* =========================================================
-   BUILD GITHUB API URL
-========================================================= */
-
-function githubFileUrl(repositoryPath){
-
-    const encodedPath = repositoryPath
-        .split("/")
-        .filter(Boolean)
-        .map(function(part){
-            return encodeURIComponent(part);
-        })
-        .join("/");
-
-    return (
-        "https://api.github.com/repos/" +
-        encodeURIComponent(GITHUB_OWNER) +
-        "/" +
-        encodeURIComponent(GITHUB_REPO) +
-        "/contents/" +
-        encodedPath
+  return String(value || "")
+    .replace(
+      /[^a-zA-Z0-9._-]/g,
+      "-"
+    )
+    .replace(
+      /-+/g,
+      "-"
+    )
+    .replace(
+      /^-|-$/g,
+      ""
     );
 
 }
 
 
-/* =========================================================
-   GET EXISTING FILE
-========================================================= */
+function mime(file){
 
-async function getExistingFile(url, token){
-
-    const response = await fetch(url, {
-
-        method:"GET",
-
-        headers:{
-            "Accept":"application/vnd.github+json",
-            "Authorization":"Bearer " + token,
-            "X-GitHub-Api-Version":"2022-11-28"
-        }
-
-    });
-
-    if(response.status === 404){
-
-        return null;
-
-    }
-
-    if(!response.ok){
-
-        let message =
-            "Could not check the GitHub file.";
-
-        try{
-
-            const data =
-                await response.json();
-
-            if(data.message){
-                message = data.message;
-            }
-
-        }catch(error){}
-
-        throw new Error(message);
-
-    }
-
-    return await response.json();
+  return (
+    file.type ||
+    "application/octet-stream"
+  );
 
 }
 
 
-/* =========================================================
-   UPLOAD
-========================================================= */
+function uniqueName(file){
 
-uploadButton.addEventListener("click", async function(){
+  return (
+    Date.now() +
+    "-" +
+    Math.random()
+      .toString(36)
+      .slice(2,9) +
+    "-" +
+    clean(file.name)
+  );
 
-    const token =
-        tokenInput.value.trim();
-
-    const file =
-        fileInput.files[0];
+}
 
 
-    /* -----------------------------------------------------
-       CHECK TOKEN
-    ----------------------------------------------------- */
+/* =====================================================
+   STORAGE LOCATION
+===================================================== */
 
-    if(!token){
+function bucketAndFolder(
+  type,
+  folder
+){
 
-        showStatus(
-            "Please paste your GitHub token.",
-            "error"
+  if(type === "songs"){
+
+    return [
+      "songs",
+      folder
+    ];
+
+  }
+
+
+  if(
+    type === "apps" ||
+    type === "software"
+  ){
+
+    return [
+      "artist-uploads",
+      type + "/" + folder
+    ];
+
+  }
+
+
+  if(type === "photos"){
+
+    return [
+      "artist-uploads",
+      "photos/" + folder
+    ];
+
+  }
+
+
+  if(type === "videos"){
+
+    return [
+      "artist-uploads",
+      "videos/" + folder
+    ];
+
+  }
+
+
+  return [
+    "artist-uploads",
+    "dj-mixes/" + folder
+  ];
+
+}
+
+
+/* =====================================================
+   UPLOAD ONE FILE
+===================================================== */
+
+async function uploadOne(
+  file,
+  bucket,
+  folder
+){
+
+  const path =
+    folder +
+    "/" +
+    uniqueName(file);
+
+
+  const result =
+    await db
+      .storage
+      .from(bucket)
+      .upload(
+        path,
+        file,
+        {
+          upsert:false,
+          contentType:mime(file),
+          cacheControl:"3600"
+        }
+      );
+
+
+  if(result.error){
+
+    throw result.error;
+
+  }
+
+
+  return path;
+
+}
+
+
+/* =====================================================
+   UPDATE SELECTED FILES
+===================================================== */
+
+document
+  .getElementById("files")
+  .addEventListener(
+    "change",
+    function(){
+
+      const files =
+        [...this.files];
+
+      const box =
+        document.getElementById(
+          "selected"
         );
 
-        tokenInput.focus();
+
+      if(!files.length){
+
+        box.textContent =
+          "No files selected.";
 
         return;
 
-    }
+      }
 
 
-    /* -----------------------------------------------------
-       CHECK FILE
-    ----------------------------------------------------- */
-
-    if(!file){
-
-        showStatus(
-            "Please choose a file to upload.",
-            "error"
-        );
-
-        fileInput.focus();
-
-        return;
+      box.textContent =
+        files.length +
+        " file(s) selected: " +
+        files
+          .map(file => file.name)
+          .join(", ");
 
     }
+  );
 
 
-    /* -----------------------------------------------------
-       FILE SIZE LIMIT
-    ----------------------------------------------------- */
+/* =====================================================
+   UPLOAD ALL
+===================================================== */
 
-    const maxSize =
-        90 * 1024 * 1024;
+async function uploadAll(){
 
-    if(file.size > maxSize){
+  const button =
+    document.getElementById(
+      "upload"
+    );
 
-        showStatus(
-            "This file is larger than 90 MB.\n\n" +
-            "Please choose a smaller file.",
-            "error"
-        );
+  const files =
+    [
+      ...document
+        .getElementById("files")
+        .files
+    ];
 
-        return;
+  const status =
+    document.getElementById(
+      "status"
+    );
 
-    }
+  const fill =
+    document.getElementById(
+      "fill"
+    );
 
 
-    /* -----------------------------------------------------
-       CREATE REPOSITORY PATH
-    ----------------------------------------------------- */
+  const artistName =
+    document
+      .getElementById(
+        "artistName"
+      )
+      .value
+      .trim();
 
-    const repositoryPath =
-        currentPath +
-        "/" +
+
+  const email =
+    document
+      .getElementById(
+        "email"
+      )
+      .value
+      .trim();
+
+
+  const description =
+    document
+      .getElementById(
+        "description"
+      )
+      .value
+      .trim();
+
+
+  if(!artistName){
+
+    status.className =
+      "status error";
+
+    status.textContent =
+      "Please enter the artist / creator name.";
+
+    return;
+
+  }
+
+
+  if(!email){
+
+    status.className =
+      "status error";
+
+    status.textContent =
+      "Please enter the email.";
+
+    return;
+
+  }
+
+
+  if(!files.length){
+
+    status.className =
+      "status error";
+
+    status.textContent =
+      "Choose at least one media file.";
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+  fill.style.width = "0%";
+
+  status.className =
+    "status";
+
+  status.textContent =
+    "Preparing upload...";
+
+
+  try{
+
+    const selected =
+      categorySelect.value
+        .split("|");
+
+
+    const type =
+      selected[0];
+
+    const folder =
+      selected[1];
+
+
+    const location =
+      bucketAndFolder(
+        type,
+        folder
+      );
+
+
+    const bucket =
+      location[0];
+
+    const baseFolder =
+      location[1];
+
+
+    let successful = 0;
+
+
+    for(
+      let i = 0;
+      i < files.length;
+      i++
+    ){
+
+      const file =
+        files[i];
+
+
+      status.textContent =
+        "Uploading " +
+        (i + 1) +
+        " of " +
+        files.length +
+        ": " +
         file.name;
 
 
-    const url =
-        githubFileUrl(repositoryPath);
-
-
-    /* -----------------------------------------------------
-       START
-    ----------------------------------------------------- */
-
-    uploadButton.disabled = true;
-
-    progressBox.style.display = "block";
-
-    progressFill.style.width = "10%";
-
-    showStatus(
-        "Preparing upload...",
-        "success"
-    );
-
-
-    try{
-
-        /* -------------------------------------------------
-           CONVERT FILE
-        ------------------------------------------------- */
-
-        progressFill.style.width = "25%";
-
-        showStatus(
-            "Reading the file...",
-            "success"
-        );
-
-        const base64 =
-            await fileToBase64(file);
-
-
-        /* -------------------------------------------------
-           CHECK IF FILE ALREADY EXISTS
-        ------------------------------------------------- */
-
-        progressFill.style.width = "40%";
-
-        showStatus(
-            "Checking GitHub...",
-            "success"
-        );
-
-        const existing =
-            await getExistingFile(
-                url,
-                token
-            );
-
-
-        /* -------------------------------------------------
-           PREPARE REQUEST
-        ------------------------------------------------- */
-
-        progressFill.style.width = "60%";
-
-        const body = {
-
-            message:
-                "Upload " + file.name,
-
-            content:
-                base64,
-
-            branch:
-                GITHUB_BRANCH
-
-        };
-
-
-        /* -------------------------------------------------
-           IF FILE EXISTS, INCLUDE SHA
-        ------------------------------------------------- */
-
-        if(existing && existing.sha){
-
-            body.sha =
-                existing.sha;
-
-        }
-
-
-        /* -------------------------------------------------
-           SEND TO GITHUB
-        ------------------------------------------------- */
-
-        showStatus(
-            "Uploading to GitHub...",
-            "success"
-        );
-
-        progressFill.style.width = "75%";
-
-
-        const response =
-            await fetch(url, {
-
-                method:"PUT",
-
-                headers:{
-
-                    "Accept":
-                        "application/vnd.github+json",
-
-                    "Authorization":
-                        "Bearer " + token,
-
-                    "X-GitHub-Api-Version":
-                        "2022-11-28",
-
-                    "Content-Type":
-                        "application/json"
-
-                },
-
-                body:
-                    JSON.stringify(body)
-
-            });
-
-
-        /* -------------------------------------------------
-           READ RESPONSE
-        ------------------------------------------------- */
-
-        let data = null;
-
-        try{
-
-            data =
-                await response.json();
-
-        }catch(error){}
-
-
-        if(!response.ok){
-
-            let message =
-                "GitHub upload failed.";
-
-            if(data && data.message){
-
-                message =
-                    data.message;
-
-            }
-
-            throw new Error(message);
-
-        }
-
-
-        /* -------------------------------------------------
-           SUCCESS
-        ------------------------------------------------- */
-
-        progressFill.style.width = "100%";
-
-        showStatus(
-
-            "✅ Upload successful!\n\n" +
-
-            "File: " +
-            file.name +
-            "\n\n" +
-
-            "Folder: " +
-            currentPath +
-            "\n\n" +
-
-            "The file has been added to your GitHub repository.",
-
-            "success"
-
+      const uploadedPath =
+        await uploadOne(
+          file,
+          bucket,
+          baseFolder
         );
 
 
-        /* -------------------------------------------------
-           CLEAR TOKEN
-        ------------------------------------------------- */
-
-        tokenInput.value = "";
+      successful++;
 
 
-    }catch(error){
+      console.log(
+        "Uploaded:",
+        uploadedPath
+      );
 
-        progressFill.style.width = "0%";
 
-        showStatus(
-
-            "❌ Upload failed.\n\n" +
-
-            error.message,
-
-            "error"
-
-        );
-
-    }finally{
-
-        uploadButton.disabled = false;
+      fill.style.width =
+        Math.round(
+          ((i + 1) /
+          files.length) *
+          100
+        ) + "%";
 
     }
 
-});
+
+    status.className =
+      "status success";
+
+
+    status.textContent =
+      "✅ " +
+      successful +
+      " file(s) uploaded successfully.";
+
+
+  }catch(error){
+
+    console.error(
+      "Upload error:",
+      error
+    );
+
+
+    status.className =
+      "status error";
+
+
+    status.textContent =
+      "❌ Upload failed: " +
+      (
+        error.message ||
+        "Unknown error"
+      );
+
+  }finally{
+
+    button.disabled =
+      false;
+
+  }
+
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+document
+  .getElementById("upload")
+  .addEventListener(
+    "click",
+    uploadAll
+  );
 
 </script></body>
 </html>
