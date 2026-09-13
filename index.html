@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ning Wei Media</title>
 
-<!-- Supabase Library -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -263,7 +263,6 @@ a{
 
 <div class="container">
 
-<!-- ================= HEADER ================= -->
 <header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
   <div class="header-content">
@@ -272,7 +271,6 @@ a{
   </div>
 </header>
 
-<!-- ================= SEARCH + UPLOAD ================= -->
 <section class="search-upload">
   <form class="search-box" action="search.html" method="get">
     <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
@@ -285,7 +283,6 @@ a{
   </a>
 </section>
 
-<!-- ================= 1. MUSIC CHARTS ================= -->
 <section class="section" data-show="6" data-label="Music">
   <h2>🎵 All Top Music Charts</h2>
   <div class="grid grid-2">
@@ -307,27 +304,20 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Music ▾</button></div>
 </section>
 
-<!-- ================= 2. TRENDING VIDEOS ================= -->
 <section class="section" data-show="8" data-label="Videos">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoGrid">
-    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
-    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
-  </div>
+    </div>
   <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
 </section>
 
-<!-- ================= 3. TRENDING PHOTOS ================= -->
 <section class="section" data-show="8" data-label="Photos">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoGrid">
-    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
-    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
-  </div>
+    </div>
   <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
 </section>
 
-<!-- ================= 4. APPS ================= -->
 <section class="section" data-show="6" data-label="Apps">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
   <div class="grid grid-2">
@@ -356,7 +346,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Apps ▾</button></div>
 </section>
 
-<!-- ================= 5. SOFTWARE ================= -->
 <section class="section" data-show="6" data-label="Software">
   <h2>💻 Softwares and Virtual DJ Mappings</h2>
   <div class="grid grid-2">
@@ -381,7 +370,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Software ▾</button></div>
 </section>
 
-<!-- ================= 6. DJ MIXES ================= -->
 <section class="section" data-show="4" data-label="DJ Mixes">
   <h2>🎧 DJ Mixes</h2>
   <div class="grid grid-2">
@@ -393,7 +381,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More DJ Mixes ▾</button></div>
 </section>
 
-<!-- ================= TRENDING APPS ================= -->
 <section class="trending">
   <h2>Trending Apps</h2>
   <div class="apps">
@@ -420,7 +407,6 @@ a{
   </div>
 </section>
 
-<!-- ================= SOCIAL ================= -->
 <section class="social">
   <h2>Follow Us</h2>
   <div class="social-list">
@@ -506,26 +492,30 @@ async function loadUploadedContent() {
     }
   });
 
-  if (videoItems.length > 0 && videoGrid) {
-    let videoHTML = videoItems.map(item => `
-      <a class="media-card" href="library.html?folder=Trending-Videos">
-        <video class="media-preview" src="${item.url}#t=0.5" preload="metadata" muted></video>
-        <div class="media-title">${item.title}</div>
-      </a>
-    `).join('');
-
-    videoGrid.innerHTML = videoHTML;
+  if (videoGrid) {
+    if (videoItems.length > 0) {
+      videoGrid.innerHTML = videoItems.map(item => `
+        <a class="media-card" href="library.html?folder=Trending-Videos">
+          <video class="media-preview" src="${item.url}#t=0.5" preload="metadata" muted></video>
+          <div class="media-title">${item.title}</div>
+        </a>
+      `).join('');
+    } else {
+      videoGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777; font-size: 13px; padding: 10px;">No trending videos found.</p>';
+    }
   }
 
-  if (photoItems.length > 0 && photoGrid) {
-    let photoHTML = photoItems.map(item => `
-      <a class="media-card" href="library.html?folder=Trending-Photos">
-        <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
-        <div class="media-title">${item.title}</div>
-      </a>
-    `).join('');
-
-    photoGrid.innerHTML = photoHTML;
+  if (photoGrid) {
+    if (photoItems.length > 0) {
+      photoGrid.innerHTML = photoItems.map(item => `
+        <a class="media-card" href="library.html?folder=Trending-Photos">
+          <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
+          <div class="media-title">${item.title}</div>
+        </a>
+      `).join('');
+    } else {
+      photoGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777; font-size: 13px; padding: 10px;">No trending photos found.</p>';
+    }
   }
 
   initMoreButtons();
@@ -536,3 +526,5 @@ loadUploadedContent();
 
 </body>
 </html>
+
+```
