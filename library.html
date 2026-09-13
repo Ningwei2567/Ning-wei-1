@@ -455,7 +455,7 @@ async function initLibrary() {
   document.getElementById('folderName').textContent = formattedTitle || "Library";
   document.getElementById('relatedHeaderTitle').textContent = formattedTitle ? formattedTitle : "Items";
 
-  // Software / Apps / Tools / Editing folders → no media player ever
+  // Software / Apps / Tools / Editing folders → no media player
   const isSoftwareCategory = /software|editing|tools|apps|vpn|utility|utilities/i.test(selectedFolder);
 
   if (!window.supabase) return;
@@ -469,10 +469,23 @@ async function initLibrary() {
   data.forEach(row => {
     if (row.status && row.status.toLowerCase() !== 'approved') return;
 
-    const rowCategory = (row.category || row.folder || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    // Clean category
+    let rowCategory = (row.category || row.folder || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     const currentFolder = selectedFolder.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    const matchesFolder = !selectedFolder || rowCategory.includes(currentFolder) || currentFolder.includes(rowCategory);
+    // STRICT matching - this stops the same file appearing in every folder
+    let matchesFolder = false;
+
+    if (!selectedFolder) {
+      matchesFolder = true; // show everything only if no folder is selected
+    } else if (!rowCategory) {
+      matchesFolder = false; // items with no category do NOT appear in any specific folder
+    } else {
+      matchesFolder = rowCategory === currentFolder || 
+                      rowCategory.includes(currentFolder) || 
+                      currentFolder.includes(rowCategory);
+    }
+
     if (!matchesFolder) return;
 
     const dateStr = row.created_at ? new Date(row.created_at).toLocaleDateString('en-US', {
@@ -562,13 +575,10 @@ function playMedia(index) {
   const container = document.getElementById('mainMediaContainer');
   const detailsBox = document.getElementById('videoDetailsBox');
 
-  // Always show the details (title + download + from + date)
   detailsBox.style.display = 'block';
 
-  // ONLY show the media player for real playable media
-  // Never show it in software / apps / tools / editing folders
+  // Only show player for real media, never in software/apps folders
   if (item.isSoftware || (!item.isImage && !item.isVideo && !item.isAudio)) {
-    // Hide player completely
     container.style.display = 'none';
     container.innerHTML = '';
   } else if (item.isImage) {
