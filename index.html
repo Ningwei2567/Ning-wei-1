@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ning Wei Media</title>
 
-<!-- Supabase Library to load your uploaded content -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -274,7 +273,6 @@ a{
 
 <div class="container">
 
-<!-- ================= HEADER ================= -->
 <header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
   <div class="header-content">
@@ -283,7 +281,6 @@ a{
   </div>
 </header>
 
-<!-- ================= SEARCH + UPLOAD ================= -->
 <section class="search-upload">
   <form class="search-box" action="search.html" method="get">
     <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
@@ -296,7 +293,6 @@ a{
   </a>
 </section>
 
-<!-- ================= 1. ALL TOP MUSIC CHARTS ================= -->
 <section class="section" data-show="6" data-label="Music">
   <h2>🎵 All Top Music Charts</h2>
   <div class="grid grid-2">
@@ -321,7 +317,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Music ▾</button></div>
 </section>
 
-<!-- ================= 2. TRENDING VIDEOS ================= -->
 <section class="section" data-show="8" data-label="Videos">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoGrid">
@@ -337,7 +332,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
 </section>
 
-<!-- ================= 3. TRENDING PHOTOS & JOKES ================= -->
 <section class="section" data-show="8" data-label="Photos">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoGrid">
@@ -353,7 +347,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
 </section>
 
-<!-- ================= 4. APPS ================= -->
 <section class="section" data-show="6" data-label="Apps">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
   <div class="grid grid-2">
@@ -385,7 +378,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Apps ▾</button></div>
 </section>
 
-<!-- ================= 5. SOFTWARE ================= -->
 <section class="section" data-show="6" data-label="Software">
   <h2>💻 Softwares and Virtual DJ Mappings</h2>
   <div class="grid grid-2">
@@ -413,7 +405,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Software ▾</button></div>
 </section>
 
-<!-- ================= 6. DJ MIXES ================= -->
 <section class="section" data-show="4" data-label="DJ Mixes">
   <h2>🎧 DJ Mixes</h2>
   <div class="grid grid-2">
@@ -427,7 +418,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More DJ Mixes ▾</button></div>
 </section>
 
-<!-- ================= TRENDING APPS ================= -->
 <section class="trending">
   <h2>Trending Apps</h2>
   <div class="apps">
@@ -454,7 +444,6 @@ a{
   </div>
 </section>
 
-<!-- ================= FOLLOW US ================= -->
 <section class="social">
   <h2>Follow Us</h2>
   <div class="social-list">
@@ -533,27 +522,50 @@ async function loadUploadedContent() {
   const videoGrid = document.getElementById('videoGrid');
   const photoGrid = document.getElementById('photoGrid');
 
-  // Filter video and photo items safely across standard database column naming options
-  const videoItems = data.filter(i => {
-    const type = (i.media_type || i.category || i.type || '').toLowerCase();
-    return type.includes('video');
-  });
+  const videoItems = [];
+  const photoItems = [];
 
-  const photoItems = data.filter(i => {
-    const type = (i.media_type || i.category || i.type || '').toLowerCase();
-    return type.includes('photo') || type.includes('image') || type.includes('joke');
+  // Extract media items from both flat columns AND nested upload.html JSON 'files' array
+  data.forEach(row => {
+    if (row.status && row.status.toLowerCase() !== 'approved') return;
+
+    // Check nested JSON files array from upload.html
+    if (Array.isArray(row.files)) {
+      row.files.forEach(f => {
+        const type = (f.type || f.role || f.category || '').toLowerCase();
+        const displayTitle = f.original_name || f.name || row.artist_name || 'Media';
+        
+        if (type === 'video') {
+          videoItems.push({ title: displayTitle, url: f.url });
+        } else if (type === 'photo' || type === 'image') {
+          photoItems.push({ title: displayTitle, url: f.url });
+        }
+      });
+    }
+
+    // Check flat row structure fallback
+    const flatType = (row.media_type || row.category || row.type || '').toLowerCase();
+    const flatTitle = row.song_title || row.title || row.file_name || row.artist_name || 'Media';
+    const flatUrl = row.file_url || row.url;
+
+    if (flatUrl) {
+      if (flatType.includes('video')) {
+        videoItems.push({ title: flatTitle, url: flatUrl });
+      } else if (flatType.includes('photo') || flatType.includes('image') || flatType.includes('joke')) {
+        photoItems.push({ title: flatTitle, url: flatUrl });
+      }
+    }
   });
 
   // Render Videos into 2x4 Grid slots
   if (videoItems.length > 0 && videoGrid) {
     let videoHTML = videoItems.map(item => `
-      <a class="uploaded-card" href="${item.file_url || item.url || 'library.html'}" target="_blank">
+      <a class="uploaded-card" href="${item.url}" target="_blank">
         <div>🎬</div>
-        <div>${item.song_title || item.title || item.file_name || item.name || 'Video'}</div>
+        <div>${item.title}</div>
       </a>
     `).join('');
 
-    // Append standard empty slots if less than 8 items to preserve 2x4 layout structure
     for (let i = videoItems.length; i < 8; i++) {
       videoHTML += `<span class="slot"></span>`;
     }
@@ -563,9 +575,9 @@ async function loadUploadedContent() {
   // Render Photos into 2x4 Grid slots
   if (photoItems.length > 0 && photoGrid) {
     let photoHTML = photoItems.map(item => `
-      <a class="uploaded-card" href="${item.file_url || item.url || 'library.html'}" target="_blank">
+      <a class="uploaded-card" href="${item.url}" target="_blank">
         <div>📸</div>
-        <div>${item.song_title || item.title || item.file_name || item.name || 'Photo'}</div>
+        <div>${item.title}</div>
       </a>
     `).join('');
 
