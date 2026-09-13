@@ -114,12 +114,8 @@ function isImage(s){ return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(s||''); }
 function isVideo(s){ return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(s||''); }
 function isAudio(s){ return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(s||''); }
 
-// Normalize for matching (same way for folder and category)
 function norm(s) {
-  return (s || '')
-    .toLowerCase()
-    .replace(/&/g, 'and')
-    .replace(/[^a-z0-9]/g, '');
+  return (s || '').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]/g,'');
 }
 
 async function initLibrary() {
@@ -165,56 +161,26 @@ async function initLibrary() {
       const url  = f.url || '';
       const cat  = norm(f.category || '');
 
-      // ========== STRICT MATCHING ==========
+      // ========== STRICT + ACCURATE MATCHING ==========
       let match = false;
 
       if (!folder) {
-        match = true; // no folder selected → show all
-      } else {
-        // Exact or very close match between file.category and the folder name
-        if (cat && (cat === current || cat.includes(current) || current.includes(cat))) {
+        match = true;
+      } else if (cat) {
+        // Exact match with the category saved by the new upload form
+        if (cat === current || cat.includes(current) || current.includes(cat)) {
           match = true;
         }
+      }
 
-        // Special friendly mappings (because upload form uses slightly different text)
-        const mappings = {
-          'topugandanmusic': ['topugandanmusic', 'ugandan'],
-          'amapianomusic': ['amapiano'],
-          'afrobeatmusic': ['afrobeat'],
-          'dancehallmusic': ['dancehall'],
-          'rnbmusic': ['rnb', 'randb'],
-          'reggae': ['reggae'],
-          'oldschoolrb': ['oldschoolrb', 'oldschoolrnb', 'oldschool'],
-          'oldsouthafricanmusic': ['southafrican'],
-          'westernmusic': ['western'],
-          'lovesongs': ['love'],
-          'oldieskikaddemusic': ['oldies', 'kikadde'],
-          'kadongokamu': ['kadongo'],
-          'highschoolmusic': ['highschool'],
-          'lingalamusic': ['lingala'],
-          'instrumental': ['instrumental'],
-          'photoediting': ['photoediting', 'photo'],
-          'videoediting': ['videoediting'],
-          'virtualdjsoftware': ['virtualdj'],
-          'djmixes': ['djmix', 'mix'],
-          'mixtapes': ['mixtape'],
-          'soundeffects': ['sound'],
-          'virtualdjmappings': ['mapping', 'virtualdj']
-        };
+      // Photos should NOT appear in library folders (they go to homepage)
+      if (isImage(name) || isImage(url) || (f.type||'').toLowerCase() === 'photo' || (f.type||'').toLowerCase() === 'profile') {
+        match = false;
+      }
 
-        if (!match && mappings[current]) {
-          match = mappings[current].some(m => cat.includes(m));
-        }
-
-        // Photos section
-        if (!match && (current.includes('photo') || current.includes('joke'))) {
-          match = isImage(name) || isImage(url) || cat.includes('photo') || cat.includes('cover') || cat.includes('profile');
-        }
-
-        // Videos section
-        if (!match && current.includes('video')) {
-          match = isVideo(name) || isVideo(url) || cat.includes('video');
-        }
+      // Videos should NOT appear in library folders (they go to homepage)
+      if (isVideo(name) || isVideo(url) || (f.type||'').toLowerCase() === 'video') {
+        match = false;
       }
 
       if (!match) return;
