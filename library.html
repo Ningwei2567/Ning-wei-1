@@ -80,11 +80,11 @@ body.admin-mode .bulk-action-bar {
   cursor: pointer;
 }
 
-/* Featured Media Container */
+/* Featured Media Container - Hidden by default until selected */
 .main-player-wrap {
   width: 100%;
   background: #000;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   min-height: 250px;
@@ -119,11 +119,12 @@ video.full-media, img.full-media, audio.full-media {
   margin: 0;
 }
 
-/* Media Info Section */
+/* Media Info Section - Hidden by default */
 .video-details {
   padding: 12px 16px;
   background: #111;
   border-bottom: 1px solid #222;
+  display: none;
 }
 
 .title-download-row {
@@ -200,7 +201,7 @@ video.full-media, img.full-media, audio.full-media {
   justify-content: space-between;
   background: #222;
   padding: 10px 14px;
-  margin-top: 15px;
+  margin-top: 5px;
   border-left: 4px solid #e50914;
 }
 .related-header h3 {
@@ -222,7 +223,7 @@ video.full-media, img.full-media, audio.full-media {
   font-size: 12px;
 }
 
-/* Related Grid */
+/* Related Grid / Contents Grid */
 .related-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -338,7 +339,6 @@ body.admin-mode .card-checkbox {
     <button class="admin-toggle-btn" onclick="toggleAdminMode()">🔐 Admin</button>
   </div>
 
-  <!-- Bulk Action Bar for Admin Mode -->
   <div class="bulk-action-bar">
     <div>
       <input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> 
@@ -347,13 +347,11 @@ body.admin-mode .card-checkbox {
     <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
   </div>
 
-  <!-- Featured Media / Software Area -->
   <div class="main-player-wrap" id="mainMediaContainer"></div>
 
-  <!-- Media Info -->
-  <div class="video-details">
+  <div class="video-details" id="videoDetailsBox">
     <div class="title-download-row">
-      <h2 class="video-title" id="activeTitle">Loading...</h2>
+      <h2 class="video-title" id="activeTitle"></h2>
       <div class="action-group">
         <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
       </div>
@@ -365,25 +363,22 @@ body.admin-mode .card-checkbox {
         <span>From: <span class="uploader-name" id="activeUploader">Ning Wei Media</span></span>
       </div>
       <div class="date-row">
-        📅 Date: <span id="activeDate">September 13, 2026</span>
+        📅 Date: <span id="activeDate"></span>
       </div>
     </div>
   </div>
 
-  <!-- Related Header Bar -->
   <div class="related-header">
-    <h3 id="relatedHeaderTitle">Related items</h3>
+    <h3 id="relatedHeaderTitle">Items</h3>
     <div class="toggle-icon">▲</div>
   </div>
 
-  <!-- Related Items Grid -->
   <div class="related-grid" id="relatedGrid"></div>
 </div>
 
-<!-- Custom Clean Popup Modal -->
 <div class="custom-modal-overlay" id="customModalOverlay">
   <div class="custom-modal">
-    <p id="customModalText">Message text here</p>
+    <p id="customModalText"></p>
     <div class="modal-btn-group" id="customModalButtons">
       <button class="modal-btn confirm" id="modalOkBtn">OK</button>
     </div>
@@ -395,7 +390,6 @@ const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 let db = null;
-let currentItem = null;
 let allItems = [];
 
 function showCustomAlert(message, callback) {
@@ -459,9 +453,9 @@ async function initLibrary() {
   const formattedTitle = selectedFolder.replace(/-/g, ' ');
   
   document.getElementById('folderName').textContent = formattedTitle || "Library";
-  document.getElementById('relatedHeaderTitle').textContent = "Related " + (formattedTitle ? formattedTitle.toLowerCase() : "items");
+  document.getElementById('relatedHeaderTitle').textContent = formattedTitle ? formattedTitle : "Items";
 
-  const isSoftwareCategory = /software|editing|tools/i.test(selectedFolder);
+  const isSoftwareCategory = /software|editing|tools|apps/i.test(selectedFolder);
 
   if (!window.supabase) return;
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -512,18 +506,64 @@ async function initLibrary() {
     }
   });
 
+  const grid = document.getElementById('relatedGrid');
   if (allItems.length > 0) {
-    playMedia(allItems[0]);
-    renderRelated(allItems.slice(1));
+    // Render all items in the grid immediately without auto-playing the first one
+    renderGrid(allItems);
   } else {
-    document.getElementById('activeTitle').textContent = 'No files found in this category.';
-    document.getElementById('mainMediaContainer').innerHTML = '';
+    grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #777; padding: 20px;">No files found in this category.</p>';
   }
 }
 
-function playMedia(item) {
-  currentItem = item;
+function renderGrid(list) {
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = list.map((item, idx) => {
+    let previewElement = '';
+    if (item.isSoftware) {
+      previewElement = `
+        <div class="related-card-software">
+          <span>📦</span>
+          <div>${item.title}</div>
+        </div>
+      `;
+    } else if (item.isImage) {
+      previewElement = `<img src="${item.url}" loading="lazy" alt="preview">`;
+    } else if (item.isVideo) {
+      previewElement = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+    } else if (item.isAudio) {
+      previewElement = `
+        <div class="related-card-software">
+          <span>🎵</span>
+          <div>${item.title}</div>
+        </div>
+      `;
+    } else {
+      previewElement = `
+        <div class="related-card-software">
+          <span>📦</span>
+          <div>${item.title}</div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="related-card" onclick="playMedia(${idx})">
+        <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
+        ${previewElement}
+      </div>
+    `;
+  }).join('');
+}
+
+function playMedia(index) {
+  const item = allItems[index];
+  if (!item) return;
+
   const container = document.getElementById('mainMediaContainer');
+  const detailsBox = document.getElementById('videoDetailsBox');
+
+  container.style.display = 'flex';
+  detailsBox.style.display = 'block';
 
   if (item.isSoftware) {
     container.innerHTML = `
@@ -559,55 +599,8 @@ function playMedia(item) {
   if (item.avatar) {
     avatarImg.src = item.avatar;
   }
-}
 
-function renderRelated(relatedList) {
-  const grid = document.getElementById('relatedGrid');
-  grid.innerHTML = relatedList.map((item, idx) => {
-    let previewElement = '';
-    if (item.isSoftware) {
-      previewElement = `
-        <div class="related-card-software">
-          <span>📦</span>
-          <div>Software Package</div>
-        </div>
-      `;
-    } else if (item.isImage) {
-      previewElement = `<img src="${item.url}" loading="lazy" alt="preview">`;
-    } else if (item.isVideo) {
-      previewElement = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
-    } else if (item.isAudio) {
-      previewElement = `
-        <div class="related-card-software">
-          <span>🎵</span>
-          <div>Audio Track</div>
-        </div>
-      `;
-    } else {
-      previewElement = `
-        <div class="related-card-software">
-          <span>📦</span>
-          <div>File Package</div>
-        </div>
-      `;
-    }
-
-    return `
-      <div class="related-card" onclick="switchMedia(${idx})">
-        <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
-        ${previewElement}
-      </div>
-    `;
-  }).join('');
-  
-  window.currentRelated = relatedList;
-}
-
-function switchMedia(index) {
-  if (window.currentRelated && window.currentRelated[index]) {
-    playMedia(window.currentRelated[index]);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toggleSelectAll(masterBox) {
