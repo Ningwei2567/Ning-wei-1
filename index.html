@@ -4,246 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ning Wei Media</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f5f5f7;
-  color:#111;
-}
-a{
-  -webkit-tap-highlight-color:transparent;
-  text-decoration:none;
-  color:inherit;
-}
-.container{
-  width:100%;
-  max-width:600px;
-  margin:auto;
-  padding-bottom:25px;
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111;}
+a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
+.container{width:100%;max-width:600px;margin:auto;padding-bottom:25px;}
 
-/* ========== HEADER ========== */
-.header{
-  height:150px;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:white;
-  background:#000;
-}
-.header img{
-  position:absolute;
-  left:0;top:0;
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  object-position:center 22%;
-}
-.header-content{
-  position:relative;
-  z-index:2;
-  padding:8px 15px;
-  text-shadow:0 2px 5px rgba(0,0,0,.9);
-}
-.header h1{
-  margin:0;
-  font-size:28px;
-  font-weight:800;
-}
-.header p{
-  margin:6px 0 0;
-  font-size:14px;
-}
+.header{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:white;background:#000;}
+.header img{position:absolute;left:0;top:0;width:100%;height:150px;object-fit:cover;object-position:center 22%;}
+.header-content{position:relative;z-index:2;padding:8px 15px;text-shadow:0 2px 5px rgba(0,0,0,.9);}
+.header h1{margin:0;font-size:28px;font-weight:800;}
+.header p{margin:6px 0 0;font-size:14px;}
 
-/* ========== SEARCH + UPLOAD ========== */
 .search-upload{padding:14px 16px 6px;}
-.search-box{
-  display:flex;
-  background:#fff;
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:5px;
-  box-shadow:0 2px 7px rgba(0,0,0,.07);
-}
-.search-box input{
-  flex:1;
-  border:0;
-  outline:none;
-  padding:11px;
-  font-size:14px;
-  background:transparent;
-}
-.search-box button{
-  border:0;
-  border-radius:9px;
-  padding:0 14px;
-  background:#111;
-  color:#fff;
-  font-weight:700;
-}
-.upload-button{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  min-height:60px;
-  margin-top:10px;
-  padding:10px;
-  border-radius:12px;
-  background:#55bfe8;
-  color:#fff;
-  font-size:15px;
-  font-weight:800;
-  box-shadow:0 3px 9px rgba(0,0,0,.12);
-}
-.upload-button-description{
-  display:block;
-  margin-top:4px;
-  font-size:11px;
-  font-weight:600;
-}
+.search-box{display:flex;background:#fff;border:1px solid #ddd;border-radius:12px;padding:5px;box-shadow:0 2px 7px rgba(0,0,0,.07);}
+.search-box input{flex:1;border:0;outline:none;padding:11px;font-size:14px;background:transparent;}
+.search-box button{border:0;border-radius:9px;padding:0 14px;background:#111;color:#fff;font-weight:700;}
+.upload-button{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:10px;padding:10px;border-radius:12px;background:#55bfe8;color:#fff;font-size:15px;font-weight:800;box-shadow:0 3px 9px rgba(0,0,0,.12);}
+.upload-button-description{display:block;margin-top:4px;font-size:11px;font-weight:600;}
 
-/* ========== SECTIONS ========== */
 .section{padding:12px 16px 2px;}
-.section h2{
-  margin:0 0 10px;
-  font-size:20px;
-  font-weight:800;
-}
-
-/* ========== GRIDS ========== */
+.section h2{margin:0 0 10px;font-size:20px;font-weight:800;}
 .grid{display:grid;gap:8px;}
 .grid-2{grid-template-columns:repeat(2,1fr);}
 .grid-4{grid-template-columns:repeat(4,1fr);gap:6px;}
 
-/* ========== TILES ========== */
-.tile{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  min-height:46px;
-  padding:6px 8px;
-  background:#fff;
-  border:1px solid #e2e2e2;
-  border-radius:10px;
-  box-shadow:0 1px 4px rgba(0,0,0,.05);
-  font-size:12px;
-  font-weight:700;
-  line-height:1.15;
-}
+.tile{display:flex;align-items:center;gap:8px;min-height:46px;padding:6px 8px;background:#fff;border:1px solid #e2e2e2;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);font-size:12px;font-weight:700;line-height:1.15;}
 .tile:active{transform:scale(.97);}
-.tile .ic{
-  width:30px;
-  height:30px;
-  min-width:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  background:#111;
-  color:#fff;
-  font-size:15px;
-}
+.tile .ic{width:30px;height:30px;min-width:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#111;color:#fff;font-size:15px;}
 
-/* ========== MEDIA CARD DISPLAY ========== */
-.media-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 110px;
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 4px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,.05);
-}
+.media-card{display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;background:#fff;border:1px solid #e2e2e2;border-radius:10px;padding:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.media-preview{width:100%;height:75px;border-radius:6px;object-fit:cover;background:#000;}
+.media-title{font-size:9.5px;font-weight:bold;text-align:center;padding:4px 2px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
 
-.media-preview {
-  width: 100%;
-  height: 75px;
-  border-radius: 6px;
-  object-fit: cover;
-  background: #000;
-}
-
-.media-title {
-  font-size: 9.5px;
-  font-weight: bold;
-  text-align: center;
-  padding: 4px 2px 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-}
-
-/* ========== "MORE" BUTTON ========== */
-.more-wrap{
-  display:flex;
-  justify-content:center;
-  margin:6px 0 0;
-}
-.more-btn{
-  border:1px solid #ddd;
-  background:#fff;
-  color:#111;
-  font-family:inherit;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.3px;
-  padding:4px 16px;
-  border-radius:20px;
-  box-shadow:0 1px 4px rgba(0,0,0,.06);
-  cursor:pointer;
-}
+.more-wrap{display:flex;justify-content:center;margin:6px 0 0;}
+.more-btn{border:1px solid #ddd;background:#fff;color:#111;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.3px;padding:4px 16px;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;}
 .more-btn:active{transform:scale(.96);}
+.tile.is-hidden, .media-card.is-hidden{display:none !important;}
+.section.open .tile.is-hidden, .section.open .media-card.is-hidden{display:flex !important;}
 
-.tile.is-hidden, .media-card.is-hidden {display:none !important;}
-.section.open .tile.is-hidden, .section.open .media-card.is-hidden {display:flex !important;}
-
-/* ========== TRENDING APPS ========== */
 .trending{padding:14px 16px 4px;}
 .trending h2{margin:0 0 10px;font-size:20px;font-weight:800;}
-.apps{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:7px;
-}
-.app{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-height:78px;
-  padding:6px 2px;
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
-}
+.apps{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;}
+.app{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:78px;padding:6px 2px;background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.06);}
 .app-logo{width:38px;height:38px;object-fit:contain;margin-bottom:5px;}
 .app-name{font-size:8px;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
 
-/* ========== SOCIAL + FOOTER ========== */
 .social{padding:18px 16px 8px;}
 .social h2{margin:0 0 12px;font-size:20px;}
 .social-list{display:flex;justify-content:center;gap:12px;}
-.social a{
-  width:40px;height:40px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:#000;
-}
+.social a{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#000;}
 .social img{width:22px;height:22px;}
 .footer{padding:18px 15px;text-align:center;font-size:12px;color:#777;}
 </style>
@@ -265,7 +77,6 @@ a{
     <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
     <button type="submit">Search</button>
   </form>
-
   <a class="upload-button" href="upload.html">
     <span>🎵 Artists, upload your music here</span>
     <span class="upload-button-description">Submit your Music, Videos, Apps & Files</span>
@@ -391,7 +202,6 @@ a{
 </section>
 
 <footer class="footer">© Ning Wei Media</footer>
-
 </div>
 
 <script>
@@ -405,25 +215,19 @@ function initMoreButtons() {
     if (!grid || !btn) return;
 
     var items = Array.prototype.slice.call(grid.children);
-
     if (items.length <= limit) {
       if (wrap) wrap.style.display = 'none';
       return;
-    } else {
-      if (wrap) wrap.style.display = 'flex';
     }
+    if (wrap) wrap.style.display = 'flex';
 
     items.forEach(function(item, i){
-      if (i >= limit) {
-        item.classList.add('is-hidden');
-      } else {
-        item.classList.remove('is-hidden');
-      }
+      if (i >= limit) item.classList.add('is-hidden');
+      else item.classList.remove('is-hidden');
     });
 
     var newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
-
     newBtn.addEventListener('click', function(){
       var opened = section.classList.toggle('open');
       newBtn.textContent = opened ? ('Less ' + label + ' ▴') : ('More ' + label + ' ▾');
@@ -434,16 +238,11 @@ function initMoreButtons() {
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
-function isImageFile(nameOrUrl) {
-  return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(nameOrUrl || '');
-}
-function isVideoFile(nameOrUrl) {
-  return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(nameOrUrl || '');
-}
+function isImage(str) { return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(str || ''); }
+function isVideo(str) { return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(str || ''); }
 
 async function loadUploadedContent() {
   if (!window.supabase) return;
-
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data, error } = await db.from('artist_submissions').select('*');
 
@@ -454,55 +253,68 @@ async function loadUploadedContent() {
 
   const videoGrid = document.getElementById('videoGrid');
   const photoGrid = document.getElementById('photoGrid');
-
   const videoItems = [];
   const photoItems = [];
 
   data.forEach(row => {
     if (row.status && row.status.toLowerCase() !== 'approved') return;
 
-    if (!Array.isArray(row.files)) return;
+    // Support both formats: array and object
+    let fileList = [];
+    if (Array.isArray(row.files)) {
+      fileList = row.files;
+    } else if (row.files && typeof row.files === 'object') {
+      Object.keys(row.files).forEach(key => {
+        const list = row.files[key];
+        if (Array.isArray(list)) {
+          list.forEach(f => {
+            if (!f.category) f.category = key;
+            fileList.push(f);
+          });
+        }
+      });
+    }
 
-    row.files.forEach(f => {
-      const fileName = (f.original_name || f.name || '').toLowerCase();
-      const fileUrl  = (f.url || '').toLowerCase();
-      const title    = f.original_name || f.name || row.artist_name || 'Media';
-      const url      = f.url || '';
+    fileList.forEach(f => {
+      const name = (f.original_name || f.name || '').toLowerCase();
+      const url  = f.url || '';
+      const type = (f.type || f.category || '').toLowerCase();
+      const title = f.original_name || f.name || row.artist_name || 'Media';
 
       if (!url) return;
 
-      if (isVideoFile(fileName) || isVideoFile(fileUrl)) {
-        videoItems.push({ title: title, url: url });
+      if (isVideo(name) || isVideo(url) || type.includes('video')) {
+        videoItems.push({ title, url });
       }
-      else if (isImageFile(fileName) || isImageFile(fileUrl)) {
-        photoItems.push({ title: title, url: url });
+      else if (isImage(name) || isImage(url) || type.includes('photo') || type.includes('image') || type.includes('cover') || type.includes('profile') || type === 'photo') {
+        photoItems.push({ title, url });
       }
     });
   });
 
-  // Render Videos
+  // Videos
   if (videoGrid) {
     if (videoItems.length > 0) {
-      videoGrid.innerHTML = videoItems.map(function(item) {
-        return '<a class="media-card" href="' + item.url + '" target="_blank">' +
-               '<video class="media-preview" src="' + item.url + '#t=0.5" preload="metadata" muted></video>' +
-               '<div class="media-title">' + item.title + '</div>' +
-               '</a>';
-      }).join('');
+      videoGrid.innerHTML = videoItems.map(item => 
+        `<a class="media-card" href="${item.url}" target="_blank">
+          <video class="media-preview" src="${item.url}#t=0.5" preload="metadata" muted></video>
+          <div class="media-title">${item.title}</div>
+        </a>`
+      ).join('');
     } else {
       videoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending videos found.</p>';
     }
   }
 
-  // Render Photos
+  // Photos
   if (photoGrid) {
     if (photoItems.length > 0) {
-      photoGrid.innerHTML = photoItems.map(function(item) {
-        return '<a class="media-card" href="' + item.url + '" target="_blank">' +
-               '<img class="media-preview" src="' + item.url + '" alt="' + item.title + '" loading="lazy">' +
-               '<div class="media-title">' + item.title + '</div>' +
-               '</a>';
-      }).join('');
+      photoGrid.innerHTML = photoItems.map(item => 
+        `<a class="media-card" href="${item.url}" target="_blank">
+          <img class="media-preview" src="\( {item.url}" alt=" \){item.title}" loading="lazy">
+          <div class="media-title">${item.title}</div>
+        </a>`
+      ).join('');
     } else {
       photoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending photos found.</p>';
     }
@@ -513,6 +325,5 @@ async function loadUploadedContent() {
 
 loadUploadedContent();
 </script>
-
 </body>
 </html>
