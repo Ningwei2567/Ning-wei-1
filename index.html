@@ -189,15 +189,6 @@ a{
   width: 100%;
 }
 
-.slot{
-  display:block;
-  min-height:110px;
-  border-radius:10px;
-  background:#fff;
-  border:1px dashed #d8d8dd;
-  box-shadow:0 1px 4px rgba(0,0,0,.04);
-}
-
 /* ========== "MORE" BUTTON ========== */
 .more-wrap{
   display:flex;
@@ -219,9 +210,8 @@ a{
 }
 .more-btn:active{transform:scale(.96);}
 
-/* Visibility toggle state */
-.tile.is-hidden, .slot.is-hidden, .media-card.is-hidden {display:none !important;}
-.section.open .tile.is-hidden, .section.open .slot.is-hidden, .section.open .media-card.is-hidden {display:flex !important;}
+.tile.is-hidden, .media-card.is-hidden {display:none !important;}
+.section.open .tile.is-hidden, .section.open .media-card.is-hidden {display:flex !important;}
 
 /* ========== TRENDING APPS ========== */
 .trending{padding:14px 16px 4px;}
@@ -305,15 +295,13 @@ a{
 
 <section class="section" data-show="8" data-label="Videos">
   <h2>🎬 Trending Videos</h2>
-  <div class="grid grid-4" id="videoGrid">
-    </div>
+  <div class="grid grid-4" id="videoGrid"></div>
   <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
 </section>
 
 <section class="section" data-show="8" data-label="Photos">
   <h2>📸 Trending Photos &amp; Jokes</h2>
-  <div class="grid grid-4" id="photoGrid">
-    </div>
+  <div class="grid grid-4" id="photoGrid"></div>
   <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
 </section>
 
@@ -383,26 +371,11 @@ a{
 <section class="trending">
   <h2>Trending Apps</h2>
   <div class="apps">
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube">
-      <span class="app-name">YouTube</span>
-    </a>
-    <a class="app" href="library.html?folder=Messaging">
-      <img class="app-logo" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">
-      <span class="app-name">WhatsApp</span>
-    </a>
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/facebook/1877F2" alt="Facebook">
-      <span class="app-name">Facebook</span>
-    </a>
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram">
-      <span class="app-name">Instagram</span>
-    </a>
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/x/000000" alt="X">
-      <span class="app-name">X</span>
-    </a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube"><span class="app-name">YouTube</span></a>
+    <a class="app" href="library.html?folder=Messaging"><img class="app-logo" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp"><span class="app-name">WhatsApp</span></a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/facebook/1877F2" alt="Facebook"><span class="app-name">Facebook</span></a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram"><span class="app-name">Instagram</span></a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/x/000000" alt="X"><span class="app-name">X</span></a>
   </div>
 </section>
 
@@ -474,14 +447,9 @@ async function loadUploadedContent() {
   const videoItems = [];
   const photoItems = [];
 
-  // Helper function to process individual file objects from either format
   function extractFilesFromRow(filesColumn) {
     if (!filesColumn) return [];
-    // If it's a flat array (New uploads format)
-    if (Array.isArray(filesColumn)) {
-      return filesColumn;
-    }
-    // If it's an old nested object format { songs: [...], covers: [...], photos: [...] }
+    if (Array.isArray(filesColumn)) return filesColumn;
     let flattened = [];
     if (typeof filesColumn === 'object') {
       Object.values(filesColumn).forEach(categoryList => {
@@ -494,7 +462,6 @@ async function loadUploadedContent() {
   }
 
   data.forEach(row => {
-    // Skip unapproved records (accepts approved case-insensitively or treats empty/null status as approved if needed)
     const status = (row.status || 'approved').toLowerCase();
     if (status !== 'approved') return;
 
@@ -503,13 +470,13 @@ async function loadUploadedContent() {
     allFiles.forEach(f => {
       const type = (f.type || f.role || f.category || '').toLowerCase();
       const title = f.original_name || f.name || row.artist_name || 'Media';
-      const url = f.url || '';
+      const url = f.url || f.publicUrl || '';
 
-      // Check if it's a video item
+      if (!url) return;
+
       if (type === 'video' || url.match(/\.(mp4|webm|ogg|mov)$/i)) {
         videoItems.push({ title: title, url: url });
       } 
-      // Check if it's a photo/image item
       else if (type === 'photo' || type === 'image' || type === 'profile' || type === 'cover' || url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
         photoItems.push({ title: title, url: url });
       }
