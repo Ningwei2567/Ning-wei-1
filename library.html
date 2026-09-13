@@ -3,491 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media - Library</title>
+<title>Ning Wei Media - Player & Library</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;}
 body{
+  margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:#f5f5f7;
-  color:#111;
-  line-height:1.4;
+  background:#0a0a0a;
+  color:#fff;
 }
-a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
 .container{
+  width:100%;
   max-width:600px;
-  margin:0 auto;
-  min-height:100vh;
+  margin:auto;
   padding-bottom:30px;
 }
 
 /* Header */
-.header{
-  height:140px;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:white;
-  background:#000;
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #111;
+  border-bottom: 1px solid #222;
 }
-.header img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  object-position:center 35%;
+.back-btn {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
 }
-.header-content{
-  position:relative;
-  z-index:2;
-  padding:10px 15px;
-  text-shadow:0 2px 5px rgba(0,0,0,.9);
-}
-.header h1{font-size:26px;font-weight:800;margin:0}
-.header p{font-size:13px;margin-top:6px}
-
-/* Top bar */
-.top-bar{
-  padding:14px 16px 8px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 16px;
-  border-radius:10px;
-  font-weight:700;
-  font-size:14px;
-  border:none;
-  cursor:pointer;
-  text-decoration:none;
-}
-.btn-dark{
-  background:#111;
-  color:#fff;
-}
-.btn-light{
-  background:#fff;
-  color:#111;
-  border:1px solid #ddd;
-}
-.btn-direct-upload{
-  width:100%;
-  margin-top:10px;
-  margin-bottom:14px;
-  background:linear-gradient(135deg, #e5a400, #b88300);
-  color:#fff;
-  font-size:15px;
-  font-weight:800;
-  padding:12px 18px;
-  border-radius:12px;
-  text-align:center;
-  box-shadow:0 3px 10px rgba(229,164,0,.3);
-  display:none;
+.page-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #55bfe8;
 }
 
-/* Content */
-.content{
-  padding:10px 16px 30px;
+/* Fullscreen/TikTok Video Container */
+.main-player-wrap {
+  width: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.category-title{
-  font-size:22px;
-  font-weight:800;
-  margin-bottom:4px;
-}
-.category-sub{
-  color:#666;
-  font-size:13px;
-  margin-bottom:12px;
-}
-
-/* List */
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:#fff;
-  border:1px solid #e2e2e2;
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 2px 6px rgba(0,0,0,.05);
-  transition:transform .1s ease;
-}
-.item:active{transform:scale(0.98)}
-.cover{
-  width:52px;
-  height:52px;
-  min-width:52px;
-  border-radius:10px;
-  background:#111;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-size:22px;
-  overflow:hidden;
-}
-.cover img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.info{
-  min-width:0;
-  flex:1;
-}
-.title{
-  font-size:14px;
-  font-weight:700;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.meta{
-  font-size:11px;
-  color:#777;
-  margin-top:3px;
+video.full-video {
+  width: 100%;
+  max-height: 80vh; /* Expands full size for TikTok style vertical videos */
+  object-fit: contain;
+  outline: none;
 }
 
-/* Empty & Loading */
-.status{
-  text-align:center;
-  padding:40px 20px;
-  color:#777;
-  background:#fff;
-  border-radius:12px;
-  border:1px dashed #ccc;
-  font-size:14px;
+/* Video Details Section */
+.video-details {
+  padding: 12px 16px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+.video-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #aaa;
+}
+.meta-info span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.uploader-name {
+  color: #e50914;
+  font-weight: bold;
 }
 
-/* Footer */
-.footer{
-  text-align:center;
-  padding:20px;
-  font-size:12px;
-  color:#888;
+/* Related Videos Header */
+.related-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #222;
+  padding: 10px 14px;
+  margin-top: 15px;
+  border-left: 4px solid #e50914;
+}
+.related-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+.toggle-icon {
+  background: #e50914;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+/* Related Content Grid */
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 12px 16px;
+}
+.related-card {
+  background: #161616;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.related-card video, .related-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  background: #000;
+}
+.related-card .card-title {
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-
-  <header class="header">
-    <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
-    <div class="header-content">
-      <h1>Ning Wei Media</h1>
-      <p>Music • Videos • Photos • Apps • Software</p>
-    </div>
-  </header>
-
   <div class="top-bar">
-    <a href="index.html" class="btn btn-dark">← Back Home</a>
-    <a href="https://github.com/Ningwei2567/Ning-wei-1/upload/main" class="btn btn-light">⬆ Admin Direct Upload</a>
+    <a href="index.html" class="back-btn">← Home</a>
+    <div class="page-title" id="folderName">Videos</div>
+    <div></div>
   </div>
 
-  <div class="content">
-    <h2 class="category-title" id="catTitle">Loading...</h2>
-    <div class="category-sub" id="catSub"></div>
+  <!-- Featured Player Area -->
+  <div class="main-player-wrap">
+    <video id="mainVideoPlayer" class="full-video" controls autoplay playsinline></video>
+  </div>
 
-    <a id="directUploadBtn" href="upload.html" class="btn btn-direct-upload">📤 Upload Direct Here</a>
-
-    <div id="list" class="list">
-      <div class="status">Loading media...</div>
+  <!-- Video Info -->
+  <div class="video-details">
+    <div class="video-title" id="activeTitle">Loading Video...</div>
+    <div class="meta-info">
+      <span>👤 From: <span class="uploader-name" id="activeUploader">Ning Wei Media</span></span>
+      <span>📅 Date: <span id="activeDate">September 13, 2026</span></span>
     </div>
   </div>
 
-  <div class="footer">© Ning Wei Media</div>
+  <!-- Related Videos Bar -->
+  <div class="related-header">
+    <h3>Related videos</h3>
+    <div class="toggle-icon">▲</div>
+  </div>
+
+  <!-- Related Items Grid -->
+  <div class="related-grid" id="relatedGrid"></div>
 </div>
 
 <script>
-/* =========================
-   SUPABASE CONFIG
-========================= */
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* =========================
-   GITHUB CONFIG
-========================= */
-const GITHUB_OWNER = "Ningwei2567";
-const GITHUB_REPO  = "Ning-wei-1";
-const GITHUB_BRANCH = "main";
-const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
+async function initLibrary() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedFolder = urlParams.get('folder') || 'Trending-Videos';
+  document.getElementById('folderName').textContent = selectedFolder.replace(/-/g, ' ');
 
-/* =========================
-   HELPERS
-========================= */
-function getFolder() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("folder") || "";
-}
+  if (!window.supabase) return;
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function cleanName(name) {
-  return String(name || "Untitled")
-    .split("/").pop()
-    .replace(/\.[^/.]+$/, "")
-    .replace(/[_-]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim() || "Untitled";
-}
+  const { data, error } = await db.from('artist_submissions').select('*');
+  if (error || !data) return;
 
-function niceFolderName(folder) {
-  const map = {
-    "Top-Ugandan-Music": "Top Ugandan Music",
-    "Amapiano-Music": "Amapiano Music",
-    "Afrobeat-Music": "Afrobeat Music",
-    "Dancehall-Music": "Dancehall Music",
-    "R-B-Music": "R&B Music",
-    "Reggae": "Reggae",
-    "Old-School-R-B": "Old School R&B",
-    "Old-South-African-Music": "Old South African Music",
-    "Western-Music": "Western Music",
-    "Love-Songs": "Love Songs",
-    "Oldies-Kikadde-Music": "Oldies / Kikadde Music",
-    "Kadongo-Kamu": "Kadongo Kamu",
-    "High-School-Music": "High School Music",
-    "Lingala-Music": "Lingala Music",
-    "Instrumental": "Instrumental",
-    "Trending-Videos": "Trending Videos",
-    "Trending-Photos-Jokes": "Trending Photos & Jokes",
-    "DJ-Mixes": "DJ Mixes",
-    "Premium-Unlocked-Apps": "Premium Unlocked Apps",
-    "Free-Unlimited-Internet-VPNs": "Free Unlimited Internet VPNs"
-  };
-  return map[folder] || folder.replace(/[-_]/g, " ");
-}
+  const items = [];
 
-function isAudio(name) {
-  return /\.(mp3|m4a|wav|aac|ogg|flac)$/i.test(name);
-}
-function isVideo(name) {
-  return /\.(mp4|webm|mov|m4v|3gp|mkv)$/i.test(name);
-}
-function isImage(name) {
-  return /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(name);
-}
+  data.forEach(row => {
+    if (row.status && row.status.toLowerCase() !== 'approved') return;
 
-/* =========================
-   LOAD FROM SUPABASE (INSTANT LIVE UPLOADS)
-========================= */
-async function loadFromSupabase(folder) {
-  try {
-    const { data, error } = await db
-      .from("artist_submissions")
-      .select("*")
-      .eq("status", "approved")
-      .order("posted_at", { ascending: false });
+    const dateStr = row.created_at ? new Date(row.created_at).toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    }) : 'September 13, 2026';
 
-    if (error || !data) return [];
-
-    const items = [];
-    const niceTargetFolder = niceFolderName(folder).toLowerCase();
-
-    data.forEach(row => {
-      const files = Array.isArray(row.files) ? row.files : [];
-      let coverUrl = "";
-      
-      files.forEach(f => {
-        if (f.type === "cover" || f.type === "profile") coverUrl = f.url;
-      });
-
-      files.forEach(f => {
-        if (f.type === "cover" || f.type === "profile") return;
-
-        const cat = String(f.category || "").toLowerCase();
-        const fname = String(f.name || "").toLowerCase();
-        let match = false;
-
-        if (folder) {
-          if (cat === niceTargetFolder) match = true;
-          if (!match && niceTargetFolder.includes("video") && (f.type === "video" || isVideo(fname))) match = true;
-          if (!match && (niceTargetFolder.includes("photo") || niceTargetFolder.includes("joke")) && (f.type === "photo" || isImage(fname))) match = true;
-          if (!match && niceTargetFolder.includes("mix") && cat.includes("mix")) match = true;
-          if (!match && cat.replace(/[^a-z0-9]/g, "") === niceTargetFolder.replace(/[^a-z0-9]/g, "")) match = true;
-        } else {
-          match = true;
-        }
-
-        if (match) {
-          items.push({
-            name: f.name || f.original_name || "Untitled",
-            path: row.artist_name ? `Uploaded by ${row.artist_name}` : "Direct Upload",
-            url: f.url,
-            cover: coverUrl,
-            artist: row.artist_name || "",
-            description: row.biography || ""
-          });
-        }
-      });
-    });
-
-    return items;
-  } catch (err) {
-    console.error("Supabase load error:", err);
-    return [];
-  }
-}
-
-/* =========================
-   LOAD FROM GITHUB
-========================= */
-async function loadFromGithub(folder) {
-  try {
-    const api = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
-    const res = await fetch(api);
-    if (!res.ok) return [];
-
-    const data = await res.json();
-    const tree = data.tree || [];
-
-    const items = [];
-
-    for (const file of tree) {
-      if (file.type !== "blob") continue;
-
-      const path = file.path;
-      const lower = path.toLowerCase();
-
-      let match = false;
-
-      if (folder) {
-        if (lower.includes(`/${folder.toLowerCase()}/`) ||
-            lower.includes(`/${folder.toLowerCase().replace(/-/g,"_")}/`) ||
-            lower.startsWith(`media/${folder.toLowerCase()}/`) ||
-            lower.startsWith(`songs/${folder.toLowerCase()}/`) ||
-            lower.startsWith(`music/${folder.toLowerCase()}/`)) {
-          match = true;
-        }
-      }
-
-      if (!match && !folder) {
-        if (lower.startsWith("media/")) match = true;
-      }
-
-      if (!match) continue;
-
-      const name = path.split("/").pop();
-      const url = RAW_BASE + path.split("/").map(encodeURIComponent).join("/");
-
-      items.push({
-        name: name,
-        path: path,
-        url: url
+    if (Array.isArray(row.files)) {
+      row.files.forEach(f => {
+        items.push({
+          title: f.original_name || f.name || row.artist_name || 'Untitled Video',
+          url: f.url,
+          uploader: row.artist_name || 'Unknown Artist',
+          date: dateStr
+        });
       });
     }
-
-    return items;
-  } catch (err) {
-    console.error("GitHub load error:", err);
-    return [];
-  }
-}
-
-/* =========================
-   RENDER
-========================= */
-function render(folder, items) {
-  const titleEl = document.getElementById("catTitle");
-  const subEl   = document.getElementById("catSub");
-  const listEl  = document.getElementById("list");
-  const directBtn = document.getElementById("directUploadBtn");
-
-  const nice = niceFolderName(folder);
-  titleEl.textContent = nice || "Library";
-  subEl.textContent = items.length ? `${items.length} item${items.length > 1 ? "s" : ""} found` : "";
-
-  // Show "Upload Direct Here" button inside Photos & Videos folders
-  const lowerFolder = String(folder || "").toLowerCase();
-  if (lowerFolder.includes("photo") || lowerFolder.includes("video") || lowerFolder.includes("joke")) {
-    directBtn.style.display = "block";
-    const uploadType = lowerFolder.includes("video") ? "videos" : "photos";
-    directBtn.href = `upload.html?type=${uploadType}`;
-  } else {
-    directBtn.style.display = "none";
-  }
-
-  listEl.innerHTML = "";
-
-  if (!items.length) {
-    listEl.innerHTML = `
-      <div class="status">
-        No media found in this category yet.<br><br>
-        You can upload new files directly using the Upload button above.
-      </div>`;
-    return;
-  }
-
-  items.forEach(item => {
-    const div = document.createElement("a");
-    div.className = "item";
-    
-    let targetPage = "media.html";
-    let coverHtml = "";
-
-    if (item.cover) {
-      coverHtml = `<img src="${item.cover}" alt="Cover">`;
-    } else {
-      let icon = "🎵";
-      if (isVideo(item.name)) icon = "🎬";
-      if (isImage(item.name)) icon = "🖼️";
-      coverHtml = icon;
-    }
-
-    div.href = `${targetPage}?url=${encodeURIComponent(item.url)}&name=${encodeURIComponent(item.name)}&artist=${encodeURIComponent(item.artist || '')}`;
-
-    div.innerHTML = `
-      <div class="cover">${coverHtml}</div>
-      <div class="info">
-        <div class="title">${cleanName(item.name)}</div>
-        <div class="meta">${item.artist ? 'By ' + item.artist : item.path}</div>
-      </div>
-    `;
-    listEl.appendChild(div);
   });
-}
 
-/* =========================
-   START
-========================= */
-async function start() {
-  const folder = getFolder();
-
-  if (!folder) {
-    document.getElementById("catTitle").textContent = "Library";
-    document.getElementById("list").innerHTML = `
-      <div class="status">
-        No category selected.<br>
-        Please go back and choose a category.
-      </div>`;
-    return;
+  if (items.length > 0) {
+    playVideo(items[0]);
+    renderRelated(items.slice(1));
   }
-
-  // Combine both Supabase live uploads and existing GitHub media
-  const [supabaseItems, githubItems] = await Promise.all([
-    loadFromSupabase(folder),
-    loadFromGithub(folder)
-  ]);
-
-  const allItems = [...supabaseItems, ...githubItems];
-  render(folder, allItems);
 }
 
-start();
+function playVideo(item) {
+  const player = document.getElementById('mainVideoPlayer');
+  player.src = item.url;
+  document.getElementById('activeTitle').textContent = item.title;
+  document.getElementById('activeUploader').textContent = item.uploader;
+  document.getElementById('activeDate').textContent = item.date;
+}
+
+function renderRelated(relatedList) {
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = relatedList.map((item, idx) => `
+    <div class="related-card" onclick="switchVideo(${idx})">
+      <video src="${item.url}#t=0.5" preload="metadata" muted></video>
+      <div class="card-title">${item.title}</div>
+    </div>
+  `).join('');
+  
+  window.currentRelated = relatedList;
+}
+
+function switchVideo(index) {
+  if (window.currentRelated && window.currentRelated[index]) {
+    playVideo(window.currentRelated[index]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+initLibrary();
 </script>
 
 </body>
