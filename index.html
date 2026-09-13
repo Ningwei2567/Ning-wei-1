@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ning Wei Media</title>
 
+<!-- Supabase Library -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -126,7 +127,7 @@ a{
 .grid-2{grid-template-columns:repeat(2,1fr);}
 .grid-4{grid-template-columns:repeat(4,1fr);gap:6px;}
 
-/* ========== SLIM TILES (2 across) ========== */
+/* ========== TILES ========== */
 .tile{
   display:flex;
   align-items:center;
@@ -155,49 +156,47 @@ a{
   font-size:15px;
 }
 
-/* ========== COMPACT TILES (4 across) ========== */
-.grid-4 .tile{
-  flex-direction:column;
-  justify-content:center;
-  text-align:center;
-  gap:5px;
-  min-height:76px;
-  padding:8px 3px;
-  font-size:10.5px;
-  word-break:break-word;
+/* ========== MEDIA CARD DISPLAY ========== */
+.media-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 110px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
 }
-.grid-4 .tile .ic{
-  width:30px;
-  height:30px;
-  min-width:30px;
-  font-size:15px;
+
+.media-preview {
+  width: 100%;
+  height: 75px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #000;
+}
+
+.media-title {
+  font-size: 9.5px;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px 2px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .slot{
   display:block;
-  min-height:76px;
+  min-height:110px;
   border-radius:10px;
   background:#fff;
   border:1px dashed #d8d8dd;
   box-shadow:0 1px 4px rgba(0,0,0,.04);
-}
-
-/* Dynamic Item Cards loaded from database */
-.uploaded-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 76px;
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 8px 4px;
-  text-align: center;
-  font-size: 10.5px;
-  font-weight: bold;
-  box-shadow: 0 1px 4px rgba(0,0,0,.05);
-  word-break: break-word;
 }
 
 /* ========== "MORE" BUTTON ========== */
@@ -221,9 +220,9 @@ a{
 }
 .more-btn:active{transform:scale(.96);}
 
-/* Hide extra items or slots until "More" is tapped */
-.tile.is-hidden, .slot.is-hidden, .uploaded-card.is-hidden {display:none !important;}
-.section.open .tile.is-hidden, .section.open .slot.is-hidden, .section.open .uploaded-card.is-hidden {display:flex !important;}
+/* Hidden visibility rules */
+.tile.is-hidden, .slot.is-hidden, .media-card.is-hidden {display:none !important;}
+.section.open .tile.is-hidden, .section.open .slot.is-hidden, .section.open .media-card.is-hidden {display:flex !important;}
 
 /* ========== TRENDING APPS ========== */
 .trending{padding:14px 16px 4px;}
@@ -258,21 +257,13 @@ a{
 }
 .social img{width:22px;height:22px;}
 .footer{padding:18px 15px;text-align:center;font-size:12px;color:#777;}
-
-@media(max-width:420px){
-  .header h1{font-size:25px;}
-  .header p{font-size:13px;}
-  .tile{font-size:11px;}
-  .tile .ic{width:28px;height:28px;min-width:28px;font-size:14px;}
-  .grid-4 .tile{font-size:9.5px;}
-  .slot{min-height:70px;}
-}
 </style>
 </head>
 <body>
 
 <div class="container">
 
+<!-- ================= HEADER ================= -->
 <header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
   <div class="header-content">
@@ -281,6 +272,7 @@ a{
   </div>
 </header>
 
+<!-- ================= SEARCH + UPLOAD ================= -->
 <section class="search-upload">
   <form class="search-box" action="search.html" method="get">
     <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
@@ -293,166 +285,60 @@ a{
   </a>
 </section>
 
+<!-- ================= 1. MUSIC CHARTS ================= -->
 <section class="section" data-show="6" data-label="Music">
   <h2>🎵 All Top Music Charts</h2>
   <div class="grid grid-2">
-
     <a class="tile" href="library.html?folder=Top-Ugandan-Music"><span class="ic">🇺🇬</span><span>Top Ugandan Music</span></a>
     <a class="tile" href="library.html?folder=Amapiano-Music"><span class="ic">🎵</span><span>Amapiano Music</span></a>
     <a class="tile" href="library.html?folder=Afrobeat-Music"><span class="ic">🔥</span><span>Afrobeat Music</span></a>
     <a class="tile" href="library.html?folder=Dancehall-Music"><span class="ic">🎤</span><span>Dancehall Music</span></a>
     <a class="tile" href="library.html?folder=Reggae"><span class="ic">🌴</span><span>Reggae</span></a>
     <a class="tile" href="library.html?folder=Old-School-R-B"><span class="ic">📻</span><span>Old School R&amp;B</span></a>
-
     <a class="tile" href="library.html?folder=Old-South-African-Music"><span class="ic">🇿🇦</span><span>Old South African Music</span></a>
     <a class="tile" href="library.html?folder=Western-Music"><span class="ic">🌎</span><span>Western Music</span></a>
     <a class="tile" href="library.html?folder=Love-Songs"><span class="ic">💖</span><span>Love Songs</span></a>
     <a class="tile" href="library.html?folder=Oldies-Kikadde-Music"><span class="ic">🎶</span><span>Oldies / Kikadde Music</span></a>
     <a class="tile" href="library.html?folder=Kadongo-Kamu"><span class="ic">🎸</span><span>Kadongo Kamu</span></a>
     <a class="tile" href="library.html?folder=High-School-Music"><span class="ic">🏫</span><span>High School Music</span></a>
-    <a class="tile" href="library.html?folder=Lingala-Music"><span class="ic">🎼</span><span>Lingala Music</span></a>
-    <a class="tile" href="library.html?folder=Instrumental"><span class="ic">🎹</span><span>Instrumental</span></a>
-
   </div>
   <div class="more-wrap"><button class="more-btn" type="button">More Music ▾</button></div>
 </section>
 
+<!-- ================= 2. TRENDING VIDEOS ================= -->
 <section class="section" data-show="8" data-label="Videos">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoGrid">
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
   </div>
   <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
 </section>
 
+<!-- ================= 3. TRENDING PHOTOS ================= -->
 <section class="section" data-show="8" data-label="Photos">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoGrid">
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
   </div>
   <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
 </section>
 
+<!-- ================= 4. APPS ================= -->
 <section class="section" data-show="6" data-label="Apps">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
   <div class="grid grid-2">
-
     <a class="tile" href="library.html?folder=Premium-Unlocked-Apps"><span class="ic">📱</span><span>Premium Unlocked Apps</span></a>
     <a class="tile" href="library.html?folder=Free-Unlimited-Internet-VPNs"><span class="ic">🌐</span><span>Free Unlimited Internet VPNs</span></a>
     <a class="tile" href="library.html?folder=Social-Media"><span class="ic">📲</span><span>Social Media</span></a>
     <a class="tile" href="library.html?folder=Messaging"><span class="ic">💬</span><span>Messaging</span></a>
     <a class="tile" href="library.html?folder=Music-Audio"><span class="ic">🎧</span><span>Music &amp; Audio</span></a>
     <a class="tile" href="library.html?folder=Video-Streaming"><span class="ic">▶️</span><span>Video &amp; Streaming</span></a>
-
-    <a class="tile" href="library.html?folder=Photo-Camera"><span class="ic">📷</span><span>Photo &amp; Camera</span></a>
-    <a class="tile" href="library.html?folder=Video-Editing"><span class="ic">🎞️</span><span>Video Editing</span></a>
-    <a class="tile" href="library.html?folder=Music-DJ"><span class="ic">🎚️</span><span>Music &amp; DJ</span></a>
-    <a class="tile" href="library.html?folder=Games"><span class="ic">🎮</span><span>Games</span></a>
-    <a class="tile" href="library.html?folder=Education"><span class="ic">📚</span><span>Education</span></a>
-    <a class="tile" href="library.html?folder=Business-Work"><span class="ic">💼</span><span>Business &amp; Work</span></a>
-    <a class="tile" href="library.html?folder=Finance-Banking"><span class="ic">💰</span><span>Finance &amp; Banking</span></a>
-    <a class="tile" href="library.html?folder=Shopping"><span class="ic">🛒</span><span>Shopping</span></a>
-    <a class="tile" href="library.html?folder=Travel-Transport"><span class="ic">✈️</span><span>Travel &amp; Transport</span></a>
-    <a class="tile" href="library.html?folder=News"><span class="ic">📰</span><span>News</span></a>
-    <a class="tile" href="library.html?folder=Sports"><span class="ic">⚽</span><span>Sports</span></a>
-    <a class="tile" href="library.html?folder=Health-Fitness"><span class="ic">🏃</span><span>Health &amp; Fitness</span></a>
-    <a class="tile" href="library.html?folder=Tools-Utilities"><span class="ic">🛠️</span><span>Tools &amp; Utilities</span></a>
-    <a class="tile" href="library.html?folder=File-Management"><span class="ic">📁</span><span>File Management</span></a>
-    <a class="tile" href="library.html?folder=Security"><span class="ic">🔐</span><span>Security</span></a>
-
+    <a class="tile" href="library.html?folder=Photo-Editing"><span class="ic">📷</span><span>Photo Editing Apps</span></a>
+    <a class="tile" href="library.html?folder=Video-Editing"><span class="ic">🎞️</span><span>Video Editing Apps</span></a>
   </div>
   <div class="more-wrap"><button class="more-btn" type="button">More Apps ▾</button></div>
-</section>
-
-<section class="section" data-show="6" data-label="Software">
-  <h2>💻 Softwares and Virtual DJ Mappings</h2>
-  <div class="grid grid-2">
-
-    <a class="tile" href="library.html?folder=Virtual-DJ-Software"><span class="ic">🎧</span><span>Virtual DJ Software</span></a>
-    <a class="tile" href="library.html?folder=Windows-Software"><span class="ic">🪟</span><span>Windows Software</span></a>
-    <a class="tile" href="library.html?folder=Software-Video-Editing"><span class="ic">🎬</span><span>Video Editing</span></a>
-    <a class="tile" href="library.html?folder=Audio-Editing"><span class="ic">🎚️</span><span>Audio Editing</span></a>
-    <a class="tile" href="library.html?folder=Photo-Editing"><span class="ic">🖼️</span><span>Photo Editing</span></a>
-    <a class="tile" href="library.html?folder=Graphics-Design"><span class="ic">🎨</span><span>Graphics &amp; Design</span></a>
-
-    <a class="tile" href="library.html?folder=Mac-Software"><span class="ic">🍎</span><span>Mac Software</span></a>
-    <a class="tile" href="library.html?folder=Linux-Software"><span class="ic">🐧</span><span>Linux Software</span></a>
-    <a class="tile" href="library.html?folder=Android-Software"><span class="ic">🤖</span><span>Android Software</span></a>
-    <a class="tile" href="library.html?folder=Office-Productivity"><span class="ic">📊</span><span>Office &amp; Productivity</span></a>
-    <a class="tile" href="library.html?folder=Internet-Browsers"><span class="ic">🌐</span><span>Internet &amp; Browsers</span></a>
-    <a class="tile" href="library.html?folder=Security-Antivirus"><span class="ic">🛡️</span><span>Security &amp; Antivirus</span></a>
-    <a class="tile" href="library.html?folder=Software-File-Management"><span class="ic">📂</span><span>File Management</span></a>
-    <a class="tile" href="library.html?folder=Media-Players"><span class="ic">▶️</span><span>Media Players</span></a>
-    <a class="tile" href="library.html?folder=Download-Managers"><span class="ic">⬇️</span><span>Download Managers</span></a>
-    <a class="tile" href="library.html?folder=Programming-Development"><span class="ic">💻</span><span>Programming &amp; Development</span></a>
-    <a class="tile" href="library.html?folder=Utilities-Tools"><span class="ic">🔧</span><span>Utilities &amp; Tools</span></a>
-
-  </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More Software ▾</button></div>
-</section>
-
-<section class="section" data-show="4" data-label="DJ Mixes">
-  <h2>🎧 DJ Mixes</h2>
-  <div class="grid grid-2">
-
-    <a class="tile" href="library.html?folder=DJ-Mixes"><span class="ic">🎧</span><span>DJ Mixes</span></a>
-    <a class="tile" href="library.html?folder=Mixtapes"><span class="ic">📼</span><span>Mixtapes</span></a>
-    <a class="tile" href="library.html?folder=Sound-Effects"><span class="ic">🔊</span><span>Sound Effects</span></a>
-    <a class="tile" href="library.html?folder=Virtual-DJ-Mappings"><span class="ic">🎚️</span><span>Virtual DJ Mappings</span></a>
-
-  </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More DJ Mixes ▾</button></div>
-</section>
-
-<section class="trending">
-  <h2>Trending Apps</h2>
-  <div class="apps">
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube">
-      <span class="app-name">YouTube</span>
-    </a>
-    <a class="app" href="library.html?folder=Messaging">
-      <img class="app-logo" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">
-      <span class="app-name">WhatsApp</span>
-    </a>
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/facebook/1877F2" alt="Facebook">
-      <span class="app-name">Facebook</span>
-    </a>
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram">
-      <span class="app-name">Instagram</span>
-    </a>
-    <a class="app" href="library.html?folder=Social-Media">
-      <img class="app-logo" src="https://cdn.simpleicons.org/x/000000" alt="X">
-      <span class="app-name">X</span>
-    </a>
-  </div>
-</section>
-
-<section class="social">
-  <h2>Follow Us</h2>
-  <div class="social-list">
-    <a href="#"><img src="https://cdn.simpleicons.org/instagram/FFFFFF" alt="Instagram"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/facebook/FFFFFF" alt="Facebook"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/whatsapp/FFFFFF" alt="WhatsApp"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/youtube/FFFFFF" alt="YouTube"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/x/FFFFFF" alt="X"></a>
-  </div>
 </section>
 
 <footer class="footer">© Ning Wei Media</footer>
@@ -460,7 +346,6 @@ a{
 </div>
 
 <script>
-/* Function to initialize More/Less toggles with dynamic labels */
 function initMoreButtons() {
   document.querySelectorAll('.section[data-show]').forEach(function(section){
     var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
@@ -493,31 +378,20 @@ function initMoreButtons() {
     newBtn.addEventListener('click', function(){
       var opened = section.classList.toggle('open');
       newBtn.textContent = opened ? ('Less ' + label + ' ▴') : ('More ' + label + ' ▾');
-      if (!opened) {
-        section.scrollIntoView({behavior:'smooth', block:'start'});
-      }
     });
   });
 }
 
-initMoreButtons();
-
-/* Fetch Uploaded Files safely from Supabase */
+/* Supabase Fetching and Dynamic Media Render */
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 async function loadUploadedContent() {
   if (!window.supabase) return;
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
   const { data, error } = await db.from('artist_submissions').select('*');
   
-  if (error) {
-    console.error("Supabase load error:", error);
-    return;
-  }
-  
-  if (!data || data.length === 0) return;
+  if (error || !data) return;
 
   const videoGrid = document.getElementById('videoGrid');
   const photoGrid = document.getElementById('photoGrid');
@@ -525,65 +399,44 @@ async function loadUploadedContent() {
   const videoItems = [];
   const photoItems = [];
 
-  // Extract media items from both flat columns AND nested upload.html JSON 'files' array
   data.forEach(row => {
     if (row.status && row.status.toLowerCase() !== 'approved') return;
 
-    // Check nested JSON files array from upload.html
     if (Array.isArray(row.files)) {
       row.files.forEach(f => {
         const type = (f.type || f.role || f.category || '').toLowerCase();
-        const displayTitle = f.original_name || f.name || row.artist_name || 'Media';
+        const title = f.original_name || f.name || row.artist_name || 'Media';
         
-        if (type === 'video') {
-          videoItems.push({ title: displayTitle, url: f.url });
-        } else if (type === 'photo' || type === 'image') {
-          photoItems.push({ title: displayTitle, url: f.url });
+        if (type === 'video' || (f.url && f.url.match(/\.(mp4|webm|ogg|mov)$/i))) {
+          videoItems.push({ title: title, url: f.url });
+        } else if (type === 'photo' || type === 'image' || (f.url && f.url.match(/\.(jpg|jpeg|png|gif|webp)$/i))) {
+          photoItems.push({ title: title, url: f.url });
         }
       });
     }
-
-    // Check flat row structure fallback
-    const flatType = (row.media_type || row.category || row.type || '').toLowerCase();
-    const flatTitle = row.song_title || row.title || row.file_name || row.artist_name || 'Media';
-    const flatUrl = row.file_url || row.url;
-
-    if (flatUrl) {
-      if (flatType.includes('video')) {
-        videoItems.push({ title: flatTitle, url: flatUrl });
-      } else if (flatType.includes('photo') || flatType.includes('image') || flatType.includes('joke')) {
-        photoItems.push({ title: flatTitle, url: flatUrl });
-      }
-    }
   });
 
-  // Render Videos into 2x4 Grid slots
+  // Render Videos directly with playable thumbnail frames
   if (videoItems.length > 0 && videoGrid) {
     let videoHTML = videoItems.map(item => `
-      <a class="uploaded-card" href="${item.url}" target="_blank">
-        <div>🎬</div>
-        <div>${item.title}</div>
+      <a class="media-card" href="library.html?folder=Trending-Videos">
+        <video class="media-preview" src="${item.url}#t=0.5" preload="metadata" muted></video>
+        <div class="media-title">${item.title}</div>
       </a>
     `).join('');
 
-    for (let i = videoItems.length; i < 8; i++) {
-      videoHTML += `<span class="slot"></span>`;
-    }
     videoGrid.innerHTML = videoHTML;
   }
 
-  // Render Photos into 2x4 Grid slots
+  // Render Photo Cards directly displaying photo thumbnail previews
   if (photoItems.length > 0 && photoGrid) {
     let photoHTML = photoItems.map(item => `
-      <a class="uploaded-card" href="${item.url}" target="_blank">
-        <div>📸</div>
-        <div>${item.title}</div>
+      <a class="media-card" href="library.html?folder=Trending-Photos">
+        <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
+        <div class="media-title">${item.title}</div>
       </a>
     `).join('');
 
-    for (let i = photoItems.length; i < 8; i++) {
-      photoHTML += `<span class="slot"></span>`;
-    }
     photoGrid.innerHTML = photoHTML;
   }
 
