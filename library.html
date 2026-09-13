@@ -455,7 +455,8 @@ async function initLibrary() {
   document.getElementById('folderName').textContent = formattedTitle || "Library";
   document.getElementById('relatedHeaderTitle').textContent = formattedTitle ? formattedTitle : "Items";
 
-  const isSoftwareCategory = /software|editing|tools|apps/i.test(selectedFolder);
+  // Software / Apps / Tools / Editing folders → no media player ever
+  const isSoftwareCategory = /software|editing|tools|apps|vpn|utility|utilities/i.test(selectedFolder);
 
   if (!window.supabase) return;
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -508,7 +509,6 @@ async function initLibrary() {
 
   const grid = document.getElementById('relatedGrid');
   if (allItems.length > 0) {
-    // Render all items in the grid immediately without auto-playing the first one
     renderGrid(allItems);
   } else {
     grid.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #777; padding: 20px;">No files found in this category.</p>';
@@ -562,29 +562,24 @@ function playMedia(index) {
   const container = document.getElementById('mainMediaContainer');
   const detailsBox = document.getElementById('videoDetailsBox');
 
-  container.style.display = 'flex';
+  // Always show the details (title + download + from + date)
   detailsBox.style.display = 'block';
 
-  if (item.isSoftware) {
-    container.innerHTML = `
-      <div class="software-display-box">
-        <span>📦</span>
-        <p>Software / Tool Package Ready for Download</p>
-      </div>
-    `;
+  // ONLY show the media player for real playable media
+  // Never show it in software / apps / tools / editing folders
+  if (item.isSoftware || (!item.isImage && !item.isVideo && !item.isAudio)) {
+    // Hide player completely
+    container.style.display = 'none';
+    container.innerHTML = '';
   } else if (item.isImage) {
-    container.innerHTML = `<img src="${item.url}" class="full-media" alt="${item.title}">`;
+    container.style.display = 'flex';
+    container.innerHTML = `<img src="\( {item.url}" class="full-media" alt=" \){item.title}">`;
   } else if (item.isVideo) {
+    container.style.display = 'flex';
     container.innerHTML = `<video id="mainVideoPlayer" class="full-media" controls autoplay playsinline src="${item.url}"></video>`;
   } else if (item.isAudio) {
+    container.style.display = 'flex';
     container.innerHTML = `<audio id="mainAudioPlayer" class="full-media" controls autoplay src="${item.url}"></audio>`;
-  } else {
-    container.innerHTML = `
-      <div class="software-display-box">
-        <span>📦</span>
-        <p>File Ready for Download</p>
-      </div>
-    `;
   }
 
   document.getElementById('activeTitle').textContent = item.title;
