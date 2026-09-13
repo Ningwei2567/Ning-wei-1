@@ -305,6 +305,12 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
 </section>
 
+<section class="section" data-show="8" data-label="Audio">
+  <h2>🎵 Trending Audio &amp; Songs</h2>
+  <div class="grid grid-4" id="audioGrid"></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Audio ▾</button></div>
+</section>
+
 <section class="section" data-show="6" data-label="Apps">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
   <div class="grid grid-2">
@@ -434,18 +440,35 @@ function initMoreButtons() {
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
+function isVideo(url, type) {
+  return type === 'video' || /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url);
+}
+function isPhoto(url, type) {
+  return type === 'photo' || type === 'image' || type === 'profile' || type === 'cover' ||
+         /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(url);
+}
+function isAudio(url, type) {
+  return type === 'audio' || type === 'song' || type === 'music' ||
+         /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(url);
+}
+
 async function loadUploadedContent() {
   if (!window.supabase) return;
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  const { data, error } = await db.from('artist_submissions').select('*');
+  const { data, error } = await db.from('artist_submissions').select('*').order('created_at', { ascending: false });
   
-  if (error || !data) return;
+  if (error || !data) {
+    console.error('Supabase error:', error);
+    return;
+  }
 
   const videoGrid = document.getElementById('videoGrid');
   const photoGrid = document.getElementById('photoGrid');
+  const audioGrid = document.getElementById('audioGrid');
 
   const videoItems = [];
   const photoItems = [];
+  const audioItems = [];
 
   function extractFilesFromRow(filesColumn) {
     if (!filesColumn) return [];
@@ -474,15 +497,17 @@ async function loadUploadedContent() {
 
       if (!url) return;
 
-      if (type === 'video' || url.match(/\.(mp4|webm|ogg|mov)$/i)) {
-        videoItems.push({ title: title, url: url });
-      } 
-      else if (type === 'photo' || type === 'image' || type === 'profile' || type === 'cover' || url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-        photoItems.push({ title: title, url: url });
+      if (isVideo(url, type)) {
+        videoItems.push({ title, url });
+      } else if (isPhoto(url, type)) {
+        photoItems.push({ title, url });
+      } else if (isAudio(url, type)) {
+        audioItems.push({ title, url });
       }
     });
   });
 
+  // Videos
   if (videoGrid) {
     if (videoItems.length > 0) {
       videoGrid.innerHTML = videoItems.map(item => `
@@ -496,16 +521,31 @@ async function loadUploadedContent() {
     }
   }
 
+  // Photos
   if (photoGrid) {
     if (photoItems.length > 0) {
       photoGrid.innerHTML = photoItems.map(item => `
         <a class="media-card" href="${item.url}" target="_blank">
-          <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
+          <img class="media-preview" src="\( {item.url}" alt=" \){item.title}" loading="lazy">
           <div class="media-title">${item.title}</div>
         </a>
       `).join('');
     } else {
       photoGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777; font-size: 13px; padding: 10px;">No trending photos found.</p>';
+    }
+  }
+
+  // Audio
+  if (audioGrid) {
+    if (audioItems.length > 0) {
+      audioGrid.innerHTML = audioItems.map(item => `
+        <a class="media-card" href="${item.url}" target="_blank">
+          <div class="media-preview" style="display:flex;align-items:center;justify-content:center;background:#111;color:#55bfe8;font-size:28px;">🎵</div>
+          <div class="media-title">${item.title}</div>
+        </a>
+      `).join('');
+    } else {
+      audioGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777; font-size: 13px; padding: 10px;">No trending audio found.</p>';
     }
   }
 
