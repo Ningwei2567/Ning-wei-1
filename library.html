@@ -40,6 +40,20 @@ body{
   font-weight: 800;
   color: #55bfe8;
 }
+.admin-toggle-btn {
+  background: #222;
+  color: #ff4444;
+  border: 1px solid #ff4444;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.admin-toggle-btn.active {
+  background: #ff4444;
+  color: #fff;
+}
 
 /* Fullscreen/TikTok Video Container */
 .main-player-wrap {
@@ -63,12 +77,12 @@ video.full-video {
   border-bottom: 1px solid #222;
 }
 
-/* Title Line + Inline Compact Download Button */
+/* Title Line + Inline Compact Download & Admin Actions */
 .title-download-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 10px;
 }
 .video-title {
@@ -81,19 +95,34 @@ video.full-video {
   text-overflow: ellipsis;
   margin: 0;
 }
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .download-btn {
   background: #e50914;
   color: #fff;
   text-decoration: none;
   font-size: 12px;
   font-weight: bold;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 6px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
   white-space: nowrap;
-  flex-shrink: 0;
+}
+.delete-active-btn {
+  display: none;
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 /* Artist Avatar & Meta Information */
@@ -163,6 +192,7 @@ video.full-video {
   padding: 12px 16px;
 }
 .related-card {
+  position: relative;
   background: #161616;
   border-radius: 8px;
   overflow: hidden;
@@ -186,6 +216,26 @@ video.full-video {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Three Dots / Delete Menu on Cards */
+.card-admin-menu {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.85);
+  color: #ff4444;
+  border: 1px solid #ff4444;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+body.admin-mode .card-admin-menu,
+body.admin-mode .delete-active-btn {
+  display: inline-block !important;
+}
 </style>
 </head>
 <body>
@@ -194,7 +244,7 @@ video.full-video {
   <div class="top-bar">
     <a href="index.html" class="back-btn">← Home</a>
     <div class="page-title" id="folderName">Videos</div>
-    <div></div>
+    <button class="admin-toggle-btn" onclick="toggleAdminMode()">🔐 Admin</button>
   </div>
 
   <!-- Featured Player Area -->
@@ -206,7 +256,10 @@ video.full-video {
   <div class="video-details">
     <div class="title-download-row">
       <h2 class="video-title" id="activeTitle">Loading Video...</h2>
-      <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
+      <div class="action-group">
+        <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
+        <button id="deleteActiveBtn" class="delete-active-btn" onclick="deleteCurrentVideo()">🗑️ Delete</button>
+      </div>
     </div>
 
     <div class="meta-info">
@@ -234,21 +287,37 @@ video.full-video {
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
+let db = null;
+let currentItem = null;
+let allItems = [];
+
+function toggleAdminMode() {
+  document.body.classList.toggle('admin-mode');
+  const btn = document.querySelector('.admin-toggle-btn');
+  btn.classList.toggle('active');
+}
+
 async function initLibrary() {
   const urlParams = new URLSearchParams(window.location.search);
-  const selectedFolder = urlParams.get('folder') || 'Trending-Videos';
+  const selectedFolder = urlParams.get('folder') || '';
   document.getElementById('folderName').textContent = selectedFolder.replace(/-/g, ' ');
 
   if (!window.supabase) return;
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   const { data, error } = await db.from('artist_submissions').select('*');
   if (error || !data) return;
 
-  const items = [];
+  allItems = [];
 
   data.forEach(row => {
     if (row.status && row.status.toLowerCase() !== 'approved') return;
+
+    const rowCategory = (row.category || row.folder || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const currentFolder = selectedFolder.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    const matchesFolder = !selectedFolder || rowCategory.includes(currentFolder) || currentFolder.includes(rowCategory);
+    if (!matchesFolder) return;
 
     const dateStr = row.created_at ? new Date(row.created_at).toLocaleDateString('en-US', {
       month: 'long', day: 'numeric', year: 'numeric'
@@ -257,9 +326,20 @@ async function initLibrary() {
     const avatarUrl = row.cover_url || row.artist_cover || row.profile_pic || '';
 
     if (Array.isArray(row.files)) {
-      row.files.forEach(f => {
-        items.push({
-          title: f.original_name || f.name || row.artist_name || 'Untitled Video',
+      row.files.forEach((f, idx) => {
+        const fileName = (f.original_name || f.name || '').toLowerCase();
+        const fileUrl = (f.url || '').toLowerCase();
+
+        // Filter strict photo types for photo folders
+        if (selectedFolder.toLowerCase().includes('photo')) {
+          const isPhoto = /\.(jpg|jpeg|png|webp|gif)$/i.test(fileName) || /\.(jpg|jpeg|png|webp|gif)$/i.test(fileUrl);
+          if (!isPhoto) return;
+        }
+
+        allItems.push({
+          id: row.id,
+          fileIndex: idx,
+          title: f.original_name || f.name || row.artist_name || 'Untitled Content',
           url: f.url,
           uploader: row.artist_name || 'Unknown Artist',
           avatar: avatarUrl,
@@ -269,13 +349,16 @@ async function initLibrary() {
     }
   });
 
-  if (items.length > 0) {
-    playVideo(items[0]);
-    renderRelated(items.slice(1));
+  if (allItems.length > 0) {
+    playVideo(allItems[0]);
+    renderRelated(allItems.slice(1));
+  } else {
+    document.getElementById('activeTitle').textContent = 'No files found in this category.';
   }
 }
 
 function playVideo(item) {
+  currentItem = item;
   const player = document.getElementById('mainVideoPlayer');
   player.src = item.url;
 
@@ -297,6 +380,7 @@ function renderRelated(relatedList) {
   const grid = document.getElementById('relatedGrid');
   grid.innerHTML = relatedList.map((item, idx) => `
     <div class="related-card" onclick="switchVideo(${idx})">
+      <button class="card-admin-menu" onclick="deleteCardItem(event, ${idx})">⋮ Delete</button>
       <video src="${item.url}#t=0.5" preload="metadata" muted></video>
       <div class="card-title">${item.title}</div>
     </div>
@@ -309,6 +393,33 @@ function switchVideo(index) {
   if (window.currentRelated && window.currentRelated[index]) {
     playVideo(window.currentRelated[index]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+async function deleteCurrentVideo() {
+  if (!currentItem) return;
+  if (confirm(`Are you sure you want to delete "${currentItem.title}" directly from Supabase?`)) {
+    await performDelete(currentItem.id);
+  }
+}
+
+async function deleteCardItem(event, index) {
+  event.stopPropagation();
+  const item = window.currentRelated[index];
+  if (!item) return;
+  if (confirm(`Are you sure you want to delete "${item.title}"?`)) {
+    await performDelete(item.id);
+  }
+}
+
+async function performDelete(rowId) {
+  if (!db) return;
+  const { error } = await db.from('artist_submissions').delete().eq('id', rowId);
+  if (error) {
+    alert("Error deleting record: " + error.message);
+  } else {
+    alert("Successfully deleted from folder and database!");
+    location.reload();
   }
 }
 
