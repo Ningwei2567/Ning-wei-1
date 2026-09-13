@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media - Player & Library</title>
+<title>Ning Wei Media - Library</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;}
@@ -39,6 +39,7 @@ body{
   font-size: 16px;
   font-weight: 800;
   color: #55bfe8;
+  text-transform: capitalize;
 }
 .admin-toggle-btn {
   background: #222;
@@ -79,22 +80,24 @@ body.admin-mode .bulk-action-bar {
   cursor: pointer;
 }
 
-/* Fullscreen/TikTok Video Container */
+/* Featured Media Container */
 .main-player-wrap {
   width: 100%;
   background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 250px;
 }
-video.full-video {
+video.full-media, img.full-media {
   width: 100%;
   max-height: 80vh;
   object-fit: contain;
   outline: none;
+  display: block;
 }
 
-/* Video Details Section */
+/* Media Info Section */
 .video-details {
   padding: 12px 16px;
   background: #111;
@@ -137,7 +140,7 @@ video.full-video {
   white-space: nowrap;
 }
 
-/* Artist Avatar & Meta Information */
+/* Meta Information */
 .meta-info {
   display: flex;
   flex-direction: column;
@@ -168,7 +171,7 @@ video.full-video {
   padding-left: 2px;
 }
 
-/* Related Videos Header */
+/* Related Header Bar */
 .related-header {
   display: flex;
   align-items: center;
@@ -183,6 +186,7 @@ video.full-video {
   font-size: 16px;
   font-weight: bold;
   color: #fff;
+  text-transform: capitalize;
 }
 .toggle-icon {
   background: #e50914;
@@ -196,7 +200,7 @@ video.full-video {
   font-size: 12px;
 }
 
-/* Related Content Grid - Increased video height, removed titles */
+/* Related Grid */
 .related-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -213,11 +217,12 @@ video.full-video {
   flex-direction: column;
   cursor: pointer;
 }
-.related-card video {
+.related-card video, .related-card img {
   width: 100%;
-  height: 190px; /* Increased height since titles are removed */
+  height: 190px;
   object-fit: cover;
   background: #000;
+  display: block;
 }
 
 /* Multi-select checkboxes */
@@ -235,6 +240,54 @@ video.full-video {
 body.admin-mode .card-checkbox {
   display: block;
 }
+
+/* Custom Clean Modal (No Domain Names) */
+.custom-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+.custom-modal {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 20px;
+  border-radius: 10px;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+.custom-modal p {
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+.modal-btn-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.modal-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.modal-btn.cancel {
+  background: #333;
+  color: #fff;
+}
+.modal-btn.confirm {
+  background: #e50914;
+  color: #fff;
+}
 </style>
 </head>
 <body>
@@ -242,7 +295,7 @@ body.admin-mode .card-checkbox {
 <div class="container">
   <div class="top-bar">
     <a href="index.html" class="back-btn">← Home</a>
-    <div class="page-title" id="folderName">Videos</div>
+    <div class="page-title" id="folderName">Library</div>
     <button class="admin-toggle-btn" onclick="toggleAdminMode()">🔐 Admin</button>
   </div>
 
@@ -252,18 +305,16 @@ body.admin-mode .card-checkbox {
       <input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> 
       <label for="selectAllBox"><b>Select All</b></label>
     </div>
-    <button class="bulk-del-btn" onclick="deleteSelectedItems()">🗑️ Delete Selected</button>
+    <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
   </div>
 
-  <!-- Featured Player Area -->
-  <div class="main-player-wrap">
-    <video id="mainVideoPlayer" class="full-video" controls autoplay playsinline></video>
-  </div>
+  <!-- Featured Media Area -->
+  <div class="main-player-wrap" id="mainMediaContainer"></div>
 
-  <!-- Video Info -->
+  <!-- Media Info -->
   <div class="video-details">
     <div class="title-download-row">
-      <h2 class="video-title" id="activeTitle">Loading Video...</h2>
+      <h2 class="video-title" id="activeTitle">Loading...</h2>
       <div class="action-group">
         <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
       </div>
@@ -280,14 +331,24 @@ body.admin-mode .card-checkbox {
     </div>
   </div>
 
-  <!-- Related Videos Bar -->
+  <!-- Related Header Bar -->
   <div class="related-header">
-    <h3>Related videos</h3>
+    <h3 id="relatedHeaderTitle">Related items</h3>
     <div class="toggle-icon">▲</div>
   </div>
 
   <!-- Related Items Grid -->
   <div class="related-grid" id="relatedGrid"></div>
+</div>
+
+<!-- Custom Clean Popup Modal -->
+<div class="custom-modal-overlay" id="customModalOverlay">
+  <div class="custom-modal">
+    <p id="customModalText">Message text here</p>
+    <div class="modal-btn-group" id="customModalButtons">
+      <button class="modal-btn confirm" id="modalOkBtn">OK</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -298,16 +359,61 @@ let db = null;
 let currentItem = null;
 let allItems = [];
 
+// Custom Popup Functions (No Domain Names)
+function showCustomAlert(message, callback) {
+  const overlay = document.getElementById('customModalOverlay');
+  const textEl = document.getElementById('customModalText');
+  const btnGroup = document.getElementById('customModalButtons');
+  
+  textEl.textContent = message;
+  btnGroup.innerHTML = `<button class="modal-btn confirm" id="modalOkBtn">OK</button>`;
+  overlay.style.display = 'flex';
+
+  document.getElementById('modalOkBtn').onclick = () => {
+    overlay.style.display = 'none';
+    if (callback) callback();
+  };
+}
+
+function showCustomConfirm(message, onConfirm) {
+  const overlay = document.getElementById('customModalOverlay');
+  const textEl = document.getElementById('customModalText');
+  const btnGroup = document.getElementById('customModalButtons');
+  
+  textEl.textContent = message;
+  btnGroup.innerHTML = `
+    <button class="modal-btn cancel" id="modalCancelBtn">Cancel</button>
+    <button class="modal-btn confirm" id="modalConfirmBtn">Yes, Delete</button>
+  `;
+  overlay.style.display = 'flex';
+
+  document.getElementById('modalCancelBtn').onclick = () => {
+    overlay.style.display = 'none';
+  };
+
+  document.getElementById('modalConfirmBtn').onclick = () => {
+    overlay.style.display = 'none';
+    onConfirm();
+  };
+}
+
 function toggleAdminMode() {
   document.body.classList.toggle('admin-mode');
   const btn = document.querySelector('.admin-toggle-btn');
   btn.classList.toggle('active');
 }
 
+function isImageFile(filenameOrUrl) {
+  return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(filenameOrUrl);
+}
+
 async function initLibrary() {
   const urlParams = new URLSearchParams(window.location.search);
   const selectedFolder = urlParams.get('folder') || '';
-  document.getElementById('folderName').textContent = selectedFolder.replace(/-/g, ' ');
+  const formattedTitle = selectedFolder.replace(/-/g, ' ');
+  
+  document.getElementById('folderName').textContent = formattedTitle || "Library";
+  document.getElementById('relatedHeaderTitle').textContent = "Related " + (formattedTitle ? formattedTitle.toLowerCase() : "items");
 
   if (!window.supabase) return;
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -336,18 +442,15 @@ async function initLibrary() {
       row.files.forEach((f, idx) => {
         const fileName = (f.original_name || f.name || '').toLowerCase();
         const fileUrl = (f.url || '').toLowerCase();
-
-        if (selectedFolder.toLowerCase().includes('photo')) {
-          const isPhoto = /\.(jpg|jpeg|png|webp|gif)$/i.test(fileName) || /\.(jpg|jpeg|png|webp|gif)$/i.test(fileUrl);
-          if (!isPhoto) return;
-        }
+        const isPhoto = isImageFile(fileName) || isImageFile(fileUrl);
 
         allItems.push({
           id: row.id,
           fileIndex: idx,
           title: f.original_name || f.name || row.artist_name || 'Untitled Content',
           url: f.url,
-          uploader: row.artist_name || 'Unknown Artist',
+          isImage: isPhoto,
+          uploader: row.artist_name || 'Ning Wei Media',
           avatar: avatarUrl,
           date: dateStr
         });
@@ -356,17 +459,23 @@ async function initLibrary() {
   });
 
   if (allItems.length > 0) {
-    playVideo(allItems[0]);
+    playMedia(allItems[0]);
     renderRelated(allItems.slice(1));
   } else {
     document.getElementById('activeTitle').textContent = 'No files found in this category.';
+    document.getElementById('mainMediaContainer').innerHTML = '';
   }
 }
 
-function playVideo(item) {
+function playMedia(item) {
   currentItem = item;
-  const player = document.getElementById('mainVideoPlayer');
-  player.src = item.url;
+  const container = document.getElementById('mainMediaContainer');
+
+  if (item.isImage) {
+    container.innerHTML = `<img src="${item.url}" class="full-media" alt="${item.title}">`;
+  } else {
+    container.innerHTML = `<video id="mainVideoPlayer" class="full-media" controls autoplay playsinline src="${item.url}"></video>`;
+  }
 
   document.getElementById('activeTitle').textContent = item.title;
   document.getElementById('activeUploader').textContent = item.uploader;
@@ -384,19 +493,25 @@ function playVideo(item) {
 
 function renderRelated(relatedList) {
   const grid = document.getElementById('relatedGrid');
-  grid.innerHTML = relatedList.map((item, idx) => `
-    <div class="related-card" onclick="switchVideo(${idx})">
-      <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
-      <video src="${item.url}#t=0.5" preload="metadata" muted></video>
-    </div>
-  `).join('');
+  grid.innerHTML = relatedList.map((item, idx) => {
+    let previewElement = item.isImage 
+      ? `<img src="${item.url}" loading="lazy" alt="preview">` 
+      : `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+
+    return `
+      <div class="related-card" onclick="switchMedia(${idx})">
+        <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
+        ${previewElement}
+      </div>
+    `;
+  }).join('');
   
   window.currentRelated = relatedList;
 }
 
-function switchVideo(index) {
+function switchMedia(index) {
   if (window.currentRelated && window.currentRelated[index]) {
-    playVideo(window.currentRelated[index]);
+    playMedia(window.currentRelated[index]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -406,25 +521,26 @@ function toggleSelectAll(masterBox) {
   checkboxes.forEach(cb => cb.checked = masterBox.checked);
 }
 
-async function deleteSelectedItems() {
+function promptDelete() {
   const checkboxes = document.querySelectorAll('.card-checkbox:checked');
   const selectedIds = Array.from(checkboxes).map(cb => cb.getAttribute('data-id'));
 
   if (selectedIds.length === 0) {
-    alert("Please select at least one item to delete.");
+    showCustomAlert("Please select at least one item to delete.");
     return;
   }
 
-  if (confirm("Confirm delete?")) {
+  showCustomConfirm("Confirm delete?", async () => {
     if (!db) return;
     const { error } = await db.from('artist_submissions').delete().in('id', selectedIds);
     if (error) {
-      alert("Error: " + error.message);
+      showCustomAlert("Error: " + error.message);
     } else {
-      alert("Deleted successfully!");
-      location.reload();
+      showCustomAlert("Deleted successfully!", () => {
+        location.reload();
+      });
     }
-  }
+  });
 }
 
 initLibrary();
