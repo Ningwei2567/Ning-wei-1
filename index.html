@@ -523,43 +523,56 @@ async function loadUploadedContent() {
 
   const { data, error } = await db.from('artist_submissions').select('*');
   
-  if (error || !data || data.length === 0) {
-    console.log("No dynamic submissions found or query error:", error);
+  if (error) {
+    console.error("Supabase load error:", error);
     return;
   }
+  
+  if (!data || data.length === 0) return;
 
   const videoGrid = document.getElementById('videoGrid');
   const photoGrid = document.getElementById('photoGrid');
 
-  // Flexible filtering to match whatever status or type values are in your table
-  const approvedData = data.filter(i => !i.status || i.status.toLowerCase() === 'approved');
-  
-  const videoItems = approvedData.filter(i => 
-    (i.media_type && i.media_type.toLowerCase() === 'video') || 
-    (i.category && i.category.toLowerCase().includes('video'))
-  );
-  
-  const photoItems = approvedData.filter(i => 
-    (i.media_type && (i.media_type.toLowerCase() === 'photo' || i.media_type.toLowerCase() === 'image')) || 
-    (i.category && (i.category.toLowerCase().includes('photo') || i.category.toLowerCase().includes('joke')))
-  );
+  // Filter video and photo items safely across standard database column naming options
+  const videoItems = data.filter(i => {
+    const type = (i.media_type || i.category || i.type || '').toLowerCase();
+    return type.includes('video');
+  });
 
-  if (videoItems.length > 0) {
-    videoGrid.innerHTML = videoItems.map(item => `
-      <a class="uploaded-card" href="${item.file_url || 'library.html'}" target="_blank">
+  const photoItems = data.filter(i => {
+    const type = (i.media_type || i.category || i.type || '').toLowerCase();
+    return type.includes('photo') || type.includes('image') || type.includes('joke');
+  });
+
+  // Render Videos into 2x4 Grid slots
+  if (videoItems.length > 0 && videoGrid) {
+    let videoHTML = videoItems.map(item => `
+      <a class="uploaded-card" href="${item.file_url || item.url || 'library.html'}" target="_blank">
         <div>🎬</div>
-        <div>${item.song_title || item.title || item.file_name || 'Video'}</div>
+        <div>${item.song_title || item.title || item.file_name || item.name || 'Video'}</div>
       </a>
     `).join('');
+
+    // Append standard empty slots if less than 8 items to preserve 2x4 layout structure
+    for (let i = videoItems.length; i < 8; i++) {
+      videoHTML += `<span class="slot"></span>`;
+    }
+    videoGrid.innerHTML = videoHTML;
   }
 
-  if (photoItems.length > 0) {
-    photoGrid.innerHTML = photoItems.map(item => `
-      <a class="uploaded-card" href="${item.file_url || 'library.html'}" target="_blank">
+  // Render Photos into 2x4 Grid slots
+  if (photoItems.length > 0 && photoGrid) {
+    let photoHTML = photoItems.map(item => `
+      <a class="uploaded-card" href="${item.file_url || item.url || 'library.html'}" target="_blank">
         <div>📸</div>
-        <div>${item.song_title || item.title || item.file_name || 'Photo'}</div>
+        <div>${item.song_title || item.title || item.file_name || item.name || 'Photo'}</div>
       </a>
     `).join('');
+
+    for (let i = photoItems.length; i < 8; i++) {
+      photoHTML += `<span class="slot"></span>`;
+    }
+    photoGrid.innerHTML = photoHTML;
   }
 
   initMoreButtons();
