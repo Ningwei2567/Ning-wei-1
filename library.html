@@ -89,25 +89,34 @@ body.admin-mode .bulk-action-bar {
   align-items: center;
   min-height: 250px;
 }
-video.full-media, img.full-media {
+video.full-media, img.full-media, audio.full-media {
   width: 100%;
   max-height: 80vh;
   object-fit: contain;
   outline: none;
   display: block;
 }
-.software-placeholder {
+.software-display-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px;
-  color: #888;
+  color: #fff;
   text-align: center;
-  gap: 10px;
+  gap: 12px;
+  background: #111;
+  width: 100%;
+  min-height: 250px;
 }
-.software-placeholder span {
-  font-size: 40px;
+.software-display-box span {
+  font-size: 48px;
+}
+.software-display-box p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #55bfe8;
+  margin: 0;
 }
 
 /* Media Info Section */
@@ -233,7 +242,7 @@ video.full-media, img.full-media {
   justify-content: center;
   align-items: center;
 }
-.related-card video, .related-card img {
+.related-card video, .related-card img, .related-card audio {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -338,7 +347,7 @@ body.admin-mode .card-checkbox {
     <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
   </div>
 
-  <!-- Featured Media Area -->
+  <!-- Featured Media / Software Area -->
   <div class="main-player-wrap" id="mainMediaContainer"></div>
 
   <!-- Media Info -->
@@ -440,6 +449,10 @@ function isVideoFile(filenameOrUrl) {
   return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(filenameOrUrl);
 }
 
+function isAudioFile(filenameOrUrl) {
+  return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(filenameOrUrl);
+}
+
 async function initLibrary() {
   const urlParams = new URLSearchParams(window.location.search);
   const selectedFolder = urlParams.get('folder') || '';
@@ -447,6 +460,8 @@ async function initLibrary() {
   
   document.getElementById('folderName').textContent = formattedTitle || "Library";
   document.getElementById('relatedHeaderTitle').textContent = "Related " + (formattedTitle ? formattedTitle.toLowerCase() : "items");
+
+  const isSoftwareCategory = /software|editing|tools/i.test(selectedFolder);
 
   if (!window.supabase) return;
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -478,14 +493,17 @@ async function initLibrary() {
         
         const isPhoto = isImageFile(fileName) || isImageFile(fileUrl);
         const isVideo = isVideoFile(fileName) || isVideoFile(fileUrl);
+        const isAudio = isAudioFile(fileName) || isAudioFile(fileUrl);
 
         allItems.push({
           id: row.id,
           fileIndex: idx,
-          title: f.original_name || f.name || row.artist_name || 'Software Package',
+          title: f.original_name || f.name || row.artist_name || 'File Package',
           url: f.url,
+          isSoftware: isSoftwareCategory,
           isImage: isPhoto,
           isVideo: isVideo,
+          isAudio: isAudio,
           uploader: row.artist_name || 'Ning Wei Media',
           avatar: avatarUrl,
           date: dateStr
@@ -507,15 +525,24 @@ function playMedia(item) {
   currentItem = item;
   const container = document.getElementById('mainMediaContainer');
 
-  if (item.isImage) {
+  if (item.isSoftware) {
+    container.innerHTML = `
+      <div class="software-display-box">
+        <span>📦</span>
+        <p>Software / Tool Package Ready for Download</p>
+      </div>
+    `;
+  } else if (item.isImage) {
     container.innerHTML = `<img src="${item.url}" class="full-media" alt="${item.title}">`;
   } else if (item.isVideo) {
     container.innerHTML = `<video id="mainVideoPlayer" class="full-media" controls autoplay playsinline src="${item.url}"></video>`;
+  } else if (item.isAudio) {
+    container.innerHTML = `<audio id="mainAudioPlayer" class="full-media" controls autoplay src="${item.url}"></audio>`;
   } else {
     container.innerHTML = `
-      <div class="software-placeholder">
-        <span>💻</span>
-        <p>Software / File Package Ready</p>
+      <div class="software-display-box">
+        <span>📦</span>
+        <p>File Ready for Download</p>
       </div>
     `;
   }
@@ -538,15 +565,29 @@ function renderRelated(relatedList) {
   const grid = document.getElementById('relatedGrid');
   grid.innerHTML = relatedList.map((item, idx) => {
     let previewElement = '';
-    if (item.isImage) {
+    if (item.isSoftware) {
+      previewElement = `
+        <div class="related-card-software">
+          <span>📦</span>
+          <div>Software Package</div>
+        </div>
+      `;
+    } else if (item.isImage) {
       previewElement = `<img src="${item.url}" loading="lazy" alt="preview">`;
     } else if (item.isVideo) {
       previewElement = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+    } else if (item.isAudio) {
+      previewElement = `
+        <div class="related-card-software">
+          <span>🎵</span>
+          <div>Audio Track</div>
+        </div>
+      `;
     } else {
       previewElement = `
         <div class="related-card-software">
           <span>📦</span>
-          <div>Software File</div>
+          <div>File Package</div>
         </div>
       `;
     }
