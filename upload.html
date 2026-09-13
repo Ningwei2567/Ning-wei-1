@@ -122,7 +122,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 <body>
 
 <header class="header">
-  <img src="ning-wei.png" alt="Ning Wei Media">
+  <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
   <div class="header-content">
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
@@ -138,7 +138,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
   <section class="card">
     <div class="creator-header">
-      <img id="creatorPreview" class="creator-photo" src="ning-wei.png" alt="Profile photo">
+      <img id="creatorPreview" class="creator-photo" src="ning-wei.png" alt="Profile photo" onerror="this.src='https://cdn.simpleicons.org/user/111111'">
       <h3 class="creator-title">Artists, DJs &amp; Producer's Profile</h3>
     </div>
     <label for="creatorName">Name *</label>
@@ -148,7 +148,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <input id="creatorEmail" type="email" placeholder="Enter your email" required>
     <div id="creatorEmailWarning" class="validation-warning">⚠️ Please enter your email.</div>
     <label for="creatorPhoto">Profile Photo</label>
-    <input id="creatorPhoto" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+    <input id="creatorPhoto" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
     <div id="creatorPhotoName" class="file-name">No profile photo selected</div>
   </section>
 
@@ -190,11 +190,11 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>Instrumental</option>
     </select>
     <div id="musicWarning" class="validation-warning">⚠️ Please choose a Music Category first.</div>
-    <label for="songFiles">Music File *</label>
-    <input id="songFiles" type="file" accept=".mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
+    <label for="songFiles">Music File * (Audio Only)</label>
+    <input id="songFiles" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
     <div id="songFilesName" class="file-name">No music selected</div>
     <label for="songCover">Cover Photo</label>
-    <input id="songCover" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+    <input id="songCover" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
     <label for="musicDescription">Description</label>
     <textarea id="musicDescription" placeholder="Tell people about this song..."></textarea>
     <button type="button" class="upload-button" onclick="uploadMusic()">📤 Upload Your Music</button>
@@ -202,8 +202,8 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
   <section id="photosSection" class="card upload-section">
     <h3>🖼️ Upload Your Photos</h3>
-    <label for="photoFiles">Photo Files *</label>
-    <input id="photoFiles" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp" multiple>
+    <label for="photoFiles">Photo Files * (Images Only)</label>
+    <input id="photoFiles" type="file" accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp" multiple>
     <div id="photoFilesName" class="file-name">No photos selected</div>
     <label for="photoDescription">Description</label>
     <textarea id="photoDescription" placeholder="Describe these photos..."></textarea>
@@ -214,11 +214,11 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <h3>🎬 Upload Your Videos</h3>
     <label for="videoTitle">Video Title *</label>
     <input id="videoTitle" type="text" placeholder="Enter video title">
-    <label for="videoFiles">Video Files *</label>
-    <input id="videoFiles" type="file" accept=".mp4,.webm,.mov,.m4v,.avi,.mkv,.mpg,.mpeg" multiple>
+    <label for="videoFiles">Video Files * (Videos Only)</label>
+    <input id="videoFiles" type="file" accept="video/*,.mp4,.webm,.mov,.m4v,.avi,.mkv,.mpg,.mpeg" multiple>
     <div id="videoFilesName" class="file-name">No videos selected</div>
     <label for="videoThumbnail">Thumbnail</label>
-    <input id="videoThumbnail" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+    <input id="videoThumbnail" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
     <label for="videoDescription">Description</label>
     <textarea id="videoDescription" placeholder="Describe this video..."></textarea>
     <button type="button" class="upload-button" onclick="uploadVideos()">📤 Upload Your Videos</button>
@@ -254,11 +254,11 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>Security</option>
     </select>
     <div id="appWarning" class="validation-warning">⚠️ Please choose an App Category first.</div>
-    <label for="appFiles">APK / App File *</label>
+    <label for="appFiles">APK / App File * (App Files Only)</label>
     <input id="appFiles" type="file" accept=".apk,.xapk,.apks,.ipa" multiple>
     <div id="appFilesName" class="file-name">No app selected</div>
     <label for="appIcon">App Icon</label>
-    <input id="appIcon" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+    <input id="appIcon" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
     <label for="appDescription">Description</label>
     <textarea id="appDescription" placeholder="Describe this app..."></textarea>
     <button type="button" class="upload-button" onclick="uploadApps()">📤 Upload Your App</button>
@@ -288,14 +288,13 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>Download Managers</option>
       <option>Programming & Development</option>
       <option>Utilities & Tools</option>
-      <option>Hacking Software</option>
     </select>
     <div id="softwareWarning" class="validation-warning">⚠️ Please choose a Software Category first.</div>
-    <label for="softwareFiles">Software File *</label>
+    <label for="softwareFiles">Software File * (Software Packages Only)</label>
     <input id="softwareFiles" type="file" accept=".zip,.rar,.7z,.exe,.msi,.dmg,.iso,.apk" multiple>
     <div id="softwareFilesName" class="file-name">No software selected</div>
     <label for="softwareImage">Software Image / Logo</label>
-    <input id="softwareImage" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+    <input id="softwareImage" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
     <label for="softwareDescription">Description</label>
     <textarea id="softwareDescription" placeholder="Describe this software..."></textarea>
     <button type="button" class="upload-button" onclick="uploadSoftware()">📤 Upload Your Software</button>
@@ -317,11 +316,11 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
       <option>Other</option>
     </select>
     <div id="mixWarning" class="validation-warning">⚠️ Please choose a Mix Category first.</div>
-    <label for="mixFiles">DJ Mix File *</label>
-    <input id="mixFiles" type="file" accept=".mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
+    <label for="mixFiles">DJ Mix File * (Audio Only)</label>
+    <input id="mixFiles" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
     <div id="mixFilesName" class="file-name">No DJ mix selected</div>
     <label for="mixCover">Mix Cover</label>
-    <input id="mixCover" type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.bmp">
+    <input id="mixCover" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
     <label for="mixDescription">Description</label>
     <textarea id="mixDescription" placeholder="Describe this DJ mix..."></textarea>
     <button type="button" class="upload-button" onclick="uploadMixes()">📤 Upload Your DJ Mix</button>
@@ -352,6 +351,13 @@ function openUploadSection(type) {
   }
 }
 
+/* Auto-open section if url has ?type=... */
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type');
+  if (type) openUploadSection(type);
+});
+
 document.getElementById('creatorPhoto').addEventListener('change', function() {
   const file = this.files[0];
   if (!file) return;
@@ -379,8 +385,6 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const BUCKET = "artist-uploads";
 const TABLE  = "artist_submissions";
 
-/* MODIFIED: Default status changed from "pending" to "approved" 
-   This ensures uploads go direct to your site immediately */
 const DEFAULT_STATUS = "approved";
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -516,14 +520,14 @@ function wireFileLabels(){
 
       if(!list.length){
         label.classList.remove("bad");
-        label.textContent = label.textContent.startsWith("❌") ? "No file selected" : label.textContent;
+        label.textContent = "No file selected";
         return;
       }
       const wrong = list.filter(f => !allowed.includes(extOf(f.name)));
       if(wrong.length){
         label.classList.add("bad");
-        label.textContent = "❌ Wrong type: " + wrong.map(f=>f.name).join(", ") +
-                            " — this box only accepts " + allowed.join(", ").toUpperCase();
+        label.textContent = "❌ Wrong file type! You selected " + wrong.map(f=>f.name).join(", ") +
+                            ". This input only accepts: " + allowed.join(", ").toUpperCase();
         input.value = "";
         return;
       }
@@ -715,9 +719,7 @@ async function runUpload(cfg, titleText, biography, button){
     const ins = await db.from(TABLE).insert([row]);
     if (ins.error) throw new Error(ins.error.message);
 
-    /* MODIFIED: Updated user-facing message to confirm immediate publication */
-    progressDone(true,
-      "✅ Upload complete! Your media is now live on Ning Wei Media.");
+    progressDone(true, "✅ Upload complete! Your media is now live on Ning Wei Media.");
 
     mainInput.value = "";
     if (cfg.cover) $(cfg.cover).value = "";
