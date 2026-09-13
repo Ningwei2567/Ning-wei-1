@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ning Wei Media - Photos</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
     * {
@@ -42,9 +43,33 @@
         padding: 20px;
     }
 
+    .title-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+    }
+
     .title {
-        text-align: center;
-        margin-bottom: 20px;
+        margin: 0;
+        font-size: 26px;
+    }
+
+    .btn-direct-upload {
+        background: linear-gradient(135deg, #e5a400, #b88300);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 800;
+        padding: 12px 24px;
+        border-radius: 10px;
+        text-decoration: none;
+        box-shadow: 0 3px 10px rgba(229,164,0,.3);
+        transition: transform 0.1s ease;
+    }
+
+    .btn-direct-upload:active {
+        transform: scale(0.97);
     }
 
     .photo-grid {
@@ -58,6 +83,8 @@
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        display: flex;
+        flex-direction: column;
     }
 
     .photo-card img {
@@ -73,13 +100,22 @@
         transform: scale(1.03);
     }
 
-    .photo-name {
+    .photo-details {
         padding: 10px;
+    }
+
+    .photo-name {
         font-size: 13px;
         font-weight: bold;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .photo-uploader {
+        font-size: 11px;
+        color: #777;
+        margin-top: 2px;
     }
 
     .error {
@@ -102,13 +138,30 @@
         background: rgba(0,0,0,0.95);
         align-items: center;
         justify-content: center;
+        flex-direction: column;
         padding: 20px;
     }
 
     .viewer img {
         max-width: 95%;
-        max-height: 90%;
+        max-height: 80%;
         object-fit: contain;
+    }
+
+    .viewer-controls {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .download-btn {
+        background: #25d366;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
     }
 
     .close {
@@ -152,7 +205,10 @@
 
 <div class="container">
 
-    <h2 class="title">📷 Photos</h2>
+    <div class="title-bar">
+        <h2 class="title">📷 Photos</h2>
+        <a href="upload.html?type=photos" class="btn-direct-upload">📤 Upload Direct Here</a>
+    </div>
 
     <div class="photo-grid" id="photoGrid"></div>
 
@@ -162,28 +218,27 @@
 <div class="viewer" id="viewer">
     <span class="close" onclick="closeViewer()">×</span>
     <img id="viewerImage" src="" alt="Photo">
+    <div class="viewer-controls">
+        <a id="downloadBtn" href="" download target="_blank" class="download-btn">📥 Download Photo</a>
+    </div>
 </div>
 
 <script>
+/*
+=================================================
+SUPABASE CONFIG & INITIALIZATION
+=================================================
+*/
+const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /*
 =================================================
-YOUR PHOTO FILES
+LOCAL HARDCODED PHOTOS
 =================================================
-
-IMPORTANT:
-Your images must actually be inside:
-
-media/photos/
-
-Example:
-
-media/photos/IMG-20260830-WA0002.jpg
-media/photos/IMG-20260903-WA0003.jpg
 */
-
-const photos = [
-
+const localPhotos = [
     "IMG-20260830-WA0002.jpg",
     "IMG-20260903-WA0003.jpg",
     "IMG-20260903-WA0006.jpg",
@@ -197,77 +252,140 @@ const photos = [
     "IMG-20260903-WA0015.jpg",
     "IMG-20260903-WA0016.jpg",
     "IMG-20260903-WA0018.jpg"
-
 ];
 
 const photoGrid = document.getElementById("photoGrid");
 
-photos.forEach(function(file) {
+function isImage(filename) {
+    return /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(filename);
+}
 
+function cleanName(name) {
+    return String(name || "Untitled")
+        .split("/").pop()
+        .replace(/\.[^/.]+$/, "")
+        .replace(/[_-]+/g, " ")
+        .trim();
+}
+
+/*
+=================================================
+LOAD LIVE PHOTOS FROM SUPABASE
+=================================================
+*/
+async function loadSupabasePhotos() {
+    try {
+        const { data, error } = await db
+            .from("artist_submissions")
+            .select("*")
+            .eq("status", "approved")
+            .order("posted_at", { ascending: false });
+
+        if (error || !data) return [];
+
+        const liveItems = [];
+
+        data.forEach(row => {
+            const files = Array.isArray(row.files) ? row.files : [];
+            files.forEach(f => {
+                const fname = String(f.name || f.original_name || "");
+                if (f.type === "photo" || isImage(fname)) {
+                    liveItems.push({
+                        title: cleanName(fname),
+                        url: f.url,
+                        uploader: row.artist_name ? `By ${row.artist_name}` : "Direct Upload"
+                    });
+                }
+            });
+        });
+
+        return liveItems;
+    } catch (err) {
+        console.error("Error loading Supabase photos:", err);
+        return [];
+    }
+}
+
+/*
+=================================================
+RENDER ALL PHOTOS
+=================================================
+*/
+async function renderAllPhotos() {
+    photoGrid.innerHTML = "";
+
+    // Load Live Uploads first
+    const livePhotos = await loadSupabasePhotos();
+
+    livePhotos.forEach(item => {
+        addPhotoCard(item.url, item.title, item.uploader);
+    });
+
+    // Add Local Files
+    localPhotos.forEach(file => {
+        addPhotoCard("media/photos/" + file, cleanName(file), "Local Library");
+    });
+}
+
+function addPhotoCard(src, title, subtitle) {
     const card = document.createElement("div");
     card.className = "photo-card";
 
     const img = document.createElement("img");
-
-    /*
-    THIS IS THE IMPORTANT PART.
-    The website looks inside media/photos/
-    */
-
-    img.src = "media/photos/" + file;
-
-    img.alt = file;
+    img.src = src;
+    img.alt = title;
 
     img.onclick = function() {
-        openViewer(img.src);
+        openViewer(src);
     };
 
     img.onerror = function() {
         card.innerHTML =
             '<div class="error">❌ Photo not found<br><small>' +
-            file +
+            title +
             '</small></div>';
     };
 
     card.appendChild(img);
 
+    const details = document.createElement("div");
+    details.className = "photo-details";
+
     const name = document.createElement("div");
     name.className = "photo-name";
-    name.textContent = file;
+    name.textContent = title;
 
-    card.appendChild(name);
+    const uploader = document.createElement("div");
+    uploader.className = "photo-uploader";
+    uploader.textContent = subtitle;
+
+    details.appendChild(name);
+    details.appendChild(uploader);
+    card.appendChild(details);
 
     photoGrid.appendChild(card);
-
-});
-
+}
 
 function openViewer(src) {
-
     document.getElementById("viewerImage").src = src;
-
+    document.getElementById("downloadBtn").href = src;
     document.getElementById("viewer").style.display = "flex";
-
 }
-
 
 function closeViewer() {
-
     document.getElementById("viewer").style.display = "none";
-
     document.getElementById("viewerImage").src = "";
-
+    document.getElementById("downloadBtn").href = "";
 }
 
-
 document.getElementById("viewer").onclick = function(event) {
-
     if (event.target === this) {
         closeViewer();
     }
-
 };
 
+// Start
+renderAllPhotos();
 </script>
 
 </body>
