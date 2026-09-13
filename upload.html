@@ -10,32 +10,9 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111}
 
-/* HEADER - FIXED */
-.header{
-  position:relative;
-  height:150px;
-  overflow:hidden;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:white;
-}
-.header img{
-  position:absolute;
-  left:0;top:0;
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  object-position:center 22%;
-}
-.header-content{
-  position:relative;
-  z-index:2;
-  padding:8px 15px;
-  text-shadow:0 2px 5px rgba(0,0,0,.9);
-}
+.header{position:relative;height:150px;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center;text-align:center;color:white;}
+.header img{position:absolute;left:0;top:0;width:100%;height:150px;object-fit:cover;object-position:center 22%;}
+.header-content{position:relative;z-index:2;padding:8px 15px;text-shadow:0 2px 5px rgba(0,0,0,.9);}
 .header-content h1{margin:0;font-size:28px;font-weight:800}
 .header-content p{margin:6px 0 0;font-size:14px}
 
@@ -44,40 +21,10 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
 .card h2,.card h3{margin-top:0}
 .intro{text-align:center}
 
-/* Artists / DJs / Producers profile card header */
 .creator-header{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin:0 0 4px}
-.creator-title{
-  margin:0;
-  position:relative;
-  display:inline-block;
-  padding:2px 0 6px 12px;
-  font-size:17px;
-  font-weight:900;
-  letter-spacing:.4px;
-  line-height:1.25;
-  background:linear-gradient(90deg,#111 0%,#333 45%,#6b6b6b 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:#111;
-}
-.creator-title::before{
-  content:"";
-  position:absolute;
-  left:0;top:55%;
-  transform:translateY(-50%);
-  width:4px;height:70%;
-  border-radius:4px;
-  background:linear-gradient(180deg,#e5a400,#111);
-}
-.creator-title::after{
-  content:"";
-  position:absolute;
-  left:12px;bottom:0;
-  width:44px;height:2px;
-  border-radius:2px;
-  background:#e5a400;
-}
+.creator-title{margin:0;position:relative;display:inline-block;padding:2px 0 6px 12px;font-size:17px;font-weight:900;letter-spacing:.4px;line-height:1.25;background:linear-gradient(90deg,#111 0%,#333 45%,#6b6b6b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#111;}
+.creator-title::before{content:"";position:absolute;left:0;top:55%;transform:translateY(-50%);width:4px;height:70%;border-radius:4px;background:linear-gradient(180deg,#e5a400,#111);}
+.creator-title::after{content:"";position:absolute;left:12px;bottom:0;width:44px;height:2px;border-radius:2px;background:#e5a400;}
 .creator-photo{width:54px;height:54px;min-width:54px;flex:0 0 54px;border-radius:50%;object-fit:cover;border:2px solid #111;background:#eee;display:block}
 
 label{display:block;margin-top:13px;margin-bottom:6px;font-weight:bold;font-size:14px}
@@ -113,10 +60,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#111}
 .back-button{display:block;text-align:center;text-decoration:none;margin-top:15px;padding:12px;background:#f0f0f0;color:#111;border-radius:9px;font-weight:bold}
 footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
-@media(max-width:500px){
-  .header{height:150px}
-  .header-content h1{font-size:26px}
-}
+@media(max-width:500px){.header{height:150px}.header-content h1{font-size:26px}}
 </style>
 </head>
 <body>
@@ -164,6 +108,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     </div>
   </section>
 
+  <!-- MUSIC -->
   <section id="musicSection" class="card upload-section">
     <h3>🎵 Upload Your Music</h3>
     <label for="songTitle">Song Title *</label>
@@ -173,21 +118,20 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <label for="musicCategory">Music Category *</label>
     <select id="musicCategory">
       <option value="">Select Music Category</option>
-      <option>Top Ugandan Music</option>
-      <option>Amapiano Music</option>
-      <option>Afrobeat Music</option>
-      <option>Dancehall Music</option>
-      <option>R&B Music</option>
-      <option>Reggae</option>
-      <option>Old School R&B</option>
-      <option>Old South African Music</option>
-      <option>Western Music</option>
-      <option>Love Songs</option>
-      <option>Oldies / Kikadde Music</option>
-      <option>Kadongo Kamu</option>
-      <option>High School Music</option>
-      <option>Lingala Music</option>
-      <option>Instrumental</option>
+      <option value="Top-Ugandan-Music">Top Ugandan Music</option>
+      <option value="Amapiano-Music">Amapiano Music</option>
+      <option value="Afrobeat-Music">Afrobeat Music</option>
+      <option value="Dancehall-Music">Dancehall Music</option>
+      <option value="Old-School-R-B">Old School R&B</option>
+      <option value="Reggae">Reggae</option>
+      <option value="Old-South-African-Music">Old South African Music</option>
+      <option value="Western-Music">Western Music</option>
+      <option value="Love-Songs">Love Songs</option>
+      <option value="Oldies-Kikadde-Music">Oldies / Kikadde Music</option>
+      <option value="Kadongo-Kamu">Kadongo Kamu</option>
+      <option value="High-School-Music">High School Music</option>
+      <option value="Lingala-Music">Lingala Music</option>
+      <option value="Instrumental">Instrumental</option>
     </select>
     <div id="musicWarning" class="validation-warning">⚠️ Please choose a Music Category first.</div>
     <label for="songFiles">Music File * (Audio Only)</label>
@@ -200,6 +144,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadMusic()">📤 Upload Your Music</button>
   </section>
 
+  <!-- PHOTOS -->
   <section id="photosSection" class="card upload-section">
     <h3>🖼️ Upload Your Photos</h3>
     <label for="photoFiles">Photo Files * (Images Only)</label>
@@ -210,6 +155,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadPhotos()">📤 Upload Your Photos</button>
   </section>
 
+  <!-- VIDEOS -->
   <section id="videosSection" class="card upload-section">
     <h3>🎬 Upload Your Videos</h3>
     <label for="videoTitle">Video Title *</label>
@@ -224,6 +170,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadVideos()">📤 Upload Your Videos</button>
   </section>
 
+  <!-- APPS -->
   <section id="appsSection" class="card upload-section">
     <h3>📱 Upload App</h3>
     <label for="appName">App Name *</label>
@@ -231,27 +178,27 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <label for="appCategory">App Category *</label>
     <select id="appCategory">
       <option value="">Select Your App Category</option>
-      <option>Premium Unlocked Apps</option>
-      <option>Free Unlimited Internet VPNs</option>
-      <option>Social Media</option>
-      <option>Messaging</option>
-      <option>Music & Audio</option>
-      <option>Video & Streaming</option>
-      <option>Photo & Camera</option>
-      <option>Video Editing</option>
-      <option>Music & DJ</option>
-      <option>Games</option>
-      <option>Education</option>
-      <option>Business & Work</option>
-      <option>Finance & Banking</option>
-      <option>Shopping</option>
-      <option>Travel & Transport</option>
-      <option>News</option>
-      <option>Sports</option>
-      <option>Health & Fitness</option>
-      <option>Tools & Utilities</option>
-      <option>File Management</option>
-      <option>Security</option>
+      <option value="Premium-Unlocked-Apps">Premium Unlocked Apps</option>
+      <option value="Free-Unlimited-Internet-VPNs">Free Unlimited Internet VPNs</option>
+      <option value="Social-Media">Social Media</option>
+      <option value="Messaging">Messaging</option>
+      <option value="Music-Audio">Music & Audio</option>
+      <option value="Video-Streaming">Video & Streaming</option>
+      <option value="Photo-Camera">Photo & Camera</option>
+      <option value="Video-Editing">Video Editing</option>
+      <option value="Music-DJ">Music & DJ</option>
+      <option value="Games">Games</option>
+      <option value="Education">Education</option>
+      <option value="Business-Work">Business & Work</option>
+      <option value="Finance-Banking">Finance & Banking</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Travel-Transport">Travel & Transport</option>
+      <option value="News">News</option>
+      <option value="Sports">Sports</option>
+      <option value="Health-Fitness">Health & Fitness</option>
+      <option value="Tools-Utilities">Tools & Utilities</option>
+      <option value="File-Management">File Management</option>
+      <option value="Security">Security</option>
     </select>
     <div id="appWarning" class="validation-warning">⚠️ Please choose an App Category first.</div>
     <label for="appFiles">APK / App File * (App Files Only)</label>
@@ -264,6 +211,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadApps()">📤 Upload Your App</button>
   </section>
 
+  <!-- SOFTWARE -->
   <section id="softwareSection" class="card upload-section">
     <h3>💻 Upload Software</h3>
     <label for="softwareName">Software Name *</label>
@@ -271,23 +219,23 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <label for="softwareCategory">Software Category *</label>
     <select id="softwareCategory">
       <option value="">Select Your Software Category</option>
-      <option>Virtual DJ Software</option>
-      <option>Windows Software</option>
-      <option>Video Editing</option>
-      <option>Audio Editing</option>
-      <option>Photo Editing</option>
-      <option>Graphics & Design</option>
-      <option>Mac Software</option>
-      <option>Linux Software</option>
-      <option>Android Software</option>
-      <option>Office & Productivity</option>
-      <option>Internet & Browsers</option>
-      <option>Security & Antivirus</option>
-      <option>File Management</option>
-      <option>Media Players</option>
-      <option>Download Managers</option>
-      <option>Programming & Development</option>
-      <option>Utilities & Tools</option>
+      <option value="Virtual-DJ-Software">Virtual DJ Software</option>
+      <option value="Windows-Software">Windows Software</option>
+      <option value="Software-Video-Editing">Video Editing</option>
+      <option value="Audio-Editing">Audio Editing</option>
+      <option value="Photo-Editing">Photo Editing</option>
+      <option value="Graphics-Design">Graphics & Design</option>
+      <option value="Mac-Software">Mac Software</option>
+      <option value="Linux-Software">Linux Software</option>
+      <option value="Android-Software">Android Software</option>
+      <option value="Office-Productivity">Office & Productivity</option>
+      <option value="Internet-Browsers">Internet & Browsers</option>
+      <option value="Security-Antivirus">Security & Antivirus</option>
+      <option value="Software-File-Management">File Management</option>
+      <option value="Media-Players">Media Players</option>
+      <option value="Download-Managers">Download Managers</option>
+      <option value="Programming-Development">Programming & Development</option>
+      <option value="Utilities-Tools">Utilities & Tools</option>
     </select>
     <div id="softwareWarning" class="validation-warning">⚠️ Please choose a Software Category first.</div>
     <label for="softwareFiles">Software File * (Software Packages Only)</label>
@@ -300,6 +248,7 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadSoftware()">📤 Upload Your Software</button>
   </section>
 
+  <!-- DJ MIXES -->
   <section id="mixesSection" class="card upload-section">
     <h3>🎧 Upload DJ Mix</h3>
     <label for="mixTitle">Mix Title *</label>
@@ -307,13 +256,10 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <label for="mixCategory">Mix Category *</label>
     <select id="mixCategory">
       <option value="">Select Your Mix Category</option>
-      <option>Afrobeat Mix</option>
-      <option>Amapiano Mix</option>
-      <option>Dancehall Mix</option>
-      <option>Reggae Mix</option>
-      <option>Party Mix</option>
-      <option>Old School Mix</option>
-      <option>Other</option>
+      <option value="DJ-Mixes">DJ Mixes</option>
+      <option value="Mixtapes">Mixtapes</option>
+      <option value="Sound-Effects">Sound Effects</option>
+      <option value="Virtual-DJ-Mappings">Virtual DJ Mappings</option>
     </select>
     <div id="mixWarning" class="validation-warning">⚠️ Please choose a Mix Category first.</div>
     <label for="mixFiles">DJ Mix File * (Audio Only)</label>
@@ -338,12 +284,8 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
 <script>
 function openUploadSection(type) {
-  document.querySelectorAll('.upload-section').forEach(s => {
-    s.classList.remove('active', 'open');
-  });
-  document.querySelectorAll('.type-button').forEach(b => {
-    b.classList.toggle('active', b.dataset.type === type);
-  });
+  document.querySelectorAll('.upload-section').forEach(s => s.classList.remove('active', 'open'));
+  document.querySelectorAll('.type-button').forEach(b => b.classList.toggle('active', b.dataset.type === type));
   const section = document.getElementById(type + 'Section');
   if (section) {
     section.classList.add('active', 'open');
@@ -351,10 +293,8 @@ function openUploadSection(type) {
   }
 }
 
-/* Auto-open section if url has ?type=... */
 window.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const type = params.get('type');
+  const type = new URLSearchParams(window.location.search).get('type');
   if (type) openUploadSection(type);
 });
 
@@ -381,10 +321,8 @@ document.getElementById('creatorPhoto').addEventListener('change', function() {
 <script>
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
 const BUCKET = "artist-uploads";
 const TABLE  = "artist_submissions";
-
 const DEFAULT_STATUS = "approved";
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -406,272 +344,104 @@ const SECTIONS = {
   mixes:    { folder:"dj-mixes", coverFolder:"dj-mixes",        extKey:"audio",    role:"audio",    catSel:"mixCategory",       warnId:"mixWarning",      catLabel:"Mix Category",       main:"mixFiles",      cover:"mixCover",        title:"mixTitle",      desc:"mixDescription" }
 };
 
-function extOf(name){
-  const p = String(name || "").split(".");
-  return p.length > 1 ? p.pop().toLowerCase() : "";
-}
-function safeName(name){
-  return String(name || "file").replace(/[^a-zA-Z0-9._-]/g,"_").replace(/_+/g,"_").slice(-140);
-}
-function safeSeg(text){
-  return String(text || "").trim().replace(/[^a-zA-Z0-9._-]/g,"_").replace(/\s+/g,"_").replace(/_+/g,"_") || "unknown";
-}
-function rand6(){
-  return Math.random().toString(36).slice(2, 8);
-}
-function storedName(file){
-  return Date.now() + "_" + rand6() + "_" + safeName(file.name);
-}
-function humanSize(b){
-  if(!b) return "0 B";
-  const u=["B","KB","MB","GB"]; let i=0,n=b;
-  while(n>=1024 && i<u.length-1){ n/=1024; i++; }
-  return n.toFixed(n>=10||i===0?0:1)+" "+u[i];
-}
+function extOf(name){ const p = String(name||"").split("."); return p.length>1 ? p.pop().toLowerCase() : ""; }
+function safeName(name){ return String(name||"file").replace(/[^a-zA-Z0-9._-]/g,"_").replace(/_+/g,"_").slice(-140); }
+function safeSeg(text){ return String(text||"").trim().replace(/[^a-zA-Z0-9._-]/g,"_").replace(/\s+/g,"_").replace(/_+/g,"_") || "unknown"; }
+function rand6(){ return Math.random().toString(36).slice(2,8); }
+function storedName(file){ return Date.now() + "_" + rand6() + "_" + safeName(file.name); }
+function humanSize(b){ if(!b) return "0 B"; const u=["B","KB","MB","GB"]; let i=0,n=b; while(n>=1024 && i<u.length-1){n/=1024;i++;} return n.toFixed(n>=10||i===0?0:1)+" "+u[i]; }
 function $(id){ return document.getElementById(id); }
 
-function progressStart(text){
-  $("progressBox").style.display = "block";
-  $("progressBar").style.width = "2%";
-  $("status").className = "status";
-  $("status").textContent = text;
-}
-function progressSet(pct, text){
-  $("progressBar").style.width = Math.max(2, Math.min(100, pct)) + "%";
-  if(text) $("status").textContent = text;
-}
-function progressDone(ok, text){
-  $("progressBar").style.width = "100%";
-  $("status").className = "status " + (ok ? "success" : "error");
-  $("status").textContent = text;
-}
+function progressStart(text){ $("progressBox").style.display="block"; $("progressBar").style.width="2%"; $("status").className="status"; $("status").textContent=text; }
+function progressSet(pct, text){ $("progressBar").style.width = Math.max(2, Math.min(100, pct)) + "%"; if(text) $("status").textContent=text; }
+function progressDone(ok, text){ $("progressBar").style.width="100%"; $("status").className="status "+(ok?"success":"error"); $("status").textContent=text; }
 
-function fieldWarnBox(el){
-  const boxId = el.id + "__warn";
-  let box = document.getElementById(boxId);
-  if (!box){
-    box = document.createElement("div");
-    box.id = boxId;
-    box.className = "validation-warning";
-    el.insertAdjacentElement("afterend", box);
-  }
-  return box;
-}
-function markField(el){
-  if (!el) return;
-  el.classList.add("field-invalid");
-  const clear = function(){
-    el.classList.remove("field-invalid");
-    const b = document.getElementById(el.id + "__warn");
-    if (b) b.classList.remove("show");
-    el.removeEventListener("input", clear);
-    el.removeEventListener("change", clear);
-  };
-  el.addEventListener("input", clear);
-  el.addEventListener("change", clear);
-}
-function showFieldWarn(el, message){
-  if (!el) return;
-  const box = fieldWarnBox(el);
-  box.textContent = "⚠️ " + message;
-  box.classList.add("show");
-  markField(el);
-}
-function clearFieldWarnings(){
-  document.querySelectorAll(".validation-warning").forEach(b => b.classList.remove("show"));
-  document.querySelectorAll(".field-invalid").forEach(el => el.classList.remove("field-invalid"));
-}
-function warn(cfg, message, el){
-  if (cfg.warnId){
-    const box = $(cfg.warnId);
-    if (box){ box.textContent = "⚠️ " + message; box.classList.add("show"); }
-  }
-  if (el) showFieldWarn(el, message);
-  if (cfg.catSel){
-    const sel = $(cfg.catSel);
-    if (sel){
-      sel.classList.add("category-required");
-      sel.focus();
-      setTimeout(()=>sel.classList.remove("category-required"), 2500);
-    }
-  }
-}
-function clearWarn(cfg){
-  if (cfg.warnId){ const b=$(cfg.warnId); if(b) b.classList.remove("show"); }
-}
+function fieldWarnBox(el){ const boxId=el.id+"__warn"; let box=document.getElementById(boxId); if(!box){ box=document.createElement("div"); box.id=boxId; box.className="validation-warning"; el.insertAdjacentElement("afterend",box); } return box; }
+function markField(el){ if(!el) return; el.classList.add("field-invalid"); const clear=()=>{ el.classList.remove("field-invalid"); const b=document.getElementById(el.id+"__warn"); if(b) b.classList.remove("show"); el.removeEventListener("input",clear); el.removeEventListener("change",clear); }; el.addEventListener("input",clear); el.addEventListener("change",clear); }
+function showFieldWarn(el, message){ if(!el) return; const box=fieldWarnBox(el); box.textContent="⚠️ "+message; box.classList.add("show"); markField(el); }
+function clearFieldWarnings(){ document.querySelectorAll(".validation-warning").forEach(b=>b.classList.remove("show")); document.querySelectorAll(".field-invalid").forEach(el=>el.classList.remove("field-invalid")); }
+function warn(cfg, message, el){ if(cfg.warnId){ const box=\( (cfg.warnId); if(box){ box.textContent="⚠️ "+message; box.classList.add("show"); } } if(el) showFieldWarn(el,message); if(cfg.catSel){ const sel= \)(cfg.catSel); if(sel){ sel.classList.add("category-required"); sel.focus(); setTimeout(()=>sel.classList.remove("category-required"),2500); } } }
+function clearWarn(cfg){ if(cfg.warnId){ const b=$(cfg.warnId); if(b) b.classList.remove("show"); } }
 
 function wireFileLabels(){
-  const map = {
-    songFiles:["songFilesName","audio"],
-    mixFiles:["mixFilesName","audio"],
-    photoFiles:["photoFilesName","image"],
-    videoFiles:["videoFilesName","video"],
-    appFiles:["appFilesName","app"],
-    softwareFiles:["softwareFilesName","software"]
-  };
+  const map = { songFiles:["songFilesName","audio"], mixFiles:["mixFilesName","audio"], photoFiles:["photoFilesName","image"], videoFiles:["videoFilesName","video"], appFiles:["appFilesName","app"], softwareFiles:["softwareFilesName","software"] };
   Object.keys(map).forEach(function(inputId){
-    const input = $(inputId);
-    if(!input) return;
-    const [labelId, extKey] = map[inputId];
+    const input=$(inputId); if(!input) return;
+    const [labelId, extKey]=map[inputId];
     input.addEventListener("change", function(){
-      const label = $(labelId);
-      const allowed = EXTS[extKey];
-      const list = Array.prototype.slice.call(input.files);
-
-      if(!list.length){
-        label.classList.remove("bad");
-        label.textContent = "No file selected";
-        return;
-      }
-      const wrong = list.filter(f => !allowed.includes(extOf(f.name)));
-      if(wrong.length){
-        label.classList.add("bad");
-        label.textContent = "❌ Wrong file type! You selected " + wrong.map(f=>f.name).join(", ") +
-                            ". This input only accepts: " + allowed.join(", ").toUpperCase();
-        input.value = "";
-        return;
-      }
+      const label=$(labelId); const allowed=EXTS[extKey]; const list=Array.prototype.slice.call(input.files);
+      if(!list.length){ label.classList.remove("bad"); label.textContent="No file selected"; return; }
+      const wrong=list.filter(f=>!allowed.includes(extOf(f.name)));
+      if(wrong.length){ label.classList.add("bad"); label.textContent="❌ Wrong file type! You selected "+wrong.map(f=>f.name).join(", ")+". This input only accepts: "+allowed.join(", ").toUpperCase(); input.value=""; return; }
       label.classList.remove("bad");
-      const total = list.reduce((s,f)=>s+f.size,0);
-      label.textContent = list.map(f=>f.name).join(", ") +
-        "  (" + list.length + " file" + (list.length>1?"s":"") + ", " + humanSize(total) + ")";
+      const total=list.reduce((s,f)=>s+f.size,0);
+      label.textContent=list.map(f=>f.name).join(", ")+"  ("+list.length+" file"+(list.length>1?"s":"")+", "+humanSize(total)+")";
     });
   });
 }
 wireFileLabels();
 
-function readCreator(){
-  return {
-    name:  $("creatorName").value.trim(),
-    email: $("creatorEmail").value.trim(),
-    photo: $("creatorPhoto").files[0] || null
-  };
-}
+function readCreator(){ return { name:\( ("creatorName").value.trim(), email: \)("creatorEmail").value.trim(), photo:$("creatorPhoto").files[0]||null }; }
 function checkCreator(){
-  const c = readCreator();
-  const nameEl  = $("creatorName");
-  const emailEl = $("creatorEmail");
-  const nameBox  = $("creatorNameWarning");
-  const emailBox = $("creatorEmailWarning");
-
-  nameEl.classList.remove("field-invalid");
-  emailEl.classList.remove("field-invalid");
-  nameBox.classList.remove("show");
-  emailBox.classList.remove("show");
-
-  if(!c.name){
-    nameBox.textContent = "⚠️ Please enter your creator name.";
-    nameBox.classList.add("show");
-    nameEl.classList.add("field-invalid");
-    nameEl.focus();
-    return null;
-  }
-  if(!c.email){
-    emailBox.textContent = "⚠️ Please enter your email.";
-    emailBox.classList.add("show");
-    emailEl.classList.add("field-invalid");
-    emailEl.focus();
-    return null;
-  }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email)){
-    emailBox.textContent = "⚠️ That email address does not look right. Please check it.";
-    emailBox.classList.add("show");
-    emailEl.classList.add("field-invalid");
-    emailEl.focus();
-    return null;
-  }
+  const c=readCreator(); const nameEl=\( ("creatorName"); const emailEl= \)("creatorEmail");
+  const nameBox=\( ("creatorNameWarning"); const emailBox= \)("creatorEmailWarning");
+  nameEl.classList.remove("field-invalid"); emailEl.classList.remove("field-invalid"); nameBox.classList.remove("show"); emailBox.classList.remove("show");
+  if(!c.name){ nameBox.textContent="⚠️ Please enter your creator name."; nameBox.classList.add("show"); nameEl.classList.add("field-invalid"); nameEl.focus(); return null; }
+  if(!c.email){ emailBox.textContent="⚠️ Please enter your email."; emailBox.classList.add("show"); emailEl.classList.add("field-invalid"); emailEl.focus(); return null; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email)){ emailBox.textContent="⚠️ That email address does not look right."; emailBox.classList.add("show"); emailEl.classList.add("field-invalid"); emailEl.focus(); return null; }
   return c;
 }
 
-const MIME = {
-  mp3:"audio/mpeg", wav:"audio/wav", m4a:"audio/mp4", aac:"audio/aac",
-  ogg:"audio/ogg", oga:"audio/ogg", opus:"audio/ogg", flac:"audio/flac",
-  jpg:"image/jpeg", jpeg:"image/jpeg", png:"image/png", gif:"image/gif",
-  webp:"image/webp", bmp:"image/bmp",
-  mp4:"video/mp4", webm:"video/webm", mov:"video/quicktime", m4v:"video/x-m4v",
-  avi:"video/x-msvideo", mkv:"video/x-matroska", mpg:"video/mpeg", mpeg:"video/mpeg",
-  apk:"application/vnd.android.package-archive", xapk:"application/octet-stream",
-  apks:"application/octet-stream", ipa:"application/octet-stream",
-  zip:"application/zip", rar:"application/vnd.rar", "7z":"application/x-7z-compressed",
-  exe:"application/x-msdownload", msi:"application/x-msi", dmg:"application/x-apple-diskimage",
-  iso:"application/x-iso9660-image"
-};
+const MIME = { mp3:"audio/mpeg",wav:"audio/wav",m4a:"audio/mp4",aac:"audio/aac",ogg:"audio/ogg",oga:"audio/ogg",opus:"audio/ogg",flac:"audio/flac",jpg:"image/jpeg",jpeg:"image/jpeg",png:"image/png",gif:"image/gif",webp:"image/webp",bmp:"image/bmp",mp4:"video/mp4",webm:"video/webm",mov:"video/quicktime",m4v:"video/x-m4v",avi:"video/x-msvideo",mkv:"video/x-matroska",mpg:"video/mpeg",mpeg:"video/mpeg",apk:"application/vnd.android.package-archive",xapk:"application/octet-stream",apks:"application/octet-stream",ipa:"application/octet-stream",zip:"application/zip",rar:"application/vnd.rar","7z":"application/x-7z-compressed",exe:"application/x-msdownload",msi:"application/x-msi",dmg:"application/x-apple-diskimage",iso:"application/x-iso9660-image" };
 
 async function putFile(file, folder, role, category){
   const name = storedName(file);
   const path = folder + name;
   const ext = extOf(file.name);
-
-  const res = await db.storage.from(BUCKET).upload(path, file, {
-    cacheControl: "3600",
-    upsert: false,
-    contentType: file.type || MIME[ext] || "application/octet-stream"
-  });
-  if (res.error) throw new Error(file.name + " → " + res.error.message);
-
+  const res = await db.storage.from(BUCKET).upload(path, file, { cacheControl:"3600", upsert:false, contentType:file.type||MIME[ext]||"application/octet-stream" });
+  if(res.error) throw new Error(file.name+" → "+res.error.message);
   const pub = db.storage.from(BUCKET).getPublicUrl(path);
-
-  return {
-    name: file.name,
-    original_name: file.name,
-    url: pub.data.publicUrl,
-    path: path,
-    size: file.size,
-    mime: file.type || "",
-    type: role,
-    category: category || ""
-  };
+  return { name:file.name, original_name:file.name, url:pub.data.publicUrl, path:path, size:file.size, mime:file.type||"", type:role, category:category||"" };
 }
 
 async function runUpload(cfg, titleText, biography, button){
-  clearWarn(cfg);
-  clearFieldWarnings();
-
-  const creator = checkCreator();
-  if(!creator) return;
+  clearWarn(cfg); clearFieldWarnings();
+  const creator = checkCreator(); if(!creator) return;
 
   let category = "";
-  if (cfg.catSel){
+  if(cfg.catSel){
     const sel = $(cfg.catSel);
-    if(!sel.value){
-      warn(cfg, "Please select your " + cfg.catLabel.toLowerCase() + " first before uploading.");
-      return;
-    }
-    category = sel.value;
+    if(!sel.value){ warn(cfg, "Please select your "+cfg.catLabel.toLowerCase()+" first before uploading."); return; }
+    category = sel.value; // e.g. "Reggae", "Photo-Editing", "Free-Unlimited-Internet-VPNs"
   }
 
   const mainInput = $(cfg.main);
   const mainFiles = Array.prototype.slice.call(mainInput.files);
-  if(!mainFiles.length){
-    warn(cfg, "Please choose your " + cfg.role + " file first before uploading.", mainInput);
-    return;
-  }
+  if(!mainFiles.length){ warn(cfg, "Please choose your "+cfg.role+" file first before uploading.", mainInput); return; }
 
   const allowed = EXTS[cfg.extKey];
   const wrongMain = mainFiles.filter(f => !allowed.includes(extOf(f.name)));
-  if(wrongMain.length){
-    warn(cfg, "Wrong file type: " + wrongMain.map(f=>f.name).join(", ") +
-              ". This section only accepts " + allowed.join(", ").toUpperCase() + ".", mainInput);
-    mainInput.value = "";
-    return;
-  }
+  if(wrongMain.length){ warn(cfg, "Wrong file type: "+wrongMain.map(f=>f.name).join(", ")+". This section only accepts "+allowed.join(", ").toUpperCase()+".", mainInput); mainInput.value=""; return; }
 
   const coverFiles = cfg.cover ? Array.prototype.slice.call($(cfg.cover).files) : [];
   const wrongImg = coverFiles.filter(f => !EXTS.image.includes(extOf(f.name)));
-  if(wrongImg.length){
-    warn(cfg, "Wrong image type: " + wrongImg.map(f=>f.name).join(", ") +
-              ". Images must be " + EXTS.image.join(", ").toUpperCase() + ".", $(cfg.cover));
-    $(cfg.cover).value = "";
-    return;
+  if(wrongImg.length){ warn(cfg, "Wrong image type.", $(cfg.cover)); $(cfg.cover).value=""; return; }
+
+  if(titleText !== null && !titleText){ warn(cfg, "Please fill in the name / title box first.", $(cfg.title)); return; }
+
+  const creatorSeg = safeSeg(creator.name);
+
+  // ========== IMPORTANT: Build path with the category ==========
+  // music/Reggae/CreatorName/
+  // software/Photo-Editing/CreatorName/
+  // apps/Free-Unlimited-Internet-VPNs/CreatorName/
+  let mainFolder;
+  if (category) {
+    mainFolder = cfg.folder + "/" + category + "/" + creatorSeg + "/";
+  } else {
+    mainFolder = cfg.folder + "/" + creatorSeg + "/";
   }
 
-  if (titleText !== null && !titleText){
-    warn(cfg, "Please fill in the name / title box first before uploading.", $(cfg.title));
-    return;
-  }
-
-  const creatorSeg  = safeSeg(creator.name);
-  const mainFolder  = cfg.folder + "/" + creatorSeg + "/";
   const coverFolder = (cfg.coverFolder || cfg.folder) + "/" + creatorSeg + "/";
   const profileFolder = "creator-profile-photos/" + safeSeg(creator.email || creator.name) + "/";
 
@@ -680,24 +450,24 @@ async function runUpload(cfg, titleText, biography, button){
   let done = 0;
   const step = () => progressSet(Math.round((++done / total) * 100));
 
-  try{
-    progressStart("Uploading " + total + " file(s) to " + mainFolder + " … please wait.");
+  try {
+    progressStart("Uploading " + total + " file(s) to " + mainFolder + " …");
 
     const entries = [];
 
-    if (creator.photo){
-      progressSet(4, "Uploading your profile photo…");
+    if (creator.photo) {
+      progressSet(4, "Uploading profile photo…");
       entries.push(await putFile(creator.photo, profileFolder, "profile", "profile"));
       step();
     }
 
-    for(const f of mainFiles){
+    for (const f of mainFiles) {
       progressSet(Math.max(5, Math.round((done/total)*100)), "Uploading " + f.name + " …");
       entries.push(await putFile(f, mainFolder, cfg.role, category));
       step();
     }
 
-    for(const f of coverFiles){
+    for (const f of coverFiles) {
       progressSet(Math.max(5, Math.round((done/total)*100)), "Uploading " + f.name + " …");
       entries.push(await putFile(f, coverFolder, "cover", category));
       step();
@@ -724,43 +494,22 @@ async function runUpload(cfg, titleText, biography, button){
     mainInput.value = "";
     if (cfg.cover) $(cfg.cover).value = "";
     if (cfg.desc) $(cfg.desc).value = "";
-    document.querySelectorAll(".file-name").forEach(el => {
-      el.classList.remove("bad");
-    });
+    document.querySelectorAll(".file-name").forEach(el => el.classList.remove("bad"));
 
-  }catch(err){
+  } catch(err) {
     console.error(err);
-    const msg = String(err.message || err);
-    progressDone(false, "❌ Upload failed. " + msg);
-  }finally{
+    progressDone(false, "❌ Upload failed. " + String(err.message || err));
+  } finally {
     button.disabled = false;
   }
 }
 
-function uploadMusic(){
-  runUpload(SECTIONS.music, $("songTitle").value.trim(), $("musicDescription").value.trim(),
-            document.querySelector('#musicSection .upload-button'));
-}
-function uploadPhotos(){
-  runUpload(SECTIONS.photos, null, $("photoDescription").value.trim(),
-            document.querySelector('#photosSection .upload-button'));
-}
-function uploadVideos(){
-  runUpload(SECTIONS.videos, $("videoTitle").value.trim(), $("videoDescription").value.trim(),
-            document.querySelector('#videosSection .upload-button'));
-}
-function uploadApps(){
-  runUpload(SECTIONS.apps, $("appName").value.trim(), $("appDescription").value.trim(),
-            document.querySelector('#appsSection .upload-button'));
-}
-function uploadSoftware(){
-  runUpload(SECTIONS.software, $("softwareName").value.trim(), $("softwareDescription").value.trim(),
-            document.querySelector('#softwareSection .upload-button'));
-}
-function uploadMixes(){
-  runUpload(SECTIONS.mixes, $("mixTitle").value.trim(), $("mixDescription").value.trim(),
-            document.querySelector('#mixesSection .upload-button'));
-}
+function uploadMusic(){ runUpload(SECTIONS.music, $("songTitle").value.trim(), $("musicDescription").value.trim(), document.querySelector('#musicSection .upload-button')); }
+function uploadPhotos(){ runUpload(SECTIONS.photos, null, $("photoDescription").value.trim(), document.querySelector('#photosSection .upload-button')); }
+function uploadVideos(){ runUpload(SECTIONS.videos, $("videoTitle").value.trim(), $("videoDescription").value.trim(), document.querySelector('#videosSection .upload-button')); }
+function uploadApps(){ runUpload(SECTIONS.apps, $("appName").value.trim(), $("appDescription").value.trim(), document.querySelector('#appsSection .upload-button')); }
+function uploadSoftware(){ runUpload(SECTIONS.software, $("softwareName").value.trim(), $("softwareDescription").value.trim(), document.querySelector('#softwareSection .upload-button')); }
+function uploadMixes(){ runUpload(SECTIONS.mixes, $("mixTitle").value.trim(), $("mixDescription").value.trim(), document.querySelector('#mixesSection .upload-button')); }
 </script>
 
 </body>
