@@ -44,10 +44,44 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
 .card h2,.card h3{margin-top:0}
 .intro{text-align:center}
 
-/* Creator profile card header — round photo sits in the top-right corner */
-.creator-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 4px}
-.creator-header h3{margin:0;padding-right:8px}
-.creator-photo{width:54px;height:54px;min-width:54px;border-radius:50%;object-fit:cover;border:2px solid #111;background:#eee}
+/* Artists / DJs / Producers profile card header — the round photo sits in
+   the TOP-LEFT corner and the title follows it on the SAME line.
+   Whatever photo the client uploads appears in that left-hand circle. */
+.creator-header{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin:0 0 4px}
+/* unique title — no icon, a bold gradient wordmark with a small gold accent bar */
+.creator-title{
+  margin:0;
+  position:relative;
+  display:inline-block;
+  padding:2px 0 6px 12px;
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:.4px;
+  line-height:1.25;
+  background:linear-gradient(90deg,#111 0%,#333 45%,#6b6b6b 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:#111;              /* fallback for old browsers */
+}
+.creator-title::before{
+  content:"";
+  position:absolute;
+  left:0;top:55%;
+  transform:translateY(-50%);
+  width:4px;height:70%;
+  border-radius:4px;
+  background:linear-gradient(180deg,#e5a400,#111);
+}
+.creator-title::after{
+  content:"";
+  position:absolute;
+  left:12px;bottom:0;
+  width:44px;height:2px;
+  border-radius:2px;
+  background:#e5a400;
+}
+.creator-photo{width:54px;height:54px;min-width:54px;flex:0 0 54px;border-radius:50%;object-fit:cover;border:2px solid #111;background:#eee;display:block}
 
 label{display:block;margin-top:13px;margin-bottom:6px;font-weight:bold;font-size:14px}
 input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;font-size:15px;background:white}
@@ -103,14 +137,14 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
   <section class="card intro">
     <h2>📤 Upload to Ning Wei Media</h2>
-    <p>Create your creator profile and choose what you want to upload.</p>
+    <p>Set up your Artists, DJs &amp; Producer's profile and choose what you want to upload.</p>
   </section>
 
-  <!-- CREATOR PROFILE -->
+  <!-- ARTISTS / DJs / PRODUCERS PROFILE -->
   <section class="card">
     <div class="creator-header">
-      <h3>👤 Your Creator Profile</h3>
       <img id="creatorPreview" class="creator-photo" src="ning-wei.png" alt="Profile photo">
+      <h3 class="creator-title">Artists, DJs &amp; Producer's Profile</h3>
     </div>
     <label for="creatorName">Name *</label>
     <input id="creatorName" type="text" placeholder="Enter your name" required>
@@ -333,7 +367,7 @@ function openUploadSection(type) {
   }
 }
 
-/* Creator profile photo preview — the round photo in the card header */
+/* Profile photo preview — the round photo in the card header */
 document.getElementById('creatorPhoto').addEventListener('change', function() {
   const file = this.files[0];
   if (!file) return;
@@ -372,10 +406,20 @@ document.getElementById('creatorPhoto').addEventListener('change', function() {
 
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 
-/* PUBLIC / ANON key — this is the verified working key.
-   NEVER put a secret / service_role key in a web page. */
+/* 👇👇  PUBLIC / ANON KEY — PASTE IT BETWEEN THE QUOTES  👇👇
+   Get it from: Supabase Dashboard → Project Settings → API
+                → Project API keys → "anon  public"
+
+   ⚠️ The key AND the URL must belong to the SAME project.
+   The reference inside the key must equal the URL host
+   (here: btksyizkcpzubtextuce).
+   The old key that was in this file said "btksyzzkcpzubtextuce",
+   which is a different project — that is exactly why every upload
+   was failing with "signature verification failed".
+
+   NEVER put a secret / service_role key inside a web page. */
 const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5enprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const BUCKET = "artist-uploads";
 const TABLE  = "artist_submissions";
@@ -564,7 +608,7 @@ function wireFileLabels(){
 wireFileLabels();
 
 /* ============================================================
-   creator profile helpers
+   profile helpers
    ============================================================ */
 function readCreator(){
   return {
@@ -610,17 +654,36 @@ function checkCreator(){
   return c;
 }
 
+/* ---------- MIME fallback ----------
+   Some phones hand over a file with an empty type (""). Supabase Storage
+   then stores it as application/octet-stream, which makes the file
+   download instead of play. We fill in a sane type from the extension. */
+const MIME = {
+  mp3:"audio/mpeg", wav:"audio/wav", m4a:"audio/mp4", aac:"audio/aac",
+  ogg:"audio/ogg", oga:"audio/ogg", opus:"audio/ogg", flac:"audio/flac",
+  jpg:"image/jpeg", jpeg:"image/jpeg", png:"image/png", gif:"image/gif",
+  webp:"image/webp", bmp:"image/bmp",
+  mp4:"video/mp4", webm:"video/webm", mov:"video/quicktime", m4v:"video/x-m4v",
+  avi:"video/x-msvideo", mkv:"video/x-matroska", mpg:"video/mpeg", mpeg:"video/mpeg",
+  apk:"application/vnd.android.package-archive", xapk:"application/octet-stream",
+  apks:"application/octet-stream", ipa:"application/octet-stream",
+  zip:"application/zip", rar:"application/vnd.rar", "7z":"application/x-7z-compressed",
+  exe:"application/x-msdownload", msi:"application/x-msi", dmg:"application/x-apple-diskimage",
+  iso:"application/x-iso9660-image"
+};
+
 /* ============================================================
    upload ONE file to Supabase Storage
    ============================================================ */
 async function putFile(file, folder, role, category){
   const name = storedName(file);
   const path = folder + name;
+  const ext = extOf(file.name);
 
   const res = await db.storage.from(BUCKET).upload(path, file, {
     cacheControl: "3600",
     upsert: false,
-    contentType: file.type || undefined
+    contentType: file.type || MIME[ext] || "application/octet-stream"
   });
   if (res.error) throw new Error(file.name + " → " + res.error.message);
 
@@ -649,7 +712,7 @@ async function runUpload(cfg, titleText, biography, button){
   clearWarn(cfg);
   clearFieldWarnings();
 
-  /* 1 — creator profile */
+  /* 1 — profile (name + email) */
   const creator = checkCreator();
   if(!creator) return;
 
@@ -743,7 +806,7 @@ async function runUpload(cfg, titleText, biography, button){
       artist_email: creator.email,
       /* the column is NOT NULL — send an empty string instead of null so
        Photos / Videos uploads stop failing with a database error */
-      biography:    biography || "",
+    biography:    biography || "",
       lyrics:       null,
       youtube_links:null,
       files:        entries,
@@ -775,8 +838,10 @@ async function runUpload(cfg, titleText, biography, button){
     progressDone(false,
       "❌ Upload failed. " + msg +
       (keyProblem
-        ? "\n\n⚠️ This looks like a KEY problem. Open upload.html, find SUPABASE_KEY near the bottom, " +
-          "and paste your CURRENT anon (public) key from Supabase → Project Settings → API → anon public."
+        ? "\n\n⚠️ This is a KEY problem. Open upload.html, find SUPABASE_KEY (near the top of the " +
+          "upload engine script), and paste your CURRENT anon (public) key from " +
+          "Supabase → Project Settings → API → anon public. " +
+          "The key must belong to the SAME project as SUPABASE_URL (" + SUPABASE_URL + ")."
         : "\n\nCheck that the bucket \"" + BUCKET + "\" exists, is Public, and allows uploads."));
   }finally{
     button.disabled = false;
