@@ -145,7 +145,7 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
 </section>
 
 <section class="section" data-show="6" data-label="Software">
-  <h2>💻 Softwares and Virtual DJ Mappings</h2>
+  <h2>💻 Softwares and Virtual DJ</h2>
   <div class="grid grid-2">
     <a class="tile" href="library.html?folder=Virtual-DJ-Software"><span class="ic">🎧</span><span>Virtual DJ Software</span></a>
     <a class="tile" href="library.html?folder=Windows-Software"><span class="ic">🪟</span><span>Windows Software</span></a>
@@ -311,7 +311,7 @@ async function loadUploadedContent() {
     if (photoItems.length > 0) {
       photoGrid.innerHTML = photoItems.map(item => 
         `<a class="media-card" href="${item.url}" target="_blank">
-          <img class="media-preview" src="\( {item.url}" alt=" \){item.title}" loading="lazy">
+          <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
           <div class="media-title">${item.title}</div>
         </a>`
       ).join('');
