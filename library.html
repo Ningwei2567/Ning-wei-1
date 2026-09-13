@@ -196,11 +196,11 @@ video.full-video {
   font-size: 12px;
 }
 
-/* Related Content Grid */
+/* Related Content Grid - Increased video height, removed titles */
 .related-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
   padding: 12px 16px;
 }
 .related-card {
@@ -209,24 +209,15 @@ video.full-video {
   border-radius: 8px;
   overflow: hidden;
   text-decoration: none;
-  color: #fff;
   display: flex;
   flex-direction: column;
   cursor: pointer;
 }
 .related-card video {
   width: 100%;
-  height: 120px;
+  height: 190px; /* Increased height since titles are removed */
   object-fit: cover;
   background: #000;
-}
-.related-card .card-title {
-  padding: 6px 8px;
-  font-size: 11px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Multi-select checkboxes */
@@ -397,7 +388,6 @@ function renderRelated(relatedList) {
     <div class="related-card" onclick="switchVideo(${idx})">
       <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
       <video src="${item.url}#t=0.5" preload="metadata" muted></video>
-      <div class="card-title">${item.title}</div>
     </div>
   `).join('');
   
