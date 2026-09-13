@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -475,27 +474,52 @@ async function loadUploadedContent() {
   const videoItems = [];
   const photoItems = [];
 
-  data.forEach(row => {
-    if (row.status && row.status.toLowerCase() !== 'approved') return;
-
-    if (Array.isArray(row.files)) {
-      row.files.forEach(f => {
-        const type = (f.type || f.role || f.category || '').toLowerCase();
-        const title = f.original_name || f.name || row.artist_name || 'Media';
-        
-        if (type === 'video' || (f.url && f.url.match(/\.(mp4|webm|ogg|mov)$/i))) {
-          videoItems.push({ title: title, url: f.url });
-        } else if (type === 'photo' || type === 'image' || (f.url && f.url.match(/\.(jpg|jpeg|png|gif|webp)$/i))) {
-          photoItems.push({ title: title, url: f.url });
+  // Helper function to process individual file objects from either format
+  function extractFilesFromRow(filesColumn) {
+    if (!filesColumn) return [];
+    // If it's a flat array (New uploads format)
+    if (Array.isArray(filesColumn)) {
+      return filesColumn;
+    }
+    // If it's an old nested object format { songs: [...], covers: [...], photos: [...] }
+    let flattened = [];
+    if (typeof filesColumn === 'object') {
+      Object.values(filesColumn).forEach(categoryList => {
+        if (Array.isArray(categoryList)) {
+          flattened = flattened.concat(categoryList);
         }
       });
     }
+    return flattened;
+  }
+
+  data.forEach(row => {
+    // Skip unapproved records (accepts approved case-insensitively or treats empty/null status as approved if needed)
+    const status = (row.status || 'approved').toLowerCase();
+    if (status !== 'approved') return;
+
+    const allFiles = extractFilesFromRow(row.files);
+
+    allFiles.forEach(f => {
+      const type = (f.type || f.role || f.category || '').toLowerCase();
+      const title = f.original_name || f.name || row.artist_name || 'Media';
+      const url = f.url || '';
+
+      // Check if it's a video item
+      if (type === 'video' || url.match(/\.(mp4|webm|ogg|mov)$/i)) {
+        videoItems.push({ title: title, url: url });
+      } 
+      // Check if it's a photo/image item
+      else if (type === 'photo' || type === 'image' || type === 'profile' || type === 'cover' || url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+        photoItems.push({ title: title, url: url });
+      }
+    });
   });
 
   if (videoGrid) {
     if (videoItems.length > 0) {
       videoGrid.innerHTML = videoItems.map(item => `
-        <a class="media-card" href="library.html?folder=Trending-Videos">
+        <a class="media-card" href="${item.url}" target="_blank">
           <video class="media-preview" src="${item.url}#t=0.5" preload="metadata" muted></video>
           <div class="media-title">${item.title}</div>
         </a>
@@ -508,7 +532,7 @@ async function loadUploadedContent() {
   if (photoGrid) {
     if (photoItems.length > 0) {
       photoGrid.innerHTML = photoItems.map(item => `
-        <a class="media-card" href="library.html?folder=Trending-Photos">
+        <a class="media-card" href="${item.url}" target="_blank">
           <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
           <div class="media-title">${item.title}</div>
         </a>
@@ -526,5 +550,3 @@ loadUploadedContent();
 
 </body>
 </html>
-
-```
