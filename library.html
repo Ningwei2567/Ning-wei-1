@@ -96,6 +96,19 @@ video.full-media, img.full-media {
   outline: none;
   display: block;
 }
+.software-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #888;
+  text-align: center;
+  gap: 10px;
+}
+.software-placeholder span {
+  font-size: 40px;
+}
 
 /* Media Info Section */
 .video-details {
@@ -216,13 +229,30 @@ video.full-media, img.full-media {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  height: 190px;
+  justify-content: center;
+  align-items: center;
 }
 .related-card video, .related-card img {
   width: 100%;
-  height: 190px;
+  height: 100%;
   object-fit: cover;
   background: #000;
   display: block;
+}
+.related-card-software {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 12px;
+  text-align: center;
+  padding: 10px;
+  gap: 5px;
+}
+.related-card-software span {
+  font-size: 28px;
 }
 
 /* Multi-select checkboxes */
@@ -241,7 +271,7 @@ body.admin-mode .card-checkbox {
   display: block;
 }
 
-/* Custom Clean Modal (No Domain Names) */
+/* Custom Clean Modal */
 .custom-modal-overlay {
   display: none;
   position: fixed;
@@ -359,7 +389,6 @@ let db = null;
 let currentItem = null;
 let allItems = [];
 
-// Custom Popup Functions (No Domain Names)
 function showCustomAlert(message, callback) {
   const overlay = document.getElementById('customModalOverlay');
   const textEl = document.getElementById('customModalText');
@@ -407,6 +436,10 @@ function isImageFile(filenameOrUrl) {
   return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(filenameOrUrl);
 }
 
+function isVideoFile(filenameOrUrl) {
+  return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(filenameOrUrl);
+}
+
 async function initLibrary() {
   const urlParams = new URLSearchParams(window.location.search);
   const selectedFolder = urlParams.get('folder') || '';
@@ -442,14 +475,17 @@ async function initLibrary() {
       row.files.forEach((f, idx) => {
         const fileName = (f.original_name || f.name || '').toLowerCase();
         const fileUrl = (f.url || '').toLowerCase();
+        
         const isPhoto = isImageFile(fileName) || isImageFile(fileUrl);
+        const isVideo = isVideoFile(fileName) || isVideoFile(fileUrl);
 
         allItems.push({
           id: row.id,
           fileIndex: idx,
-          title: f.original_name || f.name || row.artist_name || 'Untitled Content',
+          title: f.original_name || f.name || row.artist_name || 'Software Package',
           url: f.url,
           isImage: isPhoto,
+          isVideo: isVideo,
           uploader: row.artist_name || 'Ning Wei Media',
           avatar: avatarUrl,
           date: dateStr
@@ -473,8 +509,15 @@ function playMedia(item) {
 
   if (item.isImage) {
     container.innerHTML = `<img src="${item.url}" class="full-media" alt="${item.title}">`;
-  } else {
+  } else if (item.isVideo) {
     container.innerHTML = `<video id="mainVideoPlayer" class="full-media" controls autoplay playsinline src="${item.url}"></video>`;
+  } else {
+    container.innerHTML = `
+      <div class="software-placeholder">
+        <span>💻</span>
+        <p>Software / File Package Ready</p>
+      </div>
+    `;
   }
 
   document.getElementById('activeTitle').textContent = item.title;
@@ -494,9 +537,19 @@ function playMedia(item) {
 function renderRelated(relatedList) {
   const grid = document.getElementById('relatedGrid');
   grid.innerHTML = relatedList.map((item, idx) => {
-    let previewElement = item.isImage 
-      ? `<img src="${item.url}" loading="lazy" alt="preview">` 
-      : `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+    let previewElement = '';
+    if (item.isImage) {
+      previewElement = `<img src="${item.url}" loading="lazy" alt="preview">`;
+    } else if (item.isVideo) {
+      previewElement = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+    } else {
+      previewElement = `
+        <div class="related-card-software">
+          <span>📦</span>
+          <div>Software File</div>
+        </div>
+      `;
+    }
 
     return `
       <div class="related-card" onclick="switchMedia(${idx})">
