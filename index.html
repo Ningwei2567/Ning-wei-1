@@ -236,9 +236,11 @@ a{
 }
 .more-btn:active{transform:scale(.96);}
 
-/* Hide extra tiles */
-.tile.is-hidden{display:none;}
+/* Hide extra tiles/slots */
+.tile.is-hidden, .slot.is-hidden, .media-card.is-hidden{display:none;}
 .section.open .tile.is-hidden{display:flex;}
+.section.open .slot.is-hidden{display:block;}
+.section.open .media-card.is-hidden{display:flex;}
 
 /* ========== TRENDING APPS ========== */
 .trending{padding:14px 16px 4px;}
@@ -304,6 +306,7 @@ a{
     <button type="submit">Search</button>
   </form>
 
+  <!-- Artist Upload Form Button (Main Homepage Only) -->
   <a class="upload-button" href="upload.html">
     <span>🎵 Upload Your Music From Here</span>
     <span class="upload-button-description">Artists • DJs • Producers</span>
@@ -333,33 +336,27 @@ a{
 </section>
 
 <!-- ================= 2. TRENDING VIDEOS ================= -->
-<section class="section">
+<section class="section" data-show="8">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoSlotGrid">
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
   </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
 <!-- ================= 3. TRENDING PHOTOS & JOKES ================= -->
-<section class="section">
+<section class="section" data-show="8">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoSlotGrid">
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
-    <span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
+    <span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span>
   </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
 <!-- ================= 4. APPS ================= -->
@@ -425,7 +422,6 @@ a{
     <a class="tile" href="library.html?folder=Sound-Effects"><span class="ic">🔊</span><span>Sound Effects</span></a>
     <a class="tile" href="library.html?folder=Virtual-DJ-Mappings"><span class="ic">🎚️</span><span>Virtual DJ Mappings</span></a>
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
 <!-- ================= TRENDING APPS ================= -->
@@ -475,32 +471,45 @@ a{
 /* =========================================================
    "MORE / LESS" EXPANSION LOGIC
 ========================================================= */
-document.querySelectorAll('.section[data-show]').forEach(function(section){
-  var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
-  var grid  = section.querySelector('.grid');
-  var wrap  = section.querySelector('.more-wrap');
-  var btn   = section.querySelector('.more-btn');
-  if (!grid || !btn) return;
+function setupMoreButtons() {
+  document.querySelectorAll('.section[data-show]').forEach(function(section){
+    var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
+    var grid  = section.querySelector('.grid');
+    var wrap  = section.querySelector('.more-wrap');
+    var btn   = section.querySelector('.more-btn');
+    if (!grid || !btn) return;
 
-  var tiles = Array.prototype.slice.call(grid.querySelectorAll('.tile'));
+    var items = Array.prototype.slice.call(grid.children);
 
-  if (tiles.length <= limit) {
-    if (wrap) wrap.style.display = 'none';
-    return;
-  }
-
-  tiles.forEach(function(tile, i){
-    if (i >= limit) tile.classList.add('is-hidden');
-  });
-
-  btn.addEventListener('click', function(){
-    var opened = section.classList.toggle('open');
-    btn.textContent = opened ? 'Less ▴' : 'More ▾';
-    if (!opened) {
-      section.scrollIntoView({behavior:'smooth', block:'start'});
+    if (items.length <= limit) {
+      if (wrap) wrap.style.display = 'none';
+      return;
+    } else {
+      if (wrap) wrap.style.display = 'flex';
     }
+
+    items.forEach(function(item, i){
+      if (i >= limit) {
+        item.classList.add('is-hidden');
+      } else {
+        item.classList.remove('is-hidden');
+      }
+    });
+
+    var newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    newBtn.addEventListener('click', function(){
+      var opened = section.classList.toggle('open');
+      newBtn.textContent = opened ? 'Less ▴' : 'More ▾';
+      if (!opened) {
+        section.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
   });
-});
+}
+
+setupMoreButtons();
 
 /* =========================================================
    SUPABASE LIVE DATA POPULATION FOR VIDEOS & PHOTOS
@@ -545,33 +554,33 @@ async function loadHomeMedia() {
       });
     });
 
-    // Populate Video Slots
     if (videos.length > 0) {
-      const videoCards = videos.slice(0, 8).map(v => `
+      const videoCards = videos.slice(0, 16).map(v => `
         <a class="media-card" href="videos.html">
           <video src="${v.url}#t=0.5" preload="metadata" muted></video>
           <span class="media-card-title">${v.title}</span>
         </a>
       `).join('');
       
-      const emptyVideoSlots = Math.max(0, 8 - videos.length);
+      const emptyVideoSlots = Math.max(0, 16 - videos.length);
       const fillerVideoSlots = '<span class="slot"></span>'.repeat(emptyVideoSlots);
       videoGrid.innerHTML = videoCards + fillerVideoSlots;
     }
 
-    // Populate Photo Slots
     if (photos.length > 0) {
-      const photoCards = photos.slice(0, 8).map(p => `
+      const photoCards = photos.slice(0, 16).map(p => `
         <a class="media-card" href="photos.html">
           <img src="${p.url}" alt="${p.title}">
           <span class="media-card-title">${p.title}</span>
         </a>
       `).join('');
 
-      const emptyPhotoSlots = Math.max(0, 8 - photos.length);
+      const emptyPhotoSlots = Math.max(0, 16 - photos.length);
       const fillerPhotoSlots = '<span class="slot"></span>'.repeat(emptyPhotoSlots);
       photoGrid.innerHTML = photoCards + fillerPhotoSlots;
     }
+
+    setupMoreButtons();
 
   } catch (err) {
     console.error("Error loading home media:", err);
