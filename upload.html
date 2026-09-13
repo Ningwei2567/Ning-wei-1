@@ -307,17 +307,14 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <label for="mixCategory">Mix Category *</label>
     <select id="mixCategory">
       <option value="">Select Your Mix Category</option>
-      <option>Afrobeat Mix</option>
-      <option>Amapiano Mix</option>
-      <option>Dancehall Mix</option>
-      <option>Reggae Mix</option>
-      <option>Party Mix</option>
-      <option>Old School Mix</option>
-      <option>Other</option>
+      <option value="DJ-Mixes">DJ Mixes</option>
+      <option value="Mixtapes">Mixtapes</option>
+      <option value="Sound-Effects">Sound Effects</option>
+      <option value="Virtual-DJ-Mappings">Virtual DJ Mappings</option>
     </select>
     <div id="mixWarning" class="validation-warning">⚠️ Please choose a Mix Category first.</div>
-    <label for="mixFiles">DJ Mix File * (Audio Only)</label>
-    <input id="mixFiles" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac" multiple>
+    <label for="mixFiles">DJ Mix File * (Audio or ZIP for Mappings)</label>
+    <input id="mixFiles" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.opus,.flac,.zip,.rar,.7z" multiple>
     <div id="mixFilesName" class="file-name">No DJ mix selected</div>
     <label for="mixCover">Mix Cover</label>
     <input id="mixCover" type="file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif">
@@ -394,7 +391,8 @@ const EXTS = {
   image:    ["jpg","jpeg","png","gif","webp","bmp"],
   video:    ["mp4","webm","mov","m4v","avi","mkv","mpg","mpeg"],
   app:      ["apk","xapk","apks","ipa"],
-  software: ["zip","rar","7z","exe","msi","dmg","iso","apk"]
+  software: ["zip","rar","7z","exe","msi","dmg","iso","apk"],
+  mix:      ["mp3","wav","m4a","aac","ogg","oga","opus","flac","zip","rar","7z"]
 };
 
 const SECTIONS = {
@@ -403,7 +401,7 @@ const SECTIONS = {
   videos:   { folder:"videos",   coverFolder:"videos",          extKey:"video",    role:"video",    catSel:"",                  warnId:"",                catLabel:"",                   main:"videoFiles",    cover:"videoThumbnail",  title:"videoTitle",    desc:"videoDescription" },
   apps:     { folder:"apps",     coverFolder:"app-icons",       extKey:"app",      role:"app",      catSel:"appCategory",       warnId:"appWarning",      catLabel:"App Category",       main:"appFiles",      cover:"appIcon",         title:"appName",       desc:"appDescription" },
   software: { folder:"software", coverFolder:"software-images", extKey:"software", role:"software", catSel:"softwareCategory",  warnId:"softwareWarning", catLabel:"Software Category",  main:"softwareFiles", cover:"softwareImage",   title:"softwareName",  desc:"softwareDescription" },
-  mixes:    { folder:"dj-mixes", coverFolder:"dj-mixes",        extKey:"audio",    role:"audio",    catSel:"mixCategory",       warnId:"mixWarning",      catLabel:"Mix Category",       main:"mixFiles",      cover:"mixCover",        title:"mixTitle",      desc:"mixDescription" }
+  mixes:    { folder:"dj-mixes", coverFolder:"dj-mixes",        extKey:"mix",      role:"audio",    catSel:"mixCategory",       warnId:"mixWarning",      catLabel:"Mix Category",       main:"mixFiles",      cover:"mixCover",        title:"mixTitle",      desc:"mixDescription" }
 };
 
 function extOf(name){
@@ -503,7 +501,7 @@ function clearWarn(cfg){
 function wireFileLabels(){
   const map = {
     songFiles:["songFilesName","audio"],
-    mixFiles:["mixFilesName","audio"],
+    mixFiles:["mixFilesName","mix"],
     photoFiles:["photoFilesName","image"],
     videoFiles:["videoFilesName","video"],
     appFiles:["appFilesName","app"],
