@@ -44,11 +44,8 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
 .card h2,.card h3{margin-top:0}
 .intro{text-align:center}
 
-/* Artists / DJs / Producers profile card header — the round photo sits in
-   the TOP-LEFT corner and the title follows it on the SAME line.
-   Whatever photo the client uploads appears in that left-hand circle. */
+/* Artists / DJs / Producers profile card header */
 .creator-header{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin:0 0 4px}
-/* unique title — no icon, a bold gradient wordmark with a small gold accent bar */
 .creator-title{
   margin:0;
   position:relative;
@@ -62,7 +59,7 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
-  color:#111;              /* fallback for old browsers */
+  color:#111;
 }
 .creator-title::before{
   content:"";
@@ -104,7 +101,6 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#111}
 .file-name.bad{color:#a11;font-weight:bold}
 .validation-warning{display:none;margin-top:8px;padding:10px 12px;border-radius:9px;background:#fff4d6;border-left:4px solid #e5a400;color:#795500;font-size:13.5px;font-weight:bold}
 .validation-warning.show{display:block}
-/* the exact field that still needs filling turns yellow (no pop-ups) */
 .field-invalid{border:2px solid #e5a400 !important;background:#fffaf0 !important}
 
 .progress-box{display:none;margin-top:16px}
@@ -140,7 +136,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <p>Set up your Artists, DJs &amp; Producer's profile and choose what you want to upload.</p>
   </section>
 
-  <!-- ARTISTS / DJs / PRODUCERS PROFILE -->
   <section class="card">
     <div class="creator-header">
       <img id="creatorPreview" class="creator-photo" src="ning-wei.png" alt="Profile photo">
@@ -157,7 +152,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <div id="creatorPhotoName" class="file-name">No profile photo selected</div>
   </section>
 
-  <!-- CHOOSE TYPE -->
   <section class="card">
     <h3>Choose What You Want to Upload</h3>
     <div class="type-grid">
@@ -170,7 +164,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     </div>
   </section>
 
-  <!-- MUSIC SECTION -->
   <section id="musicSection" class="card upload-section">
     <h3>🎵 Upload Your Music</h3>
     <label for="songTitle">Song Title *</label>
@@ -207,7 +200,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadMusic()">📤 Upload Your Music</button>
   </section>
 
-  <!-- PHOTOS SECTION -->
   <section id="photosSection" class="card upload-section">
     <h3>🖼️ Upload Your Photos</h3>
     <label for="photoFiles">Photo Files *</label>
@@ -218,7 +210,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadPhotos()">📤 Upload Your Photos</button>
   </section>
 
-  <!-- VIDEOS SECTION -->
   <section id="videosSection" class="card upload-section">
     <h3>🎬 Upload Your Videos</h3>
     <label for="videoTitle">Video Title *</label>
@@ -233,7 +224,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadVideos()">📤 Upload Your Videos</button>
   </section>
 
-  <!-- APPS SECTION -->
   <section id="appsSection" class="card upload-section">
     <h3>📱 Upload App</h3>
     <label for="appName">App Name *</label>
@@ -274,7 +264,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadApps()">📤 Upload Your App</button>
   </section>
 
-  <!-- SOFTWARE SECTION -->
   <section id="softwareSection" class="card upload-section">
     <h3>💻 Upload Software</h3>
     <label for="softwareName">Software Name *</label>
@@ -312,7 +301,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <button type="button" class="upload-button" onclick="uploadSoftware()">📤 Upload Your Software</button>
   </section>
 
-  <!-- DJ MIXES SECTION -->
   <section id="mixesSection" class="card upload-section">
     <h3>🎧 Upload DJ Mix</h3>
     <label for="mixTitle">Mix Title *</label>
@@ -350,9 +338,6 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 <footer>© Ning Wei Media</footer>
 
 <script>
-/* ============================================================
-   UI — type buttons + creator preview  (unchanged behaviour)
-   ============================================================ */
 function openUploadSection(type) {
   document.querySelectorAll('.upload-section').forEach(s => {
     s.classList.remove('active', 'open');
@@ -367,7 +352,6 @@ function openUploadSection(type) {
   }
 }
 
-/* Profile photo preview — the round photo in the card header */
 document.getElementById('creatorPhoto').addEventListener('change', function() {
   const file = this.files[0];
   if (!file) return;
@@ -377,8 +361,6 @@ document.getElementById('creatorPhoto').addEventListener('change', function() {
   reader.readAsDataURL(file);
 });
 
-/* Live inline validation — the yellow highlight disappears the moment
-   the visitor fixes the box. There are NO pop-ups on this page. */
 ['creatorName','creatorEmail'].forEach(function(id){
   const input = document.getElementById(id);
   if (!input) return;
@@ -391,46 +373,18 @@ document.getElementById('creatorPhoto').addEventListener('change', function() {
 </script>
 
 <script>
-/* ============================================================
-   NING WEI MEDIA — UPLOAD ENGINE
-   Wires the six "📤 Upload …" buttons to Supabase.
-
-   Verified against the live project:
-     URL    : https://btksyizkcpzubtextuce.supabase.co
-     Bucket : artist-uploads   (Public)
-     Table  : artist_submissions
-     Columns: id, artist_name, artist_email, phone, biography,
-              lyrics, youtube_links, files, status, created_at,
-              creator_id, posted_at
-   ============================================================ */
-
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
-
-/* 👇👇  PUBLIC / ANON KEY — PASTE IT BETWEEN THE QUOTES  👇👇
-   Get it from: Supabase Dashboard → Project Settings → API
-                → Project API keys → "anon  public"
-
-   ⚠️ The key AND the URL must belong to the SAME project.
-   The reference inside the key must equal the URL host
-   (here: btksyizkcpzubtextuce).
-   The old key that was in this file said "btksyzzkcpzubtextuce",
-   which is a different project — that is exactly why every upload
-   was failing with "signature verification failed".
-
-   NEVER put a secret / service_role key inside a web page. */
-const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
 const BUCKET = "artist-uploads";
 const TABLE  = "artist_submissions";
 
-/* "pending"  -> hidden until you approve it in Supabase
-   "approved" -> appears on the site immediately            */
-const DEFAULT_STATUS = "pending";
+/* MODIFIED: Default status changed from "pending" to "approved" 
+   This ensures uploads go direct to your site immediately */
+const DEFAULT_STATUS = "approved";
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* ---------- which file extensions each section accepts ---------- */
 const EXTS = {
   audio:    ["mp3","wav","m4a","aac","ogg","oga","opus","flac"],
   image:    ["jpg","jpeg","png","gif","webp","bmp"],
@@ -439,15 +393,6 @@ const EXTS = {
   software: ["zip","rar","7z","exe","msi","dmg","iso","apk"]
 };
 
-/* ---------- section configuration ----------
-   folder       : where the main file goes        -> <folder>/<creator>/
-   coverFolder  : where the artwork goes ("" = same folder)
-   extKey       : which rule above to enforce
-   role         : the label saved inside files[].type
-   catSel       : id of the mandatory category <select> ("" = none)
-   warnId       : id of the warning <div>
-   catLabel     : human name used in the error message
------------------------------------------------------------ */
 const SECTIONS = {
   music:    { folder:"music",    coverFolder:"music-covers",    extKey:"audio",    role:"audio",    catSel:"musicCategory",     warnId:"musicWarning",    catLabel:"Music Category",     main:"songFiles",     cover:"songCover",       title:"songTitle",     desc:"musicDescription" },
   photos:   { folder:"photos",   coverFolder:"",                extKey:"image",    role:"photo",    catSel:"",                  warnId:"",                catLabel:"",                   main:"photoFiles",    cover:"",                title:"",              desc:"photoDescription" },
@@ -457,9 +402,6 @@ const SECTIONS = {
   mixes:    { folder:"dj-mixes", coverFolder:"dj-mixes",        extKey:"audio",    role:"audio",    catSel:"mixCategory",       warnId:"mixWarning",      catLabel:"Mix Category",       main:"mixFiles",      cover:"mixCover",        title:"mixTitle",      desc:"mixDescription" }
 };
 
-/* ============================================================
-   small helpers
-   ============================================================ */
 function extOf(name){
   const p = String(name || "").split(".");
   return p.length > 1 ? p.pop().toLowerCase() : "";
@@ -474,7 +416,6 @@ function rand6(){
   return Math.random().toString(36).slice(2, 8);
 }
 function storedName(file){
-  /* same pattern the live bucket already uses: <epoch>_<rand6>_<name> */
   return Date.now() + "_" + rand6() + "_" + safeName(file.name);
 }
 function humanSize(b){
@@ -485,9 +426,6 @@ function humanSize(b){
 }
 function $(id){ return document.getElementById(id); }
 
-/* ============================================================
-   progress + status UI
-   ============================================================ */
 function progressStart(text){
   $("progressBox").style.display = "block";
   $("progressBar").style.width = "2%";
@@ -504,12 +442,6 @@ function progressDone(ok, text){
   $("status").textContent = text;
 }
 
-/* ============================================================
-   show / hide the inline warning + red category box
-   ============================================================ */
-/* ---------- inline warnings (NO pop-ups anywhere) ----------
-   Every problem is shown as a yellow box under the exact field
-   that caused it, and that field turns yellow until it is fixed. */
 function fieldWarnBox(el){
   const boxId = el.id + "__warn";
   let box = document.getElementById(boxId);
@@ -564,9 +496,6 @@ function clearWarn(cfg){
   if (cfg.warnId){ const b=$(cfg.warnId); if(b) b.classList.remove("show"); }
 }
 
-/* ============================================================
-   live file-name + type check under each file input
-   ============================================================ */
 function wireFileLabels(){
   const map = {
     songFiles:["songFilesName","audio"],
@@ -607,9 +536,6 @@ function wireFileLabels(){
 }
 wireFileLabels();
 
-/* ============================================================
-   profile helpers
-   ============================================================ */
 function readCreator(){
   return {
     name:  $("creatorName").value.trim(),
@@ -624,7 +550,6 @@ function checkCreator(){
   const nameBox  = $("creatorNameWarning");
   const emailBox = $("creatorEmailWarning");
 
-  /* reset any previous marks */
   nameEl.classList.remove("field-invalid");
   emailEl.classList.remove("field-invalid");
   nameBox.classList.remove("show");
@@ -654,10 +579,6 @@ function checkCreator(){
   return c;
 }
 
-/* ---------- MIME fallback ----------
-   Some phones hand over a file with an empty type (""). Supabase Storage
-   then stores it as application/octet-stream, which makes the file
-   download instead of play. We fill in a sane type from the extension. */
 const MIME = {
   mp3:"audio/mpeg", wav:"audio/wav", m4a:"audio/mp4", aac:"audio/aac",
   ogg:"audio/ogg", oga:"audio/ogg", opus:"audio/ogg", flac:"audio/flac",
@@ -672,9 +593,6 @@ const MIME = {
   iso:"application/x-iso9660-image"
 };
 
-/* ============================================================
-   upload ONE file to Supabase Storage
-   ============================================================ */
 async function putFile(file, folder, role, category){
   const name = storedName(file);
   const path = folder + name;
@@ -689,10 +607,6 @@ async function putFile(file, folder, role, category){
 
   const pub = db.storage.from(BUCKET).getPublicUrl(path);
 
-  /* Shape used across the site:
-       name        -> keeps the extension (search.html uses this)
-       type        -> role: audio / video / photo / app / software / cover
-       category    -> the chosen category                          */
   return {
     name: file.name,
     original_name: file.name,
@@ -705,18 +619,13 @@ async function putFile(file, folder, role, category){
   };
 }
 
-/* ============================================================
-   the shared runner used by all six buttons
-   ============================================================ */
 async function runUpload(cfg, titleText, biography, button){
   clearWarn(cfg);
   clearFieldWarnings();
 
-  /* 1 — profile (name + email) */
   const creator = checkCreator();
   if(!creator) return;
 
-  /* 2 — MANDATORY category */
   let category = "";
   if (cfg.catSel){
     const sel = $(cfg.catSel);
@@ -727,7 +636,6 @@ async function runUpload(cfg, titleText, biography, button){
     category = sel.value;
   }
 
-  /* 3 — a main file must exist */
   const mainInput = $(cfg.main);
   const mainFiles = Array.prototype.slice.call(mainInput.files);
   if(!mainFiles.length){
@@ -735,7 +643,6 @@ async function runUpload(cfg, titleText, biography, button){
     return;
   }
 
-  /* 4 — FILE TYPE MUST MATCH THE SECTION */
   const allowed = EXTS[cfg.extKey];
   const wrongMain = mainFiles.filter(f => !allowed.includes(extOf(f.name)));
   if(wrongMain.length){
@@ -745,7 +652,6 @@ async function runUpload(cfg, titleText, biography, button){
     return;
   }
 
-  /* 5 — cover / thumbnail / icon must be an image */
   const coverFiles = cfg.cover ? Array.prototype.slice.call($(cfg.cover).files) : [];
   const wrongImg = coverFiles.filter(f => !EXTS.image.includes(extOf(f.name)));
   if(wrongImg.length){
@@ -755,13 +661,11 @@ async function runUpload(cfg, titleText, biography, button){
     return;
   }
 
-  /* 6 — MANDATORY title for sections that have one */
   if (titleText !== null && !titleText){
     warn(cfg, "Please fill in the name / title box first before uploading.", $(cfg.title));
     return;
   }
 
-  /* 7 — build the destination folders */
   const creatorSeg  = safeSeg(creator.name);
   const mainFolder  = cfg.folder + "/" + creatorSeg + "/";
   const coverFolder = (cfg.coverFolder || cfg.folder) + "/" + creatorSeg + "/";
@@ -777,36 +681,30 @@ async function runUpload(cfg, titleText, biography, button){
 
     const entries = [];
 
-    /* profile photo */
     if (creator.photo){
       progressSet(4, "Uploading your profile photo…");
       entries.push(await putFile(creator.photo, profileFolder, "profile", "profile"));
       step();
     }
 
-    /* main file(s) */
     for(const f of mainFiles){
       progressSet(Math.max(5, Math.round((done/total)*100)), "Uploading " + f.name + " …");
       entries.push(await putFile(f, mainFolder, cfg.role, category));
       step();
     }
 
-    /* cover / thumbnail / icon */
     for(const f of coverFiles){
       progressSet(Math.max(5, Math.round((done/total)*100)), "Uploading " + f.name + " …");
       entries.push(await putFile(f, coverFolder, "cover", category));
       step();
     }
 
-    /* 8 — write the artist_submissions row */
     progressSet(96, "Saving to the database…");
 
     const row = {
       artist_name:  creator.name,
       artist_email: creator.email,
-      /* the column is NOT NULL — send an empty string instead of null so
-       Photos / Videos uploads stop failing with a database error */
-    biography:    biography || "",
+      biography:    biography || "",
       lyrics:       null,
       youtube_links:null,
       files:        entries,
@@ -817,13 +715,10 @@ async function runUpload(cfg, titleText, biography, button){
     const ins = await db.from(TABLE).insert([row]);
     if (ins.error) throw new Error(ins.error.message);
 
+    /* MODIFIED: Updated user-facing message to confirm immediate publication */
     progressDone(true,
-      "✅ Upload complete — " + entries.length + " file(s) saved to " + mainFolder +
-      ". " + (DEFAULT_STATUS === "pending"
-        ? "It will appear on the site once the owner approves it."
-        : "It is live on the site now."));
+      "✅ Upload complete! Your media is now live on Ning Wei Media.");
 
-    /* reset the form bits we used */
     mainInput.value = "";
     if (cfg.cover) $(cfg.cover).value = "";
     if (cfg.desc) $(cfg.desc).value = "";
@@ -834,23 +729,12 @@ async function runUpload(cfg, titleText, biography, button){
   }catch(err){
     console.error(err);
     const msg = String(err.message || err);
-    const keyProblem = /invalid api key|signature|jwt|unauthorized/i.test(msg);
-    progressDone(false,
-      "❌ Upload failed. " + msg +
-      (keyProblem
-        ? "\n\n⚠️ This is a KEY problem. Open upload.html, find SUPABASE_KEY (near the top of the " +
-          "upload engine script), and paste your CURRENT anon (public) key from " +
-          "Supabase → Project Settings → API → anon public. " +
-          "The key must belong to the SAME project as SUPABASE_URL (" + SUPABASE_URL + ")."
-        : "\n\nCheck that the bucket \"" + BUCKET + "\" exists, is Public, and allows uploads."));
+    progressDone(false, "❌ Upload failed. " + msg);
   }finally{
     button.disabled = false;
   }
 }
 
-/* ============================================================
-   the six button functions the page calls
-   ============================================================ */
 function uploadMusic(){
   runUpload(SECTIONS.music, $("songTitle").value.trim(), $("musicDescription").value.trim(),
             document.querySelector('#musicSection .upload-button'));
