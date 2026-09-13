@@ -185,14 +185,20 @@ a{
 
 /* Dynamic Item Cards loaded from database */
 .uploaded-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 76px;
   background: #fff;
   border: 1px solid #e2e2e2;
   border-radius: 10px;
-  padding: 8px;
+  padding: 8px 4px;
   text-align: center;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: bold;
   box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  word-break: break-word;
 }
 
 /* ========== "MORE" BUTTON ========== */
@@ -285,13 +291,13 @@ a{
   </form>
 
   <a class="upload-button" href="upload.html">
-    <span>🎵 Upload Your Music From Here</span>
-    <span class="upload-button-description">Artists • DJs • Producers</span>
+    <span>🎵 Artists, upload your music here</span>
+    <span class="upload-button-description">Submit your Music, Videos, Apps & Files</span>
   </a>
 </section>
 
 <!-- ================= 1. ALL TOP MUSIC CHARTS ================= -->
-<section class="section" data-show="6">
+<section class="section" data-show="6" data-label="Music">
   <h2>🎵 All Top Music Charts</h2>
   <div class="grid grid-2">
 
@@ -312,11 +318,11 @@ a{
     <a class="tile" href="library.html?folder=Instrumental"><span class="ic">🎹</span><span>Instrumental</span></a>
 
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Music ▾</button></div>
 </section>
 
 <!-- ================= 2. TRENDING VIDEOS ================= -->
-<section class="section" data-show="4">
+<section class="section" data-show="8" data-label="Videos">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoGrid">
     <span class="slot"></span>
@@ -328,11 +334,11 @@ a{
     <span class="slot"></span>
     <span class="slot"></span>
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
 </section>
 
 <!-- ================= 3. TRENDING PHOTOS & JOKES ================= -->
-<section class="section" data-show="4">
+<section class="section" data-show="8" data-label="Photos">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoGrid">
     <span class="slot"></span>
@@ -344,11 +350,11 @@ a{
     <span class="slot"></span>
     <span class="slot"></span>
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
 </section>
 
 <!-- ================= 4. APPS ================= -->
-<section class="section" data-show="6">
+<section class="section" data-show="6" data-label="Apps">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
   <div class="grid grid-2">
 
@@ -376,11 +382,11 @@ a{
     <a class="tile" href="library.html?folder=Security"><span class="ic">🔐</span><span>Security</span></a>
 
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Apps ▾</button></div>
 </section>
 
 <!-- ================= 5. SOFTWARE ================= -->
-<section class="section" data-show="6">
+<section class="section" data-show="6" data-label="Software">
   <h2>💻 Softwares and Virtual DJ Mappings</h2>
   <div class="grid grid-2">
 
@@ -404,11 +410,11 @@ a{
     <a class="tile" href="library.html?folder=Utilities-Tools"><span class="ic">🔧</span><span>Utilities &amp; Tools</span></a>
 
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Software ▾</button></div>
 </section>
 
 <!-- ================= 6. DJ MIXES ================= -->
-<section class="section" data-show="4">
+<section class="section" data-show="4" data-label="DJ Mixes">
   <h2>🎧 DJ Mixes</h2>
   <div class="grid grid-2">
 
@@ -418,7 +424,7 @@ a{
     <a class="tile" href="library.html?folder=Virtual-DJ-Mappings"><span class="ic">🎚️</span><span>Virtual DJ Mappings</span></a>
 
   </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More DJ Mixes ▾</button></div>
 </section>
 
 <!-- ================= TRENDING APPS ================= -->
@@ -465,10 +471,11 @@ a{
 </div>
 
 <script>
-/* Function to initialize More/Less toggles across sections */
+/* Function to initialize More/Less toggles with dynamic labels */
 function initMoreButtons() {
   document.querySelectorAll('.section[data-show]').forEach(function(section){
     var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
+    var label = section.getAttribute('data-label') || '';
     var grid  = section.querySelector('.grid');
     var wrap  = section.querySelector('.more-wrap');
     var btn   = section.querySelector('.more-btn');
@@ -491,13 +498,12 @@ function initMoreButtons() {
       }
     });
 
-    // Remove existing event listener before re-binding to prevent duplicate triggers
     var newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
     newBtn.addEventListener('click', function(){
       var opened = section.classList.toggle('open');
-      newBtn.textContent = opened ? 'Less ▴' : 'More ▾';
+      newBtn.textContent = opened ? ('Less ' + label + ' ▴') : ('More ' + label + ' ▾');
       if (!opened) {
         section.scrollIntoView({behavior:'smooth', block:'start'});
       }
@@ -505,43 +511,57 @@ function initMoreButtons() {
   });
 }
 
-/* Initial call for static sections */
 initMoreButtons();
 
-/* Fetch Uploaded Files from Supabase into Grid Slots & Refresh More Buttons */
+/* Fetch Uploaded Files safely from Supabase */
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function loadUploadedContent() {
-  const { data, error } = await db.from('artist_submissions').select('*').eq('status', 'approved');
-  if (error || !data || data.length === 0) return;
+  if (!window.supabase) return;
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const { data, error } = await db.from('artist_submissions').select('*');
+  
+  if (error || !data || data.length === 0) {
+    console.log("No dynamic submissions found or query error:", error);
+    return;
+  }
 
   const videoGrid = document.getElementById('videoGrid');
   const photoGrid = document.getElementById('photoGrid');
 
-  const videoItems = data.filter(i => i.media_type === 'video' || i.category === 'Videos');
-  const photoItems = data.filter(i => i.media_type === 'photo' || i.category === 'Photos');
+  // Flexible filtering to match whatever status or type values are in your table
+  const approvedData = data.filter(i => !i.status || i.status.toLowerCase() === 'approved');
+  
+  const videoItems = approvedData.filter(i => 
+    (i.media_type && i.media_type.toLowerCase() === 'video') || 
+    (i.category && i.category.toLowerCase().includes('video'))
+  );
+  
+  const photoItems = approvedData.filter(i => 
+    (i.media_type && (i.media_type.toLowerCase() === 'photo' || i.media_type.toLowerCase() === 'image')) || 
+    (i.category && (i.category.toLowerCase().includes('photo') || i.category.toLowerCase().includes('joke')))
+  );
 
   if (videoItems.length > 0) {
     videoGrid.innerHTML = videoItems.map(item => `
-      <div class="uploaded-card">
+      <a class="uploaded-card" href="${item.file_url || 'library.html'}" target="_blank">
         <div>🎬</div>
-        <div>${item.song_title || item.file_name || 'Video'}</div>
-      </div>
+        <div>${item.song_title || item.title || item.file_name || 'Video'}</div>
+      </a>
     `).join('');
   }
 
   if (photoItems.length > 0) {
     photoGrid.innerHTML = photoItems.map(item => `
-      <div class="uploaded-card">
+      <a class="uploaded-card" href="${item.file_url || 'library.html'}" target="_blank">
         <div>📸</div>
-        <div>${item.song_title || item.file_name || 'Photo'}</div>
-      </div>
+        <div>${item.song_title || item.title || item.file_name || 'Photo'}</div>
+      </a>
     `).join('');
   }
 
-  /* Re-run More/Less button logic after dynamic items render */
   initMoreButtons();
 }
 
