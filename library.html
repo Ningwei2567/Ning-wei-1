@@ -124,7 +124,7 @@ async function initLibrary() {
   document.getElementById('folderName').textContent = displayName || 'Library';
   document.getElementById('relatedHeaderTitle').textContent = displayName || 'Items';
 
-  const isSoftware = /software|editing|tools|apps|vpn|utility/i.test(folder);
+  const isSoftware = /software|editing|tools|apps|vpn|utility|mapping/i.test(folder);
   const current = norm(folder);
 
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -161,13 +161,13 @@ async function initLibrary() {
       const url  = f.url || '';
       const cat  = norm(f.category || '');
 
-      // ========== STRICT + ACCURATE MATCHING ==========
+      // ========== MATCHING ==========
       let match = false;
 
       if (!folder) {
         match = true;
       } else if (cat) {
-        // Exact match with the category saved by the new upload form
+        // Match the category saved by the upload form with the folder name
         if (cat === current || cat.includes(current) || current.includes(cat)) {
           match = true;
         }
