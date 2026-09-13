@@ -1,3 +1,8 @@
+Here is the updated index.html code with the button fixed for artists and all admin upload links removed from the homepage.
+### Changes Included
+ 1. **Artist Upload Button Restored:** The blue button on the homepage now links directly to upload.html for artists to fill out their details/forms.
+ 2. **Admin Link Removed:** Removed the direct GitHub upload link from the homepage.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -290,7 +295,6 @@ a{
 
 <div class="container">
 
-<!-- ================= HEADER ================= -->
 <header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
   <div class="header-content">
@@ -299,21 +303,18 @@ a{
   </div>
 </header>
 
-<!-- ================= SEARCH + UPLOAD ================= -->
 <section class="search-upload">
   <form class="search-box" action="search.html" method="get">
     <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off" required>
     <button type="submit">Search</button>
   </form>
 
-  <!-- Admin Direct Upload Button -->
-  <a class="upload-button" href="https://github.com/Ningwei2567/Ning-wei-1/upload/main">
-    <span>⬆ Admin Direct Upload</span>
-    <span class="upload-button-description">Upload Directly to GitHub Repository</span>
+  <a class="upload-button" href="upload.html">
+    <span>⬆ Artist Direct Upload</span>
+    <span class="upload-button-description">Submit your Music, Videos, Apps & Files</span>
   </a>
 </section>
 
-<!-- ================= 1. ALL TOP MUSIC CHARTS ================= -->
 <section class="section" data-show="6">
   <h2>🎵 All Top Music Charts</h2>
   <div class="grid grid-2">
@@ -335,7 +336,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- ================= 2. TRENDING VIDEOS ================= -->
 <section class="section" data-show="8">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoSlotGrid">
@@ -347,7 +347,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- ================= 3. TRENDING PHOTOS & JOKES ================= -->
 <section class="section" data-show="8">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoSlotGrid">
@@ -359,7 +358,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- ================= 4. APPS ================= -->
 <section class="section" data-show="6">
   <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
   <div class="grid grid-2">
@@ -388,7 +386,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- ================= 5. SOFTWARE ================= -->
 <section class="section" data-show="6">
   <h2>💻 Softwares and Virtual DJ Mappings</h2>
   <div class="grid grid-2">
@@ -413,7 +410,6 @@ a{
   <div class="more-wrap"><button class="more-btn" type="button">More ▾</button></div>
 </section>
 
-<!-- ================= 6. DJ MIXES ================= -->
 <section class="section" data-show="4">
   <h2>🎧 DJ Mixes</h2>
   <div class="grid grid-2">
@@ -424,7 +420,6 @@ a{
   </div>
 </section>
 
-<!-- ================= TRENDING APPS ================= -->
 <section class="trending">
   <h2>Trending Apps</h2>
   <div class="apps">
@@ -451,7 +446,6 @@ a{
   </div>
 </section>
 
-<!-- ================= FOLLOW US ================= -->
 <section class="social">
   <h2>Follow Us</h2>
   <div class="social-list">
@@ -592,3 +586,6 @@ loadHomeMedia();
 
 </body>
 </html>
+
+```
+Please share your library.html (or category/folder page code) next, so the Admin Direct Upload button can be locked exclusively to individual category folders and configured for category-specific file type restrictions!
