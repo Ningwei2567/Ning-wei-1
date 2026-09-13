@@ -113,12 +113,20 @@ function toggleAdminMode() {
 function isImage(s){ return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(s||''); }
 function isVideo(s){ return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(s||''); }
 function isAudio(s){ return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(s||''); }
-function norm(s){ return (s||'').toLowerCase().replace(/[^a-z0-9]/g,''); }
+
+// Normalize for matching (same way for folder and category)
+function norm(s) {
+  return (s || '')
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/g, '');
+}
 
 async function initLibrary() {
   const folder = new URLSearchParams(location.search).get('folder') || '';
-  document.getElementById('folderName').textContent = folder.replace(/-/g,' ') || 'Library';
-  document.getElementById('relatedHeaderTitle').textContent = folder.replace(/-/g,' ') || 'Items';
+  const displayName = folder.replace(/-/g, ' ');
+  document.getElementById('folderName').textContent = displayName || 'Library';
+  document.getElementById('relatedHeaderTitle').textContent = displayName || 'Items';
 
   const isSoftware = /software|editing|tools|apps|vpn|utility/i.test(folder);
   const current = norm(folder);
@@ -126,7 +134,7 @@ async function initLibrary() {
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data, error } = await db.from('artist_submissions').select('*');
   if (error || !data) {
-    document.getElementById('relatedGrid').innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">Error loading</p>';
+    document.getElementById('relatedGrid').innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">Error loading data</p>';
     return;
   }
 
@@ -147,28 +155,66 @@ async function initLibrary() {
       });
     }
 
-    const dateStr = row.created_at ? new Date(row.created_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '';
+    const dateStr = row.created_at 
+      ? new Date(row.created_at).toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})
+      : '';
     const avatar = row.cover_url || row.artist_cover || row.profile_pic || '';
 
-    fileList.forEach((f, idx) => {
+    fileList.forEach(f => {
       const name = (f.original_name || f.name || '').toLowerCase();
       const url  = f.url || '';
       const cat  = norm(f.category || '');
 
-      // STRICT matching only
+      // ========== STRICT MATCHING ==========
       let match = false;
+
       if (!folder) {
-        match = true;
-      } else if (cat) {
-        // Exact or very close match between file category and folder name
-        match = cat === current || 
-                cat.includes(current) || 
-                current.includes(cat) ||
-                // special cases for common names
-                (current === 'olds choolrb' && cat.includes('rnb')) ||
-                (current === 'olds choolrb' && cat.includes('r&b')) ||
-                (current.includes('ugandan') && cat.includes('ugandan')) ||
-                (current.includes('reggae') && cat.includes('reggae'));
+        match = true; // no folder selected → show all
+      } else {
+        // Exact or very close match between file.category and the folder name
+        if (cat && (cat === current || cat.includes(current) || current.includes(cat))) {
+          match = true;
+        }
+
+        // Special friendly mappings (because upload form uses slightly different text)
+        const mappings = {
+          'topugandanmusic': ['topugandanmusic', 'ugandan'],
+          'amapianomusic': ['amapiano'],
+          'afrobeatmusic': ['afrobeat'],
+          'dancehallmusic': ['dancehall'],
+          'rnbmusic': ['rnb', 'randb'],
+          'reggae': ['reggae'],
+          'oldschoolrb': ['oldschoolrb', 'oldschoolrnb', 'oldschool'],
+          'oldsouthafricanmusic': ['southafrican'],
+          'westernmusic': ['western'],
+          'lovesongs': ['love'],
+          'oldieskikaddemusic': ['oldies', 'kikadde'],
+          'kadongokamu': ['kadongo'],
+          'highschoolmusic': ['highschool'],
+          'lingalamusic': ['lingala'],
+          'instrumental': ['instrumental'],
+          'photoediting': ['photoediting', 'photo'],
+          'videoediting': ['videoediting'],
+          'virtualdjsoftware': ['virtualdj'],
+          'djmixes': ['djmix', 'mix'],
+          'mixtapes': ['mixtape'],
+          'soundeffects': ['sound'],
+          'virtualdjmappings': ['mapping', 'virtualdj']
+        };
+
+        if (!match && mappings[current]) {
+          match = mappings[current].some(m => cat.includes(m));
+        }
+
+        // Photos section
+        if (!match && (current.includes('photo') || current.includes('joke'))) {
+          match = isImage(name) || isImage(url) || cat.includes('photo') || cat.includes('cover') || cat.includes('profile');
+        }
+
+        // Videos section
+        if (!match && current.includes('video')) {
+          match = isVideo(name) || isVideo(url) || cat.includes('video');
+        }
       }
 
       if (!match) return;
@@ -196,11 +242,17 @@ async function initLibrary() {
 
   grid.innerHTML = allItems.map((item, i) => {
     let preview = '';
-    if (item.isSoftware) preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
-    else if (item.isImage) preview = `<img src="${item.url}" loading="lazy">`;
-    else if (item.isVideo) preview = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
-    else if (item.isAudio) preview = `<div class="related-card-software"><span>🎵</span><div>${item.title}</div></div>`;
-    else preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
+    if (item.isSoftware) {
+      preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
+    } else if (item.isImage) {
+      preview = `<img src="${item.url}" loading="lazy">`;
+    } else if (item.isVideo) {
+      preview = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+    } else if (item.isAudio) {
+      preview = `<div class="related-card-software"><span>🎵</span><div>${item.title}</div></div>`;
+    } else {
+      preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
+    }
 
     return `<div class="related-card" onclick="playMedia(${i})">
       <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
