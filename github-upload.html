@@ -26,14 +26,17 @@
   
   /* Inline Warning */
   .validation-warning{ display:none; margin-top:8px; padding:8px; border-radius:6px; background:#fff4d6; border-left:4px solid #e5a400; color:#795500; font-size:13px; font-weight:bold; }
-  .category-required{ border:2px solid #e5a400 !important; background:#fffaf0 !important; }
 
   .type-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:12px; }
   .type-button{ border:0; border-radius:11px; padding:15px; background:#e7f6ff; color:#096b9f; font-weight:bold; cursor:pointer; }
   .type-button.active{ background:#1688c5; color:white; }
-  .upload-section{ display:none; }
+  .upload-section{ display:none; margin-top:15px; }
   .upload-section.active{ display:block; }
   .upload-button{ width:100%; border:0; border-radius:10px; padding:14px; margin-top:18px; background:#1688c5; color:white; font-weight:bold; cursor:pointer; }
+  .upload-button:disabled{ background:#ccc; cursor:not-allowed; }
+  #statusMsg{ margin-top:15px; padding:12px; border-radius:8px; display:none; font-weight:bold; text-align:center; }
+  .status-success{ background:#e8f5e9; color:#2e7d32; border:1px solid #a5d6a7; }
+  .status-error{ background:#ffebee; color:#c62828; border:1px solid #ef9a9a; }
 </style>
 </head>
 <body>
@@ -74,13 +77,50 @@
     </div>
   </section>
 
-  <!-- Section placeholders would follow here... -->
+  <!-- UPLOAD FORM SECTION -->
+  <section class="card upload-section" id="uploadSection">
+    <h3 id="selectedCategoryTitle">Upload Media</h3>
+    
+    <label for="mediaTitle">Title *</label>
+    <input id="mediaTitle" type="text" placeholder="Enter media title">
+
+    <label for="mediaFile">Select File *</label>
+    <input id="mediaFile" type="file">
+
+    <button type="button" id="submitBtn" class="upload-button">Upload & Submit</button>
+    <div id="statusMsg"></div>
+  </section>
 </main>
 
 <script>
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let selectedCategory = "";
+
+document.querySelectorAll('.type-button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.type-button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedCategory = btn.getAttribute('data-type');
+    
+    const uploadSec = document.getElementById('uploadSection');
+    uploadSec.classList.add('active');
+    document.getElementById('selectedCategoryTitle').innerText = `Upload ${btn.innerText}`;
+    
+    const fileInput = document.getElementById('mediaFile');
+    if (selectedCategory === 'music' || selectedCategory === 'mixes') {
+      fileInput.accept = 'audio/*';
+    } else if (selectedCategory === 'photos') {
+      fileInput.accept = 'image/*';
+    } else if (selectedCategory === 'videos') {
+      fileInput.accept = 'video/*';
+    } else {
+      fileInput.accept = '*/*';
+    }
+  });
+});
 
 function checkCreator() {
   const nameInput = document.getElementById("creatorName");
@@ -88,7 +128,6 @@ function checkCreator() {
   const nameWarning = document.getElementById("nameWarning");
   const emailWarning = document.getElementById("emailWarning");
   
-  // Reset
   nameWarning.style.display = "none";
   emailWarning.style.display = "none";
   
@@ -104,18 +143,90 @@ function checkCreator() {
     throw new Error("Missing Email");
   }
 
-  // Admin Bypass Logic
-  if (email === "admin@ningweimedia.com") {
-    window.location.href = "github-upload.html?path=media/uploads/";
-    throw new Error("Redirecting...");
-  }
-
   return { name, email };
 }
 
-// Logic to toggle sections and handle uploads...
-// (Ensure your existing event listeners for buttons remain here)
+document.getElementById("submitBtn").addEventListener("click", async () => {
+  const statusMsg = document.getElementById("statusMsg");
+  statusMsg.style.display = "none";
+  
+  try {
+    const { name, email } = checkCreator();
+    const titleInput = document.getElementById("mediaTitle");
+    const fileInput = document.getElementById("mediaFile");
+    const title = titleInput.value.trim();
+    const file = fileInput.files[0];
 
+    if (!selectedCategory) {
+      alert("Please select a category to upload.");
+      return;
+    }
+    if (!title) {
+      alert("Please enter a title.");
+      return;
+    }
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Uploading to Supabase Storage...";
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+    const filePath = `uploads/${fileName}`;
+
+    const { data: storageData, error: storageError } = await supabaseClient.storage
+      .from('media_uploads')
+      .upload(filePath, file);
+
+    if (storageError) throw storageError;
+
+    const { data: publicUrlData } = supabaseClient.storage
+      .from('media_uploads')
+      .getPublicUrl(filePath);
+
+    const fileUrl = publicUrlData.publicUrl;
+
+    const initialStatus = (email === "admin@ningweimedia.com") ? "approved" : "pending";
+
+    const { error: dbError } = await supabaseClient
+      .from('artist_submissions')
+      .insert([
+        {
+          artist_name: name,
+          email: email,
+          song_title: title,
+          category: selectedCategory,
+          status: initialStatus,
+          files: [{ name: file.name, url: fileUrl, type: file.type }]
+        }
+      ]);
+
+    if (dbError) throw dbError;
+
+    statusMsg.className = "status-success";
+    statusMsg.innerText = "✅ Upload successful! Saved in Supabase.";
+    statusMsg.style.display = "block";
+
+    titleInput.value = "";
+    fileInput.value = "";
+
+  } catch (err) {
+    if (err.message !== "Missing Name" && err.message !== "Missing Email") {
+      console.error(err);
+      statusMsg.className = "status-error";
+      statusMsg.innerText = "❌ Upload failed: " + (err.message || "An error occurred.");
+      statusMsg.style.display = "block";
+    }
+  } finally {
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Upload & Submit";
+  }
+});
 </script>
 </body>
 </html>
