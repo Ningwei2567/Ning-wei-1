@@ -9,46 +9,37 @@
 *{box-sizing:border-box;}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#fff;}
 .container{width:100%;max-width:600px;margin:auto;padding-bottom:30px;}
-
 .top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111;border-bottom:1px solid #222;}
 .back-btn{color:#fff;text-decoration:none;font-weight:bold;font-size:14px;}
 .page-title{font-size:16px;font-weight:800;color:#55bfe8;text-transform:capitalize;}
 .admin-toggle-btn{background:#222;color:#ff4444;border:1px solid #ff4444;padding:4px 8px;font-size:11px;font-weight:bold;border-radius:4px;cursor:pointer;}
 .admin-toggle-btn.active{background:#ff4444;color:#fff;}
-
 .bulk-action-bar{display:none;background:#220000;border-bottom:1px solid #ff4444;padding:10px 16px;align-items:center;justify-content:space-between;font-size:13px;}
 body.admin-mode .bulk-action-bar{display:flex;}
 .bulk-del-btn{background:#d32f2f;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;}
-
 .main-player-wrap{width:100%;background:#000;display:none;justify-content:center;align-items:center;min-height:250px;}
 video.full-media, img.full-media, audio.full-media{width:100%;max-height:80vh;object-fit:contain;outline:none;display:block;}
-
 .video-details{padding:12px 16px;background:#111;border-bottom:1px solid #222;display:none;}
 .title-download-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
 .video-title{font-size:16px;font-weight:bold;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0;}
 .download-btn{background:#e50914;color:#fff;text-decoration:none;font-size:12px;font-weight:bold;padding:6px 10px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
-
 .meta-info{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#aaa;}
 .uploader-row{display:flex;align-items:center;gap:8px;}
 .artist-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#333;border:1px solid #555;}
 .uploader-name{color:#e50914;font-weight:bold;}
-.date-row{font-size:12px;color:#888;padding-left:2px;}
-
+.date-row{font-size:12px;color:#888;}
 .related-header{display:flex;align-items:center;justify-content:space-between;background:#222;padding:10px 14px;margin-top:5px;border-left:4px solid #e50914;}
 .related-header h3{margin:0;font-size:16px;font-weight:bold;color:#fff;text-transform:capitalize;}
 .toggle-icon{background:#e50914;color:#fff;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:12px;}
-
 .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:12px 16px;}
 .related-card{position:relative;background:#161616;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;height:190px;justify-content:center;align-items:center;}
 .related-card video, .related-card img{width:100%;height:100%;object-fit:cover;background:#000;display:block;}
 .related-card-software{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#aaa;font-size:12px;text-align:center;padding:10px;gap:5px;}
 .related-card-software span{font-size:28px;}
-
 .card-checkbox{display:none;position:absolute;top:8px;left:8px;width:20px;height:20px;z-index:10;accent-color:#d32f2f;cursor:pointer;}
 body.admin-mode .card-checkbox{display:block;}
-
 .custom-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;justify-content:center;align-items:center;}
-.custom-modal{background:#1a1a1a;border:1px solid #333;padding:20px;border-radius:10px;width:85%;max-width:320px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.6);}
+.custom-modal{background:#1a1a1a;border:1px solid #333;padding:20px;border-radius:10px;width:85%;max-width:320px;text-align:center;}
 .custom-modal p{font-size:15px;margin-bottom:20px;color:#fff;font-weight:bold;}
 .modal-btn-group{display:flex;gap:10px;justify-content:center;}
 .modal-btn{padding:8px 16px;font-size:13px;font-weight:bold;border-radius:6px;border:none;cursor:pointer;}
@@ -57,125 +48,85 @@ body.admin-mode .card-checkbox{display:block;}
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="top-bar">
     <a href="index.html" class="back-btn">← Home</a>
     <div class="page-title" id="folderName">Library</div>
     <button class="admin-toggle-btn" onclick="toggleAdminMode()">🔐 Admin</button>
   </div>
-
   <div class="bulk-action-bar">
-    <div>
-      <input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> 
-      <label for="selectAllBox"><b>Select All</b></label>
-    </div>
+    <div><input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> <label for="selectAllBox"><b>Select All</b></label></div>
     <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
   </div>
-
   <div class="main-player-wrap" id="mainMediaContainer"></div>
-
   <div class="video-details" id="videoDetailsBox">
     <div class="title-download-row">
       <h2 class="video-title" id="activeTitle"></h2>
-      <div class="action-group">
-        <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
-      </div>
+      <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
     </div>
     <div class="meta-info">
       <div class="uploader-row">
-        <img id="artistAvatar" class="artist-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Artist">
+        <img id="artistAvatar" class="artist-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E">
         <span>From: <span class="uploader-name" id="activeUploader">Ning Wei Media</span></span>
       </div>
       <div class="date-row">📅 Date: <span id="activeDate"></span></div>
     </div>
   </div>
-
   <div class="related-header">
     <h3 id="relatedHeaderTitle">Items</h3>
     <div class="toggle-icon">▲</div>
   </div>
-
   <div class="related-grid" id="relatedGrid"></div>
 </div>
 
 <div class="custom-modal-overlay" id="customModalOverlay">
   <div class="custom-modal">
     <p id="customModalText"></p>
-    <div class="modal-btn-group" id="customModalButtons">
-      <button class="modal-btn confirm" id="modalOkBtn">OK</button>
-    </div>
+    <div class="modal-btn-group" id="customModalButtons"></div>
   </div>
 </div>
 
 <script>
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+let db = null, allItems = [];
 
-let db = null;
-let allItems = [];
-
-function showCustomAlert(message, callback) {
-  const overlay = document.getElementById('customModalOverlay');
-  const textEl = document.getElementById('customModalText');
-  const btnGroup = document.getElementById('customModalButtons');
-  textEl.textContent = message;
-  btnGroup.innerHTML = `<button class="modal-btn confirm" id="modalOkBtn">OK</button>`;
-  overlay.style.display = 'flex';
-  document.getElementById('modalOkBtn').onclick = () => {
-    overlay.style.display = 'none';
-    if (callback) callback();
-  };
+function showCustomAlert(msg, cb) {
+  const o = document.getElementById('customModalOverlay');
+  document.getElementById('customModalText').textContent = msg;
+  document.getElementById('customModalButtons').innerHTML = '<button class="modal-btn confirm" id="okBtn">OK</button>';
+  o.style.display = 'flex';
+  document.getElementById('okBtn').onclick = () => { o.style.display = 'none'; if(cb) cb(); };
 }
-
-function showCustomConfirm(message, onConfirm) {
-  const overlay = document.getElementById('customModalOverlay');
-  const textEl = document.getElementById('customModalText');
-  const btnGroup = document.getElementById('customModalButtons');
-  textEl.textContent = message;
-  btnGroup.innerHTML = `
-    <button class="modal-btn cancel" id="modalCancelBtn">Cancel</button>
-    <button class="modal-btn confirm" id="modalConfirmBtn">Yes, Delete</button>
-  `;
-  overlay.style.display = 'flex';
-  document.getElementById('modalCancelBtn').onclick = () => overlay.style.display = 'none';
-  document.getElementById('modalConfirmBtn').onclick = () => {
-    overlay.style.display = 'none';
-    onConfirm();
-  };
+function showCustomConfirm(msg, onYes) {
+  const o = document.getElementById('customModalOverlay');
+  document.getElementById('customModalText').textContent = msg;
+  document.getElementById('customModalButtons').innerHTML = '<button class="modal-btn cancel" id="cancelBtn">Cancel</button><button class="modal-btn confirm" id="yesBtn">Yes, Delete</button>';
+  o.style.display = 'flex';
+  document.getElementById('cancelBtn').onclick = () => o.style.display = 'none';
+  document.getElementById('yesBtn').onclick = () => { o.style.display = 'none'; onYes(); };
 }
-
 function toggleAdminMode() {
   document.body.classList.toggle('admin-mode');
   document.querySelector('.admin-toggle-btn').classList.toggle('active');
 }
-
-function isImageFile(str) { return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(str || ''); }
-function isVideoFile(str) { return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(str || ''); }
-function isAudioFile(str) { return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(str || ''); }
-
-// Convert folder name from URL into something we can match
-function normalize(str) {
-  return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-}
+function isImage(s){ return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(s||''); }
+function isVideo(s){ return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(s||''); }
+function isAudio(s){ return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(s||''); }
+function norm(s){ return (s||'').toLowerCase().replace(/[^a-z0-9]/g,''); }
 
 async function initLibrary() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const selectedFolder = urlParams.get('folder') || '';
-  const formattedTitle = selectedFolder.replace(/-/g, ' ');
-  
-  document.getElementById('folderName').textContent = formattedTitle || "Library";
-  document.getElementById('relatedHeaderTitle').textContent = formattedTitle || "Items";
+  const folder = new URLSearchParams(location.search).get('folder') || '';
+  document.getElementById('folderName').textContent = folder.replace(/-/g,' ') || 'Library';
+  document.getElementById('relatedHeaderTitle').textContent = folder.replace(/-/g,' ') || 'Items';
 
-  const isSoftwareCategory = /software|editing|tools|apps|vpn|utility|utilities/i.test(selectedFolder);
-  const currentFolder = normalize(selectedFolder);
+  const isSoftware = /software|editing|tools|apps|vpn|utility/i.test(folder);
+  const current = norm(folder);
 
-  if (!window.supabase) return;
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
   const { data, error } = await db.from('artist_submissions').select('*');
   if (error || !data) {
-    document.getElementById('relatedGrid').innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">Error loading data</p>';
+    document.getElementById('relatedGrid').innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">Error loading</p>';
     return;
   }
 
@@ -184,178 +135,119 @@ async function initLibrary() {
   data.forEach(row => {
     if (row.status && row.status.toLowerCase() !== 'approved') return;
 
-    // Handle both array and object formats of files
     let fileList = [];
     if (Array.isArray(row.files)) {
       fileList = row.files;
     } else if (row.files && typeof row.files === 'object') {
-      Object.keys(row.files).forEach(key => {
-        const list = row.files[key];
-        if (Array.isArray(list)) {
-          list.forEach(f => {
-            // make sure category is set from the key if missing
-            if (!f.category) f.category = key;
-            fileList.push(f);
-          });
-        }
+      Object.keys(row.files).forEach(k => {
+        (row.files[k] || []).forEach(f => {
+          if (!f.category) f.category = k;
+          fileList.push(f);
+        });
       });
     }
 
-    const dateStr = row.created_at 
-      ? new Date(row.created_at).toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})
-      : new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
-
-    const avatarUrl = row.cover_url || row.artist_cover || row.profile_pic || '';
+    const dateStr = row.created_at ? new Date(row.created_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '';
+    const avatar = row.cover_url || row.artist_cover || row.profile_pic || '';
 
     fileList.forEach((f, idx) => {
-      const fileName = (f.original_name || f.name || '').toLowerCase();
-      const fileUrl  = (f.url || '').toLowerCase();
-      const fileCat  = normalize(f.category || '');
+      const name = (f.original_name || f.name || '').toLowerCase();
+      const url  = f.url || '';
+      const cat  = norm(f.category || '');
 
-      // Decide if this file belongs to the current folder
-      let belongs = false;
-
-      if (!selectedFolder) {
-        belongs = true;
-      } else {
-        // Match by file category
-        if (fileCat && (fileCat.includes(currentFolder) || currentFolder.includes(fileCat))) {
-          belongs = true;
-        }
-        // Also match common mappings
-        else if (currentFolder.includes('music') || currentFolder.includes('song') || currentFolder.includes('rnb') || currentFolder.includes('reggae') || currentFolder.includes('afro') || currentFolder.includes('dancehall') || currentFolder.includes('amapiano') || currentFolder.includes('ugandan') || currentFolder.includes('kadongo') || currentFolder.includes('instrumental') || currentFolder.includes('love') || currentFolder.includes('oldies') || currentFolder.includes('lingala') || currentFolder.includes('school')) {
-          if (fileCat === 'songs' || fileCat === 'song' || fileCat === 'audio' || fileCat === 'music' || isAudioFile(fileName) || isAudioFile(fileUrl)) {
-            belongs = true;
-          }
-        }
-        else if (currentFolder.includes('photo') || currentFolder.includes('joke')) {
-          if (fileCat === 'photos' || fileCat === 'photo' || fileCat === 'covers' || fileCat === 'cover' || isImageFile(fileName) || isImageFile(fileUrl)) {
-            belongs = true;
-          }
-        }
-        else if (currentFolder.includes('video')) {
-          if (fileCat === 'videos' || fileCat === 'video' || isVideoFile(fileName) || isVideoFile(fileUrl)) {
-            belongs = true;
-          }
-        }
-        else if (currentFolder.includes('dj') || currentFolder.includes('mix') || currentFolder.includes('mapping') || currentFolder.includes('sound')) {
-          if (fileCat === 'songs' || fileCat === 'mixes' || fileCat === 'dj' || isAudioFile(fileName) || isAudioFile(fileUrl)) {
-            belongs = true;
-          }
-        }
+      // STRICT matching only
+      let match = false;
+      if (!folder) {
+        match = true;
+      } else if (cat) {
+        // Exact or very close match between file category and folder name
+        match = cat === current || 
+                cat.includes(current) || 
+                current.includes(cat) ||
+                // special cases for common names
+                (current === 'olds choolrb' && cat.includes('rnb')) ||
+                (current === 'olds choolrb' && cat.includes('r&b')) ||
+                (current.includes('ugandan') && cat.includes('ugandan')) ||
+                (current.includes('reggae') && cat.includes('reggae'));
       }
 
-      if (!belongs) return;
-
-      const isPhoto = isImageFile(fileName) || isImageFile(fileUrl);
-      const isVideo = isVideoFile(fileName) || isVideoFile(fileUrl);
-      const isAudio = isAudioFile(fileName) || isAudioFile(fileUrl);
+      if (!match) return;
 
       allItems.push({
         id: row.id,
-        fileIndex: idx,
         title: f.original_name || f.name || row.artist_name || 'File',
-        url: f.url,
-        isSoftware: isSoftwareCategory,
-        isImage: isPhoto,
-        isVideo: isVideo,
-        isAudio: isAudio,
+        url: url,
+        isSoftware: isSoftware,
+        isImage: isImage(name) || isImage(url),
+        isVideo: isVideo(name) || isVideo(url),
+        isAudio: isAudio(name) || isAudio(url),
         uploader: row.artist_name || 'Ning Wei Media',
-        avatar: avatarUrl,
+        avatar: avatar,
         date: dateStr
       });
     });
   });
 
   const grid = document.getElementById('relatedGrid');
-  if (allItems.length > 0) {
-    renderGrid(allItems);
-  } else {
+  if (allItems.length === 0) {
     grid.innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">No files found in this category.</p>';
+    return;
   }
-}
 
-function renderGrid(list) {
-  const grid = document.getElementById('relatedGrid');
-  grid.innerHTML = list.map((item, idx) => {
+  grid.innerHTML = allItems.map((item, i) => {
     let preview = '';
-    if (item.isSoftware) {
-      preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
-    } else if (item.isImage) {
-      preview = `<img src="${item.url}" loading="lazy" alt="preview">`;
-    } else if (item.isVideo) {
-      preview = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
-    } else if (item.isAudio) {
-      preview = `<div class="related-card-software"><span>🎵</span><div>${item.title}</div></div>`;
-    } else {
-      preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
-    }
+    if (item.isSoftware) preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
+    else if (item.isImage) preview = `<img src="${item.url}" loading="lazy">`;
+    else if (item.isVideo) preview = `<video src="${item.url}#t=0.5" preload="metadata" muted></video>`;
+    else if (item.isAudio) preview = `<div class="related-card-software"><span>🎵</span><div>${item.title}</div></div>`;
+    else preview = `<div class="related-card-software"><span>📦</span><div>${item.title}</div></div>`;
 
-    return `
-      <div class="related-card" onclick="playMedia(${idx})">
-        <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
-        ${preview}
-      </div>
-    `;
+    return `<div class="related-card" onclick="playMedia(${i})">
+      <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
+      ${preview}
+    </div>`;
   }).join('');
 }
 
-function playMedia(index) {
-  const item = allItems[index];
+function playMedia(i) {
+  const item = allItems[i];
   if (!item) return;
-
-  const container = document.getElementById('mainMediaContainer');
-  const detailsBox = document.getElementById('videoDetailsBox');
-
-  detailsBox.style.display = 'block';
+  const box = document.getElementById('mainMediaContainer');
+  const details = document.getElementById('videoDetailsBox');
+  details.style.display = 'block';
 
   if (item.isSoftware || (!item.isImage && !item.isVideo && !item.isAudio)) {
-    container.style.display = 'none';
-    container.innerHTML = '';
+    box.style.display = 'none';
+    box.innerHTML = '';
   } else if (item.isImage) {
-    container.style.display = 'flex';
-    container.innerHTML = `<img src="\( {item.url}" class="full-media" alt=" \){item.title}">`;
+    box.style.display = 'flex';
+    box.innerHTML = `<img src="${item.url}" class="full-media">`;
   } else if (item.isVideo) {
-    container.style.display = 'flex';
-    container.innerHTML = `<video class="full-media" controls autoplay playsinline src="${item.url}"></video>`;
+    box.style.display = 'flex';
+    box.innerHTML = `<video class="full-media" controls autoplay playsinline src="${item.url}"></video>`;
   } else if (item.isAudio) {
-    container.style.display = 'flex';
-    container.innerHTML = `<audio class="full-media" controls autoplay src="${item.url}"></audio>`;
+    box.style.display = 'flex';
+    box.innerHTML = `<audio class="full-media" controls autoplay src="${item.url}"></audio>`;
   }
 
   document.getElementById('activeTitle').textContent = item.title;
   document.getElementById('activeUploader').textContent = item.uploader;
   document.getElementById('activeDate').textContent = item.date;
-
-  const downloadBtn = document.getElementById('downloadLink');
-  downloadBtn.href = item.url;
-  downloadBtn.setAttribute('download', item.title);
-
-  if (item.avatar) {
-    document.getElementById('artistAvatar').src = item.avatar;
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('downloadLink').href = item.url;
+  if (item.avatar) document.getElementById('artistAvatar').src = item.avatar;
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function toggleSelectAll(masterBox) {
-  document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = masterBox.checked);
+function toggleSelectAll(m) {
+  document.querySelectorAll('.card-checkbox').forEach(c => c.checked = m.checked);
 }
-
 function promptDelete() {
-  const selectedIds = Array.from(document.querySelectorAll('.card-checkbox:checked')).map(cb => cb.getAttribute('data-id'));
-  if (selectedIds.length === 0) {
-    showCustomAlert("Please select at least one item to delete.");
-    return;
-  }
-  showCustomConfirm("Confirm delete?", async () => {
-    if (!db) return;
-    const { error } = await db.from('artist_submissions').delete().in('id', selectedIds);
-    if (error) {
-      showCustomAlert("Error: " + error.message);
-    } else {
-      showCustomAlert("Deleted successfully!", () => location.reload());
-    }
+  const ids = Array.from(document.querySelectorAll('.card-checkbox:checked')).map(c => c.dataset.id);
+  if (!ids.length) return showCustomAlert('Please select at least one item to delete.');
+  showCustomConfirm('Confirm delete?', async () => {
+    const { error } = await db.from('artist_submissions').delete().in('id', ids);
+    if (error) showCustomAlert('Error: ' + error.message);
+    else showCustomAlert('Deleted successfully!', () => location.reload());
   });
 }
 
