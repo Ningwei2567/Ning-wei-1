@@ -8,9 +8,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+    /* ============================================================
+     * photos.html — Phase 1 modified
+     * Original kept intact; viewer converted to inline stage +
+     * prev/next + swipe + metadata. Local + live photos sorted
+     * newest-first (live by posted_at, local by filename recency).
+     * ============================================================ */
+    * { box-sizing: border-box; }
 
     body {
         margin: 0;
@@ -25,23 +29,10 @@
         text-align: center;
         padding: 25px 15px;
     }
+    header h1 { margin: 0 0 8px; font-size: 28px; }
+    header p { margin: 0; font-size: 16px; color: #ddd; }
 
-    header h1 {
-        margin: 0 0 8px;
-        font-size: 28px;
-    }
-
-    header p {
-        margin: 0;
-        font-size: 16px;
-        color: #ddd;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: auto;
-        padding: 20px;
-    }
+    .container { max-width: 1200px; margin: auto; padding: 20px; }
 
     .title-bar {
         display: flex;
@@ -50,12 +41,7 @@
         gap: 12px;
         margin-bottom: 25px;
     }
-
-    .title {
-        margin: 0;
-        font-size: 26px;
-    }
-
+    .title { margin: 0; font-size: 26px; }
     .btn-direct-upload {
         background: linear-gradient(135deg, #e5a400, #b88300);
         color: #fff;
@@ -67,17 +53,13 @@
         box-shadow: 0 3px 10px rgba(229,164,0,.3);
         transition: transform 0.1s ease;
     }
-
-    .btn-direct-upload:active {
-        transform: scale(0.97);
-    }
+    .btn-direct-upload:active { transform: scale(0.97); }
 
     .photo-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 15px;
     }
-
     .photo-card {
         background: white;
         border-radius: 12px;
@@ -86,7 +68,6 @@
         display: flex;
         flex-direction: column;
     }
-
     .photo-card img {
         width: 100%;
         height: 220px;
@@ -95,15 +76,8 @@
         cursor: pointer;
         transition: transform 0.2s;
     }
-
-    .photo-card img:hover {
-        transform: scale(1.03);
-    }
-
-    .photo-details {
-        padding: 10px;
-    }
-
+    .photo-card img:hover { transform: scale(1.03); }
+    .photo-details { padding: 10px; }
     .photo-name {
         font-size: 13px;
         font-weight: bold;
@@ -111,87 +85,134 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .photo-uploader { font-size: 11px; color: #777; margin-top: 2px; }
+    .error { padding: 30px; text-align: center; color: #c00; background: white; border-radius: 12px; }
 
-    .photo-uploader {
-        font-size: 11px;
-        color: #777;
-        margin-top: 2px;
-    }
-
-    .error {
-        padding: 30px;
-        text-align: center;
-        color: #c00;
-        background: white;
-        border-radius: 12px;
-    }
-
-    /* Full-screen photo viewer */
+    /* ============================================================
+     * PHASE 1: inline viewer stage (was fullscreen-only overlay)
+     * ============================================================ */
     .viewer {
         display: none;
-        position: fixed;
-        z-index: 9999;
-        left: 0;
-        top: 0;
+        background: #000;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0,0,0,.25);
+        position: relative;
+    }
+    .viewer.open { display: block; }
+    .viewer-stage {
+        position: relative;
         width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.95);
+        background: #000;
+        display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
-        padding: 20px;
+        min-height: 250px;
     }
-
-    .viewer img {
-        max-width: 95%;
-        max-height: 80%;
+    .viewer-stage img {
+        max-width: 100%;
+        max-height: 70vh;
         object-fit: contain;
+        display: block;
     }
 
-    .viewer-controls {
-        margin-top: 15px;
-        display: flex;
-        gap: 10px;
+    /* Prev / next arrows */
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,.6);
+        color: #fff;
+        border: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 5;
     }
+    .nav-arrow:hover { background: #e50914; }
+    .nav-arrow.prev { left: 8px; }
+    .nav-arrow.next { right: 8px; }
+    .nav-arrow:disabled { opacity: .3; cursor: not-allowed; }
+
+    /* Viewer header (title + download + close) */
+    .viewer-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: #111;
+        color: #fff;
+    }
+    .viewer-header .v-title {
+        flex: 1;
+        font-size: 15px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .viewer-header .v-close {
+        background: transparent;
+        border: 1px solid #444;
+        color: #fff;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+    .viewer-header .v-close:hover { background: #e50914; border-color: #e50914; }
+    .viewer-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px 14px;
+        background: #111;
+        color: #aaa;
+        font-size: 12px;
+        border-top: 1px solid #222;
+    }
+    .viewer-meta .v-avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #333;
+        border: 1px solid #444;
+    }
+    .viewer-meta .v-uploader { color: #e50914; font-weight: bold; }
 
     .download-btn {
-        background: #25d366;
+        background: #e50914;
         color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
+        padding: 8px 14px;
+        border-radius: 6px;
         text-decoration: none;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 13px;
+        white-space: nowrap;
     }
+    .download-btn:hover { background: #b00710; }
 
-    .close {
-        position: absolute;
-        top: 15px;
-        right: 25px;
-        color: white;
-        font-size: 40px;
-        cursor: pointer;
+    /* Section heading above the grid */
+    .grid-heading {
+        margin: 4px 0 12px;
+        font-size: 16px;
+        font-weight: 800;
+        color: #111;
     }
 
     @media (max-width: 800px) {
-        .photo-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .photo-card img {
-            height: 180px;
-        }
+        .photo-grid { grid-template-columns: repeat(2, 1fr); }
+        .photo-card img { height: 180px; }
     }
-
     @media (max-width: 450px) {
-        .photo-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .photo-card img {
-            height: 150px;
-        }
+        .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .photo-card img { height: 150px; }
     }
 </style>
 </head>
@@ -210,17 +231,28 @@
         <a href="upload.html?type=photos" class="btn-direct-upload">📤 Upload Direct Here</a>
     </div>
 
+    <!-- Phase 1: inline viewer stage (was a dead fullscreen overlay) -->
+    <div class="viewer" id="viewer">
+        <div class="viewer-stage" id="viewerStage">
+            <button class="nav-arrow prev" id="prevBtn" aria-label="Previous photo">‹</button>
+            <button class="nav-arrow next" id="nextBtn" aria-label="Next photo">›</button>
+        </div>
+        <div class="viewer-header">
+            <div class="v-title" id="viewerTitle">Photo</div>
+            <a id="downloadBtn" class="download-btn" href="" download target="_blank">📥 Download</a>
+            <button class="v-close" id="closeBtn" aria-label="Close viewer">×</button>
+        </div>
+        <div class="viewer-meta">
+            <img class="v-avatar" id="viewerAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="">
+            <span class="v-uploader" id="viewerUploader">Ning Wei Media</span>
+            <span>·</span>
+            <span id="viewerDate">—</span>
+        </div>
+    </div>
+
+    <div class="grid-heading">All Photos</div>
     <div class="photo-grid" id="photoGrid"></div>
 
-</div>
-
-<!-- Full-screen viewer -->
-<div class="viewer" id="viewer">
-    <span class="close" onclick="closeViewer()">×</span>
-    <img id="viewerImage" src="" alt="Photo">
-    <div class="viewer-controls">
-        <a id="downloadBtn" href="" download target="_blank" class="download-btn">📥 Download Photo</a>
-    </div>
 </div>
 
 <script>
@@ -268,6 +300,27 @@ function cleanName(name) {
         .trim();
 }
 
+function escAttr(s) {
+    return String(s ?? '').replace(/[&<>"']/g,
+        c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function formatDate(iso) {
+    if (!iso) return '—';
+    try {
+        return new Date(iso).toLocaleDateString('en-US',
+            { month:'long', day:'numeric', year:'numeric' });
+    } catch { return String(iso).slice(0,10); }
+}
+
+/*
+=================================================
+Phase 1: state
+=================================================
+*/
+let allPhotos = [];          // flattened list (live + local)
+let currentIndex = -1;       // currently shown photo index in allPhotos
+
 /*
 =================================================
 LOAD LIVE PHOTOS FROM SUPABASE
@@ -287,13 +340,20 @@ async function loadSupabasePhotos() {
 
         data.forEach(row => {
             const files = Array.isArray(row.files) ? row.files : [];
+            const avatar = row.cover_url || row.artist_cover || row.profile_pic || '';
+            const isoDate = row.posted_at || row.created_at || row.uploaded_at || '';
+
             files.forEach(f => {
                 const fname = String(f.name || f.original_name || "");
                 if (f.type === "photo" || isImage(fname)) {
                     liveItems.push({
                         title: cleanName(fname),
                         url: f.url,
-                        uploader: row.artist_name ? `By ${row.artist_name}` : "Direct Upload"
+                        uploader: row.artist_name || "Direct Upload",
+                        avatar: avatar,
+                        date: isoDate ? formatDate(isoDate) : "",
+                        isoDate: isoDate,
+                        source: 'live'
                     });
                 }
             });
@@ -308,41 +368,79 @@ async function loadSupabasePhotos() {
 
 /*
 =================================================
+BUILD LOCAL PHOTO ITEMS
+- Phase 1 C14: local photos also get a sortable date.
+  We derive it from the WhatsApp IMG-YYYYMMDD-WA#### pattern
+  (your filenames all follow this); falls back to filename order.
+=================================================
+*/
+function buildLocalPhotos() {
+    return localPhotos.map((file, idx) => {
+        // IMG-20260830-WA0002.jpg → 2026-08-30
+        const m = file.match(/IMG-(\d{4})(\d{2})(\d{2})-WA(\d+)/i);
+        const isoDate = m
+            ? `${m[1]}-${m[2]}-${m[3]}`
+            : '';
+        return {
+            title: cleanName(file),
+            url: "media/photos/" + file,
+            uploader: "Local Library",
+            avatar: '',
+            date: isoDate ? formatDate(isoDate) : '',
+            isoDate: isoDate,
+            // Preserve original order as fallback key for sort
+            _localOrder: idx,
+            source: 'local'
+        };
+    });
+}
+
+/*
+=================================================
 RENDER ALL PHOTOS
 =================================================
 */
 async function renderAllPhotos() {
     photoGrid.innerHTML = "";
 
-    // Load Live Uploads first
+    // Live first, then local
     const livePhotos = await loadSupabasePhotos();
+    const localItems = buildLocalPhotos();
 
-    livePhotos.forEach(item => {
-        addPhotoCard(item.url, item.title, item.uploader);
+    // Phase 1 C14: combined sort, newest-first
+    allPhotos = [...livePhotos, ...localItems].sort((a, b) => {
+        if (a.isoDate && b.isoDate) {
+            return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime();
+        }
+        if (a.isoDate && !b.isoDate) return -1;
+        if (!a.isoDate && b.isoDate) return 1;
+        return (a._localOrder || 0) - (b._localOrder || 0);
     });
 
-    // Add Local Files
-    localPhotos.forEach(file => {
-        addPhotoCard("media/photos/" + file, cleanName(file), "Local Library");
+    allPhotos.forEach((item, i) => {
+        addPhotoCard(item, i);
     });
+
+    attachViewerNav();
 }
 
-function addPhotoCard(src, title, subtitle) {
+function addPhotoCard(item, index) {
     const card = document.createElement("div");
     card.className = "photo-card";
 
     const img = document.createElement("img");
-    img.src = src;
-    img.alt = title;
+    img.src = item.url;
+    img.alt = item.title;
+    img.loading = "lazy";
 
     img.onclick = function() {
-        openViewer(src);
+        openViewer(index);
     };
 
     img.onerror = function() {
         card.innerHTML =
             '<div class="error">❌ Photo not found<br><small>' +
-            title +
+            escAttr(item.title) +
             '</small></div>';
     };
 
@@ -353,11 +451,13 @@ function addPhotoCard(src, title, subtitle) {
 
     const name = document.createElement("div");
     name.className = "photo-name";
-    name.textContent = title;
+    name.textContent = item.title;
 
     const uploader = document.createElement("div");
     uploader.className = "photo-uploader";
-    uploader.textContent = subtitle;
+    const subBits = [item.uploader];
+    if (item.date) subBits.push(item.date);
+    uploader.textContent = subBits.join(' • ');
 
     details.appendChild(name);
     details.appendChild(uploader);
@@ -366,23 +466,100 @@ function addPhotoCard(src, title, subtitle) {
     photoGrid.appendChild(card);
 }
 
-function openViewer(src) {
-    document.getElementById("viewerImage").src = src;
-    document.getElementById("downloadBtn").href = src;
-    document.getElementById("viewer").style.display = "flex";
+/*
+=================================================
+Phase 1: viewer with prev/next + swipe + metadata
+=================================================
+*/
+function openViewer(index) {
+    currentIndex = index;
+    renderCurrent();
+    const viewer = document.getElementById('viewer');
+    viewer.classList.add('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function closeViewer() {
-    document.getElementById("viewer").style.display = "none";
-    document.getElementById("viewerImage").src = "";
-    document.getElementById("downloadBtn").href = "";
+    const viewer = document.getElementById('viewer');
+    viewer.classList.remove('open');
+    const stage = document.getElementById('viewerStage');
+    [...stage.querySelectorAll('img')].forEach(n => n.remove());
 }
 
-document.getElementById("viewer").onclick = function(event) {
-    if (event.target === this) {
-        closeViewer();
+function renderCurrent() {
+    const item = allPhotos[currentIndex];
+    if (!item) return;
+
+    const stage = document.getElementById('viewerStage');
+    [...stage.querySelectorAll('img')].forEach(n => n.remove());
+    stage.insertAdjacentHTML('beforeend',
+        `<img src="${escAttr(item.url)}" alt="${escAttr(item.title)}">`);
+
+    document.getElementById('viewerTitle').textContent = item.title;
+    document.getElementById('viewerUploader').textContent = item.uploader;
+    document.getElementById('viewerDate').textContent = item.date || '—';
+
+    const dl = document.getElementById('downloadBtn');
+    dl.href = item.url;
+    dl.setAttribute('download', item.title || '');
+
+    const av = document.getElementById('viewerAvatar');
+    if (item.avatar) {
+        av.src = item.avatar;
     }
-};
+    av.onerror = function () {
+        av.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+    };
+
+    document.getElementById('prevBtn').disabled = allPhotos.length <= 1;
+    document.getElementById('nextBtn').disabled = allPhotos.length <= 1;
+}
+
+function navigate(delta) {
+    if (!allPhotos.length) return;
+    currentIndex = (currentIndex + delta + allPhotos.length) % allPhotos.length;
+    renderCurrent();
+}
+
+function attachViewerNav() {
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+    const close = document.getElementById('closeBtn');
+
+    // Replace to drop any old listeners
+  [prev, next, close].forEach(el => {
+    const fresh = el.cloneNode(true);
+    el.parentNode.replaceChild(fresh, el);
+  });
+
+    document.getElementById('prevBtn').addEventListener('click', () => navigate(-1));
+    document.getElementById('nextBtn').addEventListener('click', () => navigate(1));
+    document.getElementById('closeBtn').addEventListener('click', closeViewer);
+
+    // Swipe on the stage
+    const stage = document.getElementById('viewerStage');
+    const freshStage = stage.cloneNode(true);
+    stage.parentNode.replaceChild(freshStage, stage);
+
+    const w = document.getElementById('viewerStage');
+    let tx = 0;
+    w.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    w.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    // Keyboard arrows
+    document.removeEventListener('keydown', onViewerKey);
+    document.addEventListener('keydown', onViewerKey);
+}
+function onViewerKey(e) {
+    const viewer = document.getElementById('viewer');
+    if (!viewer.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+    if (e.key === 'Escape')     closeViewer();
+}
 
 // Start
 renderAllPhotos();
