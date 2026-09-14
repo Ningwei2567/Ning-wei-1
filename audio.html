@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0;url=library.html?category=songs">
-<title>Songs</title>
-</head>
-<body>
+<!-- audio item card (drop-in patch) -->
+<div class="audio-player-card" style="display:flex;gap:14px;align-items:center;padding:14px;background:#0d0d0d;border-radius:12px;">
+  <img class="audio-cover" id="audioCoverPatch" src="/covers/default.png" alt="Cover"
+       style="width:96px;height:96px;border-radius:8px;object-fit:cover;border:1px solid #333;">
+  <div class="audio-meta" style="flex:1;min-width:0;">
+    <div class="audio-title" id="audioTitlePatch" style="font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+      Song Title
+    </div>
+    <div class="audio-artist" id="audioArtistPatch" style="color:#aaa;margin:6px 0 8px;">
+      Artist Name
+    </div>
+    <audio id="audioPlayerPatch" controls preload="metadata" style="width:100%;">
+      <source src="path/to/your-audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
 <script>
-location.replace("library.html?category=songs");
+  // Optional: update header avatar and title from your data
+  // document.getElementById('audioCoverPatch').src = 'path/to/cover.jpg';
+  // document.getElementById('audioTitlePatch').textContent = 'Your Song Title';
+  // document.getElementById('audioArtistPatch').textContent = 'Your Artist';
 </script>
-</body>
-</html>
