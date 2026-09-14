@@ -971,6 +971,75 @@ Ning Wei Media
 
 
 <script>
+/* =====================================================
+   NWM HELPERS (Ning Wei Media shared logic)
+   Fixes: missing app icon + mixed related content
+===================================================== */
+window.NWM = (function () {
+  const IMG_TYPES = ["cover", "profile"];
+  const APP_PLACEHOLDER   = "https://cdn.simpleicons.org/android/111111";
+  const AUDIO_PLACEHOLDER = "https://cdn.simpleicons.org/audiomack/111111";
+  const PHOTO_PLACEHOLDER = "https://cdn.simpleicons.org/googlephotos/111111";
+  const VIDEO_PLACEHOLDER = "https://cdn.simpleicons.org/youtube/111111";
+  const SOFT_PLACEHOLDER  = "https://cdn.simpleicons.org/apachemaven/111111";
+
+  function filesOf(row){ return (row && Array.isArray(row.files)) ? row.files : []; }
+
+  function mainFiles(row){
+    return filesOf(row).filter(x => !IMG_TYPES.includes(String(x.type||"").toLowerCase()));
+  }
+
+  function rowType(row){
+    if (row && row.content_type) return String(row.content_type).toLowerCase();
+    const f = mainFiles(row)[0];
+    if (!f) return "";
+    let t = String(f.type || "").toLowerCase();
+    if (t === "photo") t = "image";
+    return t;
+  }
+
+  function coverUrl(row){
+    if (row && row.cover_url) return row.cover_url;
+    const c = filesOf(row).find(x => String(x.type||"").toLowerCase() === "cover");
+    return c ? c.url : "";
+  }
+
+  function profileUrl(row){
+    if (row && row.profile_url) return row.profile_url;
+    const p = filesOf(row).find(x => String(x.type||"").toLowerCase() === "profile");
+    return p ? p.url : "";
+  }
+
+  function categoryOf(row){
+    if (row && row.category) return row.category;
+    const f = mainFiles(row)[0];
+    return (f && f.category) || "";
+  }
+
+  function titleOf(row){
+    if (row && row.title) return row.title;
+    if (row && row.song_title) return row.song_title;
+    const f = mainFiles(row)[0];
+    if (!f) return (row && row.artist_name) || "";
+    return String(f.original_name || f.name || "").replace(/\.[^.]+$/, "");
+  }
+
+  function placeholderFor(type){
+    if (type === "app")      return APP_PLACEHOLDER;
+    if (type === "audio")    return AUDIO_PLACEHOLDER;
+    if (type === "image")    return PHOTO_PLACEHOLDER;
+    if (type === "video")    return VIDEO_PLACEHOLDER;
+    if (type === "software") return SOFT_PLACEHOLDER;
+    return "";
+  }
+
+  return { filesOf, mainFiles, rowType, coverUrl, profileUrl,
+           categoryOf, titleOf, placeholderFor };
+})();
+</script>
+
+
+<script>
 
 /* =====================================================
    SETTINGS
@@ -993,110 +1062,39 @@ SUPABASE_KEY
    ELEMENTS
 ===================================================== */
 
-const statusBox =
-document.getElementById("status");
+const statusBox = document.getElementById("status");
+const errorBox = document.getElementById("error");
+const mediaInformation = document.getElementById("mediaInformation");
+const mediaName = document.getElementById("mediaName");
+const mediaDate = document.getElementById("mediaDate");
+const songMeta = document.getElementById("songMeta");
+const cover = document.getElementById("cover");
+const songTitle = document.getElementById("songTitle");
+const artist = document.getElementById("artist");
+const mediaTitle = document.getElementById("mediaTitle");
+const audioBox = document.getElementById("audioBox");
+const audio = document.getElementById("audio");
+const videoBox = document.getElementById("videoBox");
+const video = document.getElementById("video");
+const videoSource = document.getElementById("videoSource");
+const videoFormatNote = document.getElementById("videoFormatNote");
+const imageBox = document.getElementById("imageBox");
+const mediaImage = document.getElementById("mediaImage");
+const actions = document.getElementById("actions");
+const download = document.getElementById("download");
+const shareButton = document.getElementById("share");
 
-const errorBox =
-document.getElementById("error");
+const verticalNavigation = document.getElementById("verticalNavigation");
+const previousButton = document.getElementById("previousButton");
+const nextButton = document.getElementById("nextButton");
 
-const mediaInformation =
-document.getElementById("mediaInformation");
+const similarSection = document.getElementById("similarSection");
+const similarTitle = document.getElementById("similarTitle");
+const similarGrid = document.getElementById("similarGrid");
 
-const mediaName =
-document.getElementById("mediaName");
-
-const mediaDate =
-document.getElementById("mediaDate");
-
-const songMeta =
-document.getElementById("songMeta");
-
-const cover =
-document.getElementById("cover");
-
-const songTitle =
-document.getElementById("songTitle");
-
-const artist =
-document.getElementById("artist");
-
-const mediaTitle =
-document.getElementById("mediaTitle");
-
-const audioBox =
-document.getElementById("audioBox");
-
-const audio =
-document.getElementById("audio");
-
-const videoBox =
-document.getElementById("videoBox");
-
-const video =
-document.getElementById("video");
-
-const videoSource =
-document.getElementById("videoSource");
-
-const videoFormatNote =
-document.getElementById("videoFormatNote");
-
-const imageBox =
-document.getElementById("imageBox");
-
-const mediaImage =
-document.getElementById("mediaImage");
-
-const actions =
-document.getElementById("actions");
-
-const download =
-document.getElementById("download");
-
-const shareButton =
-document.getElementById("share");
-
-
-/* =====================================================
-   NAVIGATION ELEMENTS
-===================================================== */
-
-const verticalNavigation =
-document.getElementById("verticalNavigation");
-
-const previousButton =
-document.getElementById("previousButton");
-
-const nextButton =
-document.getElementById("nextButton");
-
-
-/* =====================================================
-   SIMILAR MEDIA ELEMENTS
-===================================================== */
-
-const similarSection =
-document.getElementById("similarSection");
-
-const similarTitle =
-document.getElementById("similarTitle");
-
-const similarGrid =
-document.getElementById("similarGrid");
-
-
-/* =====================================================
-   DOWNLOAD POPUP ELEMENTS
-===================================================== */
-
-const downloadPopup =
-document.getElementById("downloadPopup");
-
-const downloadPopupTitle =
-document.getElementById("downloadPopupTitle");
-
-const downloadPopupFile =
-document.getElementById("downloadPopupFile");
+const downloadPopup = document.getElementById("downloadPopup");
+const downloadPopupTitle = document.getElementById("downloadPopupTitle");
+const downloadPopupFile = document.getElementById("downloadPopupFile");
 
 let downloadPopupTimer = null;
 
@@ -1110,7 +1108,8 @@ url:"",
 name:"",
 mime:"",
 type:"",
-date:""
+date:"",
+category:""      /* NEW: used to filter Related by category */
 };
 
 let mediaCollection = [];
@@ -1123,41 +1122,19 @@ let currentMediaIndex = -1;
 ===================================================== */
 
 function showDownloadPopup(filename, finished=false){
-
 clearTimeout(downloadPopupTimer);
-
 downloadPopupFile.textContent = filename || "Ning Wei Media";
-
-if(finished){
-downloadPopupTitle.textContent = "Download finished!";
-}
-else{
-downloadPopupTitle.textContent = "Download started!";
-}
-
+downloadPopupTitle.textContent = finished ? "Download finished!" : "Download started!";
 downloadPopup.classList.add("show");
-
 downloadPopupTimer = setTimeout(function(){
 downloadPopup.classList.remove("show");
 }, 2200);
-
 }
 
-
-/* =====================================================
-   DOWNLOAD CLICK
-===================================================== */
-
 download.addEventListener("click", function(){
-
 const filename = download.getAttribute("download") || "Ning Wei Media";
-
 showDownloadPopup(filename, false);
-
-setTimeout(function(){
-showDownloadPopup(filename, true);
-}, 1200);
-
+setTimeout(function(){ showDownloadPopup(filename, true); }, 1200);
 });
 
 
@@ -1166,13 +1143,9 @@ showDownloadPopup(filename, true);
 ===================================================== */
 
 const params = new URLSearchParams(window.location.search);
-
 const id = params.get("id");
-
 const directUrl = params.get("url");
-
 const suppliedName = params.get("name");
-
 const suppliedMime = params.get("mime");
 
 
@@ -1181,97 +1154,48 @@ const suppliedMime = params.get("mime");
 ===================================================== */
 
 function hideAllMedia(){
-
 audioBox.style.display = "none";
-
 videoBox.style.display = "none";
-
 imageBox.style.display = "none";
-
 videoFormatNote.style.display = "none";
-
 audio.pause();
-
 video.pause();
-
 audio.removeAttribute("src");
-
 video.removeAttribute("src");
-
 videoSource.removeAttribute("src");
-
 videoSource.removeAttribute("type");
-
 video.load();
-
 }
-
 
 function showError(message){
-
 statusBox.style.display = "none";
-
 errorBox.textContent = message;
-
 errorBox.style.display = "block";
-
 }
-
 
 function cleanName(filename){
-
-if(!filename){
-return "Ning Wei Media";
-}
-
+if(!filename){ return "Ning Wei Media"; }
 let name = filename.split("/").pop();
-
 name = name.replace(/\.[^/.]+$/, "");
-
 name = name.replace(/[_-]+/g, " ").trim();
-
 return name || "Ning Wei Media";
-
 }
-
 
 function extensionOf(filename){
-
-if(!filename){
-return "";
-}
-
+if(!filename){ return ""; }
 const clean = filename.split("?")[0].split("#")[0];
-
 const parts = clean.split(".");
-
-if(parts.length < 2){
-return "";
-}
-
+if(parts.length < 2){ return ""; }
 return parts.pop().toLowerCase();
-
 }
-
 
 function formatDate(value){
-
-if(!value){
-return "";
-}
-
+if(!value){ return ""; }
 const date = new Date(value);
-
-if(Number.isNaN(date.getTime())){
-return "";
-}
-
+if(Number.isNaN(date.getTime())){ return ""; }
 return date.toLocaleDateString(undefined, {
-year:"numeric",
-month:"short",
-day:"numeric"
+year:"numeric", month:"short", day:"numeric"
 });
-
 }
 
 
@@ -1280,188 +1204,89 @@ day:"numeric"
 ===================================================== */
 
 function mediaType(filename, mime){
-
 const m = (mime || "").toLowerCase().split(";")[0].trim();
-
-if(m.startsWith("image/")){
-return "image";
-}
-
-if(m.startsWith("video/")){
-return "video";
-}
-
-if(m.startsWith("audio/")){
-return "audio";
-}
+if(m.startsWith("image/")){ return "image"; }
+if(m.startsWith("video/")){ return "video"; }
+if(m.startsWith("audio/")){ return "audio"; }
 
 const ext = extensionOf(filename);
-
 const imageExtensions = ["jpg","jpeg","png","gif","webp","avif","bmp","svg"];
-
 const videoExtensions = ["mp4","webm","mov","m4v","3gp","3g2","mpg","mpeg","mpe","ogv","avi","mkv"];
-
 const audioExtensions = ["mp3","wav","m4a","aac","ogg","oga","flac","wma","opus","aiff","aif"];
+const appExtensions   = ["apk","xapk","apks","ipa"];
+const softwareExtensions = ["exe","msi","dmg","iso","zip","rar","7z"];
 
-if(imageExtensions.includes(ext)){
-return "image";
-}
-
-if(videoExtensions.includes(ext)){
-return "video";
-}
-
-if(audioExtensions.includes(ext)){
-return "audio";
-}
-
+if(imageExtensions.includes(ext)){ return "image"; }
+if(videoExtensions.includes(ext)){ return "video"; }
+if(audioExtensions.includes(ext)){ return "audio"; }
+if(appExtensions.includes(ext)){ return "app"; }
+if(softwareExtensions.includes(ext)){ return "software"; }
 return "";
-
 }
-
 
 function videoMimeType(filename, mime){
-
 const supplied = (mime || "").toLowerCase().split(";")[0].trim();
-
-if(supplied.startsWith("video/")){
-return supplied;
-}
-
+if(supplied.startsWith("video/")){ return supplied; }
 const ext = extensionOf(filename);
-
 const videoMimes = {
-mp4:"video/mp4",
-webm:"video/webm",
-mov:"video/quicktime",
-m4v:"video/mp4",
-"3gp":"video/3gpp",
-"3g2":"video/3gpp2",
-mpg:"video/mpeg",
-mpeg:"video/mpeg",
-mpe:"video/mpeg",
-ogv:"video/ogg",
-avi:"video/x-msvideo",
-mkv:"video/x-matroska"
+mp4:"video/mp4", webm:"video/webm", mov:"video/quicktime", m4v:"video/mp4",
+"3gp":"video/3gpp", "3g2":"video/3gpp2",
+mpg:"video/mpeg", mpeg:"video/mpeg", mpe:"video/mpeg",
+ogv:"video/ogg", avi:"video/x-msvideo", mkv:"video/x-matroska"
 };
-
 return videoMimes[ext] || "";
-
 }
-
 
 function audioMimeType(filename, mime){
-
 const supplied = (mime || "").toLowerCase().split(";")[0].trim();
-
-if(supplied.startsWith("audio/")){
-return supplied;
-}
-
+if(supplied.startsWith("audio/")){ return supplied; }
 const ext = extensionOf(filename);
-
 const audioMimes = {
-mp3:"audio/mpeg",
-wav:"audio/wav",
-m4a:"audio/mp4",
-aac:"audio/aac",
-ogg:"audio/ogg",
-oga:"audio/ogg",
-flac:"audio/flac",
-opus:"audio/opus"
+mp3:"audio/mpeg", wav:"audio/wav", m4a:"audio/mp4", aac:"audio/aac",
+ogg:"audio/ogg", oga:"audio/ogg", flac:"audio/flac", opus:"audio/opus"
 };
-
 return audioMimes[ext] || "";
-
 }
-
 
 function filenameFromPath(p){
-
-if(!p){
-return "";
+if(!p){ return ""; }
+try{ const u = new URL(p); return u.pathname.split("/").pop(); }
+catch(e){ return p.split("/").pop(); }
 }
-
-try{
-const u = new URL(p);
-return u.pathname.split("/").pop();
-}
-catch(e){
-return p.split("/").pop();
-}
-
-}
-
 
 function downloadLabel(filename, type){
-
 const ext = extensionOf(filename);
-
-if(ext){
-return "⬇ Download " + ext.toUpperCase();
-}
-
-if(type === "image"){
-return "⬇ Download Photo";
-}
-
-if(type === "video"){
-return "⬇ Download Video";
-}
-
-if(type === "audio"){
-return "⬇ Download Audio";
-}
-
+if(ext){ return "⬇ Download " + ext.toUpperCase(); }
+if(type === "image"){ return "⬇ Download Photo"; }
+if(type === "video"){ return "⬇ Download Video"; }
+if(type === "audio"){ return "⬇ Download Audio"; }
+if(type === "app"){ return "⬇ Download App"; }
+if(type === "software"){ return "⬇ Download"; }
 return "⬇ Download";
-
 }
-
 
 function setVideoSource(mediaUrl, filename, mime){
-
 const type = videoMimeType(filename, mime);
-
 videoSource.src = mediaUrl;
-
-if(type){
-videoSource.type = type;
-}
-else{
-videoSource.removeAttribute("type");
-}
-
+if(type){ videoSource.type = type; } else { videoSource.removeAttribute("type"); }
 video.load();
-
 }
-
 
 function updateMediaInformation(name, date){
-
 mediaInformation.style.display = "block";
-
 mediaName.textContent = cleanName(name);
-
-if(date){
-mediaDate.textContent = "Uploaded: " + formatDate(date);
+mediaDate.textContent = date ? "Uploaded: " + formatDate(date) : "";
 }
-else{
-mediaDate.textContent = "";
-}
-
-}
-
 
 function setCurrentMedia(item){
-
 currentMedia = {
 url:item.url || "",
 name:item.name || "",
 mime:item.mime || "",
 type:item.type || mediaType(item.name || "", item.mime || ""),
-date:item.date || ""
+date:item.date || "",
+category:item.category || ""
 };
-
 }
 
 
@@ -1471,115 +1296,69 @@ date:item.date || ""
 
 function renderMedia(item){
 
-if(!item || !item.url){
-return;
-}
+if(!item || !item.url){ return; }
 
 setCurrentMedia(item);
-
 hideAllMedia();
-
 errorBox.style.display = "none";
-
 songMeta.style.display = "none";
-
 mediaTitle.style.display = "none";
 
 updateMediaInformation(item.name, item.date);
 
 const type = currentMedia.type;
 
-
 if(type === "image"){
-
 imageBox.style.display = "block";
-
 mediaImage.src = item.url;
-
 mediaImage.alt = cleanName(item.name);
-
 mediaImage.classList.remove("zoomed");
-
-mediaImage.onclick = function(){
-mediaImage.classList.toggle("zoomed");
-};
-
-mediaImage.onerror = function(){
-showError("❌ This photo could not be loaded.");
-};
-
+mediaImage.onclick = function(){ mediaImage.classList.toggle("zoomed"); };
+mediaImage.onerror = function(){ showError("❌ This photo could not be loaded."); };
 }
-
 else if(type === "video"){
-
 videoBox.style.display = "block";
-
 setVideoSource(item.url, item.name, item.mime);
-
 videoFormatNote.style.display = "block";
-
-video.onerror = function(){
-showError("❌ This video format cannot be played by your browser. The original file is still available for download.");
-};
-
+video.onerror = function(){ showError("❌ This video format cannot be played by your browser. The original file is still available for download."); };
 }
-
 else if(type === "audio"){
-
 audioBox.style.display = "block";
-
 const audioMime = audioMimeType(item.name, item.mime);
-
-if(audioMime){
-audio.setAttribute("type", audioMime);
-}
-
+if(audioMime){ audio.setAttribute("type", audioMime); }
 audio.src = item.url;
-
 audio.load();
-
-audio.onerror = function(){
-showError("❌ This audio file could not be played by your browser. The original file can still be downloaded.");
-};
-
+audio.onerror = function(){ showError("❌ This audio file could not be played by your browser. The original file can still be downloaded."); };
 }
-
+else if(type === "app" || type === "software"){
+/* Show icon + info, no inline player */
+songMeta.style.display = "flex";
+cover.src = item.cover || NWM.placeholderFor(type);
+cover.onerror = function(){ this.src = NWM.placeholderFor(type); };
+songTitle.textContent = cleanName(item.name);
+artist.textContent = item.category || (type === "app" ? "Application" : "Software");
+}
 else{
-
 showError("❌ Unsupported media format.");
-
 return;
-
 }
-
 
 download.href = item.url;
-
 download.textContent = downloadLabel(item.name, type);
-
 download.setAttribute("download", item.name || "ning-wei-media");
-
 
 shareButton.onclick = function(){
 shareMedia(window.location.href, cleanName(item.name));
 };
 
 actions.style.display = "flex";
-
 statusBox.style.display = "none";
-
 document.title = cleanName(item.name) + " - Ning Wei Media";
 
-
-if(mediaCollection.length > 1){
-verticalNavigation.style.display = "block";
-}
-else{
-verticalNavigation.style.display = "none";
-}
+if(mediaCollection.length > 1){ verticalNavigation.style.display = "block"; }
+else{ verticalNavigation.style.display = "none"; }
 
 updateNavigationButtons();
-
 renderSimilarMedia(item);
 
 }
@@ -1590,593 +1369,9 @@ renderSimilarMedia(item);
 ===================================================== */
 
 function updateNavigationButtons(){
-
 if(currentMediaIndex <= 0){
 previousButton.disabled = true;
 previousButton.style.opacity = ".45";
-}
-else{
+} else {
 previousButton.disabled = false;
-previousButton.style.opacity = "1";
-}
-
-if(currentMediaIndex >= mediaCollection.length - 1){
-nextButton.disabled = true;
-nextButton.style.opacity = ".45";
-}
-else{
-nextButton.disabled = false;
-nextButton.style.opacity = "1";
-}
-
-}
-
-
-function showPreviousMedia(){
-
-if(currentMediaIndex <= 0){
-return;
-}
-
-currentMediaIndex--;
-
-renderMedia(mediaCollection[currentMediaIndex]);
-
-scrollToMedia();
-
-}
-
-
-function showNextMedia(){
-
-if(currentMediaIndex >= mediaCollection.length - 1){
-return;
-}
-
-currentMediaIndex++;
-
-renderMedia(mediaCollection[currentMediaIndex]);
-
-scrollToMedia();
-
-}
-
-
-function scrollToMedia(){
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-previousButton.addEventListener("click", showPreviousMedia);
-
-nextButton.addEventListener("click", showNextMedia);
-
-
-/* =====================================================
-   TOUCH & SCROLL CONTROLS
-===================================================== */
-
-let touchStartY = 0;
-let touchEndY = 0;
-
-document.addEventListener("touchstart", function(event){
-if(event.touches && event.touches.length){
-touchStartY = event.touches[0].clientY;
-}
-}, {passive:true});
-
-document.addEventListener("touchend", function(event){
-if(!event.changedTouches || !event.changedTouches.length){
-return;
-}
-touchEndY = event.changedTouches[0].clientY;
-handleSwipe();
-}, {passive:true});
-
-function handleSwipe(){
-const distance = touchStartY - touchEndY;
-if(Math.abs(distance) < 60){
-return;
-}
-if(distance > 0){
-showNextMedia();
-}
-else{
-showPreviousMedia();
-}
-}
-
-
-let wheelLocked = false;
-
-document.addEventListener("wheel", function(event){
-if(mediaCollection.length <= 1 || wheelLocked){
-return;
-}
-if(Math.abs(event.deltaY) < 25){
-return;
-}
-wheelLocked = true;
-
-if(event.deltaY > 0){
-showNextMedia();
-}
-else{
-showPreviousMedia();
-}
-
-setTimeout(function(){
-wheelLocked = false;
-}, 500);
-
-}, {passive:true});
-
-
-document.addEventListener("keydown", function(event){
-if(event.key === "ArrowDown"){
-showNextMedia();
-}
-if(event.key === "ArrowUp"){
-showPreviousMedia();
-}
-});
-
-
-/* =====================================================
-   SIMILAR MEDIA CARD
-===================================================== */
-
-function createSimilarCard(item){
-
-const card = document.createElement("a");
-
-card.className = "similar-card";
-
-card.href = mediaPageUrl(item);
-
-const thumb = document.createElement("div");
-
-thumb.className = "similar-thumb";
-
-if(item.type === "image"){
-const img = document.createElement("img");
-img.src = item.url;
-img.alt = cleanName(item.name);
-img.loading = "lazy";
-thumb.appendChild(img);
-}
-else if(item.type === "video"){
-if(item.thumbnail){
-const img = document.createElement("img");
-img.src = item.thumbnail;
-img.alt = cleanName(item.name);
-img.loading = "lazy";
-thumb.appendChild(img);
-}
-else{
-const vid = document.createElement("video");
-vid.src = item.url;
-vid.muted = true;
-vid.playsInline = true;
-vid.autoplay = true;
-vid.loop = true;
-vid.controls = false;
-vid.preload = "metadata";
-thumb.appendChild(vid);
-}
-}
-
-const name = document.createElement("div");
-name.className = "similar-name";
-name.textContent = cleanName(item.name);
-
-const date = document.createElement("div");
-date.className = "similar-date";
-if(item.date){
-date.textContent = "Uploaded: " + formatDate(item.date);
-}
-
-card.appendChild(thumb);
-card.appendChild(name);
-card.appendChild(date);
-
-return card;
-
-}
-
-
-function mediaPageUrl(item){
-
-return (
-"media.html?url=" + encodeURIComponent(item.url) +
-"&name=" + encodeURIComponent(item.name || "") +
-"&mime=" + encodeURIComponent(item.mime || "") +
-"&date=" + encodeURIComponent(item.date || "")
-);
-
-}
-
-
-function renderSimilarMedia(item){
-
-similarGrid.innerHTML = "";
-
-if(item.type !== "video" && item.type !== "image"){
-similarSection.style.display = "none";
-return;
-}
-
-const similar = mediaCollection.filter(candidate => {
-return candidate.url !== item.url && candidate.type === item.type;
-}).slice(0, 8);
-
-if(!similar.length){
-similarSection.style.display = "none";
-return;
-}
-
-if(item.type === "video"){
-similarTitle.textContent = "Similar Videos";
-}
-else{
-similarTitle.textContent = "Similar Photos";
-}
-
-for(const candidate of similar){
-similarGrid.appendChild(createSimilarCard(candidate));
-}
-
-similarSection.style.display = "block";
-
-}
-
-
-/* =====================================================
-   LOAD SUPABASE MEDIA
-===================================================== */
-
-async function loadSupabaseMedia(){
-
-try{
-
-const result = await db
-.from("artist_submissions")
-.select("*")
-.eq("status", "approved");
-
-if(result.error){
-console.error(result.error);
-return [];
-}
-
-const rows = result.data || [];
-
-const resultItems = [];
-
-for(const row of rows){
-
-const files = Array.isArray(row.files) ? row.files : [];
-
-files.forEach(f => {
-
-const url = f.url;
-
-if(!url){
-return;
-}
-
-const name = f.name || f.original_name || filenameFromPath(url) || "Media";
-
-let type = String(f.type || "").toLowerCase();
-
-if(type === "photo"){
-type = "image";
-}
-
-if(!type){
-type = mediaType(name, "");
-}
-
-if(type !== "image" && type !== "video"){
-return;
-}
-
-resultItems.push({
-type:type,
-name:name,
-url:url,
-mime:"",
-date:row.posted_at || row.created_at || "",
-thumbnail:f.thumbnail || ""
-});
-
-});
-
-}
-
-return resultItems;
-
-}
-catch(error){
-console.error("Supabase media error:", error);
-return [];
-}
-
-}
-
-
-function removeDuplicateMedia(items){
-
-const seen = new Set();
-
-return items.filter(item => {
-const key = String(item.url || "");
-if(seen.has(key)){
-return false;
-}
-seen.add(key);
-return true;
-});
-
-}
-
-
-function findCurrentMediaIndex(){
-
-if(!currentMedia.url){
-return -1;
-}
-
-return mediaCollection.findIndex(item => item.url === currentMedia.url);
-
-}
-
-
-async function loadRelatedMedia(){
-
-try{
-
-const supabaseItems = await loadSupabaseMedia();
-
-mediaCollection = removeDuplicateMedia(supabaseItems);
-
-currentMediaIndex = findCurrentMediaIndex();
-
-if(currentMediaIndex < 0 && currentMedia.url){
-mediaCollection.unshift(currentMedia);
-currentMediaIndex = 0;
-}
-
-if(currentMediaIndex >= 0){
-updateNavigationButtons();
-renderSimilarMedia(currentMedia);
-}
-
-}
-catch(error){
-console.error("Related media error:", error);
-}
-
-}
-
-
-function loadDirectMedia(){
-
-if(!directUrl){
-return false;
-}
-
-const filename = suppliedName || filenameFromPath(directUrl);
-
-const mime = suppliedMime || "";
-
-const suppliedDate = params.get("date") || "";
-
-const type = mediaType(filename, mime);
-
-if(!type){
-showError("❌ Unsupported media format.");
-return true;
-}
-
-const item = {
-type:type,
-name:filename,
-url:directUrl,
-mime:mime,
-date:suppliedDate
-};
-
-renderMedia(item);
-
-loadRelatedMedia();
-
-return true;
-
-}
-
-
-async function loadSupabaseSong(){
-
-if(!id){
-return;
-}
-
-try{
-
-const result = await db
-.from("artist_submissions")
-.select("*")
-.eq("id", id)
-.single();
-
-const data = result.data;
-
-if(result.error || !data){
-showError("❌ The song could not be loaded.");
-return;
-}
-
-hideAllMedia();
-
-mediaTitle.style.display = "none";
-
-songMeta.style.display = "flex";
-
-mediaInformation.style.display = "block";
-
-mediaName.textContent = data.artist_name || "Untitled Song";
-
-if(data.posted_at){
-mediaDate.textContent = "Uploaded: " + formatDate(data.posted_at);
-}
-else{
-mediaDate.textContent = "";
-}
-
-songTitle.textContent = data.song_title || data.artist_name || "Untitled Song";
-
-artist.textContent = data.artist_name || "Ning Wei Media";
-
-if(data.cover_photo_url){
-cover.src = data.cover_photo_url;
-}
-
-const files = Array.isArray(data.files) ? data.files : [];
-
-const songUrl = files.length > 0 ? files[0].url : "";
-
-if(!songUrl){
-showError("❌ No media URL was found for this submission.");
-return;
-}
-
-const filename = filenameFromPath(songUrl);
-
-const type = mediaType(filename, "");
-
-if(type === "video"){
-
-videoBox.style.display = "block";
-
-setVideoSource(songUrl, filename, "");
-
-videoFormatNote.style.display = "block";
-
-video.onerror = function(){
-showError("❌ This video format cannot be played by your browser. The original file is still available for download.");
-};
-
-}
-else if(type === "image"){
-
-imageBox.style.display = "block";
-
-mediaImage.src = songUrl;
-
-mediaImage.onclick = function(){
-mediaImage.classList.toggle("zoomed");
-};
-
-}
-else{
-
-audioBox.style.display = "block";
-
-const audioMime = audioMimeType(filename, "");
-
-if(audioMime){
-audio.setAttribute("type", audioMime);
-}
-
-audio.src = songUrl;
-
-audio.load();
-
-audio.onerror = function(){
-showError("❌ This audio file could not be played by your browser.");
-};
-
-}
-
-download.href = songUrl;
-
-download.textContent = downloadLabel(filename, type || "audio");
-
-download.setAttribute("download", filename || "ning-wei-song");
-
-shareButton.onclick = function(){
-shareMedia(window.location.href, data.song_title || "Ning Wei Media");
-};
-
-actions.style.display = "flex";
-
-statusBox.style.display = "none";
-
-document.title = (data.song_title || "Ning Wei Media") + " - Ning Wei Media";
-
-}
-catch(error){
-console.error(error);
-showError("❌ Something went wrong while loading the media.");
-}
-
-}
-
-
-async function shareMedia(url, title){
-
-try{
-
-if(navigator.share){
-await navigator.share({
-title:title,
-text:"Ning Wei Media",
-url:url
-});
-return;
-}
-
-if(navigator.clipboard){
-await navigator.clipboard.writeText(url);
-alert("Link copied.");
-return;
-}
-
-prompt("Copy this link:", url);
-
-}
-catch(error){
-console.log(error);
-}
-
-}
-
-
-async function start(){
-
-if(id){
-await loadSupabaseSong();
-return;
-}
-
-const loaded = loadDirectMedia();
-
-if(!loaded){
-showError("❌ No media file selected.");
-}
-
-}
-
-start();
-
-</script>
-
-</body>
-
-</html>
+previousButton.style.opacity = "
