@@ -238,13 +238,33 @@ function initMoreButtons() {
 const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
 
-function isImage(str) { return /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(str || ''); }
+function isImage(str) { return /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(str || ''); }
 function isVideo(str) { return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(str || ''); }
+
+function escAttr(s) {
+  return String(s ?? '').replace(/[&<>"']/g,
+    c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* Phase 1: build a deep-link to library.html so cards open the inline player
+   instead of a raw file in a new tab. */
+function buildPlayerLink(item) {
+  const folder = escAttr(item.folder || '');
+  const url    = encodeURIComponent(item.url);
+  const name   = encodeURIComponent(item.title || '');
+  const type   = item.kind; // 'video' | 'image'
+  return `library.html?folder=${folder}&url=${url}&name=${name}&type=${type}`;
+}
 
 async function loadUploadedContent() {
   if (!window.supabase) return;
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  const { data, error } = await db.from('artist_submissions').select('*');
+
+  /* Phase 1: B11 — newest-first ordering */
+  const { data, error } = await db
+    .from('artist_submissions')
+    .select('*')
+    .order('created_at', { ascending: false });
 
   if (error || !data) {
     console.error(error);
@@ -280,25 +300,26 @@ async function loadUploadedContent() {
       const url  = f.url || '';
       const type = (f.type || f.category || '').toLowerCase();
       const title = f.original_name || f.name || row.artist_name || 'Media';
+      const folder = f.category || '';
 
       if (!url) return;
 
       if (isVideo(name) || isVideo(url) || type.includes('video')) {
-        videoItems.push({ title, url });
+        videoItems.push({ title, url, folder, kind: 'video' });
       }
       else if (isImage(name) || isImage(url) || type.includes('photo') || type.includes('image') || type.includes('cover') || type.includes('profile') || type === 'photo') {
-        photoItems.push({ title, url });
+        photoItems.push({ title, url, folder, kind: 'image' });
       }
     });
   });
 
-  // Videos
+  // Videos — Phase 1 B9: link to library.html inline player, NOT raw file
   if (videoGrid) {
     if (videoItems.length > 0) {
-      videoGrid.innerHTML = videoItems.map(item => 
-        `<a class="media-card" href="${item.url}" target="_blank">
-          <video class="media-preview" src="${item.url}#t=0.5" preload="metadata" muted></video>
-          <div class="media-title">${item.title}</div>
+      videoGrid.innerHTML = videoItems.map(item =>
+        `<a class="media-card" href="${buildPlayerLink(item)}">
+          <video class="media-preview" src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>
+          <div class="media-title">${escAttr(item.title)}</div>
         </a>`
       ).join('');
     } else {
@@ -306,13 +327,13 @@ async function loadUploadedContent() {
     }
   }
 
-  // Photos
+  // Photos — Phase 1 B10: link to library.html inline player, NOT raw file
   if (photoGrid) {
     if (photoItems.length > 0) {
-      photoGrid.innerHTML = photoItems.map(item => 
-        `<a class="media-card" href="${item.url}" target="_blank">
-          <img class="media-preview" src="${item.url}" alt="${item.title}" loading="lazy">
-          <div class="media-title">${item.title}</div>
+      photoGrid.innerHTML = photoItems.map(item =>
+        `<a class="media-card" href="${buildPlayerLink(item)}">
+          <img class="media-preview" src="${escAttr(item.url)}" alt="${escAttr(item.title)}" loading="lazy">
+          <div class="media-title">${escAttr(item.title)}</div>
         </a>`
       ).join('');
     } else {
