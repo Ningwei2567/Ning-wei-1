@@ -40,7 +40,7 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
 .media-title{font-size:9.5px;font-weight:bold;text-align:center;padding:4px 2px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
 
 .more-wrap{display:flex;justify-content:center;margin:6px 0 0;}
-.more-btn{border:1px solid #ddd;background:#fff;color:#111;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.3px;padding:4px 16px;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;}
+.more-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ddd;background:#fff;color:#111;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.3px;padding:4px 16px;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;text-decoration:none;}
 .more-btn:active{transform:scale(.96);}
 .tile.is-hidden, .media-card.is-hidden{display:none !important;}
 .section.open .tile.is-hidden, .section.open .media-card.is-hidden{display:flex !important;}
@@ -172,13 +172,13 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
 <section class="section" data-show="8" data-label="Videos">
   <h2>🎬 Trending Videos</h2>
   <div class="grid grid-4" id="videoGrid"></div>
-  <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
+  <div class="more-wrap"><a class="more-btn" href="library.html?folder=videos">More Videos →</a></div>
 </section>
 
 <section class="section" data-show="8" data-label="Photos">
   <h2>📸 Trending Photos &amp; Jokes</h2>
   <div class="grid grid-4" id="photoGrid"></div>
-  <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
+  <div class="more-wrap"><a class="more-btn" href="library.html?folder=photos">More Photos →</a></div>
 </section>
 
 <section class="section" data-show="6" data-label="Apps">
@@ -286,11 +286,19 @@ function initMoreButtons() {
     }
     if (wrap) wrap.style.display = 'flex';
 
+    // Always hide items beyond the limit on the homepage
     items.forEach(function(item, i){
       if (i >= limit) item.classList.add('is-hidden');
       else item.classList.remove('is-hidden');
     });
 
+    // If the control is a link (Videos / Photos), do NOT expand on page —
+    // it already navigates to the full library folder.
+    if (btn.tagName === 'A' && btn.getAttribute('href')) {
+      return;
+    }
+
+    // Category tiles (Music, Apps, Software, DJ Mixes) still expand/collapse
     var newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
     newBtn.addEventListener('click', function(){
@@ -331,11 +339,22 @@ function timeAgo(iso) {
 }
 
 function buildPlayerLink(item) {
-  const folder = escAttr(item.folder || '');
-  const url    = encodeURIComponent(item.url);
-  const name   = encodeURIComponent(item.title || '');
-  const type   = item.kind || '';
-  return `library.html?folder=${folder}&url=${url}&name=${name}&type=${type}`;
+  // Prefer the real category. If missing, fall back to a sensible type folder
+  // so the item opens in the correct "lane" (videos / photos / music / apps).
+  let folder = item.folder || '';
+  if (!folder) {
+    if (item.kind === 'video') folder = 'videos';
+    else if (item.kind === 'image') folder = 'photos';
+    else if (item.kind === 'audio') folder = 'music';
+    else if (item.kind === 'app') folder = 'apps';
+  }
+  // Convert spaces to hyphens so it matches library folder style
+  folder = String(folder).trim().replace(/\s+/g, '-');
+
+  const url  = encodeURIComponent(item.url);
+  const name = encodeURIComponent(item.title || '');
+  const type = item.kind || '';
+  return `library.html?folder=${escAttr(folder)}&url=${url}&name=${name}&type=${type}`;
 }
 
 function makeStripCard(item, metaText) {
