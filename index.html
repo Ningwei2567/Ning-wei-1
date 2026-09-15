@@ -58,6 +58,53 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
 .social a{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#000;}
 .social img{width:22px;height:22px;}
 .footer{padding:18px 15px;text-align:center;font-size:12px;color:#777;}
+
+/* Just Added + Most Popular strips */
+.strip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.strip-header h2{margin:0;font-size:20px;font-weight:800;}
+.see-all{font-size:13px;font-weight:700;color:#55bfe8;}
+.h-scroll{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:6px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.h-scroll::-webkit-scrollbar{display:none;}
+.strip-card{
+  flex:0 0 110px;
+  width:110px;
+  background:#fff;
+  border:1px solid #e2e2e2;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+  display:flex;
+  flex-direction:column;
+}
+.strip-card .thumb{
+  width:100%;
+  height:78px;
+  object-fit:cover;
+  background:#111;
+  display:block;
+}
+.strip-card .strip-title{
+  font-size:10px;
+  font-weight:700;
+  text-align:center;
+  padding:4px 4px 0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.strip-card .strip-meta{
+  font-size:9px;
+  color:#888;
+  text-align:center;
+  padding:2px 4px 5px;
+}
 </style>
 </head>
 <body>
@@ -81,6 +128,24 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
     <span>🎵 Artists, upload your music here</span>
     <span class="upload-button-description">Submit your Music, Videos, Apps & Files</span>
   </a>
+</section>
+
+<!-- 🆕 Just Added -->
+<section class="section just-added-section" id="justAddedSection" style="display:none;">
+  <div class="strip-header">
+    <h2>🆕 Just Added</h2>
+    <a href="library.html?folder=recent" class="see-all">See all →</a>
+  </div>
+  <div class="h-scroll" id="justAddedStrip"></div>
+</section>
+
+<!-- 🔥 Most Popular -->
+<section class="section most-popular-section" id="mostPopularSection" style="display:none;">
+  <div class="strip-header">
+    <h2>🔥 Most Popular</h2>
+    <a href="library.html?folder=popular" class="see-all">See all →</a>
+  </div>
+  <div class="h-scroll" id="mostPopularStrip"></div>
 </section>
 
 <section class="section" data-show="6" data-label="Music">
@@ -240,27 +305,61 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 function isImage(str) { return /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(str || ''); }
 function isVideo(str) { return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(str || ''); }
+function isAudio(str) { return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(str || ''); }
+function isApp(str)   { return /\.(apk|exe|zip|rar|7z|dmg|pkg|xapk|apks)(\?.*)?$/i.test(str || ''); }
 
 function escAttr(s) {
   return String(s ?? '').replace(/[&<>"']/g,
     c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-/* Phase 1: build a deep-link to library.html so cards open the inline player
-   instead of a raw file in a new tab. */
+function timeAgo(iso) {
+  if (!iso) return '';
+  try {
+    const seconds = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+    if (seconds < 60) return 'Just now';
+    const mins = Math.floor(seconds / 60);
+    if (mins < 60) return mins + 'm ago';
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return hours + 'h ago';
+    const days = Math.floor(hours / 24);
+    if (days < 30) return days + 'd ago';
+    const months = Math.floor(days / 30);
+    if (months < 12) return months + 'mo ago';
+    return Math.floor(months / 12) + 'y ago';
+  } catch { return ''; }
+}
+
 function buildPlayerLink(item) {
   const folder = escAttr(item.folder || '');
   const url    = encodeURIComponent(item.url);
   const name   = encodeURIComponent(item.title || '');
-  const type   = item.kind; // 'video' | 'image'
+  const type   = item.kind || '';
   return `library.html?folder=${folder}&url=${url}&name=${name}&type=${type}`;
+}
+
+function makeStripCard(item, metaText) {
+  let thumb = '';
+  if (item.kind === 'video') {
+    thumb = `<video class="thumb" src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>`;
+  } else if (item.kind === 'image') {
+    thumb = `<img class="thumb" src="${escAttr(item.url)}" alt="" loading="lazy">`;
+  } else if (item.kind === 'audio') {
+    thumb = `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:28px;background:#111;color:#55bfe8;">🎵</div>`;
+  } else {
+    thumb = `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:28px;background:#111;color:#55bfe8;">📦</div>`;
+  }
+  return `<a class="strip-card" href="${buildPlayerLink(item)}">
+    ${thumb}
+    <div class="strip-title">${escAttr(item.title)}</div>
+    <div class="strip-meta">${escAttr(metaText)}</div>
+  </a>`;
 }
 
 async function loadUploadedContent() {
   if (!window.supabase) return;
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  /* Phase 1: B11 — newest-first ordering */
   const { data, error } = await db
     .from('artist_submissions')
     .select('*')
@@ -275,11 +374,11 @@ async function loadUploadedContent() {
   const photoGrid = document.getElementById('photoGrid');
   const videoItems = [];
   const photoItems = [];
+  const allMedia = [];   // for Just Added + Most Popular
 
   data.forEach(row => {
     if (row.status && row.status.toLowerCase() !== 'approved') return;
 
-    // Support both formats: array and object
     let fileList = [];
     if (Array.isArray(row.files)) {
       fileList = row.files;
@@ -295,25 +394,39 @@ async function loadUploadedContent() {
       });
     }
 
+    const isoDate = row.created_at || row.posted_at || '';
+
     fileList.forEach(f => {
       const name = (f.original_name || f.name || '').toLowerCase();
       const url  = f.url || '';
       const type = (f.type || f.category || '').toLowerCase();
       const title = f.original_name || f.name || row.artist_name || 'Media';
       const folder = f.category || '';
+      const views = Number(f.views || 0);
+      const downloads = Number(f.downloads || 0);
 
       if (!url) return;
 
-      if (isVideo(name) || isVideo(url) || type.includes('video')) {
-        videoItems.push({ title, url, folder, kind: 'video' });
-      }
-      else if (isImage(name) || isImage(url) || type.includes('photo') || type.includes('image') || type.includes('cover') || type.includes('profile') || type === 'photo') {
-        photoItems.push({ title, url, folder, kind: 'image' });
-      }
+      // Skip pure cover / profile images for the strips
+      if (type === 'cover' || type === 'profile') return;
+
+      let kind = 'file';
+      if (isVideo(name) || isVideo(url) || type.includes('video')) kind = 'video';
+      else if (isImage(name) || isImage(url) || type.includes('photo') || type.includes('image')) kind = 'image';
+      else if (isAudio(name) || isAudio(url) || type.includes('audio') || type === 'music') kind = 'audio';
+      else if (isApp(name) || isApp(url) || type.includes('app') || type.includes('software')) kind = 'app';
+
+      const item = { title, url, folder, kind, views, downloads, isoDate };
+
+      if (kind === 'video') videoItems.push(item);
+      if (kind === 'image') photoItems.push(item);
+
+      // Everything goes into the mixed strips
+      allMedia.push(item);
     });
   });
 
-  // Videos — Phase 1 B9: link to library.html inline player, NOT raw file
+  // ===== Trending Videos =====
   if (videoGrid) {
     if (videoItems.length > 0) {
       videoGrid.innerHTML = videoItems.map(item =>
@@ -327,7 +440,7 @@ async function loadUploadedContent() {
     }
   }
 
-  // Photos — Phase 1 B10: link to library.html inline player, NOT raw file
+  // ===== Trending Photos =====
   if (photoGrid) {
     if (photoItems.length > 0) {
       photoGrid.innerHTML = photoItems.map(item =>
@@ -338,6 +451,47 @@ async function loadUploadedContent() {
       ).join('');
     } else {
       photoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending photos found.</p>';
+    }
+  }
+
+  // ===== 🆕 Just Added (newest first) =====
+  const justAddedSection = document.getElementById('justAddedSection');
+  const justAddedStrip = document.getElementById('justAddedStrip');
+  if (justAddedStrip) {
+    const recent = allMedia
+      .slice()
+      .sort((a, b) => {
+        const ta = a.isoDate ? new Date(a.isoDate).getTime() : 0;
+        const tb = b.isoDate ? new Date(b.isoDate).getTime() : 0;
+        return tb - ta;
+      })
+      .slice(0, 12);
+
+    if (recent.length) {
+      justAddedStrip.innerHTML = recent.map(item =>
+        makeStripCard(item, timeAgo(item.isoDate) || 'New')
+      ).join('');
+      if (justAddedSection) justAddedSection.style.display = 'block';
+    }
+  }
+
+  // ===== 🔥 Most Popular (by views + downloads) =====
+  const mostPopularSection = document.getElementById('mostPopularSection');
+  const mostPopularStrip = document.getElementById('mostPopularStrip');
+  if (mostPopularStrip) {
+    const popular = allMedia
+      .slice()
+      .filter(item => (item.views + item.downloads) > 0)
+      .sort((a, b) => (b.views + b.downloads) - (a.views + a.downloads))
+      .slice(0, 12);
+
+    if (popular.length) {
+      mostPopularStrip.innerHTML = popular.map(item => {
+        const score = item.views + item.downloads;
+        const label = score === 1 ? '1 play' : score + ' plays';
+        return makeStripCard(item, label);
+      }).join('');
+      if (mostPopularSection) mostPopularSection.style.display = 'block';
     }
   }
 
