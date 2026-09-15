@@ -6,6 +6,10 @@
 <title>Ning Wei Media - Library</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+/* ============================================================
+ * library.html — Phase 1 modified
+ * Original kept intact; Phase 1 fixes appended below.
+ * ============================================================ */
 *{box-sizing:border-box;}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#fff;}
 .container{width:100%;max-width:600px;margin:auto;padding-bottom:30px;}
@@ -18,7 +22,11 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#f
 body.admin-mode .bulk-action-bar{display:flex;}
 .bulk-del-btn{background:#d32f2f;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;}
 
-/* Inline media stage with prev/next arrows */
+/* ============================================================
+ * PHASE 1 CHANGES — main media stage
+ * - Inline (not fullscreen) so prev/next + swipe is possible
+ * - Position-relative wrapper for arrows
+ * ============================================================ */
 .main-player-wrap{
   width:100%;
   background:#000;
@@ -31,6 +39,7 @@ body.admin-mode .bulk-action-bar{display:flex;}
 video.full-media, img.full-media{width:100%;max-height:80vh;object-fit:contain;outline:none;display:block;}
 audio.full-media{width:100%;outline:none;display:block;}
 
+/* Phase 1: prev/next arrows */
 .nav-arrow{
   position:absolute;
   top:50%;
@@ -53,7 +62,7 @@ audio.full-media{width:100%;outline:none;display:block;}
 body.has-media .nav-arrow{display:flex;align-items:center;justify-content:center;}
 .nav-arrow:disabled{opacity:.25;cursor:not-allowed;}
 
-/* Audio player with cover art fallback chain */
+/* Phase 1: audio player with cover art fallback chain */
 .audio-player-card{
   width:100%;
   display:flex;
@@ -84,7 +93,9 @@ body.has-media .nav-arrow{display:flex;align-items:center;justify-content:center
 .audio-meta .audio-artist{font-size:12px;color:#aaa;margin-bottom:8px;}
 .audio-meta audio.full-media{width:100%;}
 
-/* App/software detail card */
+/* ============================================================
+ * PHASE 1: app/software detail card
+ * ============================================================ */
 .app-card{
   width:100%;
   display:flex;
@@ -122,10 +133,15 @@ body.has-media .nav-arrow{display:flex;align-items:center;justify-content:center
 .related-header h3{margin:0;font-size:16px;font-weight:bold;color:#fff;text-transform:capitalize;}
 .toggle-icon{background:#e50914;color:#fff;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:12px;}
 
-/* Render rules */
+/* ============================================================
+ * PHASE 1: render rules
+ * - Photos / videos  → 2-col grid (.related-grid, kept as-is)
+ * - Songs / apps     → vertical list (.related-list)
+ * ============================================================ */
 .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:12px 16px;}
 .related-list{display:flex;flex-direction:column;gap:8px;padding:12px 16px;}
 
+/* Phase 1: date group heading */
 .date-heading{
   font-size:11px;
   color:#888;
@@ -140,7 +156,7 @@ body.has-media .nav-arrow{display:flex;align-items:center;justify-content:center
 .related-card{position:relative;background:#161616;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;height:190px;justify-content:center;align-items:center;}
 .related-card video, .related-card img{width:100%;height:100%;object-fit:cover;background:#000;display:block;}
 
-/* List-row style for songs/apps */
+/* Phase 1: list-row style for songs/apps */
 .related-list-item{
   display:flex;
   align-items:center;
@@ -191,8 +207,41 @@ body.has-media .nav-arrow{display:flex;align-items:center;justify-content:center
   text-overflow:ellipsis;
   white-space:nowrap;
 }
+.related-list-item .info .list-meta{
+  font-size:11px;
+  color:#888;
+  margin-top:3px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.related-list-item .info .list-meta .dot{opacity:.5;}
 .related-list-item .check-wrap{display:none;}
 body.admin-mode .related-list-item .check-wrap{display:block;}
+
+/* Meta under grid cards (photos / videos) */
+.related-card .card-caption{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  background:linear-gradient(transparent, rgba(0,0,0,.85));
+  padding:18px 8px 6px;
+  text-align:center;
+  pointer-events:none;
+}
+.related-card .card-caption .card-title{
+  font-size:11px;
+  font-weight:600;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-bottom:2px;
+}
+.related-card .card-caption .media-meta{
+  font-size:10px;
+  color:#aaa;
+  font-weight:500;
+}
 
 .related-card-software{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#aaa;font-size:12px;text-align:center;padding:10px;gap:5px;}
 .related-card-software span{font-size:28px;}
@@ -206,29 +255,6 @@ body.admin-mode .card-checkbox{display:block;}
 .modal-btn{padding:8px 16px;font-size:13px;font-weight:bold;border-radius:6px;border:none;cursor:pointer;}
 .modal-btn.cancel{background:#333;color:#fff;}
 .modal-btn.confirm{background:#e50914;color:#fff;}
-
-/* Loading skeleton */
-.skeleton-card{
-  background:#161616;
-  border-radius:8px;
-  height:190px;
-  position:relative;
-  overflow:hidden;
-}
-.skeleton-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.04) 50%,transparent 100%);
-  animation:shimmer 1.5s infinite;
-}
-@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-
-/* Broken media state */
-.broken{
-  opacity:.25;
-  filter:blur(4px) grayscale(1);
-}
 </style>
 </head>
 <body>
@@ -243,6 +269,7 @@ body.admin-mode .card-checkbox{display:block;}
     <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
   </div>
 
+  <!-- Phase 1: inline media stage with prev/next arrows -->
   <div class="main-player-wrap" id="mainMediaContainer">
     <button class="nav-arrow prev" id="prevBtn" aria-label="Previous">‹</button>
     <button class="nav-arrow next" id="nextBtn" aria-label="Next">›</button>
@@ -263,6 +290,7 @@ body.admin-mode .card-checkbox{display:block;}
   </div>
 
   <div class="related-header">
+    <!-- Phase 1: dynamic "Related <Folder Name>" -->
     <h3 id="relatedHeaderTitle">Items</h3>
     <div class="toggle-icon">▲</div>
   </div>
@@ -284,21 +312,12 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 let db = null;
 
 /* ============================================================
- * library.html — Modified version
- * Changes vs. original:
- *   - Swipe gesture now respects media controls (won't fire on buttons/video/audio)
- *   - Keyboard listener uses a guard to prevent duplicate bindings
- *   - Empty related-state handled with friendly message
- *   - Added loading skeletons while data is fetched
- *   - Added broken-image fallback for missing media
- *   - Admin mode + bulk delete preserved (you still need to moderate)
- *   - Auto-approve from upload.html flows through (status filter stays)
+ * Phase 1: state + helpers
  * ============================================================ */
-
-let allItems = [];
-let currentIndex = -1;
-let currentFolder = '';
-let requestedUrl = '';
+let allItems = [];            // current folder's items (flat list, mixed types)
+let currentIndex = -1;        // index of currently playing item in allItems
+let currentFolder = '';       // current folder name (lowercase, normalized)
+let requestedUrl = '';        // ?url=... from deep-link
 let requestedName = '';
 let requestedType = '';
 
@@ -323,13 +342,14 @@ function toggleAdminMode() {
 }
 function isImage(s){ return /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(s||''); }
 function isVideo(s){ return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(s||''); }
-function isAudio(s){ return /\.(mp3|wav|aac|m4a|flac|ogg|oga|opus|wma|aiff|aif|m4b)(\?.*)?$/i.test(s||''); }
-function isApp(s)  { return /\.(apk|exe|zip|rar|7z|dmg|pkg|apks|apkm|xapk|ipa|iso|msi|deb|rpm)(\?.*)?$/i.test(s||''); }
+function isAudio(s){ return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(s||''); }
+function isApp(s)  { return /\.(apk|exe|zip|rar|7z|dmg|pkg|apks|apkm|xapk)(\?.*)?$/i.test(s||''); }
 
 function norm(s) {
   return (s || '').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]/g,'');
 }
 
+/* Phase 1: detect type with app/software fallback */
 function detectType(url, name) {
   if (isApp(url) || isApp(name))   return 'app';
   if (isVideo(url))                return 'video';
@@ -338,6 +358,7 @@ function detectType(url, name) {
   return 'file';
 }
 
+/* Phase 1: cover art fallback chain */
 function resolveCover(item) {
   return item.cover_url || item.artist_cover || item.profile_pic || item.avatar || '';
 }
@@ -352,7 +373,44 @@ function formatDayKey(iso) {
   if (!iso) return 'unknown';
   try { return new Date(iso).toISOString().slice(0,10); } catch { return 'unknown'; }
 }
+function humanSize(bytes) {
+  if (!bytes || bytes <= 0) return '—';
+  const units = ['B','KB','MB','GB','TB'];
+  let i = 0, n = Number(bytes);
+  while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
+  return (n >= 10 || i === 0 ? Math.round(n) : n.toFixed(1)) + ' ' + units[i];
+}
+function timeAgo(iso) {
+  if (!iso) return '—';
+  try {
+    const seconds = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+    if (seconds < 30) return 'Just now';
+    if (seconds < 60) return seconds + 's ago';
+    const mins = Math.floor(seconds / 60);
+    if (mins < 60) return mins + 'm ago';
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return hours + 'h ago';
+    const days = Math.floor(hours / 24);
+    if (days < 30) return days + 'd ago';
+    const months = Math.floor(days / 30);
+    if (months < 12) return months + 'mo ago';
+    return Math.floor(months / 12) + 'y ago';
+  } catch {
+    return '—';
+  }
+}
 
+/* ============================================================
+ * Phase 1: initLibrary — rewritten to:
+ *   - remove photo/video exclusion
+ *   - replace isSoftware regex with real file type
+ *   - include photos, videos, audio, AND apps in folders
+ *   - sort newest-first
+ *   - group by date heading
+ *   - separate render: grid for media, list for songs/apps
+ *   - dynamic "Related <Folder Name>" header
+ *   - prev/next + swipe in inline player
+ * ============================================================ */
 async function initLibrary() {
   const params = new URLSearchParams(location.search);
   const folder = params.get('folder') || params.get('category') || '';
@@ -363,12 +421,9 @@ async function initLibrary() {
   const displayName = folder.replace(/-/g, ' ');
   currentFolder = folder.toLowerCase();
   document.getElementById('folderName').textContent = displayName || 'Library';
+  // Phase 1 fix: dynamic "Related <Folder Name>"
   document.getElementById('relatedHeaderTitle').textContent =
     displayName ? `Related ${displayName}` : 'Items';
-
-  /* Loading skeleton while data fetches */
-  const grid = document.getElementById('relatedGrid');
-  grid.innerHTML = '<div class="skeleton-card"></div><div class="skeleton-card"></div>';
 
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data, error } = await db.from('artist_submissions').select('*');
@@ -405,7 +460,9 @@ async function initLibrary() {
       const cat  = norm(f.category || '');
       const type = (f.type || '').toLowerCase();
 
+      // ========== MATCHING (Phase 1: photos & videos now INCLUDED) ==========
       let match = false;
+
       if (!folder) {
         match = true;
       } else if (cat) {
@@ -416,6 +473,7 @@ async function initLibrary() {
 
       if (!match) return;
 
+      // Phase 1: real type detection (replaces hard-coded isSoftware regex)
       const detected = detectType(url, name);
       const isSoftware = (detected === 'app')
         || type === 'apk' || type === 'software' || type === 'app'
@@ -436,11 +494,13 @@ async function initLibrary() {
         date: dateStr,
         isoDate: isoDate,
         description: row.description || '',
-        category: f.category || ''
+        category: f.category || '',
+        size: f.size || 0
       });
     });
   });
 
+  // Phase 1: newest-first sort
   allItems.sort((a, b) => {
     const ta = a.isoDate ? new Date(a.isoDate).getTime() : 0;
     const tb = b.isoDate ? new Date(b.isoDate).getTime() : 0;
@@ -450,6 +510,7 @@ async function initLibrary() {
   renderRelated();
   attachPlayerNav();
 
+  // Phase 1: deep-link support (?url=... opens directly)
   if (requestedUrl) {
     const idx = allItems.findIndex(i => i.url === requestedUrl);
     if (idx >= 0) {
@@ -460,6 +521,14 @@ async function initLibrary() {
   }
 }
 
+/* ============================================================
+ * Phase 1: renderRelated
+ *   - Grid for photos & videos
+ *   - Vertical list for songs & apps
+ *   - Grouped by date heading
+ *   - Excludes currently playing item
+ *   - Prefers same category first
+ * ============================================================ */
 function renderRelated() {
   const container = document.getElementById('relatedContainer');
   if (!allItems.length) {
@@ -467,6 +536,7 @@ function renderRelated() {
     return;
   }
 
+  // Exclude current item + prefer same category
   const related = allItems
     .filter(item => currentIndex < 0 || item.id !== allItems[currentIndex].id)
     .slice()
@@ -476,12 +546,7 @@ function renderRelated() {
       return aSame - bSame;
     });
 
-  /* Edge case: single item — friendly message */
-  if (!related.length) {
-    container.innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">No related items yet. Try another category!</p>';
-    return;
-  }
-
+  // Group by date
   const groups = {};
   related.forEach(item => {
     const key = formatDayKey(item.isoDate);
@@ -502,13 +567,19 @@ function renderRelated() {
         const originalIndex = allItems.indexOf(item);
         let preview = '';
         if (item.isImage) {
-          preview = `<img src="${escAttr(item.url)}" loading="lazy" onerror="this.classList.add('broken')">`;
+          preview = `<img src="${escAttr(item.url)}" loading="lazy">`;
         } else if (item.isVideo) {
           preview = `<video src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>`;
         }
+        const sizeStr = humanSize(item.size);
+        const agoStr = timeAgo(item.isoDate);
         html += `<div class="related-card" onclick="playMedia(${originalIndex})">
           <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
           ${preview}
+          <div class="card-caption">
+            <div class="card-title">${escHtml(item.title)}</div>
+            <div class="media-meta">${sizeStr} · ${agoStr}</div>
+          </div>
         </div>`;
       });
       html += '</div>';
@@ -525,12 +596,15 @@ function renderRelated() {
           ? `<img class="icon" src="${escAttr(cover)}" alt="" onerror="this.outerHTML='<div class=\\'icon-fallback\\'>${fallbackChar}</div>'">`
           : `<div class="icon-fallback">${fallbackChar}</div>`;
         const sub = `${escHtml(item.uploader)} · ${escHtml(item.date || '—')}`;
+        const sizeStr = humanSize(item.size);
+        const agoStr = timeAgo(item.isoDate);
         html += `<div class="related-list-item" onclick="playMedia(${originalIndex})">
           <div class="check-wrap"><input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()"></div>
           ${icon}
           <div class="info">
             <div class="name">${escHtml(item.title)}</div>
             <div class="sub">${sub}</div>
+            <div class="list-meta">${sizeStr}<span class="dot">•</span>${agoStr}</div>
           </div>
         </div>`;
       });
@@ -541,6 +615,13 @@ function renderRelated() {
   container.innerHTML = html;
 }
 
+/* ============================================================
+ * Phase 1: playMedia
+ *   - Inline stage (kept as-is from original behaviour)
+ *   - Audio now has cover art fallback chain
+ *   - Apps get a dedicated card UI
+ *   - Updates currentIndex, refreshes related lane
+ * ============================================================ */
 function playMedia(i) {
   const item = allItems[i];
   if (!item) return;
@@ -552,6 +633,7 @@ function playMedia(i) {
   document.body.classList.add('has-media');
 
   if (item.isApp) {
+    // Apps/software: dedicated card, not playable inline
     box.style.display = 'flex';
     const cover = resolveCover(item) || '';
     const icon = cover
@@ -571,7 +653,7 @@ function playMedia(i) {
   } else if (item.isImage) {
     box.style.display = 'flex';
     box.innerHTML = `
-      <img src="${escAttr(item.url)}" class="full-media" onerror="this.classList.add('broken')">
+      <img src="${escAttr(item.url)}" class="full-media">
       <button class="nav-arrow prev" id="prevBtn" aria-label="Previous" onclick="event.stopPropagation();navigateMedia(-1)">‹</button>
       <button class="nav-arrow next" id="nextBtn" aria-label="Next" onclick="event.stopPropagation();navigateMedia(1)">›</button>`;
   } else if (item.isVideo) {
@@ -582,6 +664,7 @@ function playMedia(i) {
       <button class="nav-arrow next" id="nextBtn" aria-label="Next" onclick="event.stopPropagation();navigateMedia(1)">›</button>`;
   } else if (item.isAudio) {
     box.style.display = 'flex';
+    // Phase 1: cover art fallback chain (cover → artist → placeholder)
     const cover = resolveCover(item) || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23222'/%3E%3Ctext x='50' y='62' font-size='52' text-anchor='middle' fill='%23e50914'%3E♪%3C/text%3E%3C/svg%3E";
     box.innerHTML = `
       <div class="audio-player-card">
@@ -609,54 +692,44 @@ function playMedia(i) {
   if (item.avatar) document.getElementById('artistAvatar').src = item.avatar;
   window.scrollTo({top:0, behavior:'smooth'});
 
+  // Phase 1: re-render related so the current item is excluded
   renderRelated();
 }
 
+/* ============================================================
+ * Phase 1: navigateMedia — prev/next in inline player
+ * ============================================================ */
 function navigateMedia(delta) {
   if (!allItems.length) return;
   const next = (currentIndex + delta + allItems.length) % allItems.length;
   playMedia(next);
 }
 
-/* Touch + keyboard navigation
- * - Single-binds to prevent duplicates
- * - Swipe won't trigger when touching buttons / video / audio */
+/* Phase 1: attach arrow + swipe handlers to the stage */
 function attachPlayerNav() {
+  const wrap = document.getElementById('mainMediaContainer');
+  // Avoid double-binding: clone to clear listeners
+  const fresh = wrap.cloneNode(true);
+  wrap.parentNode.replaceChild(fresh, wrap);
+
   const w = document.getElementById('mainMediaContainer');
-
-  /* Guard against double-binding */
-  if (w.__navAttached) return;
-  w.__navAttached = true;
-
   let tx = 0;
-  let swipeArmed = false;
-  w.addEventListener('touchstart', e => {
-    /* Don't hijack gestures from interactive controls */
-    if (e.target.closest('button, audio, video, input')) {
-      swipeArmed = false;
-      return;
-    }
-    swipeArmed = true;
-    tx = e.touches[0].clientX;
-  }, { passive: true });
-
-  w.addEventListener('touchend', e => {
-    if (!swipeArmed) return;
-    swipeArmed = false;
+  w.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  w.addEventListener('touchend',   e => {
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 50) navigateMedia(dx < 0 ? 1 : -1);
   }, { passive: true });
 
-  /* Keyboard arrows (desktop) — guarded with document-level flag */
-  if (!document.__keyNavAttached) {
-    document.__keyNavAttached = true;
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft')  navigateMedia(-1);
-      if (e.key === 'ArrowRight') navigateMedia(1);
-    });
-  }
+  // Keyboard arrows (desktop)
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  navigateMedia(-1);
+    if (e.key === 'ArrowRight') navigateMedia(1);
+  });
 }
 
+/* ============================================================
+ * Original helpers kept intact
+ * ============================================================ */
 function toggleSelectAll(m) {
   document.querySelectorAll('.card-checkbox').forEach(c => c.checked = m.checked);
 }
@@ -670,6 +743,9 @@ function promptDelete() {
   });
 }
 
+/* ============================================================
+ * HTML-escape helpers (Phase 1)
+ * ============================================================ */
 function escHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g,
     c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
