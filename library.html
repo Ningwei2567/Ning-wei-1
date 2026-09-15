@@ -12,13 +12,50 @@
  * ============================================================ */
 *{box-sizing:border-box;}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#fff;}
-.container{width:100%;max-width:600px;margin:auto;padding-bottom:30px;}
+.container{width:100%;max-width:600px;margin:auto;padding-bottom:90px;}
 .top-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#111;border-bottom:1px solid #222;}
 .back-btn{color:#fff;text-decoration:none;font-weight:bold;font-size:14px;}
 .page-title{font-size:16px;font-weight:800;color:#55bfe8;text-transform:capitalize;}
-.admin-toggle-btn{background:#222;color:#ff4444;border:1px solid #ff4444;padding:4px 8px;font-size:11px;font-weight:bold;border-radius:4px;cursor:pointer;}
-.admin-toggle-btn.active{background:#ff4444;color:#fff;}
-.bulk-action-bar{display:none;background:#220000;border-bottom:1px solid #ff4444;padding:10px 16px;align-items:center;justify-content:space-between;font-size:13px;}
+/* Floating Admin button — always visible bottom-right */
+.admin-fab{
+  position:fixed;
+  right:16px;
+  bottom:22px;
+  z-index:9990;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  border:2px solid #ff4444;
+  background:#1a1a1a;
+  color:#ff4444;
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.55);
+  cursor:pointer;
+  transition:background .2s, color .2s, transform .15s;
+}
+.admin-fab:active{transform:scale(.93);}
+.admin-fab.active{
+  background:#ff4444;
+  color:#fff;
+  border-color:#ff4444;
+}
+
+/* Bulk action bar — sticky at top when admin mode is on */
+.bulk-action-bar{
+  display:none;
+  background:#220000;
+  border-bottom:1px solid #ff4444;
+  padding:10px 16px;
+  align-items:center;
+  justify-content:space-between;
+  font-size:13px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
 body.admin-mode .bulk-action-bar{display:flex;}
 .bulk-del-btn{background:#d32f2f;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;}
 
@@ -262,12 +299,15 @@ body.admin-mode .card-checkbox{display:block;}
   <div class="top-bar">
     <a href="index.html" class="back-btn">← Home</a>
     <div class="page-title" id="folderName">Library</div>
-    <button class="admin-toggle-btn" onclick="toggleAdminMode()">🔐 Admin</button>
+    <div style="width:52px;"></div> <!-- spacer so title stays centered -->
   </div>
   <div class="bulk-action-bar">
     <div><input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> <label for="selectAllBox"><b>Select All</b></label></div>
     <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
   </div>
+
+  <!-- Floating Admin button (always visible) -->
+  <button class="admin-fab" id="adminFab" onclick="toggleAdminMode()" title="Admin / Delete mode">🔐</button>
 
   <!-- Phase 1: inline media stage with prev/next arrows -->
   <div class="main-player-wrap" id="mainMediaContainer">
@@ -338,7 +378,8 @@ function showCustomConfirm(msg, onYes) {
 }
 function toggleAdminMode() {
   document.body.classList.toggle('admin-mode');
-  document.querySelector('.admin-toggle-btn').classList.toggle('active');
+  const fab = document.getElementById('adminFab');
+  if (fab) fab.classList.toggle('active');
 }
 function isImage(s){ return /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(s||''); }
 function isVideo(s){ return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(s||''); }
