@@ -3,627 +3,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media - Music, Videos, Photos, Apps & Software</title>
-<meta name="description" content="Ning Wei Media - Free unlimited uploads. Discover and share music, videos, photos, apps, software, and DJ mixes from artists, DJs, and producers worldwide.">
+<title>Ning Wei Media</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#fff;line-height:1.5}
-a{color:inherit;text-decoration:none}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111;}
+a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
+.container{width:100%;max-width:600px;margin:auto;padding-bottom:25px;}
 
-/* HEADER */
-.hero-header{
-  position:relative;
-  height:200px;
-  overflow:hidden;
-  background:#000;
-}
-.hero-header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(10,10,10,1));
-}
-.hero-header img{
-  position:absolute;
-  left:0;top:0;
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  object-position:center 22%;
-}
-.hero-content{
-  position:absolute;
-  bottom:20px;
-  left:0;right:0;
-  text-align:center;
-  z-index:2;
-  padding:0 16px;
-}
-.hero-content h1{margin:0;font-size:30px;font-weight:900;letter-spacing:-.5px;text-shadow:0 2px 8px rgba(0,0,0,.9)}
-.hero-content p{margin:6px 0 0;font-size:14px;color:#ccc;text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.header{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:white;background:#000;}
+.header img{position:absolute;left:0;top:0;width:100%;height:150px;object-fit:cover;object-position:center 22%;}
+.header-content{position:relative;z-index:2;padding:8px 15px;text-shadow:0 2px 5px rgba(0,0,0,.9);}
+.header h1{margin:0;font-size:28px;font-weight:800;}
+.header p{margin:6px 0 0;font-size:14px;}
 
-/* FREE BANNER */
-.free-banner{
-  background:linear-gradient(135deg,#e5a400,#b07a00);
-  color:#fff;
-  padding:10px 16px;
-  text-align:center;
-  font-weight:bold;
-  font-size:13px;
-  letter-spacing:.3px;
-}
-.free-banner span{font-size:18px;margin-right:6px;}
+.search-upload{padding:14px 16px 6px;}
+.search-box{display:flex;background:#fff;border:1px solid #ddd;border-radius:12px;padding:5px;box-shadow:0 2px 7px rgba(0,0,0,.07);}
+.search-box input{flex:1;border:0;outline:none;padding:11px;font-size:14px;background:transparent;}
+.search-box button{border:0;border-radius:9px;padding:0 14px;background:#111;color:#fff;font-weight:700;}
+.upload-button{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:10px;padding:10px;border-radius:12px;background:#55bfe8;color:#fff;font-size:15px;font-weight:800;box-shadow:0 3px 9px rgba(0,0,0,.12);}
+.upload-button-description{display:block;margin-top:4px;font-size:11px;font-weight:600;}
 
-/* NAV / SEARCH */
-.search-bar{
-  padding:14px 16px;
-  background:#111;
-  border-bottom:1px solid #222;
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-.search-input-wrap{
-  position:relative;
-  display:flex;
-  align-items:center;
-}
-.search-input-wrap input{
-  width:100%;
-  padding:10px 14px 10px 38px;
-  background:#1a1a1a;
-  border:1px solid #333;
-  border-radius:24px;
-  color:#fff;
-  font-size:14px;
-}
-.search-input-wrap input:focus{outline:none;border-color:#55bfe8}
-.search-input-wrap::before{
-  content:"🔍";
-  position:absolute;
-  left:12px;
-  font-size:14px;
-  pointer-events:none;
-}
+.section{padding:12px 16px 2px;}
+.section h2{margin:0 0 10px;font-size:20px;font-weight:800;}
+.grid{display:grid;gap:8px;}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);gap:6px;}
 
-/* CATEGORY PILLS */
-.cat-pills{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding:12px 16px;
-  background:#0d0d0d;
-  border-bottom:1px solid #222;
-  scrollbar-width:none;
-}
-.cat-pills::-webkit-scrollbar{display:none}
-.cat-pill{
-  flex:0 0 auto;
-  padding:7px 16px;
-  background:#1a1a1a;
-  color:#fff;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:bold;
-  cursor:pointer;
-  border:1px solid #333;
-  white-space:nowrap;
-}
-.cat-pill.active{background:#e50914;color:#fff;border-color:#e50914}
+.tile{display:flex;align-items:center;gap:8px;min-height:46px;padding:6px 8px;background:#fff;border:1px solid #e2e2e2;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);font-size:12px;font-weight:700;line-height:1.15;}
+.tile:active{transform:scale(.97);}
+.tile .ic{width:30px;height:30px;min-width:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#111;color:#fff;font-size:15px;}
 
-/* SECTION HEADERS */
-.section{margin-top:18px}
-.section-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 16px 10px;
-}
-.section-header h2{
-  margin:0;
-  font-size:18px;
-  font-weight:800;
-  color:#fff;
-  text-transform:capitalize;
-}
-.section-header h2::before{
-  content:"";
-  display:inline-block;
-  width:4px;
-  height:18px;
-  background:#e50914;
-  margin-right:8px;
-  vertical-align:middle;
-  border-radius:2px;
-}
-.toggle-more{
-  background:#222;
-  color:#fff;
-  border:none;
-  padding:6px 14px;
-  border-radius:14px;
-  font-size:12px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.toggle-more:hover{background:#333}
+.media-card{display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;background:#fff;border:1px solid #e2e2e2;border-radius:10px;padding:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.media-preview{width:100%;height:75px;border-radius:6px;object-fit:cover;background:#000;}
+.media-title{font-size:9.5px;font-weight:bold;text-align:center;padding:4px 2px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
 
-/* HORIZONTAL CAROUSEL */
-.carousel-wrap{
-  position:relative;
-}
-.media-row{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:0 16px 8px;
-  scrollbar-width:none;
-}
-.media-row::-webkit-scrollbar{display:none}
-.media-row .skeleton-card{
-  flex:0 0 200px;
-  height:230px;
-  background:linear-gradient(90deg,#161616 25%,#1f1f1f 50%,#161616 75%);
-  background-size:200% 100%;
-  animation:shimmer 1.5s infinite;
-  border-radius:10px;
-}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.more-wrap{display:flex;justify-content:center;margin:6px 0 0;}
+.more-btn{border:1px solid #ddd;background:#fff;color:#111;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.3px;padding:4px 16px;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;}
+.more-btn:active{transform:scale(.96);}
+.tile.is-hidden, .media-card.is-hidden{display:none !important;}
+.section.open .tile.is-hidden, .section.open .media-card.is-hidden{display:flex !important;}
 
-.media-card{
-  flex:0 0 200px;
-  background:#161616;
-  border-radius:10px;
-  overflow:hidden;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  height:230px;
-  position:relative;
-  border:1px solid #222;
-}
-.media-card:hover{border-color:#e50914}
-.media-card video,
-.media-card img{
-  width:100%;
-  height:130px;
-  object-fit:cover;
-  background:#000;
-  display:block;
-}
-.media-card .card-info{
-  padding:8px 10px;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  min-width:0;
-}
-.media-card .card-info .title{
-  font-size:13px;
-  font-weight:bold;
-  color:#fff;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.media-card .card-info .sub{
-  font-size:11px;
-  color:#888;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
+.trending{padding:14px 16px 4px;}
+.trending h2{margin:0 0 10px;font-size:20px;font-weight:800;}
+.apps{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;}
+.app{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:78px;padding:6px 2px;background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.06);}
+.app-logo{width:38px;height:38px;object-fit:contain;margin-bottom:5px;}
+.app-name{font-size:8px;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
 
-/* APP GRID (TRENDING APPS - 4 cards) */
-.apps-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  padding:0 16px;
-}
-.apps-grid .app-card{
-  background:#161616;
-  border-radius:10px;
-  padding:14px;
-  text-align:center;
-  border:1px solid #222;
-  cursor:pointer;
-}
-.apps-grid .app-card:hover{border-color:#e50914}
-.apps-grid .app-icon{
-  width:60px;height:60px;
-  border-radius:14px;
-  margin:0 auto 8px;
-  background:#222;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-}
-.apps-grid .app-card .name{
-  font-size:13px;
-  font-weight:bold;
-  color:#fff;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.apps-grid .app-card .sub{
-  font-size:11px;
-  color:#888;
-  margin-top:2px;
-}
-
-/* EMPTY STATE */
-.empty-state{
-  text-align:center;
-  padding:40px 20px;
-  color:#777;
-  font-size:14px;
-}
-
-/* ERROR STATE */
-.error-state{
-  text-align:center;
-  padding:30px 20px;
-  background:#220000;
-  border:1px solid #a11;
-  color:#ff8888;
-  border-radius:10px;
-  margin:16px;
-  font-size:14px;
-}
-
-footer{
-  text-align:center;
-  padding:30px 16px;
-  color:#777;
-  font-size:12px;
-  border-top:1px solid #222;
-  margin-top:40px;
-}
-
-@media(max-width:500px){
-  .hero-header{height:170px}
-  .hero-header img{height:170px}
-  .hero-content h1{font-size:24px}
-}
+.social{padding:18px 16px 8px;}
+.social h2{margin:0 0 12px;font-size:20px;}
+.social-list{display:flex;justify-content:center;gap:12px;}
+.social a{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#000;}
+.social img{width:22px;height:22px;}
+.footer{padding:18px 15px;text-align:center;font-size:12px;color:#777;}
 </style>
 </head>
 <body>
 
-<header class="hero-header">
+<div class="container">
+
+<header class="header">
   <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
-  <div class="hero-content">
+  <div class="header-content">
     <h1>Ning Wei Media</h1>
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
 </header>
 
-<div class="free-banner">
-  <span>♾️</span>100% FREE • UNLIMITED UPLOADS • NO RESTRICTIONS
-</div>
+<section class="search-upload">
+  <form class="search-box" action="search.html" method="get">
+    <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
+    <button type="submit">Search</button>
+  </form>
+  <a class="upload-button" href="upload.html">
+    <span>🎵 Artists, upload your music here</span>
+    <span class="upload-button-description">Submit your Music, Videos, Apps & Files</span>
+  </a>
+</section>
 
-<div class="search-bar">
-  <div class="search-input-wrap">
-    <input id="searchInput" type="text" placeholder="Search music, videos, apps...">
+<section class="section" data-show="6" data-label="Music">
+  <h2>🎵 All Top Music Charts</h2>
+  <div class="grid grid-2">
+    <a class="tile" href="library.html?folder=Top-Ugandan-Music"><span class="ic">🇺🇬</span><span>Top Ugandan Music</span></a>
+    <a class="tile" href="library.html?folder=Amapiano-Music"><span class="ic">🎵</span><span>Amapiano Music</span></a>
+    <a class="tile" href="library.html?folder=Afrobeat-Music"><span class="ic">🔥</span><span>Afrobeat Music</span></a>
+    <a class="tile" href="library.html?folder=Dancehall-Music"><span class="ic">🎤</span><span>Dancehall Music</span></a>
+    <a class="tile" href="library.html?folder=Reggae"><span class="ic">🌴</span><span>Reggae</span></a>
+    <a class="tile" href="library.html?folder=Old-School-R-B"><span class="ic">📻</span><span>Old School R&amp;B</span></a>
+    <a class="tile" href="library.html?folder=Old-South-African-Music"><span class="ic">🇿🇦</span><span>Old South African Music</span></a>
+    <a class="tile" href="library.html?folder=Western-Music"><span class="ic">🌎</span><span>Western Music</span></a>
+    <a class="tile" href="library.html?folder=Love-Songs"><span class="ic">💖</span><span>Love Songs</span></a>
+    <a class="tile" href="library.html?folder=Oldies-Kikadde-Music"><span class="ic">🎶</span><span>Oldies / Kikadde Music</span></a>
+    <a class="tile" href="library.html?folder=Kadongo-Kamu"><span class="ic">🎸</span><span>Kadongo Kamu</span></a>
+    <a class="tile" href="library.html?folder=High-School-Music"><span class="ic">🏫</span><span>High School Music</span></a>
+    <a class="tile" href="library.html?folder=Lingala-Music"><span class="ic">🎼</span><span>Lingala Music</span></a>
+    <a class="tile" href="library.html?folder=Instrumental"><span class="ic">🎹</span><span>Instrumental</span></a>
   </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Music ▾</button></div>
+</section>
+
+<section class="section" data-show="8" data-label="Videos">
+  <h2>🎬 Trending Videos</h2>
+  <div class="grid grid-4" id="videoGrid"></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Videos ▾</button></div>
+</section>
+
+<section class="section" data-show="8" data-label="Photos">
+  <h2>📸 Trending Photos &amp; Jokes</h2>
+  <div class="grid grid-4" id="photoGrid"></div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Photos ▾</button></div>
+</section>
+
+<section class="section" data-show="6" data-label="Apps">
+  <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
+  <div class="grid grid-2">
+    <a class="tile" href="library.html?folder=Premium-Unlocked-Apps"><span class="ic">📱</span><span>Premium Unlocked Apps</span></a>
+    <a class="tile" href="library.html?folder=Free-Unlimited-Internet-VPNs"><span class="ic">🌐</span><span>Free Unlimited Internet VPNs</span></a>
+    <a class="tile" href="library.html?folder=Social-Media"><span class="ic">📲</span><span>Social Media</span></a>
+    <a class="tile" href="library.html?folder=Messaging"><span class="ic">💬</span><span>Messaging</span></a>
+    <a class="tile" href="library.html?folder=Music-Audio"><span class="ic">🎧</span><span>Music &amp; Audio</span></a>
+    <a class="tile" href="library.html?folder=Video-Streaming"><span class="ic">▶️</span><span>Video &amp; Streaming</span></a>
+    <a class="tile" href="library.html?folder=Photo-Camera"><span class="ic">📷</span><span>Photo &amp; Camera</span></a>
+    <a class="tile" href="library.html?folder=Video-Editing"><span class="ic">🎞️</span><span>Video Editing</span></a>
+    <a class="tile" href="library.html?folder=Music-DJ"><span class="ic">🎚️</span><span>Music &amp; DJ</span></a>
+    <a class="tile" href="library.html?folder=Games"><span class="ic">🎮</span><span>Games</span></a>
+    <a class="tile" href="library.html?folder=Education"><span class="ic">📚</span><span>Education</span></a>
+    <a class="tile" href="library.html?folder=Business-Work"><span class="ic">💼</span><span>Business &amp; Work</span></a>
+    <a class="tile" href="library.html?folder=Finance-Banking"><span class="ic">💰</span><span>Finance &amp; Banking</span></a>
+    <a class="tile" href="library.html?folder=Shopping"><span class="ic">🛒</span><span>Shopping</span></a>
+    <a class="tile" href="library.html?folder=Travel-Transport"><span class="ic">✈️</span><span>Travel &amp; Transport</span></a>
+    <a class="tile" href="library.html?folder=News"><span class="ic">📰</span><span>News</span></a>
+    <a class="tile" href="library.html?folder=Sports"><span class="ic">⚽</span><span>Sports</span></a>
+    <a class="tile" href="library.html?folder=Health-Fitness"><span class="ic">🏃</span><span>Health &amp; Fitness</span></a>
+    <a class="tile" href="library.html?folder=Tools-Utilities"><span class="ic">🛠️</span><span>Tools &amp; Utilities</span></a>
+    <a class="tile" href="library.html?folder=File-Management"><span class="ic">📁</span><span>File Management</span></a>
+    <a class="tile" href="library.html?folder=Security"><span class="ic">🔐</span><span>Security</span></a>
+  </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Apps ▾</button></div>
+</section>
+
+<section class="section" data-show="6" data-label="Software">
+  <h2>💻 Softwares and Virtual DJ</h2>
+  <div class="grid grid-2">
+    <a class="tile" href="library.html?folder=Virtual-DJ-Software"><span class="ic">🎧</span><span>Virtual DJ Software</span></a>
+    <a class="tile" href="library.html?folder=Windows-Software"><span class="ic">🪟</span><span>Windows Software</span></a>
+    <a class="tile" href="library.html?folder=Software-Video-Editing"><span class="ic">🎬</span><span>Video Editing</span></a>
+    <a class="tile" href="library.html?folder=Audio-Editing"><span class="ic">🎚️</span><span>Audio Editing</span></a>
+    <a class="tile" href="library.html?folder=Photo-Editing"><span class="ic">🖼️</span><span>Photo Editing</span></a>
+    <a class="tile" href="library.html?folder=Graphics-Design"><span class="ic">🎨</span><span>Graphics &amp; Design</span></a>
+    <a class="tile" href="library.html?folder=Mac-Software"><span class="ic">🍎</span><span>Mac Software</span></a>
+    <a class="tile" href="library.html?folder=Linux-Software"><span class="ic">🐧</span><span>Linux Software</span></a>
+    <a class="tile" href="library.html?folder=Android-Software"><span class="ic">🤖</span><span>Android Software</span></a>
+    <a class="tile" href="library.html?folder=Office-Productivity"><span class="ic">📊</span><span>Office &amp; Productivity</span></a>
+    <a class="tile" href="library.html?folder=Internet-Browsers"><span class="ic">🌐</span><span>Internet &amp; Browsers</span></a>
+    <a class="tile" href="library.html?folder=Security-Antivirus"><span class="ic">🛡️</span><span>Security &amp; Antivirus</span></a>
+    <a class="tile" href="library.html?folder=Software-File-Management"><span class="ic">📂</span><span>File Management</span></a>
+    <a class="tile" href="library.html?folder=Media-Players"><span class="ic">▶️</span><span>Media Players</span></a>
+    <a class="tile" href="library.html?folder=Download-Managers"><span class="ic">⬇️</span><span>Download Managers</span></a>
+    <a class="tile" href="library.html?folder=Programming-Development"><span class="ic">💻</span><span>Programming &amp; Development</span></a>
+    <a class="tile" href="library.html?folder=Utilities-Tools"><span class="ic">🔧</span><span>Utilities &amp; Tools</span></a>
+  </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More Software ▾</button></div>
+</section>
+
+<section class="section" data-show="4" data-label="DJ Mixes">
+  <h2>🎧 DJ Mixes</h2>
+  <div class="grid grid-2">
+    <a class="tile" href="library.html?folder=DJ-Mixes"><span class="ic">🎧</span><span>DJ Mixes</span></a>
+    <a class="tile" href="library.html?folder=Mixtapes"><span class="ic">📼</span><span>Mixtapes</span></a>
+    <a class="tile" href="library.html?folder=Sound-Effects"><span class="ic">🔊</span><span>Sound Effects</span></a>
+    <a class="tile" href="library.html?folder=Virtual-DJ-Mappings"><span class="ic">🎚️</span><span>Virtual DJ Mappings</span></a>
+  </div>
+  <div class="more-wrap"><button class="more-btn" type="button">More DJ Mixes ▾</button></div>
+</section>
+
+<section class="trending">
+  <h2>Trending Apps</h2>
+  <div class="apps">
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube"><span class="app-name">YouTube</span></a>
+    <a class="app" href="library.html?folder=Messaging"><img class="app-logo" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp"><span class="app-name">WhatsApp</span></a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/facebook/1877F2" alt="Facebook"><span class="app-name">Facebook</span></a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram"><span class="app-name">Instagram</span></a>
+    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/x/000000" alt="X"><span class="app-name">X</span></a>
+  </div>
+</section>
+
+<section class="social">
+  <h2>Follow Us</h2>
+  <div class="social-list">
+    <a href="#"><img src="https://cdn.simpleicons.org/instagram/FFFFFF" alt="Instagram"></a>
+    <a href="#"><img src="https://cdn.simpleicons.org/facebook/FFFFFF" alt="Facebook"></a>
+    <a href="#"><img src="https://cdn.simpleicons.org/whatsapp/FFFFFF" alt="WhatsApp"></a>
+    <a href="#"><img src="https://cdn.simpleicons.org/youtube/FFFFFF" alt="YouTube"></a>
+    <a href="#"><img src="https://cdn.simpleicons.org/x/FFFFFF" alt="X"></a>
+  </div>
+</section>
+
+<footer class="footer">© Ning Wei Media</footer>
 </div>
-
-<div class="cat-pills" id="catPills">
-  <div class="cat-pill active" data-cat="all">All</div>
-  <div class="cat-pill" data-cat="music">🎵 Music</div>
-  <div class="cat-pill" data-cat="videos">🎬 Videos</div>
-  <div class="cat-pill" data-cat="photos">🖼️ Photos</div>
-  <div class="cat-pill" data-cat="apps">📱 Apps</div>
-  <div class="cat-pill" data-cat="software">💻 Software</div>
-  <div class="cat-pill" data-cat="mixes">🎧 DJ Mixes</div>
-</div>
-
-<main id="mainContent">
-
-  <!-- Loading skeletons -->
-  <section class="section" id="loadingSkeleton">
-    <div class="section-header"><h2>Loading...</h2></div>
-    <div class="carousel-wrap">
-      <div class="media-row">
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Content sections rendered dynamically -->
-  <div id="contentSections"></div>
-
-</main>
-
-<footer>
-  <p>♾️ Ning Wei Media — Free Unlimited Uploads for Everyone</p>
-  <p style="margin-top:8px"><a href="upload.html" style="color:#55bfe8">Upload your content →</a></p>
-</footer>
 
 <script>
-/* ============================================================
- * index.html — Ning Wei Media homepage
- * Auto-approved content · Unlimited uploads · Free for everyone
- * ============================================================ */
+function initMoreButtons() {
+  document.querySelectorAll('.section[data-show]').forEach(function(section){
+    var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
+    var label = section.getAttribute('data-label') || '';
+    var grid  = section.querySelector('.grid');
+    var wrap  = section.querySelector('.more-wrap');
+    var btn   = section.querySelector('.more-btn');
+    if (!grid || !btn) return;
 
-const SUPABASE_URL  = "https://cuvkxlfgykumcwbnxige.supabase.co";
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1dmt4bGZneWt1bWN3Ym54aWdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExNjE5OTAsImV4cCI6MjA3NjczNzk5MH0.p_UsovIPsrNdNuLA73tFu6zfwkwkdIK7PZ-q37JCn6M";
-
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-const CATS = [
-  { key:"music",    label:"Music",     icon:"🎵" },
-  { key:"videos",   label:"Videos",    icon:"🎬" },
-  { key:"photos",   label:"Photos",    icon:"🖼️" },
-  { key:"apps",     label:"Apps",      icon:"📱" },
-  { key:"software", label:"Software",  icon:"💻" },
-  { key:"mixes",    label:"DJ Mixes",  icon:"🎧" }
-];
-
-const ICON_BY_CAT = { music:"🎵", videos:"🎬", photos:"🖼️", apps:"📱", software:"💻", mixes:"🎧" };
-
-let allItems        = [];
-let activeCategory  = "all";
-let searchTerm      = "";
-let sectionsLimit   = {};
-
-/* ----------------- Helpers ----------------- */
-function pickExt(url) {
-  if (!url) return "";
-  const noQuery = url.split("?")[0].split("#")[0];
-  const dot = noQuery.lastIndexOf(".");
-  return dot >= 0 ? noQuery.slice(dot + 1).toLowerCase() : "";
-}
-function isVideo(item) {
-  const t = (item.type || item.file_type || "").toLowerCase();
-  if (t.includes("video")) return true;
-  const ext = pickExt(item.url);
-  return ["mp4","webm","mov","m4v","avi","mkv","mpg","mpeg","flv","3gp"].includes(ext);
-}
-function isAudio(item) {
-  const t = (item.type || item.file_type || "").toLowerCase();
-  if (t.includes("audio")) return true;
-  const ext = pickExt(item.url);
-  return ["mp3","wav","m4a","aac","ogg","oga","opus","flac"].includes(ext);
-}
-function isImage(item) {
-  const t = (item.type || item.file_type || "").toLowerCase();
-  if (t.includes("image")) return true;
-  const ext = pickExt(item.url);
-  return ["jpg","jpeg","png","gif","webp","bmp"].includes(ext);
-}
-function detectCategory(item) {
-  if ((item.category || "").toLowerCase().includes("app"))     return "apps";
-  if ((item.category || "").toLowerCase().includes("soft"))    return "software";
-  if ((item.category || "").toLowerCase().includes("mix"))     return "mixes";
-  if (isVideo(item)) return "videos";
-  if (isAudio(item)) return "music";
-  if (isImage(item)) return "photos";
-  return "music";
-}
-function escapeHtml(s) {
-  return String(s == null ? "" : s)
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-}
-function formatTitle(item) {
-  return item.title || item.song_title || item.video_title ||
-         item.name || item.app_name || "Untitled";
-}
-function formatUploader(item) {
-  return item.uploader || item.creator_name || item.artist || "Ning Wei Media";
-}
-function formatDate(item) {
-  const d = item.created_at || item.uploaded_at;
-  if (!d) return "";
-  try { return new Date(d).toLocaleDateString(); } catch { return ""; }
-}
-
-/* ----------------- URL Building ----------------- */
-function publicUrl(bucket, path) {
-  if (!path) return "";
-  if (path.startsWith("http")) return path;
-  return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`;
-}
-function fileUrlForItem(item) {
-  // Try multiple possible schema columns
-  if (item.file_url)    return publicUrl(item.file_bucket || "artist-uploads", item.file_url);
-  if (item.storage_path) return publicUrl(item.storage_bucket || "artist-uploads", item.storage_path);
-  if (item.url)         return item.url;          // already a public URL?
-  if (item.path)        return publicUrl("artist-uploads", item.path);
-  return "";
-}
-function thumbnailUrlForItem(item) {
-  if (item.thumbnail_url) return item.thumbnail_url;
-  if (item.cover_url)     return item.cover_url;
-  if (item.thumbnail_path) return publicUrl("artist-uploads", item.thumbnail_path);
-  return "";
-}
-
-/* ----------------- Card Builders ----------------- */
-function renderMediaCard(item) {
-  const url = fileUrlForItem(item);
-  const cat = detectCategory(item);
-  const title = escapeHtml(formatTitle(item));
-  const sub   = escapeHtml(formatUploader(item));
-
-  let mediaHtml = "";
-  if (cat === "videos") {
-    mediaHtml = `<video src="${escapeHtml(url)}" muted preload="metadata" onerror="this.classList.add('broken')"></video>`;
-  } else if (cat === "music") {
-    mediaHtml = `<div style="height:130px;background:#0d0d0d;display:flex;align-items:center;justify-content:center;font-size:42px">🎵</div>`;
-  } else if (cat === "photos") {
-    mediaHtml = `<img src="${escapeHtml(url)}" loading="lazy" onerror="this.classList.add('broken')" alt="${title}">`;
-  } else {
-    // apps/software
-    const icon = escapeHtml(thumbnailUrlForItem(item));
-    mediaHtml = icon
-      ? `<div style="height:130px;background:#0d0d0d;display:flex;align-items:center;justify-content:center"><img src="${icon}" loading="lazy" onerror="this.style.display='none'" style="width:64px;height:64px;border-radius:14px" alt="${title}"></div>`
-      : `<div style="height:130px;background:#0d0d0d;display:flex;align-items:center;justify-content:center;font-size:42px">${ICON_BY_CAT[cat]||"📦"}</div>`;
-  }
-
-  return `
-    <div class="media-card" onclick="goToLibrary('${cat}','${escapeHtml(item.title || '')}')">
-      ${mediaHtml}
-      <div class="card-info">
-        <div class="title">${title}</div>
-        <div class="sub">${sub}</div>
-      </div>
-    </div>
-  `;
-}
-
-function renderAppCard(item, cat) {
-  const title = escapeHtml(formatTitle(item));
-  const sub   = escapeHtml(formatUploader(item));
-  const icon  = escapeHtml(thumbnailUrlForItem(item));
-  const iconHtml = icon
-    ? `<img src="${icon}" loading="lazy" onerror="this.style.display='none'" style="width:60px;height:60px;border-radius:14px" alt="${title}">`
-    : ICON_BY_CAT[cat] || "📦";
-
-  return `
-    <div class="app-card" onclick="goToLibrary('${cat}','${title}')">
-      <div class="app-icon">${iconHtml}</div>
-      <div class="name">${title}</div>
-      <div class="sub">${sub}</div>
-    </div>
-  `;
-}
-
-/* ----------------- Navigation ----------------- */
-function goToLibrary(cat, itemTitle) {
-  // Deep-link to library.html with category + optional item context
-  const params = new URLSearchParams();
-  params.set("cat", cat);
-  if (itemTitle) params.set("ref", itemTitle);
-  window.location.href = "library.html?" + params.toString();
-}
-
-/* ----------------- Section Rendering ----------------- */
-function getFilteredByCategory(cat) {
-  let pool = cat === "all" ? allItems : allItems.filter(i => detectCategory(i) === cat);
-  if (searchTerm) {
-    const q = searchTerm.toLowerCase();
-    pool = pool.filter(i => {
-      const hay = [formatTitle(i), formatUploader(i), (i.category||""), (i.description||"")]
-        .join(" ").toLowerCase();
-      return hay.includes(q);
-    });
-  }
-  return pool;
-}
-
-function renderSection(cat, label, icon) {
-  const items = getFilteredByCategory(cat);
-  if (!items.length) return "";
-
-  const limit = sectionsLimit[cat] || 8;
-  const visible = items.slice(0, limit);
-  const hasMore = items.length > limit;
-
-  let cardsHtml = "";
-  if (cat === "apps" || cat === "software") {
-    cardsHtml = `<div class="apps-grid">${visible.map(i => renderAppCard(i, cat)).join("")}</div>`;
-  } else {
-    cardsHtml = `<div class="carousel-wrap"><div class="media-row">${visible.map(renderMediaCard).join("")}</div></div>`;
-  }
-
-  return `
-    <section class="section" data-cat="${cat}">
-      <div class="section-header">
-        <h2>${escapeHtml(icon + " " + label)}</h2>
-        ${hasMore ? `<button class="toggle-more" onclick="toggleMore('${cat}')">More</button>` : ""}
-      </div>
-      ${cardsHtml}
-    </section>
-  `;
-}
-
-function toggleMore(cat) {
-  sectionsLimit[cat] = (sectionsLimit[cat] || 8) === 8 ? 50 : 8;
-  refreshSections();
-}
-
-function renderEmptyState() {
-  return `<div class="empty-state">No content found. <a href="upload.html" style="color:#55bfe8">Be the first to upload!</a></div>`;
-}
-
-function renderErrorState(msg) {
-  return `<div class="error-state">⚠️ ${escapeHtml(msg)}<br><small style="opacity:.7">Please refresh or try again later.</small></div>`;
-}
-
-function refreshSections() {
-  const wrap = document.getElementById("contentSections");
-  let html = "";
-  if (activeCategory === "all") {
-    for (const c of CATS) {
-      html += renderSection(c.key, c.label, c.icon);
+    var items = Array.prototype.slice.call(grid.children);
+    if (items.length <= limit) {
+      if (wrap) wrap.style.display = 'none';
+      return;
     }
-  } else {
-    const c = CATS.find(x => x.key === activeCategory);
-    if (c) html += renderSection(c.key, c.label, c.icon);
+    if (wrap) wrap.style.display = 'flex';
+
+    items.forEach(function(item, i){
+      if (i >= limit) item.classList.add('is-hidden');
+      else item.classList.remove('is-hidden');
+    });
+
+    var newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', function(){
+      var opened = section.classList.toggle('open');
+      newBtn.textContent = opened ? ('Less ' + label + ' ▴') : ('More ' + label + ' ▾');
+    });
+  });
+}
+
+const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
+
+function isImage(str) { return /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(str || ''); }
+function isVideo(str) { return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(str || ''); }
+
+function escAttr(s) {
+  return String(s ?? '').replace(/[&<>"']/g,
+    c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* Phase 1: build a deep-link to library.html so cards open the inline player
+   instead of a raw file in a new tab. */
+function buildPlayerLink(item) {
+  const folder = escAttr(item.folder || '');
+  const url    = encodeURIComponent(item.url);
+  const name   = encodeURIComponent(item.title || '');
+  const type   = item.kind; // 'video' | 'image'
+  return `library.html?folder=${folder}&url=${url}&name=${name}&type=${type}`;
+}
+
+async function loadUploadedContent() {
+  if (!window.supabase) return;
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  /* Phase 1: B11 — newest-first ordering */
+  const { data, error } = await db
+    .from('artist_submissions')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error || !data) {
+    console.error(error);
+    return;
   }
-  wrap.innerHTML = html || renderEmptyState();
-}
 
-/* ----------------- Pill Switching ----------------- */
-function switchCategory(cat) {
-  activeCategory = cat;
-  document.querySelectorAll(".cat-pill").forEach(p => {
-    p.classList.toggle("active", p.dataset.cat === cat);
+  const videoGrid = document.getElementById('videoGrid');
+  const photoGrid = document.getElementById('photoGrid');
+  const videoItems = [];
+  const photoItems = [];
+
+  data.forEach(row => {
+    if (row.status && row.status.toLowerCase() !== 'approved') return;
+
+    // Support both formats: array and object
+    let fileList = [];
+    if (Array.isArray(row.files)) {
+      fileList = row.files;
+    } else if (row.files && typeof row.files === 'object') {
+      Object.keys(row.files).forEach(key => {
+        const list = row.files[key];
+        if (Array.isArray(list)) {
+          list.forEach(f => {
+            if (!f.category) f.category = key;
+            fileList.push(f);
+          });
+        }
+      });
+    }
+
+    fileList.forEach(f => {
+      const name = (f.original_name || f.name || '').toLowerCase();
+      const url  = f.url || '';
+      const type = (f.type || f.category || '').toLowerCase();
+      const title = f.original_name || f.name || row.artist_name || 'Media';
+      const folder = f.category || '';
+
+      if (!url) return;
+
+      if (isVideo(name) || isVideo(url) || type.includes('video')) {
+        videoItems.push({ title, url, folder, kind: 'video' });
+      }
+      else if (isImage(name) || isImage(url) || type.includes('photo') || type.includes('image') || type.includes('cover') || type.includes('profile') || type === 'photo') {
+        photoItems.push({ title, url, folder, kind: 'image' });
+      }
+    });
   });
-  refreshSections();
-}
 
-/* ----------------- Search ----------------- */
-let searchTimer = null;
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("searchInput");
-  input.addEventListener("input", e => {
-    clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => {
-      searchTerm = e.target.value.trim();
-      refreshSections();
-    }, 220);
-  });
-
-  document.querySelectorAll(".cat-pill").forEach(p => {
-    p.addEventListener("click", () => switchCategory(p.dataset.cat));
-  });
-
-  loadContent();
-});
-
-/* ----------------- Data Loading ----------------- */
-async function loadContent() {
-  document.getElementById("loadingSkeleton").style.display = "";
-  try {
-    const { data, error } = await db
-      .from("artist_submissions")
-      .select("*")
-      .eq("status", "approved")
-      .order("created_at", { ascending: false })
-      .limit(500);          // generous cap, no per-user restrictions
-
-    if (error) throw error;
-
-    allItems = data || [];
-    document.getElementById("loadingSkeleton").style.display = "none";
-    refreshSections();
-  } catch (err) {
-    document.getElementById("loadingSkeleton").style.display = "none";
-    document.getElementById("contentSections").innerHTML =
-      renderErrorState(err.message || "Failed to load content");
+  // Videos — Phase 1 B9: link to library.html inline player, NOT raw file
+  if (videoGrid) {
+    if (videoItems.length > 0) {
+      videoGrid.innerHTML = videoItems.map(item =>
+        `<a class="media-card" href="${buildPlayerLink(item)}">
+          <video class="media-preview" src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>
+          <div class="media-title">${escAttr(item.title)}</div>
+        </a>`
+      ).join('');
+    } else {
+      videoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending videos found.</p>';
+    }
   }
+
+  // Photos — Phase 1 B10: link to library.html inline player, NOT raw file
+  if (photoGrid) {
+    if (photoItems.length > 0) {
+      photoGrid.innerHTML = photoItems.map(item =>
+        `<a class="media-card" href="${buildPlayerLink(item)}">
+          <img class="media-preview" src="${escAttr(item.url)}" alt="${escAttr(item.title)}" loading="lazy">
+          <div class="media-title">${escAttr(item.title)}</div>
+        </a>`
+      ).join('');
+    } else {
+      photoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending photos found.</p>';
+    }
+  }
+
+  initMoreButtons();
 }
+
+loadUploadedContent();
 </script>
 </body>
 </html>
