@@ -58,6 +58,22 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#f
 }
 body.admin-mode .bulk-action-bar{display:flex;}
 .bulk-del-btn{background:#d32f2f;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;}
+.bulk-rename-btn{background:#1565c0;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;margin-right:8px;}
+.bulk-actions-right{display:flex;align-items:center;gap:8px;}
+
+/* Action row under player: views + share + download */
+.action-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.views-badge{font-size:12px;color:#aaa;display:inline-flex;align-items:center;gap:4px;}
+.share-btn{background:#222;color:#fff;border:1px solid #444;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
+.share-btn:active{background:#333;}
+
+/* Comments placeholder */
+.comments-section{padding:14px 16px;border-top:1px solid #222;background:#0d0d0d;}
+.comments-section h3{margin:0 0 8px;font-size:14px;color:#ccc;}
+.comments-placeholder{border:1px dashed #333;border-radius:8px;padding:16px;text-align:center;color:#666;font-size:13px;}
+
+/* Ads placeholder */
+.ads-slot{margin:12px 16px;min-height:60px;border:1px dashed #333;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#555;font-size:12px;background:#0d0d0d;}
 
 /* ============================================================
  * PHASE 1 CHANGES — main media stage
@@ -303,7 +319,10 @@ body.admin-mode .card-checkbox{display:block;}
   </div>
   <div class="bulk-action-bar">
     <div><input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> <label for="selectAllBox"><b>Select All</b></label></div>
-    <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete Selected</button>
+    <div class="bulk-actions-right">
+      <button class="bulk-rename-btn" onclick="promptRename()">✏️ Rename</button>
+      <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete</button>
+    </div>
   </div>
 
   <!-- Floating Admin button (always visible) -->
@@ -318,7 +337,6 @@ body.admin-mode .card-checkbox{display:block;}
   <div class="video-details" id="videoDetailsBox">
     <div class="title-download-row">
       <h2 class="video-title" id="activeTitle"></h2>
-      <a id="downloadLink" class="download-btn" href="#" download>⬇ Download</a>
     </div>
     <div class="meta-info">
       <div class="uploader-row">
@@ -327,15 +345,28 @@ body.admin-mode .card-checkbox{display:block;}
       </div>
       <div class="date-row">📅 Date: <span id="activeDate"></span></div>
     </div>
+    <div class="action-row">
+      <span class="views-badge" id="activeViews">👁 0 views</span>
+      <button type="button" class="share-btn" id="shareBtn" onclick="shareCurrentItem()">📤 Share</button>
+      <a id="downloadLink" class="download-btn" href="#">⬇ Download</a>
+    </div>
   </div>
 
+  <!-- Ads slot (ready for future ads) -->
+  <div class="ads-slot" id="adsSlot">Sponsored · Ad space</div>
+
   <div class="related-header">
-    <!-- Phase 1: dynamic "Related <Folder Name>" -->
     <h3 id="relatedHeaderTitle">Items</h3>
     <div class="toggle-icon">▲</div>
   </div>
   <div id="relatedContainer">
     <div class="related-grid" id="relatedGrid"></div>
+  </div>
+
+  <!-- Comments placeholder (ready for future comments) -->
+  <div class="comments-section" id="commentsSection">
+    <h3>💬 Comments</h3>
+    <div class="comments-placeholder">Comments coming soon — leave your thoughts here later.</div>
   </div>
 </div>
 
@@ -803,12 +834,13 @@ function renderRelated() {
         }
         const sizeStr = humanSize(item.size);
         const agoStr = timeAgo(item.isoDate);
+        const viewsStr = (item.views || 0) + ' views';
         html += `<div class="related-card" onclick="playMedia(${originalIndex})">
-          <input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()">
+          <input type="checkbox" class="card-checkbox" data-id="${item.id}" data-url="${escAttr(item.url)}" onclick="event.stopPropagation()">
           ${preview}
           <div class="card-caption">
             <div class="card-title">${escHtml(item.title)}</div>
-            <div class="media-meta">${sizeStr} · ${agoStr}</div>
+            <div class="media-meta">${sizeStr} · ${agoStr} · ${viewsStr}</div>
           </div>
         </div>`;
       });
@@ -828,13 +860,14 @@ function renderRelated() {
         const sub = `${escHtml(item.uploader)} · ${escHtml(item.date || '—')}`;
         const sizeStr = humanSize(item.size);
         const agoStr = timeAgo(item.isoDate);
+        const viewsStr = (item.views || 0) + ' views';
         html += `<div class="related-list-item" onclick="playMedia(${originalIndex})">
-          <div class="check-wrap"><input type="checkbox" class="card-checkbox" data-id="${item.id}" onclick="event.stopPropagation()"></div>
+          <div class="check-wrap"><input type="checkbox" class="card-checkbox" data-id="${item.id}" data-url="${escAttr(item.url)}" onclick="event.stopPropagation()"></div>
           ${icon}
           <div class="info">
             <div class="name">${escHtml(item.title)}</div>
             <div class="sub">${sub}</div>
-            <div class="list-meta">${sizeStr}<span class="dot">•</span>${agoStr}</div>
+            <div class="list-meta">${sizeStr}<span class="dot">•</span>${agoStr}<span class="dot">•</span>${viewsStr}</div>
           </div>
         </div>`;
       });
@@ -917,6 +950,16 @@ function playMedia(i) {
   document.getElementById('activeUploader').textContent = item.uploader;
   document.getElementById('activeDate').textContent = item.date;
 
+  // Show views
+  const viewsEl = document.getElementById('activeViews');
+  if (viewsEl) {
+    const v = Number(item.views || 0);
+    viewsEl.textContent = '👁 ' + v + (v === 1 ? ' view' : ' views');
+  }
+
+  // Remember current item for Share
+  window._currentItem = item;
+
   const dl = document.getElementById('downloadLink');
   dl.href = '#';
   dl.removeAttribute('download');
@@ -932,6 +975,14 @@ function playMedia(i) {
 
   // Count a view every time the item is opened (once per session)
   trackView(item);
+  // Refresh badge after possible increment
+  setTimeout(() => {
+    const el = document.getElementById('activeViews');
+    if (el && item) {
+      const v = Number(item.views || 0);
+      el.textContent = '👁 ' + v + (v === 1 ? ' view' : ' views');
+    }
+  }, 600);
 
   // Re-render related so the current item is excluded
   renderRelated();
@@ -981,6 +1032,106 @@ function promptDelete() {
     const { error } = await db.from('artist_submissions').delete().in('id', ids);
     if (error) showCustomAlert('Error: ' + error.message);
     else showCustomAlert('Deleted successfully!', () => location.reload());
+  });
+}
+
+/* ===== Share current item ===== */
+async function shareCurrentItem() {
+  const item = window._currentItem;
+  if (!item) return showCustomAlert('Open an item first, then share.');
+
+  const shareUrl = location.origin + location.pathname +
+    '?folder=' + encodeURIComponent(currentFolder || '') +
+    '&url=' + encodeURIComponent(item.url) +
+    '&name=' + encodeURIComponent(item.title || '');
+
+  const shareData = {
+    title: item.title || 'Ning Wei Media',
+    text: 'Check this out on Ning Wei Media: ' + (item.title || ''),
+    url: shareUrl
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(shareUrl);
+      showCustomAlert('Link copied! Paste it anywhere to share.');
+    } else {
+      // Fallback prompt
+      window.prompt('Copy this link to share:', shareUrl);
+    }
+  } catch (err) {
+    if (err && err.name === 'AbortError') return; // user cancelled
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      showCustomAlert('Link copied! Paste it anywhere to share.');
+    } catch {
+      window.prompt('Copy this link to share:', shareUrl);
+    }
+  }
+}
+
+/* ===== Rename selected items (admin) ===== */
+async function renameOneFile(rowId, fileUrl, newName) {
+  const { data: row, error } = await db
+    .from('artist_submissions')
+    .select('files')
+    .eq('id', rowId)
+    .single();
+  if (error || !row) throw new Error(error?.message || 'Row not found');
+
+  let files = row.files;
+  if (!Array.isArray(files)) throw new Error('Invalid files data');
+
+  let changed = false;
+  files = files.map(f => {
+    if ((f.url || '') === fileUrl) {
+      f.original_name = newName;
+      f.name = newName;
+      changed = true;
+    }
+    return f;
+  });
+  if (!changed) throw new Error('File not found in row');
+
+  const { error: upErr } = await db
+    .from('artist_submissions')
+    .update({ files })
+    .eq('id', rowId);
+  if (upErr) throw new Error(upErr.message);
+}
+
+async function promptRename() {
+  const checked = Array.from(document.querySelectorAll('.card-checkbox:checked'));
+  if (!checked.length) return showCustomAlert('Please select at least one item to rename.');
+
+  // Process one by one
+  for (const cb of checked) {
+    const rowId = cb.dataset.id;
+    const fileUrl = cb.dataset.url;
+    const item = allItems.find(i => i.url === fileUrl) || allItems.find(i => String(i.id) === String(rowId));
+    const currentName = item ? item.title : 'file';
+
+    const newName = window.prompt('Rename:\n\n' + currentName + '\n\nEnter the new name:', currentName);
+    if (newName === null) continue; // cancelled this one
+    const trimmed = String(newName).trim();
+    if (!trimmed || trimmed === currentName) continue;
+
+    try {
+      await renameOneFile(rowId, fileUrl, trimmed);
+      if (item) item.title = trimmed;
+    } catch (err) {
+      showCustomAlert('Rename failed: ' + (err.message || err));
+      return;
+    }
+  }
+
+  showCustomAlert('Rename complete!', () => {
+    renderRelated();
+    if (currentIndex >= 0 && allItems[currentIndex]) {
+      document.getElementById('activeTitle').textContent = allItems[currentIndex].title;
+    }
   });
 }
 
