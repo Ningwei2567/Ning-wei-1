@@ -496,6 +496,64 @@ function trackDownload(item) {
   incrementFileStat(item, 'downloads');
 }
 
+/* Force a real file download (works for cross-origin Supabase URLs) */
+async function forceDownload(item) {
+  if (!item || !item.url) return;
+
+  const btn = document.getElementById('downloadLink');
+  const originalText = btn ? btn.innerHTML : '';
+
+  try {
+    if (btn) {
+      btn.innerHTML = '⬇ Starting…';
+      btn.style.pointerEvents = 'none';
+    }
+
+    trackDownload(item);
+
+    const res = await fetch(item.url, { mode: 'cors' });
+    if (!res.ok) throw new Error('Network error');
+
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    // Build a clean filename
+    let filename = item.title || 'download';
+    // Keep extension if missing
+    if (!/\.[a-z0-9]{2,5}$/i.test(filename)) {
+      const fromUrl = (item.url.split('?')[0].split('/').pop()) || '';
+      const ext = fromUrl.includes('.') ? fromUrl.split('.').pop() : '';
+      if (ext) filename += '.' + ext;
+    }
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 4000);
+
+    if (btn) {
+      btn.innerHTML = '✅ Download started';
+      setTimeout(() => {
+        btn.innerHTML = originalText || '⬇ Download';
+        btn.style.pointerEvents = '';
+      }, 2200);
+    }
+  } catch (err) {
+    console.warn('Download failed, falling back to open', err);
+    // Fallback: open in new tab if fetch is blocked
+    window.open(item.url, '_blank');
+    if (btn) {
+      btn.innerHTML = originalText || '⬇ Download';
+      btn.style.pointerEvents = '';
+    }
+  }
+}
+
 /* ============================================================
  * Phase 1: initLibrary — rewritten to:
  *   - remove photo/video exclusion
@@ -514,10 +572,11 @@ async function initLibrary() {
   requestedName = params.get('name') || '';
   requestedType = params.get('type') || '';
 
-  const displayName = folder.replace(/-/g, ' ');
+  let displayName = folder.replace(/-/g, ' ');
+  if (folder.toLowerCase() === 'recent') displayName = 'Just Added';
+  if (folder.toLowerCase() === 'popular') displayName = 'Most Popular';
   currentFolder = folder.toLowerCase();
   document.getElementById('folderName').textContent = displayName || 'Library';
-  // Phase 1 fix: dynamic "Related <Folder Name>"
   document.getElementById('relatedHeaderTitle').textContent =
     displayName ? `Related ${displayName}` : 'Items';
 
@@ -556,15 +615,31 @@ async function initLibrary() {
       const cat  = norm(f.category || '');
       const type = (f.type || '').toLowerCase();
 
-      // ========== MATCHING (Phase 1: photos & videos now INCLUDED) ==========
+      // ========== MATCHING ==========
+      // Special folders "recent" / "popular" → show everything (homepage strips)
+      // Deep-link with ?url= → always include that exact file
+      // Normal folders → match by category
       let match = false;
+      const isSpecialFolder = current === 'recent' || current === 'popular';
 
-      if (!folder) {
+      if (!folder || isSpecialFolder) {
+        match = true;
+      } else if (requestedUrl && url === requestedUrl) {
+        // Always keep the deep-linked file so it can be played
         match = true;
       } else if (cat) {
         if (cat === current || cat.includes(current) || current.includes(cat)) {
           match = true;
         }
+      }
+
+      // Also match by file type for generic type folders (videos, photos, music…)
+      if (!match && folder) {
+        const detectedEarly = detectType(url, name);
+        if (current === 'videos' && detectedEarly === 'video') match = true;
+        if ((current === 'photos' || current === 'photo') && detectedEarly === 'image') match = true;
+        if ((current === 'music' || current === 'audio') && detectedEarly === 'audio') match = true;
+        if ((current === 'apps' || current === 'software') && detectedEarly === 'app') match = true;
       }
 
       if (!match) return;
@@ -639,6 +714,7 @@ function renderRelated() {
   }
 
   // Determine the type we should show based on the current item
+  // or based on the folder when no item is open yet
   const current = currentIndex >= 0 ? allItems[currentIndex] : null;
   let typeFilter = null;   // null = show everything (folder overview)
   let headerText = 'Items';
@@ -657,6 +733,14 @@ function renderRelated() {
       typeFilter = 'app';
       headerText = 'Related Apps';
     }
+  } else {
+    // Folder overview (no item selected yet) — clear titles
+    if (currentFolder === 'videos') headerText = 'All Videos';
+    else if (currentFolder === 'photos' || currentFolder === 'photo') headerText = 'All Photos';
+    else if (currentFolder === 'music' || currentFolder === 'audio') headerText = 'All Music';
+    else if (currentFolder === 'apps' || currentFolder === 'software') headerText = 'All Apps';
+    else if (currentFolder === 'recent') headerText = 'Just Added';
+    else if (currentFolder === 'popular') headerText = 'Most Popular';
   }
 
   if (headerEl) headerEl.textContent = headerText;
@@ -832,18 +916,24 @@ function playMedia(i) {
   document.getElementById('activeTitle').textContent = item.title;
   document.getElementById('activeUploader').textContent = item.uploader;
   document.getElementById('activeDate').textContent = item.date;
+
   const dl = document.getElementById('downloadLink');
-  dl.href = item.url;
-  dl.setAttribute('download', item.title || '');
-  // Track download when the user clicks the button
-  dl.onclick = function() { trackDownload(item); };
+  dl.href = '#';
+  dl.removeAttribute('download');
+  dl.onclick = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    forceDownload(item);
+    return false;
+  };
+
   if (item.avatar) document.getElementById('artistAvatar').src = item.avatar;
   window.scrollTo({top:0, behavior:'smooth'});
 
   // Count a view every time the item is opened (once per session)
   trackView(item);
 
-  // Phase 1: re-render related so the current item is excluded
+  // Re-render related so the current item is excluded
   renderRelated();
 }
 
