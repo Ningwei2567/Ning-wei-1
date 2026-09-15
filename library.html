@@ -581,29 +581,72 @@ async function initLibrary() {
 }
 
 /* ============================================================
- * Phase 1: renderRelated
- *   - Grid for photos & videos
- *   - Vertical list for songs & apps
- *   - Grouped by date heading
- *   - Excludes currently playing item
- *   - Prefers same category first
+ * renderRelated — STRICTLY same type as the currently playing item
+ *   Video  → only videos   (header: Related Videos)
+ *   Photo  → only photos   (header: Related Photos)
+ *   Audio  → only audio    (header: Related Music)
+ *   App    → only apps     (header: Related Apps)
  * ============================================================ */
 function renderRelated() {
   const container = document.getElementById('relatedContainer');
+  const headerEl  = document.getElementById('relatedHeaderTitle');
+
   if (!allItems.length) {
     container.innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">No files found in this category.</p>';
+    if (headerEl) headerEl.textContent = 'Items';
     return;
   }
 
-  // Exclude current item + prefer same category
-  const related = allItems
-    .filter(item => currentIndex < 0 || item.id !== allItems[currentIndex].id)
-    .slice()
-    .sort((a, b) => {
-      const aSame = a.category === allItems[currentIndex]?.category ? 0 : 1;
-      const bSame = b.category === allItems[currentIndex]?.category ? 0 : 1;
-      return aSame - bSame;
-    });
+  // Determine the type we should show based on the current item
+  const current = currentIndex >= 0 ? allItems[currentIndex] : null;
+  let typeFilter = null;   // null = show everything (folder overview)
+  let headerText = 'Items';
+
+  if (current) {
+    if (current.isVideo) {
+      typeFilter = 'video';
+      headerText = 'Related Videos';
+    } else if (current.isImage) {
+      typeFilter = 'image';
+      headerText = 'Related Photos';
+    } else if (current.isAudio) {
+      typeFilter = 'audio';
+      headerText = 'Related Music';
+    } else if (current.isApp) {
+      typeFilter = 'app';
+      headerText = 'Related Apps';
+    }
+  }
+
+  if (headerEl) headerEl.textContent = headerText;
+
+  // Build the related list: same type only, exclude current item
+  let related = allItems.filter(item => {
+    // Always exclude the currently playing item
+    if (currentIndex >= 0 && item.url === allItems[currentIndex].url) return false;
+
+    if (!typeFilter) return true;                 // folder overview → show all
+    if (typeFilter === 'video') return item.isVideo;
+    if (typeFilter === 'image') return item.isImage;
+    if (typeFilter === 'audio') return item.isAudio;
+    if (typeFilter === 'app')   return item.isApp;
+    return true;
+  });
+
+  if (!related.length) {
+    container.innerHTML = '<p style="text-align:center;color:#777;padding:20px;">No related items found.</p>';
+    return;
+  }
+
+  // Prefer same category, then newest first
+  related.sort((a, b) => {
+    const aSame = a.category === current?.category ? 0 : 1;
+    const bSame = b.category === current?.category ? 0 : 1;
+    if (aSame !== bSame) return aSame - bSame;
+    const ta = a.isoDate ? new Date(a.isoDate).getTime() : 0;
+    const tb = b.isoDate ? new Date(b.isoDate).getTime() : 0;
+    return tb - ta;
+  });
 
   // Group by date
   const groups = {};
@@ -617,7 +660,10 @@ function renderRelated() {
   days.forEach(day => {
     html += `<div class="date-heading">${day === 'unknown' ? 'Unknown date' : formatDay(day)}</div>`;
     const items = groups[day];
+
+    // Videos & Photos → grid
     const media = items.filter(i => i.isImage || i.isVideo);
+    // Audio & Apps → list
     const list  = items.filter(i => i.isAudio || i.isApp);
 
     if (media.length) {
