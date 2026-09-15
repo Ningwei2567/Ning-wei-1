@@ -1,523 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ning Wei Media</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111;}
-a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
-.container{width:100%;max-width:600px;margin:auto;padding-bottom:25px;}
-
-.header{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:white;background:#000;}
-.header img{position:absolute;left:0;top:0;width:100%;height:150px;object-fit:cover;object-position:center 22%;}
-.header-content{position:relative;z-index:2;padding:8px 15px;text-shadow:0 2px 5px rgba(0,0,0,.9);}
-.header h1{margin:0;font-size:28px;font-weight:800;}
-.header p{margin:6px 0 0;font-size:14px;}
-
-.search-upload{padding:14px 16px 6px;}
-.search-box{display:flex;background:#fff;border:1px solid #ddd;border-radius:12px;padding:5px;box-shadow:0 2px 7px rgba(0,0,0,.07);}
-.search-box input{flex:1;border:0;outline:none;padding:11px;font-size:14px;background:transparent;}
-.search-box button{border:0;border-radius:9px;padding:0 14px;background:#111;color:#fff;font-weight:700;}
-.upload-button{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:10px;padding:10px;border-radius:12px;background:#55bfe8;color:#fff;font-size:15px;font-weight:800;box-shadow:0 3px 9px rgba(0,0,0,.12);}
-.upload-button-description{display:block;margin-top:4px;font-size:11px;font-weight:600;}
-
-.section{padding:12px 16px 2px;}
-.section h2{margin:0 0 10px;font-size:20px;font-weight:800;}
-.grid{display:grid;gap:8px;}
-.grid-2{grid-template-columns:repeat(2,1fr);}
-.grid-4{grid-template-columns:repeat(4,1fr);gap:6px;}
-
-.tile{display:flex;align-items:center;gap:8px;min-height:46px;padding:6px 8px;background:#fff;border:1px solid #e2e2e2;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);font-size:12px;font-weight:700;line-height:1.15;}
-.tile:active{transform:scale(.97);}
-.tile .ic{width:30px;height:30px;min-width:30px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#111;color:#fff;font-size:15px;}
-
-.media-card{display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;background:#fff;border:1px solid #e2e2e2;border-radius:10px;padding:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.media-preview{width:100%;height:75px;border-radius:6px;object-fit:cover;background:#000;}
-.media-title{font-size:9.5px;font-weight:bold;text-align:center;padding:4px 2px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
-
-.more-wrap{display:flex;justify-content:center;margin:6px 0 0;}
-.more-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ddd;background:#fff;color:#111;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.3px;padding:4px 16px;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;text-decoration:none;}
-.more-btn:active{transform:scale(.96);}
-.tile.is-hidden, .media-card.is-hidden{display:none !important;}
-.section.open .tile.is-hidden, .section.open .media-card.is-hidden{display:flex !important;}
-
-.trending{padding:14px 16px 4px;}
-.trending h2{margin:0 0 10px;font-size:20px;font-weight:800;}
-.apps{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;}
-.app{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:78px;padding:6px 2px;background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.06);}
-.app-logo{width:38px;height:38px;object-fit:contain;margin-bottom:5px;}
-.app-name{font-size:8px;font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;}
-
-.social{padding:18px 16px 8px;}
-.social h2{margin:0 0 12px;font-size:20px;}
-.social-list{display:flex;justify-content:center;gap:12px;}
-.social a{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#000;}
-.social img{width:22px;height:22px;}
-.footer{padding:18px 15px;text-align:center;font-size:12px;color:#777;}
-
-/* Just Added + Most Popular strips */
-.strip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.strip-header h2{margin:0;font-size:20px;font-weight:800;}
-.see-all{font-size:13px;font-weight:700;color:#55bfe8;}
-.h-scroll{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding-bottom:6px;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-}
-.h-scroll::-webkit-scrollbar{display:none;}
-.strip-card{
-  flex:0 0 110px;
-  width:110px;
-  background:#fff;
-  border:1px solid #e2e2e2;
-  border-radius:10px;
-  overflow:hidden;
-  box-shadow:0 1px 4px rgba(0,0,0,.05);
-  display:flex;
-  flex-direction:column;
-}
-.strip-card .thumb{
-  width:100%;
-  height:78px;
-  object-fit:cover;
-  background:#111;
-  display:block;
-}
-.strip-card .strip-title{
-  font-size:10px;
-  font-weight:700;
-  text-align:center;
-  padding:4px 4px 0;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.strip-card .strip-meta{
-  font-size:9px;
-  color:#888;
-  text-align:center;
-  padding:2px 4px 5px;
-}
-</style>
-</head>
-<body>
-
-<div class="container">
-
-<header class="header">
-  <img src="ning-wei.png" alt="Ning Wei Media" onerror="this.style.display='none'">
-  <div class="header-content">
-    <h1>Ning Wei Media</h1>
-    <p>Music • Videos • Photos • Apps • Software</p>
-  </div>
-</header>
-
-<section class="search-upload">
-  <form class="search-box" action="search.html" method="get">
-    <input type="search" name="q" placeholder="Search Ning Wei Media..." autocomplete="off">
-    <button type="submit">Search</button>
-  </form>
-  <a class="upload-button" href="upload.html">
-    <span>🎵 Artists, upload your music here</span>
-    <span class="upload-button-description">Submit your Music, Videos, Apps & Files</span>
-  </a>
-</section>
-
-<!-- 🆕 Just Added -->
-<section class="section just-added-section" id="justAddedSection" style="display:none;">
-  <div class="strip-header">
-    <h2>🆕 Just Added</h2>
-    <a href="library.html?folder=recent" class="see-all">See all →</a>
-  </div>
-  <div class="h-scroll" id="justAddedStrip"></div>
-</section>
-
-<!-- 🔥 Most Popular -->
-<section class="section most-popular-section" id="mostPopularSection" style="display:none;">
-  <div class="strip-header">
-    <h2>🔥 Most Popular</h2>
-    <a href="library.html?folder=popular" class="see-all">See all →</a>
-  </div>
-  <div class="h-scroll" id="mostPopularStrip"></div>
-</section>
-
-<section class="section" data-show="6" data-label="Music">
-  <h2>🎵 All Top Music Charts</h2>
-  <div class="grid grid-2">
-    <a class="tile" href="library.html?folder=Top-Ugandan-Music"><span class="ic">🇺🇬</span><span>Top Ugandan Music</span></a>
-    <a class="tile" href="library.html?folder=Amapiano-Music"><span class="ic">🎵</span><span>Amapiano Music</span></a>
-    <a class="tile" href="library.html?folder=Afrobeat-Music"><span class="ic">🔥</span><span>Afrobeat Music</span></a>
-    <a class="tile" href="library.html?folder=Dancehall-Music"><span class="ic">🎤</span><span>Dancehall Music</span></a>
-    <a class="tile" href="library.html?folder=Reggae"><span class="ic">🌴</span><span>Reggae</span></a>
-    <a class="tile" href="library.html?folder=Old-School-R-B"><span class="ic">📻</span><span>Old School R&amp;B</span></a>
-    <a class="tile" href="library.html?folder=Old-South-African-Music"><span class="ic">🇿🇦</span><span>Old South African Music</span></a>
-    <a class="tile" href="library.html?folder=Western-Music"><span class="ic">🌎</span><span>Western Music</span></a>
-    <a class="tile" href="library.html?folder=Love-Songs"><span class="ic">💖</span><span>Love Songs</span></a>
-    <a class="tile" href="library.html?folder=Oldies-Kikadde-Music"><span class="ic">🎶</span><span>Oldies / Kikadde Music</span></a>
-    <a class="tile" href="library.html?folder=Kadongo-Kamu"><span class="ic">🎸</span><span>Kadongo Kamu</span></a>
-    <a class="tile" href="library.html?folder=High-School-Music"><span class="ic">🏫</span><span>High School Music</span></a>
-    <a class="tile" href="library.html?folder=Lingala-Music"><span class="ic">🎼</span><span>Lingala Music</span></a>
-    <a class="tile" href="library.html?folder=Instrumental"><span class="ic">🎹</span><span>Instrumental</span></a>
-  </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More Music ▾</button></div>
-</section>
-
-<section class="section" data-show="8" data-label="Videos">
-  <h2>🎬 Trending Videos</h2>
-  <div class="grid grid-4" id="videoGrid"></div>
-  <div class="more-wrap"><a class="more-btn" href="library.html?folder=videos">More Videos →</a></div>
-</section>
-
-<section class="section" data-show="8" data-label="Photos">
-  <h2>📸 Trending Photos &amp; Jokes</h2>
-  <div class="grid grid-4" id="photoGrid"></div>
-  <div class="more-wrap"><a class="more-btn" href="library.html?folder=photos">More Photos →</a></div>
-</section>
-
-<section class="section" data-show="6" data-label="Apps">
-  <h2>📱 Premium Unlocked Apps and Free Unlimited Internet</h2>
-  <div class="grid grid-2">
-    <a class="tile" href="library.html?folder=Premium-Unlocked-Apps"><span class="ic">📱</span><span>Premium Unlocked Apps</span></a>
-    <a class="tile" href="library.html?folder=Free-Unlimited-Internet-VPNs"><span class="ic">🌐</span><span>Free Unlimited Internet VPNs</span></a>
-    <a class="tile" href="library.html?folder=Social-Media"><span class="ic">📲</span><span>Social Media</span></a>
-    <a class="tile" href="library.html?folder=Messaging"><span class="ic">💬</span><span>Messaging</span></a>
-    <a class="tile" href="library.html?folder=Music-Audio"><span class="ic">🎧</span><span>Music &amp; Audio</span></a>
-    <a class="tile" href="library.html?folder=Video-Streaming"><span class="ic">▶️</span><span>Video &amp; Streaming</span></a>
-    <a class="tile" href="library.html?folder=Photo-Camera"><span class="ic">📷</span><span>Photo &amp; Camera</span></a>
-    <a class="tile" href="library.html?folder=Video-Editing"><span class="ic">🎞️</span><span>Video Editing</span></a>
-    <a class="tile" href="library.html?folder=Music-DJ"><span class="ic">🎚️</span><span>Music &amp; DJ</span></a>
-    <a class="tile" href="library.html?folder=Games"><span class="ic">🎮</span><span>Games</span></a>
-    <a class="tile" href="library.html?folder=Education"><span class="ic">📚</span><span>Education</span></a>
-    <a class="tile" href="library.html?folder=Business-Work"><span class="ic">💼</span><span>Business &amp; Work</span></a>
-    <a class="tile" href="library.html?folder=Finance-Banking"><span class="ic">💰</span><span>Finance &amp; Banking</span></a>
-    <a class="tile" href="library.html?folder=Shopping"><span class="ic">🛒</span><span>Shopping</span></a>
-    <a class="tile" href="library.html?folder=Travel-Transport"><span class="ic">✈️</span><span>Travel &amp; Transport</span></a>
-    <a class="tile" href="library.html?folder=News"><span class="ic">📰</span><span>News</span></a>
-    <a class="tile" href="library.html?folder=Sports"><span class="ic">⚽</span><span>Sports</span></a>
-    <a class="tile" href="library.html?folder=Health-Fitness"><span class="ic">🏃</span><span>Health &amp; Fitness</span></a>
-    <a class="tile" href="library.html?folder=Tools-Utilities"><span class="ic">🛠️</span><span>Tools &amp; Utilities</span></a>
-    <a class="tile" href="library.html?folder=File-Management"><span class="ic">📁</span><span>File Management</span></a>
-    <a class="tile" href="library.html?folder=Security"><span class="ic">🔐</span><span>Security</span></a>
-  </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More Apps ▾</button></div>
-</section>
-
-<section class="section" data-show="6" data-label="Software">
-  <h2>💻 Softwares and Virtual DJ</h2>
-  <div class="grid grid-2">
-    <a class="tile" href="library.html?folder=Virtual-DJ-Software"><span class="ic">🎧</span><span>Virtual DJ Software</span></a>
-    <a class="tile" href="library.html?folder=Windows-Software"><span class="ic">🪟</span><span>Windows Software</span></a>
-    <a class="tile" href="library.html?folder=Software-Video-Editing"><span class="ic">🎬</span><span>Video Editing</span></a>
-    <a class="tile" href="library.html?folder=Audio-Editing"><span class="ic">🎚️</span><span>Audio Editing</span></a>
-    <a class="tile" href="library.html?folder=Photo-Editing"><span class="ic">🖼️</span><span>Photo Editing</span></a>
-    <a class="tile" href="library.html?folder=Graphics-Design"><span class="ic">🎨</span><span>Graphics &amp; Design</span></a>
-    <a class="tile" href="library.html?folder=Mac-Software"><span class="ic">🍎</span><span>Mac Software</span></a>
-    <a class="tile" href="library.html?folder=Linux-Software"><span class="ic">🐧</span><span>Linux Software</span></a>
-    <a class="tile" href="library.html?folder=Android-Software"><span class="ic">🤖</span><span>Android Software</span></a>
-    <a class="tile" href="library.html?folder=Office-Productivity"><span class="ic">📊</span><span>Office &amp; Productivity</span></a>
-    <a class="tile" href="library.html?folder=Internet-Browsers"><span class="ic">🌐</span><span>Internet &amp; Browsers</span></a>
-    <a class="tile" href="library.html?folder=Security-Antivirus"><span class="ic">🛡️</span><span>Security &amp; Antivirus</span></a>
-    <a class="tile" href="library.html?folder=Software-File-Management"><span class="ic">📂</span><span>File Management</span></a>
-    <a class="tile" href="library.html?folder=Media-Players"><span class="ic">▶️</span><span>Media Players</span></a>
-    <a class="tile" href="library.html?folder=Download-Managers"><span class="ic">⬇️</span><span>Download Managers</span></a>
-    <a class="tile" href="library.html?folder=Programming-Development"><span class="ic">💻</span><span>Programming &amp; Development</span></a>
-    <a class="tile" href="library.html?folder=Utilities-Tools"><span class="ic">🔧</span><span>Utilities &amp; Tools</span></a>
-  </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More Software ▾</button></div>
-</section>
-
-<section class="section" data-show="4" data-label="DJ Mixes">
-  <h2>🎧 DJ Mixes</h2>
-  <div class="grid grid-2">
-    <a class="tile" href="library.html?folder=DJ-Mixes"><span class="ic">🎧</span><span>DJ Mixes</span></a>
-    <a class="tile" href="library.html?folder=Mixtapes"><span class="ic">📼</span><span>Mixtapes</span></a>
-    <a class="tile" href="library.html?folder=Sound-Effects"><span class="ic">🔊</span><span>Sound Effects</span></a>
-    <a class="tile" href="library.html?folder=Virtual-DJ-Mappings"><span class="ic">🎚️</span><span>Virtual DJ Mappings</span></a>
-  </div>
-  <div class="more-wrap"><button class="more-btn" type="button">More DJ Mixes ▾</button></div>
-</section>
-
-<section class="trending">
-  <h2>Trending Apps</h2>
-  <div class="apps">
-    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube"><span class="app-name">YouTube</span></a>
-    <a class="app" href="library.html?folder=Messaging"><img class="app-logo" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp"><span class="app-name">WhatsApp</span></a>
-    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/facebook/1877F2" alt="Facebook"><span class="app-name">Facebook</span></a>
-    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram"><span class="app-name">Instagram</span></a>
-    <a class="app" href="library.html?folder=Social-Media"><img class="app-logo" src="https://cdn.simpleicons.org/x/000000" alt="X"><span class="app-name">X</span></a>
-  </div>
-</section>
-
-<section class="social">
-  <h2>Follow Us</h2>
-  <div class="social-list">
-    <a href="#"><img src="https://cdn.simpleicons.org/instagram/FFFFFF" alt="Instagram"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/facebook/FFFFFF" alt="Facebook"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/whatsapp/FFFFFF" alt="WhatsApp"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/youtube/FFFFFF" alt="YouTube"></a>
-    <a href="#"><img src="https://cdn.simpleicons.org/x/FFFFFF" alt="X"></a>
-  </div>
-</section>
-
-<footer class="footer">© Ning Wei Media</footer>
-</div>
-
-<script>
-function initMoreButtons() {
-  document.querySelectorAll('.section[data-show]').forEach(function(section){
-    var limit = parseInt(section.getAttribute('data-show'), 10) || 0;
-    var label = section.getAttribute('data-label') || '';
-    var grid  = section.querySelector('.grid');
-    var wrap  = section.querySelector('.more-wrap');
-    var btn   = section.querySelector('.more-btn');
-    if (!grid || !btn) return;
-
-    var items = Array.prototype.slice.call(grid.children);
-    if (items.length <= limit) {
-      if (wrap) wrap.style.display = 'none';
-      return;
-    }
-    if (wrap) wrap.style.display = 'flex';
-
-    // Always hide items beyond the limit on the homepage
-    items.forEach(function(item, i){
-      if (i >= limit) item.classList.add('is-hidden');
-      else item.classList.remove('is-hidden');
-    });
-
-    // If the control is a link (Videos / Photos), do NOT expand on page —
-    // it already navigates to the full library folder.
-    if (btn.tagName === 'A' && btn.getAttribute('href')) {
-      return;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediaVault – Songs / Videos / Apps</title>
+  <style>
+    :root {
+      --bg: #0f0f13;
+      --surface: #1a1a22;
+      --surface2: #24242e;
+      --border: #333344;
+      --text: #f0f0f5;
+      --text-muted: #9999aa;
+      --accent: #7c5cfc;
+      --accent-hover: #6a4ae0;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --ads-bg: #1e1e28;
     }
 
-    // Category tiles (Music, Apps, Software, DJ Mixes) still expand/collapse
-    var newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-    newBtn.addEventListener('click', function(){
-      var opened = section.classList.toggle('open');
-      newBtn.textContent = opened ? ('Less ' + label + ' ▴') : ('More ' + label + ' ▾');
-    });
-  });
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-const SUPABASE_URL = "https://btksyizkcpzubtextuce.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0a3N5aXprY3B6dWJ0ZXh0dWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MzE2MjYsImV4cCI6MjEwNDUwNzYyNn0.F5tJqEc8xmwoJakmka1o5XVaALmHgSlptz4f4p2vLY8";
-
-function isImage(str) { return /\.(jpg|jpeg|png|webp|gif|bmp)(\?.*)?$/i.test(str || ''); }
-function isVideo(str) { return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(str || ''); }
-function isAudio(str) { return /\.(mp3|wav|aac|m4a|flac|ogg)(\?.*)?$/i.test(str || ''); }
-function isApp(str)   { return /\.(apk|exe|zip|rar|7z|dmg|pkg|xapk|apks)(\?.*)?$/i.test(str || ''); }
-
-function escAttr(s) {
-  return String(s ?? '').replace(/[&<>"']/g,
-    c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function timeAgo(iso) {
-  if (!iso) return '';
-  try {
-    const seconds = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
-    if (seconds < 60) return 'Just now';
-    const mins = Math.floor(seconds / 60);
-    if (mins < 60) return mins + 'm ago';
-    const hours = Math.floor(mins / 60);
-    if (hours < 24) return hours + 'h ago';
-    const days = Math.floor(hours / 24);
-    if (days < 30) return days + 'd ago';
-    const months = Math.floor(days / 30);
-    if (months < 12) return months + 'mo ago';
-    return Math.floor(months / 12) + 'y ago';
-  } catch { return ''; }
-}
-
-function buildPlayerLink(item) {
-  // Prefer the real category. If missing, fall back to a sensible type folder
-  // so the item opens in the correct "lane" (videos / photos / music / apps).
-  let folder = item.folder || '';
-  if (!folder) {
-    if (item.kind === 'video') folder = 'videos';
-    else if (item.kind === 'image') folder = 'photos';
-    else if (item.kind === 'audio') folder = 'music';
-    else if (item.kind === 'app') folder = 'apps';
-  }
-  // Convert spaces to hyphens so it matches library folder style
-  folder = String(folder).trim().replace(/\s+/g, '-');
-
-  const url  = encodeURIComponent(item.url);
-  const name = encodeURIComponent(item.title || '');
-  const type = item.kind || '';
-  return `library.html?folder=${escAttr(folder)}&url=${url}&name=${name}&type=${type}`;
-}
-
-function makeStripCard(item, metaText) {
-  let thumb = '';
-  if (item.kind === 'video') {
-    thumb = `<video class="thumb" src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>`;
-  } else if (item.kind === 'image') {
-    thumb = `<img class="thumb" src="${escAttr(item.url)}" alt="" loading="lazy">`;
-  } else if (item.kind === 'audio') {
-    thumb = `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:28px;background:#111;color:#55bfe8;">🎵</div>`;
-  } else {
-    thumb = `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:28px;background:#111;color:#55bfe8;">📦</div>`;
-  }
-  return `<a class="strip-card" href="${buildPlayerLink(item)}">
-    ${thumb}
-    <div class="strip-title">${escAttr(item.title)}</div>
-    <div class="strip-meta">${escAttr(metaText)}</div>
-  </a>`;
-}
-
-async function loadUploadedContent() {
-  if (!window.supabase) return;
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  const { data, error } = await db
-    .from('artist_submissions')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error || !data) {
-    console.error(error);
-    return;
-  }
-
-  const videoGrid = document.getElementById('videoGrid');
-  const photoGrid = document.getElementById('photoGrid');
-  const videoItems = [];
-  const photoItems = [];
-  const allMedia = [];   // for Just Added + Most Popular
-
-  data.forEach(row => {
-    if (row.status && row.status.toLowerCase() !== 'approved') return;
-
-    let fileList = [];
-    if (Array.isArray(row.files)) {
-      fileList = row.files;
-    } else if (row.files && typeof row.files === 'object') {
-      Object.keys(row.files).forEach(key => {
-        const list = row.files[key];
-        if (Array.isArray(list)) {
-          list.forEach(f => {
-            if (!f.category) f.category = key;
-            fileList.push(f);
-          });
-        }
-      });
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
     }
 
-    const isoDate = row.created_at || row.posted_at || '';
-
-    fileList.forEach(f => {
-      const name = (f.original_name || f.name || '').toLowerCase();
-      const url  = f.url || '';
-      const type = (f.type || f.category || '').toLowerCase();
-      const title = f.original_name || f.name || row.artist_name || 'Media';
-      const folder = f.category || '';
-      const views = Number(f.views || 0);
-      const downloads = Number(f.downloads || 0);
-
-      if (!url) return;
-
-      // Skip pure cover / profile images for the strips
-      if (type === 'cover' || type === 'profile') return;
-
-      let kind = 'file';
-      if (isVideo(name) || isVideo(url) || type.includes('video')) kind = 'video';
-      else if (isImage(name) || isImage(url) || type.includes('photo') || type.includes('image')) kind = 'image';
-      else if (isAudio(name) || isAudio(url) || type.includes('audio') || type === 'music') kind = 'audio';
-      else if (isApp(name) || isApp(url) || type.includes('app') || type.includes('software')) kind = 'app';
-
-      const item = { title, url, folder, kind, views, downloads, isoDate };
-
-      if (kind === 'video') videoItems.push(item);
-      if (kind === 'image') photoItems.push(item);
-
-      // Everything goes into the mixed strips
-      allMedia.push(item);
-    });
-  });
-
-  // ===== Trending Videos =====
-  if (videoGrid) {
-    if (videoItems.length > 0) {
-      videoGrid.innerHTML = videoItems.map(item =>
-        `<a class="media-card" href="${buildPlayerLink(item)}">
-          <video class="media-preview" src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>
-          <div class="media-title">${escAttr(item.title)}</div>
-        </a>`
-      ).join('');
-    } else {
-      videoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending videos found.</p>';
+    /* ========== HEADER ========== */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-  }
 
-  // ===== Trending Photos =====
-  if (photoGrid) {
-    if (photoItems.length > 0) {
-      photoGrid.innerHTML = photoItems.map(item =>
-        `<a class="media-card" href="${buildPlayerLink(item)}">
-          <img class="media-preview" src="${escAttr(item.url)}" alt="${escAttr(item.title)}" loading="lazy">
-          <div class="media-title">${escAttr(item.title)}</div>
-        </a>`
-      ).join('');
-    } else {
-      photoGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#777;font-size:13px;padding:10px;">No trending photos found.</p>';
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
-  }
+    .logo span { color: var(--accent); }
 
-  // ===== 🆕 Just Added (newest first) =====
-  const justAddedSection = document.getElementById('justAddedSection');
-  const justAddedStrip = document.getElementById('justAddedStrip');
-  if (justAddedStrip) {
-    const recent = allMedia
-      .slice()
-      .sort((a, b) => {
-        const ta = a.isoDate ? new Date(a.isoDate).getTime() : 0;
-        const tb = b.isoDate ? new Date(b.isoDate).getTime() : 0;
-        return tb - ta;
-      })
-      .slice(0, 12);
-
-    if (recent.length) {
-      justAddedStrip.innerHTML = recent.map(item =>
-        makeStripCard(item, timeAgo(item.isoDate) || 'New')
-      ).join('');
-      if (justAddedSection) justAddedSection.style.display = 'block';
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
     }
-  }
 
-  // ===== 🔥 Most Popular (by views + downloads) =====
-  const mostPopularSection = document.getElementById('mostPopularSection');
-  const mostPopularStrip = document.getElementById('mostPopularStrip');
-  if (mostPopularStrip) {
-    const popular = allMedia
-      .slice()
-      .filter(item => (item.views + item.downloads) > 0)
-      .sort((a, b) => (b.views + b.downloads) - (a.views + a.downloads))
-      .slice(0, 12);
-
-    if (popular.length) {
-      mostPopularStrip.innerHTML = popular.map(item => {
-        const score = item.views + item.downloads;
-        const label = score === 1 ? '1 play' : score + ' plays';
-        return makeStripCard(item, label);
-      }).join('');
-      if (mostPopularSection) mostPopularSection.style.display = 'block';
+    button, .btn {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.15s;
     }
-  }
 
-  initMoreButtons();
-}
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
 
-loadUploadedContent();
-</script>
-</body>
-</html>
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--surface2); color: var(--text); }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    .btn-danger:hover { opacity: 0.9; }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .admin-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+    }
+    .admin-toggle.active {
+      background: rgba(124, 92, 252, 0.2);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .admin-toggle .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+    .admin-toggle.active .dot { background: var(--accent); }
+
+    /* ========== LAYOUT ========== */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .ads-column { display: none; } /* hide ads on small screens for demo */
+    }
+
+    /* ========== ADMIN BAR (appears when admin + selection) ========== */
+    .admin-bar {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      background: rgba(124, 92, 252, 0.15);
+      border-bottom: 1px solid var(--accent);
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+    }
+    .admin-bar.visible { display: flex; }
+
+    .admin-bar .selected-count {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ========== CONTENT GRID ========== */
+    .content-area h2 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .card:hover { transform: translateY(-2px); border-color: #444; }
+   
+... 
