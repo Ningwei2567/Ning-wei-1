@@ -400,6 +400,61 @@ function timeAgo(iso) {
   }
 }
 
+/* ===== View & Download tracking ===== */
+const viewedThisSession = new Set();
+
+async function incrementFileStat(item, field) {
+  if (!item || !item.rowId || !item.fileUrl || !db) return;
+  try {
+    const { data: row, error } = await db
+      .from('artist_submissions')
+      .select('files')
+      .eq('id', item.rowId)
+      .single();
+    if (error || !row) return;
+
+    let files = row.files;
+    if (!Array.isArray(files)) return;
+
+    let changed = false;
+    files = files.map(f => {
+      const fUrl = f.url || '';
+      if (fUrl === item.fileUrl) {
+        const current = Number(f[field] || 0);
+        f[field] = current + 1;
+        changed = true;
+      }
+      return f;
+    });
+
+    if (!changed) return;
+
+    await db
+      .from('artist_submissions')
+      .update({ files })
+      .eq('id', item.rowId);
+
+    // Keep local copy in sync
+    if (field === 'views') item.views = (item.views || 0) + 1;
+    if (field === 'downloads') item.downloads = (item.downloads || 0) + 1;
+  } catch (e) {
+    console.warn('Stat update failed', e);
+  }
+}
+
+function trackView(item) {
+  if (!item || !item.fileUrl) return;
+  // Only count once per browser session per file
+  if (viewedThisSession.has(item.fileUrl)) return;
+  viewedThisSession.add(item.fileUrl);
+  incrementFileStat(item, 'views');
+}
+
+function trackDownload(item) {
+  if (!item) return;
+  incrementFileStat(item, 'downloads');
+}
+
 /* ============================================================
  * Phase 1: initLibrary — rewritten to:
  *   - remove photo/video exclusion
@@ -495,7 +550,11 @@ async function initLibrary() {
         isoDate: isoDate,
         description: row.description || '',
         category: f.category || '',
-        size: f.size || 0
+        size: f.size || 0,
+        views: f.views || 0,
+        downloads: f.downloads || 0,
+        rowId: row.id,
+        fileUrl: url
       });
     });
   });
@@ -689,8 +748,13 @@ function playMedia(i) {
   const dl = document.getElementById('downloadLink');
   dl.href = item.url;
   dl.setAttribute('download', item.title || '');
+  // Track download when the user clicks the button
+  dl.onclick = function() { trackDownload(item); };
   if (item.avatar) document.getElementById('artistAvatar').src = item.avatar;
   window.scrollTo({top:0, behavior:'smooth'});
+
+  // Count a view every time the item is opened (once per session)
+  trackView(item);
 
   // Phase 1: re-render related so the current item is excluded
   renderRelated();
