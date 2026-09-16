@@ -308,6 +308,53 @@ body.admin-mode .card-checkbox{display:block;}
 .modal-btn{padding:8px 16px;font-size:13px;font-weight:bold;border-radius:6px;border:none;cursor:pointer;}
 .modal-btn.cancel{background:#333;color:#fff;}
 .modal-btn.confirm{background:#e50914;color:#fff;}
+
+/* Site brand footer */
+.site-brand-footer{
+  margin:24px 16px 40px;
+  padding:18px 12px;
+  text-align:center;
+  border-top:1px solid #222;
+}
+.site-brand-footer .brand-line{
+  font-size:15px;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:.3px;
+}
+.site-brand-footer .brand-sub{
+  margin-top:4px;
+  font-size:11px;
+  color:#888;
+}
+
+/* Compact rename modal */
+.rename-modal{max-width:280px;padding:16px;}
+.rename-modal .rename-title{
+  margin:0 0 8px;
+  font-size:15px;
+  font-weight:800;
+  color:#fff;
+}
+.rename-modal .rename-current{
+  margin:0 0 12px;
+  font-size:12px;
+  color:#aaa;
+  word-break:break-all;
+  font-weight:500;
+}
+.rename-modal .rename-input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #444;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
+  font-size:14px;
+  margin-bottom:14px;
+  outline:none;
+}
+.rename-modal .rename-input:focus{border-color:#e50914;}
 </style>
 </head>
 <body>
@@ -368,12 +415,31 @@ body.admin-mode .card-checkbox{display:block;}
     <h3>💬 Comments</h3>
     <div class="comments-placeholder">Comments coming soon — leave your thoughts here later.</div>
   </div>
+
+  <!-- Brand footer — always visible on photos, videos, music, apps -->
+  <div class="site-brand-footer" id="siteBrandFooter">
+    <div class="brand-line">Ning Wei Media</div>
+    <div class="brand-sub">Music • Videos • Photos • Apps • Software</div>
+  </div>
 </div>
 
 <div class="custom-modal-overlay" id="customModalOverlay">
   <div class="custom-modal">
     <p id="customModalText"></p>
     <div class="modal-btn-group" id="customModalButtons"></div>
+  </div>
+</div>
+
+<!-- Small custom rename modal (no browser "github.io says" dialog) -->
+<div class="custom-modal-overlay" id="renameModalOverlay">
+  <div class="custom-modal rename-modal">
+    <p class="rename-title">Rename</p>
+    <p class="rename-current" id="renameCurrentName"></p>
+    <input type="text" id="renameInput" class="rename-input" placeholder="New name" autocomplete="off">
+    <div class="modal-btn-group">
+      <button class="modal-btn cancel" id="renameCancelBtn">Cancel</button>
+      <button class="modal-btn confirm" id="renameOkBtn">OK</button>
+    </div>
   </div>
 </div>
 
@@ -430,9 +496,9 @@ function detectType(url, name) {
   return 'file';
 }
 
-/* Phase 1: cover art fallback chain */
+/* Cover art: prefer per-item cover, then profile, then any avatar */
 function resolveCover(item) {
-  return item.cover_url || item.artist_cover || item.profile_pic || item.avatar || '';
+  return item.cover || item.cover_url || item.artist_cover || item.profile_pic || item.avatar || '';
 }
 
 function formatDay(iso) {
@@ -638,7 +704,26 @@ async function initLibrary() {
 
     const isoDate  = row.created_at || row.posted_at || row.uploaded_at || '';
     const dateStr  = isoDate ? new Date(isoDate).toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'}) : '';
-    const avatar   = row.cover_url || row.artist_cover || row.profile_pic || '';
+
+    /* Collect profile photo + covers from this upload row */
+    let profilePic = '';
+    const coversByCategory = {};
+    const coversByName = {};
+
+    fileList.forEach(f => {
+      const t = (f.type || '').toLowerCase();
+      if (t === 'profile' || t === 'avatar') {
+        profilePic = f.url || profilePic;
+      }
+      if (t === 'cover' || t === 'icon' || t === 'thumbnail') {
+        const cat = norm(f.category || '');
+        if (cat) coversByCategory[cat] = f.url;
+        const on = (f.original_name || f.name || '').toLowerCase();
+        if (on) coversByName[on] = f.url;
+      }
+    });
+
+    const avatar = row.cover_url || row.artist_cover || row.profile_pic || profilePic || '';
 
     fileList.forEach(f => {
       const name = (f.original_name || f.name || '').toLowerCase();
@@ -646,17 +731,18 @@ async function initLibrary() {
       const cat  = norm(f.category || '');
       const type = (f.type || '').toLowerCase();
 
+      /* Skip pure cover / profile files — they are not media items */
+      if (type === 'cover' || type === 'icon' || type === 'thumbnail' || type === 'profile' || type === 'avatar') {
+        return;
+      }
+
       // ========== MATCHING ==========
-      // Special folders "recent" / "popular" → show everything (homepage strips)
-      // Deep-link with ?url= → always include that exact file
-      // Normal folders → match by category
       let match = false;
       const isSpecialFolder = current === 'recent' || current === 'popular';
 
       if (!folder || isSpecialFolder) {
         match = true;
       } else if (requestedUrl && url === requestedUrl) {
-        // Always keep the deep-linked file so it can be played
         match = true;
       } else if (cat) {
         if (cat === current || cat.includes(current) || current.includes(cat)) {
@@ -664,7 +750,6 @@ async function initLibrary() {
         }
       }
 
-      // Also match by file type for generic type folders (videos, photos, music…)
       if (!match && folder) {
         const detectedEarly = detectType(url, name);
         if (current === 'videos' && detectedEarly === 'video') match = true;
@@ -675,11 +760,16 @@ async function initLibrary() {
 
       if (!match) return;
 
-      // Phase 1: real type detection (replaces hard-coded isSoftware regex)
       const detected = detectType(url, name);
       const isSoftware = (detected === 'app')
         || type === 'apk' || type === 'software' || type === 'app'
         || /software|editing|tools|apps|vpn|utility|mapping/i.test(folder);
+
+      /* Best cover for this item */
+      const cover = coversByName[name]
+                 || coversByCategory[cat]
+                 || avatar
+                 || '';
 
       allItems.push({
         id: row.id,
@@ -693,9 +783,10 @@ async function initLibrary() {
         isApp:   detected === 'app' || isSoftware,
         uploader: row.artist_name || 'Ning Wei Media',
         avatar: avatar,
+        cover: cover,
         date: dateStr,
         isoDate: isoDate,
-        description: row.description || '',
+        description: row.description || row.biography || '',
         category: f.category || '',
         size: f.size || 0,
         views: f.views || 0,
@@ -1102,19 +1193,49 @@ async function renameOneFile(rowId, fileUrl, newName) {
   if (upErr) throw new Error(upErr.message);
 }
 
+/* Small custom rename dialog (no browser "github.io says" popup) */
+function showRenameDialog(currentName) {
+  return new Promise(resolve => {
+    const overlay = document.getElementById('renameModalOverlay');
+    const input = document.getElementById('renameInput');
+    const currentEl = document.getElementById('renameCurrentName');
+    const okBtn = document.getElementById('renameOkBtn');
+    const cancelBtn = document.getElementById('renameCancelBtn');
+
+    currentEl.textContent = currentName || '';
+    input.value = currentName || '';
+    overlay.style.display = 'flex';
+    setTimeout(() => { input.focus(); input.select(); }, 50);
+
+    function close(val) {
+      overlay.style.display = 'none';
+      okBtn.onclick = null;
+      cancelBtn.onclick = null;
+      input.onkeydown = null;
+      resolve(val);
+    }
+
+    okBtn.onclick = () => close(input.value);
+    cancelBtn.onclick = () => close(null);
+    input.onkeydown = (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); close(input.value); }
+      if (e.key === 'Escape') { e.preventDefault(); close(null); }
+    };
+  });
+}
+
 async function promptRename() {
   const checked = Array.from(document.querySelectorAll('.card-checkbox:checked'));
   if (!checked.length) return showCustomAlert('Please select at least one item to rename.');
 
-  // Process one by one
   for (const cb of checked) {
     const rowId = cb.dataset.id;
     const fileUrl = cb.dataset.url;
     const item = allItems.find(i => i.url === fileUrl) || allItems.find(i => String(i.id) === String(rowId));
     const currentName = item ? item.title : 'file';
 
-    const newName = window.prompt('Rename:\n\n' + currentName + '\n\nEnter the new name:', currentName);
-    if (newName === null) continue; // cancelled this one
+    const newName = await showRenameDialog(currentName);
+    if (newName === null) continue;
     const trimmed = String(newName).trim();
     if (!trimmed || trimmed === currentName) continue;
 
