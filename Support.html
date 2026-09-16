@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support • Ning Wei Media</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111}
+a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit}
+.container{width:100%;max-width:600px;margin:auto;padding-bottom:40px}
+.header{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:#000}
+.header img{position:absolute;left:0;top:0;width:100%;height:120px;object-fit:cover;object-position:center 22%;opacity:.85}
+.header-content{position:relative;z-index:2;padding:8px 15px;text-shadow:0 2px 5px rgba(0,0,0,.9)}
+.header h1{margin:0;font-size:22px;font-weight:800}
+.top-nav{display:flex;gap:8px;padding:10px 16px;background:#fff;border-bottom:1px solid #e8e8e8;flex-wrap:wrap}
+.top-nav a{font-size:13px;font-weight:700;color:#333;padding:6px 10px;border-radius:8px;background:#f0f0f0}
+.panel{margin:12px 16px;background:#fff;border:1px solid #e2e2e2;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.panel h2{margin:0 0 10px;font-size:18px;font-weight:800}
+.panel p{margin:0 0 10px;font-size:14px;line-height:1.5;color:#333}
+.note{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:12px;font-size:13px;line-height:1.45;color:#1b5e20;margin-top:8px}
+.faq-item{border-top:1px solid #eee}
+.faq-item:first-of-type{border-top:none}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:14px 0;background:none;border:none;text-align:left;cursor:pointer;font:inherit;color:inherit;
+}
+.faq-q span.title{font-size:14px;font-weight:800;color:#111;flex:1}
+.faq-q span.chev{font-size:12px;color:#e50914;font-weight:900;flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-q span.chev{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 0 14px;font-size:13px;line-height:1.5;color:#444}
+.faq-item.open .faq-a{display:block}
+.footer{padding:18px 15px;text-align:center;font-size:12px;color:#777}
+.footer a{color:#55bfe8;font-weight:700;margin:0 6px}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <img src="ning-wei.png" alt="" onerror="this.style.display='none'">
+    <div class="header-content"><h1>Support</h1></div>
+  </header>
+
+  <nav class="top-nav">
+    <a href="index.html">← Home</a>
+    <a href="upload.html">Upload</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <section class="panel">
+    <h2>Help centre</h2>
+    <p>Tap a question below to see the answer. This FAQ is the working part of Support.</p>
+    <div class="note">Tip: After you upload, always go Home and refresh to see your new content.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">How do I upload music, videos, photos, apps or software?</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        Open <strong>Upload</strong> from the home page. Choose the type (Music, Photos, Videos, Apps, Software or DJ Mixes), fill in the form, select your files, then tap Upload. Keep the page open until it finishes.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">I uploaded something but I cannot see it. Why?</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        After a successful upload, go back to the <strong>main menu (Home)</strong> and <strong>refresh</strong> the page. If you stay on the upload page without refreshing Home, new content may not appear yet.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">How do I download a file?</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        Open the item in the library, then tap <strong>Download</strong>. A short wait screen may appear first; when it finishes, the download starts. Do not close the page during that wait.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">My cover or profile picture is missing.</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        When uploading, add a cover image (and profile photo if asked). If you skipped them, the item may show a blank or default icon. You can upload again with the correct images.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">Is content free?</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        Browsing and downloading follow the rules of Ning Wei Media. Always respect artists and copyright. Do not upload content you do not have the right to share.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">How do I report a problem or bad content?</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        Note the file name and the folder it is in. When Contact channels are fully opened later, you will be able to report from there. For now, use the Contact page flow if needed.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button type="button" class="faq-q" onclick="toggleFaq(this)">
+        <span class="title">How do I contact Ning Wei Media?</span>
+        <span class="chev">▼</span>
+      </button>
+      <div class="faq-a">
+        Open the <strong>Contact</strong> page. Email and WhatsApp are protected: tapping them starts a short ad. Personal details are not published on the site yet for safety.
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div><a href="index.html">Home</a> · <a href="contact.html">Contact</a> · <a href="support.html">Support</a></div>
+    <div style="margin-top:8px;">© Ning Wei Media</div>
+  </footer>
+</div>
+
+<script>
+function toggleFaq(btn) {
+  var item = btn.parentElement;
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function (el) {
+    el.classList.remove('open');
+  });
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
