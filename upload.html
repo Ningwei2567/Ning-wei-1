@@ -39,10 +39,12 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
 .header-content h1{margin:0;font-size:28px;font-weight:800}
 .header-content p{margin:6px 0 0;font-size:14px}
 
-.container{width:min(700px,94%);margin:18px auto}
-.card{background:white;border-radius:15px;padding:18px;margin-bottom:16px;box-shadow:0 3px 14px rgba(0,0,0,.08)}
-.card h2,.card h3{margin-top:0}
+.container{width:min(700px,94%);margin:6px auto 14px}
+.card{background:white;border-radius:12px;padding:12px 14px;margin-bottom:6px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.card h2,.card h3{margin-top:0;margin-bottom:6px}
 .intro{text-align:center}
+.intro h2{margin-bottom:4px}
+.intro p{margin:4px 0 0;font-size:13px;line-height:1.35}
 
 /* Artists / DJs / Producers profile card header */
 .creator-header{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin:0 0 4px}
@@ -80,21 +82,21 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#1
 }
 .creator-photo{width:54px;height:54px;min-width:54px;flex:0 0 54px;border-radius:50%;object-fit:cover;border:2px solid #111;background:#eee;display:block}
 
-label{display:block;margin-top:13px;margin-bottom:6px;font-weight:bold;font-size:14px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;font-size:15px;background:white}
-textarea{min-height:100px;resize:vertical}
+label{display:block;margin-top:8px;margin-bottom:4px;font-weight:bold;font-size:13px}
+input,textarea,select{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:8px;font-size:14px;background:white}
+textarea{min-height:72px;resize:vertical}
 input:focus,textarea:focus,select:focus{outline:none;border-color:#111}
 
 .category-required{border:2px solid #e5a400 !important;background:#fffaf0 !important}
 
-.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-.type-button{border:0;border-radius:11px;padding:15px 10px;background:#f0f0f0;color:#111;font-weight:bold;font-size:15px;cursor:pointer}
+.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px}
+.type-button{border:0;border-radius:9px;padding:11px 8px;background:#f0f0f0;color:#111;font-weight:bold;font-size:13px;cursor:pointer}
 .type-button.active{background:#111;color:white}
 
 .upload-section{display:none}
 .upload-section.active,.upload-section.open{display:block !important}
 
-.upload-button{width:100%;border:0;border-radius:10px;padding:14px;margin-top:18px;background:#111;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+.upload-button{width:100%;border:0;border-radius:9px;padding:12px;margin-top:10px;background:#111;color:white;font-size:15px;font-weight:bold;cursor:pointer}
 .upload-button:disabled{opacity:.55;cursor:not-allowed}
 
 .file-name{margin-top:6px;font-size:13px;color:#666}
@@ -114,27 +116,22 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#111}
 .progress-pct{font-size:13px;color:#666;margin-top:2px}
 .progress-note{font-size:12px;color:#888;margin-top:8px;font-style:italic}
 
-.back-button{display:block;text-align:center;text-decoration:none;margin-top:15px;padding:12px;background:#f0f0f0;color:#111;border-radius:9px;font-weight:bold}
-footer{text-align:center;padding:22px;color:#777;font-size:12px}
+.back-button{display:block;text-align:center;text-decoration:none;margin-top:8px;padding:10px;background:#f0f0f0;color:#111;border-radius:9px;font-weight:bold}
+footer{text-align:center;padding:12px;color:#777;font-size:12px}
 
 /* Upload page banners */
 .upload-ad-top{
-  position:relative;z-index:5;margin:-14px 12px 10px;border-radius:12px;overflow:hidden;
-  background:#111;border:1px solid #2a2a2a;box-shadow:0 4px 12px rgba(0,0,0,.15);min-height:56px;
+  position:relative;z-index:5;margin:-22px 10px -4px;border-radius:12px;overflow:hidden;
+  background:#111;border:1px solid #2a2a2a;box-shadow:0 4px 12px rgba(0,0,0,.18);min-height:52px;
 }
-.upload-ad-bottom{
-  position:fixed;left:0;right:0;bottom:0;z-index:9980;max-width:700px;margin:0 auto;
-  background:#0d0d0d;border-top:1px solid #333;box-shadow:0 -4px 14px rgba(0,0,0,.2);
-}
-.upload-ad-inner{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:inherit}
-.upload-ad-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#55bfe8}
+.upload-ad-inner{display:flex;align-items:center;gap:10px;padding:9px 12px;text-decoration:none;color:inherit}
+.upload-ad-thumb{width:42px;height:42px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:#55bfe8}
 .upload-ad-body{flex:1;min-width:0}
 .upload-ad-label{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.3px}
 .upload-ad-title{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.upload-ad-sub{font-size:11px;color:#aaa;margin-top:2px}
-.upload-ad-cta{background:#e50914;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-size:11px;font-weight:700;flex-shrink:0}
-.upload-ad-empty{padding:12px;text-align:center;color:#666;font-size:12px}
-body{padding-bottom:80px}
+.upload-ad-sub{font-size:11px;color:#aaa;margin-top:1px}
+.upload-ad-cta{background:#e50914;color:#fff;border:none;border-radius:6px;padding:6px 9px;font-size:11px;font-weight:700;flex-shrink:0}
+.upload-ad-empty{padding:10px;text-align:center;color:#666;font-size:12px}
 
 /* Upload-time ad popup (while files upload) */
 .upload-ad-overlay{
@@ -433,11 +430,6 @@ body{padding-bottom:80px}
 
 <footer>© Ning Wei Media</footer>
 
-<!-- Sticky bottom banner -->
-<div class="upload-ad-bottom" id="uploadAdBottom">
-  <div class="upload-ad-empty">Loading ad…</div>
-</div>
-
 <!-- Ad popup while upload is running -->
 <div class="upload-ad-overlay" id="uploadAdOverlay">
   <div class="upload-ad-modal">
@@ -734,7 +726,6 @@ function showRefreshWarning() {
 
 async function loadUploadPageAds() {
   const top = document.getElementById('uploadAdTop');
-  const bot = document.getElementById('uploadAdBottom');
   try {
     if (!window.supabase) throw new Error('no supabase');
     const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -769,7 +760,6 @@ async function loadUploadPageAds() {
   }
   const t = Math.floor(Date.now() / 30000);
   if (top) top.innerHTML = uploadAdBannerHtml(homeAdPool[t % homeAdPool.length], 'Sponsored');
-  if (bot) bot.innerHTML = uploadAdBannerHtml(homeAdPool[(t + 1) % homeAdPool.length], 'Sponsored');
 }
 
 // Load banners when page is ready
