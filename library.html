@@ -489,8 +489,8 @@ body.admin-mode .card-checkbox{display:block;}
     </div>
   </div>
 
-  <!-- AD 2: Middle -->
-  <div class="ads-slot ads-middle" id="adsSlotMiddle">
+  <!-- AD 2: Middle — only after user opens a song/video/app -->
+  <div class="ads-slot ads-middle" id="adsSlotMiddle" style="display:none;">
     <div class="ads-empty">Loading ad…</div>
   </div>
 
@@ -1181,6 +1181,10 @@ function playMedia(i) {
   const details = document.getElementById('videoDetailsBox');
   details.style.display = 'block';
   document.body.classList.add('has-media');
+
+  // Middle banner appears only after an item is opened
+  const midAd = document.getElementById('adsSlotMiddle');
+  if (midAd) midAd.style.display = 'block';
 
   if (item.isApp) {
     // Apps/software: dedicated card, not playable inline
