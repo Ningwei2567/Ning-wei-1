@@ -58,8 +58,12 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#f
 }
 body.admin-mode .bulk-action-bar{display:flex;}
 .bulk-del-btn{background:#d32f2f;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;}
-.bulk-rename-btn{background:#1565c0;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;margin-right:8px;}
-.bulk-actions-right{display:flex;align-items:center;gap:8px;}
+.bulk-rename-btn{background:#1565c0;color:#fff;border:none;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:6px;cursor:pointer;}
+.bulk-cut-btn{background:#6a1b9a;color:#fff;border:none;padding:6px 10px;font-size:11px;font-weight:bold;border-radius:6px;cursor:pointer;}
+.bulk-copy-btn{background:#00838f;color:#fff;border:none;padding:6px 10px;font-size:11px;font-weight:bold;border-radius:6px;cursor:pointer;}
+.bulk-paste-btn{background:#2e7d32;color:#fff;border:none;padding:6px 10px;font-size:11px;font-weight:bold;border-radius:6px;cursor:pointer;}
+.bulk-actions-right{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end;}
+.clipboard-hint{font-size:10px;color:#ffab40;width:100%;text-align:right;margin-top:4px;}
 
 /* Action row under player: views + share + download */
 .action-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
@@ -90,8 +94,27 @@ body.admin-mode .bulk-action-bar{display:flex;}
 .comment-form .comment-submit:disabled{opacity:.5;cursor:not-allowed;}
 .comment-form .comment-submit:active{background:#b00710;}
 
-/* Ads placeholder */
-.ads-slot{margin:12px 16px;min-height:60px;border:1px dashed #333;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#555;font-size:12px;background:#0d0d0d;}
+/* Working ads slot */
+.ads-slot{
+  margin:12px 16px;min-height:70px;border-radius:10px;overflow:hidden;
+  background:#111;border:1px solid #2a2a2a;position:relative;
+}
+.ads-slot .ad-inner{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;
+  text-decoration:none;color:inherit;
+}
+.ads-slot .ad-thumb{
+  width:56px;height:56px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;
+}
+.ads-slot .ad-body{flex:1;min-width:0;}
+.ads-slot .ad-label{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;}
+.ads-slot .ad-title{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ads-slot .ad-sub{font-size:11px;color:#aaa;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ads-slot .ad-cta{
+  background:#e50914;color:#fff;border:none;border-radius:6px;padding:7px 10px;
+  font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;
+}
+.ads-empty{padding:16px;text-align:center;color:#555;font-size:12px;}
 
 /* ============================================================
  * PHASE 1 CHANGES — main media stage
@@ -385,9 +408,13 @@ body.admin-mode .card-checkbox{display:block;}
   <div class="bulk-action-bar">
     <div><input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)"> <label for="selectAllBox"><b>Select All</b></label></div>
     <div class="bulk-actions-right">
+      <button class="bulk-cut-btn" onclick="adminCut()">✂️ Cut</button>
+      <button class="bulk-copy-btn" onclick="adminCopy()">📋 Copy</button>
+      <button class="bulk-paste-btn" onclick="adminPaste()">📌 Paste</button>
       <button class="bulk-rename-btn" onclick="promptRename()">✏️ Rename</button>
       <button class="bulk-del-btn" onclick="promptDelete()">🗑️ Delete</button>
     </div>
+    <div class="clipboard-hint" id="clipboardHint" style="display:none;"></div>
   </div>
 
   <!-- Floating Admin button (always visible) -->
@@ -418,7 +445,9 @@ body.admin-mode .card-checkbox{display:block;}
   </div>
 
   <!-- Ads slot (ready for future ads) -->
-  <div class="ads-slot" id="adsSlot">Sponsored · Ad space</div>
+  <div class="ads-slot" id="adsSlot">
+    <div class="ads-empty">Loading ads…</div>
+  </div>
 
   <div class="related-header">
     <h3 id="relatedHeaderTitle">Items</h3>
@@ -464,6 +493,75 @@ body.admin-mode .card-checkbox{display:block;}
     <div class="modal-btn-group">
       <button class="modal-btn cancel" id="renameCancelBtn">Cancel</button>
       <button class="modal-btn confirm" id="renameOkBtn">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- Paste destination category modal -->
+<div class="custom-modal-overlay" id="pasteModalOverlay">
+  <div class="custom-modal rename-modal">
+    <p class="rename-title">Paste into category</p>
+    <p class="rename-current" id="pasteHintText">Choose where to put the items</p>
+    <select id="pasteCategorySelect" class="rename-input" style="appearance:auto;">
+      <option value="">Select category…</option>
+      <option>Top Ugandan Music</option>
+      <option>Amapiano Music</option>
+      <option>Afrobeat Music</option>
+      <option>Dancehall Music</option>
+      <option>Reggae</option>
+      <option>Old School R&B</option>
+      <option>Old South African Music</option>
+      <option>Western Music</option>
+      <option>Love Songs</option>
+      <option>Oldies / Kikadde Music</option>
+      <option>Kadongo Kamu</option>
+      <option>High School Music</option>
+      <option>Lingala Music</option>
+      <option>Instrumental</option>
+      <option>Premium Unlocked Apps</option>
+      <option>Free Unlimited Internet VPNs</option>
+      <option>Social Media</option>
+      <option>Messaging</option>
+      <option>Music & Audio</option>
+      <option>Video & Streaming</option>
+      <option>Photo & Camera</option>
+      <option>Video Editing</option>
+      <option>Music & DJ</option>
+      <option>Games</option>
+      <option>Education</option>
+      <option>Business & Work</option>
+      <option>Finance & Banking</option>
+      <option>Shopping</option>
+      <option>Travel & Transport</option>
+      <option>News</option>
+      <option>Sports</option>
+      <option>Health & Fitness</option>
+      <option>Tools & Utilities</option>
+      <option>File Management</option>
+      <option>Security</option>
+      <option>Virtual DJ Software</option>
+      <option>Windows Software</option>
+      <option>Software-Video-Editing</option>
+      <option>Audio Editing</option>
+      <option>Photo Editing</option>
+      <option>Graphics & Design</option>
+      <option>Mac Software</option>
+      <option>Linux Software</option>
+      <option>Android Software</option>
+      <option>Office & Productivity</option>
+      <option>Internet & Browsers</option>
+      <option>Security & Antivirus</option>
+      <option>Media Players</option>
+      <option>Download Managers</option>
+      <option>Programming & Development</option>
+      <option>Utilities & Tools</option>
+      <option>videos</option>
+      <option>photos</option>
+      <option>DJ-Mixes</option>
+    </select>
+    <div class="modal-btn-group">
+      <button class="modal-btn cancel" id="pasteCancelBtn">Cancel</button>
+      <button class="modal-btn confirm" id="pasteOkBtn">Paste here</button>
     </div>
   </div>
 </div>
@@ -831,6 +929,7 @@ async function initLibrary() {
 
   renderRelated();
   attachPlayerNav();
+  renderAds();
 
   // Phase 1: deep-link support (?url=... opens directly)
   if (requestedUrl) {
@@ -1156,6 +1255,181 @@ function promptDelete() {
     if (error) showCustomAlert('Error: ' + error.message);
     else showCustomAlert('Deleted successfully!', () => location.reload());
   });
+}
+
+/* ===== Admin Cut / Copy / Paste (move songs between categories) ===== */
+let adminClipboard = null; // { mode: 'cut'|'copy', items: [{rowId, fileUrl, title}] }
+
+function getSelectedAdminItems() {
+  const checked = Array.from(document.querySelectorAll('.card-checkbox:checked'));
+  return checked.map(cb => {
+    const rowId = cb.dataset.id;
+    const fileUrl = cb.dataset.url;
+    const item = allItems.find(i => i.url === fileUrl) || allItems.find(i => String(i.id) === String(rowId));
+    return {
+      rowId,
+      fileUrl,
+      title: item ? item.title : 'file'
+    };
+  }).filter(x => x.rowId && x.fileUrl);
+}
+
+function updateClipboardHint() {
+  const el = document.getElementById('clipboardHint');
+  if (!el) return;
+  if (!adminClipboard || !adminClipboard.items.length) {
+    el.style.display = 'none';
+    el.textContent = '';
+    return;
+  }
+  const n = adminClipboard.items.length;
+  const mode = adminClipboard.mode === 'cut' ? 'Cut' : 'Copied';
+  el.style.display = 'block';
+  el.textContent = mode + ' ' + n + ' item' + (n > 1 ? 's' : '') + ' — open target category, then Paste';
+}
+
+function adminCut() {
+  const items = getSelectedAdminItems();
+  if (!items.length) return showCustomAlert('Select at least one item to cut.');
+  adminClipboard = { mode: 'cut', items };
+  updateClipboardHint();
+  showCustomAlert('Cut ' + items.length + ' item(s). Go to the correct category and tap Paste.');
+}
+
+function adminCopy() {
+  const items = getSelectedAdminItems();
+  if (!items.length) return showCustomAlert('Select at least one item to copy.');
+  adminClipboard = { mode: 'copy', items };
+  updateClipboardHint();
+  showCustomAlert('Copied ' + items.length + ' item(s). Go to the correct category and tap Paste.');
+}
+
+function showPasteCategoryDialog() {
+  return new Promise(resolve => {
+    const overlay = document.getElementById('pasteModalOverlay');
+    const select = document.getElementById('pasteCategorySelect');
+    const okBtn = document.getElementById('pasteOkBtn');
+    const cancelBtn = document.getElementById('pasteCancelBtn');
+    const hint = document.getElementById('pasteHintText');
+
+    if (currentFolder) {
+      // Pre-select something close if possible
+      const opts = Array.from(select.options);
+      const match = opts.find(o => norm(o.value) === norm(currentFolder) || norm(o.value).includes(norm(currentFolder)));
+      if (match) select.value = match.value;
+    }
+    hint.textContent = adminClipboard.mode === 'cut'
+      ? 'Move ' + adminClipboard.items.length + ' item(s) into:'
+      : 'Copy ' + adminClipboard.items.length + ' item(s) into:';
+
+    overlay.style.display = 'flex';
+
+    function close(val) {
+      overlay.style.display = 'none';
+      okBtn.onclick = null;
+      cancelBtn.onclick = null;
+      resolve(val);
+    }
+    okBtn.onclick = () => close(select.value || null);
+    cancelBtn.onclick = () => close(null);
+  });
+}
+
+async function changeFileCategory(rowId, fileUrl, newCategory, asCopy) {
+  const { data: row, error } = await db
+    .from('artist_submissions')
+    .select('files')
+    .eq('id', rowId)
+    .single();
+  if (error || !row) throw new Error(error?.message || 'Row not found');
+
+  let files = row.files;
+  if (!Array.isArray(files)) throw new Error('Invalid files data');
+
+  if (asCopy) {
+    // Duplicate the matching file entry with new category
+    const original = files.find(f => (f.url || '') === fileUrl);
+    if (!original) throw new Error('File not found in row');
+    const clone = Object.assign({}, original, { category: newCategory });
+    files = files.concat([clone]);
+  } else {
+    // Move: change category on the matching file
+    let changed = false;
+    files = files.map(f => {
+      if ((f.url || '') === fileUrl) {
+        f.category = newCategory;
+        changed = true;
+      }
+      return f;
+    });
+    if (!changed) throw new Error('File not found in row');
+  }
+
+  const { error: upErr } = await db
+    .from('artist_submissions')
+    .update({ files })
+    .eq('id', rowId);
+  if (upErr) throw new Error(upErr.message);
+}
+
+async function adminPaste() {
+  if (!adminClipboard || !adminClipboard.items.length) {
+    return showCustomAlert('Clipboard is empty. First Cut or Copy some items.');
+  }
+
+  const category = await showPasteCategoryDialog();
+  if (!category) return;
+
+  const asCopy = adminClipboard.mode === 'copy';
+  let ok = 0;
+  try {
+    for (const it of adminClipboard.items) {
+      await changeFileCategory(it.rowId, it.fileUrl, category, asCopy);
+      ok++;
+    }
+    if (adminClipboard.mode === 'cut') {
+      adminClipboard = null;
+      updateClipboardHint();
+    }
+    showCustomAlert((asCopy ? 'Copied' : 'Moved') + ' ' + ok + ' item(s) to “' + category + '”.', () => location.reload());
+  } catch (err) {
+    showCustomAlert('Paste failed after ' + ok + ' item(s): ' + (err.message || err));
+  }
+}
+
+/* ===== Working ads (promotes your own content) ===== */
+function renderAds() {
+  const slot = document.getElementById('adsSlot');
+  if (!slot) return;
+
+  // Prefer apps / software / popular audio as sponsored cards
+  const pool = allItems.filter(i => i.isApp || i.isAudio || i.isVideo);
+  if (!pool.length) {
+    slot.innerHTML = '<div class="ads-empty">Ning Wei Media · Sponsored</div>';
+    return;
+  }
+
+  // Rotate by time so it changes every ~30s of page life, stable within a second
+  const idx = Math.floor(Date.now() / 30000) % pool.length;
+  const ad = pool[idx];
+  const cover = resolveCover(ad);
+  const thumb = cover
+    ? `<img class="ad-thumb" src="${escAttr(cover)}" alt="" onerror="this.style.display='none'">`
+    : `<div class="ad-thumb" style="display:flex;align-items:center;justify-content:center;font-size:22px;color:#e50914;">${ad.isAudio ? '🎵' : ad.isApp ? '📦' : '🎬'}</div>`;
+
+  const kind = ad.isApp ? 'App' : ad.isAudio ? 'Song' : ad.isVideo ? 'Video' : 'Featured';
+  const originalIndex = allItems.indexOf(ad);
+
+  slot.innerHTML = `
+    <a class="ad-inner" href="javascript:void(0)" onclick="playMedia(${originalIndex})">
+      ${thumb}
+      <div class="ad-body">
+        <div class="ad-label">Sponsored · ${kind}</div>
+        <div class="ad-title">${escHtml(ad.title)}</div>
+        <div class="ad-sub">${escHtml(ad.uploader || 'Ning Wei Media')}</div>
+      </div>
+      <button type="button" class="ad-cta" onclick="event.stopPropagation();playMedia(${originalIndex})">Open</button>
+    </a>`;
 }
 
 /* ===== Live comments (Supabase table: media_comments) ===== */
