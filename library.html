@@ -20,7 +20,7 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a0a;color:#f
 .admin-fab{
   position:fixed;
   right:16px;
-  bottom:22px;
+  bottom:78px;
   z-index:9990;
   width:52px;
   height:52px;
@@ -94,17 +94,26 @@ body.admin-mode .bulk-action-bar{display:flex;}
 .comment-form .comment-submit:disabled{opacity:.5;cursor:not-allowed;}
 .comment-form .comment-submit:active{background:#b00710;}
 
-/* Working ads slot */
+/* Three ad slots: top, middle, sticky bottom */
 .ads-slot{
-  margin:12px 16px;min-height:70px;border-radius:10px;overflow:hidden;
+  margin:10px 16px;min-height:64px;border-radius:10px;overflow:hidden;
   background:#111;border:1px solid #2a2a2a;position:relative;
 }
+.ads-slot.ads-top{margin-top:8px;margin-bottom:8px;}
+.ads-slot.ads-middle{margin:12px 16px;}
+.ads-slot.ads-bottom-fixed{
+  position:fixed;left:0;right:0;bottom:0;z-index:9980;
+  margin:0;border-radius:0;border-left:none;border-right:none;border-bottom:none;
+  border-top:1px solid #333;background:#0d0d0d;
+  max-width:600px;margin-left:auto;margin-right:auto;
+  box-shadow:0 -4px 16px rgba(0,0,0,.45);
+}
 .ads-slot .ad-inner{
-  display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;
+  display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;
   text-decoration:none;color:inherit;
 }
 .ads-slot .ad-thumb{
-  width:56px;height:56px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;
+  width:48px;height:48px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;
 }
 .ads-slot .ad-body{flex:1;min-width:0;}
 .ads-slot .ad-label{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;}
@@ -114,7 +123,38 @@ body.admin-mode .bulk-action-bar{display:flex;}
   background:#e50914;color:#fff;border:none;border-radius:6px;padding:7px 10px;
   font-size:11px;font-weight:700;flex-shrink:0;cursor:pointer;
 }
-.ads-empty{padding:16px;text-align:center;color:#555;font-size:12px;}
+.ads-empty{padding:14px;text-align:center;color:#555;font-size:12px;}
+/* Space so content is not hidden behind sticky bottom ad */
+.container{padding-bottom:100px;}
+
+/* Rewarded download unlock overlay */
+.reward-overlay{
+  display:none;position:fixed;inset:0;z-index:10000;
+  background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;
+}
+.reward-overlay.show{display:flex;}
+.reward-card{
+  background:#1a1a1a;border:1px solid #333;border-radius:14px;
+  width:100%;max-width:320px;padding:22px 18px;text-align:center;
+}
+.reward-card h3{margin:0 0 8px;font-size:16px;color:#fff;}
+.reward-card p{margin:0 0 14px;font-size:13px;color:#aaa;line-height:1.4;}
+.reward-timer{
+  font-size:42px;font-weight:800;color:#e50914;margin:8px 0 16px;
+  font-variant-numeric:tabular-nums;
+}
+.reward-progress{
+  height:6px;background:#333;border-radius:4px;overflow:hidden;margin-bottom:16px;
+}
+.reward-progress-bar{height:100%;width:0;background:#e50914;transition:width .25s linear;}
+.reward-card .reward-btn{
+  width:100%;padding:12px;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;
+}
+.reward-card .reward-btn.wait{background:#333;color:#888;cursor:not-allowed;}
+.reward-card .reward-btn.ready{background:#e50914;color:#fff;}
+.reward-card .reward-cancel{
+  margin-top:10px;background:transparent;border:none;color:#888;font-size:12px;cursor:pointer;
+}
 
 /* ============================================================
  * PHASE 1 CHANGES — main media stage
@@ -420,6 +460,11 @@ body.admin-mode .card-checkbox{display:block;}
   <!-- Floating Admin button (always visible) -->
   <button class="admin-fab" id="adminFab" onclick="toggleAdminMode()" title="Admin / Delete mode">🔐</button>
 
+  <!-- AD 1: Top banner -->
+  <div class="ads-slot ads-top" id="adsSlotTop">
+    <div class="ads-empty">Loading ad…</div>
+  </div>
+
   <!-- Phase 1: inline media stage with prev/next arrows -->
   <div class="main-player-wrap" id="mainMediaContainer">
     <button class="nav-arrow prev" id="prevBtn" aria-label="Previous">‹</button>
@@ -444,9 +489,9 @@ body.admin-mode .card-checkbox{display:block;}
     </div>
   </div>
 
-  <!-- Ads slot (ready for future ads) -->
-  <div class="ads-slot" id="adsSlot">
-    <div class="ads-empty">Loading ads…</div>
+  <!-- AD 2: Middle -->
+  <div class="ads-slot ads-middle" id="adsSlotMiddle">
+    <div class="ads-empty">Loading ad…</div>
   </div>
 
   <div class="related-header">
@@ -474,6 +519,23 @@ body.admin-mode .card-checkbox{display:block;}
   <div class="site-brand-footer" id="siteBrandFooter">
     <div class="brand-line">Ning Wei Media</div>
     <div class="brand-sub">Music • Videos • Photos • Apps • Software</div>
+  </div>
+</div>
+
+<!-- AD 3: Sticky bottom banner (always stays on screen) -->
+<div class="ads-slot ads-bottom-fixed" id="adsSlotBottom">
+  <div class="ads-empty">Loading ad…</div>
+</div>
+
+<!-- Rewarded unlock: watch ad then download -->
+<div class="reward-overlay" id="rewardOverlay">
+  <div class="reward-card">
+    <h3>Please wait for this ad to complete</h3>
+    <p id="rewardHint">When the ad finishes, your download will start automatically.</p>
+    <div class="reward-timer" id="rewardTimer">30</div>
+    <div class="reward-progress"><div class="reward-progress-bar" id="rewardBar"></div></div>
+    <button type="button" class="reward-btn wait" id="rewardUnlockBtn" disabled>Please wait for the ad…</button>
+    <button type="button" class="reward-cancel" id="rewardCancelBtn">Cancel</button>
   </div>
 </div>
 
@@ -716,8 +778,13 @@ function trackDownload(item) {
   incrementFileStat(item, 'downloads');
 }
 
-/* Force a real file download (works for cross-origin Supabase URLs) */
-async function forceDownload(item) {
+/* Download button → must watch rewarded ad first */
+function forceDownload(item) {
+  startRewardDownload(item);
+}
+
+/* Actual file download (after unlock) */
+async function doForceDownload(item) {
   if (!item || !item.url) return;
 
   const btn = document.getElementById('downloadLink');
@@ -737,9 +804,7 @@ async function forceDownload(item) {
     const blob = await res.blob();
     const blobUrl = URL.createObjectURL(blob);
 
-    // Build a clean filename
     let filename = item.title || 'download';
-    // Keep extension if missing
     if (!/\.[a-z0-9]{2,5}$/i.test(filename)) {
       const fromUrl = (item.url.split('?')[0].split('/').pop()) || '';
       const ext = fromUrl.includes('.') ? fromUrl.split('.').pop() : '';
@@ -765,7 +830,6 @@ async function forceDownload(item) {
     }
   } catch (err) {
     console.warn('Download failed, falling back to open', err);
-    // Fallback: open in new tab if fetch is blocked
     window.open(item.url, '_blank');
     if (btn) {
       btn.innerHTML = originalText || '⬇ Download';
@@ -1414,39 +1478,122 @@ async function adminPaste() {
   }
 }
 
-/* ===== Working ads (promotes your own content) ===== */
-function renderAds() {
-  const slot = document.getElementById('adsSlot');
-  if (!slot) return;
-
-  // Prefer apps / software / popular audio as sponsored cards
-  const pool = allItems.filter(i => i.isApp || i.isAudio || i.isVideo);
-  if (!pool.length) {
-    slot.innerHTML = '<div class="ads-empty">Ning Wei Media · Sponsored</div>';
-    return;
-  }
-
-  // Rotate by time so it changes every ~30s of page life, stable within a second
-  const idx = Math.floor(Date.now() / 30000) % pool.length;
-  const ad = pool[idx];
+/* ===== Three working ads (top / middle / sticky bottom) ===== */
+function buildAdHtml(ad, label) {
+  if (!ad) return '<div class="ads-empty">Ning Wei Media · Sponsored</div>';
   const cover = resolveCover(ad);
   const thumb = cover
     ? `<img class="ad-thumb" src="${escAttr(cover)}" alt="" onerror="this.style.display='none'">`
-    : `<div class="ad-thumb" style="display:flex;align-items:center;justify-content:center;font-size:22px;color:#e50914;">${ad.isAudio ? '🎵' : ad.isApp ? '📦' : '🎬'}</div>`;
-
-  const kind = ad.isApp ? 'App' : ad.isAudio ? 'Song' : ad.isVideo ? 'Video' : 'Featured';
+    : `<div class="ad-thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px;color:#e50914;">${ad.isAudio ? '🎵' : ad.isApp ? '📦' : '🎬'}</div>`;
+  const kind = ad.isApp ? 'App' : ad.isAudio ? 'Song' : ad.isVideo ? 'Video' : ad.isImage ? 'Photo' : 'Featured';
   const originalIndex = allItems.indexOf(ad);
-
-  slot.innerHTML = `
+  return `
     <a class="ad-inner" href="javascript:void(0)" onclick="playMedia(${originalIndex})">
       ${thumb}
       <div class="ad-body">
-        <div class="ad-label">Sponsored · ${kind}</div>
+        <div class="ad-label">${escHtml(label)} · ${kind}</div>
         <div class="ad-title">${escHtml(ad.title)}</div>
         <div class="ad-sub">${escHtml(ad.uploader || 'Ning Wei Media')}</div>
       </div>
       <button type="button" class="ad-cta" onclick="event.stopPropagation();playMedia(${originalIndex})">Open</button>
     </a>`;
+}
+
+function renderAds() {
+  const top = document.getElementById('adsSlotTop');
+  const mid = document.getElementById('adsSlotMiddle');
+  const bot = document.getElementById('adsSlotBottom');
+
+  const pool = allItems.filter(i => i.isApp || i.isAudio || i.isVideo || i.isImage);
+  if (!pool.length) {
+    const empty = '<div class="ads-empty">Ning Wei Media · Sponsored</div>';
+    if (top) top.innerHTML = empty;
+    if (mid) mid.innerHTML = empty;
+    if (bot) bot.innerHTML = empty;
+    return;
+  }
+
+  const t = Math.floor(Date.now() / 30000);
+  const a0 = pool[t % pool.length];
+  const a1 = pool[(t + 1) % pool.length];
+  const a2 = pool[(t + 2) % pool.length];
+
+  if (top) top.innerHTML = buildAdHtml(a0, 'Sponsored');
+  if (mid) mid.innerHTML = buildAdHtml(a1, 'Sponsored');
+  if (bot) bot.innerHTML = buildAdHtml(a2, 'Sponsored');
+}
+
+/* ===== Rewarded download: watch 30s then unlock ===== */
+const REWARD_SECONDS = 30;
+let rewardTimerId = null;
+let rewardPendingItem = null;
+
+function startRewardDownload(item) {
+  if (!item || !item.url) return;
+  rewardPendingItem = item;
+
+  const overlay = document.getElementById('rewardOverlay');
+  const timerEl = document.getElementById('rewardTimer');
+  const bar = document.getElementById('rewardBar');
+  const btn = document.getElementById('rewardUnlockBtn');
+  const cancel = document.getElementById('rewardCancelBtn');
+  const hint = document.getElementById('rewardHint');
+
+  let left = REWARD_SECONDS;
+  let finished = false;
+
+  timerEl.textContent = String(left);
+  bar.style.width = '0%';
+  btn.disabled = true;
+  btn.className = 'reward-btn wait';
+  btn.textContent = 'Please wait for the ad…';
+  if (hint) {
+    hint.textContent = 'Please wait for this ad to complete. When it finishes, your download will start automatically.';
+  }
+
+  overlay.classList.add('show');
+
+  async function finishAndDownload() {
+    if (finished) return;
+    finished = true;
+    if (rewardTimerId) {
+      clearInterval(rewardTimerId);
+      rewardTimerId = null;
+    }
+    timerEl.textContent = '0';
+    bar.style.width = '100%';
+    btn.textContent = 'Starting download…';
+    btn.className = 'reward-btn ready';
+
+    const it = rewardPendingItem;
+    rewardPendingItem = null;
+    overlay.classList.remove('show');
+
+    await doForceDownload(it);
+    showCustomAlert('Your download is now unlocked and started successfully.');
+  }
+
+  if (rewardTimerId) clearInterval(rewardTimerId);
+  rewardTimerId = setInterval(() => {
+    left -= 1;
+    timerEl.textContent = String(Math.max(0, left));
+    bar.style.width = (((REWARD_SECONDS - left) / REWARD_SECONDS) * 100) + '%';
+    if (left <= 0) {
+      finishAndDownload();
+    }
+  }, 1000);
+
+  // Button stays disabled until auto-complete (no early download)
+  btn.onclick = null;
+
+  cancel.onclick = () => {
+    if (finished) return;
+    finished = true;
+    if (rewardTimerId) clearInterval(rewardTimerId);
+    rewardTimerId = null;
+    rewardPendingItem = null;
+    overlay.classList.remove('show');
+  };
 }
 
 /* ===== Live comments (Supabase table: media_comments) ===== */
