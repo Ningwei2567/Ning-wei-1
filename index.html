@@ -59,6 +59,27 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
 .social img{width:22px;height:22px;}
 .footer{padding:18px 15px;text-align:center;font-size:12px;color:#777;}
 
+/* Homepage ads: top (under header, slight overlap) + sticky bottom */
+.home-ad-top{
+  position:relative;z-index:5;margin:-18px 12px 8px;border-radius:12px;overflow:hidden;
+  background:#111;border:1px solid #2a2a2a;box-shadow:0 4px 14px rgba(0,0,0,.18);
+  min-height:58px;
+}
+.home-ad-bottom{
+  position:fixed;left:0;right:0;bottom:0;z-index:9980;
+  max-width:600px;margin:0 auto;background:#0d0d0d;
+  border-top:1px solid #333;box-shadow:0 -4px 16px rgba(0,0,0,.2);
+}
+.home-ad-inner{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:inherit;cursor:pointer;}
+.home-ad-thumb{width:46px;height:46px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;}
+.home-ad-body{flex:1;min-width:0;}
+.home-ad-label{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.3px;}
+.home-ad-title{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.home-ad-sub{font-size:11px;color:#aaa;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.home-ad-cta{background:#e50914;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-size:11px;font-weight:700;flex-shrink:0;}
+.home-ad-empty{padding:12px;text-align:center;color:#666;font-size:12px;}
+.container{padding-bottom:90px;}
+
 /* Just Added + Most Popular strips */
 .strip-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .strip-header h2{margin:0;font-size:20px;font-weight:800;}
@@ -118,6 +139,11 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
 </header>
+
+<!-- Top banner: sits between header and search, slight overlap on header -->
+<div class="home-ad-top" id="homeAdTop">
+  <div class="home-ad-empty">Loading ad…</div>
+</div>
 
 <section class="search-upload">
   <form class="search-box" action="search.html" method="get">
@@ -267,6 +293,11 @@ a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit;}
 </section>
 
 <footer class="footer">© Ning Wei Media</footer>
+</div>
+
+<!-- Sticky bottom banner on homepage -->
+<div class="home-ad-bottom" id="homeAdBottom">
+  <div class="home-ad-empty">Loading ad…</div>
 </div>
 
 <script>
@@ -514,7 +545,47 @@ async function loadUploadedContent() {
     }
   }
 
+  // ===== Homepage ads (top + bottom) =====
+  renderHomeAds(allMedia);
+
   initMoreButtons();
+}
+
+function renderHomeAds(allMedia) {
+  const top = document.getElementById('homeAdTop');
+  const bot = document.getElementById('homeAdBottom');
+  const pool = (allMedia || []).filter(i => i && i.url);
+  const empty = '<div class="home-ad-empty">Ning Wei Media · Sponsored</div>';
+
+  function card(item, label) {
+    if (!item) return empty;
+    const kind = item.kind === 'video' ? 'Video' : item.kind === 'image' ? 'Photo' : item.kind === 'audio' ? 'Song' : item.kind === 'app' ? 'App' : 'Featured';
+    const icon = item.kind === 'audio' ? '🎵' : item.kind === 'app' ? '📦' : item.kind === 'video' ? '🎬' : '⭐';
+    const thumb = (item.kind === 'image' || item.kind === 'video')
+      ? (item.kind === 'video'
+          ? `<video class="home-ad-thumb" src="${escAttr(item.url)}#t=0.5" preload="metadata" muted></video>`
+          : `<img class="home-ad-thumb" src="${escAttr(item.url)}" alt="" loading="lazy">`)
+      : `<div class="home-ad-thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px;color:#55bfe8;">${icon}</div>`;
+    const href = buildPlayerLink(item);
+    return `<a class="home-ad-inner" href="${href}">
+      ${thumb}
+      <div class="home-ad-body">
+        <div class="home-ad-label">${label} · ${kind}</div>
+        <div class="home-ad-title">${escAttr(item.title)}</div>
+        <div class="home-ad-sub">Ning Wei Media</div>
+      </div>
+      <span class="home-ad-cta">Open</span>
+    </a>`;
+  }
+
+  if (!pool.length) {
+    if (top) top.innerHTML = empty;
+    if (bot) bot.innerHTML = empty;
+    return;
+  }
+  const t = Math.floor(Date.now() / 30000);
+  if (top) top.innerHTML = card(pool[t % pool.length], 'Sponsored');
+  if (bot) bot.innerHTML = card(pool[(t + 1) % pool.length], 'Sponsored');
 }
 
 loadUploadedContent();
