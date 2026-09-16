@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact • Ning Wei Media</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f5f7;color:#111}
+a{-webkit-tap-highlight-color:transparent;text-decoration:none;color:inherit}
+.container{width:100%;max-width:600px;margin:auto;padding-bottom:40px}
+.header{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:#000}
+.header img{position:absolute;left:0;top:0;width:100%;height:120px;object-fit:cover;object-position:center 22%;opacity:.85}
+.header-content{position:relative;z-index:2;padding:8px 15px;text-shadow:0 2px 5px rgba(0,0,0,.9)}
+.header h1{margin:0;font-size:22px;font-weight:800}
+.top-nav{display:flex;gap:8px;padding:10px 16px;background:#fff;border-bottom:1px solid #e8e8e8;flex-wrap:wrap}
+.top-nav a{font-size:13px;font-weight:700;color:#333;padding:6px 10px;border-radius:8px;background:#f0f0f0}
+.panel{margin:12px 16px;background:#fff;border:1px solid #e2e2e2;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.panel h2{margin:0 0 10px;font-size:18px;font-weight:800}
+.panel p{margin:0 0 10px;font-size:14px;line-height:1.5;color:#333}
+.note{background:#fff8e6;border:1px solid #f0d78c;border-radius:10px;padding:12px;font-size:13px;line-height:1.45;color:#6b5200;margin:10px 0}
+.channel{
+  display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #eee;border-radius:10px;
+  margin-bottom:8px;background:#fafafa;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;
+}
+.channel:active{background:#f0f0f0}
+.channel .icon{width:40px;height:40px;border-radius:10px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.channel .body{flex:1;min-width:0}
+.channel .label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.channel .value{font-size:14px;font-weight:700;color:#333}
+.channel .go{font-size:12px;font-weight:800;color:#e50914;flex-shrink:0}
+.form-row{margin-top:10px}
+.form-row label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#444}
+.form-row input,.form-row textarea{
+  width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit;background:#f9f9f9;color:#999;
+}
+.form-row textarea{min-height:90px;resize:vertical}
+.btn-disabled{
+  display:block;width:100%;text-align:center;padding:12px;margin-top:8px;border-radius:10px;
+  background:#e8e8e8;color:#999;font-weight:800;font-size:14px;border:none;cursor:not-allowed;
+}
+.footer{padding:18px 15px;text-align:center;font-size:12px;color:#777}
+.footer a{color:#55bfe8;font-weight:700;margin:0 6px}
+.ad-overlay{
+  display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.92);
+  align-items:center;justify-content:center;padding:18px;
+}
+.ad-overlay.show{display:flex}
+.ad-card{
+  width:100%;max-width:340px;background:#1a1a1a;border:1px solid #333;border-radius:16px;
+  padding:22px 18px;text-align:center;color:#fff;
+}
+.ad-card h3{margin:0 0 8px;font-size:17px;font-weight:900}
+.ad-card p{margin:0 0 12px;font-size:13px;color:#bbb;line-height:1.45}
+.ad-card .warn{
+  background:#2a1500;border:1px solid #e5a400;border-radius:10px;padding:10px 12px;
+  font-size:12px;color:#ffd699;line-height:1.4;margin-bottom:14px;font-weight:600;
+}
+.ad-timer{font-size:44px;font-weight:900;color:#e50914;font-variant-numeric:tabular-nums;margin:4px 0 10px}
+.ad-bar-wrap{height:6px;background:#333;border-radius:4px;overflow:hidden;margin-bottom:14px}
+.ad-bar{height:100%;width:0;background:#e50914;transition:width .25s linear}
+.ad-promo{
+  display:flex;align-items:center;gap:10px;background:#111;border:1px solid #2a2a2a;
+  border-radius:10px;padding:10px;text-align:left;margin-bottom:8px;
+}
+.ad-promo .t{width:44px;height:44px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ad-promo .n{font-size:13px;font-weight:700}
+.ad-promo .s{font-size:11px;color:#888}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <img src="ning-wei.png" alt="" onerror="this.style.display='none'">
+    <div class="header-content"><h1>Contact</h1></div>
+  </header>
+
+  <nav class="top-nav">
+    <a href="index.html">← Home</a>
+    <a href="upload.html">Upload</a>
+    <a href="support.html">Support</a>
+  </nav>
+
+  <section class="panel">
+    <h2>Get in touch</h2>
+    <p>Tap Email, WhatsApp or Phone to continue. A short sponsored message plays first.</p>
+    <div class="note">
+      Watch the ad until it finishes. Contact details are protected and are not shown on this page yet.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Channels</h2>
+
+    <button type="button" class="channel" onclick="startContactAd('email')">
+      <div class="icon">📧</div>
+      <div class="body">
+        <div class="label">Email</div>
+        <div class="value">Tap to unlock</div>
+      </div>
+      <span class="go">Watch ad →</span>
+    </button>
+
+    <button type="button" class="channel" onclick="startContactAd('whatsapp')">
+      <div class="icon">💬</div>
+      <div class="body">
+        <div class="label">WhatsApp</div>
+        <div class="value">Tap to unlock</div>
+      </div>
+      <span class="go">Watch ad →</span>
+    </button>
+
+    <button type="button" class="channel" onclick="startContactAd('phone')">
+      <div class="icon">📱</div>
+      <div class="body">
+        <div class="label">Phone</div>
+        <div class="value">Tap to unlock</div>
+      </div>
+      <span class="go">Watch ad →</span>
+    </button>
+  </section>
+
+  <section class="panel">
+    <h2>Message form</h2>
+    <p style="font-size:13px;color:#666;">Form will open later. Not active yet.</p>
+    <div class="form-row">
+      <label>Your name</label>
+      <input type="text" placeholder="Coming soon" disabled>
+    </div>
+    <div class="form-row">
+      <label>Your email</label>
+      <input type="email" placeholder="Coming soon" disabled>
+    </div>
+    <div class="form-row">
+      <label>Message</label>
+      <textarea placeholder="Coming soon" disabled></textarea>
+    </div>
+    <button type="button" class="btn-disabled" disabled>Send message — not available yet</button>
+  </section>
+
+  <footer class="footer">
+    <div><a href="index.html">Home</a> · <a href="contact.html">Contact</a> · <a href="support.html">Support</a></div>
+    <div style="margin-top:8px;">© Ning Wei Media</div>
+  </footer>
+</div>
+
+<div class="ad-overlay" id="adOverlay">
+  <div class="ad-card">
+    <h3 id="adTitle">Please wait for this ad</h3>
+    <p id="adSub">Watch until the end to continue.</p>
+    <div class="warn" id="adWarn">
+      Wait for the ad to finish completely. Do not close this screen.
+    </div>
+    <div class="ad-timer" id="adTimer">30</div>
+    <div class="ad-bar-wrap"><div class="ad-bar" id="adBar"></div></div>
+    <div class="ad-promo">
+      <div class="t">🎵</div>
+      <div>
+        <div class="n">Ning Wei Media</div>
+        <div class="s">Sponsored · Music • Apps • Videos</div>
+      </div>
+    </div>
+    <div class="ad-promo">
+      <div class="t">📦</div>
+      <div>
+        <div class="n">Featured content</div>
+        <div class="s">Sponsored placement</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const AD_SECONDS = 30;
+let adTimerId = null;
+
+function startContactAd(kind) {
+  const labels = {
+    email: 'email address',
+    whatsapp: 'WhatsApp number',
+    phone: 'phone number'
+  };
+  const what = labels[kind] || 'contact details';
+
+  document.getElementById('adTitle').textContent = 'Please wait for this ad to finish';
+  document.getElementById('adSub').textContent = 'To get the ' + what + ', watch the full ad.';
+  document.getElementById('adWarn').textContent =
+    'Wait until the ad finishes. When it ends you will return to the main menu. Contact details are not shown on this page yet.';
+
+  const overlay = document.getElementById('adOverlay');
+  const timerEl = document.getElementById('adTimer');
+  const bar = document.getElementById('adBar');
+  let left = AD_SECONDS;
+
+  timerEl.textContent = String(left);
+  bar.style.width = '0%';
+  overlay.classList.add('show');
+
+  if (adTimerId) clearInterval(adTimerId);
+  adTimerId = setInterval(function () {
+    left -= 1;
+    timerEl.textContent = String(Math.max(0, left));
+    bar.style.width = (((AD_SECONDS - Math.max(0, left)) / AD_SECONDS) * 100) + '%';
+    if (left <= 0) {
+      clearInterval(adTimerId);
+      adTimerId = null;
+      window.location.href = 'index.html';
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>
