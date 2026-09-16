@@ -1628,31 +1628,66 @@ function showRenameDialog(currentName) {
   });
 }
 
+/* Keep file extension if the original name had one */
+function keepExtension(originalName, newBase) {
+  const m = String(originalName || '').match(/(\.[a-z0-9]{1,5})$/i);
+  if (!m) return newBase;
+  // If user already typed an extension, don't double it
+  if (/\.[a-z0-9]{1,5}$/i.test(newBase)) return newBase;
+  return newBase + m[1];
+}
+
 async function promptRename() {
   const checked = Array.from(document.querySelectorAll('.card-checkbox:checked'));
   if (!checked.length) return showCustomAlert('Please select at least one item to rename.');
 
-  for (const cb of checked) {
+  // Build list of selected items
+  const selected = checked.map(cb => {
     const rowId = cb.dataset.id;
     const fileUrl = cb.dataset.url;
     const item = allItems.find(i => i.url === fileUrl) || allItems.find(i => String(i.id) === String(rowId));
-    const currentName = item ? item.title : 'file';
+    return {
+      rowId,
+      fileUrl,
+      item,
+      currentName: item ? item.title : 'file'
+    };
+  });
 
-    const newName = await showRenameDialog(currentName);
-    if (newName === null) continue;
-    const trimmed = String(newName).trim();
-    if (!trimmed || trimmed === currentName) continue;
+  // One dialog for the whole selection
+  const hint = selected.length === 1
+    ? selected[0].currentName
+    : selected.length + ' items selected — enter the base name';
 
-    try {
-      await renameOneFile(rowId, fileUrl, trimmed);
-      if (item) item.title = trimmed;
-    } catch (err) {
-      showCustomAlert('Rename failed: ' + (err.message || err));
-      return;
+  const baseRaw = await showRenameDialog(hint);
+  if (baseRaw === null) return; // cancelled
+  const base = String(baseRaw).trim();
+  if (!base) return;
+
+  /*
+   * Naming rules (no brackets):
+   *   1 item  →  Base
+   *   many    →  Base, Base 1, Base 2, Base 3, ...
+   */
+  let ok = 0;
+  try {
+    for (let i = 0; i < selected.length; i++) {
+      const s = selected[i];
+      const numbered = (selected.length === 1 || i === 0)
+        ? base
+        : base + ' ' + i;
+      const finalName = keepExtension(s.currentName, numbered);
+
+      await renameOneFile(s.rowId, s.fileUrl, finalName);
+      if (s.item) s.item.title = finalName;
+      ok++;
     }
+  } catch (err) {
+    showCustomAlert('Rename failed after ' + ok + ' item(s): ' + (err.message || err));
+    return;
   }
 
-  showCustomAlert('Rename complete!', () => {
+  showCustomAlert('Renamed ' + ok + ' item(s).', () => {
     renderRelated();
     if (currentIndex >= 0 && allItems[currentIndex]) {
       document.getElementById('activeTitle').textContent = allItems[currentIndex].title;
