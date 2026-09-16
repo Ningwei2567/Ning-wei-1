@@ -117,6 +117,92 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#111}
 .back-button{display:block;text-align:center;text-decoration:none;margin-top:15px;padding:12px;background:#f0f0f0;color:#111;border-radius:9px;font-weight:bold}
 footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
+/* Upload page banners */
+.upload-ad-top{
+  position:relative;z-index:5;margin:-14px 12px 10px;border-radius:12px;overflow:hidden;
+  background:#111;border:1px solid #2a2a2a;box-shadow:0 4px 12px rgba(0,0,0,.15);min-height:56px;
+}
+.upload-ad-bottom{
+  position:fixed;left:0;right:0;bottom:0;z-index:9980;max-width:700px;margin:0 auto;
+  background:#0d0d0d;border-top:1px solid #333;box-shadow:0 -4px 14px rgba(0,0,0,.2);
+}
+.upload-ad-inner{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:inherit}
+.upload-ad-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#55bfe8}
+.upload-ad-body{flex:1;min-width:0}
+.upload-ad-label{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.upload-ad-title{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.upload-ad-sub{font-size:11px;color:#aaa;margin-top:2px}
+.upload-ad-cta{background:#e50914;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-size:11px;font-weight:700;flex-shrink:0}
+.upload-ad-empty{padding:12px;text-align:center;color:#666;font-size:12px}
+body{padding-bottom:80px}
+
+/* Upload-time ad popup (while files upload) */
+.upload-ad-overlay{
+  display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.88);
+  align-items:center;justify-content:center;padding:16px;
+}
+.upload-ad-overlay.show{display:flex}
+.upload-ad-modal{
+  width:100%;max-width:360px;background:#1a1a1a;border:1px solid #333;border-radius:14px;
+  overflow:hidden;color:#fff;
+}
+.upload-ad-modal .uad-head{padding:14px 16px 8px;text-align:center}
+.upload-ad-modal .uad-head h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.upload-ad-modal .uad-head p{margin:0;font-size:12px;color:#aaa;line-height:1.4}
+.upload-ad-modal .uad-cards{display:flex;flex-direction:column;gap:8px;padding:8px 14px 12px}
+.upload-ad-modal .uad-card{
+  display:flex;align-items:center;gap:10px;background:#111;border:1px solid #2a2a2a;
+  border-radius:10px;padding:10px;
+}
+.upload-ad-modal .uad-card .t{width:48px;height:48px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;object-fit:cover}
+.upload-ad-modal .uad-card .b{flex:1;min-width:0}
+.upload-ad-modal .uad-card .b .l{font-size:9px;color:#888;text-transform:uppercase}
+.upload-ad-modal .uad-card .b .n{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.upload-ad-modal .uad-card .b .s{font-size:11px;color:#aaa}
+.upload-ad-modal .uad-timer{
+  text-align:center;font-size:28px;font-weight:800;color:#e50914;padding:4px 0 2px;
+  font-variant-numeric:tabular-nums;
+}
+.upload-ad-modal .uad-progress-wrap{padding:0 16px 8px}
+.upload-ad-modal .uad-progress{height:6px;background:#333;border-radius:4px;overflow:hidden}
+.upload-ad-modal .uad-progress-bar{height:100%;width:0;background:#e50914;transition:width .3s linear}
+.upload-ad-modal .uad-upload-info{
+  margin:0 14px 14px;padding:12px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:10px;
+  font-size:12px;color:#ccc;line-height:1.45;
+}
+.upload-ad-modal .uad-upload-info strong{color:#fff}
+.upload-ad-modal .uad-upload-info .warn{color:#ffab40;margin-top:6px;font-size:11px}
+
+/* After-upload refresh warning modal */
+.refresh-overlay{
+  display:none;position:fixed;inset:0;z-index:10050;background:rgba(0,0,0,.9);
+  align-items:center;justify-content:center;padding:18px;
+}
+.refresh-overlay.show{display:flex}
+.refresh-card{
+  width:100%;max-width:340px;background:#111;border:2px solid #e50914;border-radius:16px;
+  padding:22px 18px;text-align:center;color:#fff;box-shadow:0 8px 30px rgba(229,9,20,.35);
+}
+.refresh-card .ok-icon{font-size:42px;margin-bottom:8px}
+.refresh-card h3{margin:0 0 10px;font-size:18px;font-weight:900;color:#fff}
+.refresh-card .main-msg{
+  margin:0 0 14px;font-size:14px;line-height:1.5;color:#eee;font-weight:600;
+}
+.refresh-card .highlight{
+  background:#2a0000;border:1px solid #e50914;border-radius:10px;padding:12px;
+  margin:0 0 16px;font-size:13px;line-height:1.45;color:#ffcdd2;font-weight:700;
+}
+.refresh-card .highlight strong{color:#fff;display:block;margin-bottom:6px;font-size:14px}
+.refresh-card .btn-home{
+  display:block;width:100%;padding:14px;border:none;border-radius:10px;
+  background:#e50914;color:#fff;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;
+  text-decoration:none;text-align:center;
+}
+.refresh-card .btn-stay{
+  display:block;width:100%;padding:10px;border:1px solid #444;border-radius:10px;
+  background:transparent;color:#aaa;font-size:13px;font-weight:600;cursor:pointer;
+}
+
 @media(max-width:500px){
   .header{height:150px}
   .header-content h1{font-size:26px}
@@ -132,6 +218,11 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
     <p>Music • Videos • Photos • Apps • Software</p>
   </div>
 </header>
+
+<!-- Top banner on upload page -->
+<div class="upload-ad-top" id="uploadAdTop">
+  <div class="upload-ad-empty">Loading ad…</div>
+</div>
 
 <main class="container">
 
@@ -342,6 +433,54 @@ footer{text-align:center;padding:22px;color:#777;font-size:12px}
 
 <footer>© Ning Wei Media</footer>
 
+<!-- Sticky bottom banner -->
+<div class="upload-ad-bottom" id="uploadAdBottom">
+  <div class="upload-ad-empty">Loading ad…</div>
+</div>
+
+<!-- Ad popup while upload is running -->
+<div class="upload-ad-overlay" id="uploadAdOverlay">
+  <div class="upload-ad-modal">
+    <div class="uad-head">
+      <h3>Please wait — your upload is in progress</h3>
+      <p>Watch these ads while your files upload. Do not close this page or the upload will be cancelled.</p>
+    </div>
+    <div class="uad-timer" id="uadTimer">30</div>
+    <div class="uad-progress-wrap"><div class="uad-progress"><div class="uad-progress-bar" id="uadAdBar"></div></div></div>
+    <div class="uad-cards" id="uadCards">
+      <div class="uad-card">
+        <div class="t">🎵</div>
+        <div class="b"><div class="l">Sponsored</div><div class="n">Ning Wei Media</div><div class="s">Loading…</div></div>
+      </div>
+      <div class="uad-card">
+        <div class="t">📦</div>
+        <div class="b"><div class="l">Sponsored</div><div class="n">Ning Wei Media</div><div class="s">Loading…</div></div>
+      </div>
+    </div>
+    <div class="uad-upload-info" id="uadUploadInfo">
+      <strong>Upload status</strong><br>
+      <span id="uadUploadText">Preparing…</span>
+      <div class="warn">Do not close or refresh this page until upload is done.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Strong warning after successful upload -->
+<div class="refresh-overlay" id="refreshOverlay">
+  <div class="refresh-card">
+    <div class="ok-icon">✅</div>
+    <h3>Upload complete!</h3>
+    <p class="main-msg">Your content was uploaded successfully.</p>
+    <div class="highlight">
+      <strong>Important — read this</strong>
+      Go back to the main menu and refresh the page to see your content.
+      If you do not refresh, you will not see what you just uploaded.
+    </div>
+    <a class="btn-home" href="index.html">Go to main menu &amp; refresh</a>
+    <button type="button" class="btn-stay" id="refreshStayBtn">Stay on this page</button>
+  </div>
+</div>
+
 <script>
 function openUploadSection(type) {
   document.querySelectorAll('.upload-section').forEach(s => {
@@ -450,7 +589,8 @@ function progressStart(totalFiles){
   $("progressCounter").textContent = "Starting upload…";
   $("progressFilename").textContent = "";
   $("progressPct").textContent = "";
-  $("progressNote").textContent = totalFiles > 1 ? "You can switch to other apps. Come back to this tab to see live progress." : "";
+  $("progressNote").textContent = totalFiles > 1 ? "Do not close this page while uploading." : "Do not close this page while uploading.";
+  startUploadAdOverlay("Starting upload…");
 }
 function progressUpdate(currentIndex, total, filename, filePct){
   // currentIndex is 1-based
@@ -459,7 +599,12 @@ function progressUpdate(currentIndex, total, filename, filePct){
   $("progressCounter").textContent = "Uploading " + currentIndex + " of " + total;
   $("progressFilename").textContent = filename || "";
   $("progressPct").textContent = filePct + "% of this file  •  Overall " + overall + "%";
-  $("progressNote").textContent = "Do not close this tab. You can switch apps — come back to see progress.";
+  $("progressNote").textContent = "Do not close this tab until upload is complete.";
+  updateUploadAdProgress(
+    "Uploading " + currentIndex + " of " + total +
+    (filename ? " — " + filename : "") +
+    " · " + filePct + "% of this file · Overall " + overall + "%"
+  );
 }
 function progressDone(ok, text){
   $("progressBar").style.width = "100%";
@@ -468,6 +613,170 @@ function progressDone(ok, text){
   $("progressFilename").textContent = "";
   $("progressPct").textContent = "";
   $("progressNote").textContent = "";
+  stopUploadAdOverlay(ok, text);
+}
+
+/* ===== Upload-page ads + overlay during upload ===== */
+const UPLOAD_AD_SECONDS = 30;
+let uploadAdTimerId = null;
+let uploadAdLeft = UPLOAD_AD_SECONDS;
+let uploadAdActive = false;
+let homeAdPool = [];
+
+function uploadAdBannerHtml(item, label) {
+  if (!item) {
+    return '<div class="upload-ad-empty">Ning Wei Media · Sponsored</div>';
+  }
+  const icon = item.kind === 'audio' ? '🎵' : item.kind === 'app' ? '📦' : item.kind === 'video' ? '🎬' : '⭐';
+  const kind = item.kind === 'video' ? 'Video' : item.kind === 'image' ? 'Photo' : item.kind === 'audio' ? 'Song' : item.kind === 'app' ? 'App' : 'Featured';
+  const thumb = (item.kind === 'image')
+    ? '<img class="upload-ad-thumb" src="' + item.url.replace(/"/g, '') + '" alt="">'
+    : '<div class="upload-ad-thumb">' + icon + '</div>';
+  const href = 'library.html?folder=' + encodeURIComponent(item.folder || '') +
+    '&url=' + encodeURIComponent(item.url || '') +
+    '&name=' + encodeURIComponent(item.title || '');
+  return '<a class="upload-ad-inner" href="' + href + '">' +
+    thumb +
+    '<div class="upload-ad-body">' +
+      '<div class="upload-ad-label">' + label + ' · ' + kind + '</div>' +
+      '<div class="upload-ad-title">' + String(item.title || 'Ning Wei Media').replace(/</g, '&lt;') + '</div>' +
+      '<div class="upload-ad-sub">Ning Wei Media</div>' +
+    '</div>' +
+    '<span class="upload-ad-cta">Open</span></a>';
+}
+
+function uploadAdCardHtml(item) {
+  if (!item) {
+    return '<div class="uad-card"><div class="t">⭐</div><div class="b"><div class="l">Sponsored</div><div class="n">Ning Wei Media</div><div class="s">Featured</div></div></div>';
+  }
+  const icon = item.kind === 'audio' ? '🎵' : item.kind === 'app' ? '📦' : item.kind === 'video' ? '🎬' : '⭐';
+  const kind = item.kind === 'video' ? 'Video' : item.kind === 'image' ? 'Photo' : item.kind === 'audio' ? 'Song' : item.kind === 'app' ? 'App' : 'Featured';
+  const thumb = (item.kind === 'image')
+    ? '<img class="t" src="' + item.url.replace(/"/g, '') + '" alt="">'
+    : '<div class="t">' + icon + '</div>';
+  return '<div class="uad-card">' + thumb +
+    '<div class="b"><div class="l">Sponsored · ' + kind + '</div>' +
+    '<div class="n">' + String(item.title || 'Ning Wei Media').replace(/</g, '&lt;') + '</div>' +
+    '<div class="s">Ning Wei Media</div></div></div>';
+}
+
+function refreshUploadAdCards() {
+  const cards = document.getElementById('uadCards');
+  if (!cards) return;
+  const pool = homeAdPool.length ? homeAdPool : [{ title: 'Ning Wei Media', kind: 'audio' }, { title: 'Top Apps', kind: 'app' }];
+  const t = Math.floor(Date.now() / 1000);
+  const a = pool[t % pool.length];
+  const b = pool[(t + 1) % pool.length];
+  cards.innerHTML = uploadAdCardHtml(a) + uploadAdCardHtml(b);
+}
+
+function startUploadAdOverlay(statusText) {
+  const ov = document.getElementById('uploadAdOverlay');
+  if (!ov) return;
+  uploadAdActive = true;
+  uploadAdLeft = UPLOAD_AD_SECONDS;
+  const timerEl = document.getElementById('uadTimer');
+  const bar = document.getElementById('uadAdBar');
+  if (timerEl) timerEl.textContent = String(uploadAdLeft);
+  if (bar) bar.style.width = '0%';
+  updateUploadAdProgress(statusText || 'Starting upload…');
+  refreshUploadAdCards();
+  ov.classList.add('show');
+
+  if (uploadAdTimerId) clearInterval(uploadAdTimerId);
+  uploadAdTimerId = setInterval(() => {
+    if (!uploadAdActive) return;
+    uploadAdLeft -= 1;
+    if (timerEl) timerEl.textContent = String(Math.max(0, uploadAdLeft));
+    if (bar) bar.style.width = (((UPLOAD_AD_SECONDS - Math.max(0, uploadAdLeft)) / UPLOAD_AD_SECONDS) * 100) + '%';
+    if (uploadAdLeft <= 0) {
+      // Ad cycle finished but upload may still be running → next ad
+      uploadAdLeft = UPLOAD_AD_SECONDS;
+      if (timerEl) timerEl.textContent = String(uploadAdLeft);
+      if (bar) bar.style.width = '0%';
+      refreshUploadAdCards();
+    }
+  }, 1000);
+}
+
+function updateUploadAdProgress(text) {
+  const el = document.getElementById('uadUploadText');
+  if (el) el.textContent = text || '';
+}
+
+function stopUploadAdOverlay(ok, text) {
+  uploadAdActive = false;
+  if (uploadAdTimerId) {
+    clearInterval(uploadAdTimerId);
+    uploadAdTimerId = null;
+  }
+  const ov = document.getElementById('uploadAdOverlay');
+  if (ov) ov.classList.remove('show');
+  updateUploadAdProgress(text || '');
+
+  // After a successful upload, show strong "go home and refresh" warning
+  if (ok) {
+    showRefreshWarning();
+  }
+}
+
+function showRefreshWarning() {
+  const box = document.getElementById('refreshOverlay');
+  if (!box) return;
+  box.classList.add('show');
+  const stay = document.getElementById('refreshStayBtn');
+  if (stay) {
+    stay.onclick = function () {
+      box.classList.remove('show');
+    };
+  }
+}
+
+async function loadUploadPageAds() {
+  const top = document.getElementById('uploadAdTop');
+  const bot = document.getElementById('uploadAdBottom');
+  try {
+    if (!window.supabase) throw new Error('no supabase');
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const { data } = await client.from('artist_submissions').select('*').order('created_at', { ascending: false }).limit(30);
+    const pool = [];
+    (data || []).forEach(row => {
+      if (row.status && String(row.status).toLowerCase() !== 'approved') return;
+      let files = row.files;
+      if (!Array.isArray(files)) return;
+      files.forEach(f => {
+        const t = (f.type || '').toLowerCase();
+        if (t === 'cover' || t === 'profile' || t === 'icon' || t === 'thumbnail') return;
+        const url = f.url || '';
+        if (!url) return;
+        const name = (f.original_name || f.name || '').toLowerCase();
+        let kind = 'file';
+        if (/\.(mp3|wav|m4a|aac|flac)(\?|$)/i.test(name + url)) kind = 'audio';
+        else if (/\.(mp4|webm|mov)(\?|$)/i.test(name + url)) kind = 'video';
+        else if (/\.(jpg|jpeg|png|webp|gif)(\?|$)/i.test(name + url)) kind = 'image';
+        else if (/\.(apk|exe|zip|rar)(\?|$)/i.test(name + url)) kind = 'app';
+        pool.push({
+          title: f.original_name || f.name || row.artist_name || 'Media',
+          url: url,
+          folder: f.category || '',
+          kind: kind
+        });
+      });
+    });
+    homeAdPool = pool.length ? pool : [{ title: 'Ning Wei Media', kind: 'audio' }, { title: 'Premium Apps', kind: 'app' }];
+  } catch (e) {
+    homeAdPool = [{ title: 'Ning Wei Media', kind: 'audio' }, { title: 'Premium Apps', kind: 'app' }];
+  }
+  const t = Math.floor(Date.now() / 30000);
+  if (top) top.innerHTML = uploadAdBannerHtml(homeAdPool[t % homeAdPool.length], 'Sponsored');
+  if (bot) bot.innerHTML = uploadAdBannerHtml(homeAdPool[(t + 1) % homeAdPool.length], 'Sponsored');
+}
+
+// Load banners when page is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadUploadPageAds);
+} else {
+  loadUploadPageAds();
 }
 
 function fieldWarnBox(el){
@@ -762,7 +1071,7 @@ async function runUpload(cfg, titleText, biography, button){
     const ins = await db.from(TABLE).insert([row]);
     if (ins.error) throw new Error(ins.error.message);
 
-    progressDone(true, "✅ Upload complete! Your media is now live on Ning Wei Media.");
+    progressDone(true, "✅ Upload complete! Go to the main menu and refresh to see your content.");
 
     // Clear inputs
     mainInput.value = "";
