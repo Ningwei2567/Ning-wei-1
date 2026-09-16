@@ -800,10 +800,18 @@ async function initLibrary() {
   document.getElementById('relatedHeaderTitle').textContent =
     displayName ? `Related ${displayName}` : 'Items';
 
+  if (!window.supabase) {
+    const box = document.getElementById('relatedContainer') || document.getElementById('relatedGrid');
+    if (box) box.innerHTML = '<p style="text-align:center;color:#f66;padding:20px;">Failed to load Supabase script. Check internet and refresh.</p>';
+    return;
+  }
+
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   const { data, error } = await db.from('artist_submissions').select('*');
   if (error || !data) {
-    document.getElementById('relatedGrid').innerHTML = '<p style="grid-column:span 2;text-align:center;color:#777;padding:20px;">Error loading data</p>';
+    const box = document.getElementById('relatedContainer') || document.getElementById('relatedGrid');
+    if (box) box.innerHTML = '<p style="text-align:center;color:#f66;padding:20px;">Error loading data: ' +
+      (error && error.message ? error.message : 'no data') + '</p>';
     return;
   }
 
@@ -1338,25 +1346,27 @@ function showPasteCategoryDialog() {
 async function changeFileCategory(rowId, fileUrl, newCategory, asCopy) {
   const { data: row, error } = await db
     .from('artist_submissions')
-    .select('files')
+    .select('id, files')
     .eq('id', rowId)
     .single();
   if (error || !row) throw new Error(error?.message || 'Row not found');
 
   let files = row.files;
+  if (typeof files === 'string') {
+    try { files = JSON.parse(files); } catch { throw new Error('Invalid files JSON'); }
+  }
   if (!Array.isArray(files)) throw new Error('Invalid files data');
+  files = files.map(f => Object.assign({}, f));
 
   if (asCopy) {
-    // Duplicate the matching file entry with new category
-    const original = files.find(f => (f.url || '') === fileUrl);
+    const original = files.find(f => sameFileUrl(f.url, fileUrl));
     if (!original) throw new Error('File not found in row');
     const clone = Object.assign({}, original, { category: newCategory });
     files = files.concat([clone]);
   } else {
-    // Move: change category on the matching file
     let changed = false;
     files = files.map(f => {
-      if ((f.url || '') === fileUrl) {
+      if (sameFileUrl(f.url, fileUrl)) {
         f.category = newCategory;
         changed = true;
       }
@@ -1367,9 +1377,16 @@ async function changeFileCategory(rowId, fileUrl, newCategory, asCopy) {
 
   const { error: upErr } = await db
     .from('artist_submissions')
-    .update({ files })
-    .eq('id', rowId);
-  if (upErr) throw new Error(upErr.message);
+    .update({ files: files })
+    .eq('id', rowId)
+    .select('id')
+    .single();
+  if (upErr) {
+    throw new Error(
+      upErr.message +
+      ' — Open Supabase → SQL and run the UPDATE policy (see instructions).'
+    );
+  }
 }
 
 async function adminPaste() {
@@ -1568,33 +1585,77 @@ async function shareCurrentItem() {
 }
 
 /* ===== Rename selected items (admin) ===== */
+/* Match file URLs even if query strings / encoding differ slightly */
+function sameFileUrl(a, b) {
+  if (!a || !b) return false;
+  if (a === b) return true;
+  try {
+    const ua = String(a).split('?')[0];
+    const ub = String(b).split('?')[0];
+    if (ua === ub) return true;
+    // Compare last path segment
+    const ta = ua.split('/').pop();
+    const tb = ub.split('/').pop();
+    return ta && tb && ta === tb;
+  } catch {
+    return false;
+  }
+}
+
 async function renameOneFile(rowId, fileUrl, newName) {
   const { data: row, error } = await db
     .from('artist_submissions')
-    .select('files')
+    .select('id, files')
     .eq('id', rowId)
     .single();
   if (error || !row) throw new Error(error?.message || 'Row not found');
 
   let files = row.files;
+  if (typeof files === 'string') {
+    try { files = JSON.parse(files); } catch { throw new Error('Invalid files JSON'); }
+  }
   if (!Array.isArray(files)) throw new Error('Invalid files data');
+
+  // Deep-clone so Supabase sees a new array/object
+  files = files.map(f => Object.assign({}, f));
 
   let changed = false;
   files = files.map(f => {
-    if ((f.url || '') === fileUrl) {
+    if (sameFileUrl(f.url, fileUrl)) {
       f.original_name = newName;
       f.name = newName;
       changed = true;
     }
     return f;
   });
-  if (!changed) throw new Error('File not found in row');
+  if (!changed) throw new Error('File not found in this upload row');
 
-  const { error: upErr } = await db
+  // Force update by writing the whole files array back
+  const { data: updated, error: upErr } = await db
     .from('artist_submissions')
-    .update({ files })
-    .eq('id', rowId);
-  if (upErr) throw new Error(upErr.message);
+    .update({ files: files })
+    .eq('id', rowId)
+    .select('id, files')
+    .single();
+
+  if (upErr) {
+    // Most common cause: missing UPDATE policy on the table
+    throw new Error(
+      upErr.message +
+      ' — Open Supabase → SQL and run the UPDATE policy (see instructions).'
+    );
+  }
+
+  // Verify the name actually stuck in the database
+  if (updated && Array.isArray(updated.files)) {
+    const saved = updated.files.find(f => sameFileUrl(f.url, fileUrl));
+    if (saved) {
+      const savedName = saved.original_name || saved.name || '';
+      if (savedName !== newName) {
+        throw new Error('Database did not keep the new name. Check Supabase UPDATE policy.');
+      }
+    }
+  }
 }
 
 /* Small custom rename dialog (no browser "github.io says" popup) */
@@ -1687,11 +1748,8 @@ async function promptRename() {
     return;
   }
 
-  showCustomAlert('Renamed ' + ok + ' item(s).', () => {
-    renderRelated();
-    if (currentIndex >= 0 && allItems[currentIndex]) {
-      document.getElementById('activeTitle').textContent = allItems[currentIndex].title;
-    }
+  showCustomAlert('Renamed ' + ok + ' item(s). Name is saved.', () => {
+    location.reload();
   });
 }
 
@@ -1704,7 +1762,19 @@ function escHtml(s) {
 }
 function escAttr(s) { return escHtml(s); }
 
-initLibrary();
+try {
+  initLibrary().catch(function(err) {
+    console.error(err);
+    var box = document.getElementById('relatedContainer') || document.getElementById('relatedGrid');
+    if (box) box.innerHTML = '<p style="text-align:center;color:#f66;padding:20px;">Failed to load library: ' +
+      (err && err.message ? err.message : String(err)) + '</p>';
+  });
+} catch (err) {
+  console.error(err);
+  var box = document.getElementById('relatedContainer') || document.getElementById('relatedGrid');
+  if (box) box.innerHTML = '<p style="text-align:center;color:#f66;padding:20px;">Failed to load library: ' +
+    (err && err.message ? err.message : String(err)) + '</p>';
+}
 </script>
 </body>
 </html>
